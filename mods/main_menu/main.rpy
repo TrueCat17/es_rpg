@@ -1,13 +1,14 @@
 init python:
 	mods['start_main_menu'] = 'main_menu'
 
+
 screen main_menu:
 	window:
 		imagemap:
 			ground	es2d_gui + 'menu/ground.png'
 			hover	es2d_gui + 'menu/hover.png'
 		
-			hotspot (1000,  40, 325, 50) action Function(start_mod, "test")
+			hotspot (1000,  40, 325, 50) action Function(start_mod, "test_1623")
 			hotspot (1000,  90, 325, 50) action Function(out_msg, "Не реализовано")
 			hotspot (1000, 140, 325, 50) action Function(out_msg, "Не реализовано")
 			hotspot (1000, 190, 325, 50) action Function(out_msg, "Не реализовано")
@@ -17,7 +18,9 @@ screen main_menu:
 
 
 label start_main_menu:
+	$ set_fps(20)
+	
 	show screen main_menu
 	
 	while True:
-		pause 1
+		pause 0.1

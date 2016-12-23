@@ -24,6 +24,7 @@ init -1000 python:
 	style.default.ysize = 1
 	
 	style.window = Style(style.default)
+	style.window.modal = False
 	
 	style.vbox = Style(style.default)
 	style.vbox.xsize = 0
@@ -34,24 +35,27 @@ init -1000 python:
 	style.text = Style(style.default)
 	style.text.xsize = -1
 	style.text.ysize = -1
-	style.text.size = 30
+	style.text.size = 20
 	style.text.color = '#FFFFFF'
-	style.text.font = 'Arial'
+	style.text.font = 'SnowstormLight'
 	style.text.bold = False
 	style.text.italic = False
 	style.text.underline = False
 	style.text.text_align = 'left' 				# left | center | right
+	style.text.text_valign = 'top' 				# top  | center |  down
 	
 	style.textbutton = Style(style.text)
 	style.textbutton.text_align = 'center'		# left | center | right
-	style.textbutton.xsize = 0.1
-	style.textbutton.ysize = 0.05
+	style.textbutton.text_valign = 'center'		# top  | center |  down
+	style.textbutton.xsize = 175
+	style.textbutton.ysize = 25
+	style.textbutton.size = 15
 	style.textbutton.background = 'images/es2d/gui/std/btn/usual.png'
 	style.textbutton.hover_background = ''
 	
 	style.button = Style(style.default)
-	style.button.xsize = 0.1
-	style.button.ysize = 0.05
+	style.button.xsize = 175
+	style.button.ysize = 25
 	style.button.background = 'images/es2d/gui/std/btn/usual.png'
 	style.button.hover_background = ''
 	
@@ -59,6 +63,12 @@ init -1000 python:
 	style.image.xsize = 0.25
 	style.image.ysize = 0.25
 	
+	style.add = Style(style.image)
+	
 	style.imagemap = Style(style.default)
 	style.imagemap.ground = ''
 	style.imagemap.hover_background = ''
+	
+	style.null = Style()
+	style.null.width = 0
+	style.null.height = 0

@@ -6,7 +6,19 @@ init -1002 python:
 
 
 
-init -10000 python:	
+init -10000 python:
+	def ceil(n):
+		res = int(n)
+		if res != n and n > 0:
+			res += 1
+		return res
+	
+	def get_image(name):
+		code = get_image_code(name)
+		res = eval(code)
+		return res
+	
+	
 	def get_traceback(tb):
 		import traceback
 		l = traceback.format_tb(tb)
@@ -21,7 +33,6 @@ init -10000 python:
 				self.__dict__[k] = kwords[k];
 		
 		def __getattr__(self, attr):
-			print attr
 			return self.__dict__[attr]
 		
 		def __setattr__(self, attr, value):

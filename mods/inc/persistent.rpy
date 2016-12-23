@@ -1,4 +1,4 @@
 init -1001 python:
 	persistent = Object()
 	
-	persistent.sprite_time = None
+	persistent.sprite_time = 'day'

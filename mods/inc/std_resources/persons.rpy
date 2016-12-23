@@ -20,6 +20,7 @@ init -1000 python:
     add_default_character('voices', 'Голоса', '#808080')
 	
 	
+	
 	me = Character('Семён', color = '#D1D0A4')
 	dreamgirl = Character('Девочка', color = '#FFFFFF')
 	

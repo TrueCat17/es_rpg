@@ -3,4 +3,4 @@ init -1000 python:
 	
 	config.fps_meter = True
 	
-	config.text_cps = 20
+	config.text_cps = 50

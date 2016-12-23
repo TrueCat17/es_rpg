@@ -11,9 +11,9 @@ init -1002 python:
 			for func in funcs:
 				if func is not None:
 					func()
-		else:
+		else: # if get only 1 func
 			if funcs is not None:
-				funcs() # get only 1 func
+				funcs()
 	
 	def If(cond, true, false):
 		return true if cond else false
@@ -24,20 +24,22 @@ init -1002 python:
 		def __call__(self):
 			apply(self.func, self.args, self.kwargs)
 	
-	class Add:
+	class AddVariable:
 		def __init__(self, var_name, d):
 			self.var_name, self.d = var_name, d
 		def __call__(self):
 			g = globals()
 			g[self.var_name] += self.d
 	
-	class Set:
+	class SetVariable:
 		def __init__(self, var_name, value):
 			self.var_name, self.value = var_name, value
 		def __call__(self):
 			g = globals()
 			g[self.var_name] = self.value
-		
+	
+	# Return -> call_screen.rpy
+	
 	
 	
 	class Character:

@@ -1,7 +1,7 @@
 init -10 python:
-	fps_meter_size = 20
+	fps_meter_size = 25
 	fps_meter_color = 0xFFFF00
-	fps_meter_font = 'Arial'
+	fps_meter_font = 'SnowstormLight'
 	fps_meter_xalign, fps_meter_yalign = 0.01, 0.01
 	
 	
@@ -17,7 +17,7 @@ init -10 python:
 		fps_array = fps_array[-count_last_fps:]
 		
 		mid_fps = sum(fps_array) / float(len(fps_array))
-		return min(round(mid_fps * 10) / 10.0, float(get_fps()))
+		return min(ceil(mid_fps), get_fps())
 
 
 screen fps_meter:

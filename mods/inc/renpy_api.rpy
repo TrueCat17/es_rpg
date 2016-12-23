@@ -69,15 +69,22 @@ init -1003 python:
 		
 		def say(self, who, what):
 			if who is None:
-				who = renpy.store.narrator
+				who = narrator
 			
 			if isinstance(who, str):
 				g = globals()
 				if g.has_key(who):
 					who = g[who]
 				else:
-					out_msg('renpy.say', 'Персонаж ' + who + ' не существует')
+					out_msg('renpy.say', 'Персонаж <' + who + '> не существует')
+					return
 			who(what)
+		
+		def call_screen(self, screen_name, ret_name, **kwargs):
+			global read
+			read = False
 			
+			push_ret_names(screen_name, ret_name)
+			show_screen(screen_name)
 	
 	renpy = Renpy()
