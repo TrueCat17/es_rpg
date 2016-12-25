@@ -3,20 +3,18 @@ init python:
 
 label test_label:
 	scene bg bus_stop
+	
+	me "Музыку!"
 	play music music_list["a_promise_from_distant_days_v2"]
 	
-	me "Вывод текста работает!"
+	me "Спрайт!"
+	show dv laugh swim far at left
+	me "Ещё!"
+	show dv laugh swim close as dv2 behind dv
+	me "И ещё один!"
+	show dv laugh pioneer2 far
 	
 	mt "Поздравляю!"
-	extend "\nЕщё пару багов исправить, и можно приступать к отображению спрайтов"
-	extend " вместе с анимациями!!!"
-	
-	menu:
-		"123":
-			uv "123"
-		"234":
-			uv "234"
-		"345":
-			uv "345"
+	extend " Спрайты отображаются нормально!!!"
 	
 	"..."

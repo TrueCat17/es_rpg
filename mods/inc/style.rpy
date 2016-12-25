@@ -60,10 +60,8 @@ init -1000 python:
 	style.button.hover_background = ''
 	
 	style.image = Style(style.default)
-	style.image.xsize = 0.25
-	style.image.ysize = 0.25
-	
-	style.add = Style(style.image)
+	style.image.xsize = -1
+	style.image.ysize = -1
 	
 	style.imagemap = Style(style.default)
 	style.imagemap.ground = ''

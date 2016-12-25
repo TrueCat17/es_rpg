@@ -410,7 +410,7 @@ label test_1623_tanks__start_simple:
 label test_1623_tanks__start:
 	$ set_fps(60)
     $ test_1623_tanks__init()
-    jump test_1623_tanks__dialogue_0
+    jump expression 'test_1623_tanks__dialogue_' + str(test_1623_tanks__level)
 
 label test_1623_tanks__start_next_level:
 	$ set_fps(test_1623_tanks__fps)

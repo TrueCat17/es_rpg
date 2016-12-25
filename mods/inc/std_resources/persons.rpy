@@ -1,7 +1,7 @@
 init -1000 python:
 	narrator = Character('')
 	extend = Character(None)
-	
+	th = Character('', text_prefix='~', text_postfix='~')
 	
 	def add_default_character(alias, name, color = '#FFFFFF'):
 		g = globals()

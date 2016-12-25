@@ -1,10 +1,10 @@
 # test_1623_tanks__
 
 init:
-    image test_1623_tanks__loc_0_1 = im.Scale('mods/test_1623/images/bg/loc_0_1.jpg', 1920, 1080)
-    image test_1623_tanks__loc_2_3_4 = im.Scale('mods/test_1623/images/bg/loc_2_3_4.jpg', 1920, 1080)
-    image test_1623_tanks__loc_win = im.Scale('mods/test_1623/images/bg/loc_win.jpg', 1920, 1080)
-    image test_1623_tanks__loc_fail = im.Scale('mods/test_1623/images/bg/loc_fail.jpg', 1920, 1080)
+    image test_1623_tanks__loc_0_1 = 'mods/test_1623/images/bg/loc_0_1.jpg'
+    image test_1623_tanks__loc_2_3_4 = 'mods/test_1623/images/bg/loc_2_3_4.jpg'
+    image test_1623_tanks__loc_win = 'mods/test_1623/images/bg/loc_win.jpg'
+    image test_1623_tanks__loc_fail = 'mods/test_1623/images/bg/loc_fail.jpg'
 
 label test_1623_tanks__dialogue_0:
     scene test_1623_tanks__loc_0_1
@@ -159,7 +159,7 @@ label test_1623_tanks__dialogue_2:
         dv "Мол, смотрите, они поменяли законы и всё пошло ещё хуже, чем было раньше."
         dv "А законов, как ты сам понимаешь, менять придётся очень и очень много даже ради элементарного выживания."
         me "Это какие, например?"
-        show dv pioneer2 normal
+        show dv normal pioneer2
         dv "Да взять хотя бы отмену денег. Еда в городах всё ещё есть."
         dv "Но даже те остатки, что есть, торгаши отказываются отдавать просто так, и еда портится просто потому, что покупать её некому."
         dv "Денег нет ни у кого, кроме этих же торгашей, богачей да грабителей."
