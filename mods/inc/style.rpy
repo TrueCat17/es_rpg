@@ -37,7 +37,7 @@ init -1000 python:
 	style.text.ysize = -1
 	style.text.size = 20
 	style.text.color = '#FFFFFF'
-	style.text.font = 'SnowstormLight'
+	style.text.font = 'Arial'
 	style.text.bold = False
 	style.text.italic = False
 	style.text.underline = False

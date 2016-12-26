@@ -1,7 +1,7 @@
 init -10 python:
 	fps_meter_size = 25
 	fps_meter_color = 0xFFFF00
-	fps_meter_font = 'SnowstormLight'
+	fps_meter_font = 'Alcdnova'
 	fps_meter_xalign, fps_meter_yalign = 0.01, 0.01
 	
 	

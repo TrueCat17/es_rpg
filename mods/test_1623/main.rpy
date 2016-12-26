@@ -12,7 +12,7 @@ init python:
 
 screen test_1623__main_screen:
     window:
-        image im.Scale('mods/test_1623/images/px/white.png', 32, 32):
+        image 'mods/test_1623/images/px/white.png':
             align (0.5, 0.4)
             xysize (test_1623__width * test_1623__size, test_1623__height * test_1623__size)
         
@@ -20,6 +20,10 @@ screen test_1623__main_screen:
             align (0.5, 0.4)
             
             for i in xrange(test_1623__height):
+            	# На случай, если test_1623__height поменяется прямо во время этого цикла
+            	if i >= test_1623__height:
+            		break
+            	
                 hbox:
                     python:
                     	test_1623__line = []
