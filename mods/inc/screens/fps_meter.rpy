@@ -1,4 +1,4 @@
-init -10 python:
+init -1000 python:
 	fps_meter_size = 25
 	fps_meter_color = 0xFFFF00
 	fps_meter_font = 'Alcdnova'

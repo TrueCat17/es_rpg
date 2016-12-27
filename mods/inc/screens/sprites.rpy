@@ -1,4 +1,4 @@
-init python:
+init -1000 python:
 	spr_default_background = 'images/bg/black.jpg'
 	spr_background = spr_default_background
 	

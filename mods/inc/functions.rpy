@@ -1,8 +1,4 @@
-init -1002 python:
-	
-	def out_msg(msg, err = ''):
-		_out_msg(msg, err)
-	
+init -1001 python:
 	def reload_names():
 		pass
 	

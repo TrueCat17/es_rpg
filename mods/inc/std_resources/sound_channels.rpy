@@ -1,4 +1,4 @@
-init -1000 python:
+init -998 python:
 	renpy.music.register_channel("ambience", "ambience", True)
 	renpy.music.register_channel("music", "music", True)
 	

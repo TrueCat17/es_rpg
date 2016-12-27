@@ -1,4 +1,4 @@
-init -1003 python:
+init -1001 python:
 	def pause(sec):
 		sleep(int(sec * 1000), False)
 	
@@ -56,12 +56,17 @@ init -1003 python:
 	
 	
 	class Renpy:
-		config = Object()
 		music = Music()
 		easy = Easy()
 		
 		def __init__(self):
 			self.random = random
+			
+			if persistent.has_attr('config'):
+				self.config = persistent.config
+			else:
+				self.config = Object()
+				persistent.config = self.config
 		
 		def pause(self, sec):
 			out_msg('renpy.pause', 'Использовать renpy.pause не рекомендуется, см. resources/mods/ReadMe.txt')
@@ -86,5 +91,6 @@ init -1003 python:
 			
 			push_ret_names(screen_name, ret_name)
 			show_screen(screen_name)
-	
+
+init -999 python:
 	renpy = Renpy()

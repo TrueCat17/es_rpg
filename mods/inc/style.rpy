@@ -1,4 +1,4 @@
-init -1000 python:
+init -1001 python:
 	Style = Object # class
 	
 	

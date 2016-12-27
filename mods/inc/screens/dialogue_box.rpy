@@ -1,8 +1,7 @@
-init -1000000 python:
+init -1000 python:
 	read = True
-
-
-init -1001 python:
+	
+	
 	# db = dialogue box
 	
 	db_dialogue = []
@@ -144,8 +143,8 @@ screen dialogue_box:
 					align (0.5, 0.99)
 					
 					image db_name:
-						xalign 0.1
-						xysize (250, 30)
+						xpos max(get_stage_width() / 10, db_prev_btn_size * 2)
+						xysize (max(250, get_stage_width() / 5), 30)
 						
 						text db_name_text:
 							text_align 'center'
