@@ -1,6 +1,6 @@
 init -1000 python:
 	spr_default_background = 'images/bg/black.jpg'
-	spr_background = spr_default_background
+	spr_background = ''
 	
 	sprite_list = []
 	
@@ -12,11 +12,14 @@ init -1000 python:
 		sprite_list = []
 	
 	def set_scene(name):
-		image = get_image(name)
-		if image:
-			set_background(image)
+		if name:
+			image = get_image(name)
+			if image:
+				set_background(image)
+			else:
+				set_background(spr_default_background)
 		else:
-			set_background(spr_default_background)
+			set_background('')
 	
 	
 	
@@ -95,8 +98,9 @@ init -1000 python:
 
 screen sprites:
 	window:
-		image spr_background:
-			xysize (1, 1)
+		if spr_background:
+			image spr_background:
+				xysize (1, 1)
 		
 		for spr in sprite_list:
 			image get_image(spr.image_name):

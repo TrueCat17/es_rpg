@@ -12,8 +12,9 @@ init -1000 python:
 		return res
 	
 	
-	class Return:
+	class Return(Object):
 		def __init__(self, value):
+			Object.__init__(self)
 			self.value = value
 		def __call__(self):
 			screen_name, ret_name = pop_ret_names()

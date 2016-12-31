@@ -36,6 +36,7 @@ init -999 python:
 			out_msg('Ошибка при сохранении файла persistent: <' + persistent_path + '>')
 			persistent_updates = False
 			raise
+		persistent_updates = False
 
 
 init -999 python:

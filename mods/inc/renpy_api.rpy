@@ -1,11 +1,18 @@
 init -1001 python:
+	
+	pause_end = 0
 	def pause(sec):
-		sleep(int(sec * 1000), False)
+		global pause_end
+		pause_end = time.time() + sec
 	
 	
 	class Music:
 		def register_channel(self, name, mixer, loop):
 			register_channel(name, mixer, loop)
+		
+		def play(self, file_names, channel, *args):
+			file_name = file_names if isinstance(file_names, str) else file_names[0]
+			play(channel + ' ' + file_name)
 	
 	
 	class Easy:
@@ -69,7 +76,6 @@ init -1001 python:
 				persistent.config = self.config
 		
 		def pause(self, sec):
-			out_msg('renpy.pause', 'Использовать renpy.pause не рекомендуется, см. resources/mods/ReadMe.txt')
 			pause(sec)
 		
 		def say(self, who, what):
