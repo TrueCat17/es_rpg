@@ -18,14 +18,42 @@ init -1001 python:
 		cam_object.x, cam_object.y = x, y
 	
 	
+	location_scale = 1
+	upd_loc_psw, upd_loc_psh = -1.0, -1.0 # ps[w/h] = prev_stage_[width/height]
+	def update_location_scale():
+		global upd_loc_psw, upd_loc_psh
+		stage_width, stage_height = float(get_stage_width()), float(get_stage_height())
+		if stage_width == upd_loc_psw and stage_height == upd_loc_psh:
+			return
+		upd_loc_psw, upd_loc_psh = stage_width, stage_height
+		
+		global location_scale
+		location_scale = 1
+		
+		for location_name in locations.keys():
+			location = locations[location_name]
+			if location.is_room: # Помещение (комната, автобус...)?
+				scale = min(stage_width / location.width, stage_height / location.height) # Увеличение до одной из сторон экрана
+				scale = int(scale) # Округление в меньшую сторону
+			else:
+				scale = max(stage_width / location.width, stage_height / location.height) # Увеличение до обоих сторон экрана
+				scale = ceil(scale) # Округление в большую сторону
+			
+			location_scale = max(location_scale, scale)
+		
+		if location_scale > 3:
+			location_scale = 3
+	
+	
+	
 	locations = dict()
 	map_objects = dict()
 	
 	objects_on_location = []
 	
 	
-	def register_location(name, path_to_images, no_pictures):
-		location = Location(name, path_to_images, no_pictures)
+	def register_location(name, path_to_images, no_pictures, is_room, width, height):
+		location = Location(name, path_to_images, no_pictures, is_room, width, height)
 		locations[name] = location
 	
 	def set_location(location_name, place_name):
@@ -36,14 +64,26 @@ init -1001 python:
 			out_msg('set_location', 'Локация <' + location_name + '> не содержит места <' + place_name + '>')
 			return
 		
-		global cur_location, cur_location_name, cur_place_name, objects_on_location
+		global cur_location, cur_location_name, cur_place_name, objects_on_location, cam_object
 		cur_location = locations[location_name]
+		
+		main = cur_location.main
+		real_width, real_height = get_texture_width(main), get_texture_height(main)
+		reg_width, reg_height = cur_location.width, cur_location.height
+		if reg_width != real_width or reg_height != real_height:
+			reg_size = str(reg_width) + 'x' + str(reg_height)
+			real_size = str(real_width) + 'x' + str(real_height)
+			out_msg('set_location', 
+					'Размер локации при регистрации (' + reg_size + ') не соответствует реальному размеру (' + real_size + ')\n' + 
+					'Локация: <' + cur_location.name + '>\n' + 
+					'Основное изображение: <' + main + '>')
 		
 		cur_location_name = location_name
 		cur_place_name = place_name
 		
 		objects_on_location = []
 		show_character(me, place_name)
+		cam_object = me
 	
 	def show_character(character, place_name):
 		if not character:
@@ -93,15 +133,18 @@ init -1001 python:
 			out_msg('set_map_object', 'Объект <' + obj_name + '> не найден')
 			return
 		
+		image = map_objects[obj_name]
+		
 		map_object = Object()
-		map_object.image = map_objects[obj_name]
+		map_object.image = image
 		map_object.x, map_object.y = place.x, place.y
 		map_object.xanchor, map_object.yanchor = 0, 0
+		map_object.width, map_object.height = get_texture_width(width), get_texture_height(image)
 		objects_on_location.append(map_object)
 	
 	def hide_map_object(obj_name):
 		if not map_objects.has_key(obj_name):
-			out_msg('set_map_object', 'Объект <' + obj_name + '> не найден')
+			out_msg('hide_map_object', 'Объект <' + obj_name + '> не найден')
 			return
 		image = map_objects[obj_name]
 		
@@ -143,9 +186,12 @@ init -1001 python:
 	
 	
 	class Location(Object):
-		def __init__(self, name, path_to_images, no_pictures):
+		def __init__(self, name, path_to_images, no_pictures, is_room, width, height):
 			Object.__init__(self)
 			self.name = name
+			
+			self.is_room = is_room
+			self.width, self.height = width, height
 			
 			self.main = path_to_images + 'main.png'
 			self.over = None if 'o' in no_pictures else path_to_images + 'over.png'
@@ -173,31 +219,31 @@ init -1001 python:
 		
 		
 		def update_pos(self):
-			main_width, main_height = get_texture_width(self.main), get_texture_height(self.main)
+			main_width, main_height = self.width * location_scale, self.height * location_scale
 			stage_width, stage_height = get_stage_width(), get_stage_height()
 			
-			dx, dy = main_width - stage_width, main_height - stage_height
-			cx, cy = main_width / 2, main_height / 2
+			cam_object_x = 0 if cam_object is None else cam_object.x * location_scale
+			cam_object_y = 0 if cam_object is None else cam_object.y * location_scale
 			
-			if dx < 0 or cam_object is None:
-				self.x = -dx / 2
+			if main_width < stage_width or cam_object is None:
+				self.x = (stage_width - main_width) / 2
 			else:
-				if cam_object.x <= cx - dx / 2:
+				if cam_object_x <= stage_width / 2:
 					self.x = 0
-				elif cam_object.x >= cx + dx / 2:
-					self.x = -dx
+				elif cam_object_x >= main_width - stage_width / 2:
+					self.x = stage_width - main_width
 				else:
-					self.x = cx - cam_object.x
+					self.x = stage_width / 2 - cam_object_x
 			
-			if dy < 0 or cam_object is None:
-				self.y = -dy / 2
+			if main_height < stage_height or cam_object is None:
+				self.y = (stage_height - main_height) / 2
 			else:
-				if cam_object.y <= cy - dy / 2:
+				if cam_object_y <= stage_height / 2:
 					self.y = 0
-				elif cam_object.y >= cy + dy / 2:
-					self.y = -dy
+				elif cam_object_y >= main_height - stage_height / 2:
+					self.y = stage_height - main_height
 				else:
-					self.y = cy - cam_object.y
+					self.y = stage_height / 2 - cam_object_y
 	
 	
 	class Place(Object):

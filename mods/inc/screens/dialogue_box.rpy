@@ -174,6 +174,8 @@ screen dialogue_box:
 		
 		$ db_update()
 		
+		$ db_text_size = max(20, get_stage_height() / 30)
+		
 		
 		button:
 			background db_menu_btn
@@ -192,11 +194,11 @@ screen dialogue_box:
 					
 					image db_name:
 						xpos max(get_stage_width() / 10, db_prev_btn_size * 2)
-						xysize (max(250, get_stage_width() / 5), 30)
+						xysize (max(250, get_stage_width() / 5), db_text_size * 1.5)
 						
 						text db_name_text:
 							text_align 'center'
-							size 20
+							size db_text_size
 							color db_name_color
 							align (0.5, 0.7)
 					
@@ -214,10 +216,10 @@ screen dialogue_box:
 							xysize (0.9, 0.2)
 			
 							text db_voice_text:
-								size	20
+								size	db_text_size
 								color	db_voice_color
 								align	(0.5, 0.5)
-								xysize	(0.85, 0.15)
+								xysize	(0.875, 0.18)
 						
 						button:
 							yalign 		0.5
@@ -227,40 +229,43 @@ screen dialogue_box:
 			
 			
 			elif db_mode == 'nvl':
-				vbox:
-					anchor 	(0.5, 0)
-					pos		(0.5, 0.05)
+				image im.Alpha('images/bg/black.jpg', 0.3):
+					xysize (1, 1)
+					
+					vbox:
+						anchor 	(0.5, 0)
+						pos		(0.5, 0.05)
 					
 					
-					$ db_last_dialogue = db_dialogue + [(db_name_text, db_name_color, db_voice_text, db_voice_color)]
+						$ db_last_dialogue = db_dialogue + [(db_name_text, db_name_color, db_voice_text, db_voice_color)]
 					
-					for db_name_text_i, db_name_color_i, db_voice_text_i, db_voice_color_i in db_last_dialogue:
-						python:
-							db_tmp_name = ('{color=' + str(db_name_color_i) + '}' + db_name_text_i + '{/color}: ') if db_name_text_i else ''
-							db_tmp_voice = db_voice_text_i if db_voice_text_i else ' '
+						for db_name_text_i, db_name_color_i, db_voice_text_i, db_voice_color_i in db_last_dialogue:
+							python:
+								db_tmp_name = ('{color=' + str(db_name_color_i) + '}' + db_name_text_i + '{/color}: ') if db_name_text_i else ''
+								db_tmp_voice = db_voice_text_i if db_voice_text_i else ' '
 						
-						text (db_tmp_name + db_tmp_voice):
-							size 20
-							color db_voice_color_i
-							xsize 0.75
+							text (db_tmp_name + db_tmp_voice):
+								size db_text_size
+								color db_voice_color_i
+								xsize 0.75
 				
-				hbox:
-					spacing 5
-					align (0.5, 0.99)
+					hbox:
+						spacing 5
+						align (0.5, 0.99)
 					
-					button:
-						yalign		0.5
-						background	db_prev_btn
-						xysize		(db_prev_btn_size, db_prev_btn_size)
-#						action		db_on_enter
+						button:
+							yalign		0.5
+							background	db_prev_btn
+							xysize		(db_prev_btn_size, db_prev_btn_size)
+	#						action		db_on_enter
 					
-					null width 0.9 height 0.2
+						null width 0.9 height 0.2
 					
-					button:
-						yalign 		0.5
-						background	db_next_btn
-						xysize		(db_next_btn_size, db_next_btn_size)
-						action		db_on_enter
+						button:
+							yalign 		0.5
+							background	db_next_btn
+							xysize		(db_next_btn_size, db_next_btn_size)
+							action		db_on_enter
 			
 			
 			if renpy.config.fps_meter:

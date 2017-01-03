@@ -3,6 +3,8 @@ label prologue:
 	
 	$ me.set_dress('wn')
 	
+#	jump end_sleep
+	
 	$ make_names_unknown()
 	$ set_mode_adv()
 	
@@ -78,6 +80,10 @@ label prologue:
 	"Просто сон..."
 	stop music fadeout 2
 	
+	jump end_sleep
+
+
+label end_sleep:
 	$ me.set_direction(forward)
 	$ me.set_pose("sit")
 	$ set_location("Квартира", "Кресло")

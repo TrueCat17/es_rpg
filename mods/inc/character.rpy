@@ -25,6 +25,7 @@ init -1001 python:
 			characters.append(self)
 			
 			self.xanchor, self.yanchor = 0.5, 0.8
+			self.width, self.height = character_xsize, character_ysize
 			
 			self.real_name = name
 			self.unknow_name = kwargs.get('unknow_name', name)
