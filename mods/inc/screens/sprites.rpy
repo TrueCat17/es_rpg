@@ -1,26 +1,16 @@
 init -1000 python:
-	spr_default_background = 'images/bg/black.jpg'
-	spr_background = ''
+	spr_background = None
 	
 	sprite_list = []
-	
-	
-	def set_background(image):
-		global spr_background, sprite_list
-		
-		spr_background = image
+	def set_scene(params, child_params):
+		global sprite_list, spr_background
 		sprite_list = []
-	
-	def set_scene(name):
-		if name:
-			image = get_image(name)
-			if image:
-				set_background(image)
-			else:
-				set_background(spr_default_background)
-		else:
-			set_background('')
-	
+		
+		spr_background = None
+		if len(params):
+			add_sprite_to_showlist(params, child_params)
+			if len(sprite_list):
+				spr_background = sprite_list[0]
 	
 	
 	def add_sprite_to_showlist(params, child_params):
@@ -99,10 +89,10 @@ init -1000 python:
 screen sprites:
 	window:
 		if spr_background:
-			image spr_background:
+			image get_image(spr_background.image_name):
 				xysize (1, 1)
 		
-		for spr in sprite_list:
+		for spr in sprite_list[1:]:
 			image get_image(spr.image_name):
 				pos (spr.params.xpos, spr.params.ypos)
 				anchor (spr.params.xanchor, spr.params.yanchor)

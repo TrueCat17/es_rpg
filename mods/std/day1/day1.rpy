@@ -1,12 +1,11 @@
-label day1:
+label day1_start:
 	$ was = []
 	$ day_num = 1
 	
 	jump day1_ikarus
 
 
-
-#Очнулся в икарусе
+# Очнулся в икарусе
 label day1_ikarus:
 	if "bus" not in was:
 		$ was.append("bus")
@@ -25,32 +24,30 @@ label day1_ikarus:
 		
 		"Управление WASD + Shift (бег)"
 		window hide
-		
-		#Тут игрок выводит Семёна из автобуса
 
 
-#Вышел из автобуса
+# Вышел из автобуса
 label day1_bus_station:
 	if "bus_station" not in was:
 		$ was.append("bus_station")
 		
-		$ set_direction("Семён", "back")
+		$ me.set_direction(back)
 		pause 0.5
-		$ set_direction("Семён", "right")
+		$ me.set_direction(right)
 		pause 0.5
-		$ set_direction("Семён", "left")
+		$ me.set_direction(left)
 		pause 0.5
-		$ set_direction("Семён", "back")
+		$ me.set_direction(back)
 		
 		window show
 		"Теперь мы сделали вид, что поосматривались"
-		"Тут ещё пара реплик о том, что мы всё ещё фиг знает где, и вообще - мне надо срочно бежать!"
+		"Тут ещё пара реплик о том, что мы всё ещё фиг знает где, и вообще - надо срочно бежать!"
 		window hide
 		
-		$ move_to_place("Семён", "Выход", True)
+		$ me.move_to_place("Выход", True)
 
 
-#Вышел из лагеря и бежит
+# Вышел из лагеря
 label day1_try_escape:
 	if "try_escape" not in was:
 		$ was.append("try_escape")
@@ -60,18 +57,15 @@ label day1_try_escape:
 		
 		$ set_location("Совёнок-Вход", "Выход")
 		
-		"Мб зайти внутрь?"
+		"Мб мне лучше всё-таки зайти за ворота?"
 		window hide
-		
-		#Подходит к воротам
 	else:
 		window show
 		me "Я уже пытался бежать, ничего хорошего из этого не выйдет"
 		window hide
 
 
-
-#Встреча со Славей перед входом
+# Встреча со Славей перед входом
 label day1_pre_enter:
 	if "pre_enter" not in was:
 		$ was.append("pre_enter")
@@ -80,21 +74,18 @@ label day1_pre_enter:
 		"Я хотел уже было войти, но показалась девочка"
 		window hide
 		
-		$ show_person("Славя", "Лагерь")
-		$ move_to_place("Славя", "Вход", False)
+		$ show_person(sl, "Лагерь")
+		$ sl.move_to_place("Вход", False)
 		
 		window show
 		"Привет, привет, ля-ля-ля... вожатая... всё понял... я ушла..."
 		window hide
 		
-		$ move_to_place("Славя", "Лагерь", False)
-		$ hide_person("Славя")
-		
-		#Заходит за ворота
+		$ sl.move_to_place("Лагерь", False)
+		$ hide_person(sl)
 
 
-
-#Подошёл к зданию клубов
+# Подошёл к зданию клубов
 label day1_clubs:
 	if "clubs" not in was:
 		$ was.append("clubs")
@@ -120,6 +111,7 @@ label day1_clubs:
 		show cg d1_grasshopper
 		extend " напугала её"
 		un "Иииии-ииииииииИИИИИ!!!"
+		scene
 		
 		"Первая убежала"
 		$ un.move_to_place("Площадь", True)
@@ -132,16 +124,13 @@ label day1_clubs:
 		$ hide_person(us)
 		
 		window hide
-		
-		#Семён идёт в локацию площади
 
 
-
-#Семён на площади
+# Семён на площади
 label day1_square:
 	if "square" not in was:
 		$ was.append("square")
 		
 		window show
-		"Так... Я на площади, но {s}где же Алиса{/s} почему же меня никто не ударил?"
+		"Так... Я на площади, но {s}где же Алиса{/s} почему же меня никто не ударил..?"
 		window hide

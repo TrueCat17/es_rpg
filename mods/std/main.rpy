@@ -1,13 +1,9 @@
 init:
 	$ mods["main"] = "Бесконечное Лето 2D"
-	
-	$ num_day = 0
-	$ x = 0
-	$ y = 0
 
 
 label main:
-	jump prologue
+	jump day0_start
 
 
 

@@ -143,14 +143,15 @@ init -1000 python:
 			return
 		
 		if db_voice_text == db_voice_full_text:
+			if read:
+				return
 			read = True
 			
 			if db_mode == 'nvl':
 				db_dialogue += [(db_name_text, db_name_color, db_voice_text, db_voice_color)]
+				db_name_text = db_voice_text = db_voice_full_text = ''
 			else:
 				db_dialogue = []
-			
-			db_name_text = db_voice_text = db_voice_full_text = ''
 		else:
 			db_voice_text = db_voice_full_text
 	
@@ -174,7 +175,7 @@ screen dialogue_box:
 		
 		$ db_update()
 		
-		$ db_text_size = max(20, get_stage_height() / 30)
+		$ db_text_size = max(14, get_stage_height() / 30)
 		
 		
 		button:
@@ -213,13 +214,13 @@ screen dialogue_box:
 #							action		db_on_enter
 						
 						image db_voice:
-							xysize (0.9, 0.2)
+							xysize (0.9, max(80, 0.2 * get_stage_height()))
 			
 							text db_voice_text:
 								size	db_text_size
 								color	db_voice_color
 								align	(0.5, 0.5)
-								xysize	(0.875, 0.18)
+								xysize	(0.875, max(70, 0.18 * get_stage_height()))
 						
 						button:
 							yalign 		0.5

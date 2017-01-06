@@ -9,4 +9,4 @@ init -998 python:
 	renpy.music.register_channel("sound_loop", "voice", True)
 	renpy.music.register_channel("sound_loop2", "voice", True)
 	renpy.music.register_channel("sound_loop3", "voice", True)
-		
+	

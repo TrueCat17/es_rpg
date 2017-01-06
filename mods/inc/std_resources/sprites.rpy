@@ -361,6 +361,9 @@ init -1000:
     image us surp3 dress far = im.MatrixColor(im.FactorScale( im.Composite((630,1080), (0,0), "images/sprites/far/us/us_3_body.png",(0,0), "images/sprites/far/us/us_3_dress.png",(0,0), "images/sprites/far/us/us_3_surp3.png") , get_stage_width() / 1920.0), persistent.tint_sprite_time)
     image un smile swim far = im.MatrixColor(im.FactorScale( im.Composite((630,1080), (0,0), "images/sprites/far/un/un_1_body.png",(0,0), "images/sprites/far/un/un_1_swim.png",(0,0), "images/sprites/far/un/un_1_smile.png") , get_stage_width() / 1920.0), persistent.tint_sprite_time)
     image mi surprise pioneer far = im.MatrixColor(im.FactorScale( im.Composite((630,1080), (0,0), "images/sprites/far/mi/mi_1_body.png",(0,0), "images/sprites/far/mi/mi_1_pioneer.png",(0,0), "images/sprites/far/mi/mi_1_surprise.png") , get_stage_width() / 1920.0), persistent.tint_sprite_time)
+    
+    
+    
     image cs normal stethoscope = im.MatrixColor(im.FactorScale( im.Composite((900,1080), (0,0), "images/sprites/normal/cs/cs_1_body.png",(0,0), "images/sprites/normal/cs/cs_1_stethoscope.png",(0,0), "images/sprites/normal/cs/cs_1_normal.png") , get_stage_width() / 1920.0), persistent.tint_sprite_time)
     image dv grin swim = im.MatrixColor(im.FactorScale( im.Composite((900,1080), (0,0), "images/sprites/normal/dv/dv_2_body.png",(0,0), "images/sprites/normal/dv/dv_2_swim.png",(0,0), "images/sprites/normal/dv/dv_2_grin.png") , get_stage_width() / 1920.0), persistent.tint_sprite_time)
     image dv laugh swim = im.MatrixColor(im.FactorScale( im.Composite((900,1080), (0,0), "images/sprites/normal/dv/dv_4_body.png",(0,0), "images/sprites/normal/dv/dv_4_swim.png",(0,0), "images/sprites/normal/dv/dv_4_laugh.png") , get_stage_width() / 1920.0), persistent.tint_sprite_time)
@@ -726,6 +729,9 @@ init -1000:
     image us surp3 dress = im.MatrixColor(im.FactorScale( im.Composite((900,1080), (0,0), "images/sprites/normal/us/us_3_body.png",(0,0), "images/sprites/normal/us/us_3_dress.png",(0,0), "images/sprites/normal/us/us_3_surp3.png") , get_stage_width() / 1920.0), persistent.tint_sprite_time)
     image un smile swim = im.MatrixColor(im.FactorScale( im.Composite((900,1080), (0,0), "images/sprites/normal/un/un_1_body.png",(0,0), "images/sprites/normal/un/un_1_swim.png",(0,0), "images/sprites/normal/un/un_1_smile.png") , get_stage_width() / 1920.0), persistent.tint_sprite_time)
     image mi surprise pioneer = im.MatrixColor(im.FactorScale( im.Composite((900,1080), (0,0), "images/sprites/normal/mi/mi_1_body.png",(0,0), "images/sprites/normal/mi/mi_1_pioneer.png",(0,0), "images/sprites/normal/mi/mi_1_surprise.png") , get_stage_width() / 1920.0), persistent.tint_sprite_time)
+    
+    
+    
     image cs normal stethoscope close = im.MatrixColor(im.FactorScale( im.Composite((1050,1080), (0,0), "images/sprites/close/cs/cs_1_body.png",(0,0), "images/sprites/close/cs/cs_1_stethoscope.png",(0,0), "images/sprites/close/cs/cs_1_normal.png") , get_stage_width() / 1920.0), persistent.tint_sprite_time)
     image dv grin swim close = im.MatrixColor(im.FactorScale( im.Composite((1050,1080), (0,0), "images/sprites/close/dv/dv_2_body.png",(0,0), "images/sprites/close/dv/dv_2_swim.png",(0,0), "images/sprites/close/dv/dv_2_grin.png") , get_stage_width() / 1920.0), persistent.tint_sprite_time)
     image dv laugh swim close = im.MatrixColor(im.FactorScale( im.Composite((1050,1080), (0,0), "images/sprites/close/dv/dv_4_body.png",(0,0), "images/sprites/close/dv/dv_4_swim.png",(0,0), "images/sprites/close/dv/dv_4_laugh.png") , get_stage_width() / 1920.0), persistent.tint_sprite_time)
@@ -1089,5 +1095,7 @@ init -1000:
     image un smile swim close = im.MatrixColor(im.FactorScale( im.Composite((1050,1080), (0,0), "images/sprites/close/un/un_1_body.png",(0,0), "images/sprites/close/un/un_1_swim.png",(0,0), "images/sprites/close/un/un_1_smile.png") , get_stage_width() / 1920.0), persistent.tint_sprite_time)
     image mi surprise pioneer close = im.MatrixColor(im.FactorScale( im.Composite((1050,1080), (0,0), "images/sprites/close/mi/mi_1_body.png",(0,0), "images/sprites/close/mi/mi_1_pioneer.png",(0,0), "images/sprites/close/mi/mi_1_surprise.png") , get_stage_width() / 1920.0), persistent.tint_sprite_time)
     image mt shocked pioneer = im.MatrixColor(im.FactorScale( im.Composite((900,1080), (0,0), "images/sprites/normal/mt/mt_2_body.png",(0,0), "images/sprites/normal/mt/mt_2_pioneer.png",(0,0), "images/sprites/normal/mt/mt_2_shocked.png") , get_stage_width() / 1920.0), persistent.tint_sprite_time)
+    
+    
     
     image pi smile = im.MatrixColor(im.FactorScale( im.Composite((900,1080), (0,0), "images/sprites/normal/pi/pi_1_pioneer_smile.png") , get_stage_width() / 1920.0), persistent.tint_sprite_time)

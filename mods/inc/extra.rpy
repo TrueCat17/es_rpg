@@ -6,6 +6,13 @@ init -1001 python:
 
 
 
+init -1100000000 python:
+	def get_traceback(tb):
+		import traceback
+		l = traceback.format_tb(tb)
+		return '\n\t'.join(l)
+
+
 init -10000 python:
 	def ceil(n):
 		res = int(n)
@@ -21,6 +28,11 @@ init -10000 python:
 		res = _get_from_hard_config(str(param))
 		return ret_type(res)
 	
+	def get_mods():
+		mods_str = _get_mods()
+		mods_dict = eval(mods_str)
+		return mods_dict
+	
 	def out_msg(msg, err = ''):
 		_out_msg(msg, err)
 	
@@ -30,12 +42,6 @@ init -10000 python:
 		if res:
 			return res
 		return im.Scale(spr_default_background, 256, 256)
-	
-	
-	def get_traceback(tb):
-		import traceback
-		l = traceback.format_tb(tb)
-		return '\n\t'.join(l)
 	
 	persistent_updates = False
 	class Object:

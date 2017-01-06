@@ -2,6 +2,7 @@ init python:
 	mods['test_label'] = 'test'
 
 label test_label:
+	$ set_fps(60)
 	scene bg bus_stop
 	
 	me "Музыку!"
@@ -13,6 +14,8 @@ label test_label:
 	show dv laugh swim close as dv2 behind dv
 	me "И ещё один!"
 	show dv laugh pioneer2 far
+	me "Назад!"
+	show dv laugh swim far
 	
 	mt "Поздравляю!"
 	extend " Спрайты отображаются нормально!!!"

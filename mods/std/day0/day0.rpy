@@ -1,16 +1,20 @@
-label prologue:
+label day0_start:
+	$ day_num = 0
+	
 	$ set_fps(30)
+	$ make_names_unknown()
 	
 	$ me.set_dress('wn')
 	
-#	jump end_sleep
-	
-	$ make_names_unknown()
-	$ set_mode_adv()
+#	jump day0_end_sleep
+#	jump day0_bus_station
+#	jump day0_to_bus
+#	jump day0_liaz
 	
 	scene anim prolog_1
 	play music music_list["a_promise_from_distant_days_v2"] fadein 3
 	
+	$ set_mode_adv()
 	window show
 	"{i}Этот{/i} сон..."
 	"Каждую ночь одно и то же."
@@ -64,6 +68,7 @@ label prologue:
 	"И каждый раз надо отвечать."
 	"Иначе никак, иначе сон не закончится, а я – не проснусь."
 	window hide
+	
 	pause 0.5
 	menu:
 		"Да, я пойду с тобой":
@@ -71,6 +76,7 @@ label prologue:
 		"Нет, я останусь здесь":
 		    pass
 	pause 0.5
+	
 	window show
 	"Каждый раз так сложно решить, что же ответить."
 	"Где я, что я здесь делаю, кто она такая?"
@@ -78,59 +84,65 @@ label prologue:
 	"Или не зависит?.."
 	"Ведь это просто сон..."
 	"Просто сон..."
+	window hide
+	
 	stop music fadeout 2
 	
-	jump end_sleep
+	jump day0_end_sleep
 
 
-label end_sleep:
+label day0_end_sleep:
+	scene
+	$ set_location("Квартира", "Кресло")
 	$ me.set_direction(forward)
 	$ me.set_pose("sit")
-	$ set_location("Квартира", "Кресло")
+	
 	play sound_loop sfx_keyboard_mouse_computer_noise fadein 3
-	scene
-
+	
+	window show
 	"Экран монитора смотрел на меня словно живой."
 	"Иногда мне правда казалось, что он обладает сознанием, своими мыслями и желаниями, стремлениями; умеет чувствовать, любить и страдать."
 	"Словно в наших отношениях инструмент не он – неодушевлённый кусок пластика и текстолита, – а я."
 	"Наверное, в этом есть доля правды, ведь компьютер на 90% обеспечивает моё общение с внешним миром."
 	"Анонимные имиджборды, иногда какие-то чаты, редко – аська или джаббер, ещё реже – форумы."
 	window hide
+	
 	pause 2
+	
 	window show
 	"А людей, сидящих по ту сторону сетевого кабеля, попросту не существует!"
 	"Все они – всего лишь плод его больной фантазии, ошибка в программном коде или баг ядра, зажившего собственной жизнью."
 	window hide
+	
 	pause 3
-	scene anim prolog_15
-	with fade
+	scene anim prolog_15 with fade
 	pause 3
-	scene anim prolog_3
-	with fade
+	scene anim prolog_3 with fade
 	pause 3
-	scene anim prolog_4
-	with fade
+	scene anim prolog_4 with fade
 	pause 3
+	
 	stop sound_loop fadeout 4
+	
 	window show
 	"Если посмотреть со стороны на моё существование, то такие мысли покажутся не столь уж бредовыми, а какой-нибудь психолог наверняка поставит мне кучу заумных диагнозов и, возможно, выпишет направление в жёлтый дом."
 	window hide
+	
 	pause 3
-	scene anim prolog_5
-	with fade
+	scene anim prolog_5 with fade
 	pause 3
-	scene anim prolog_14
-	with fade
+	scene anim prolog_14 with fade
 	pause 3
-	scene anim prolog_11
-	with fade
+	scene anim prolog_11 with fade
 	pause 3
+	
 	window show
 	"Маленькая квартирка без следов какого бы то ни было ремонта или даже подобия порядка, и вечно одинаковый вид из окна на серый, день и ночь куда-то бегущий мегаполис, – вот условия моей жизни."
 	window hide
+	
+	scene anim prolog_2 with fade
 	play music music_list["farewell_to_the_past_edit"] fadein 5
-	scene anim prolog_2
-	with fade
+	
 	$ set_mode_nvl()
 	window show
 	"Конечно, всё начиналось не так..."
@@ -142,7 +154,9 @@ label end_sleep:
 	"Только у меня не было выбора, как именно провести этот день, и каждый раз всё повторялось по одной и той же схеме.{w} Схеме пустоты, уныния и отчаяния."
 	nvl clear
 	window hide
+	
 	pause 2
+	
 	window show
 	"Последние несколько лет я просто целыми днями сидел за компьютером."
 	"Иногда подворачивались какие-то халтурки, иногда помогали родители."
@@ -160,10 +174,11 @@ label end_sleep:
 	"Плати мне за это деньги, я бы обрадовался (да и заработал неплохо), но вряд ли так просто можно заполнить пустоту в душе."
 	nvl clear
 	window hide
-	scene bg semen_room_window
-	with fade
+	
+	scene bg semen_room_window with fade
 	stop music fadeout 4
 	play sound_loop sfx_street_traffic_outside fadein 2
+	
 	window show
 	"Сегодня очередной типичный день моей типичной жизни типичного неудачника."
 	"И именно сегодня мне нужно ехать на встречу институтских товарищей."
@@ -171,43 +186,36 @@ label end_sleep:
 	"Да и какой смысл, если вместе с ними я отучился всего ничего?"
 	"Однако меня всё же уговорил друг, бывший одногруппник, один из немногих, с кем я поддерживал контакт не только в интернете."
 	window hide
+	$ set_mode_adv()
+	
 	pause 4
 	stop sound_loop fadeout 3
 	play ambience ambience_cold_wind_loop fadein 3
-	$ set_mode_adv()
+	
 	play sound sfx_intro_bus_stop_steps
-	scene anim intro_1
-	with fade
+	scene anim intro_1 with fade
 	pause 3
-	scene anim intro_2
-	with fade
+	scene anim intro_2 with fade
 	pause 3
-	scene anim intro_3
-	with fade
+	scene anim intro_3 with fade
 	pause 3
-	scene anim intro_4
-	with fade
+	scene anim intro_4 with fade
 	pause 3
-	scene anim intro_5
-	with fade
+	scene anim intro_5 with fade
 	pause 3
-	scene anim intro_6
-	with fade
+	scene anim intro_6 with fade
 	pause 3
 	play sound sfx_intro_bus_stop_sigh
-	scene anim intro_8
-	with fade
+	scene anim intro_8 with fade
 	pause 3
-	scene anim intro_7
-	with fade
+	scene anim intro_7 with fade
 	pause 3
-	scene bg bus_stop
-	with fade
+	scene bg bus_stop with fade
 	
-	jump bus_station
+	jump day0_bus_station
 
 
-label bus_station:
+label day0_bus_station:
 	scene
 	$ set_location("Остановка", "Начало")
 	$ me.set_direction(back)
@@ -225,10 +233,11 @@ label bus_station:
 	"Или пойти опять работать в офис?{w} Нет уж!"
 	"Может, стоит попробовать фриланс?{w} Да что я умею, и кому я нужен..."
 	window hide
+	
 	pause 3
-	scene anim prolog_2
-	with fade
+	scene anim prolog_2 with fade
 	pause 1
+	
 	$ set_mode_nvl()
 	window show
 	"Вдруг мне вспомнилось детство...{w} Или скорее юношество – 15-17 лет."
@@ -248,30 +257,37 @@ label bus_station:
 	"Наверное, и хочется познакомиться с девушкой, только не знаю, как начать диалог, о чём вообще с ней говорить, чем её заинтересовать."
 	"Да и подходящих девушек я давно не встречал.{w} Хотя где мне их встретить..."
 	nvl clear
-	window hide
+	$ set_mode_adv()
+	
+	jump day0_to_bus
+
+
+label day0_to_bus:
+	scene
+	$ set_location("Остановка", "Остановка") # Вообще-то мы уже и так тут находимся (и повёрнуты), но это на случай jump'а из начала
+	$ me.set_direction(right)
+	$ set_map_object("Лиаз", "Место автобуса")
 	
 	play sound sfx_intro_bus_engine_start
 	pause 1
 	play sound_loop sfx_intro_bus_engine_loop fadein 3
 	
-	$ set_map_object("Лиаз", "Место автобуса")
-	scene
-	
-	$ set_mode_adv()
 	window show
 	"Звук работающего двигателя вернул меня к реальности."
 	"Подъехал автобус."
 	"«Какой-то он не такой» – мелькнула мысль."
 	"Впрочем, какая разница – по этому маршруту ходит только 410-ый."
 	window hide
-	pause 1
 	
+	pause 1
 	$ me.move_to_place("Вход в автобус", False)
-	jump liaz
+	
+	jump day0_liaz
 
-label liaz:
-	$ set_location("Лиаз", "Вход")
+
+label day0_liaz:
 	scene
+	$ set_location("Лиаз", "Вход")
 	$ me.set_direction(forward)
 	$ me.move_to_place("Перед сиденьем", False)
 	$ me.set_direction(right)
@@ -279,11 +295,12 @@ label liaz:
 	$ me.set_pose("sit")
 	pause 1
 	
-	stop sound_loop fadeout 4
-	scene bg intro_xx
-	with fade
+	scene bg intro_xx with fade
+	
 	stop ambience fadeout 2
+	stop sound_loop fadeout 4
 	play sound_loop sfx_bus_interior_moving fadein 4
+	
 	window show
 	"Огни пролетают мимо, их холодный свет словно зажигает внутри давно погасшие чувства."
 	$ volume(0.5, "music")
@@ -301,15 +318,19 @@ label liaz:
 	"Сотни рекламных вывесок, тысячи машин, миллионы людей."
 	"Я смотрел на это светопреставление, и мне почему-то безумно захотелось спать."
 	window hide
+	
 	pause 1.5
+	
 	window show
 	"Глаза закрылись всего на полсекунды и..."
-	stop music fadeout 2
 	window hide
+	
+	stop music fadeout 2
 	stop sound_loop fadeout 3
-	with fade3
+	
 	pause 3
+	
 	$ volume(1.0, "music")
 	
 	scene
-	jump day1
+	jump day1_start

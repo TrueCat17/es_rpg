@@ -9,13 +9,20 @@ init -1001 python:
 	
 	
 	cam_object = None
-	def cam_to_character(character):
+	def cam_to(obj):
 		global cam_object
-		cam_object = character
-	def cam_to_point(x, y):
-		global cam_object
-		cam_object = Object()
-		cam_object.x, cam_object.y = x, y
+		
+		if isinstance(obj, str):
+			if not cur_location_name:
+				out_msg('cam_to("place_name")', 'Текущая локация не установлена, сначала следует вызвать set_location')
+				return
+			place = cur_location.get_place(place_name)
+			if not place:
+				out_msg('cam_to("place_name")', 'В локации <' + cur_location_name + '> нет места с именем <' + place_name + '>')
+				return
+			cam_object = place
+		else:
+			cam_object = obj
 	
 	
 	location_scale = 1
