@@ -305,85 +305,84 @@ init python:
 
 
 screen test_1623_tanks__screen:
-    window:
-        key 'p' action test_1623_tanks__change_pause_state
-        key 'K_LEFT' action test_1623_tanks__on_left_press
-        key 'K_RIGHT' action test_1623_tanks__on_right_press
-        key 'K_UP' action test_1623_tanks__on_up_press
-        key 'K_DOWN' action test_1623_tanks__on_down_press
-        key 'K_RETURN' action test_1623_tanks__player_fair
-        key 'K_SPACE' action test_1623_tanks__player_fair
-        key 'a' action test_1623_tanks__on_left_press
-        key 'd' action test_1623_tanks__on_right_press
-        key 'w' action test_1623_tanks__on_up_press
-        key 's' action test_1623_tanks__on_down_press
+    key 'p' action test_1623_tanks__change_pause_state
+    key 'K_LEFT' action test_1623_tanks__on_left_press
+    key 'K_RIGHT' action test_1623_tanks__on_right_press
+    key 'K_UP' action test_1623_tanks__on_up_press
+    key 'K_DOWN' action test_1623_tanks__on_down_press
+    key 'K_RETURN' action test_1623_tanks__player_fair
+    key 'K_SPACE' action test_1623_tanks__player_fair
+    key 'a' action test_1623_tanks__on_left_press
+    key 'd' action test_1623_tanks__on_right_press
+    key 'w' action test_1623_tanks__on_up_press
+    key 's' action test_1623_tanks__on_down_press
+    
+    use test_1623__main_screen
+    
+    
+    if not test_1623_tanks__pause:
+        $ test_1623_tanks__update()
+    
+    hbox:
+        xalign 0.5
+        yalign 0.97
         
-        use test_1623__main_screen
+        textbutton ('Continue' if test_1623_tanks__pause else 'Pause'):
+        	action test_1623_tanks__change_pause_state
         
-        
-        if not test_1623_tanks__pause:
-            $ test_1623_tanks__update()
-        
-        hbox:
-            xalign 0.5
-            yalign 0.97
+        textbutton 'Exit' action test_1623_tanks__to_exit
+    if not test_1623_tanks__simpled:
+        vbox:
+            xalign 0.02
+            yalign 0.5
             
-            textbutton ('Continue' if test_1623_tanks__pause else 'Pause'):
-            	action test_1623_tanks__change_pause_state
-            
-            textbutton 'Exit' action test_1623_tanks__to_exit
-        if not test_1623_tanks__simpled:
-            vbox:
-                xalign 0.02
-                yalign 0.5
-                
-                $ player = test_1623_tanks__player
-                if player is not None:
-                    if test_1623_tanks__limit_bullets:
-                        $ info = '  Level:' + str(player.level) + '\n' + '  HP: ' + str(player.hp) + '\n' + '  Exp: ' + str(player.exp) + '\n' + '  Патронов осталось: ' + str(player.bullets_to_shorts)
-                    else:
-                        $ info = '  HP: ' + str(player.hp)
-                    
-                    text ('Вы: ' + '\n' + info):
-                        color test_1623_tanks__hex_colors[player.color]
-                        size 25
-                    null height 25
-                
-                $ test_1623_tanks__was_friends = False
-                for tank in test_1623_tanks__players:
-                    if tank.team == (test_1623_tanks__PLAYER % 10) and tank is not test_1623_tanks__player:
-                        if not test_1623_tanks__was_friends:
-                            $ test_1623_tanks__was_friends = True
-                            text 'Друзья: ':
-                                color '#00AA00'
-                                size 25
-                        
-                        if test_1623_tanks__limit_bullets:
-                            $ info = '  Level: ' + str(tank.level) + '\n' + '  HP: ' + str(tank.hp)
-                        else:
-                            $ info = '  HP: ' + str(tank.hp)
-                        
-                        text info:
-                            color test_1623_tanks__hex_colors[tank.color]
-                        null height 10
-                
-                if test_1623_tanks__was_friends:
-                    null height 15
+            $ player = test_1623_tanks__player
+            if player is not None:
+                if test_1623_tanks__limit_bullets:
+                    $ info = '  Level:' + str(player.level) + '\n' + '  HP: ' + str(player.hp) + '\n' + '  Exp: ' + str(player.exp) + '\n' + '  Патронов осталось: ' + str(player.bullets_to_shorts)
                 else:
-                    null height 25
+                    $ info = '  HP: ' + str(player.hp)
                 
-                $ test_1623_tanks__was_enemies = False
-                for tank in test_1623_tanks__players:
-                    if tank.team != test_1623_tanks__PLAYER % 10:
-                        if not test_1623_tanks__was_enemies:
-                            $ test_1623_tanks__was_enemies = True
-                            text 'Враги: ':
-                                color '#AA0000'
-                                size 25
-                        
-                        text ('  Level: ' + str(tank.level) + '\n' + '  HP: ' + str(tank.hp)):
-                            color test_1623_tanks__hex_colors[tank.color]
-                        null height 10
+                text ('Вы: ' + '\n' + info):
+                    color test_1623_tanks__hex_colors[player.color]
+                    size 25
+                null ysize 25
+            
+            $ test_1623_tanks__was_friends = False
+            for tank in test_1623_tanks__players:
+                if tank.team == (test_1623_tanks__PLAYER % 10) and tank is not test_1623_tanks__player:
+                    if not test_1623_tanks__was_friends:
+                        $ test_1623_tanks__was_friends = True
+                        text 'Друзья: ':
+                            color '#00AA00'
+                            size 25
+                    
+                    if test_1623_tanks__limit_bullets:
+                        $ info = '  Level: ' + str(tank.level) + '\n' + '  HP: ' + str(tank.hp)
+                    else:
+                        $ info = '  HP: ' + str(tank.hp)
+                    
+                    text info:
+                        color test_1623_tanks__hex_colors[tank.color]
+                    null ysize 10
+            
+            if test_1623_tanks__was_friends:
+                null ysize 15
+            else:
+                null ysize 25
+            
+            $ test_1623_tanks__was_enemies = False
+            for tank in test_1623_tanks__players:
+                if tank.team != test_1623_tanks__PLAYER % 10:
+                    if not test_1623_tanks__was_enemies:
+                        $ test_1623_tanks__was_enemies = True
+                        text 'Враги: ':
+                            color '#AA0000'
+                            size 25
+                    
+                    text ('  Level: ' + str(tank.level) + '\n' + '  HP: ' + str(tank.hp)):
+                        color test_1623_tanks__hex_colors[tank.color]
+                    null ysize 10
 
 
 

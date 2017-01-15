@@ -161,49 +161,48 @@ init python:
 
 
 screen test_1623_live__screen:
-    window:
-        key 'K_LEFT' action test_1623_live__on_left_press
-        key 'K_RIGHT' action test_1623_live__on_right_press
-        key 'K_UP' action test_1623_live__on_up_press
-        key 'K_DOWN' action test_1623_live__on_down_press
-        key 'K_SPACE' action test_1623_live__change_cell_state
-        key 'K_RETURN' action test_1623_live__change_cell_state
-        key 'a' action test_1623_live__on_left_press
-        key 'd' action test_1623_live__on_right_press
-        key 'w' action test_1623_live__on_up_press
-        key 's' action test_1623_live__on_down_press
-        key 'p' action test_1623_live__change_pause_state
-        
-        use test_1623__main_screen
-        
-        
-        if not test_1623_live__pause:
-            $ test_1623_live__update()
-        else:
-            $ test_1623_live__render()
-        
-        vbox:
-            align (0.5, 0.98)
-		    spacing 5
-		    
-		    hbox:
-		        xalign 0.5
+    key 'K_LEFT' action test_1623_live__on_left_press
+    key 'K_RIGHT' action test_1623_live__on_right_press
+    key 'K_UP' action test_1623_live__on_up_press
+    key 'K_DOWN' action test_1623_live__on_down_press
+    key 'K_SPACE' action test_1623_live__change_cell_state
+    key 'K_RETURN' action test_1623_live__change_cell_state
+    key 'a' action test_1623_live__on_left_press
+    key 'd' action test_1623_live__on_right_press
+    key 'w' action test_1623_live__on_up_press
+    key 's' action test_1623_live__on_down_press
+    key 'p' action test_1623_live__change_pause_state
+    
+    use test_1623__main_screen
+    
+    
+    if not test_1623_live__pause:
+        $ test_1623_live__update()
+    else:
+        $ test_1623_live__render()
+    
+    vbox:
+        align (0.5, 0.98)
+	    spacing 5
+	    
+	    hbox:
+	        xalign 0.5
 
-		        textbutton 'ReStart (Init Random)' action test_1623_live__init
-		        textbutton 'Clear' action test_1623_live__clear
-		        
-		        textbutton ('Continue' if test_1623_live__pause else 'Pause'):
-		        	action test_1623_live__change_pause_state
-		        
-		        textbutton 'Exit' action test_1623_live__to_exit
-		    
-		    hbox:
-		        xalign 0.5
-		        
-		        text 'Make: ' size 20
-		        textbutton 'Planer' action test_1623_live__make_planer
-		        textbutton 'SpaceShip' action test_1623_live__make_space_ship
-		        textbutton 'R-Pentamino' action test_1623_live__make_r_pentamino
+	        textbutton 'ReStart (Init Random)' action test_1623_live__init
+	        textbutton 'Clear' action test_1623_live__clear
+	        
+	        textbutton ('Continue' if test_1623_live__pause else 'Pause'):
+	        	action test_1623_live__change_pause_state
+	        
+	        textbutton 'Exit' action test_1623_live__to_exit
+	    
+	    hbox:
+	        xalign 0.5
+	        
+	        text 'Make: ' size 20
+	        textbutton 'Planer' action test_1623_live__make_planer
+	        textbutton 'SpaceShip' action test_1623_live__make_space_ship
+	        textbutton 'R-Pentamino' action test_1623_live__make_r_pentamino
 
 
 label test_1623_live__start:
@@ -217,7 +216,6 @@ label test_1623_live__start:
         pause 0.1
     
     hide screen test_1623_live__screen
-    
     
     jump test_1623__main
 

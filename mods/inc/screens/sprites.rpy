@@ -87,13 +87,12 @@ init -1000 python:
 			out_msg('remove_sprite_from_showlist', 'Спрайт с именем <' + name + '> не найден')
 
 screen sprites:
-	window:
-		if spr_background:
-			image get_image(spr_background.image_name):
-				xysize (1, 1)
-		
-		for spr in sprite_list[1:]:
-			image get_image(spr.image_name):
-				pos (spr.params.xpos, spr.params.ypos)
-				anchor (spr.params.xanchor, spr.params.yanchor)
+	if spr_background:
+		image get_image(spr_background.image_name):
+			xysize (1.0, 1.0)
+	
+	for spr in sprite_list[1:]:
+		image get_image(spr.image_name):
+			pos (spr.params.xpos, spr.params.ypos)
+			anchor (spr.params.xanchor, spr.params.yanchor)
 

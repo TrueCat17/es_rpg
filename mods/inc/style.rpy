@@ -2,42 +2,39 @@ init -1001 python:
 	Style = Object # class
 	
 	
-	style = Object()
-	def get_styles():
-		return style.get_props()
-	def get_style_props(name):
-		return style.__dict__[name].get_props()
-	
-	
-	
 	# Важно!
-	# В style.default обязательно
+	# В style.* обязательно:
 	# 	использовать отдельно x- и y- свойства,
 	# 	не использовать *align
+	
+	style = Object()
 	
 	style.default = Style()
 	style.default.xpos = 0
 	style.default.ypos = 0
 	style.default.xanchor = 0
 	style.default.yanchor = 0
-	style.default.xsize = 1
-	style.default.ysize = 1
+	style.default.xsize = 1.0
+	style.default.ysize = 1.0
+	style.default.spacing = 0
 	
-	style.window = Style(style.default)
-	style.window.modal = False
+	style.screen = Style(style.default)
+	style.screen.modal = False
+	style.screen.zorder = 0
 	
 	style.vbox = Style(style.default)
 	style.vbox.xsize = 0
 	style.vbox.ysize = 0
 	
 	style.hbox = Style(style.vbox)
+	style.null = Style(style.vbox)
 	
 	style.text = Style(style.default)
 	style.text.xsize = -1
 	style.text.ysize = -1
 	style.text.size = 20
 	style.text.color = '#FFFFFF'
-	style.text.font = 'Arial'
+	style.text.font = 'Calibri'
 	style.text.bold = False
 	style.text.italic = False
 	style.text.underline = False
@@ -66,7 +63,3 @@ init -1001 python:
 	style.imagemap = Style(style.default)
 	style.imagemap.ground = ''
 	style.imagemap.hover_background = ''
-	
-	style.null = Style()
-	style.null.width = 0
-	style.null.height = 0

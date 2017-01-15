@@ -164,49 +164,48 @@ init python:
 
 
 screen test_1623_shake__screen:
-    window:
-        key 'K_LEFT' action test_1623_shake__on_left_press
-        key 'K_RIGHT' action test_1623_shake__on_right_press
-        key 'K_UP' action test_1623_shake__on_up_press
-        key 'K_DOWN' action test_1623_shake__on_down_press
-        key 'K_SPACE' action test_1623_shake__restart_on_fail
-        key 'K_RETURN' action test_1623_shake__restart_on_fail
-        key 'a' action test_1623_shake__on_left_press
-        key 'd' action test_1623_shake__on_right_press
-        key 'w' action test_1623_shake__on_up_press
-        key 's' action test_1623_shake__on_down_press
-        key 'p' action test_1623_shake__change_pause_state
+    key 'K_LEFT' action test_1623_shake__on_left_press
+    key 'K_RIGHT' action test_1623_shake__on_right_press
+    key 'K_UP' action test_1623_shake__on_up_press
+    key 'K_DOWN' action test_1623_shake__on_down_press
+    key 'K_SPACE' action test_1623_shake__restart_on_fail
+    key 'K_RETURN' action test_1623_shake__restart_on_fail
+    key 'a' action test_1623_shake__on_left_press
+    key 'd' action test_1623_shake__on_right_press
+    key 'w' action test_1623_shake__on_up_press
+    key 's' action test_1623_shake__on_down_press
+    key 'p' action test_1623_shake__change_pause_state
+    
+    use test_1623__main_screen
+    
+    
+    if not test_1623_shake__pause:
+        $ test_1623_shake__update()
+    
+    hbox:
+        xalign 0.5
+        yalign 0.97
         
-        use test_1623__main_screen
+        textbutton 'ReStart' action test_1623_shake__init
         
+        textbutton ("Continue" if test_1623_shake__pause else "Pause"):
+        	action test_1623_shake__change_pause_state
         
-        if not test_1623_shake__pause:
-            $ test_1623_shake__update()
-        
-        hbox:
+        textbutton 'Exit' action test_1623_shake__to_exit
+    
+    
+    text ('Score: ' + str(test_1623_shake__score) + ' / 5' + '\n' + 'Level: ' + str(test_1623_shake__level)):
+        xalign 0.05
+        yalign 0.5
+        size 30
+        color '#00AA00'
+    
+    if test_1623_shake__fail:
+        text 'DIED':
             xalign 0.5
-            yalign 0.97
-            
-            textbutton 'ReStart' action test_1623_shake__init
-            
-            textbutton ("Continue" if test_1623_shake__pause else "Pause"):
-            	action test_1623_shake__change_pause_state
-            
-            textbutton 'Exit' action test_1623_shake__to_exit
-        
-        
-        text ('Score: ' + str(test_1623_shake__score) + ' / 5' + '\n' + 'Level: ' + str(test_1623_shake__level)):
-            xalign 0.05
-            yalign 0.5
+            yalign 0.1
             size 30
-            color '#00AA00'
-        
-        if test_1623_shake__fail:
-            text 'DIED':
-                xalign 0.5
-                yalign 0.1
-                size 30
-                color '#FF0000'
+            color '#FF0000'
 
 
 label test_1623_shake__start:
