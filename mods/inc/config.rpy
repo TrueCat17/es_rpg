@@ -1,4 +1,9 @@
 init -998 python:
+	
+	start_screens = 'location sprites dialogue_box'
+	auto_exit = True
+	
+	
 	config = renpy.config
 	
 	if not config.has_attr('fps_meter'):

@@ -169,6 +169,8 @@ init -1000 python:
 
 
 screen dialogue_box:
+	zorder -2
+	
 	key 'RETURN' action db_on_enter
 	key 'SPACE' action db_on_enter
 	

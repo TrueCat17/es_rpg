@@ -1,5 +1,6 @@
 screen choose_menu:
 	modal True
+	zorder -1
 	
 	vbox:
 		align (0.5, 0.5)

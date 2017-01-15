@@ -1,4 +1,6 @@
 screen location:
+	zorder -4
+	
 	if cur_location_name:
 		python:
 			update_location_scale()

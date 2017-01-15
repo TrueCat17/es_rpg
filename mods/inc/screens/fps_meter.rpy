@@ -21,6 +21,8 @@ init -1000 python:
 
 
 screen fps_meter:
+	zorder 1000
+	
 	text get_last_fps():
 		font fps_meter_font
 		size fps_meter_size

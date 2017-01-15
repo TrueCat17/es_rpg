@@ -3,6 +3,8 @@ init python:
 
 
 screen snow:
+	zorder -2.5
+	
 	python:
 		width, height = get_stage_width(), get_stage_height()
 		tmp_image_args = [(width, height)]
