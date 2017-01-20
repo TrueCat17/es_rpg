@@ -3,9 +3,11 @@ init python:
 
 label test_label:
 	$ set_fps(60)
+	
+	image bg bus_stop = im.MatrixColor('images/bg/bus_stop.jpg', im.matrix.saturation(5))
 	scene bg bus_stop
 	
-	me "1"
+	me "{color=FFFFFF}qwe!{/color}ewq"
 	call test_call
 	me "..."
 

@@ -50,7 +50,7 @@ init -1000 python:
 				pause_str = pause_str[1:]
 			
 			if pause_str:
-				db_pause_after_text = int(pause_str)
+				db_pause_after_text = float(pause_str)
 			
 			db_voice_text_after_pause = text[end + 1:]
 			text = text[0:start]

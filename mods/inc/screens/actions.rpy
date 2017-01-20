@@ -35,4 +35,11 @@ init -1001 python:
 			g = globals()
 			g[self.var_name] = self.value
 	
+	def Play(file_name, channel):
+		return Function(renpy.play, file_name, channel)
+	def Stop(channel):
+		return Function(renpy.stop, channel)
+	
+	
+	
 	# Return -> call_screen.rpy

@@ -93,7 +93,8 @@ screen sprites:
 		image get_image(spr_background.image_name):
 			xysize (1.0, 1.0)
 	
-	for spr in sprite_list[1:]:
+	$ spr_start = 1 if len(sprite_list) > 0 and sprite_list[0] is spr_background else 0
+	for spr in sprite_list[spr_start:]:
 		image get_image(spr.image_name):
 			pos (spr.params.xpos, spr.params.ypos)
 			anchor (spr.params.xanchor, spr.params.yanchor)

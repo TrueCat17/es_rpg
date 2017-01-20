@@ -8,11 +8,16 @@ init -1001 python:
 	
 	class Music:
 		def register_channel(self, name, mixer, loop):
-			register_channel(name, mixer, loop)
+			_register_channel(name, mixer, loop)
 		
 		def play(self, file_names, channel, *args):
 			file_name = file_names if isinstance(file_names, str) else file_names[0]
-			play(channel + ' ' + file_name)
+			_play(channel + ' ' + file_name)
+		def stop(self, channel, *args):
+			_stop(channel)
+		
+		def set_volume(self, vol, channel, *args):
+			_set_volume(vol, channel)
 	
 	
 	class Easy:
@@ -91,12 +96,20 @@ init -1001 python:
 					return
 			who(what)
 		
+		def play(self, file_names, channel, *args):
+			self.music.play(file_name, channel, *args)
+		def stop(self, channel, *args):
+			self.music.stop(channel, *args)
+		
 		def call_screen(self, screen_name, ret_name, **kwargs):
-			global read
-			read = False
+			global menu_item_choosed
+			menu_item_choosed = False
 			
 			push_ret_names(screen_name, ret_name)
 			show_screen(screen_name)
 
 init -999 python:
 	renpy = Renpy()
+	
+	def volume(vol, channel):
+		renpy.music.set_volume(vol, channel = channel)

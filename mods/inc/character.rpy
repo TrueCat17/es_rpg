@@ -28,7 +28,7 @@ init -1001 python:
 			self.width, self.height = character_xsize, character_ysize
 			
 			self.real_name = name
-			self.unknow_name = kwargs.get('unknow_name', name)
+			self.unknown_name = kwargs.get('unknown_name', name)
 			
 			self.name = name
 			self.name_prefix = kwargs.get('name_prefix', '')
@@ -49,6 +49,9 @@ init -1001 python:
 			self.move_kind = 'stay' # 'stay' | 'walk' | 'run'
 			
 			self.location = None
+		
+		def __str__(self):
+			return self.name
 		
 		def __call__(self, text):
 			show_text(	self.name, self.name_prefix, self.name_postfix, self.color,
@@ -165,7 +168,7 @@ init -1001 python:
 	
 	def make_names_unknown():
 		for character in characters:
-			character.name = character.unknow_name
+			character.name = character.unknown_name
     def make_names_known():
     	for character in characters:
     		character.name = character.real_name

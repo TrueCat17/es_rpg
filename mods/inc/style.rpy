@@ -9,6 +9,10 @@ init -1001 python:
 	
 	style = Object()
 	
+	style.key = Style()
+	style.key.first_delay = 0.333
+	style.key.delay = 0.01
+	
 	style.default = Style()
 	style.default.xpos = 0
 	style.default.ypos = 0

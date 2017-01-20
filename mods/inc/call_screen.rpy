@@ -1,4 +1,5 @@
 init -1000 python:
+	menu_item_choosed = True
 	call_screen_stack = []
 	
 	def push_ret_names(screen_name, ret_name):
@@ -21,4 +22,4 @@ init -1000 python:
 			g = globals()
 			g[ret_name] = self.value
 			hide_screen(screen_name)
-			g['read'] = True
+			g['menu_item_choosed'] = True
