@@ -85,8 +85,8 @@ label day0_start:
 
 label day0_end_sleep:
 	scene
-	$ set_location("Квартира", "Кресло")
-	$ me.set_direction(forward)
+	$ set_location("flat", "sit_place")
+	$ me.set_direction(to_forward)
 	$ me.set_pose("sit")
 	
 	play sound_loop sfx_keyboard_mouse_computer_noise fadein 3
@@ -209,10 +209,10 @@ label day0_end_sleep:
 
 label day0_bus_station:
 	scene
-	$ set_location("Остановка", "Начало")
-	$ me.set_direction(back)
-	$ me.move_to_place("Остановка", False)
-	$ me.set_direction(right)
+	$ set_location("station", "start")
+	$ me.set_direction(to_back)
+	$ me.move_to_place("station", False)
+	$ me.set_direction(to_right)
 	
 	window show
 	"Вечер. Мороз.{w} Остановка и ожидание автобуса."
@@ -257,9 +257,9 @@ label day0_bus_station:
 label day0_to_bus:
 	scene
 	# Вообще-то мы уже и так тут находимся (и повёрнуты), но это на случай вызова этой метки с самого начала
-	$ set_location("Остановка", "Остановка")
-	$ me.set_direction(right)
-	$ set_map_object("Лиаз", "Место автобуса")
+	$ set_location("station", "station")
+	$ me.set_direction(to_right)
+	$ set_map_object("liaz", "bus_pos")
 	
 	play sound sfx_intro_bus_engine_start
 	pause 1
@@ -273,18 +273,18 @@ label day0_to_bus:
 	window hide
 	
 	pause 1
-	$ me.move_to_place("Вход в автобус", False)
+	$ me.move_to_place("bus_enter", False)
 	
 	call day0_liaz
 
 
 label day0_liaz:
 	scene
-	$ set_location("Лиаз", "Вход")
-	$ me.set_direction(forward)
-	$ me.move_to_place("Перед сиденьем", False)
-	$ me.set_direction(right)
-	$ me.move_to_place("Сиденье", False)
+	$ set_location("liaz", "enter")
+	$ me.set_direction(to_forward)
+	$ me.move_to_place("before_sit_place", False)
+	$ me.set_direction(to_right)
+	$ me.move_to_place("sit_place", False)
 	$ me.set_pose("sit")
 	pause 1
 	
