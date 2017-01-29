@@ -1,15 +1,7 @@
 label day0_start:
-	$ day_num = 0
-	
-	$ set_fps(30)
 	$ make_names_unknown()
 	
 	$ me.set_dress('wn')
-	
-#	jump day0_end_sleep
-#	jump day0_bus_station
-#	jump day0_to_bus
-#	jump day0_liaz
 	
 	scene anim prolog_1
 	play music music_list["a_promise_from_distant_days_v2"] fadein 3
@@ -88,7 +80,7 @@ label day0_start:
 	
 	stop music fadeout 2
 	
-	jump day0_end_sleep
+	call day0_end_sleep
 
 
 label day0_end_sleep:
@@ -212,7 +204,7 @@ label day0_end_sleep:
 	pause 3
 	scene bg bus_stop with fade
 	
-	jump day0_bus_station
+	call day0_bus_station
 
 
 label day0_bus_station:
@@ -259,12 +251,13 @@ label day0_bus_station:
 	nvl clear
 	$ set_mode_adv()
 	
-	jump day0_to_bus
+	call day0_to_bus
 
 
 label day0_to_bus:
 	scene
-	$ set_location("Остановка", "Остановка") # Вообще-то мы уже и так тут находимся (и повёрнуты), но это на случай jump'а из начала
+	# Вообще-то мы уже и так тут находимся (и повёрнуты), но это на случай вызова этой метки с самого начала
+	$ set_location("Остановка", "Остановка")
 	$ me.set_direction(right)
 	$ set_map_object("Лиаз", "Место автобуса")
 	
@@ -282,7 +275,7 @@ label day0_to_bus:
 	pause 1
 	$ me.move_to_place("Вход в автобус", False)
 	
-	jump day0_liaz
+	call day0_liaz
 
 
 label day0_liaz:
@@ -333,4 +326,4 @@ label day0_liaz:
 	$ volume(1.0, "music")
 	
 	scene
-	jump day1_start
+	call day1_start

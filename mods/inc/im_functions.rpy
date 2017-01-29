@@ -95,14 +95,14 @@ init -1001 python:
 			))
 			return res
 		
-		def tint(self, r, g, b):
-			res = ImMatrix([
+		def tint(self, r, g, b, a = 1):
+			res = ImMatrix((
 				r, 0, 0, 0, 0,
 				0, g, 0, 0, 0,
 				0, 0, b, 0, 0,
-				0, 0, 0, 1, 0,
+				0, 0, 0, a, 0,
 				0, 0, 0, 0, 1
-			])
+			))
 			return res
 		
 		def saturation(self, level, desat=(0.2126, 0.7152, 0.0722)):
@@ -209,11 +209,11 @@ init -1001 python:
 				out_msg('im.Composite', 'Ожидалось нечётное количество аргументов')
 				return ''
 			
-			size = str(args[0][0]) + ' ' + str(args[0][1])
+			size = str(int(args[0][0])) + ' ' + str(int(args[0][1]))
 			res = 'Composite (' + size + ')'
 			
 			for i in xrange(1, len(args) - 1, 2):
-				pos = str(args[i][0]) + ' ' + str(args[i][1])
+				pos = str(int(args[i][0])) + ' ' + str(int(args[i][1]))
 				img = str(args[i + 1])
 				
 				res += ' (' + pos + ') (' + img + ')'
@@ -227,8 +227,15 @@ init -1001 python:
 			return 'FactorScale (' + image + ') ' + str(k)
 		
 		def Crop(self, image, rect):
+			rect = map(lambda f: int(f), rect)
 			rect = '(' + str(rect[0]) + ' ' + str(rect[1]) + ' ' + str(rect[2]) + ' ' + str(rect[3]) + ')'
 			return 'Crop (' + image + ') ' + rect
+		
+		
+		def Rect(self, color, width = 1, height = 1):
+			r, g, b, a = renpy.easy.color(color)
+			matrix = im.matrix.invert() * im.matrix.tint(r / 255.0, g / 255.0, b / 255.0, a / 255.0)
+			return self.Scale(im.MatrixColor('images/bg/black.jpg', matrix), width, height)
 	
 	
 

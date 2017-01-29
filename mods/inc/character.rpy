@@ -12,8 +12,16 @@ init -1001 python:
 	character_max_frame = 4
 	character_max_direction = 4
 	
+	character_radius = 5 # used physics.rpy
+	
 	character_xsize = 48
 	character_ysize = 96
+	
+	
+	to_forward = 3
+	to_back = 0
+	to_left = 1
+	to_right = 2
 	
 	
 	character_moving = False
@@ -115,7 +123,7 @@ init -1001 python:
 			self.move_kind = 'run' if run else 'walk'
 			self.fps = character_run_fps if run else character_walk_fps
 			self.from_x, self.from_y = self.x, self.y
-			self.to_x, self.to_y = place.x, place.y
+			self.to_x, self.to_y = place.x + place.width / 2, place.y + place.height / 2
 			self.dx, self.dy = self.to_x - self.from_x, self.to_y - self.from_y
 			
 			self.speed = character_run_speed if run else character_walk_speed
@@ -134,12 +142,17 @@ init -1001 python:
 				self.moving_full_time = self.no_acceleration_time + character_acceleration_time * 2
 		
 		def update(self):
+			global character_moving
+			
 			self.image = self.get_current_image()
 			if self.pose == 'sit' or self.move_kind == 'stay':
 				return
 			
 			moving_dtime = time.time() - self.moving_start_time
 			self.set_frame(int(moving_dtime * self.fps))
+			
+			if not character_moving:
+				return
 			
 			if moving_dtime < self.acceleration_time:                               # Ещё не разогнались
 				cur_dist = self.acceleration * (moving_dtime ** 2) / 2
@@ -150,7 +163,6 @@ init -1001 python:
 			else:                                                                   # Всё, остановка
 				cur_dist = self.dist
 				
-				global character_moving
 				character_moving = False
 				self.move_kind = 'stay'
 			

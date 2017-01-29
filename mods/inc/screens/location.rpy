@@ -1,7 +1,84 @@
+init python:
+	control = False
+	loc__left = loc__right = loc__up = loc__down = False
+	
+	loc__prev_time = 0
+	def loc__move_character(dx, dy):
+		global loc__prev_time
+		
+		if me.pose != 'stance' or character_moving or not control:
+			loc__prev_time = time.time()
+			return
+		
+		if dx == 0 and dy == 0:
+			me.move_kind = 'stay'
+			loc__prev_time = time.time()
+			return
+		
+		if dx and dy:
+			dx /= 2 ** 0.5
+			dy /= 2 ** 0.5
+		
+		if dx < 0:
+			me.set_direction(to_left)
+		elif dx > 0:
+			me.set_direction(to_right)
+		elif dy < 0:
+			me.set_direction(to_forward)
+		else:
+			me.set_direction(to_back)
+		
+		me.fps = 			 character_run_fps 	if loc__ctrl_is_down else  character_walk_fps
+		me.move_kind = 				'run'		if loc__ctrl_is_down else 		'walk'
+		character_speed = 	character_run_speed if loc__ctrl_is_down else character_walk_speed
+		
+		dtime = time.time() - loc__prev_time
+		loc__prev_time = time.time()
+		
+		dx *= character_speed * dtime
+		dy *= character_speed * dtime
+		
+		me.x, me.y = get_end_point(me.x, me.y, dx, dy)
+
+
 screen location:
 	zorder -4
 	
 	if cur_location_name:
+		$ loc__ctrl_is_down = False
+		key 'LEFT CTRL' 	action SetVariable('loc__ctrl_is_down', True) first_delay 0.01
+		key 'RIGHT CTRL' 	action SetVariable('loc__ctrl_is_down', True) first_delay 0.01
+		key 'LEFT SHIFT' 	action SetVariable('loc__ctrl_is_down', True) first_delay 0.01
+		key 'RIGHT SHIFT' 	action SetVariable('loc__ctrl_is_down', True) first_delay 0.01
+		
+		python:
+			loc__start_moving = not(loc__left or loc__right or loc__up or loc__down)
+			if loc__start_moving:
+				loc__prev_time = time.time() - 0.1
+			loc__left = loc__right = loc__up = loc__down = False
+		
+		key 'LEFT' 		action SetVariable('loc__left', 	True) first_delay 0.1
+		key 'RIGHT' 	action SetVariable('loc__right', 	True) first_delay 0.1
+		key 'UP' 		action SetVariable('loc__up', 		True) first_delay 0.1
+		key 'DOWN' 		action SetVariable('loc__down', 	True) first_delay 0.1
+		key 'a' 		action SetVariable('loc__left', 	True) first_delay 0.1
+		key 'd' 		action SetVariable('loc__right', 	True) first_delay 0.1
+		key 'w' 		action SetVariable('loc__up', 		True) first_delay 0.1
+		key 's' 		action SetVariable('loc__down', 	True) first_delay 0.1
+		
+		python:
+			loc__character_dx = loc__character_dy = 0
+			if loc__left:
+				loc__character_dx -= 1
+			if loc__right:
+				loc__character_dx += 1
+			if loc__up:
+				loc__character_dy -= 1
+			if loc__down:
+				loc__character_dy += 1
+			loc__move_character(loc__character_dx, loc__character_dy)
+		
+		
 		python:
 			update_location_scale()
 			cur_location.update_pos()
@@ -10,7 +87,6 @@ screen location:
 				if obj.update:
 					obj.update()
 			objects_on_location.sort(key = lambda obj: obj.y)
-		
 		
 		image cur_location.main:
 			pos (cur_location.x, cur_location.y)
@@ -21,11 +97,14 @@ screen location:
 					obj_x, obj_y = obj.x * location_scale, obj.y * location_scale
 					obj_width, obj_height = obj.width * location_scale, obj.height * location_scale
 					
-					obj_xanchor = obj.xanchor if obj.xanchor <= 1 else obj.xanchor * location_scale
-					obj_yanchor = obj.yanchor if obj.yanchor <= 1 else obj.yanchor * location_scale
+					obj_xanchor, obj_yanchor = obj.xanchor, obj.yanchor
+					if type(obj_xanchor) == int:
+						obj_xanchor *= location_scale
+					if type(obj_yanchor) == int:
+						obj_yanchor *= location_scale
 				
 				image obj.image:
-					pos 	(obj_x, obj_y)
+					pos 	(int(obj_x), int(obj_y))
 					anchor 	(obj_xanchor, obj_yanchor)
 					xysize 	(obj_width, obj_height)
 		

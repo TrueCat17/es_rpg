@@ -101,6 +101,9 @@ init -1001 python:
 		def stop(self, channel, *args):
 			self.music.stop(channel, *args)
 		
+		def has_label(self, label):
+			return _has_label(label)
+		
 		def call_screen(self, screen_name, ret_name, **kwargs):
 			global menu_item_choosed
 			menu_item_choosed = False

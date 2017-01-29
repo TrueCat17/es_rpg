@@ -41,7 +41,7 @@ init -10000 python:
 		res = eval(code)
 		if res:
 			return res
-		return im.Scale(spr_default_background, 256, 256)
+		return im.Scale('images/bg/black.jpg', 256, 256)
 	
 	persistent_updates = False
 	class Object:

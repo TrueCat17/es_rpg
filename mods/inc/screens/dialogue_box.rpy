@@ -108,28 +108,51 @@ init -1000 python:
 				
 				# Добираемся до следующего символа
 				#   [] - доступ к байту строки, а не к символу
-				#   И т. к. некоторые символы в Unicode занимают больше 1 байта,
+				#   И т. к. многие символы в Unicode занимают больше 1 байта,
 				#     номер байта может не совпадать с номером символа
 				while n < l and not is_first_byte(db_voice_full_text[n]):
+					n += 1
+				
+				# Все теги, что начали открываться/закрываться, должны быть открыты/закрыты нормально
+				while n < l and db_voice_full_text[0:n].count('{') != db_voice_full_text[0:n].count('}'):
 					n += 1
 				
 				if t < 0:
 					break
 			
-			while db_voice_full_text[0:n].count('{') != db_voice_full_text[0:n].count('}'):
-				n += 1
+			next_text = db_voice_full_text[0:n]
+			
+			# Закрываем открытые теги, чтобы при дополнении строки "пробелами"
+			#   эти пробелы не были подчёркнуты или зачёркнуты
+			tags_close_str = ''
+			for tag in ('u', 's'):
+				count = next_text.count('{' + tag + '}') - next_text.count('{/' + tag + '}')
+				tags_close_str += ('{/' + tag + '}') * count
 			
 			# Определяем кол-во символов до конца последнего слова,
 			# Чтобы заполнить их неразрывными пробелами, чтобы не было переноса текста внутри недопечатанного слова
-			extra = 0
 			t = 0
 			while n + t < l and db_voice_full_text[n + t] != ' ':
 				t += 1
-				if n + t < l and is_first_byte(db_voice_full_text[n + t]):
+			
+			# Находим последнее слово и удаляем из него все тэги
+			last_word = db_voice_full_text[n:n+t]
+			while '{' in last_word:
+				start_tag = last_word.index('{')
+				if '}' in last_word[start_tag:]:
+					end_tag = last_word.index('}', start_tag)
+				else:
+					end_tag = len(last_word)
+				last_word = last_word[:start_tag] + last_word[end_tag + 1:]
+				
+			
+			extra = 0
+			for c in last_word:
+				if is_first_byte(c):
 					extra += 1
 			
 			nbsp = chr(0xC2) + chr(0xA0) # 0xC2, 0xA0 - код неразрывного пробела в utf-8
-			db_voice_text = db_voice_full_text[0:n] + nbsp * extra
+			db_voice_text = next_text + tags_close_str + nbsp * extra
 	
 	
 	def db_on_enter():

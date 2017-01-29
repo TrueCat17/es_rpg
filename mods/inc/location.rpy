@@ -4,9 +4,6 @@ init -1001 python:
 	cur_location_name = None
 	cur_place_name = None
 	
-	next_location_name = None
-	next_place_name = None
-	
 	
 	cam_object = None
 	def cam_to(obj):
@@ -104,7 +101,7 @@ init -1001 python:
 			out_msg('show_character', 'В локации <' + cur_location_name + '> нет места с именем <' + place_name + '>')
 			return
 		
-		character.x, character.y = place.x, place.y
+		character.x, character.y = place.x + place.width / 2, place.y + place.height / 2
 		objects_on_location.append(character)
 	
 	def hide_character(character):
@@ -140,13 +137,15 @@ init -1001 python:
 			out_msg('set_map_object', 'Объект <' + obj_name + '> не найден')
 			return
 		
-		image = map_objects[obj_name]
+		
+		images = map_objects[obj_name]
 		
 		map_object = Object()
-		map_object.image = image
+		map_object.image = images['main']
+		map_object.free = images['free']
 		map_object.x, map_object.y = place.x, place.y
-		map_object.xanchor, map_object.yanchor = 0, 0
-		map_object.width, map_object.height = get_texture_width(image), get_texture_height(image)
+		map_object.xanchor, map_object.yanchor = 0, 1.0
+		map_object.width, map_object.height = get_texture_width(map_object.image), get_texture_height(map_object.image)
 		objects_on_location.append(map_object)
 	
 	def hide_map_object(obj_name):
@@ -163,7 +162,7 @@ init -1001 python:
 				break
 	
 	
-	def register_place(location_name, place_name, x, y):
+	def register_place(location_name, place_name, x, y, width, height):
 		if not locations.has_key(location_name):
 			out_msg('register_place', 'Локация <' + location_name + '> не найдена')
 			return
@@ -173,22 +172,26 @@ init -1001 python:
 			out_msg('register_place', 'Место <' + place_name + '> в локации <' + self.name + '> уже существует')
 			return
 		
-		place = Place(x, y)
+		place = Place(x, y, width, height)
 		location.add_place(place, place_name)
 	
-	def register_map_object(obj_name, path_to_image):
+	def register_map_object(obj_name, main, free):
 		if map_objects.has_key(obj_name):
 			out_msg('register_map_object', 'Объект с именем <' + obj_name + '> уже существует')
 			return
-		map_objects[obj_name] = path_to_image
+		map_object = {
+			'main': main,
+			'free': free
+		}
+		map_objects[obj_name] = map_object
 	
-	def register_exit(location_name, to_location_name, to_place_name, x, y):
+	def register_exit(location_name, to_location_name, to_place_name, x, y, width, height):
 		if not locations.has_key(location_name):
 			out_msg('register_exit', 'Локация <' + location_name + '> не найдена')
 			return
 		
 		location = locations[location_name]
-		exit = Exit(to_location_name, to_place_name, x, y)
+		exit = Exit(to_location_name, to_place_name, x, y, width, height)
 		location.add_exit(exit)
 	
 	
@@ -217,12 +220,6 @@ init -1001 python:
 		
 		def add_exit(self, exit):
 			self.exits.append(exit)
-		
-		def in_exit(self, x, y):
-			for exit in self.exits:
-				if exit.inside(x, y):
-					return exit
-			return None
 		
 		
 		def update_pos(self):
@@ -254,21 +251,61 @@ init -1001 python:
 	
 	
 	class Place(Object):
-		def __init__(self, x, y):
+		def __init__(self, x, y, width, height):
 			Object.__init__(self)
 			self.x, self.y = x, y
+			self.width, self.height = width, height
+		
+		def inside(self, x, y):
+			return self.x <= x and x <= self.x + self.width and self.y <= y and y <= self.y + self.height
 	
 	class Exit(Object):
-		def __init__(self, to_location_name, to_place_name, x, y):
+		def __init__(self, to_location_name, to_place_name, x, y, width, height):
 			Object.__init__(self)
 			self.to_location_name = to_location_name
 			self.to_place_name = to_place_name
 			self.x, self.y = x, y
-			
-			self.radius = 50 # px
+			self.width, self.height = width, height
 		
 		def inside(self, x, y):
-			dx = self.x - x
-			dy = self.y - y
-			s = (dx*dx + dy*dy) ** 0.5
-			return s < self.radius
+			return self.x <= x and x <= self.x + self.width and self.y <= y and y <= self.y + self.height
+	
+	
+	
+	
+	was_out_exit = False
+	was_out_place = False
+	
+	def get_location_exit():
+		global was_out_exit, was_out_place
+		
+		for exit in cur_location.exits:
+			if exit.inside(me.x, me.y):
+				if was_out_exit and can_exit_to(exit.to_location_name, exit.to_place_name):
+					was_out_exit = False
+					was_out_place = True
+					return exit
+				return None
+		else:
+			was_out_exit = True
+		
+		return None
+	
+	def get_location_place():
+		global was_out_place
+		
+		for place_name in cur_location.places.keys():
+			place = cur_location.places[place_name]
+			if place.inside(me.x, me.y):
+				if was_out_place:
+					was_out_place = False
+					return place_name
+				return None
+		else:
+			was_out_place = True
+		
+		return None
+		
+	
+	
+	

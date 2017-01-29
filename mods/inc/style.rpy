@@ -39,11 +39,12 @@ init -1001 python:
 	style.text.size = 20
 	style.text.color = '#FFFFFF'
 	style.text.font = 'Calibri'
-	style.text.bold = False
-	style.text.italic = False
-	style.text.underline = False
 	style.text.text_align = 'left' 				# left | center | right
 	style.text.text_valign = 'top' 				# top  | center |  down
+# Пока без поддержки:
+#	style.text.bold = False
+#	style.text.italic = False
+#	style.text.underline = False
 	
 	style.textbutton = Style(style.text)
 	style.textbutton.text_align = 'center'		# left | center | right
