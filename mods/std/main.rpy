@@ -11,7 +11,7 @@ init python:
 
 
 label main:
-	call day0_start
+	call day1_start
 	
 	while True:
 		call on_update

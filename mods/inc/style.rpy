@@ -21,6 +21,7 @@ init -1001 python:
 	style.default.xsize = 1.0
 	style.default.ysize = 1.0
 	style.default.spacing = 0
+	style.default.crop = (0, 0, 1.0, 1.0)
 	
 	style.screen = Style(style.default)
 	style.screen.modal = False
@@ -52,14 +53,14 @@ init -1001 python:
 	style.textbutton.xsize = 175
 	style.textbutton.ysize = 25
 	style.textbutton.size = 15
-	style.textbutton.background = 'images/es2d/gui/std/btn/usual.png'
-	style.textbutton.hover_background = ''
+	style.textbutton.ground = 'images/es2d/gui/std/btn/usual.png'
+	style.textbutton.hover = ''
 	
 	style.button = Style(style.default)
 	style.button.xsize = 175
 	style.button.ysize = 25
-	style.button.background = 'images/es2d/gui/std/btn/usual.png'
-	style.button.hover_background = ''
+	style.button.ground = 'images/es2d/gui/std/btn/usual.png'
+	style.button.hover = ''
 	
 	style.image = Style(style.default)
 	style.image.xsize = -1
@@ -67,4 +68,4 @@ init -1001 python:
 	
 	style.imagemap = Style(style.default)
 	style.imagemap.ground = ''
-	style.imagemap.hover_background = ''
+	style.imagemap.hover = ''

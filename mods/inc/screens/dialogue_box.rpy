@@ -203,7 +203,7 @@ screen dialogue_box:
 	
 	
 	button:
-		background db_menu_btn
+		ground 	db_menu_btn
 
 		anchor	(1.0, 0.0)
 		pos		(get_stage_width() - db_menu_btn_indent, db_menu_btn_indent)
@@ -233,7 +233,7 @@ screen dialogue_box:
 					
 					button:
 						yalign		0.5
-						background	db_prev_btn
+						ground		db_prev_btn
 						xysize		(db_prev_btn_size, db_prev_btn_size)
 #						action		db_on_enter
 					
@@ -248,7 +248,7 @@ screen dialogue_box:
 					
 					button:
 						yalign 		0.5
-						background	db_next_btn
+						ground		db_next_btn
 						xysize		(db_next_btn_size, db_next_btn_size)
 						action		db_on_enter
 		
@@ -280,7 +280,7 @@ screen dialogue_box:
 				
 					button:
 						yalign		0.5
-						background	db_prev_btn
+						ground		db_prev_btn
 						xysize		(db_prev_btn_size, db_prev_btn_size)
 #						action		db_on_enter
 				
@@ -288,7 +288,7 @@ screen dialogue_box:
 				
 					button:
 						yalign 		0.5
-						background	db_next_btn
+						ground		db_next_btn
 						xysize		(db_next_btn_size, db_next_btn_size)
 						action		db_on_enter
 		

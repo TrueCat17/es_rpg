@@ -53,8 +53,10 @@ init -1001 python:
 			
 			self.frame = 0
 			self.direction = 0
-			self.pose = 'stance' # 'stance' | 'sit'
-			self.move_kind = 'stay' # 'stay' | 'walk' | 'run'
+			self.pose = 'stance' 		# 'stance' | 'sit'
+			self.move_kind = 'stay' 	# 'stay'   | 'walk' | 'run'
+			
+			self.crop = (0, 0, character_xsize, character_ysize)
 			
 			self.location = None
 		
@@ -70,10 +72,11 @@ init -1001 python:
 		
 		def make_rpg(self, prefix_path_to_image, default_dress):
 			self.prefix_path_to_image = prefix_path_to_image
-			self.dress = default_dress
+			self.set_dress(default_dress)
 		
 		def set_dress(self, dress):
 			self.dress = dress
+			self.image = self.prefix_path_to_image + self.dress + '.png'
 		
 		
 		def set_frame(self, frame):
@@ -91,7 +94,7 @@ init -1001 python:
 				self.pose, self.move_kind = 'stance', 'stay'
 				out_msg('Character.set_pose', 'Неожидаемое значение параметра pose <' + str(pose) + '>\n' + 'Ожидалось "sit" или "stance"')
 		
-		def get_current_image(self):
+		def update_crop(self):
 			frame = self.frame
 			if self.pose == 'sit':
 				frame = character_max_frame
@@ -101,9 +104,7 @@ init -1001 python:
 			x = frame * character_xsize
 			y = self.direction * character_ysize
 			
-			image = self.prefix_path_to_image + self.dress + '.png'
-			res = im.Crop(image, (x, y, character_xsize, character_ysize))
-			return res
+			self.crop = (x, y, character_xsize, character_ysize)
 		
 		def move_to_place(self, place_name, run = False):
 			if not cur_location_name:
@@ -144,7 +145,7 @@ init -1001 python:
 		def update(self):
 			global character_moving
 			
-			self.image = self.get_current_image()
+			self.update_crop()
 			if self.pose == 'sit' or self.move_kind == 'stay':
 				return
 			

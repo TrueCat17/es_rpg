@@ -146,6 +146,7 @@ init -1001 python:
 		map_object.x, map_object.y = place.x, place.y
 		map_object.xanchor, map_object.yanchor = 0, 1.0
 		map_object.width, map_object.height = get_texture_width(map_object.image), get_texture_height(map_object.image)
+		map_object.crop = (0, 0, 1.0, 1.0)
 		objects_on_location.append(map_object)
 	
 	def hide_map_object(obj_name):

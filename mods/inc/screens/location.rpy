@@ -81,12 +81,13 @@ screen location:
 		
 		python:
 			update_location_scale()
-			cur_location.update_pos()
 			
 			for obj in objects_on_location:
 				if obj.update:
 					obj.update()
 			objects_on_location.sort(key = lambda obj: obj.y)
+			
+			cur_location.update_pos()
 		
 		image cur_location.main:
 			pos (cur_location.x, cur_location.y)
@@ -107,6 +108,7 @@ screen location:
 					pos 	(int(obj_x), int(obj_y))
 					anchor 	(obj_xanchor, obj_yanchor)
 					xysize 	(obj_width, obj_height)
+					crop 	obj.crop
 		
 		if cur_location.over:
 			image cur_location.over:

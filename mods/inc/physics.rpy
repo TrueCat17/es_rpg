@@ -1,22 +1,31 @@
 init python:
 	
 	def get_map_free():
+		cs = character_xsize
+		def near(x, y, width, height):
+			return x - cs < me.x and me.x < x + width + cs and y - cs < me.y and me.y < y + height + cs
+		
 		objs = [obj for obj in objects_on_location if not isinstance(obj, Character)]
 		characters = [obj for obj in objects_on_location if isinstance(obj, Character) and obj is not me]
 		
+		# Вычитаем 253.9/255 из каждого (rgb) канала, чтобы все цвета, кроме чисто-белого, стали чёрными
 		matrix = im.matrix.identity()
 		matrix.t = [i for i in matrix.t]
-		matrix.t[4] = matrix.t[9] = matrix.t[14] = -253.99/255.0 # sub from r, g, b channels
+		matrix.t[4] = matrix.t[9] = matrix.t[14] = -253.9/255.0
 		
 		to_draw = [(cur_location.width, cur_location.height), (0, 0), cur_location.free]
 		for obj in objs:
-			to_draw += [(obj.x, obj.y - obj.height), im.MatrixColor(obj.free, im.matrix.invert() * matrix)]
+			if near(obj.x, obj.y - obj.height, obj.width, obj.height):
+				to_draw += [(obj.x, obj.y - obj.height), im.MatrixColor(obj.free, im.matrix.invert() * matrix)]
 		
-		cs = character_xsize
 		for character in characters:
-			to_draw += [(character.x - cs / 2, character.y - cs / 2), im.Rect('#FFFFFF', cs, cs)]
+			if near(character.x, character.y, 0, 0):
+				to_draw += [(character.x - cs / 2, character.y - cs / 2), im.Rect('#FFFFFF', cs, cs)]
 		
-		res = im.Composite(*to_draw)
+		if len(to_draw) != 3:
+			res = im.Composite(*to_draw)
+		else:
+			res = cur_location.free
 		return res
 	
 	
