@@ -51,6 +51,8 @@ init -1001 python:
 			self.prefix_path_to_image = None
 			self.dress = None
 			
+			self.moving_start_time = time.time()
+			
 			self.frame = 0
 			self.direction = 0
 			self.pose = 'stance' 		# 'stance' | 'sit'

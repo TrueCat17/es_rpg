@@ -38,7 +38,6 @@ init -1000 python:
     
     
     
-    
 	rpg_characters = ('me ' +
 					  'sl un us dv mi mt cs mz el sh uv ' +
 					  'pm pf').split(' ')
@@ -46,3 +45,6 @@ init -1000 python:
 	g = globals()
 	for name in rpg_characters:
 		g[name].make_rpg('images/es2d/characters/' + name + '_', 'pi')
+		g['lp_' + name] = 0
+	
+	

@@ -38,13 +38,21 @@ init python:
 		dx *= character_speed * dtime
 		dy *= character_speed * dtime
 		
-		me.x, me.y = get_end_point(me.x, me.y, dx, dy)
+		to_x, to_y = get_end_point(me.x, me.y, dx, dy)
+		dx, dy = to_x - me.x, to_y - me.y
+		if dx or dy:
+			me.x, me.y = to_x, to_y
+		else:
+			me.move_kind = 'stay'
 
 
 screen location:
 	zorder -4
 	
 	if cur_location_name:
+		$ exec_action = False
+		key 'E' action SetVariable('exec_action', True)
+		
 		$ loc__ctrl_is_down = False
 		key 'LEFT CTRL' 	action SetVariable('loc__ctrl_is_down', True) first_delay 0.01
 		key 'RIGHT CTRL' 	action SetVariable('loc__ctrl_is_down', True) first_delay 0.01

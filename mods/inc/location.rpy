@@ -273,7 +273,7 @@ init -1001 python:
 	
 	
 	
-	
+	exec_action = False
 	was_out_exit = False
 	was_out_place = False
 	
@@ -298,7 +298,7 @@ init -1001 python:
 		for place_name in cur_location.places.keys():
 			place = cur_location.places[place_name]
 			if place.inside(me.x, me.y):
-				if was_out_place:
+				if exec_action or was_out_place:
 					was_out_place = False
 					return place_name
 				return None
