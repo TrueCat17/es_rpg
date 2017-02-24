@@ -1,18 +1,21 @@
 init:
     $ mods["prologue"]=u"Оригинал БЛ"
     
-    $ lp_dv = 0
-    $ lp_sl = 0
-    $ lp_un = 0
-    $ lp_us = 0
-    
     $ prologue = 0
 
 label prologue:
-#	jump day1
+	$ set_fps(60)
+	if False:
+		show us grin sport far at right
+		show sl angry pioneer at center
+		pause 1
+		show us laugh sport far at right   behind sl
+		pause 50
+	jump day1
+#	jump day2_main1
+	
     $ make_names_unknown()
     $ set_mode_adv()
-    $ reload_names()
     $ backdrop = "prologue"
     $ new_chapter(-1, u"Пролог")
     $ prolog_time()
@@ -548,7 +551,7 @@ label day1:
     "Судя по всему, этот лагерь (если это, конечно, лагерь) – единственое место, где могли быть люди, поэтому я решил пойти туда, и уже почти дошёл до ворот, как..."
     "Оттуда выглянула девочка..."
     with None
-    show sl normal pioneer far at center 
+    show sl normal pioneer far at center
     with dissolve
     "... в пионерской форме."
     th "Логика меня не подвела."
@@ -647,7 +650,6 @@ label day1:
     play ambience ambience_camp_center_day fadein 5
     window show
     "Буквально через 50 метров слева словно из-под земли выросло небольшое одноэтажное здание.{w} Вывеска рядом с дверью гласила «Клубы»."
-    stop music fadeout 5
     "Я уже было собирался подойти поближе..."
     play sound sfx_open_door_clubs fadein 0
     with None
@@ -778,7 +780,6 @@ label day1:
     $ persistent.sprite_time = "day"
     scene bg ext_path_day
     with dissolve
-    stop music fadeout 5
     window show
     "Через небольшой пролесок..."
     window hide
@@ -1189,7 +1190,7 @@ label day1:
     $ persistent.sprite_time = "day"
     scene bg ext_playground_day
     with dissolve
-    play ambience ambience_soccer_play_background fadeout 2
+    play ambience ambience_soccer_play_background fadein 2
     play music music_list["went_fishing_caught_a_girl"] fadein 5
     window show
     "Через некоторое время я оказался около футбольного поля."
@@ -1224,7 +1225,7 @@ label day1:
     stop ambience fadeout 2
     scene bg black
     with dissolve2
-    play ambience ambience_camp_center_evening fadeout 2
+    play ambience ambience_camp_center_evening fadein 2
     window show
     "..."
     "Постепенно в свои права начал вступать вечер, который нёс с собой усталость и опустошение от бесцельно прожитого дня."
@@ -1509,7 +1510,7 @@ label day1:
     show sl normal pioneer at center 
     with dspr
     sl "Ты, наверное, есть хочешь, поужинать-то не получилось…"
-    play sound sfx_stomach_growl channel 7
+    play sound sfx_stomach_growl
     "Действительно, я совсем забыл о голоде, но после этих её слов мой желудок явственно напомнил о себе, предательски заурчав."
     with None
     show sl smile pioneer at center 
@@ -1620,7 +1621,7 @@ label day1:
     with dissolve
     "Я сел на стул и принялся покорно ждать свою спасительницу."
     window hide
-    show cg d1_sl_dinner
+    scene cg d1_sl_dinner
     with dissolve
     window show
     "Ужин мой был нехитрым – несколько булочек и стакан кефира."
@@ -1629,7 +1630,7 @@ label day1:
     "Пока я ел, Славя сидела напротив и смотрела на меня."
     me "Что, у меня что-то на лице?"
     with None
-    show cg d1_sl_dinner_0
+    scene cg d1_sl_dinner_0
     with dspr
     sl "Нет, просто…"
     "Она улыбнулась."
@@ -1638,7 +1639,7 @@ label day1:
     "Глупо спрашивать у человека, попавшего в одночасье в другую реальность, понравились ли ему меню в столовой, вожатая и отведённое койкоместо."
     sl "Ничего, скоро привыкнешь!"
     with None
-    show cg d1_sl_dinner
+    scene cg d1_sl_dinner
     with dspr
     "Славя мечтательно уставилась в окно."
     th "По правде говоря, привыкать к подобному совершенно не хочется, но ведь она не знает..."
@@ -1655,7 +1656,7 @@ label day1:
     "Она внимательно посмотрела на меня.{w} Так, как будто от моего ответа зависело что-то серьёзное."
     me "Ну, я не знаю... мило. Да! Тут мило."
     with None
-    show cg d1_sl_dinner_0
+    scene cg d1_sl_dinner_0
     with dspr
     sl "Пожалуй."
     "Она вновь улыбнулась."
@@ -1686,12 +1687,12 @@ label day1:
     "А Славя была ещё и...{w} милой?"
     "Я украдкой посмотрел на неё, не зная что сказать."
     with None
-    show cg d1_sl_dinner
+    scene cg d1_sl_dinner
     with dspr
     sl "Прости, хотела показать тебе лагерь, но совсем забегалась сегодня."
     me "Да я сам... Вроде ничего не пропустил."
     with None
-    show cg d1_sl_dinner_0
+    scene cg d1_sl_dinner_0
     with dspr
     sl "Прям-таки ничего-ничего?"
     "Она улыбалась так, что мне приходилось от смущения прятать глаза."

@@ -16,7 +16,6 @@ screen main_menu:
 		hotspot (1000, 290, 325, 50) action exit_from_game
 
 
-
 label start_main_menu:
 	$ set_fps(20)
 	

@@ -14,14 +14,16 @@ init -1000 python:
 	
 	
 	def add_sprite_to_showlist(params, child_params):
+		global sprite_list
+		
 		if len(params) == 0:
 			out_msg('add_sprite_to_showlist', 'Список params пуст')
 			return
-		
+	
 		params_str = ' '.join(params)
-		
+	
 		pnames = ('at', 'with', 'behind', 'as')
-		
+	
 		d = dict()
 		while len(params) > 2 and (params[-2] in pnames):
 			pname, pvalue = params[-2], params[-1]
@@ -42,13 +44,16 @@ init -1000 python:
 		
 		new = False
 		spr = None
+		index = 0
 		for i in sprite_list:
 			if i.as_name == d['as']:
 				if d['behind'] is None:
 					spr = i
 				else:
-					sprite_list.remove(i)
+					sprite_list = sprite_list[0:index] + sprite_list[index+1:]
 				break
+			index += 1
+		
 		
 		if spr is None:
 			new = True
@@ -67,10 +72,9 @@ init -1000 python:
 			else:
 				index = 0
 				for i in sprite_list:
-					index += 1
 					if i.as_name == d['behind']:
-						index -= 1
 						break
+					index += 1
 				else:
 					out_msg('add_sprite_to_showlist', 'Спрайт с именем <' + d['behind'] + '> не найден')
 				sprite_list.insert(index, spr)

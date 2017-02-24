@@ -38,10 +38,13 @@ init -10000 python:
 	
 	def get_image(name):
 		code = get_image_code(name)
-		res = eval(code)
-		if res:
-			return res
-		return im.Scale('images/bg/black.jpg', 256, 256)
+		
+		res = None
+		try:
+			res = eval(code)
+		except:
+			res = im.Scale('images/bg/black.jpg', 256, 256)
+		return res
 	
 	persistent_updates = False
 	class Object:
@@ -84,7 +87,9 @@ init -10000 python:
 		def __nonzero__(self):
 			return True
 		def __str__(self):
-			return '[Object ' + str(type(self)) + ']'
+			return '<Object ' + str(type(self)) + '>'
+		def __repr__(self):
+			return str(self)
 		
 		def get_props(self):
 			keys = self.__dict__.keys()
