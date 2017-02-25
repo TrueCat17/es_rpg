@@ -202,14 +202,6 @@ screen dialogue_box:
 	$ db_text_size = max(14, get_stage_height() / 30)
 	
 	
-	button:
-		ground 	db_menu_btn
-
-		anchor	(1.0, 0.0)
-		pos		(get_stage_width() - db_menu_btn_indent, db_menu_btn_indent)
-		xysize	(db_menu_btn_size, db_menu_btn_size)
-	
-	
 	
 	if db_visible:
 		
@@ -295,4 +287,12 @@ screen dialogue_box:
 		
 		if renpy.config.fps_meter:
 			use fps_meter
+	
+	
+	button:
+		ground 	db_menu_btn
+
+		anchor	(1.0, 0.0)
+		pos		(get_stage_width() - db_menu_btn_indent, db_menu_btn_indent)
+		xysize	(db_menu_btn_size, db_menu_btn_size)
 
