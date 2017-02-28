@@ -41,7 +41,8 @@ init python:
 		to_x, to_y = get_end_point(me.x, me.y, dx, dy)
 		dx, dy = to_x - me.x, to_y - me.y
 		if dx or dy:
-			me.x, me.y = to_x, to_y
+			me.x = me.to_x = to_x
+			me.y = me.to_y = to_y
 		else:
 			me.move_kind = 'stay'
 

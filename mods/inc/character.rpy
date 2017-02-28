@@ -58,6 +58,8 @@ init -1001 python:
 			self.pose = 'stance' 		# 'stance' | 'sit'
 			self.move_kind = 'stay' 	# 'stay'   | 'walk' | 'run'
 			
+			self.end_stop_time = 0
+			
 			self.crop = (0, 0, character_xsize, character_ysize)
 			
 			self.location = None
@@ -108,7 +110,7 @@ init -1001 python:
 			
 			self.crop = (x, y, character_xsize, character_ysize)
 		
-		def move_to_place(self, place_name, run = False):
+		def move_to_place(self, place_name, run = False, exec_stop_time = -1):
 			if not cur_location_name:
 				out_msg('Character.move_to_place', 'Текущая локация не установлена, сначала следует вызвать set_location')
 				return
@@ -120,13 +122,19 @@ init -1001 python:
 			global character_moving
 			character_moving = True
 			
+			if exec_stop_time >= 0:
+				self.end_stop_time = time.time() + exec_stop_time
+			else:
+				self.end_stop_time = None
+			
+			
 			self.moving_start_time = time.time()
 			
 			self.pose = 'stance'
 			self.move_kind = 'run' if run else 'walk'
 			self.fps = character_run_fps if run else character_walk_fps
-			self.from_x, self.from_y = self.x, self.y
-			self.to_x, self.to_y = place.x + place.width / 2, place.y + place.height / 2
+			self.from_x, self.from_y = int(self.x), int(self.y)
+			self.to_x, self.to_y = int(place.x + place.width / 2), int(place.y + place.height / 2)
 			self.dx, self.dy = self.to_x - self.from_x, self.to_y - self.from_y
 			
 			self.speed = character_run_speed if run else character_walk_speed
@@ -147,6 +155,10 @@ init -1001 python:
 		def update(self):
 			global character_moving
 			
+			if self.end_stop_time and self.end_stop_time < time.time():
+				self.end_stop_time = 0
+				character_moving = False
+			
 			self.update_crop()
 			if self.pose == 'sit' or self.move_kind == 'stay':
 				return
@@ -154,8 +166,9 @@ init -1001 python:
 			moving_dtime = time.time() - self.moving_start_time
 			self.set_frame(int(moving_dtime * self.fps))
 			
-			if not character_moving:
+			if self.x == self.to_x and self.y == self.to_y:
 				return
+			
 			
 			if moving_dtime < self.acceleration_time:                               # Ещё не разогнались
 				cur_dist = self.acceleration * (moving_dtime ** 2) / 2
@@ -166,8 +179,9 @@ init -1001 python:
 			else:                                                                   # Всё, остановка
 				cur_dist = self.dist
 				
-				character_moving = False
 				self.move_kind = 'stay'
+				if self.end_stop_time is None:
+					character_moving = False
 			
 			self.x = self.from_x + self.dx * cur_dist / self.dist
 			self.y = self.from_y + self.dy * cur_dist / self.dist

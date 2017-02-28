@@ -230,13 +230,13 @@ screen dialogue_box:
 #						action		db_on_enter
 					
 					image db_voice:
-						xysize (0.9, max(80, 0.2 * get_stage_height()))
+						xysize (0.85, max(80, 0.2 * get_stage_height()))
 		
 						text db_voice_text:
 							size	db_text_size
 							color	db_voice_color
 							align	(0.5, 0.5)
-							xysize	(0.875, max(70, 0.18 * get_stage_height()))
+							xysize	(0.825, max(70, 0.18 * get_stage_height()))
 					
 					button:
 						yalign 		0.5

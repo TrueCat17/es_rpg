@@ -130,8 +130,7 @@ label day1__clubs__before_clubs:
 		
 		"Первая убежала."
 		$ un.set_direction(to_right)
-		$ un.move_to_place("square", True)
-		$ hide_character(un)
+		$ un.move_to_place("square", True, 0.5)
 		
 		"Вторая посмотрела на меня"
 		$ us.set_direction(to_back)
@@ -139,6 +138,7 @@ label day1__clubs__before_clubs:
 		$ me.set_direction(to_right)
 		$ us.set_direction(to_right)
 		$ us.move_to_place("square", True)
+		$ hide_character(un)
 		$ hide_character(us)
 		
 		window hide
