@@ -82,23 +82,6 @@ screen location:
 		key 's' 		action SetVariable('loc__down', 	True) first_delay 0.1
 		
 		python:
-			if loc__left and not loc__prev_left:
-				loc__left_time = time.time()
-			if loc__right and not loc__prev_right:
-				loc__right_time = time.time()
-			if loc__up and not loc__prev_up:
-				loc__up_time = time.time()
-			if loc__down and not loc__prev_down:
-				loc__down_time = time.time()
-			
-			if loc__left or loc__right or loc__up or loc__down:
-				loc__direction = loc__directions[loc__get_min(	loc__left_time if loc__left else max_time,
-																loc__right_time if loc__right else max_time,
-																loc__up_time if loc__up else max_time,
-																loc__down_time if loc__down else max_time
-				)]
-				me.set_direction(loc__direction)
-			
 			loc__character_dx = loc__character_dy = 0
 			if loc__left:
 				loc__character_dx -= 1
@@ -109,6 +92,25 @@ screen location:
 			if loc__down:
 				loc__character_dy += 1
 			loc__move_character(loc__character_dx, loc__character_dy)
+				
+			
+			if control:
+				if loc__left and not loc__prev_left:
+					loc__left_time = time.time()
+				if loc__right and not loc__prev_right:
+					loc__right_time = time.time()
+				if loc__up and not loc__prev_up:
+					loc__up_time = time.time()
+				if loc__down and not loc__prev_down:
+					loc__down_time = time.time()
+			
+				if loc__left or loc__right or loc__up or loc__down:
+					loc__direction = loc__directions[loc__get_min(	loc__left_time if loc__left else max_time,
+																	loc__right_time if loc__right else max_time,
+																	loc__up_time if loc__up else max_time,
+																	loc__down_time if loc__down else max_time
+					)]
+					me.set_direction(loc__direction)
 		
 		
 		python:

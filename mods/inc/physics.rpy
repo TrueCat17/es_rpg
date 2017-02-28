@@ -50,16 +50,16 @@ init python:
 				return False
 			return get_pixel(free, x, y) == black_color
 		
-		
+		s2 = 1 / (2 ** 0.5)
 		rotations = (
-			(-1, -1), # left-up: x == -1, y == -1
-			( 0, -1), # up
-			( 1, -1), # right-up
-			( 1,  0), # ...
-			( 1,  1),
-			( 0,  1),
-			(-1,  1),
-			(-1,  0)
+			(-s2, -s2), # left-up: x == -1, y == -1
+			(  0, -1 ), # up
+			( s2, -s2), # right-up
+			(  1,  0 ), # ...
+			( s2,  s2),
+			(  0,  1 ),
+			(-s2,  s2),
+			( -1,  0 )
 		)
 		
 		
@@ -72,15 +72,17 @@ init python:
 		def part(x):
 			return sign(x) if abs(x) > 1 else x
 		
+		sdx, sdy = sign(dx), sign(dy)
+		if sdx and sdy:
+			sdx, sdy = sdx * s2, sdy * s2
 		
-		rot_index = rotations.index( (sign(dx), sign(dy)) )
+		rot_index = rotations.index( (sdx, sdy) )
 		left1, right1 = rotations[(rot_index - 1) % len(rotations)], rotations[(rot_index + 1) % len(rotations)]
 		left2, right2 = rotations[(rot_index - 2) % len(rotations)], rotations[(rot_index + 2) % len(rotations)]
 		
 		x, y = from_x, from_y
 		while int(x + dx) != int(x) or int(y + dy) != int(y):
 			pdx, pdy = part(dx), part(dy)
-			dx, dy = to_zero(dx), to_zero(dy)
 			
 			dist = 0
 			changed = False
@@ -90,25 +92,22 @@ init python:
 				
 				changed = True
 				if free1 and free2:
-					x, y = x + pdx, y + pdy
+					dpoint = (pdx, pdy)
 				elif free1:
 					free_extra = is_black(x + dist * left1[0], y + dist * left1[1])
-					if free_extra:
-						x, y = x + left1[0], y + left1[1]
-					else:
-						x, y = x + left2[0], y + left2[1]
+					dpoint = left1 if free_extra else left2
 				elif free2:
 					free_extra = is_black(x + dist * right1[0], y + dist * right1[1])
-					if free_extra:
-						x, y = x + right1[0], y + right1[1]
-					else:
-						x, y = x + right2[0], y + right2[1]
+					dpoint = right1 if free_extra else right2
 				else:
 					changed = False
 				dist += 1
 				
 			if not changed:
 				dx = dy = 0
+			else:
+				dx, dy = to_zero(dx), to_zero(dy)
+				x, y = x + dpoint[0], y + dpoint[1]
 		
 		return x + dx, y + dy
 
