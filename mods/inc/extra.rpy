@@ -10,7 +10,7 @@ init -1100000000 python:
 	def get_traceback(tb):
 		import traceback
 		l = traceback.format_tb(tb)
-		return '\n\t'.join(l)
+		return ''.join(l)
 
 
 init -10000 python:

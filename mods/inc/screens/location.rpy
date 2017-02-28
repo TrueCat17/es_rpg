@@ -1,6 +1,20 @@
 init python:
+
+	max_time = time.time() * 2
+	
+	
 	control = False
+	loc__prev_left = loc__prev_right = loc__prev_up = loc__prev_down = False
 	loc__left = loc__right = loc__up = loc__down = False
+	
+	loc__directions = [to_left, to_right, to_forward, to_back]
+	loc__direction = to_back
+	loc__left_time = loc__right_time = loc__up_time = loc__down_time = max_time
+	
+	
+	def loc__get_min(a, b, c, d):
+		return [a, b, c, d].index(min(a, b, c, d))
+	
 	
 	loc__prev_time = 0
 	def loc__move_character(dx, dy):
@@ -18,15 +32,6 @@ init python:
 		if dx and dy:
 			dx /= 2 ** 0.5
 			dy /= 2 ** 0.5
-		
-		if dx < 0:
-			me.set_direction(to_left)
-		elif dx > 0:
-			me.set_direction(to_right)
-		elif dy < 0:
-			me.set_direction(to_forward)
-		else:
-			me.set_direction(to_back)
 		
 		me.fps = 			 character_run_fps 	if loc__ctrl_is_down else  character_walk_fps
 		me.move_kind = 				'run'		if loc__ctrl_is_down else 		'walk'
@@ -61,6 +66,7 @@ screen location:
 		key 'RIGHT SHIFT' 	action SetVariable('loc__ctrl_is_down', True) first_delay 0.01
 		
 		python:
+			loc__prev_left, loc__prev_right, loc__prev_up, loc__prev_down = loc__left, loc__right, loc__up, loc__down
 			loc__start_moving = not(loc__left or loc__right or loc__up or loc__down)
 			if loc__start_moving:
 				loc__prev_time = time.time() - 0.1
@@ -76,6 +82,23 @@ screen location:
 		key 's' 		action SetVariable('loc__down', 	True) first_delay 0.1
 		
 		python:
+			if loc__left and not loc__prev_left:
+				loc__left_time = time.time()
+			if loc__right and not loc__prev_right:
+				loc__right_time = time.time()
+			if loc__up and not loc__prev_up:
+				loc__up_time = time.time()
+			if loc__down and not loc__prev_down:
+				loc__down_time = time.time()
+			
+			if loc__left or loc__right or loc__up or loc__down:
+				loc__direction = loc__directions[loc__get_min(	loc__left_time if loc__left else max_time,
+																loc__right_time if loc__right else max_time,
+																loc__up_time if loc__up else max_time,
+																loc__down_time if loc__down else max_time
+				)]
+				me.set_direction(loc__direction)
+			
 			loc__character_dx = loc__character_dy = 0
 			if loc__left:
 				loc__character_dx -= 1
