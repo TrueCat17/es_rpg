@@ -10,14 +10,18 @@ init -1001 python:
 		def register_channel(self, name, mixer, loop):
 			_register_channel(name, mixer, loop)
 		
-		def play(self, file_names, channel, *args):
+		def play(self, file_names, channel, **kwargs):
+			fadein = kwargs.get('fadein', 0)
 			file_name = file_names if isinstance(file_names, str) else file_names[0]
-			_play(channel + ' ' + file_name)
-		def stop(self, channel, *args):
-			_stop(channel)
+			_play(channel + ' ' + file_name + ' fadein ' + fadein)
+		def stop(self, channel, **kwargs):
+			fadeout = kwargs.get('fadeout', 0)
+			_stop(channel + ' fadeout ' + fadeout)
 		
-		def set_volume(self, vol, channel, *args):
+		def set_volume(self, vol, channel):
 			_set_volume(vol, channel)
+		def set_mixer_volume(self, vol, mixer):
+			_set_mixer_volume(vol, mixer)
 	
 	
 	class Easy:
@@ -96,10 +100,10 @@ init -1001 python:
 					return
 			who(what)
 		
-		def play(self, file_names, channel, *args):
-			self.music.play(file_name, channel, *args)
-		def stop(self, channel, *args):
-			self.music.stop(channel, *args)
+		def play(self, file_names, channel, **kwargs):
+			self.music.play(file_name, channel, **kwargs)
+		def stop(self, channel, **kwargs):
+			self.music.stop(channel, **kwargs)
 		
 		def has_label(self, label):
 			return _has_label(label)
