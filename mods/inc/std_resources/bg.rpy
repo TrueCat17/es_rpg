@@ -1,4 +1,8 @@
 init -1000:
+	
+	$ default_decl_at = ["xysize (1.0, 1.0)"]
+	
+	
 	image black = "images/bg/black.jpg"
 	image bg black = "images/bg/black.jpg"
 	
@@ -68,6 +72,36 @@ init -1000:
     image bg ext_stage_normal_night = "images/bg/ext_stage_normal_night.jpg"
     image bg ext_washstand_day = "images/bg/ext_washstand_day.jpg"
     image bg ext_washstand2_day = "images/bg/ext_washstand2_day.jpg"
+    
+    image bg ext_aidpost_day_ending = "images/bg/ext_aidpost_day.jpg"
+    image bg ext_beach_day_ending = "images/bg/ext_beach_day.jpg"
+    image bg ext_boathouse_day_ending = "images/bg/ext_boathouse_day.jpg"
+    image bg ext_clubs_day_ending = "images/bg/ext_clubs_day.jpg"
+    image bg ext_dining_hall_away_day_ending = "images/bg/ext_dining_hall_away_day.jpg"
+    image bg ext_house_of_mt_day_ending = "images/bg/ext_house_of_mt_day.jpg"
+    image bg ext_houses_day_ending = "images/bg/ext_houses_day.jpg"
+    image bg ext_island_day_ending = "images/bg/ext_island_day.jpg"
+    image bg ext_library_day_ending = "images/bg/ext_library_day.jpg"
+    image bg ext_musclub_day_ending = "images/bg/ext_musclub_day.jpg"
+    image bg ext_playground_day_ending = "images/bg/ext_playground_day.jpg"
+    image bg ext_polyana_day_ending = "images/bg/ext_polyana_day.jpg"
+    image bg ext_polyana_night_ending = "images/bg/ext_polyana_night.jpg"
+    image bg ext_road_day_ending = "images/bg/ext_road_day.jpg"
+    image bg ext_square_day_ending = "images/bg/ext_square_day.jpg"
+    image bg ext_square_night_ending = "images/bg/ext_square_night.jpg"
+    image bg ext_stage_normal_day_ending = "images/bg/ext_stage_normal_day.jpg"
+    image bg ext_washstand_day_ending = "images/bg/ext_washstand_day.jpg"
+    image bg int_aidpost_day_ending = "images/bg/int_aidpost_day.jpg"
+    image bg int_bus_people_day_ending = "images/bg/int_bus_people_day.jpg"
+    image bg int_bus_people_night_ending = "images/bg/int_bus_people_night.jpg"
+    image bg int_clubs_male_day_ending = "images/bg/int_clubs_male_day.jpg"
+    image bg int_dining_hall_people_day_ending = "images/bg/int_dining_hall_people_day.jpg"
+    image bg int_house_of_dv_day_ending = "images/bg/int_house_of_dv_day.jpg"
+    image bg int_house_of_mt_day_ending = "images/bg/int_house_of_mt_day.jpg"
+    image bg int_house_of_sl_day_ending = "images/bg/int_house_of_sl_day.jpg"
+    image bg int_house_of_un_day_ending = "images/bg/int_house_of_un_day.jpg"
+    image bg int_musclub_day_ending = "images/bg/int_musclub_day.jpg"
+    
     image bg int_aidpost_day = "images/bg/int_aidpost_day.jpg"
     image bg int_aidpost_day_apple = "images/bg/int_aidpost_day_apple.jpg"
     image bg int_aidpost_night = "images/bg/int_aidpost_night.jpg"
@@ -119,33 +153,8 @@ init -1000:
     image bg intro_xx = "images/bg/intro_xx.jpg"
     image bg semen_room = "images/bg/semen_room.jpg"
     image bg semen_room_window = "images/bg/semen_room_window.jpg"
-    
-    image bg ext_aidpost_day_ending = "images/bg/ext_aidpost_day.jpg"
-    image bg ext_beach_day_ending = "images/bg/ext_beach_day.jpg"
-    image bg ext_boathouse_day_ending = "images/bg/ext_boathouse_day.jpg"
-    image bg ext_clubs_day_ending = "images/bg/ext_clubs_day.jpg"
-    image bg ext_dining_hall_away_day_ending = "images/bg/ext_dining_hall_away_day.jpg"
-    image bg ext_house_of_mt_day_ending = "images/bg/ext_house_of_mt_day.jpg"
-    image bg ext_houses_day_ending = "images/bg/ext_houses_day.jpg"
-    image bg ext_island_day_ending = "images/bg/ext_island_day.jpg"
-    image bg ext_library_day_ending = "images/bg/ext_library_day.jpg"
-    image bg ext_musclub_day_ending = "images/bg/ext_musclub_day.jpg"
-    image bg ext_playground_day_ending = "images/bg/ext_playground_day.jpg"
-    image bg ext_polyana_day_ending = "images/bg/ext_polyana_day.jpg"
-    image bg ext_polyana_night_ending = "images/bg/ext_polyana_night.jpg"
-    image bg ext_road_day_ending = "images/bg/ext_road_day.jpg"
-    image bg ext_square_day_ending = "images/bg/ext_square_day.jpg"
-    image bg ext_square_night_ending = "images/bg/ext_square_night.jpg"
-    image bg ext_stage_normal_day_ending = "images/bg/ext_stage_normal_day.jpg"
-    image bg ext_washstand_day_ending = "images/bg/ext_washstand_day.jpg"
-    image bg int_aidpost_day_ending = "images/bg/int_aidpost_day.jpg"
-    image bg int_bus_people_day_ending = "images/bg/int_bus_people_day.jpg"
-    image bg int_bus_people_night_ending = "images/bg/int_bus_people_night.jpg"
-    image bg int_clubs_male_day_ending = "images/bg/int_clubs_male_day.jpg"
-    image bg int_dining_hall_people_day_ending = "images/bg/int_dining_hall_people_day.jpg"
-    image bg int_house_of_dv_day_ending = "images/bg/int_house_of_dv_day.jpg"
-    image bg int_house_of_mt_day_ending = "images/bg/int_house_of_mt_day.jpg"
-    image bg int_house_of_sl_day_ending = "images/bg/int_house_of_sl_day.jpg"
-    image bg int_house_of_un_day_ending = "images/bg/int_house_of_un_day.jpg"
-    image bg int_musclub_day_ending = "images/bg/int_musclub_day.jpg"
     image bg semen_room_window_ending = "images/bg/semen_room_window.jpg"
+    
+    
+    $ default_decl_at = []
+   	

@@ -1,7 +1,6 @@
 init -998 python:
 	
 	start_screens = 'location sprites dialogue_box'
-	auto_exit = True
 	
 	
 	config = renpy.config
@@ -10,7 +9,7 @@ init -998 python:
 		config.fps_meter = True
 	
 	if not config.has_attr('text_cps'):
-		config.text_cps = 40
+		config.text_cps = 60
 	
 	if not config.has_attr('music_volume'):
 		config.music_volume = 100

@@ -69,15 +69,19 @@ init -1000 python:
 			db_name_color = name_color
 			
 			db_voice_text = ''
-			db_voice_full_text = text_prefix + text + text_postfix
+			db_voice_full_text = text_prefix + text
+			if not db_voice_text_after_pause:
+				db_voice_full_text += text_postfix
 			db_last_text_postfix = text_postfix
 		
 		# Продолжение предыдущего
 		else:
 			db_start_time = time.time() - len_unicode(db_voice_text) / float(renpy.config.text_cps)
 			
-			db_voice_full_text = db_voice_full_text[0:len(db_voice_full_text) - len(db_last_text_postfix)]
+			db_voice_full_text = db_voice_full_text[0:len(db_voice_full_text)]
 			db_voice_full_text += text
+			if not db_voice_text_after_pause:
+				db_voice_full_text += db_last_text_postfix
 		
 		db_voice_color = text_color
 	
@@ -91,7 +95,7 @@ init -1000 python:
 			elif db_pause_end < time.time():
 				db_pause_after_text = 0
 				db_pause_end = 0
-				show_text(None, '', '', 0, db_voice_text_after_pause, '', '', db_voice_color)
+				show_text(None, '', '', 0, db_voice_text_after_pause, '', db_last_text_postfix, db_voice_color)
 		
 		if db_voice_text != db_voice_full_text:
 			l = len(db_voice_full_text)
@@ -156,6 +160,10 @@ init -1000 python:
 	
 	
 	def db_on_enter():
+		if not sprites_effects_ended():
+			sprites_effects_to_end()
+			return
+		
 		global pause_end, db_pause_end, db_dialogue, db_name_text, db_voice_text, db_voice_full_text, read
 		
 		if pause_end > time.time():

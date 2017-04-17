@@ -1,4 +1,6 @@
 init -1001 python:
+	default_decl_at = []
+	
 	es2d_gui = 'images/es2d/gui/'
 	
 	alphabet = tuple(map(chr, xrange(ord('a'), ord('z') + 1))) # a-z
@@ -20,6 +22,14 @@ init -10000 python:
 			res += 1
 		return res
 	
+	def in_bounds(v, vmin, vmax):
+		return vmin if v < vmin else vmax if v > vmax else v
+	
+	def get_absolute(value, max_value):
+		if (value > 0 and value < 1) or (value == 1.0 and type(value) is float):
+			return int(value * max_value)
+		return int(value)
+	
 	def get_dist(x1, y1, x2, y2):
 		return ((x1-x2)**2 + (y1-y2)**2) ** 0.5
 	
@@ -34,17 +44,30 @@ init -10000 python:
 		return mods_dict
 	
 	def out_msg(msg, err = ''):
-		_out_msg(msg, err)
+		_out_msg(str(msg), str(err))
 	
 	def get_image(name):
 		code = get_image_code(name)
 		
-		res = None
-		try:
-			res = eval(code)
-		except:
-			res = im.Scale('images/bg/black.jpg', 256, 256)
+		empty_image = im.Scale('images/bg/black.jpg', 256, 256)
+		if image_was_registered(name):
+			try:
+				if code:
+					res = [code]
+				else:
+					res = []
+				res += get_image_decl_at(name)
+			except:
+				out_msg('get_image', 'Изображение <' + name + '> задано некорректно:\n' + '<' + code + '>')
+				res = [empty_image]
+		else:
+			out_msg('get_image', 'Изображение <' + name + '> не зарегистрировано')
+			res = [empty_image]
 		return res
+	
+	def can_exec_next_command():
+		return read and not character_moving and sprites_effects_ended()
+	
 	
 	persistent_updates = False
 	class Object:
@@ -55,7 +78,7 @@ init -10000 python:
 				for k in obj.__dict__.keys():
 					self.__dict__[k] = obj.__dict__[k]
 			for k in kwords.keys():
-				self.__dict__[k] = kwords[k];
+				self.__dict__[k] = kwords[k]
 		
 		
 		def __getattr__(self, attr):
@@ -73,12 +96,18 @@ init -10000 python:
 				global persistent_need_save
 				persistent_need_save = True
 			
-		
 		def __delattr__(self, attr):
 			del self.__dict__[attr]
 			if self.in_persistent:
 				global persistent_need_save
 				persistent_need_save = True
+		
+		def __getitem__(self, item):
+			return self.__getattr__(item)
+		def __setitem__(self, item, value):
+			self.__setattr__(item, value)
+		def __delitem__(self, item):
+			self.__delattr__(item)
 		
 		
 		def has_attr(self, attr):

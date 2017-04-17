@@ -72,14 +72,14 @@ screen location:
 				loc__prev_time = time.time() - 0.1
 			loc__left = loc__right = loc__up = loc__down = False
 		
-		key 'LEFT' 		action SetVariable('loc__left', 	True) first_delay 0.1
-		key 'RIGHT' 	action SetVariable('loc__right', 	True) first_delay 0.1
-		key 'UP' 		action SetVariable('loc__up', 		True) first_delay 0.1
-		key 'DOWN' 		action SetVariable('loc__down', 	True) first_delay 0.1
-		key 'a' 		action SetVariable('loc__left', 	True) first_delay 0.1
-		key 'd' 		action SetVariable('loc__right', 	True) first_delay 0.1
-		key 'w' 		action SetVariable('loc__up', 		True) first_delay 0.1
-		key 's' 		action SetVariable('loc__down', 	True) first_delay 0.1
+		key 'LEFT' 		action SetVariable('loc__left', 	True) first_delay 0.0
+		key 'RIGHT' 	action SetVariable('loc__right', 	True) first_delay 0.0
+		key 'UP' 		action SetVariable('loc__up', 		True) first_delay 0.0
+		key 'DOWN' 		action SetVariable('loc__down', 	True) first_delay 0.0
+		key 'a' 		action SetVariable('loc__left', 	True) first_delay 0.0
+		key 'd' 		action SetVariable('loc__right', 	True) first_delay 0.0
+		key 'w' 		action SetVariable('loc__up', 		True) first_delay 0.0
+		key 's' 		action SetVariable('loc__down', 	True) first_delay 0.0
 		
 		python:
 			loc__character_dx = loc__character_dy = 0

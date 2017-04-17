@@ -203,6 +203,7 @@ init -1001 python:
 		def Flip(self, image, horizontal = False, vertical = False):
 			return 'Flip (' + image + ') ' + str(bool(horizontal)) + ' ' + str(bool(vertical))
 		
+		
 				
 		def Composite(self, *args):
 			if (len(args) % 2) == 0:
@@ -217,7 +218,6 @@ init -1001 python:
 				img = str(args[i + 1])
 				
 				res += ' (' + pos + ') (' + img + ')'
-			
 			return res
 		
 		def Scale(self, image, w, h):

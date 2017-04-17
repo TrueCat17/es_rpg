@@ -22,6 +22,7 @@ init -1001 python:
 	style.default.ysize = 1.0
 	style.default.spacing = 0
 	style.default.crop = (0, 0, 1.0, 1.0)
+	style.default.alpha = 1
 	
 	style.screen = Style(style.default)
 	style.screen.modal = False

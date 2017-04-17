@@ -1,26 +1,30 @@
 init:
     $ mods["prologue"] = "Оригинал БЛ"
-    
+
     $ prologue = 0
+
 
 label prologue:
 	$ set_fps(60)
-	if False:
-		show us grin sport far at right
-		show sl angry pioneer at center
-		pause 1
-		show us laugh sport far at right   behind sl
-		pause 50
+	
+	if not True:
+		show us grin pioneer at center
+		with dspr
+		us "А, ну тогда ладно, ешь."
+		hide us
+		with dissolve
+		"qwe"
+	
 #	jump day1
 #	jump day2_main1
 	
     $ make_names_unknown()
     $ set_mode_adv()
     $ backdrop = "prologue"
-    $ new_chapter(-1, u"Пролог")
+    $ new_chapter(-1, "Пролог")
     $ prolog_time()
+    
     play music music_list["a_promise_from_distant_days_v2"] fadein 3
-    pause (0.1)
     scene anim prolog_1
     with fade3
     window show
@@ -35,7 +39,10 @@ label prologue:
     with fade3
     scene bg ext_camp_entrance_night
     show owl:
-        pos (931, 88) 
+        pos (get_stage_width() * 931 / 1920, get_stage_height() * 88 / 1080)
+        xysize (get_stage_width() * 60 / 1920, get_stage_height() * 77 / 1080)
+        pause 0.1
+        repeat
     show prologue_dream
     with fade3
     window show
@@ -109,7 +116,7 @@ label prologue:
     window hide
     scene bg black
     with fade3
-    pause (2)
+    pause 2
     play sound_loop sfx_keyboard_mouse_computer_noise fadein 3
     scene anim 1 _prologue
     with fade3
@@ -123,10 +130,9 @@ label prologue:
     window show
     "Экран монитора смотрел на меня словно живой."
     window hide
-    with None
     show blinking
     with dissolve
-    pause (3.5)
+    pause 3.5
     window show
     "Иногда мне правда казалось, что он обладает сознанием, своими мыслями и желаниями, стремлениями; умеет чувствовать, любить и страдать."
     hide blinking
@@ -134,16 +140,15 @@ label prologue:
     "Наверное, в этом есть доля правды, ведь компьютер на 90% обеспечивает моё общение с внешним миром."
     "Анонимные имиджборды, иногда какие-то чаты, редко – аська или джаббер, ещё реже – форумы."
     window hide
-    with None
     show blinking
     with dissolve
-    pause (3.5)
+    pause 3.5
     window show
     "А людей, сидящих по ту сторону сетевого кабеля, попросту не существует!"
     "Все они – всего лишь плод его больной фантазии, ошибка в программном коде или баг ядра, зажившего собственной жизнью."
     window hide
     hide blinking
-    pause (3)
+    pause 3
     scene anim prolog_15
     with fade
     pause 3
@@ -171,10 +176,10 @@ label prologue:
     "Маленькая квартирка без следов какого бы то ни было ремонта или даже подобия порядка, и вечно одинаковый вид из окна на серый, день и ночь куда-то бегущий мегаполис, – вот условия моей жизни."
     window hide
     play music music_list["farewell_to_the_past_edit"] fadein 5
-    pause (3)
+    pause 3
     scene anim prolog_2
     with fade
-    pause (1)
+    pause 1
     $ set_mode_nvl()
     window show
     "Конечно, всё начиналось не так..."
@@ -186,7 +191,7 @@ label prologue:
     "Только у меня не было выбора, как именно провести этот день, и каждый раз всё повторялось по одной и той же схеме.{w} Схеме пустоты, уныния и отчаяния."
     nvl clear
     window hide
-    pause (3)
+    pause 3
     window show
     "Последние несколько лет я просто целыми днями сидел за компьютером."
     "Иногда подворачивались какие-то халтурки, иногда помогали родители."
@@ -208,7 +213,7 @@ label prologue:
     with fade
     stop music fadeout 4
     play sound_loop sfx_street_traffic_outside fadein 2
-    pause (3)
+    pause 3
     window show
     "Сегодня очередной типичный день моей типичной жизни типичного неудачника."
     "И именно сегодня мне нужно ехать на встречу институтских товарищей."
@@ -216,7 +221,7 @@ label prologue:
     "Да и какой смысл, если вместе с ними я отучился всего ничего?"
     "Однако меня всё же уговорил друг, бывший одногруппник, один из немногих, с кем я поддерживал контакт не только в интернете."
     window hide
-    pause (4)
+    pause 4
     stop sound_loop fadeout 3
     play ambience ambience_cold_wind_loop fadein 3
     $ set_mode_adv()
@@ -259,10 +264,10 @@ label prologue:
     "Или пойти опять работать в офис?{w} Нет уж!"
     "Может, стоит попробовать фриланс?{w} Да что я умею, и кому я нужен…"
     window hide
-    pause (3)
+    pause 3
     scene anim prolog_2
     with fade
-    pause (1)
+    pause 1
     $ set_mode_nvl()
     window show
     "Вдруг мне вспомнилось детство…{w} Или скорее юношество – 15-17 лет."
@@ -284,7 +289,7 @@ label prologue:
     nvl clear
     window hide
     play sound sfx_intro_bus_engine_start
-    pause (3)
+    pause 3
     play sound_loop sfx_intro_bus_engine_loop fadein 3
     $ set_mode_adv()
     scene anim intro_9
@@ -295,7 +300,7 @@ label prologue:
     "«Какой-то он не такой» – мелькнула мысль."
     "Впрочем, какая разница – по этому маршруту ходит только 410-ый."
     window hide
-    pause (2)
+    pause 2
     scene anim intro_10
     with fade
     play sound sfx_intro_bus_door_open
@@ -329,32 +334,31 @@ label prologue:
     "Я смотрел на это светопреставление, и мне почему-то безумно захотелось спать."
     window hide
     stop music fadeout 3
-    with None
     show blink
     with dissolve
-    pause (1.5)
+    pause 1.5
     window show
     "Глаза закрылись всего на полсекунды и…"
     window hide
     stop sound_loop fadeout 3
     scene bg black
     with fade3
-    pause (3)
+    pause 3
     $ volume(1.0, "music")
     jump opening
 label opening:
-    $ renpy.movie_cutscene("video/opening.ogv")
+#    $ renpy.movie_cutscene("video/opening.ogv")
     jump day1
 init:
     $ d1_keys = False
 label day1:
     $ backdrop = "days"
-    $ new_chapter(1, u"День первый")
+    $ new_chapter(1, "День первый")
     $ day_time()
     $ make_names_unknown()
     scene bg black
     play music music_list["no_tresspassing"] fadein 0
-    pause (2)
+    pause 2
     scene bg int_bus
     with flash
     window show
@@ -395,7 +399,7 @@ label day1:
     play ambience ambience_day_countryside_ambience fadein 5
     scene anim intro_16
     with fade
-    pause (3)
+    pause 3
     window show
     "Длинная дорога, уносящаяся вдаль, леса, степи, поля, озёра, вновь леса."
     th "Кажется, я спал, но почему тогда всё помню сейчас?"
@@ -405,7 +409,7 @@ label day1:
     stop ambience fadeout 3
     "Потом опять провал..."
     window hide
-    pause (2)
+    pause 2
     scene bg ext_bus
     with fade2
     window show
@@ -474,8 +478,8 @@ label day1:
     play sound sfx_cellular_phone_error fadein 0
     "Я достал мобильник и набрал первый попавшийся номер из телефонной книги."
     window hide
-    pause (3)
-    window show  
+    pause 3
+    window show
     "Однако вместо палочек приёма на экране горел жирный крест."
     th "Ладно, возможно, в такой глуши связи нет."
     th "Но не попал же я сюда один!"
@@ -501,7 +505,7 @@ label day1:
     "Инопланетяне и параллельные реальности покинули моё воображение, остались лишь пустота и мрак."
     window hide
     with flash
-    window show    
+    window show
     th "Неужели всё так и закончится? Моя жизнь – закончится?"
     th "Ведь я столько всего хотел сделать, столько не успел..."
     "Меня охватила уверенность, что это конец."
@@ -509,13 +513,12 @@ label day1:
     th "Это несправедливо! Неужели я хуже других?!"
     th "Господи, за что?.."
     window hide
-    with None
     show blink
     with dissolve
-    pause (3)
+    pause 3
     hide blink
     show unblink
-    pause (3)
+    pause 3
     window show
     "Слёзы нестерпимо жгли глаза, я свернулся калачиком и начал кататься по траве."
     hide unblink
@@ -538,12 +541,13 @@ label day1:
     th "Пока не появятся какие-нибудь факты, строить догадки не стоит."
     th "В любом случае околачиваясь здесь ничего не узнать."
     window hide
+    jump day1_first_meet
+label day1_first_meet:
     scene bg ext_camp_entrance_day
     with dissolve
     window show
     "Судя по всему, этот лагерь (если это, конечно, лагерь) – единственое место, где могли быть люди, поэтому я решил пойти туда, и уже почти дошёл до ворот, как..."
     "Оттуда выглянула девочка..."
-    with None
     show sl normal pioneer far at center
     with dissolve
     "... в пионерской форме."
@@ -555,8 +559,7 @@ label day1:
     "Просто бежать, бежать свободно, словно ветер, бежать всё быстрее, маша рукой пролетающим мимо планетам, подмигивая галактикам."
     "Бежать, став лучом пульсара, превратившись в реликтовое излучение, бежать навстречу неизвестности."
     "Бежать куда угодно, но {b}подальше{/b} отсюда!"
-    with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dissolve
     "Тем временем девочка подошла ближе и улыбнулась."
     "Её красоту я не смог не отметить, даже трясясь от страха."
@@ -571,24 +574,21 @@ label day1:
             "Я остолбенел от удивления."
             "Девочка выглядела совершенно нормально, даже была похожа на человека, но всё равно я не мог вымолвить ни слова."
             th "Бежать уже поздно..."
-            with None
-            show sl normal pioneer at center 
+            show sl normal pioneer at center
             with dspr
             sl "Я что-то не то сказала?"
             "Пришлось приложить немало усилий, чтобы ответить:"
             me "Ну… да…"
-            with None
-            show sl surprise pioneer at center 
+            show sl surprise pioneer at center
             with dspr
             sl "Что?"
             me "А, нет, я в смысле, что {i}только что приехал{/i}."
             "Быстро ответил я, уже было испугавшись, что ляпнул не то."
         "Ответить":
-            $ lp_sl = lp_sl + 1
+            $ lp_sl += 1
             window show
             me "Ну… да…"
-    with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dspr
     sl "Что же, добро пожаловать!"
     "Она широко улыбнулась."
@@ -596,22 +596,19 @@ label day1:
     th "Эх, не стоило вообще сюда возвращаться – лучше уж в леса, в поля..."
     th "Но что делать дальше – пытаться общаться с ней как с человеком, бежать или ещё что-то?"
     "В голове невыносимо стучала кровь, разрывая её изнутри; ещё немного и бедную пионерку забрызгает неприглядным содержимым моей черепной коробки..."
-    with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Что смешного?"
     "Девочка окинула меня взглядом."
     "По спине побежали мурашки, задрожали колени."
     me "Н... ничего..."
-    with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Ну и славно."
     th "Славно? Что тут может быть славного?"
     "Внезапно захотелось плюнуть на всё, забыть о стоящем сзади автобусе, вчерашней зиме и будущем лете, скинуть чесоточный свитер и просто поверить, что всё это на самом деле, что так и надо, что так и должно быть, что всё это, в конце концов, к лучшему..."
     me "А ты, наверное, знаешь…"
-    with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Тебе к вожатой надо, она всё расскажет!"
     sl "Смотри.{w} Сейчас идёшь прямо-прямо, доходишь до площади, затем налево, дальше будут домики."
@@ -620,11 +617,9 @@ label day1:
     me "Я… эээ…"
     sl "Всё понял?"
     "Естественно, ничего я не понял."
-    with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "А мне пора."
-    with None
     hide sl
     with dissolve
     "Девочка помахала мне рукой и скрылась за воротами."
@@ -644,13 +639,11 @@ label day1:
     "Буквально через 50 метров слева словно из-под земли выросло небольшое одноэтажное здание.{w} Вывеска рядом с дверью гласила «Клубы»."
     "Я уже было собирался подойти поближе..."
     play sound sfx_open_door_clubs fadein 0
-    with None
-    show un normal pioneer far at left 
-    with dissolve   
+    show un normal pioneer far at left
+    with dissolve
     "Как вдруг открылась дверь, и оттуда вышла невысокая девочка в пионерской форме."
     "На её красивом лице, как мне показалось, муки за судьбы всего человечества смешались с прямо-таки вселенской грустью."
-    with None
-    show un surprise pioneer far at left 
+    show un surprise pioneer far at left
     with dspr
     "Увидев меня, девочка замерла будто бы от испуга."
     "Я застыл на месте, думая, как лучше поступить – подойти первым или подождать, пока она сама проявит инициативу.{w} Или всё же бежать..."
@@ -659,24 +652,20 @@ label day1:
     "Сыграй он партию в покер с дедуктивными способностями, и результат был бы известен заранее."
     "А вот как раз эти способности (или некое их жалкое подобие) подсказывали, что эту девочку бояться не стоит."
     play music music_list["i_want_to_play"] fadein 5
-    with None
-    show us grin sport far at right 
-    with dissolve 
+    show us grin sport far at right
+    with dissolve
     play sound sfx_bush_leaves fadein 0
     "Неожиданно из соседних кустов выскочил кто-то."
     "Девочка в ярко-красной футболке с надписью «СССР»."
     th "Как точно соблюдён антураж эпохи."
     "Издалека она казалась совсем маленькой и, наверное, по возрасту была младше и той пионерки у ворот, и этой – на пороге «клубов»."
-    with None
-    show un surprise pioneer far at left 
+    show un surprise pioneer far at left
     with dspr
-    with None
     show us surp3 sport far at right :
-        linear 1.0 xalign 0.28 
+        linear 1.0 xalign 0.28
     with dspr
     "Я собрался всё-таки подойти, как вдруг «СССР» (так я мысленно прозвал её) подскочила к первой девочке и начала что-то говорить, при этом яростно размахивая руками."
-    with None
-    show un shy pioneer far at left 
+    show un shy pioneer far at left
     with dspr
     "Та же в свою очередь смутилась, потупила взгляд и ничего не ответила."
     "Я бы, наверное, так и наблюдал их занимательный {i}диалог{/i}, но «СССР» вдруг достала что-то из кармана и начала трясти этим перед лицом первой девочки."
@@ -690,11 +679,9 @@ label day1:
     "Видимо, она не очень любила насекомых, так как моментально убежала в сторону, где, по идее, Ленин когда-то читал речь о свершившейся рабоче-крестьянской революции."
     "Ну, то есть в сторону площади…"
     scene bg ext_clubs_day
-    with None
-    show us grin sport at left :
-        linear 2.0 xalign 2.0 
+    show us grin sport at left:
+        linear 2.0 xanchor 0 xpos 1.0
     with dspr
-    with dissolve
     "«СССР» посмотрела на меня, хитро улыбнулась и бросилась за ней."
     hide us
     th "Неплохое начало дня."
@@ -728,8 +715,7 @@ label day1:
     with vpunch
     "Неожиданный удар по спине!"
     "Я пошатнулся, но устоял на ногах, развернулся и уже приготовился стать героем, спасая свою жизнь..."
-    with None
-    show dv angry pioneer2 at center 
+    show dv angry pioneer2 at center
     with dissolve
     "Но передо мной стояла всего лишь ещё одна девочка."
     "От удивления я открыл рот."
@@ -739,12 +725,10 @@ label day1:
     "Как и все предыдущие девочки, которых я встретил здесь, эта была весьма симпатичной, но слишком надменное выражение на её лице сразу отбило у меня всякое желание познакомиться поближе."
     dv "Новенький, значит?"
     me "…"
-    with None
-    show dv normal pioneer2 at center 
+    show dv normal pioneer2 at center
     with dspr
     dv "Ладно, увидимся!"
     "Она грозно стрельнула в меня глазами и прошла мимо."
-    with None
     hide dv
     with dissolve
     "Я подождал, пока пионерка скроется за поворотом...{w} Мало ли что она ещё могла выкинуть!"
@@ -781,27 +765,24 @@ label day1:
     sl "Ой, так тебе не сюда!"
     play music music_list["take_me_beautifully"] fadein 5
     "Я обернулся на голос."
-    with None
-    show sl smile swim at center 
+    show sl smile swim at center
     with dissolve
     "Передо мной стояла та первая девочка."
     sl "Я же тебе сказала повернуть налево на площади, а ты куда пошёл?"
     "Пионерская форма на ней сменилась на купальник."
     sl "Ой, я же так и не представилась!{w} Меня Славя зовут!"
     sl "Вообще, полное имя Славяна, но все меня Славей зовут.{w} И ты тоже зови!"
-    $ meet('sl','Славя')
+    $ meet('sl', 'Славя')
     me "А… да…"
     "Я всё ещё был несколько растерян, так что на более осмысленные ответы меня не хватало."
     sl "А тебя?"
     "Казалось, её взгляд пронизывает меня насквозь."
     me "А… я… да… Семён…"
-    with None
-    show sl smile2 swim at center 
+    show sl smile2 swim at center
     with dspr
     sl "Очень приятно, Семён."
     sl "Ладно, я уже заканчиваю.{w} Ты подожди меня тут минутку, сейчас переоденусь, и вместе пойдём к Ольге Дмитриевне, хорошо?"
     me "Хорошо…"
-    with None
     hide sl
     with dissolve
     "После этих слов она куда-то убежала, а я сел на мостик и свесил ноги в воду."
@@ -812,8 +793,7 @@ label day1:
     th "Нет, всё же больше похоже на случайность."
     th "Какую-то очень непонятную случайность."
     sl "Пошли?"
-    with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dissolve
     "Рядом со мной стояла Славя, вновь одетая в пионерскую форму."
     me "Пошли…"
@@ -825,28 +805,23 @@ label day1:
     with dissolve
     window show
     "Мы вышли на площадь."
-    with None
-    show dv smile pioneer2 far at left  
-    with dissolve   
-    with None
-    show us grin sport far at right  
+    show dv smile pioneer2 far at left
+    with dissolve
+    show us grin sport far at right
     with dissolve
     "По ней друг за другом бегали «СССР» и девочка, ударившая меня по спине."
     th "Это у них игра, что ли, такая?"
-    with None
-    show sl angry pioneer at center 
+    show sl angry pioneer at center
     with dissolve
     sl "Ульяна, хватит бегать! Я всё Ольге Дмитриевне расскажу!"
-    $ meet('us','Ульяна')
-    with None
+    $ meet('us', 'Ульяна')
     show us laugh sport far at right   behind sl
     with dspr
     us "Есть, гржнинначаник!"
     hide dv
     hide us
     with dissolve
-    with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     "Я решил не расспрашивать до поры до времени Славю о происходящем, о местных обитателях."
     th "Лучше сначала добраться до этой таинственной Ольги Дмитриевны."
@@ -865,8 +840,7 @@ label day1:
     window show
     "Словно картина художника: выцветшая, местами облупившаяся от старости краска сверкала на солнце, приоткрытые ставни еле заметно качались на ветру, а по краям росли огромные кусты сирени."
     "Казалось, что эта ветхая хижинка словно утопает в пурпурном бархатном шторме, а сирень, как стихия, неотвратимо уничтожает жилище вожатой."
-    with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     sl "Что стоишь? Пойдём!"
     "Славя вывела меня из раздумий."
@@ -876,7 +850,7 @@ label day1:
     scene cg d1_rena_sunset
     with vpunch
     with hpunch
-    pause (2)
+    pause 2
     window show
     "Реной?!"
     window hide
@@ -886,26 +860,21 @@ label day1:
     window show
     th "Кажется, в домике кто-то есть."
     play sound sfx_open_dooor_campus_1 fadein 0
-    with None
-    show us grin sport far at left   behind sl
-    with dissolve   
+    show us grin sport far at left behind sl
+    with dissolve
     "И точно, через мгновение дверь распахнулась, оттуда выбежала Ульяна и пронеслась мимо, всё так же хитро улыбаясь."
-    with None
     hide us
     with dissolve
-    with None
-    show un normal pioneer far at left   behind sl
-    with dissolve   
+    show un normal pioneer far at left behind sl
+    with dissolve
     "За ней вышла девочка с хвостиками."
     sl "Лена, не обижайся ты на неё!"
-    $ meet('un',"Лена")
+    $ meet('un', 'Лена')
     th "Значит, её зовут Лена…{w} Ну не Рена, и на том спасибо!"
-    with None
     show un shy pioneer at left  behind sl
     with dissolve
     un "Да я не…"
     "Она не закончила фразу, покраснела и быстрыми шагами направилась в сторону площади."
-    with None
     hide un
     with dissolve
     "Я почему-то захотел обернуться и проводить её взглядом, но Славя сказала:"
@@ -919,29 +888,25 @@ label day1:
     "Мы зашли в домик."
     "Внутри он выглядел примерно так, как я себе его и представлял: две кровати, стол, пара стульев, простенький ковёр на полу, шкаф."
     "Ничего особенного, но при этом создавалось ощущение домашнего уюта, хотя в плане порядка эта комнатка недалеко ушла от моей квартиры."
-    with None
-    show mt normal pioneer far at center  
-    with dissolve   
+    show mt normal pioneer far at center
+    with dissolve
     "Возле окна стояла девушка лет двадцати пяти на вид."
     th "Внешностью вместе с фигурой её природа не обделила..."
     th "Хоть одна вещь в этом пандемониуме не может не радовать – это красота его обитателей."
     mt "Пришёл-таки!{w} Отлично!{w} Меня Ольга Дмитриевна зовут, я вожатая."
-    $ meet('mt',"Ольга Дмитриевна")
+    $ meet('mt', 'Ольга Дмитриевна')
     me "Очень приятно, Семён."
     "Я решил говорить так, словно всё происходящее совсем меня не удивляет."
-    with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     "Она подошла ближе."
     mt "Мы тебя с утра ждём."
     me "Ждёте? Меня?.."
-    with None
-    show mt smile pioneer at center 
+    show mt smile pioneer at center
     with dspr
     mt "Да, конечно!"
     me "А когда автобус следующий будет, а то я…"
-    with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dspr
     mt "А тебе зачем?"
     th "Действительно, зачем мне…"
@@ -951,14 +916,12 @@ label day1:
     me "А кстати, где мы точно находимся?{w} Ну, адрес там?"
     me "Я родителям хотел письмо написать, что удачно добрался."
     "Мне почему-то отчаянно казалось, что удастся что-нибудь выяснить, если буду подыгрывать им."
-    with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "Так мне твои родители полчаса назад звонили! Тебе привет передавали."
     th "Вот это номер…"
     me "Значит, можно им позвонить, а то я перед отъездом забыл сказать кое-что?"
-    with None
-    show mt smile pioneer at center 
+    show mt smile pioneer at center
     with dspr
     mt "Нет."
     "Она мило и непринуждённо улыбнулась."
@@ -974,41 +937,33 @@ label day1:
     me "Почему?"
     mt "Потому что следующий автобус будет только через неделю."
     "Как же вожатая тогда сумела добраться туда и обратно, я решил не спрашивать – ответа всё равно бы не последовало."
-    with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
-    with None
-    show sl normal pioneer at right 
+    show sl normal pioneer at right
     with dissolve
     "Всё это время Славя стояла рядом со мной и, казалось, не находила в нашем разговоре ничего такого."
-    with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dspr
     mt "Ой, надо тебе форму подобрать!"
     th "Не имею ровным счётом никакого желания наряжаться в пионерские шортики и завязывать нелепый красный галстук!"
     th "Но и ходить в зимней одежде летом – тоже не лучшая идея."
     me "Да, спасибо…"
-    with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     th "Интересно, только я один считаю странным, что в такую жару кто-то ходит в пальто и зимних ботинках?"
-    with None
-    show mt smile pioneer at center 
+    show mt smile pioneer at center
     with dspr
     mt "Ладненько, я побежала тогда, а ты пока можешь познакомиться с лагерем!{w} Вечером приходи на ужин, не забудь!"
-    with None
     hide mt
     with dissolve
     "С этими словами она вышла из домика."
     "Нет, даже не вышла – выпорхнула."
-    with None
     show sl smile pioneer at right :
-        linear 1.0 xalign 0.5 
+        linear 1.0 xalign 0.5
     with dspr
     "Я остался наедине со Славей."
     sl "Мне тоже пора – дела."
     sl "Ты походи, осмотрись.{w} Вечером увидимся."
-    with None
     hide sl
     with dissolve
     th "Если в этом не скрыто никакого подвоха или угрозы, то такая реальность в лице Слави мне начинает нравиться всё больше!"
@@ -1026,22 +981,19 @@ label day1:
     play ambience ambience_camp_center_day fadein 5
     window show
     "Проходя через местный «жилой квартал», я увидел идущего навстречу мне пионера."
-    with None
-    show el normal pioneer far at center  
+    show el normal pioneer far at center
     with dissolve
     "Именно пионера, а не пионерку – и в этом царстве амазонок есть мужчины."
     play music music_list["eat_some_trouble"] fadein 2
     el "Привет, ты новенький, наверное, Семён, да?"
     me "А ты откуда…"
-    with None
-    show el grin pioneer at center 
-    with dissolve 
+    show el grin pioneer at center
+    with dissolve
     el "Да уже все знают! Я, кстати, Электроник. Настоящий. Можешь меня так и звать."
-    $ meet('el',"Электроник")
+    $ meet('el', 'Электроник')
     th "Электроник. Настоящий. Маразм крепчал…"
     me "Ясно…"
-    with None
-    show el smile pioneer at center 
+    show el smile pioneer at center
     with dspr
     el "Ульянка меня ещё Сыроежкой зовёт."
     me "Сыроежкой?"
@@ -1058,18 +1010,14 @@ label day1:
     "И мы вновь оказались на площади."
     th "Будто в этом лагере других мест нет..."
     "Там на одной из лавочек сидела Лена и читала какую-то книжку.{w} Электроник уверенным шагом подошёл к ней."
-    with None
-    show el normal pioneer at cleft 
+    show el normal pioneer at cleft
     with dspr
-    with None
-    show un normal pioneer at cright 
+    show un normal pioneer at cright
     with dspr
-    with dissolve
     el "Лена, привет! Это новенький, Семён, знакомься!"
     "Бойко начал он."
     me "Привет.{w} Ну, мы уже заочно знакомы."
-    with None
-    show un shy pioneer at cright 
+    show un shy pioneer at cright
     with dspr
     un "Да…"
     "Она на секунду оторвала глаза от книжки, посмотрела на меня, покраснела и вновь принялась за чтение, словно не замечая, что мы всё ещё здесь."
@@ -1082,46 +1030,38 @@ label day1:
     with dissolve
     window show
     "Мы вышли к некоей постройке, в которой я сразу опознал столовую."
-    with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dissolve
     el "А вот это…"
     me "Я понял! Здесь вы принимаете органическую пищу!"
-    with None
-    show el smile pioneer at center 
+    show el smile pioneer at center
     with dspr
     el "Ну, что-то вроде того…"
-    with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dspr
-    with None
-    show dv normal pioneer2 far at left  
-    with dissolve   
+    show dv normal pioneer2 far at left
+    with dissolve
     "На крыльце столовой стояла недружелюбная девочка, которая до этого ударила меня по спине."
     "От этого моё шутливое настроение вмиг куда-то исчезло."
     th "Действительно, сейчас не самая подходящая ситуация, чтобы прикалываться над этим пареньком, хоть он и весьма потешен."
     th "Сначала надо понять, что к чему и где я вообще нахожусь!"
-    with None
-    show el scared pioneer at center 
+    show el scared pioneer at center
     with dspr
     el "А вот она – Алиса Двачевская. Ты с ней поосторожнее."
-    $ meet('dv',"Алиса")
+    $ meet('dv', 'Алиса')
     "Он говорил шёпотом."
     stop ambience fadeout 2
     el "Никогда не называй её ДваЧе, она этого не любит!"
     play music music_list["awakening_power"] fadein 2
-    with None
-    show dv angry pioneer2 far at left 
+    show dv angry pioneer2 far at left
     with dspr
     dv "Чего ты сказал? Как ты меня назвал?"
     "Кажется, она услышала."
     "В мгновение ока Алиса спрыгнула с крыльца и метнулась в нашу сторону."
-    with None
-    show el shocked pioneer at center 
+    show el shocked pioneer at center
     with dspr
     el "Ладно, ты дальше сам как-нибудь…"
     "Электроник бросился бежать так, что только пятки засверкали."
-    with None
     hide el
     with dissolve
     window hide
@@ -1143,9 +1083,8 @@ label day1:
             stop ambience fadeout 2
             "Так и не найдя никакого подходящего ответа, я сел на лавочку и уставился на памятник Генде."
         "Ничего не делать":
-            $ lp_dv = lp_dv + 1
-            with None
-            show dv angry pioneer2 at left 
+            $ lp_dv += 1
+            show dv angry pioneer2 at left
             with dissolve
             window show
             "Алиса, пробегая мимо, остановилась на мгновение и бросила:"
@@ -1155,7 +1094,6 @@ label day1:
             th "Хотя в чём я перед ней виноват ?.."
             "Она не ответила и побежала догонять Электроника."
             stop music fadeout 5
-            with None
             hide dv
             with dissolve
     "..."
@@ -1179,9 +1117,8 @@ label day1:
     th "Ну в футбол играет – что удивительного?"
     th "С её-то неугомонностью."
     "Я стоял довольно далеко от поля, но она всё же меня заметила."
-    with None
-    show us laugh sport far at center  
-    with dissolve   
+    show us laugh sport far at center
+    with dissolve
     us "Эй ты!"
     "Крикнула Ульянка."
     us "Играть будешь?"
@@ -1193,7 +1130,6 @@ label day1:
     th "А играть босиком и в трусах попросту неэтично."
     me "Давай в другой раз!"
     "Крикнул я ей, развернулся и пошёл назад."
-    with None
     hide us
     with dissolve
     stop music fadeout 5
@@ -1229,13 +1165,11 @@ label day1:
     stop sound fadeout 2
     window show
     "На крыльце стояла Ольга Дмитриевна."
-    with None
-    show mt normal pioneer far at center  
-    with dissolve   
+    show mt normal pioneer far at center
+    with dissolve
     "Я остановился и пристально уставился на неё, словно ожидая чего-то."
     "Она тоже некоторое время смотрела на меня, но потом всё же подошла."
-    with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     mt "Семён, чего стоишь? Проходи!"
     th "Наверное, ничего страшного не случится, если я пойду с ней."
@@ -1251,77 +1185,63 @@ label day1:
     "Мне в своё время доводилось бывать в заводской столовой…{w} Эта была в точности такой же, разве что почище и поновее."
     "Железные стулья, столы, кафель на стенах и на полу, не отличающаяся изысканностью потрескавшаяся посуда."
     th "Наверное, такой и должна быть столовая в пионерлагере."
-    with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     mt "Семён, сейчас, подожди, мы тебе место найдём…"
     "Она окинула взглядом помещение."
-    with None
-    show mt rage pioneer at center 
+    show mt rage pioneer at center
     with dspr
     mt "Стой, Двачевская!"
     "Ольга Дмитриевна прикрикнула на проходящую мимо Алису."
-    with None
-    show dv normal pioneer2 at left 
+    show dv normal pioneer2 at left
     with dissolve
     dv "Что?"
     mt "Ты как одета?"
     dv "А как я одета?"
     "Действительно, наряд её был несколько вызывающим…"
     mt "Немедленно приведи в порядок форму!"
-    with None
-    show dv sad pioneer2 at left 
+    show dv sad pioneer2 at left
     with dspr
     dv "Ладно-ладно…"
-    with None
-    show dv normal pioneer at left 
+    show dv normal pioneer at left
     with dissolve
     "Алиса поправила рубашку и прошла мимо, бросив на меня не очень приятный взгляд."
-    with None
     hide dv
     with dissolve
-    with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "Итак, куда бы нам тебя посадить?"
     "Свободных мест было не так уж и много."
     mt "Давай вот сюда, к Ульяне!"
     me "Это… А может…"
-    with None
-    show mt smile pioneer at center 
+    show mt smile pioneer at center
     with dspr
     mt "Да, точно, как раз уже и еда стоит!"
     "Мне не оставалось ничего другого, кроме как согласиться."
     "Конечно, была некая доля вероятности, что в котлетах яд кураре, пюре обильно сдобрено мышьяком, а вместо компота мне налили отличный антифриз…"
     "Но выглядело это так аппетитно, что я никак не мог устоять!"
-    with None
     hide mt
     with dissolve
-    with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dissolve
     us "Эй!"
     me "Чего тебе?"
     "Спросил я довольно грубо Ульянку, сидевшую рядом."
-    with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "Почему с нами в футбол не стал играть?"
     me "Я не в форме."
     "Сказал я, показывая на свою одежду."
-    with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "А, ну тогда ладно, ешь."
-    with None
     hide us
     with dissolve
     play music music_list["i_want_to_play"] fadein 0
     "Однако есть было особо нечего – с тарелки пропала котлета!"
     th "Это могла сделать только она."
     th "Нет, точнее, это не мог сделать никто другой, кроме Ульяны!"
-    with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dissolve
     me "Отдай котлету!"
     us "В большой семье рта не разевай!{w} Отвернулся – и нет котлеты!"
@@ -1329,18 +1249,16 @@ label day1:
     window hide
     menu:
         "Попытаться отнять котлету":
-            $ lp_us = lp_us + 1
+            $ lp_us += 1
             window show
             "Я грозно посмотрел на неё и уже было вытянул вперёд руку..."
         "Ничего не делать":
             window show
     us "Нету у меня её, смотри!"
     "Действительно, тарелка Ульянки была пуста – похоже, ест эта маленькая девочка так же быстро, как и котлеты ворует."
-    with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Ты не расстраивайся, сейчас что-нибудь придумаем!"
-    with None
     hide us
     with dissolve
     "Она схватила мою тарелку и убежала куда-то."
@@ -1370,9 +1288,8 @@ label day1:
     "Тарелка полетела на пол, разбившись вдребезги, а стул, падая, больно ударил меня по ноге."
     "Я с детства недолюбливаю насекомых, но когда эти насекомые в моей тарелке – это уже перебор!"
     me "Ах ты, маленькая…"
-    with None
-    show us laugh2 pioneer far at center  
-    with dissolve   
+    show us laugh2 pioneer far at center
+    with dissolve
     "Ульянка, похоже готовая к такому развитию событий, уже стояла в дверях и смеялась так, как будто услышала свежую шутку Петросяна."
     stop ambience fadeout 2
     "Я бросился за ней."
@@ -1459,28 +1376,24 @@ label day1:
     window show
     "Уже совсем стемнело, и при любых раскладах ночевать лучше в лагере."
     "Я уже собирался идти назад, как вдруг кто-то бесшумно вынырнул у меня из-за спины."
-    with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     sl "Привет, что тут так поздно делаешь?"
     me "…"
     "Передо мной стояла Славя.{w} От неожиданности я даже вздрогнул."
-    with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Не догнал Ульяну?"
     "Она улыбнулась."
     "Я расстроенно кивнул головой и вздохнул."
     sl "Неудивительно.{w} Никто не может."
     th "Да уж, девочка-ракета прямо.{w} Только вот сопла у неё в разные стороны…"
-    with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Ты, наверное, есть хочешь, поужинать-то не получилось…"
     play sound sfx_stomach_growl
     "Действительно, я совсем забыл о голоде, но после этих её слов мой желудок явственно напомнил о себе, предательски заурчав."
-    with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     "Славя улыбнулась."
     sl "Ну, тогда пойдём."
@@ -1497,8 +1410,7 @@ label day1:
     with dissolve
     window show
     "Когда мы вышли на площадь, Славя внезапно остановилась."
-    with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     sl "Извини, мне надо соседку предупредить, что я попозже приду, а то она сама такая пунктуальная – будет волноваться."
     sl "Ты иди пока к столовой, а я через минутку, хорошо?"
@@ -1515,40 +1427,34 @@ label day1:
     with dissolve
     window show
     "Без всякой задней мысли я поднялся на крыльцо."
-    with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     "Взломщиком оказалась Алиса."
     th "Наверное, стоило подождать в сторонке..."
     "Она некоторое время пристально смотрела на меня, а потом сказала:"
     dv "Что стоишь-то, помоги, что ли!"
     me "В смысле?"
-    with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "В смысле дверь открыть!"
     me "Зачем?"
     dv "Булок я хочу… с кефиром! Не наелась!"
     me "Эээ…{w} А может, не стоит?"
-    with None
-    show dv smile pioneer at center 
+    show dv smile pioneer at center
     with dspr
     dv "А ты сам не хочешь есть, что ли?{w} Ульянка-то тебе поужинать нормально не дала!"
     "Она ехидно ухмыльнулась."
     th "И правда, не дала..."
     me "Так сейчас Славя придёт и…"
-    with None
-    show dv rage pioneer at center 
+    show dv rage pioneer at center
     with dspr
     dv "ЧЕГО?!"
     th "Похоже, не стоило мне этого говорить."
-    with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "Тогда я отчаливаю!"
     dv "А тебе это припомню!{w} За тобой уже второй должок!"
     "С этими словами Алиса скрылась в ночи."
-    with None
     hide dv
     with dissolve
     th "А первый-то за что?"
@@ -1557,8 +1463,7 @@ label day1:
     with fade
     window show
     "Славя не заставила себя долго ждать."
-    with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     stop ambience fadeout 2
     sl "Всё в порядке?"
@@ -1575,11 +1480,9 @@ label day1:
     play music music_list["a_promise_from_distant_days"] fadein 5
     window show
     "Мы зашли в столовую."
-    with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     sl "Подожди, я сейчас что-нибудь принесу."
-    with None
     hide sl
     with dissolve
     "Я сел на стул и принялся покорно ждать свою спасительницу."
@@ -1592,7 +1495,6 @@ label day1:
     "Впрочем, и это куда лучше, чем большая часть моего обычного рациона."
     "Пока я ел, Славя сидела напротив и смотрела на меня."
     me "Что, у меня что-то на лице?"
-    with None
     scene cg d1_sl_dinner_0
     with dspr
     sl "Нет, просто…"
@@ -1601,7 +1503,6 @@ label day1:
     me "Ну, я даже не знаю..."
     "Глупо спрашивать у человека, попавшего в одночасье в другую реальность, понравились ли ему меню в столовой, вожатая и отведённое койкоместо."
     sl "Ничего, скоро привыкнешь!"
-    with None
     scene cg d1_sl_dinner
     with dspr
     "Славя мечтательно уставилась в окно."
@@ -1618,7 +1519,6 @@ label day1:
     sl "Как?"
     "Она внимательно посмотрела на меня.{w} Так, как будто от моего ответа зависело что-то серьёзное."
     me "Ну, я не знаю... мило. Да! Тут мило."
-    with None
     scene cg d1_sl_dinner_0
     with dspr
     sl "Пожалуй."
@@ -1649,12 +1549,10 @@ label day1:
     "Все они казались {b}нормальными{/b} – такими, какими и должны быть люди в моём понимании, со всеми своими недостатками, но без сверхспособностей таких вот человеков-."
     "А Славя была ещё и...{w} милой?"
     "Я украдкой посмотрел на неё, не зная что сказать."
-    with None
     scene cg d1_sl_dinner
     with dspr
     sl "Прости, хотела показать тебе лагерь, но совсем забегалась сегодня."
     me "Да я сам... Вроде ничего не пропустил."
-    with None
     scene cg d1_sl_dinner_0
     with dspr
     sl "Прям-таки ничего-ничего?"
@@ -1682,18 +1580,15 @@ label day1:
     me "Найду, конечно, но зачем мне к ней?"
     sl "Поселит тебя к кому-нибудь."
     me "Зачем?"
-    with None
-    show sl laugh pioneer at center 
+    show sl laugh pioneer at center
     with dspr
     "Наверное, со стороны я выглядел глупо, потому что Славя рассмеялась."
     sl "Ну так спать тебе где-то надо!"
     me "Логично..."
-    with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Ладно, я побежала тогда.{w} Спокойной ночи!"
     me "Спокойной..."
-    with None
     hide sl
     with dissolve
     th "Странно, чего это она так внезапно..."
@@ -1731,23 +1626,19 @@ label day1:
     "Я вздрогнул и посмотрел в ту сторону."
     th "Девочка.{w} Читает книгу."
     play music music_list["lets_be_friends"] fadein 5
-    with None
-    show un normal pioneer far at center  
-    with dissolve   
+    show un normal pioneer far at center
+    with dissolve
     th "Лена."
     "Я решил подойти и поговорить."
     "Она единственная из новых знакомых, с кем мне не удалось сегодня перекинуться и парой слов."
-    with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     me "Привет, чего читаешь?"
-    with None
-    show un surprise pioneer at center 
+    show un surprise pioneer at center
     with dspr
     "Лена от удивления аж подпрыгнула на лавочке."
     me "Извини, не хотел тебя напугать!"
-    with None
-    show un shy pioneer at center 
+    show un shy pioneer at center
     with dspr
     un "Ничего…"
     "Она покраснела и снова уставилась в книжку."
@@ -1756,7 +1647,7 @@ label day1:
     window hide
     menu:
         "Похвалить книгу":
-            $ lp_un = lp_un + 1
+            $ lp_un += 1
             window show
             me "Хорошая книжка…"
             un "Спасибо."
@@ -1766,21 +1657,18 @@ label day1:
     th "Правда, я не читал, но ей, кажется, такая литература вполне подходит."
     "Лена, похоже, не собиралась продолжать разговор."
     me "Ну, если я тебе мешаю..."
-    with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "Нет."
     "Не отрывая взгляд от книжки, сказала она."
     me "Можно я тогда посижу с тобой немного?"
-    with None
-    show un surprise pioneer at center 
+    show un surprise pioneer at center
     with dspr
     un "Зачем?"
     th "А ведь и правда – зачем?.."
     "Наверное, просто потому что очень устал и в компании с кем-то лучше, чем одному."
     "А может быть, получится от неё что-то узнать."
-    with None
-    show un shy pioneer at center 
+    show un shy pioneer at center
     with dspr
     "Я внимательно осмотрел Лену."
     th "Хотя нет, вряд ли..."
@@ -1799,14 +1687,12 @@ label day1:
     "Будь на её месте, допустим, Ульянка, наверняка бы меня засмеяла."
     me "А тебе здесь нравится?"
     "Я вспомнил вопрос Слави и решил, что он как нельзя лучше подойдёт для начала разговора."
-    with None
-    show un smile pioneer at center 
+    show un smile pioneer at center
     with dspr
     un "Да."
     "Она еле заметно улыбнулась."
     me "И мне, наверное, нравится..."
-    with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     "Лена явно не очень общительна и вряд ли в состоянии поддержать непринуждённую беседу ни о чём, как Славя."
     "Но всё же было в ней то, что привлекало внимание."
@@ -1817,14 +1703,12 @@ label day1:
     me "Красивая ночь..."
     un "Да..."
     th "И как вообще завязать с ней разговор?"
-    with None
-    show un shy pioneer at center 
+    show un shy pioneer at center
     with dspr
     un "Поздно уже, мне пора…"
     me "Да, поздновато…"
     un "Спокойной ночи."
     me "Спокойной…"
-    with None
     hide un
     with dissolve
     "Что-то в этой девочке мне казалось странным."
@@ -1849,8 +1733,7 @@ label day1:
     with dissolve
     play sound sfx_open_door_2
     play music music_list["smooth_machine"] fadein 5
-    with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     window show
     mt "Привет, Семён!{w} Что-то ты долго!"
@@ -1859,12 +1742,10 @@ label day1:
     "Она указала на одну из кроватей."
     me "Здесь?.."
     "Я несколько удивился."
-    with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dspr
     mt "Ну да, а что такого?{w} Всё равно других свободных мест нет."
-    with None
-    show mt smile pioneer at center 
+    show mt smile pioneer at center
     with dspr
     "Вожатая улыбнулась, больше из вежливости, как мне показалось."
     mt "Ты же хочешь стать порядочным пионером?"
@@ -1872,20 +1753,17 @@ label day1:
     me "Да… Конечно…"
     "На мгновение я задумался."
     me "Но ты-то не против?"
-    with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dspr
     "Она как-то странно посмотрела на меня.{w} В её взгляде смешались удивление и что-то вроде обиды."
-    with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dspr
     mt "Пионер должен уважать старших!"
     "Грозно сказала Ольга Дмитриевна."
     me "Должен, конечно, кто же спорит…"
     "Пролепетал я в ответ, не понимая, что же не так."
     mt "Или ты?.."
-    with None
-    show mt rage pioneer at center 
+    show mt rage pioneer at center
     with dspr
     "Она пристально посмотрела на меня."
     "От такого взгляда, расплавился бы и мифрил, выкованный в самых глубоких подземельях лучшими мастерами гномов."
@@ -1898,8 +1776,7 @@ label day1:
     "Да и с любым характером в моём положении спорить не пристало."
     me "Как скажете…"
     "Промямлил я."
-    with None
-    show mt smile pioneer at center 
+    show mt smile pioneer at center
     with dspr
     mt "Так-то лучше!{w} Вот так и должен вести себя порядочный пионер!"
     mt "А теперь спать!"
@@ -1964,7 +1841,7 @@ label day1:
     window show
     th "А что, если я здесь надолго?.."
     window hide
-    pause (3)
+    pause 3
     jump day2_main1
 init:
     $ day2_map_necessary_done = 0
@@ -1975,10 +1852,10 @@ init:
     $ d2_cardgame_block_rollback = False
 label day2_main1:
     $ backdrop = "days"
-    $ new_chapter(2, u"День второй")
+    $ new_chapter(2, "День второй")
     $ day_time()
     scene bg black
-    pause (2)
+    pause 2
     window show
     "Мне снился сон…"
     "Казалось, я нахожусь в каком-то вакууме, а вокруг – пустота."
@@ -2022,31 +1899,31 @@ label day2_main1:
     play sound sfx_open_cabinet_2
     window hide
     scene cg d2_mirror:
-        pause 0.5 
-        linear 0.05 pos (-5,-5) 
-        linear 0.05 pos (0,0) 
-        linear 0.05 pos (5,5) 
-        linear 0.05 pos (0,5) 
-        linear 0.05 pos (5,0) 
-        linear 0.05 pos (0,0) 
-        linear 0.05 pos (-5,-5) 
-        linear 0.05 pos (0,0) 
-        linear 0.05 pos (5,5) 
-        linear 0.05 pos (0,5) 
-        linear 0.05 pos (5,0) 
-        linear 0.05 pos (0,0) 
-        linear 0.05 pos (-5,-5) 
-        linear 0.05 pos (0,0) 
-        linear 0.05 pos (5,5) 
-        linear 0.05 pos (0,5) 
-        linear 0.05 pos (5,0) 
-        linear 0.05 pos (0,0) 
-        linear 0.05 pos (-5,-5) 
-        linear 0.05 pos (0,0) 
-        linear 0.05 pos (5,5) 
-        linear 0.05 pos (0,5) 
-        linear 0.05 pos (5,0) 
-        linear 0.05 pos (0,0) 
+        pause 0.5
+        linear 0.05 pos (-5,-5)
+        linear 0.05 pos (0,0)
+        linear 0.05 pos (5,5)
+        linear 0.05 pos (0,5)
+        linear 0.05 pos (5,0)
+        linear 0.05 pos (0,0)
+        linear 0.05 pos (-5,-5)
+        linear 0.05 pos (0,0)
+        linear 0.05 pos (5,5)
+        linear 0.05 pos (0,5)
+        linear 0.05 pos (5,0)
+        linear 0.05 pos (0,0)
+        linear 0.05 pos (-5,-5)
+        linear 0.05 pos (0,0)
+        linear 0.05 pos (5,5)
+        linear 0.05 pos (0,5)
+        linear 0.05 pos (5,0)
+        linear 0.05 pos (0,0)
+        linear 0.05 pos (-5,-5)
+        linear 0.05 pos (0,0)
+        linear 0.05 pos (5,5)
+        linear 0.05 pos (0,5)
+        linear 0.05 pos (5,0)
+        linear 0.05 pos (0,0)
     with dissolve
     window show
     me "Твою!.."
@@ -2084,61 +1961,52 @@ label day2_main1:
     "Я уже несколько лет не чувствовал себя по утрам так хорошо."
     "Все проблемы на секунду улетели куда-то далеко, растворились в редких, цвета первого снега облаках."
     "Вдруг передо мной словно из ниоткуда появилась Ольга Дмитриевна."
-    with None
-    show mt normal panama pioneer at center 
+    show mt normal panama pioneer at center
     with dissolve
     mt "Доброе утро, Семён!"
     me "Доброе!"
     "Я улыбнулся, пытаясь всем своим видом показать, что несмотря ни на что утро моё было действительно добрым."
     mt "Ты только вчера приехал, так что будить я тебя не стала, но завтрак-то…"
-    with None
-    show mt smile panama pioneer at center 
+    show mt smile panama pioneer at center
     with dspr
     mt "Хотя ладно! Вот, держи!"
     play sound sfx_paper_bag
     "Она протянула мне бумажный свёрток."
     "Судя по масляным пятнам, внутри, скорее всего, бутерброды."
     me "Ой, спасибо!"
-    with None
-    show mt normal panama pioneer at center 
+    show mt normal panama pioneer at center
     with dspr
     mt "А теперь марш умываться!"
     "Я уже собирался уходить."
     mt "Сейчас, подожди."
-    with None
     hide mt
     with dissolve
     window hide
     pause 1
     window show
-    with None
-    show mt normal panama pioneer at center 
+    show mt normal panama pioneer at center
     with dissolve
     "Ольга Дмитриевна забежала в домик и, вернувшись, сунула мне небольшой пакетик."
     "Внутри оказались зубная щётка, мыло, небольшое полотенце и что-то ещё – я особо не всматривался."
-    with None
-    show mt smile panama pioneer at center 
+    show mt smile panama pioneer at center
     with dspr
     mt "Пионер должен быть всегда чист и опрятен!"
     mt "Дай я тебе галстук правильно завяжу на первый раз, а то он болтается.{w} Потом научишься, сам будешь!"
     me "А может, не надо? Я сейчас умываться иду."
     th "Ну да, вдруг зацеплюсь за кран и удавлюсь..."
-    with None
-    show mt normal panama pioneer at center 
+    show mt normal panama pioneer at center
     with dspr
     mt "Ладно, тогда потом.{w} И не забудь про линейку."
     th "Карандаши, ручки, линейки…{w} Такие вещи не забываются!"
     me "Какую линейку?"
-    with None
-    show mt angry panama pioneer at center 
+    show mt angry panama pioneer at center
     with dspr
     mt "В смысле – какую линейку?!"
     "Она нахмурилась."
     mt "Сегодня же понедельник!"
     th "Странно, а по моим подсчётам – воскресенье…"
     th "Впрочем, смена дня недели – это ещё не самое страшное."
-    with None
-    show mt normal panama pioneer at center 
+    show mt normal panama pioneer at center
     with dspr
     mt "Обычно у нас линейки рано утром, до завтрака, но сегодня понедельник, поэтому она будет в 12 часов."
     mt "Не опаздывай!"
@@ -2178,32 +2046,27 @@ label day2_main1:
     window show
     "Кто-то быстро шёл, даже бежал в мою сторону."
     "Я обернулся."
-    with None
-    show sl normal sport at center 
+    show sl normal sport at center
     with dissolve
     "Передо мной стояла Славя в спортивном костюме."
     "Похоже, эта девочка будет хорошо выглядеть абсолютно во всём – и в пионерской форме, и в купальнике, и, наверное, даже в космическом скафандре."
-    with None
-    show sl smile sport at center 
+    show sl smile sport at center
     with dspr
     sl "Физкульт-привет!"
     me "Охай… То есть, бобр… Доброе утро! Вот…"
     "Приветствие мне удалось выбрать не сразу."
-    with None
-    show sl normal sport at center 
+    show sl normal sport at center
     with dspr
     sl "Почему на завтрак не пришёл?"
     me "Проспал."
     "Я сказал это так, словно гордился своим достижением."
     me "Но мне Ольга Дмитриевна бутерброды принесла."
-    with None
-    show sl smile sport at center 
+    show sl smile sport at center
     with dspr
     sl "А, ну отлично тогда! Не забудь про линейку!"
     me "Да, конечно."
     th "Забудешь тут."
     sl "Ладно, я побежала, не скучай!"
-    with None
     hide sl
     with dissolve
     "Она помахала мне на прощание и скрылась за поворотом тропинки."
@@ -2229,7 +2092,6 @@ label day2_main1:
     "И переодевалась!"
     "Я застыл как вкопанный, стараясь даже не дышать."
     if persistent.hentai:
-        with None
         show cg d2_mt_undressed_2
         with dspr
     "Наконец вожатая заметила меня."
@@ -2245,8 +2107,7 @@ label day2_main1:
     th "Да, неудобно получилось."
     "Хотя зрелище мне пришлось по нраву."
     "Через минуту вышла и Ольга Дмитриевна."
-    with None
-    show mt normal panama pioneer at center 
+    show mt normal panama pioneer at center
     with dissolve
     mt "Вот, держи.{w} Теперь это и твой дом тоже."
     window hide
@@ -2267,36 +2128,30 @@ label day2_main1:
     window show
     "Мы шли вдоль домиков пионеров, я уплетал бутерброды с колбасой, а Ольга Дмитриевна трещала без умолку.{w} Ву-ву-ву – как трансформатор!"
     "Но меня не волновало ничего кроме еды."
-    with None
-    show mt normal panama pioneer at center 
+    show mt normal panama pioneer at center
     with dissolve
     mt "Понял?"
     me "А?"
-    with None
-    show mt angry panama pioneer at center 
+    show mt angry panama pioneer at center
     with dspr
     mt "Ты не слушаешь!"
     me "Простите…"
-    with None
-    show mt normal panama pioneer at center 
+    show mt normal panama pioneer at center
     with dspr
     mt "Сегодня начинается твоя новая пионерская жизнь!"
     mt "И ты должен приложить все усилия, чтобы она стала счастливой!"
     me "А, да, конечно…"
-    with None
-    show mt surprise panama pioneer at center 
+    show mt surprise panama pioneer at center
     with dspr
     mt "Я серьёзно! У пионера много обязанностей, на него возложена большая ответственность – участвовать в общественной работе, помогать младшим, учиться, учиться и ещё раз учиться!"
     mt "Мы все тут как одна большая семья.{w} И тебе предстоит стать её частью."
     th "Да, частью…{w} Я готов даже расписаться в партбилете, лишь бы не слушать этот бред."
-    with None
-    show mt smile panama pioneer at center 
+    show mt smile panama pioneer at center
     with dspr
     mt "Надеюсь, по окончании смены у тебя останутся самые лучшие воспоминания о нашем лагере."
     mt "Воспоминания на всю жизнь!"
     me "А когда смена заканчивается?"
-    with None
-    show mt normal panama pioneer at center 
+    show mt normal panama pioneer at center
     with dspr
     mt "Что ты постоянно всякие глупости спрашиваешь?"
     th "Похоже, ответов от неё мне не добиться ."
@@ -2316,15 +2171,13 @@ label day2_main1:
     window show
     "Мы пришли на площадь."
     "Пионеры уже выстроились в шеренгу."
-    with None
-    show mt normal panama pioneer at center 
+    show mt normal panama pioneer at center
     with dissolve
     me "А что, ещё не все пришли?"
     mt "Да вроде все."
     "Она окинула взглядом свой бравый пионеротряд."
     mt "Ладно, иди становись."
     th "Странно.{w} Почему тогда она мне сказала, что больше спальных мест нет?"
-    with None
     hide mt
     with dissolve
     window hide
@@ -2350,13 +2203,11 @@ label day2_main1:
     "Рядом стояла Ольга Дмитриевна."
     mt "Ты запомнил план на неделю?"
     me "План?{w} План я никогда не забуду!"
-    with None
-    show mt smile panama pioneer at cleft 
+    show mt smile panama pioneer at cleft
     with dspr
     mt "Вот и отлично!"
     "Она посмотрела на Славю."
-    with None
-    show mt normal panama pioneer at cleft 
+    show mt normal panama pioneer at cleft
     with dspr
     mt "Принесла?"
     sl "Да."
@@ -2384,11 +2235,11 @@ label day2_main1:
     th "Ладно, пока всё равно в столовую идти рано!"
     window hide
     $ disable_all_zones()
-    $ set_zone("music_club","day2_musclub")
-    $ set_zone("clubs","day2_clubs")
-    $ set_zone("library","day2_library")
-    $ set_zone("medic_house","day2_aidpost")
-    $ set_zone("dining_hall","day2_dinner")
+    $ set_zone("music_club", "day2_musclub")
+    $ set_zone("clubs", "day2_clubs")
+    $ set_zone("library", "day2_library")
+    $ set_zone("medic_house", "day2_aidpost")
+    $ set_zone("dining_hall", "day2_dinner")
     jump day2_map
 label day2_map:
     if day2_map_necessary_done == 5:
@@ -2407,7 +2258,7 @@ label day2_musclub:
     window hide
     stop ambience fadeout 2
     play sound sfx_open_door_2
-    pause(1)
+    pause 1
     scene bg int_musclub_day
     with dissolve
     play ambience ambience_music_club_day fadein 3
@@ -2430,66 +2281,58 @@ label day2_musclub:
     window hide
     play sound sfx_piano_head_bump
     with vpunch
-    pause (1)
+    pause 1
     window show
     "Она попыталась вскочить, но днище рояля стало для неё непреодолимой преградой."
     mi "Ай!"
     window hide
     scene bg int_musclub_day
     with dissolve
-    with None
-    show mi shocked pioneer at center 
+    show mi shocked pioneer at center
     with dissolve
     window show
     "С трудом, но девочка всё же выбралась."
     me "Извини, что напугал…"
-    with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dspr
     mi "Да ничего! Вижу, у тебя обходной, новенький, значит?"
     me "А? Да."
-    with None
-    show mi smile pioneer at center 
+    show mi smile pioneer at center
     with dspr
     mi "Меня Мику зовут."
-    $ meet('mi',"Мику")
+    $ meet('mi', 'Мику')
     mi "Нет, честно-честно! Никто не верит, а меня правда так зовут. Просто у меня мама из Японии. Папа с ней познакомился, когда строил там… Ну, то есть не строил – он у меня инженер…"
     mi "Короче, атомную станцию! Или плотину… Или мост… Ну, неважно!"
     "Она говорила с такой скоростью, что половину слов просто проглатывала."
     me "А я Семён."
-    with None
-    show mi happy pioneer at center 
+    show mi happy pioneer at center
     with dspr
     mi "Отлично! Не хочешь к нам в клуб вступить? Правда, я тут пока одна, но с тобой нас будет двое! Ты на чём-нибудь играть умеешь?"
     "Уже в период моего «отшельничества» я купил гитару и выучил пару аккордов, но потом забросил, как и всё, на что требовалось больше нескольких часов."
     me "Знаешь, я как-то не планировал особо…"
-    with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dspr
     mi "Да ладно тебе, я тебя научу играть! Хочешь, на трубе, например? Или на скрипке? Я на всём умею, честно-честно."
     "Спорить с девочкой-мультиинструменталистом бессмысленно, так как в ответ наверняка последует ещё одна пулемётная очередь из слов."
     me "Я подумаю, а пока не могла бы ты подписать?"
-    with None
-    show mi happy pioneer at center 
+    show mi happy pioneer at center
     with dspr
     mi "Да-да-да, конечно, давай! Ты заходи, не стесняйся! Я ещё и пою хорошо! Послушаешь, как я пою японские народные песни. Ну, или, если не нравится, может, что-нибудь из современных шлягеров?"
     me "Обязательно… А сейчас мне пора, извини."
-    with None
-    show mi shy pioneer at center 
+    show mi shy pioneer at center
     with dspr
     mi "Конечно, приходи непременно…"
     window hide
     stop ambience fadeout 2
     stop music fadeout 3
-    pause (1)
+    pause 1
     scene bg ext_musclub_day
     with dissolve
     play ambience ambience_camp_center_day fadein 3
     window show
     "Окончание её фразы скрылось за закрытой дверью."
     "С одной стороны, неплохо вечерком посидеть побренчать на гитаре, но в такой компании…"
-    with None
-    show dv normal pioneer close at center  
+    show dv normal pioneer close at center
     with dissolve
     "Я повернулся, собираясь уходить, и столкнулся нос к носу с Алисой."
     "Она недобро посмотрела на меня."
@@ -2498,7 +2341,6 @@ label day2_musclub:
     dv "Подписал?"
     me "Да…"
     dv "Свободен!"
-    with None
     hide dv
     with dissolve
     "Алиса вошла внутрь, а я поспешил покинуть это место."
@@ -2520,7 +2362,7 @@ label day2_clubs:
     window hide
     stop ambience fadeout 2
     play sound sfx_open_door_clubs
-    pause(1)
+    pause 1
     scene bg int_clubs_male_day
     with dissolve
     play ambience ambience_clubs_inside_day fadein 3
@@ -2537,40 +2379,33 @@ label day2_clubs:
     me "А чего вы меня ждали?"
     el "Ну как же, ты пришёл в наш клуб кибернетиков записываться, так?"
     "Он не дал мне ответить."
-    with None
-    show el smile pioneer at cleft 
+    show el smile pioneer at cleft
     with dspr
     el "Знакомься, это Шурик, он у нас главный!"
-    $ meet('sh',"Шурик")
+    $ meet('sh', 'Шурик')
     me "А вас в клубе этом только двое, я так полагаю?"
-    with None
-    show el normal pioneer at cleft 
+    show el normal pioneer at cleft
     with dspr
     el "Ну, можешь считать, что уже трое."
     "Шурик подошёл ко мне и уверенно протянул руку."
     "Его лицо почему-то казалось знакомым."
-    with None
-    show sh normal_smile pioneer at cright 
+    show sh normal_smile pioneer at cright
     with dspr
     sh "Добро пожаловать!"
     me "Угу…"
-    with None
-    show sh normal pioneer at cright 
+    show sh normal pioneer at cright
     with dspr
     el "Давай я тебе тут всё покажу!{w} Ты не стесняйся, располагайся."
     me "Да нет, ребята, я вообще-то…"
-    with None
-    show sh normal_smile pioneer at cright 
+    show sh normal_smile pioneer at cright
     with dspr
     sh "Всегда рады новым членам."
     "Он сказал это так, что в голове у меня невольно заиграл гимн Советского Союза."
     "Удивительно, но я ещё помнил слова – в первом классе у меня была тетрадка с текстом гимна на обратной стороне."
     me "Да нет, мне бы просто обходной лист подписать."
-    with None
-    show sh normal_smile pioneer at cright 
+    show sh normal_smile pioneer at cright
     with dspr
-    with None
-    show el grin pioneer at cleft 
+    show el grin pioneer at cleft
     with dspr
     el "Так ты к нам запишись, а мы тебе его подпишем."
     "Он хитро улыбнулся."
@@ -2581,25 +2416,21 @@ label day2_clubs:
     with dissolve
     "Я обернулся и увидел Славю."
     sl "А, Семён! Надеюсь, они тебя тут не достают?"
-    with None
-    show sl angry pioneer at center 
+    show sl angry pioneer at center
     with dspr
     "Она строго посмотрела на будущих светил отечественного роботостроения."
     sl "А то я их знаю – они могут!"
     me "Да, понимаешь, на самом деле мне бы просто обходной подписать…"
     "Я решил воспользоваться ситуацией."
-    with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Так это не проблема, давай сюда."
     "Славя взяла листок и подошла к Шурику."
     sl "Подписывай!"
-    with None
-    show sh upset pioneer at right 
+    show sh upset pioneer at right
     with dspr
     sh "Ну подожди, мы ещё не закончили…"
-    with None
-    show sl angry pioneer at center 
+    show sl angry pioneer at center
     with dspr
     sl "Закончили! Подписывай!"
     "Она посмотрела на него так, что возражать Шурик не решился."
@@ -2667,32 +2498,27 @@ label day2_library:
     th "Какая отличная привычка – стучать.{w} Надо и мне её взять на вооружение."
     play sound sfx_open_door_clubs_2
     "В библиотеку вошла Лена."
-    with None
-    show un normal pioneer at cleft 
+    show un normal pioneer at cleft
     with dissolve
     un "Ой…"
-    with None
-    show un shy pioneer at cleft 
+    show un shy pioneer at cleft
     with dspr
     me "Привет!"
     "Я улыбнулся."
     un "Привет, а я вот книжку пришла отдать…"
     "У неё в руках была «Унесённые ветром», которую я видел вчера."
     un "Ой, а Женя спит, тогда я попозже зайду…"
-    $ meet('mz',"Женя")
+    $ meet('mz', 'Женя')
     mz "Уже не сплю."
-    with None
-    show mz normal glasses pioneer far at cright  
+    show mz normal glasses pioneer far at cright
     with dissolve
     "Я удивлённо посмотрел в сторону библиотекарши."
     "Она сидела за столом и пристально наблюдала за мной."
-    with None
-    show mz angry glasses pioneer far at cright 
+    show mz angry glasses pioneer far at cright
     with dspr
     mz "А тебе чего?"
     me "Мне бы обходной…"
-    with None
-    show mz normal glasses pioneer at cright 
+    show mz normal glasses pioneer at cright
     with dissolve
     mz "Давай."
     "Библиотекарша быстро расписалась и протянула мне его."
@@ -2715,14 +2541,13 @@ label day2_aidpost:
     window hide
     stop ambience fadeout 2
     play sound sfx_open_door_1
-    pause (1)
+    pause 1
     scene bg int_aidpost_day
     with dissolve
     play ambience ambience_medstation_inside_day fadein 3
     window show
     th "Обычный медпункт, у нас в школе был примерно такой же."
-    with None
-    show cs normal stethoscope at center 
+    show cs normal stethoscope at center
     with dissolve
     play music music_list["eternal_longing"] fadein 5
     "За столом сидела женщина средних лет.{w} Очевидно, медсестра."
@@ -2738,51 +2563,44 @@ label day2_aidpost:
     "Всё это она говорила совершенно ровным тоном."
     me "Зачем?.."
     cs "Смотреть тебя будем, слушать, здоровье проверять."
-    with None
-    show cs smile stethoscope at center 
+    show cs smile stethoscope at center
     with dspr
     cs "Меня, кстати, зовут Виолетта, но ты можешь звать меня просто Виолой."
-    $ meet('cs',"Виола")
+    $ meet('cs', 'Виола')
     "Она повернулась в мою сторону."
     cs "Ну, чего сидишь? Раздевайся."
     me "Да я не жалуюсь ни на что. Мне бы вот…"
     "Я аккуратно протянул ей листок."
     cs "Потом."
-    with None
-    show cs smile at center 
+    show cs smile at center
     with dissolve
     "Она сняла с шеи стетоскоп и, кажется, намеревалась меня им препарировать."
     window hide
     stop music fadeout 3
     play sound sfx_knock_door7_polite
-    pause (1)
+    pause 1
     window show
     "Но тут в дверь постучали."
-    with None
-    show cs normal at center 
+    show cs normal at center
     with dspr
     "Медсестра нехотя ответила:"
     cs "Входите!"
     play sound sfx_open_door_strong
     "Моментально дверь распахнулась и в комнату влетел Электроник."
-    with None
-    show el fingal pioneer far at left  
-    with dissolve   
-    with None
-    show cs normal at center 
+    show el fingal pioneer far at left
+    with dissolve
+    show cs normal at center
     with dspr
     el "Здрасьте! Я тут это… на футболе упал. Глупости, конечно, я бы и так, но меня Ольга Дмитриевна…"
     "У Электроника под глазом красовался здоровенный фингал."
     th "Что-то я сомневаюсь, что такой можно заработать на футболе."
     cs "Садись, сейчас посмотрим."
     "Сказала она ему."
-    with None
-    show cs normal glasses at center 
+    show cs normal glasses at center
     with dissolve
     cs "А ты давай сюда свой обходной."
     "Медсестра быстро подписала его и продолжила:"
-    with None
-    show cs smile glasses at center 
+    show cs smile glasses at center
     with dspr
     cs "Если что заболит – сразу ко мне… пионер."
     stop ambience fadeout 2
@@ -2797,7 +2615,7 @@ label day2_aidpost:
     $ day2_map_necessary_done +=1
     jump day2_map
 label day2_dinner:
-    $ lp_us = lp_us +1
+    $ lp_us += 1
     scene bg ext_dining_hall_away_day
     with dissolve
     window show
@@ -2818,47 +2636,39 @@ label day2_dinner:
     play sound sfx_punch_medium
     with vpunch
     play music music_list["eat_some_trouble"] fadein 5
-    pause (1)
+    pause 1
     window show
     "Однако сосредоточенность моя продлилась недолго – кто-то ударил меня по спине, да так, что я подавился."
     "Передо мной стояла Ульянка и торжествующе улыбалась."
-    with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dissolve
     me "Я тебя когда-нибудь удушу!"
-    with None
-    show us laugh2 pioneer at center 
+    show us laugh2 pioneer at center
     with dspr
     us "Не догонишь!"
     "Она показала язык!"
-    with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "Один раз уже пытался – не догнал же."
     me "Хорошо, тогда я тебя где-нибудь подкараулю!"
-    with None
-    show us surp2 pioneer at center 
+    show us surp2 pioneer at center
     with dspr
     us "Так нечестно!"
     me "Ты на себя посмотри, честная!"
     "Я ухмыльнулся."
-    with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Ладно, подожди, сейчас обед возьму и вернусь, вместе поедим."
-    with None
     hide us
     with dissolve
     "Не самая радужная перспектива – я постарался побыстрее закончить с обедом."
     "Однако Ульянка вернулась буквально через полминуты."
-    with None
-    show us smile pioneer at center 
+    show us smile pioneer at center
     with dspr
     "У неё на тарелке лежал огромный кусок жареного мяса и несколько отварных картофелин."
     "По сравнению с моей королевской трапезой…"
     me "Это ты как?.. Откуда?.."
-    with None
-    show us laugh2 pioneer at center 
+    show us laugh2 pioneer at center
     with dspr
     us "Уметь надо!"
     "Она посмотрела на меня и улыбнулась во все свои 32… или сколько их у неё там было… зуба."
@@ -2866,85 +2676,72 @@ label day2_dinner:
     "Я никогда толком не умел над кем-то подшучивать, да и в школе чаще прикалывались надо мной."
     "Однако как-то ей отомстить всё же было необходимо."
     me "А если Ольга Дмитриевна узнает, что ты воруешь еду?"
-    with None
-    show us surp3 pioneer at center 
+    show us surp3 pioneer at center
     with dspr
     us "Так я не ворую!"
     "Возмутилась Ульяна."
     me "А это ты ей будешь рассказывать. Думаешь, поверит?"
-    with None
-    show us surp2 pioneer at center 
+    show us surp2 pioneer at center
     with dspr
     us "И откуда же она узнает?!"
     me "Ну… это зависит от многих обстоятельств."
-    with None
-    show us calml pioneer at center 
+    show us calml pioneer at center
     with dspr
     us "Например?"
     "Она внимательно посмотрела на меня."
     me "Принеси мне булочку. Сладкую."
-    with None
-    show us shy2 pioneer at center 
+    show us shy2 pioneer at center
     with dspr
     us "Откуда же я тебе её возьму?"
     me "Наверное, оттуда же, где взяла это."
     "Я показал на её тарелку."
     "Ульянка замялась."
-    with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "Ладно. Но только одну!"
-    with None
-    show us surp2 pioneer at center 
+    show us surp2 pioneer at center
     with dspr
     us "И обещай, что после этого не расскажешь Ольге Дмитриевне!"
     me "Слово пионера!"
-    with None
     hide us
     with dissolve
     "Она убежала в сторону буфета, а я недолго думая взял перечницу, открутил крышку и высыпал всё содержимое Ульянке в компот."
     "Только я закончил, как неугомонная девочка вернулась."
-    with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dissolve
     me "Держи, вымогатель!"
     th "Кажется, она ничего не заметила."
     me "А теперь давай кто быстрее выпьет компот!"
-    with None
-    show us surp2 pioneer at center 
+    show us surp2 pioneer at center
     with dspr
     us "Что ещё за глупости!"
     me "Почему глупости? Я выиграю, вот увидишь!"
-    with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "Не буду я с тобой в детские игры играть."
     me "Сама-то не ребёнок разве?"
     "Я ехидно улыбнулся."
-    with None
-    show us angry pioneer at center 
+    show us angry pioneer at center
     with dspr
     us "Ах так! Ладно! Раз, два, три!"
     "Она не дала мне времени даже взять чашку, а сама моментально, одним глотком, выпила весь свой компот."
     window hide
     show bg int_dining_hall_day:
-        linear 0.1 pos (-5,-5) 
-        linear 0.1 pos (0,0) 
-        linear 0.1 pos (5,5) 
-        linear 0.1 pos (0,5) 
-        linear 0.1 pos (5,0) 
-        linear 0.1 pos (0,0) 
+        linear 0.1 pos (-5,-5)
+        linear 0.1 pos (0,0)
+        linear 0.1 pos (5,5)
+        linear 0.1 pos (0,5)
+        linear 0.1 pos (5,0)
+        linear 0.1 pos (0,0)
         repeat 10
     stop music fadeout 0
-    with None
-    show us fear pioneer at center 
+    show us fear pioneer at center
     with dspr
     play sound sfx_angry_ulyana
     with flash_red
-    pause (5)
+    pause 5
     window show
     "Через секунду у неё на лице появилось выражение первобытного ужаса, щёки покраснели, а глаза, казалось, готовы были вылезти из орбит."
-    with None
     hide us
     with dissolve
     "Ульяна вскочила и побежала в сторону чайников с водой, на ходу выкрикивая:"
@@ -2964,38 +2761,32 @@ label day2_main2:
     scene bg ext_house_of_mt_day
     with dissolve
     play ambience ambience_camp_center_day fadein 3
-    with None
-    show mt normal panama pioneer far at center  
+    show mt normal panama pioneer far at center
     with dissolve
     window show
     "Вожатая сидела возле домика и читала книжку."
     "Вряд ли она сама соответствовала образу идеального пионера, которого хотела сделать из меня."
     "Видимо, все её обязанности – это произносить пламенные речи на линейке, отчитывать Ульяну и принимать деятельное участие в моём физическом и идеологическом воспитании."
-    with None
-    show mt normal panama pioneer at center 
+    show mt normal panama pioneer at center
     with dissolve
     me "Вот…"
     "Я протянул ей обходной."
     "Она не читая сунула листок в карман."
     th "Отлично! Значит, можно было самому за всех расписаться и вообще никуда не ходить…"
-    with None
-    show mt smile panama pioneer at center 
+    show mt smile panama pioneer at center
     with dspr
     mt "Молодец! Ну как, познакомился с нашей медсестрой?"
     me "Да…"
     "Почему-то от этого вопроса у меня мурашки побежали по коже."
-    with None
-    show mt normal panama pioneer at center 
+    show mt normal panama pioneer at center
     with dspr
     mt "В какой кружок записался?"
     me "Да пока ни в какой… Нужно подумать."
-    with None
-    show mt surprise panama pioneer at center 
+    show mt surprise panama pioneer at center
     with dspr
     mt "Ну, что же ты так! Завтра обязательно запишись куда-нибудь!"
     th "Конечно, всенепременно!"
-    with None
-    show mt normal panama pioneer at center 
+    show mt normal panama pioneer at center
     with dspr
     mt "Ладно, пора уже и на ужин идти."
     th "Ну наконец-то! Я уже проголодался."
@@ -3017,48 +2808,38 @@ label day2_main2:
     show sl normal pioneer at cright
     with dissolve
     "Ульяна и Славя."
-    with None
-    show dv angry pioneer at fright 
+    show dv angry pioneer at fright
     with dspr
-    with None
-    show el surprise pioneer at fleft 
+    show el surprise pioneer at fleft
     with dspr
     play music music_list["always_ready"] fadein 5
     "Когда мы подошли, я услышал, о чем они говорят:"
     dv "И больше не называй меня ДваЧе, а то ещё получишь!"
     el "Да не называл я тебя так! Тебе показалось!"
-    with None
-    show us grin pioneer at cleft 
+    show us grin pioneer at cleft
     with dspr
     us "Называл, называл, я всё слышала!"
-    with None
-    show el angry pioneer at fleft 
+    show el angry pioneer at fleft
     with dspr
-    with None
     show sl normal pioneer at cright  behind el
     with dspr
     el "Да тебя вообще там не было!"
     us "А вот и была! Я в кустах сидела!"
-    with None
     hide us
     with dissolve
-    with None
-    show sl angry pioneer at cright 
+    show sl angry pioneer at cright
     with dspr
-    with None
     show el angry pioneer at fleft  behind sl
     with dspr
     sl "Хватит вам! Прекратите!"
     th "Значит, Электроник своё ранение не на футболе получил."
     th "Однако, как хорошо его медсестра подлатала – от фингала не осталось и следа!"
-    with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     "Ольга Дмитриевна подошла к ним и попыталась выяснить, что происходит:"
     mt "Что вы тут ругаетесь?"
     sl "Алиса Сыроежкину в глаз…"
     dv "Ничего я не делала!"
-    with None
     hide dv
     with dissolve
     "Алиса обиженно фыркнула и зашла внутрь."
@@ -3081,14 +2862,12 @@ label day2_main2:
     "И, наконец, свободный стул был рядом с Мику."
     "Если выбирать из трёх зол…"
     me "Не возражаешь, если я здесь присяду?"
-    with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dissolve
     play music music_list["so_good_to_be_careless"] fadein 5
     mi "Ой, да, конечно! То есть нет, не возражаю! То есть да, садись конечно!"
     "Я сел."
-    with None
-    show mi smile pioneer at center 
+    show mi smile pioneer at center
     with dspr
     mi "Сегодня, смотри, гречка. Ты любишь гречку? И варёная курица! Я вообще курицу не люблю. Ну, то есть не то что не люблю..."
     mi "Но если бы меня спросили, что бы мне больше всего хотелось, то бефстроганов или рагу… Нет, может быть, просто котлета! Или ромштекс! Ты любишь ромштексы?"
@@ -3099,18 +2878,15 @@ label day2_main2:
     "Ужин в компании этой девочки начинал превращаться в пытку."
     "А я по характеру такой человек, что не могу просто так игнорировать собеседника.{w} Даже её."
     th "Мы всё же за одним столом сидим."
-    with None
-    show mi upset pioneer at center 
+    show mi upset pioneer at center
     with dspr
     mi "Знаешь, я однажды купила вафельный рожок, начала есть, а там внутри шуруп! Представляешь? Настоящий такой шуруп! Или болт… Я, честно говоря, в них не разбираюсь!"
-    with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dspr
     mi "Шурупы – это которыми закручивают гайки, а болты – это такие, которые отвёрткой, да?"
     th "Думаю, если бы проводился чемпионат по скоростному поеданию пищи, одно из призовых мест точно досталось бы мне."
     me "Ладно, я пойду, а тебе приятного аппетита!"
     "Я встал и направился к выходу."
-    with None
     hide mi
     with dissolve
     stop music fadeout 3
@@ -3134,13 +2910,12 @@ label day2_main2:
     "Дневной лагерь – во власти людей, ночной же – скорее сил природы."
     window hide
     play sound sfx_pat_shoulder_hard
-    pause(1)
+    pause 1
     window show
     "Кто-то легонько похлопал меня по плечу."
     play music music_list["lightness"] fadein 5
     "Я обернулся."
-    with None
-    show el normal pioneer at left 
+    show el normal pioneer at left
     with dissolve
     "Это был Электроник."
     el "Пойдём в карты играть."
@@ -3149,8 +2924,7 @@ label day2_main2:
     me "И какую же?"
     el "Ну, надо сначала карты найти, потом расскажу."
     me "Так ищи, в чём проблема?"
-    with None
-    show el upset pioneer at left 
+    show el upset pioneer at left
     with dspr
     el "Они есть только у Ольги Дмитриевны, а она мне не даст…"
     me "Почему?"
@@ -3163,30 +2937,26 @@ label day2_main2:
     el "Ольга Дмитриевна! А Семён как раз хотел у вас карты попросить!"
     me "Я вообще-то…"
     mt "Зачем?"
-    with None
-    show el smile pioneer at left 
+    show el smile pioneer at left
     with dspr
     el "Мы игру новую придумали!"
     th "Не мы, а ты."
-    with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dspr
     mt "Что за игра?"
     el "Будут карты – я покажу."
-    with None
-    show mt sad pioneer at center 
+    show mt sad pioneer at center
     with dspr
     mt "Ох, не нравится мне эта идея…{w} Но раз и Семён за, то, наверное, ничего страшного…"
     me "Да я вообще-то…"
-    with None
-    show sl smile pioneer at right 
+    show sl smile pioneer at right
     with dspr
     sl "Давайте я с ним схожу принесу!"
     window hide
     menu:
         "Пойти за картами со Славей":
             $ day2_cards_with_sl = 1
-            $ lp_sl = lp_sl + 1
+            $ lp_sl += 1
             jump day2_cards_with_sl
         "Пойти одному":
             jump day2_cards_without_sl
@@ -3201,14 +2971,12 @@ label day2_cards_with_sl:
     window show
     "Мы направились в сторону домика вожатой."
     "Где-то на полпути Славя вдруг остановилась."
-    with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Ой, я же совсем забыла, что карты у меня!"
     th "Очень вовремя."
     me "А где твой домик?"
-    with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Да тут рядом, пойдём!"
     "..."
@@ -3216,28 +2984,23 @@ label day2_cards_with_sl:
     with fade
     window show
     "Мы подошли к домику, который на самом деле больше напоминал вагончик."
-    with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Подожди тут минутку, я сейчас!"
-    with None
     hide sl
     with dissolve
     "Минуты ждать не пришлось – она вернулась через пару секунд."
-    with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     sl "Вот!"
     "Славя показала мне довольно потрёпанную колоду карт."
     me "Краплёные небось?"
-    with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Жульничать не спортивно!"
     "А уж жульничать, не зная правил игры..."
     sl "Пойдём?"
     me "Пойдём."
-    with None
     hide sl
     with dissolve
     "..."
@@ -3245,16 +3008,14 @@ label day2_cards_with_sl:
     with fade
     window show
     "На обратном пути я решил поговорить с ней в надежде что-нибудь выяснить:"
-    with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     me "А ты давно приехала?"
     sl "Уже неделю здесь."
     me "Понятно… А сама откуда?"
     sl "Я с севера."
     me "А поточнее?"
-    with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Холодного севера."
     "Она посмотрела на меня и улыбнулась."
@@ -3263,8 +3024,7 @@ label day2_cards_with_sl:
     me "А что тебе нравится?"
     sl "В смысле?"
     me "Ну, твои увлечения?"
-    with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dspr
     sl "Ааа… Я природу люблю."
     "Странно, но сейчас она почему-то немногословна."
@@ -3275,8 +3035,7 @@ label day2_cards_with_sl:
     th "А вдруг её тоже как-то сюда забросило, и она просто, как и я, не может никому доверять до конца?"
     "Я решил прощупать почву:"
     me "А почему ты именно в этот лагерь поехала?"
-    with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Родителям путёвку на работе дали."
     th "Опять облом."
@@ -3299,19 +3058,16 @@ label day2_cards_with_sl:
     "Когда мы вернулись, Ольга Дмитриевна сказала Славе:"
     mt "Я же вспомнила, что карты у тебя!"
     sl "Да ничего, мы принесли."
-    with None
-    show mt smile pioneer at cright 
+    show mt smile pioneer at cright
     with dspr
     mt "Ну и отлично!"
     jump day2_pre_cards
 label day2_cards_without_sl:
     window show
-    with None
-    show sl normal pioneer at right 
+    show sl normal pioneer at right
     with dspr
     me "Да я и один могу сходить…"
-    with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "Ладно. Возьмёшь у меня в домике в ящике стола."
     stop ambience fadeout 2
@@ -3334,7 +3090,7 @@ label day2_cards_without_sl:
     scene bg int_house_of_mt_sunset
     with dissolve
     play sound sfx_unlock_door_campus
-    pause(1)
+    pause 1
     play ambience ambience_int_cabin_evening fadein 2
     window show
     "Я открыл дверь своим ключом и зашёл."
@@ -3358,7 +3114,7 @@ label day2_cards_without_sl:
         "Но к моему удивлению, замок приветливо провернулся несколько раз, и я уже собирался потянуть на себя ручку..."
         window hide
         play sound sfx_open_door_kick
-        pause (1)
+        pause 1
         window show
         "Как вдруг сзади хлопнула дверь."
         "Я подскочил на месте, резко развернулся, но в домике никого, кроме меня, не было."
@@ -3371,14 +3127,12 @@ label day2_cards_without_sl:
         window show
         "После тщательного осмотра соседних кустов я всё-таки решил закончить начатое и уже приготовился узнать все страшные секреты вожатой..."
         sl "Семён, что ты тут так долго?"
-        with None
-        show sl normal pioneer at center 
+        show sl normal pioneer at center
         with dissolve
         me "А... я... да..."
         "Трясущимися руками я старался побыстрее закрыть ящик и вынуть ключ."
         "Славя подошла ближе."
-        with None
-        show sl smile pioneer at center 
+        show sl smile pioneer at center
         with dspr
         sl "Ой, мои ключи! А я их обыскалась! Где ты..."
         me "Да вот по дороге... В кустах валялись..."
@@ -3388,7 +3142,7 @@ label day2_cards_without_sl:
         window hide
     else:
         window hide
-    stop ambience fadeout 2        
+    stop ambience fadeout 2
     scene bg ext_dining_hall_near_sunset
     with dissolve
     play ambience ambience_camp_center_evening fadein 3
@@ -3398,8 +3152,7 @@ label day2_cards_without_sl:
     window show
     "Когда мы вернулись к столовой, Ольга Дмитриевна с невозмутимым видом сказала:"
     mt "Ой, извини, а карты у Слави были в домике.{w} Пока ты ходил, она сбегала."
-    with None
-    show sl smile2 pioneer at left 
+    show sl smile2 pioneer at left
     with dspr
     "Я посмотрел на Славю, она виновато улыбнулась."
     th "Да ладно уж, что там, не беспокойтесь обо мне…"
@@ -3410,8 +3163,7 @@ label day2_pre_cards:
     with dissolve
     "Славя и Ольга Дмитриевна зашли внутрь."
     "Я уже собирался последовать за ними, как вдруг кто-то резко дёрнул меня за руку."
-    with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     stop ambience fadeout 2
     play music music_list["you_won_t_let_me_down"] fadein 5
@@ -3422,91 +3174,77 @@ label day2_pre_cards:
     dv "Что, тоже планируешь участвовать в этой дурацкой игре?"
     me "Ну... да, а что такого?"
     dv "Нет, ничего."
-    with None
     show dv smile pioneer at center :
-        linear 0.5 xalign 0.72 
+        linear 0.5 xalign 0.72
     with dspr
     "Она уже собиралась уходить, но вдруг обернулась и внимательно посмотрела на меня, улыбнувшись."
     show dv smile pioneer at right:
-        linear 0.5 xalign 0.5 
+        linear 0.5 xalign 0.5
     dv "А в карты-то играть умеешь?"
     me "Умею немного."
     "Я никак не мог понять, что ей от меня нужно."
     dv "В дурака небось и всё?"
     th "Ты-то как будто звезда покера."
     me "Ну, в принципе, да..."
-    with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Значит, тут у тебя шансов никаких."
     me "Почему?"
-    with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "По кочану!"
     me "То есть ты правила знаешь?"
-    with None
-    show dv smile pioneer at center 
+    show dv smile pioneer at center
     with dspr
     dv "Конечно!"
     me "Ну, значит, у тебя будет преимущество."
     "Я не видел смысла дальше продолжать этот разговор и сделал несколько шагов по направлению к двери."
-    with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "Что ты всё уйти-то пытаешься?!"
     th "А о чём, собственно, ещё говорить?"
-    with None
-    show dv smile pioneer at center 
+    show dv smile pioneer at center
     with dspr
     dv "Давай поспорим."
     me "Ты про что?"
-    with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Какой же ты тупой!{w} Про карты, про что же ещё!"
     me "И каков же предмет спора?"
-    with None
-    show dv smile pioneer at center 
+    show dv smile pioneer at center
     with dspr
     dv "Что я тебя обыграю!"
     me "Ну, это самый вероятный исход."
     "Спокойно согласился я."
-    with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Значит, боишься?"
     me "Я не боюсь...{w} Просто не привык спорить, когда не уверен."
     dv "И рисковать ты тоже не привык."
     th "Сама наблюдательность просто-таки."
     me "Ладно, тогда я..."
-    with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "Нет уж!"
     me "Ну что ещё?"
     "Обессиленно вздохнул я."
     "Алиса начала мне надоедать своей пустой болтовнёй про какой-то бессмысленный спор."
-    with None
-    show dv grin pioneer at center 
+    show dv grin pioneer at center
     with dspr
     dv "Если не согласишься спорить, я всем расскажу, что ты ко мне приставал!"
     me "Что?!"
     dv "Что слышал!"
     th "Да, пожалуй, она вполне может..."
     me "Но это же глупо!{w} Тебе никто не поверит – я всего неполных два дня здесь, да и к тому же..."
-    with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Хочешь проверить?"
     me "Ну, предположим...{w} И что будет, если я выиграю?"
-    with None
-    show dv smile pioneer at center 
+    show dv smile pioneer at center
     with dspr
     dv "Я никому ничего не скажу."
     me "А если проиграю?"
-    with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Какой же ты тупой!{w} Расскажу, что ты ко мне приставал, говорила же уже."
     me "То есть, получается, мне нужно доказать, что я не делал того, что не делал и так?"
@@ -3517,49 +3255,42 @@ label day2_pre_cards:
     th "Хотя можно ли ей верить?"
     th "Даже если я выиграю, не претворит ли она в жизнь свои угрозы?"
     dv "Так что решил?"
-    with None
-    show un normal pioneer at right 
+    show un normal pioneer at right
     with dissolve
     "Я уже было собирался ответить, как у меня из-за спины бесшумно вынырнула Лена."
-    with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "Чего тебе?"
-    with None
-    show un scared pioneer at right 
+    show un scared pioneer at right
     with dspr
     un "Ничего..."
-    with None
     hide un
     with dissolve
     "Лена спешно зашла в столовую."
-    with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Ну?"
     window hide
     menu:
         "Поспорить с Алисой":
             $ day2_dv_bet = 1
-            $ lp_dv = lp_dv + 2
-            $ lp_un = lp_un - 1
+            $ lp_dv += 2
+            $ lp_un -= 1
             window show
         "Не спорить с Алисой":
             $ day2_dv_bet = 0
-            $ lp_dv = lp_dv - 2
-            $ lp_un = lp_un + 1
+            $ lp_dv -= 2
+            $ lp_un += 1
             window show
     if day2_dv_bet == 1:
         th "Возможно, я ещё сто раз пожалею об этом..."
         me "Ладно, идёт!"
-        with None
-        show dv smile pioneer at center 
+        show dv smile pioneer at center
         with dspr
         "Она улыбнулась."
         me "Только если я выиграю..."
         dv "Да-да, всё честно, без обмана!"
         "Алиса поднялась по лестнице и вошла внутрь."
-        with None
         hide dv
         with dissolve
         th "И зачем я во всё это ввязался?"
@@ -3568,13 +3299,11 @@ label day2_pre_cards:
     else:
         th "Нет, ни в какие глупые авантюры я пускаться не намерен!"
         me "Извини уж..."
-        with None
-        show dv angry pioneer at center 
+        show dv angry pioneer at center
         with dspr
         dv "Слабак!"
         "Она фыркнула, поднялась по ступенькам и у самой двери бросила мне:"
         dv "Готовься к последствиям!"
-        with None
         hide dv
         with dissolve
         th "Последствиям?.."
@@ -3596,7 +3325,6 @@ label day2_cards:
     "В дальнем углу что-то происходило."
     "Подойдя ближе, я увидел большой лист ватмана с какой-то схемой."
     window hide
-    with None
     show cg lvl_1
     with dissolve
     window show
@@ -3618,56 +3346,46 @@ label day2_cards:
     "Меня охватила тревога."
     "То чувство, когда кажется, что за тобой кто-то наблюдает в пустой плотно закрытой комнате без окон."
     window hide
-    with None
     hide cg lvl_1
     with dissolve
-    with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dissolve
     window show
     me "А призы какие-нибудь будут?"
     "Спросил я его лениво."
     "Может быть, просто хотелось отвлечься бессмысленным разговором."
-    with None
-    show us grin pioneer at left 
+    show us grin pioneer at left
     with dissolve
     "Электроник только собрался ответить, как откуда ни возьмись появилась Ульянка и начала прыгать вокруг него."
     us "Призы-призы!"
-    with None
-    show us grin pioneer at right 
+    show us grin pioneer at right
     with dspr
     us "Я что-то слышала про призы!"
     me "Знаешь, какой главный принцип Олимпийских игр?"
-    with None
-    show us laugh pioneer at right 
+    show us laugh pioneer at right
     with dspr
     us "Нет, какой?"
     me "Вот вырастешь – узнаешь!"
-    with None
-    show us dontlike pioneer at left 
+    show us dontlike pioneer at left
     with dspr
     "Она надула губки и ткнула Электроника в бок."
     us "Так призы будут?"
-    with None
-    show el surprise pioneer at center 
+    show el surprise pioneer at center
     with dspr
     el "Ну... Я не знаю.{w} Не от меня это зависит."
     "Он обречённо развёл руками."
     th "А ведь действительно, раз уж затеяли эту дурацкую игру, то могли хотя бы шоколадными медалями озаботиться."
-    with None
     hide us
     with dissolve
     "Ульянка неожиданно сорвалась с места и куда-то побежала."
     th "Мне бы чуток её оптимизма..."
     me "Ну так что, правила объяснишь?"
-    with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dspr
     el "Всему своё время!{w} Ещё не все собрались."
     "Я окинул столовую взглядом – Алиса, Славя, Лена, Мику и Шурик на месте."
     me "Вроде бы все..."
-    with None
-    show el surprise pioneer at center 
+    show el surprise pioneer at center
     with dspr
     el "Как же! Жени нет!"
     "Мне показалось, что он сказал это несколько взволнованным тоном."
@@ -3677,28 +3395,23 @@ label day2_cards:
     "Растягивая каждую букву, ответил он."
     "Я не стал уточнять, почему именно нельзя."
     me "Ну сходи тогда за ней, что ли, я не знаю."
-    with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dspr
-    with None
-    show mt normal pioneer at right 
+    show mt normal pioneer at right
     with dissolve
     mt "Не надо ему никуда ходить – он организатор, ему не положено!"
     "Словно из-под земли рядом с нами возникла вожатая."
-    with None
-    show el upset pioneer at center 
+    show el upset pioneer at center
     with dspr
     el "Но Ольга Дмитриевна!"
     "Взмолился Электроник."
-    with None
-    show mt smile pioneer at right 
+    show mt smile pioneer at right
     with dspr
     mt "Семён сходит.{w} Так, Семён?"
     "Она посмотрела на меня и улыбнулась."
     th "Конечно, всегда я..."
     me "А где она?"
-    with None
-    show mt normal pioneer at right 
+    show mt normal pioneer at right
     with dspr
     mt "Наверное, в библиотеке."
     me "Ладно..."
@@ -3722,18 +3435,15 @@ label day2_cards:
     play music music_list["your_bright_side"] fadein 5
     window show
     "Однако Женя нашлась раньше – она сидела на лавочке, уставившись в сторону безмолвного Генды."
-    with None
-    show mz normal glasses pioneer at center 
+    show mz normal glasses pioneer at center
     with dissolve
     me "Ты что тут делаешь?{w} Тебя все обыскались!"
-    with None
-    show mz angry glasses pioneer at center 
+    show mz angry glasses pioneer at center
     with dspr
     mz "Сижу, как видишь."
     "Она нахмурилась."
     me "Пойдём скорее!"
-    with None
-    show mz normal glasses pioneer at center 
+    show mz normal glasses pioneer at center
     with dspr
     mz "Не хочу."
     "Женя отвернулась."
@@ -3743,52 +3453,44 @@ label day2_cards:
     me "Слушай, мне тоже не очень нравится вся эта затея, но нельзя же всех подводить."
     "Мои слова звучали так, словно их говорил кто-то другой."
     "Ещё пару дней назад мне бы и в голову не пришло сказать подобное."
-    with None
-    show mz bukal glasses pioneer at center 
+    show mz bukal glasses pioneer at center
     with dspr
     "Женя удивлённо посмотрела на меня."
     mz "Так что, все только меня ждут?"
     th "А я тебе о чём?"
     me "Да."
-    with None
-    show mz angry glasses pioneer at center 
+    show mz angry glasses pioneer at center
     with dspr
     mz "Всё равно нет!"
     "Она нахмурилась и снова отвернулась."
     me "Но почему?"
     "Я всплеснул руками."
-    with None
-    show mz shy glasses pioneer at center 
+    show mz shy glasses pioneer at center
     with dspr
     mz "Не умею играть в карты..."
     me "Ну и что?{w} Я тоже не знаю правил."
-    with None
-    show mz normal glasses pioneer at center 
+    show mz normal glasses pioneer at center
     with dspr
     mz "Ну и как тогда играть?"
     me "А что, ты умеешь только то, о чём читала в книгах?"
-    with None
-    show mz bukal glasses pioneer at center 
+    show mz bukal glasses pioneer at center
     with dspr
     mz "Конечно."
     "Она удививилась."
     me "А если ты попадёшь в Антарктиду и тебе придётся охотиться на белых медведей?"
-    with None
-    show mz smile glasses pioneer at center 
+    show mz smile glasses pioneer at center
     with dspr
     mz "Белые медведи не живут в Антарктиде."
     "Женя улыбнулась."
     me "Ладно, это просто пример!"
     me "В конце концов, не на корову же играем."
     "Она задумалась."
-    with None
-    show mz normal glasses pioneer at center 
+    show mz normal glasses pioneer at center
     with dspr
     mz "Просто не хочу подводить ребят."
     me "Да-да."
     "Саркастически согласился я."
-    with None
-    show mz angry glasses pioneer at center 
+    show mz angry glasses pioneer at center
     with dspr
     mz "И не подумай ничего такого!"
     "Я даже и не понял, что она имела в виду."
@@ -3801,8 +3503,7 @@ label day2_cards:
     play ambience ambience_medium_crowd_indoors_1 fadein 3
     window show
     "Через минуту мы уже стояли в столовой."
-    with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dissolve
     "Все внимательно смотрели на Электроника."
     el "Итак..."
@@ -3815,12 +3516,10 @@ label day2_cards:
     el "Поскольку участников – восемь, то и туров будет три."
     el "Всё понятно?"
     "Толпа пионеров весело загалдела."
-    with None
-    show us laugh pioneer at left 
+    show us laugh pioneer at left
     with dissolve
     us "А призы какие, призы?"
-    with None
-    show sl angry pioneer at right 
+    show sl angry pioneer at right
     with dissolve
     sl "Ульяна, хватит!"
     "Вперёд выскочила Славя, тщетно пытаясь поймать Ульянку."
@@ -3836,8 +3535,7 @@ label day2_cards:
     "Как заведённая кричала Ульяна."
     sl "Прекрати."
     "Уговаривала её Славя."
-    with None
-    show el shocked pioneer at center 
+    show el shocked pioneer at center
     with dspr
     "А у Электроника, похоже, от всей этой беготни вокруг него уже закружилась голова."
     show us laugh pioneer at right
@@ -3847,31 +3545,24 @@ label day2_cards:
     "Спокойно сказал я и добавил, обращаясь к Ульянке:"
     me "А то никаких призов не получишь."
     "Такой аргумент, похоже, подействовал, и она вернулась на своё место."
-    with None
     hide us
     with dissolve
-    with None
-    show sl smile pioneer at left 
+    show sl smile pioneer at left
     with dspr
     "За ней последовала и Славя, бросив мне на прощание улыбку благодарности."
-    with None
     hide sl
     with dissolve
-    with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dspr
     "Пионеры наконец угомонились."
-    with None
     hide el
     with dissolve
     "Я подошёл к столу, за которым сидела Лена."
-    with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     me "Не возражаете?"
     "Она подняла на меня глаза и покраснела."
-    with None
-    show un shy pioneer at center 
+    show un shy pioneer at center
     with dspr
     me "Не волнуйся, я тоже правил не знаю."
     th "И почему «тоже»?"
@@ -3889,22 +3580,21 @@ label day2_cardgame:
                 jump day_2_cards_continue
 label demo_play:
     python:
-        
+
         dialogs = {
-                        (3,"rival_select","call"): "demo_play_intro",
-                        (3,"me_defend_1","call"):  "demo_play_me_defend_1",
-                        (3,"me_select_1","call"):  "demo_play_me_select_1",
-                        (3,"rival_defend","call"): "demo_play_rival_defend",
-                        (2,"rival_select","jump"): "demo_play_after_loop",
+                        (3, "rival_select", "call"): "demo_play_intro",
+                        (3, "me_defend_1", "call"):  "demo_play_me_defend_1",
+                        (3, "me_select_1", "call"):  "demo_play_me_select_1",
+                        (3, "rival_defend", "call"): "demo_play_rival_defend",
+                        (2, "rival_select", "jump"): "demo_play_after_loop",
                     }
         INVISIBLE = False
         VISIBLE = False
         generate_cards("bg hall",dialogs)
-        rival = CardGameRivalUn(un_avatar_set,"Пробная игра")
+        rival = CardGameRivalUn(un_avatar_set, "Пробная игра")
     jump cards_gameloop
 label demo_play_intro:
-    with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dissolve
     $ show_cards()
     el "Посмотрите на карты внимательно."
@@ -4012,23 +3702,19 @@ label day_2_cards_continue:
     window show
     "Электроник, до этого лишь молча наблюдавший за игрой, удовлетворённо кивнул."
     "Похоже, теперь мы действительно немного разобрались, что к чему."
-    with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dissolve
     el "Итак, во время игры противники три раза обмениваются картами, а потом вскрываются."
     "У меня вырвался невольный смешок от слова «вскрываются»."
-    with None
-    show el angry pioneer at center 
+    show el angry pioneer at center
     with dspr
     el "Что смешного?"
     me "Нет, ничего."
     "Сдерживаясь из последних сил, чтобы не прыснуть, ответил я."
     "Он пристально посмотрел на меня и продолжил."
-    with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dspr
     el "И мы смотрим, у кого лучше карты."
-    with None
     hide el
     with dissolve
     "Электроник вернулся к своему ватману."
@@ -4083,14 +3769,14 @@ label day_2_cards_continue:
                 jump un_play_fail
 label un_play:
     python:
-        
+
         dialogs = {
-                        (0,"win","jump"):          "un_play_win",
-                        (0,"fail","jump"):         "un_play_fail",
-                        (0,"draw","jump"):         "un_play_draw",
+                        (0, "win", "jump"):          "un_play_win",
+                        (0, "fail", "jump"):         "un_play_fail",
+                        (0, "draw", "jump"):         "un_play_draw",
                     }
         generate_cards("bg hall",dialogs)
-        rival = CardGameRivalUn(un_avatar_set,"Лена")
+        rival = CardGameRivalUn(un_avatar_set, "Лена")
     jump cards_gameloop
 label un_play_fail:
     $ persistent.CardsFail = True
@@ -4127,14 +3813,12 @@ label un_play_win:
     window hide
     scene bg int_dining_hall_sunset
     with dissolve
-    with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dissolve
     window show
     "И тут же напротив уселась Ульяна!"
     us "Хы!"
-    with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     "С улыбкой до ушей она уставилась на меня."
     us "Как это ты Лену обыграл?"
@@ -4143,35 +3827,29 @@ label un_play_win:
     me "Просто я умею играть в карты."
     th "Пусть она хотя бы так думает."
     me "А ты как Шурика обыграла?"
-    with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "А..."
     "Ульянка махнула рукой, показывая, как это было просто."
     us "Пригрозила, что вступлю в его клуб."
-    with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     "И снова широко улыбнулась."
     us "Будешь мне поддаваться?"
     me "И не надейся!"
-    with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "Ну вот..."
-    with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Тогда я сама буду выбирать, какую карту тебе отдать!"
     me "Ты правила слышала?"
-    with None
-    show us laugh2 pioneer at center 
+    show us laugh2 pioneer at center
     with dspr
     us "Да плевать!"
     "Похоже, её действительно это мало волновало."
     me "Ладно, тогда и я буду отдавать тебе только те карты, что выберу сам."
-    with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Договорились!"
     "Воодушевлённый победой в первом туре, я решился на этот опасный шаг."
@@ -4181,23 +3859,22 @@ label un_play_win:
     el "Время начинать второй тур!"
     "Скомандовал он."
     "Я аккуратно открыл карты, стараясь не дать Ульянке заглянуть в них."
-    with None
     hide us
     with dissolve
     window hide
 label us_play:
     python:
-        
+
         dialogs = {
-                        (3,"me_defend_2","call"):  "us_play_me_defend_2",
-                        (2,"me_defend_2","call"):  "us_play_me_defend_2",
-                        (1,"me_defend_2","call"):  "us_play_me_defend_2",
-                        (0,"win","jump"):  "us_play_win",
-                        (0,"fail","jump"): "us_play_fail",
-                        (0,"draw","jump"): "us_play_draw",
+                        (3, "me_defend_2", "call"):  "us_play_me_defend_2",
+                        (2, "me_defend_2", "call"):  "us_play_me_defend_2",
+                        (1, "me_defend_2", "call"):  "us_play_me_defend_2",
+                        (0, "win", "jump"):  "us_play_win",
+                        (0, "fail", "jump"): "us_play_fail",
+                        (0, "draw", "jump"): "us_play_draw",
                     }
         generate_cards("bg hall",dialogs)
-        rival = CardGameRivalUs(us_avatar_set,"Ульяна")
+        rival = CardGameRivalUs(us_avatar_set, "Ульяна")
     jump cards_gameloop
 label us_play_me_defend_2:
     $ show_cards()
@@ -4222,8 +3899,7 @@ label us_play_draw:
 label us_play_win:
     scene bg int_dining_hall_sunset
     with dissolve
-    with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dissolve
     window show
     us "Эй! Так нечестно!"
@@ -4234,16 +3910,14 @@ label us_play_win:
     "И даже Электроник."
     el "Никаких переигровок!"
     "Ульяна не обратила на него ни малейшего внимания."
-    with None
-    show us angry pioneer at center 
+    show us angry pioneer at center
     with dspr
     us "Ты должен проиграть!"
     me "Я вообще с тобой не собираюсь играть второй раз."
     "Спокойно сказал я."
     us "Ах, так?"
     me "Да, так."
-    with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "Тогда я всем расскажу о том, что ты к Алисе приставал."
     "Сказала она шёпотом."
@@ -4258,20 +3932,19 @@ label us_play_win:
     el "Как знаете..."
     "Он пожал плечами."
     "Итак, матч-реванш начался."
-    with None
     hide us
     with dissolve
     window hide
 label us2_play:
     python:
-        
+
         dialogs = {
-                        (0,"win","jump"):  "us2_play_win",
-                        (0,"fail","jump"): "us2_play_fail",
-                        (0,"draw","jump"): "us2_play_draw",
+                        (0, "win", "jump"):  "us2_play_win",
+                        (0, "fail", "jump"): "us2_play_fail",
+                        (0, "draw", "jump"): "us2_play_draw",
                     }
         generate_cards("bg hall",dialogs)
-        rival = CardGameRivalUs(us_avatar_set,"Ульяна II")
+        rival = CardGameRivalUs(us_avatar_set, "Ульяна II")
     jump cards_gameloop
 label us2_play_fail:
     $ persistent.CardsWon1 = True
@@ -4286,8 +3959,7 @@ label us2_play_draw:
 label us2_play_win:
     scene bg int_dining_hall_sunset
     with dissolve
-    with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dissolve
     window show
     me "Проще простого."
@@ -4298,20 +3970,17 @@ label us2_play_win:
     "Усмехнулся я."
     us "Ладно..."
     "Обиженно сказала Ульяна и встала из-за стола."
-    with None
     hide us
     with dissolve
     "Я внимательно посмотрел на схему турнира, пытаясь понять, кто же мне достался в соперники по финалу."
-    with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     "В ту же секунду ко мне за стол села Алиса."
     "Я глупо и неестественно улыбнулся."
     th "Как будто боюсь её!"
     me "Поздравляю с победой."
     if day2_dv_bet == 0:
-        with None
-        show dv angry pioneer at center 
+        show dv angry pioneer at center
         with dspr
         dv "Ты ещё пожалеешь, что струсил."
         th "Да я уже жалею..."
@@ -4319,25 +3988,23 @@ label us2_play_win:
     else:
         dv "Рассчитываешь выиграть?"
         me "Рассчитываю, что ты сдержишь своё обещание."
-    with None
-    show dv smile pioneer at center 
+    show dv smile pioneer at center
     with dspr
     dv "Ладно, погнали!"
-    with None
     hide dv
     with dissolve
     window hide
     jump dv_play
 label dv_play:
     python:
-        
+
         dialogs = {
-                        (0,"win","jump"):  "dv_play_win",
-                        (0,"fail","jump"): "dv_play_fail",
-                        (0,"draw","jump"): "dv_play_draw",
+                        (0, "win", "jump"):  "dv_play_win",
+                        (0, "fail", "jump"): "dv_play_fail",
+                        (0, "draw", "jump"): "dv_play_draw",
                     }
         generate_cards("bg hall",dialogs)
-        rival = CardGameRivalDv(dv_avatar_set,"Алиса")
+        rival = CardGameRivalDv(dv_avatar_set, "Алиса")
     jump cards_gameloop
 label dv_play_draw:
     $ show_cards()
@@ -4381,7 +4048,7 @@ label day2_main3:
         pass
     if day2_card_result == 3:
         if day2_dv_bet == 1:
-            $ lp_dv = lp_dv + 2
+            $ lp_dv += 2
             jump day2_dv
         else:
             scene bg int_dining_hall_sunset
@@ -4404,13 +4071,13 @@ label day2_main3:
     window hide
     stop ambience fadeout 3
     $ disable_all_zones()
-    $ set_zone("medic_house","day2_aidpost_eve")
-    $ set_zone("square","day2_square_eve")
-    $ set_zone("beach","day2_beach_eve")
-    $ set_zone("boat_station","day2_dock_eve")
-    $ set_zone("camp_entrance","day2_busstop_eve")
-    $ set_zone("estrade","day2_stage_eve")
-    $ set_zone("sport_area","day2_football_eve")
+    $ set_zone("medic_house", "day2_aidpost_eve")
+    $ set_zone("square", "day2_square_eve")
+    $ set_zone("beach", "day2_beach_eve")
+    $ set_zone("boat_station", "day2_dock_eve")
+    $ set_zone("camp_entrance", "day2_busstop_eve")
+    $ set_zone("estrade", "day2_stage_eve")
+    $ set_zone("sport_area", "day2_football_eve")
     $ show_map()
 label day2_aidpost_eve:
     scene bg ext_aidpost_night
@@ -4468,7 +4135,7 @@ label day2_busstop_eve:
     with fade2
     window show
     "Не знаю, сколько я так сидел, но из раздумий меня вывело назойливое стрекотание сверчков."
-    stop ambience fadeout 2 
+    stop ambience fadeout 2
     "Я встал и бездумно направился куда глаза глядят."
     window hide
     scene bg ext_no_bus_night
@@ -4488,7 +4155,7 @@ label day2_busstop_eve:
     "Но потеряйся я в тайге, и единственным моим спасением стало бы лишь знание того, что мох растёт с северной стороны дерева."
     "Впрочем, не уверен, что и это бы мне помогло…"
     if day2_cards_with_sl == 1:
-        $ lp_sl = lp_sl + 1
+        $ lp_sl += 1
         jump day2_sl
     stop ambience fadeout 2
     "Постояв ещё пару минут, я направился назад в лагерь."
@@ -4497,7 +4164,7 @@ label day2_busstop_eve:
     jump day2_main4
 label day2_stage_eve:
     if day2_card_result == 1:
-        $ lp_us = lp_us + 1
+        $ lp_us += 1
         jump day2_us
     scene black
     with dissolve
@@ -4524,7 +4191,7 @@ label day2_stage_eve:
     jump day2_main4
 label day2_football_eve:
     if day2_card_result == 0 and day2_dv_bet == 0:
-        $ lp_un = lp_un + 1
+        $ lp_un += 1
         jump day2_un
     scene bg ext_playground_night
     with dissolve
@@ -4562,17 +4229,17 @@ label day2_dv:
     stop ambience fadeout 2
     play music music_list["that_s_our_madhouse"] fadein 3
     scene bg ext_beach_night:
-        linear 0.05 pos (-5,-5) 
-        linear 0.05 pos (0,0) 
-        linear 0.05 pos (5,5) 
-        linear 0.05 pos (0,5) 
-        linear 0.05 pos (5,0) 
-        linear 0.05 pos (0,0) 
+        linear 0.05 pos (-5,-5)
+        linear 0.05 pos (0,0)
+        linear 0.05 pos (5,5)
+        linear 0.05 pos (0,5)
+        linear 0.05 pos (5,0)
+        linear 0.05 pos (0,0)
         repeat
     window hide
     play sound sfx_shoulder_dive_water
     show blink
-    pause (1)
+    pause 1
     window show
     "И тут бах!"
     "Удар по спине отправил меня под воду."
@@ -4582,7 +4249,7 @@ label day2_dv:
     show unblink
     with dissolve
     play sound sfx_water_emerge
-    pause(1)
+    pause 1
     window show
     "Я обернулся и увидел Алису, плывущую за мной."
     me "Ты что творишь?!"
@@ -4598,15 +4265,13 @@ label day2_dv:
     play ambience ambience_lake_shore_night fadein 2
     window show
     "Мокрый песок покрывал меня с ног до головы, а дыхание постепенно восстанавливалось."
-    with None
-    show dv normal swim at center 
+    show dv normal swim at center
     with dissolve
     "Через некоторое время из воды вышла и Алиса."
     dv "А ты неплохо плаваешь!"
     th "Не сказал бы."
     me "Ага, и ты тоже."
-    with None
-    show dv smile swim at center 
+    show dv smile swim at center
     with dspr
     dv "Ну, я-то понятно!"
     "Я промолчал."
@@ -4617,11 +4282,10 @@ label day2_dv:
     "Съязвил я."
     dv "Знаешь, а ты не такой уж и неудачник…"
     window hide
-    with None
     scene cg d2_2ch_beach:
-        pos (0,-1920) 
-        linear 10.0 pos (0,0) 
-        linear 2.0 pos (0, -250) 
+        pos (0,-1920)
+        linear 10.0 pos (0,0)
+        linear 2.0 pos (0, -250)
     with dissolve
     window show
     "Алиса была одета в купальник, который хорошо подчёркивал все прелести её фигуры."
@@ -4688,23 +4352,19 @@ label day2_dv:
     play ambience ambience_camp_center_night fadein 3
     window show
     "В мгновение ока я оказался на площади."
-    with None
-    show dv normal pioneer2 at center 
+    show dv normal pioneer2 at center
     with dissolve
     "К моему огромному удивлению, Алиса сидела на лавочке и явно скучала."
     "Она уже успела переодеться."
     me "Отдай!"
-    with None
-    show dv guilty pioneer2 at center 
+    show dv guilty pioneer2 at center
     with dspr
     dv "Да бери…"
     "Ответила она каким-то виноватым тоном и протянула мне мою форму."
     me "…"
-    with None
-    show dv shy pioneer2 at center 
+    show dv shy pioneer2 at center
     with dspr
     dv "Только не думай, что я это специально тут тебя ждала и всё такое..."
-    with None
     hide dv
     with dissolve
     "Алиса развернулась и не спеша пошла в сторону домиков."
@@ -4786,73 +4446,61 @@ label day2_sl:
     window show
     "Наконец мы вышли на площадь."
     "Славя остановилась и обернулась в мою сторону."
-    with None
-    show sl normal pioneer far at center  
-    with dissolve 
+    show sl normal pioneer far at center
+    with dissolve
     sl "Думаешь, я тебя не заметила?"
     "Я немного растерялся, но постарался сохранить хотя бы видимость спокойствия."
     me "И давно?"
-    with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     sl "Не знаю..."
     "Славя подошла ближе."
-    with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Может быть, минут пять."
     me "То есть и там, на озере?.."
-    with None
-    show sl surprise pioneer at center 
+    show sl surprise pioneer at center
     with dspr
     sl "На каком озере?"
     me "Ну..."
     "Славя выглядела искренне удивлённой, поэтому я никак не мог понять – она просто притворяется и делает вид, что ничего не произошло, или..."
     me "Ладно, проехали."
     "Я решил поступить галантно (насколько это вообще было возможно в таких обстоятельствах) и промолчать."
-    with None
-    show sl happy pioneer at center 
+    show sl happy pioneer at center
     with dspr
     sl "Хорошо."
     "Неожиданно легко согласилась она."
     sl "Какая сегодня ночь замечательная!"
     "Славя села на скамейку и подняла глаза на небо."
     me "Наверное, тут часто бывают такие ночи."
-    with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dspr
     sl "Ну, наверное..."
     me "Почему так неуверенно?"
     sl "Нет, просто задумалась."
     me "О чём?"
-    with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     "Она внимательно посмотрела на меня, словно что-то искала у меня на лице, но затем вновь вернулась к созерцанию звёзд."
     sl "Просто иногда по ночам такое настроение бывает...{w} Днём – вся в делах, даже отдохнуть порой некогда, а ночью тут так тихо."
     sl "Если бы не сверчки и ночные птицы, то кажется, как будто остался наедине с космосом."
     "Почему-то мне казалось, что Славя не та, кто будет рассуждать о подобных материях."
     me "Да для меня тут даже слишком спокойно."
-    with None
-    show sl serious pioneer at center 
+    show sl serious pioneer at center
     with dspr
     sl "Правда?"
     me "Да, правда, а что такого?"
-    with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Ничего..."
-    with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Ладно!"
     "Она резким движением встала и поправила юбку."
-    with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Уже и спать пора!"
     me "Спокойной ночи!"
-    with None
     hide sl
     with dissolve
     "Я проводил её взглядом."
@@ -4891,8 +4539,7 @@ label day2_un:
     "Я некоторое время просто смотрел, но потом всё же решился подойти."
     "Обойдя волейбольную площадку, я зашёл внутрь так, чтобы она меня видела."
     "Лена пугалась даже малейшего шороха, так что не стоило повторять прошлых ошибок."
-    with None
-    show un normal sport at center 
+    show un normal sport at center
     with dissolve
     me "Привет!"
     "Она посмотрела на меня и тут же спрятала за спину ракетку и воланчик."
@@ -4901,35 +4548,30 @@ label day2_un:
     me "Вижу, у тебя не очень получается.{w} Может, тебя научить?"
     "По правде говоря, я и сам толком не умел, но, как и всем детям, в своё время мне приходилось пару раз играть."
     me "Давай покажу."
-    with None
-    show un shy sport at center 
+    show un shy sport at center
     with dspr
     un "Спасибо."
     "Она покраснела."
     un "Хочу попасть в команду по бадминтону, но у меня не очень выходит…"
     un "Я бы сегодня и не пришла, но…"
-    with None
-    show un smile sport at center 
+    show un smile sport at center
     with dspr
     "Она подняла глаза на меня."
     un "Мне никогда в карты не везло, а сегодня выиграла и подумала, что, может, и с этим получится…"
     "Да уж, после таких слов я понял, что поражение от Лены – это вдвойне обидно."
     me "Никогда бы не подумал, что ты увлекаешься спортом."
-    with None
-    show un shy sport at center 
+    show un shy sport at center
     with dspr
     "Она опять покраснела."
     me "Ой, прости…{w} Давай, сейчас покажу!"
     "Я взял ракетку, подбросил воланчик и…"
     play sound sfx_tennis_serve_1
-    with None
-    show un surprise sport at center 
+    show un surprise sport at center
     with dspr
     "Ударил с такой силой, что он перелетел ограду и скрылся где-то между деревьями."
     me "Ой, прости!"
     "Я не ожидал от себя такой силы."
-    with None
-    show un normal sport at center 
+    show un normal sport at center
     with dspr
     un "Ничего…{w} Правда, это был последний…"
     me "Последний? Пойдём тогда поищем его!"
@@ -4973,8 +4615,7 @@ label day2_un:
     scene bg ext_path_night
     with dissolve
     play ambience ambience_camp_center_night fadein 3
-    with None
-    show un shy sport at center 
+    show un shy sport at center
     with dissolve
     window show
     "Я мягко освободился от её объятий и подошёл к совёнку."
@@ -4984,21 +4625,17 @@ label day2_un:
     me "Смотри, он совсем ручной!{w} Хочешь его погладить?"
     un "Может, в другой раз?.."
     "Я протянул воланчик Лене."
-    with None
-    show un smile sport at center 
+    show un smile sport at center
     with dspr
     un "Спасибо тебе."
     "Она еле заметно улыбнулась."
-    with None
-    show un normal sport at center 
+    show un normal sport at center
     with dspr
     un "Мне пора."
     me "Успехов в бадминтоне."
-    with None
-    show un smile sport at center 
+    show un smile sport at center
     with dspr
     "Лена вновь улыбнулась и побежала в сторону лагеря."
-    with None
     hide un
     with dissolve
     th "Какая она всё же милая!"
@@ -5036,11 +4673,10 @@ label day2_us:
     play music music_list["glimmering_coals"] fadein 5
     us "Ого!"
     "Послышалось откуда-то сверху."
-    with None
     show us laugh pioneer:
-        xalign 0.5 
-        yanchor 0.116 
-        rotate 180 
+        xalign 0.5
+        yanchor 0.116
+        rotate 180
     with dissolve
     "Я поднял глаза и увидел Ульянку, свесившуюся с балки под потолком сцены."
     us "Что это мы тут делаем?"
@@ -5048,19 +4684,17 @@ label day2_us:
     "Оправдываться явно бесполезно."
     me "Сама всё видела."
     "Расстроенно сказал я и отвернулся."
-    with None
     show us laugh2 pioneer:
-        xalign 0.5 
-        yanchor 0.116 
-        rotate 180 
+        xalign 0.5
+        yanchor 0.116
+        rotate 180
     with dspr
     us "В тебе, я погляжу, умирает талант великого гитариста."
     "Я ничего не ответил."
-    with None
     show us smile pioneer:
-        xalign 0.5 
-        yanchor 0.116 
-        rotate 180 
+        xalign 0.5
+        yanchor 0.116
+        rotate 180
     with dspr
     us "Ну, ладно тебе, не дуйся, смотрелось забавно!"
     "Она захихикала."
@@ -5068,11 +4702,10 @@ label day2_us:
     "Фыркнул я."
     us "Да."
     "Спокойно ответила Ульяна."
-    with None
     show us grin pioneer:
-        xalign 0.5 
-        yanchor 0.116 
-        rotate 180 
+        xalign 0.5
+        yanchor 0.116
+        rotate 180
     with dspr
     us "Подойди-ка сюда."
     me "Куда?"
@@ -5100,40 +4733,33 @@ label day2_us:
     with dissolve
     play ambience ambience_camp_center_evening fadein 2
     play sound sfx_uliana_jumps_down
-    with None
-    show us upset pioneer at center 
+    show us upset pioneer at center
     with dissolve
-    pause (1)
-    with None
-    show us sad pioneer at center 
+    pause 1
+    show us sad pioneer at center
     with dspr
     window show
     "Ульянка мягко приземлилась, перекувыркнулась, мгновенно вскочила на ноги и обиженно посмотрела на меня."
     us "Почему не поймал?"
     me "Ну ты же не разбилась..."
     "Ответил я, отведя взгляд."
-    with None
-    show us shy2 pioneer at center 
+    show us shy2 pioneer at center
     with dspr
     us "А если бы разбилась?"
     me "Не разбилась!{w} Да и что это вообще такое? Дешёвых фильмов обсмотрелась?"
-    with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "А что, волнуешься за меня?"
     "Она ехидно ухмыльнулась."
     me "В такой ситуации… Ну, естественно, волнуюсь."
-    with None
-    show us surp3 pioneer at center 
+    show us surp3 pioneer at center
     with dspr
     us "Я польщена."
     me "Эй, ты не думай…"
-    with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Ладно-ладно. Прощаю тебе карты."
     me "А вот я тебе это прощать не…"
-    with None
     hide us
     with dissolve
     "Я не успел закончить – Ульянка спрыгнула со сцены и скрылась в ночи."
@@ -5176,7 +4802,7 @@ label day2_main4:
     stop music fadeout 3
     scene bg black
     with fade3
-    pause (3)
+    pause 3
     $ d2_cardgame_block_rollback = False
     jump day3_main1
 init:
@@ -5198,7 +4824,7 @@ init:
     $ d3_volume = 0
 label day3_main1:
     $ backdrop = "days"
-    $ new_chapter(3, u"День третий")
+    $ new_chapter(3, "День третий")
     $ day_time()
     scene bg black
     window show
@@ -5236,24 +4862,21 @@ label day3_main1:
     window hide
     stop sound_loop
     play sound sfx_close_water_sink
-    pause (2)
+    pause 2
     $ persistent.sprite_time = "day"
     scene bg int_house_of_mt_day
     with dissolve
-    with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     window show
     "Когда я вернулся в домик вожатой, Ольга Дмитриевна уже проснулась."
     "Она стояла перед зеркалом и расчёсывала волосы."
-    with None
-    show mt smile pioneer at center 
+    show mt smile pioneer at center
     with dspr
     mt "Доброе утро, Семён!"
     me "Доброе."
     "От недосыпа ещё немного гудела голова, и путались мысли, но я не жалел, что всё-таки вылез из кровати, а не остался, как обычно, досыпать дежурные пару-тройку часов."
-    with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "Что-то ты сегодня рано."
     me "Так получилось…"
@@ -5265,8 +4888,7 @@ label day3_main1:
     mt "Я расскажу о плане на день."
     me "И каков план?"
     "По правде говоря, мне было абсолютно наплевать, чем наша доблестная вожатая собирается занять наш бравый пионеротряд на ближайшие 12-15 часов.{w} Меня интересовали лишь места большого скопления живой силы противника – чтобы обходить их подальше."
-    with None
-    show mt grin pioneer at center 
+    show mt grin pioneer at center
     with dspr
     mt "А это ты узнаешь на линейке!"
     "Она хитро улыбнулась."
@@ -5274,22 +4896,19 @@ label day3_main1:
     me "Ну, вы понимаете…"
     me "Думаю, ничего страшного, если я разок пропущу, а то будет неприятно, если я прямо там…"
     th "И откуда во мне столько смелости?."
-    with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "У тебя есть ещё минут пять."
     me "Боюсь, не успею.{w} Давайте вы мне расскажете сейчас."
     me "Нет, я постараюсь, но если вдруг…"
     mt "Ладно уж!{w} Сегодня у нас по плану уборка территории, сортировка книг в библиотеке, ещё кое-что, а вечером – танцы."
-    with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dspr
     mt "Смотри у меня!"
     mt "Чтобы обязательно сегодня поучаствовал в жизни лагеря!"
     th "Всенепременно!"
     me "Конечно, конечно, а сейчас мне бы…"
-    with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     stop music fadeout 3
     mt "Иди уж!"
@@ -5309,7 +4928,7 @@ label day3_main1:
     "Когда вожатая ушла, я вернулся назад в домик и решил дождаться там начала завтрака."
     window hide
     stop ambience fadeout 2
-    pause(2)
+    pause 2
     $ persistent.sprite_time = "day"
     scene bg int_house_of_mt_day
     with dissolve
@@ -5331,7 +4950,7 @@ label day3_main1:
     th "И найду ли я ответы у них?"
     "Или, может быть, до истины мне придётся докапываться другим путём?"
     window hide
-    stop ambience fadeout 2  
+    stop ambience fadeout 2
     with fade2
     window show
     "..."
@@ -5344,7 +4963,7 @@ label day3_main1:
     "Похоже, я несколько переборщил со временем – обычной толпы голодных пионеров возле столовой не наблюдалось."
     window hide
     stop ambience fadeout 2
-    pause (1)
+    pause 1
     $ persistent.sprite_time = "day"
     scene bg int_dining_hall_day
     with dissolve
@@ -5357,20 +4976,17 @@ label day3_main1:
     "Позавтракать с ней – отличная идея: тихо, спокойно и можно о чём-нибудь поговорить."
     th "Ну, или хотя бы попытаться."
     "Я уже было направился в её сторону, как меня кто-то схватил за рукав."
-    with None
-    show mz normal glasses pioneer at center 
+    show mz normal glasses pioneer at center
     with dissolve
     "Женя, вчерашняя библиотекарша."
     mz "Бери завтрак и садись, есть разговор."
     me "…"
-    with None
-    show mz bukal glasses pioneer at center 
+    show mz bukal glasses pioneer at center
     with dspr
     mz "Чего стоишь?"
     "Я несколько растерялся."
     me "Извини, но не слишком ли это… резко?"
-    with None
-    show mz normal glasses pioneer at center 
+    show mz normal glasses pioneer at center
     with dspr
     mz "А что такого-то? Бери завтрак и садись."
     "Похоже, для неё такое поведение совершенно нормально."
@@ -5378,57 +4994,49 @@ label day3_main1:
     menu:
         "Извини, но я уже с Леной договорился":
             $ day3_breakfast_with_un = 1
-            $ lp_un = lp_un + 1
+            $ lp_un += 1
             jump day3_breakfast_un
         "Ладно, подожди минутку":
             jump day3_breakfast_mz
 label day3_breakfast_un:
     window show
     "Я был уверен, что Лена не будет против моей компании."
-    with None
-    show mz bukal glasses pioneer at center 
+    show mz bukal glasses pioneer at center
     with dspr
     mz "Подожди-ка! Успеешь ещё!"
     me "Извини, давай потом."
-    with None
     hide mz
     with dissolve
     "Я аккуратно освободил свой рукав от её руки и направился в дальний конец столовой."
     "Женя что-то кричала мне вслед, но я старался не слушать."
-    with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     me "Привет, доброе утро!"
     "Лена, услышав крики библиотекарши, уже некоторое время украдкой поглядывала на меня."
-    with None
-    show un smile pioneer at center 
+    show un smile pioneer at center
     with dspr
     un "Доброе…"
     "Как ни странно, она не покраснела, а даже улыбнулась."
     me "Можно к тебе присесть? Я сейчас сбегаю за завтраком."
     un "Да, конечно."
-    with None
     hide un
     with dissolve
     "..."
     window hide
     with fade
-    with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     window show
     "Через минуту я уже сидел напротив неё с нехитрым набором блюд на подносе: каша овсяная, два яйца варёных, хлеб белый, четыре куска, сосиска варёная, одна штука, компот из непонятного набора фруктов и ягод, один стакан."
     me "Приятного аппетита!"
-    with None
-    show un smile pioneer at center 
+    show un smile pioneer at center
     with dspr
     un "Спасибо."
     "Я старался есть как можно аккуратнее – не чавкая, не роняя на себя кусочки еды и не обливаясь компотом."
     th "Ведь можно же, если захотеть, есть как человек, а не как оголодавший боров!"
     "Лена, как обычно, молчала, а значит, начинать разговор придётся мне."
     me "Пойдёшь сегодня на танцы?"
-    with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "Да, наверное…"
     "Она сделала небольшую паузу."
@@ -5436,21 +5044,18 @@ label day3_breakfast_un:
     me "Не знаю ещё…"
     "Хотя идти мне совершенно не хотелось."
     "Я и в школе не любил дискотеки, а уж в более сознательном возрасте…"
-    with None
-    show un surprise pioneer at center 
+    show un surprise pioneer at center
     with dspr
     un "А почему?"
     me "Что почему?"
     "Мои мысли все ещё кружились далеко, в школьных временах."
     un "Почему не хочешь идти?"
     me "Я же не сказал, что не хочу…"
-    with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "Ну, ладно тогда."
     me "Если, конечно, ты меня приглашаешь..."
-    with None
-    show un shy pioneer at center 
+    show un shy pioneer at center
     with dspr
     "Лена покраснела и отвела взгляд."
     un "Ну, я не знаю насчёт..."
@@ -5460,8 +5065,7 @@ label day3_breakfast_un:
     "Безучастно произнесла она и уставилась к себе в тарелку, продолжая всё больше краснеть."
     th "И чего вообще мне эти танцы сдались, как будто говорить больше не о чем!{w} Хотя постойте! Ведь и правда не о чем..."
     me "А ты не знаешь, что Женя хотела?"
-    with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "А?"
     me "Ну, я когда в столовую зашёл, она... ну, что-то хотела от меня."
@@ -5473,7 +5077,7 @@ label day3_breakfast_un:
     window show
     "Лена закончила завтрак быстрее меня."
     with None
-    show un smile2 pioneer at center 
+    show un smile2 pioneer at center
     with dspr
     un "Ладно, я пойду. Увидимся!"
     me "Да, пока!"
@@ -5481,7 +5085,7 @@ label day3_breakfast_un:
     hide un
     with dissolve
     window hide
-    pause  (1)
+    pause  1
     jump day3_main2
 label day3_breakfast_mz:
     window show
@@ -5491,7 +5095,7 @@ label day3_breakfast_mz:
     with fade
     play music music_list["your_bright_side"] fadein 5
     with None
-    show mz normal glasses pioneer at center 
+    show mz normal glasses pioneer at center
     with dspr
     window show
     "Через минуту я уже сидел напротив Жени, а передо мной на столе стоял поднос с нехитрым набором блюд: каша овсяная, два яйца варёных, хлеб белый, четыре куска, сосиска варёная, одна штука, компот из непонятного набора фруктов и ягод, один стакан."
@@ -5500,25 +5104,25 @@ label day3_breakfast_mz:
     "Я решил быть вежливым, а также постараться есть как можно аккуратнее – не чавкая, не роняя на себя кусочки еды и не обливаясь компотом."
     me "Так о чём ты хотела поговорить?"
     with None
-    show mz smile glasses pioneer at center 
+    show mz smile glasses pioneer at center
     with dspr
     mz "Сегодня у нас в библиотеке…"
     "Дальше я не слушал – мне сразу вспомнились слова Ольги Дмитриевны о намеченных на сегодня мероприятиях."
     mz "… не забудь!"
     me "А? Чего?"
     with None
-    show mz normal glasses pioneer at center 
+    show mz normal glasses pioneer at center
     with dspr
     mz "Говорю, не забудь после обеда прийти в библиотеку."
     me "Зачем?"
     with None
-    show mz angry glasses pioneer at center 
+    show mz angry glasses pioneer at center
     with dspr
     mz "Ты меня вообще слушал?"
     me "Нет."
     "Честно признался я."
     with None
-    show mz rage glasses pioneer at center 
+    show mz rage glasses pioneer at center
     with dspr
     "Женя сначала покраснела, потом, кажется, позеленела, а потом её лицо приняло нежно-фиолетовый оттенок."
     mz "Сегодня! После обеда! В библиотеку! Понял, хунта проклятая?!"
@@ -5528,7 +5132,7 @@ label day3_breakfast_mz:
     me "Слушай, а какой сейчас год, что-то совсем со счёта сбился?"
     "Я решил играть в открытую."
     with None
-    show mz bukal glasses pioneer at center 
+    show mz bukal glasses pioneer at center
     with dspr
     "Она недоуменно посмотрела на меня и ответила:"
     mz "Совсем, что ли, крыша поехала?"
@@ -5537,12 +5141,12 @@ label day3_breakfast_mz:
     me "Так год какой?"
     "Я мило улыбнулся."
     with None
-    show mz normal glasses pioneer at center 
+    show mz normal glasses pioneer at center
     with dspr
     mz "Слушай, может, тебе в медпункт сходить?"
     me "А там мне подскажут, какой год?"
     with None
-    show mz bukal glasses pioneer at center 
+    show mz bukal glasses pioneer at center
     with dspr
     mz "И не только это подскажут!"
     with None
@@ -5553,7 +5157,7 @@ label day3_breakfast_mz:
     "Но она, похоже, даже не собиралась оборачиваться."
     window hide
     stop music fadeout 3
-    pause (1)
+    pause 1
     jump day3_main2
 label day3_main2:
     window show
@@ -5579,27 +5183,27 @@ label day3_main2:
     "Погружённый в свои мысли, я не заметил медсестру, стоявшую на крыльце."
     play music music_list["eternal_longing"] fadein 5
     with None
-    show cs normal far at center 
+    show cs normal far at center
     with dissolve
     cs "Привет… пионер!"
     with None
-    show cs normal at center 
+    show cs normal at center
     with dissolve
     "Она подошла ближе."
     cs "Никак заболел, подлечиться пришёл?"
     me "Да нет… я… гулял просто…"
     with None
-    show cs smile at center 
+    show cs smile at center
     with dspr
     cs "Понятно всё с тобой, прогульщик."
     with None
-    show cs normal at center 
+    show cs normal at center
     with dspr
     cs "Ну, раз уж пришёл, у меня для тебя есть ответственное поручение."
     "Я вопросительно посмотрел на неё."
     th "От слова «поручение» мне стало не по себе – уж слишком добровольно-принудительно оно прозвучало."
     with None
-    show cs smile at center 
+    show cs smile at center
     with dspr
     "Медсестра ехидно улыбалась."
     cs "Вы мне поможете составить опись лекарств, которые сегодня привезли."
@@ -5607,7 +5211,7 @@ label day3_main2:
     stop music fadeout 3
     th "Хотя куда уж вежливее…"
     with None
-    show un normal pioneer at left 
+    show un normal pioneer at left
     with dissolve
     if day3_breakfast_with_un == 1:
         un "Привет ещё раз…"
@@ -5616,7 +5220,7 @@ label day3_main2:
     "Из-за спины медсестры выглянула Лена."
     "Странно, что я её не заметил."
     with None
-    show cs normal at center 
+    show cs normal at center
     with dspr
     cs "После ужина приходите сюда, я Лене всё объяснила, она тебе потом расскажет."
     th "Лекарства, значит? Привезли сегодня?"
@@ -5625,25 +5229,25 @@ label day3_main2:
     cs "Да, с утра из райцентра, а что?"
     me "Нет, ничего, просто…"
     with None
-    show cs smile at center 
+    show cs smile at center
     with dspr
     cs "Вот и славно… пионер!{w} Значит, вечером, после ужина, сразу сюда!"
     un "Может быть, я…"
     "Всё это время я совсем не замечал Лену."
     "Действительно, её навыкам маскировки позавидовал бы и опытный спецназовец."
     with None
-    show un shy pioneer at left 
+    show un shy pioneer at left
     with dspr
     un "Я и одна могла бы справиться."
     if day3_breakfast_with_un == 1:
         "Странно, на обеде она казалась куда смелее."
     with None
-    show cs normal at center 
+    show cs normal at center
     with dspr
     cs "Там много – несколько коробок, ты что!"
     cs "Тем более пионер всегда готов!"
     with None
-    show cs shy at center 
+    show cs shy at center
     with dspr
     cs "Так... пионер?"
     "Она взглянула на меня и как-то не по-доброму улыбнулась."
@@ -5654,7 +5258,7 @@ label day3_main2:
     menu:
         "Хорошо, я приду...":
             $ day3_un_help_accept = 1
-            $ lp_un = lp_un + 1
+            $ lp_un += 1
             jump day3_helpaccept
         "Знаете, меня Ольга Дмитриевна попросила вечером ей помочь...":
             jump day3_helpreject
@@ -5663,7 +5267,7 @@ label day3_helpaccept:
     cs "Вот и славно!{w} Так и должен отвечать настоящий пионер!"
     "Даже после этих её слов я вряд ли стал больше соответствовать лозунгу «Будь готов! Всегда готов!»"
     with None
-    show cs normal at center 
+    show cs normal at center
     with dspr
     cs "Тогда можете идти."
     stop ambience fadeout 2
@@ -5672,7 +5276,7 @@ label day3_helpaccept:
     hide cs
     with dissolve
     show un shy pioneer at left:
-        linear 1.0 xalign 0.5 
+        linear 1.0 xalign 0.5
     "Я перевёл взгляд на Лену, которая всё так же смотрела себе под ноги."
     "Наверное, за всё время, что она разглядывает землю, можно неплохо изучить жизнь и повадки различных насекомых."
     "Прибавить к этому, что Лена любит читать, и наверняка прочитала много книг по биологии, ботанике и т.д."
@@ -5686,7 +5290,7 @@ label day3_helpaccept:
     scene bg ext_square_day
     with dissolve
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     window show
     un "А куда ты дальше?"
@@ -5696,26 +5300,26 @@ label day3_helpaccept:
     un "Только ты не забудь, хорошо?"
     me "Не забыть чего?"
     with None
-    show un serious pioneer at center 
+    show un serious pioneer at center
     with dspr
     un "Ну, как же… Вечером, после ужина… В медпункт…"
     "На её лице промелькнула тень недовольства."
     th "Да нет, не может такого быть!"
     me "Конечно, конечно! Сразу после ужина я весь в твоём распоряжении."
     with None
-    show un shy pioneer at center 
+    show un shy pioneer at center
     with dspr
     "Я спохватился, но было уже поздно – после этих слов Лена ещё больше покраснела."
     "Надо было как-то разрядить создавшееся напряжение."
     me "А почему медсестра именно тебя попросила?"
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "Не знаю.{w} Я просто сидела на лавочке, читала книжку, а она подошла и…"
     th "Как умно с её стороны обратиться к человеку, который точно не откажет!"
     me "Ясно.{w} Ладно, тогда после ужина…"
     with None
-    show un smile pioneer at center 
+    show un smile pioneer at center
     with dspr
     un "Хорошо.{w} Я пойду тогда?"
     me "Да, конечно!"
@@ -5731,20 +5335,20 @@ label day3_helpreject:
     th "Может, врать и не стоило."
     "Но надо было сначала думать, а потом говорить."
     with None
-    show cs normal at center 
+    show cs normal at center
     with dspr
     cs "Да? И чем это ты собрался ей помогать?"
     "Дело принимало неприятный для меня оборот, но я решил идти до конца."
     me "У неё в домике…{w} В домике уборку сделать, вещи разобрать и всё такое."
     me "Вы же знаете, какой у неё там бардак!"
     with None
-    show cs smile at center 
+    show cs smile at center
     with dspr
     cs "Небось и шкафчик свой попросила разобрать?"
     "Медсестра посмотрела на меня так, что фиаско Наполеона при Ватерлоо показалось мне всего лишь досадной неприятностью по сравнению с моим нынешним поражением."
     "Я уже было собрался что-то ответить, но она продолжила."
     with None
-    show cs normal at center 
+    show cs normal at center
     with dspr
     cs "Ладно уж… пионер.{w} Без тебя разберёмся."
     me "Ты извини, просто, понимаешь…"
@@ -5776,9 +5380,8 @@ label day3_main3:
     th "Неизвестно, куда меня ещё сегодня занесёт, а время знать нужно всегда!"
     th "Хотя не проще ли завести часы?"
     python:
-        
         d3_volume = _preferences.volumes['music']
-        volume(0.15,"music")
+        volume(0.15, "music")
     play music music_list["kostry"] fadein 3
     "В обычный фоновый шум пионерлагеря закралась какая-то новая мелодия."
     "Я прислушался.{w} Похоже на электрогитару."
@@ -5791,7 +5394,7 @@ label day3_main3:
     stop ambience fadeout 2
     menu:
         "Стоит пойти посмотреть":
-            $ lp_dv = lp_dv + 1
+            $ lp_dv += 1
             stop music fadeout 2
             jump day3_stage_dv
         "Какая разница? Надо продолжить искать ответы":
@@ -5805,24 +5408,24 @@ label day3_house_of_mt:
     $ persistent.sprite_time = "day"
     scene bg int_house_of_mt_day
     with dissolve
-    $ volume(d3_volume,"music")
+    $ volume(d3_volume, "music")
     play music music_list["get_to_know_me_better"] fadein 5
     window show
     "Я вернулся в домик вожатой."
     "Ольга Дмитриевна вальяжно развалилась на кровати и читала книжку."
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     mt "Семён! А ты что здесь делаешь?"
     th "Это мне бы стоило спросить."
     me "Да я забыл кое-что…{w} Вот и вернулся."
     with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dspr
     mt "На линейку ты так и не пришёл!"
     me "Да, извините…"
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "Ладно.{w} Это всё равно не отменяет того, что ты должен сегодня заняться чем-нибудь полезным."
     "Я и планировал.{w} Только полезным для себя, а не для окружающих."
@@ -5842,7 +5445,7 @@ label day3_house_of_mt:
     "В моём случае такая трудотерапия могла бы пойти на пользу, но, как больной гангреной будет до последнего отказываться от ампутации, так и я до последнего буду защищать свой образ мыслей."
     me "Знаете, у меня, вообще-то, свои планы были."
     with None
-    show mt smile pioneer at center 
+    show mt smile pioneer at center
     with dspr
     mt "Да? Это какие же?"
     "Она оживилась."
@@ -5852,7 +5455,7 @@ label day3_house_of_mt:
     th "Но, с другой – это может быть опасно!"
     th "По крайней мере сейчас сохраняется какое-то хрупкое равновесие, и мне ничего не угрожает.{w} Хотя бы с виду."
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "Так я и думала!"
     "Что именно {i}думала{/i} вожатая было понятно и так."
@@ -5860,7 +5463,7 @@ label day3_house_of_mt:
     "Ещё одной длинной лекции на эту тему я бы просто не пережил, поэтому решил согласиться на предложенные ей варианты."
     th "В конце концов, ответы в этом мире можно найти в самых неожиданных местах.{w} Наверное..."
     with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dspr
     mt "Ну? Или мне за тебя выбрать?"
     "Голос вожатой не терпел возражений."
@@ -5874,13 +5477,13 @@ label day3_house_of_mt:
     menu:
         "Пожалуй, я помогу Славе":
             $ day3_sl_cleaned = 1
-            $ lp_sl = lp_sl + 1
+            $ lp_sl += 1
             jump day3_square
         "Думаю, помогу ребятам в постройке гигантских роботов":
             jump day3_clubs
         "Ладно, я помогу спортивному клубу":
             $ day3_us_football = 1
-            $ lp_us = lp_us + 1
+            $ lp_us += 1
             jump day3_playground_us
 label day3_square:
     window show
@@ -5898,18 +5501,18 @@ label day3_square:
     th "Странно, и откуда они вдруг понабежали?"
     "Я подошёл к Славе."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     me "Привет!"
     sl "Ой, привет! Ты помочь пришёл?"
     me "Ну, не по своей воле, конечно…"
     "Я спохватился."
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Понятно."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Бери метлу, твой участок – рядом с памятником."
     with None
@@ -5924,19 +5527,19 @@ label day3_square:
     window show
     "Помахав метлой некоторое время, я вернулся к Славе, которая села отдохнуть на скамеечку."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     me "Хороший сегодня денёк…"
     sl "Да, только жарко."
     "Она прикрыла глаза ладонью и посмотрела на небо."
     me "Ты прямо ударница коммунистического труда!"
     with None
-    show sl shy pioneer at center 
+    show sl shy pioneer at center
     with dspr
     sl "Да брось ты! Я просто люблю помогать другим."
     me "Это хорошо."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "А ты?"
     me "Что я?"
@@ -5947,7 +5550,7 @@ label day3_square:
     th "Ну в самом деле – не буду же я на неё вываливать все свои мысли на этот счёт!"
     th "Утонет ещё, не дай бог!"
     with None
-    show sl sad pioneer at center 
+    show sl sad pioneer at center
     with dspr
     sl "Может, ты не любишь компанию?"
     me "Вполне возможно."
@@ -5955,12 +5558,12 @@ label day3_square:
     "По крайней мере – во мне."
     th "Хотя как это возможно, если я сам порой себя с трудом понимаю?"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Чем займёшься, когда смена закончится?"
     me "В смысле?"
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Ну, в институт будешь готовиться? Или какую-то специальность хочешь освоить?"
     "Все мои специальности – просмотр аниме и интернет-зависимость – уже были освоены в совершенстве."
@@ -5969,7 +5572,7 @@ label day3_square:
     "Мне показалось это немного странным – какое хозяйство при советской власти, когда кругом колхозы?"
     "Но я решил не уточнять."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "А твои родители кем работают?"
     "Вот о своих родителях я совсем не хотел говорить."
@@ -5978,14 +5581,14 @@ label day3_square:
     me "Папа – в горкоме, мама – учителем."
     "Я соврал.{w} Хотя мои слова были, в общем-то, недалеки от правды."
     with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dspr
     sl "Здорово."
     "Похоже, ей действительно это казалось весьма прикольным."
     me "Наверное…"
     "Диалог зашёл в тупик, поэтому я пытался отвести от Слави глаза – смотрел то себе под ноги, то в небо, то по сторонам."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Знаешь, мне кажется, у тебя в жизни всё тоже будет хорошо!"
     "Славя задумчиво посмотрела на меня."
@@ -5995,7 +5598,7 @@ label day3_square:
     "Неуверенно ответил я."
     me "Но что ты имеешь в виду?"
     with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dspr
     sl "Мне кажется, ты иногда очень пессимистично смотришь на жизнь."
     th "Не слишком ли это откровенно с её стороны?"
@@ -6008,7 +5611,7 @@ label day3_square:
     "Тем не менее казалось (и не в первый раз), что она видит меня насквозь."
     me "Ладно, надо дальше убираться."
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Ага."
     "Она улыбнулась и тоже взялась за метлу."
@@ -6045,7 +5648,7 @@ label day3_clubs:
     "Стоя на пороге клуба, я несколько замялся, но, отбросив в сторону сомнения, открыл дверь и вошёл внутрь."
     window hide
     play sound sfx_open_door_clubs
-    pause (1)
+    pause 1
     $ persistent.sprite_time = "day"
     scene bg int_clubs_male_day
     with dissolve
@@ -6064,17 +5667,17 @@ label day3_clubs:
     sh "Поможешь робота доделать."
     me "Каким образом?{w} Я в подобных вещах не силён."
     with None
-    show sh serious pioneer at cright 
+    show sh serious pioneer at cright
     with dspr
     sh "А мы тебе сейчас всё покажем, расскажем.{w} Не умеешь – научим, не хочешь…"
     with None
-    show el smile pioneer at cleft 
+    show el smile pioneer at cleft
     with dspr
     el "Заставим!"
     "Радостно закончил за Шурика Электроник."
     me "Это, конечно, всё замечательно, ребята, но я с вами вот о чём хотел поговорить…{w} У меня тут мысль родилась, и, думаю, это как раз по вашему адресу."
     with None
-    show sh normal pioneer at cright 
+    show sh normal pioneer at cright
     with dspr
     sh "Что за мысль?"
     "Спросил он недоверчиво."
@@ -6082,18 +5685,18 @@ label day3_clubs:
     play music music_list["just_think"] fadein 3
     me "Как вы думаете, возможны ли путешествия во времени?"
     with None
-    show el normal pioneer at cleft 
+    show el normal pioneer at cleft
     with dspr
     el "С чего это ты вдруг о таком задумался?"
     "Электроник как-то неожиданно стал серьёзным."
     me "Да нет, просто…"
     me "Я вчера книжку взял в библиотеке – «Машина времени» Уэллса. Читали, наверное? Вот, собственно, и заинтересовался."
     with None
-    show sh serious pioneer at cright 
+    show sh serious pioneer at cright
     with dspr
     sh "Ааа…"
     with None
-    show el smile pioneer at cleft 
+    show el smile pioneer at cleft
     with dspr
     el "Решил сгонять в будущее, посмотреть как там?"
     me "Да нет.{w} Меня больше интересуют путешествия в прошлое."
@@ -6101,7 +5704,7 @@ label day3_clubs:
     me "Не знаю даже.{w} Просто…"
     me "Ну, об этом вы что думаете?"
     with None
-    show sh normal_smile pioneer at cright 
+    show sh normal_smile pioneer at cright
     with dspr
     sh "Общая теория относительности допускает существование червоточин, то есть туннелей в пространстве.{w} Но ты этого всё равно не поймёшь."
     th "Скорее всего не пойму."
@@ -6109,14 +5712,14 @@ label day3_clubs:
     sh "Например, если ты вернёшься в прошлое и убьёшь себя, то получается, что {i}ты{/i} из настоящего уже не можешь существовать."
     me "Эээ… Наверное…"
     with None
-    show el normal pioneer at cleft 
+    show el normal pioneer at cleft
     with dspr
     el "Короче, это всё слишком антинаучно."
     me "Ясно, но если это было бы возможно?.."
     me "Я имею в виду: для того, чтобы оказаться в прошлом, нужна какая-то машина, устройство, установка?"
     me "Или достаточно просто заснуть и проснуться уже в другом времени и в другом месте?"
     with None
-    show sh serious pioneer at cright 
+    show sh serious pioneer at cright
     with dspr
     sh "Могу тебе сказать, что наука ещё не дошла до той стадии развития, при которой возможен ответ на этот вопрос."
     th "Прямо строчки из журнала «Техника-Молодёжи».{w} Наверное, и у меня на антресоли завалялась пара номеров."
@@ -6191,20 +5794,20 @@ label day3_playground_us:
     scene bg ext_playground_day
     with dissolve
     with None
-    show us surp1 pioneer far at center  
-    with dissolve   
+    show us surp1 pioneer far at center
+    with dissolve
     window show
     us "Эй! Давай с нами! У них одного человека не хватает."
     me "Так вот как вы тут занимаетесь общественной работой!"
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dissolve
     us "А мы уже всё сделали!"
     "Обиженно возразила Ульянка."
     "Я оглядел спортивную площадку – лавочки покрашены, сетка новая натянута."
     th "Когда только успели?"
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Заходи за них!"
     th "Ну, раз отказался в прошлый раз, то сейчас, пожалуй, сыграю."
@@ -6229,7 +5832,7 @@ label day3_playground_us:
     "Конечно, играл я гораздо лучше их всех и, в принципе, мог забить столько, сколько бы захотел, но тогда мне казалось это неспортивным.{w} Ведь главное – не победа, а участие?"
     "Но после того, как Ульяна сказала:"
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dissolve
     us "Пенальти бьём.{w} Кто выиграет, тот и победил в матче."
     "Я решил, что проигрывать совсем не хочу."
@@ -6242,12 +5845,12 @@ label day3_playground_us:
     play sound sfx_soccer_ball_catch
     "Она разбежалась и…{w} ударила прямо по центру мне в руки."
     with None
-    show us sad pioneer at center 
+    show us sad pioneer at center
     with dspr
     us "Так нечестно!"
     me "Что нечестно?"
     with None
-    show us angry pioneer at center 
+    show us angry pioneer at center
     with dspr
     us "Я перебью."
     me "Перебей."
@@ -6257,7 +5860,7 @@ label day3_playground_us:
     me "Ещё хочешь?"
     nvl clear
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "Нет уж!"
     "Фыркнула она."
@@ -6272,7 +5875,7 @@ label day3_playground_us:
     "Впрочем, было незачем – такие пенальти не берутся."
     stop ambience fadeout 4
     with None
-    show us sad pioneer at center 
+    show us sad pioneer at center
     with dissolve
     me "Получается, я выиграл."
     "Она промолчала и лишь обиженно посмотрела на меня."
@@ -6286,7 +5889,7 @@ label day3_playground_us:
     window show
     "И тут заиграла музыка, призывающая пионеров на обед."
     with None
-    show us laugh2 pioneer at center 
+    show us laugh2 pioneer at center
     with dissolve
     us "Ладно, ещё отыграюсь!"
     with None
@@ -6301,7 +5904,7 @@ label day3_stage_dv:
     $ persistent.sprite_time = "day"
     scene bg ext_stage_normal_day
     with dissolve
-    $ volume(d3_volume,"music")
+    $ volume(d3_volume, "music")
     play music music_list["that_s_our_madhouse"] fadein 5
     window show
     "Выйдя к концертной площадке, я увидел на сцене Алису."
@@ -6328,85 +5931,85 @@ label day3_stage_dv:
     scene bg ext_stage_normal_day
     with dissolve
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     window show
     dv "Понравилось?"
     "Кажется, она совсем не удивилась мне."
     me "Да, весьма неплохо."
     with None
-    show dv grin pioneer at center 
+    show dv grin pioneer at center
     with dspr
     dv "Как будто можешь лучше!"
     "Алиса хитро улыбнулась."
     me "Я и не говорю, что могу лучше.{w} Я в музыке не спец."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Кто бы сомневался."
     me "Такие дела."
     "Я не знал, о чём с ней говорить дальше, и уже собирался уходить."
     with None
-    show dv shy pioneer at center 
+    show dv shy pioneer at center
     with dspr
     dv "Подожди."
     me "Что?"
     dv "Слышал про вечернюю дискотеку?"
     me "Я думал, что это просто танцы…"
     with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "Дискотека, танцы – какая разница?"
     "Она нахмурилась."
     me "Слышал, а что?"
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Собираешься идти?"
     "Бросив эти слова, она отвернулась."
     me "Я пока не решил… А ты?"
     with None
-    show dv smile pioneer at center 
+    show dv smile pioneer at center
     with dspr
     dv "Что там делать-то? Смотреть на толпу дебилов?"
     "Может, в словах Алисы и была доля правды, но такое наигранное пренебрежение меня удивило."
     "Ясно, что ей не нравится не дискотека как таковая."
     me "А почему?"
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Что почему?"
     me "Ну, почему ты не хочешь идти?{w} Дискотека – это же весело…"
     with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "Ты так считаешь?"
     "В её голосе промелькнуло раздражение."
     me "Не знаю.{w} Но я думал, что для тебя…"
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Никогда их не любила."
     "Перебила она меня."
     with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "Совершенно там нечего делать!"
     me "Ясно…{w} И чем планируешь заняться тогда?"
     "Спросил я лишь для поддержания разговора."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Буду репетировать дальше."
     me "А что ты репетируешь?"
     with None
-    show dv rage pioneer at center 
+    show dv rage pioneer at center
     with dspr
     dv "Песню, придурок! Ты же слышал!"
     "Алиса совсем вышла из себя, так что ещё пара неудачных вопросов – и пришлось бы спасаться бегством."
     me "А чья это песня?"
     with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "Моя!"
     me "Сама придумала?"
@@ -6415,28 +6018,28 @@ label day3_stage_dv:
     "В воздухе повисло неловкое молчание."
     me "Ладно, тогда…"
     with None
-    show dv shy pioneer at center 
+    show dv shy pioneer at center
     with dspr
     dv "Не хочешь послушать?"
     me "Я, кажется, уже слышал."
     with None
-    show dv guilty pioneer at center 
+    show dv guilty pioneer at center
     with dspr
     dv "Я не про это!"
     "Она надула губы."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Целиком! Это же только пробная репетиция."
     me "Ааа… Ну, давай, играй…"
     with None
-    show dv smile pioneer at center 
+    show dv smile pioneer at center
     with dspr
     dv "Сейчас не хочу."
     me "Тогда не играй…"
     "Я уже не знал, чего она от меня добивается."
     with None
-    show dv sad pioneer at center 
+    show dv sad pioneer at center
     with dspr
     dv "Значит, не хочешь?"
     th "Похоже, я её расстроил."
@@ -6444,20 +6047,20 @@ label day3_stage_dv:
     "Но Алиса всего лишь сделала обиженное лицо."
     me "Я же говорю – хочу."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Тогда приходи сюда вечером – я для тебя сыграю."
     th "«Для тебя»?{w} Как трогательно."
     me "Вечером же танцы."
     with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "Ты же сказал, что не пойдёшь!"
     th "Я такого не говорил…"
     "Хотя, признаться, идти мне действительно не хотелось, но без крайне веской причины с ДваЧе лучше не связываться."
     me "Ольга Дмитриевна не поймёт…"
     with None
-    show dv rage pioneer at center 
+    show dv rage pioneer at center
     with dspr
     dv "Да плевать на неё!"
     "Сказала Алиса в сердцах."
@@ -6465,12 +6068,12 @@ label day3_stage_dv:
     menu:
         "Ладно, я приду":
             $ day3_dv_accept = 1
-            $ lp_dv = lp_dv + 1
-            $ lp_un = lp_un - 1
+            $ lp_dv += 1
+            $ lp_un -= 1
             window show
             "Я решил, что между позором на танцах и бешеными умениями Двачевской на гитаре лучше выбрать второе."
             with None
-            show dv smile pioneer at center 
+            show dv smile pioneer at center
             with dspr
             dv "Вот и отлично."
             "Она как-то странно улыбнулась."
@@ -6478,7 +6081,7 @@ label day3_stage_dv:
             window show
             "Такое развитие событий никак не входило в мои планы."
             with None
-            show dv guilty pioneer at center 
+            show dv guilty pioneer at center
             with dspr
             dv "Да и надо больно!"
             "Она обиженно фыркнула и отвернулась."
@@ -6516,13 +6119,13 @@ label day3_main4:
     th "Но, похоже, события здесь происходят вне зависимости от моих желаний…"
     "Столовая была битком."
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     "На входе, как Почётный караул у Вечного огня, стояла Ольга Дмитриевна."
     mt "Ну что, Семён, как сегодня потрудился?"
     me "Неплохо."
     with None
-    show mt smile pioneer at center 
+    show mt smile pioneer at center
     with dspr
     mt "Молодец, молодец! То ли ещё будет!"
     th "Да уж…"
@@ -6540,7 +6143,7 @@ label day3_main4:
     me "Не возражаете, если я присяду?"
     "Мои слова прозвучали несколько наигранно, так как садиться всё равно было больше некуда."
     with None
-    show sl smile pioneer at right 
+    show sl smile pioneer at right
     with dspr
     sl "Да, конечно!"
     us "Будь любезен."
@@ -6550,40 +6153,40 @@ label day3_main4:
     "Наверное, я просто понял, что выбирать особо не из чего, а в таком случае и нечего жаловаться на то, что есть."
     th "Благо есть {i}что{/i} есть."
     with None
-    show sl normal pioneer at right 
+    show sl normal pioneer at right
     with dspr
     sl "Пойдёшь сегодня на танцы?"
     me "Не знаю."
     if day3_dv_accept == 1:
         th "Хотя я же договорился с Алисой..."
     with None
-    show us laugh2 sport at center 
+    show us laugh2 sport at center
     with dspr
     us "Пойдёт, пойдёт! Куда он денется!"
     "Радостно вставила Ульяна."
     me "Ты-то точно пойдёшь…"
     with None
-    show us surp1 sport at center 
+    show us surp1 sport at center
     with dspr
     us "Конечно! Не упущу случая посмотреть, как ты опростоволосишься."
     "Она попала в точку, поэтому я решил не отвечать."
     me "А ты?"
     "Спросил я Лену."
     with None
-    show us laugh sport at center 
+    show us laugh sport at center
     with dspr
     with None
-    show un smile pioneer at left 
+    show un smile pioneer at left
     with dspr
     un "Да…"
     "Ответила она коротко."
     with None
-    show sl smile pioneer at right 
+    show sl smile pioneer at right
     with dspr
     sl "Видишь, значит, и тебе тоже стоит пойти."
     "Славя словно не оставляла мне выбора."
     with None
-    show us grin sport at center 
+    show us grin sport at center
     with dspr
     us "Не забудь фрак надеть."
     "Ульяна, видимо, была так довольна своей шуткой, что громко рассмеялась."
@@ -6591,44 +6194,44 @@ label day3_main4:
     "Весь мой гардероб состоял из пионерской формы и зимней одежды, которая даже вечером вряд ли покажется уместной."
     me "Ты-то в чём придёшь, массовик-затейник?"
     with None
-    show us laugh2 sport at center 
+    show us laugh2 sport at center
     with dspr
     us "Се-к-рет!"
     me "Платьице как на детском утреннике небось?"
     with None
-    show us angry sport at center 
+    show us angry sport at center
     with dspr
     "Ульяна покраснела от злости – похоже, я смог её задеть."
     us "Нет, костюм химзащиты! Специально, чтобы от тебя не заразиться!"
     me "И чем ты планируешь от меня заразиться, интересно?"
     with None
-    show sl serious pioneer at right 
+    show sl serious pioneer at right
     with dspr
     with None
-    show un normal pioneer at left 
+    show un normal pioneer at left
     with dspr
     sl "Ребята, хватит! Не ссорьтесь!"
     with None
-    show us surp1 sport at center 
+    show us surp1 sport at center
     with dspr
     us "Слабоумием, конечно же!"
     "Похоже, Ульянка опять была очень довольна своим, на её взгляд, искромётным ответом."
     me "Знаешь, если ты уже болеешь гриппом, то простудиться не получится."
     "В эту игру могут играть двое."
     with None
-    show us dontlike sport at center 
+    show us dontlike sport at center
     with dspr
     us "Это ты на что намекаешь?"
     me "Да так, ни на что…"
     "Я хитро отвёл взгляд."
     with None
-    show us angry sport at center 
+    show us angry sport at center
     with dspr
     us "То есть ты хочешь сказать?.."
     "Она опять покраснела."
     me "Я ничего не хочу сказать."
     with None
-    show un surprise pioneer at left 
+    show un surprise pioneer at left
     with dspr
     un "Ребята…"
     "Если в разговор вмешалась даже Лена, то, значит, дело правда начало принимать плохой оборот."
@@ -6640,9 +6243,9 @@ label day3_main4:
     window hide
     play sound sfx_borshtch
     with vpunch
-    pause(1)
+    pause 1
     with None
-    show us laugh2 sport at center 
+    show us laugh2 sport at center
     with dspr
     window show
     "Вместо ответа Ульянка взяла свою тарелку борща и опрокинула мне на голову."
@@ -6662,7 +6265,7 @@ label day3_main4:
     "Немая сцена продолжалась несколько секунд."
     window hide
     play sound sfx_throw_compote
-    pause (1)
+    pause 1
     window show
     "Вдруг Ульяна ловко схватила компот и плеснула им мне в лицо."
     "От неожиданности я отпустил её руку."
@@ -6670,30 +6273,30 @@ label day3_main4:
     $ persistent.sprite_time = "day"
     scene black
     show bg int_dining_hall_people_day:
-        linear 0.05 pos (-5,-5) 
-        linear 0.05 pos (0,0) 
-        linear 0.05 pos (5,5) 
-        linear 0.05 pos (0,5) 
-        linear 0.05 pos (5,0) 
-        linear 0.05 pos (0,0) 
-        linear 0.05 pos (-5,-5) 
-        linear 0.05 pos (0,0) 
-        linear 0.05 pos (5,5) 
-        linear 0.05 pos (0,5) 
-        linear 0.05 pos (5,0) 
-        linear 0.05 pos (0,0) 
-        linear 0.05 pos (-5,-5) 
-        linear 0.05 pos (0,0) 
-        linear 0.05 pos (5,5) 
-        linear 0.05 pos (0,5) 
-        linear 0.05 pos (5,0) 
-        linear 0.05 pos (0,0) 
-        linear 0.05 pos (-5,-5) 
-        linear 0.05 pos (0,0) 
-        linear 0.05 pos (5,5) 
-        linear 0.05 pos (0,5) 
-        linear 0.05 pos (5,0) 
-        linear 0.05 pos (0,0) 
+        linear 0.05 pos (-5,-5)
+        linear 0.05 pos (0,0)
+        linear 0.05 pos (5,5)
+        linear 0.05 pos (0,5)
+        linear 0.05 pos (5,0)
+        linear 0.05 pos (0,0)
+        linear 0.05 pos (-5,-5)
+        linear 0.05 pos (0,0)
+        linear 0.05 pos (5,5)
+        linear 0.05 pos (0,5)
+        linear 0.05 pos (5,0)
+        linear 0.05 pos (0,0)
+        linear 0.05 pos (-5,-5)
+        linear 0.05 pos (0,0)
+        linear 0.05 pos (5,5)
+        linear 0.05 pos (0,5)
+        linear 0.05 pos (5,0)
+        linear 0.05 pos (0,0)
+        linear 0.05 pos (-5,-5)
+        linear 0.05 pos (0,0)
+        linear 0.05 pos (5,5)
+        linear 0.05 pos (0,5)
+        linear 0.05 pos (5,0)
+        linear 0.05 pos (0,0)
         repeat
     with dissolve
     window show
@@ -6705,30 +6308,30 @@ label day3_main4:
     scene bg int_dining_hall_people_day
     "Мы стояли друг напротив друга и тяжело дышали."
     with None
-    show us sad sport at center 
+    show us sad sport at center
     with dissolve
     me "Больше не будешь так?!"
     with None
-    show us shy sport at center 
+    show us shy sport at center
     with dspr
     us "А ты?!"
     with None
-    show mt angry pioneer at right 
+    show mt angry pioneer at right
     with dissolve
     "Сзади к нам незаметно подошла Ольга Дмитриевна."
     "Действительно, такой погром не мог пройти без последствий."
     mt "Ну что, довольны собой?"
     "Её голос звучал спокойно, но я был уверен, что она вот-вот готова взорваться."
     with None
-    show mt rage pioneer at right 
+    show mt rage pioneer at right
     with dspr
     mt "И кто всё это должен убирать теперь?!"
     "Так и произошло."
     mt "Кто, я спрашиваю, кто?!"
     with None
     show us surp3 sport at center :
-        linear 0.2 xalign 0.4 
-        linear 0.2 xalign 0.5 
+        linear 0.2 xalign 0.4
+        linear 0.2 xalign 0.5
     with dspr
     us "Он!"
     "Совершенно невозмутимо ответила Ульянка."
@@ -6739,35 +6342,35 @@ label day3_main4:
     "Вообще, я не был уверен, что моя доля вины в случившемся больше."
     "Однако Ульянка, кажется, вовсе не считала себя виноватой."
     with None
-    show us surp2 sport at center 
+    show us surp2 sport at center
     with dspr
     us "Вот ещё!{w} Не буду я ничего убирать!"
     us "Это он всё! Он начал!"
     me "Вот и нет!"
     with None
-    show us dontlike sport at center 
+    show us dontlike sport at center
     with dspr
     us "Вот и да!"
     with None
-    show mt angry pioneer at right 
+    show mt angry pioneer at right
     with dspr
     mt "Я не собираюсь разбираться в этих глупостях!"
     mt "Семён, иди возьми швабру, совочек, тряпку и так далее в кладовке, а ты!!!"
     with None
-    show mt rage pioneer at right 
+    show mt rage pioneer at right
     with dspr
     "Она посмотрела на Ульяну таким взглядом, что мне стало жалко девочку."
     with None
     show us fear sport at center :
         parallel:
-            linear 0.5 yalign -0.2 
+            linear 0.5 yalign -0.2
         parallel:
-            linear 0.5 xalign 0.4 
+            linear 0.5 xalign 0.4
     with dspr
     mt "Ты!!!{w} Немедленно начинай собирать разбитую посуду!"
     "Ольга Дмитриевна отдышалась немного и продолжила:"
     with None
-    show mt angry pioneer at right 
+    show mt angry pioneer at right
     with dspr
     mt "От тебя одни проблемы!{w} Сколько раз я тебе говорила…"
     hide mt
@@ -6784,11 +6387,11 @@ label day3_main4:
     menu:
         "Сбежать":
             $ day3_sl_library = 1
-            $ lp_sl = lp_sl + 1
+            $ lp_sl += 1
             jump day3_library_sl
         "Остаться и помочь Ульяне убраться":
             $ day3_us_cleaned = 1
-            $ lp_us = lp_us + 1
+            $ lp_us += 1
             jump day3_cleaning_us
 label day3_library_sl:
     window show
@@ -6803,13 +6406,13 @@ label day3_library_sl:
     window show
     "Выйдя на улицу, я замешкался на пару секунд и столкнулся с Электроником."
     with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dissolve
     "Похоже, он задержался в кружке."
     el "Куда спешишь?"
     me "Я?..{w} Мой шаттл отбывает через десять минут."
     with None
-    show el shocked pioneer at center 
+    show el shocked pioneer at center
     with dspr
     el "Чего?{w} Эй, подожди!"
     window hide
@@ -6844,57 +6447,57 @@ label day3_library_sl:
     play music music_list["take_me_beautifully"] fadein 5
     sl "Как погодка?"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     "Передо мной стояла Славя."
     th "Как незаметно подкралась!{w} Хорошо хоть не Ольга Дмитриевна."
     me "Ничего…"
     "Только и смог ответить я."
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "А я так и думала, что найду тебя здесь."
     me "Почему?"
     sl "Не знаю, просто…"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     "Она посмотрела на небо."
     sl "Здесь меньше людей."
     th "Неужели Славя считает меня социофобом?!{w} Впрочем, основания у неё есть."
     me "А ты… что здесь делаешь?"
     with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dspr
     sl "Тебя ищу."
     "Она вновь улыбнулась, но в этот раз как-то по-другому, приветливее, что ли."
     me "Меня? Зачем?"
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Не догадываешься?"
     "Я уже приготовился выслушать в свой адрес несколько ласковых."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Понимаю, что ты виноват меньше, чем Ульяна."
     th "Меня оправдывает помощница вожатой!{w} От этого чувствуешь себя ещё более жалким."
     th "Нет, ну серьёзно, у нас же тут не {i}плохой и хороший полицейский{/i}!"
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Но раз уж не стал помогать ей, то поможешь мне."
     "Сказав это, Славя вновь посмотрела на небо."
     th "Интересно, что она там ищет?"
     me "И в чём помощь заключается?"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Нужно разобрать книги в библиотеке."
     "Это куда лучше, чем каторжные работы с Ульянкой.{w} Да и отказаться на самом деле я не мог."
     me "Весь в вашем распоряжении, мадемуазель. Или мадам?"
     with None
-    show sl laugh pioneer at center 
+    show sl laugh pioneer at center
     with dspr
     "Она рассмеялась."
     stop ambience fadeout 2
@@ -6904,7 +6507,7 @@ label day3_library_sl:
     scene bg ext_library_day
     with dissolve
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     window show
     "Через несколько минут мы подошли к библиотеке."
@@ -6924,7 +6527,7 @@ label day3_library_sl:
     "Микроскопические кусочки отживающих свой век собраний сочинений классиков марксизма-ленинизма."
     th "Интересно, одинаково ли пахнет пыль рядом с полками художественной литературы и с книгами по физике и химии?"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     sl "Давай ты начнёшь с тех рядов."
     "Славя показала на книжный шкаф около бюста Ленина."
@@ -6960,14 +6563,14 @@ label day3_library_sl:
     th "Через минуту я уже забуду, кто они, а о чём они писали, так и не узнаю никогда."
     th "Такова судьба многих писателей – стать безвестным набором букв в толстом переплёте на полке библиотеки несуществующего пионерлагеря."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     sl "Закончил?"
     me "Да, кажется."
     sl "И я.{w} Ладно, давай я буду протирать, а ты – складывать назад."
     me "Так я не помню, в каком они порядке стояли."
     with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dspr
     sl "Ничего, всё равно их никто не читает."
     th "Кажется, у неё есть улыбка на все случаи жизни."
@@ -6981,7 +6584,7 @@ label day3_library_sl:
     "Славя протирала обложки влажной тряпочкой, а я ставил книги на место."
     "Вместе у нас получалось весьма неплохо – дело близилось к концу."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     sl "А с верхних полок чего не снял?"
     me "Верхних?"
@@ -7002,7 +6605,7 @@ label day3_library_sl:
     play sound sfx_chair_fall
     with vpunch
     play sound2 sfx_bodyfall_1
-    pause (1)
+    pause 1
     scene cg d3_sl_library
     with fade
     stop ambience fadeout 2
@@ -7050,9 +6653,8 @@ label day3_library_sl:
     window show
     sl "Так и будешь лежать?"
     "Она рассмеялась."
-    with None
-    show sl smile2 pioneer at center 
-    with dissolve   
+    show sl smile2 pioneer at center
+    with dissolve
     "Тут наконец я окончательно пришёл в себя и встал."
     me "Прости…"
     sl "Да ничего."
@@ -7090,13 +6692,13 @@ label day3_library_sl:
     mt "Чтобы вы вместе убрались!{w} А ты?!"
     "Я не знал, что ответить, потому что в глубине души понимал, что она права."
     with None
-    show sl sad pioneer at cright 
+    show sl sad pioneer at cright
     with dspr
     sl "Не ругайте его!{w} Семён мне помог в библиотеке."
     mt "Правда?"
     sl "Правда!"
     with None
-    show mt angry pioneer at cleft 
+    show mt angry pioneer at cleft
     with dspr
     mt "Это, конечно, замечательно, но…{w} В общем, останешься без ужина!"
     me "Как, почему?!"
@@ -7108,11 +6710,11 @@ label day3_library_sl:
     sl "Простите его!{w} Под мою ответственность!"
     "Вожатая задумалась."
     with None
-    show mt normal pioneer at cleft 
+    show mt normal pioneer at cleft
     with dspr
     mt "Ладно уж!"
     with None
-    show sl smile pioneer at cright 
+    show sl smile pioneer at cright
     with dspr
     sl "Спасибо!"
     stop music fadeout 3
@@ -7125,7 +6727,7 @@ label day3_library_sl:
     window show
     "Мы быстро вошли в столовую."
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dissolve
     sl "Ладно, я к девочкам сяду, мы с ними договорились.{w} Не скучай!"
     "Она улыбнулась и помахала мне рукой."
@@ -7148,16 +6750,16 @@ label day3_cleaning_us:
     with dissolve
     window hide
     play sound sfx_open_cupboard
-    pause(1)
+    pause 1
     window show
     "Открыв шкаф, я взял метлу, швабру и совок."
     with None
-    show us sad sport at center 
+    show us sad sport at center
     with dissolve
     "Ольги Дмитриевны уже не было рядом с Ульяной."
     me "Она ушла?"
     with None
-    show us dontlike sport at center 
+    show us dontlike sport at center
     with dspr
     us "Как видишь!"
     "Ульянка выглядела расстроеной, весь её детский задор куда-то исчез."
@@ -7172,14 +6774,14 @@ label day3_cleaning_us:
     "Смыв с себя остатки обеда, я вернулся в столовую."
     me "Ну, ничего не поделаешь – придётся убираться."
     with None
-    show us angry sport at center 
+    show us angry sport at center
     with dspr
     us "Это всё из-за тебя!"
     "Она посмотрела так, что у меня невольно мурашки побежали по всему телу."
     me "Конечно!"
     me "Я во всём виноват!{w} Я же у нас местное стихийное бедствие."
     with None
-    show us sad sport at center 
+    show us sad sport at center
     with dspr
     us "Помолчи уж…"
     "Странно, что она не отлынивает от уборки."
@@ -7187,14 +6789,14 @@ label day3_cleaning_us:
     "Она делала всё так быстро, что я еле успевал за ней."
     me "Что-то ты чересчур стараешься."
     with None
-    show us dontlike sport at center 
+    show us dontlike sport at center
     with dspr
     us "А чтобы побыстрее закончить, дурень!"
     "Голос её звучал всё так же недовольно."
     me "Слушай, ну ты же понимаешь, что нельзя себя так вести…{w} По крайней мере доводить до подобного…"
     "Я решил попробовать провести с ней нечто вроде воспитательной беседы."
     with None
-    show us surp1 sport at center 
+    show us surp1 sport at center
     with dspr
     us "А я ничего такого и не делала!{w} Это же ты меня ребёнком обозвал."
     with None
@@ -7208,33 +6810,33 @@ label day3_cleaning_us:
     "Крикнула мне Ульяна."
     "Я подошёл к ней поближе."
     with None
-    show us shy2 sport at center 
+    show us shy2 sport at center
     with dissolve
     stop ambience fadeout 2
     play music music_list["two_glasses_of_melancholy"] fadein 1
     us "А почему ты меня так не любишь?"
     with None
-    show us normal sport at center 
+    show us normal sport at center
     with dspr
     window hide
-    pause (1)
+    pause 1
     window show
     "Её лицо стало настолько серьёзным, что я уже был готов поверить – это не просто очередной розыгрыш."
     me "Почему ты так решила?"
     with None
-    show us shy2 sport at center 
+    show us shy2 sport at center
     with dspr
     us "Не знаю, поэтому и спрашиваю."
     me "Я тебя не не люблю.{w} Просто иногда ты себя так ведёшь…{w} Ну, сама знаешь."
     "Это было чистейшей правдой."
     with None
-    show us surp3 sport at center 
+    show us surp3 sport at center
     with dspr
     us "Как?{w} Не знаю."
     "Она подняла на меня полные любопытства глаза."
     me "Ну, зачем, скажем, было обливать меня компотом?"
     with None
-    show us grin sport at center 
+    show us grin sport at center
     with dspr
     us "Так ты же сам напросился."
     "Впервые за всё время уборки она улыбнулась."
@@ -7254,7 +6856,7 @@ label day3_cleaning_us:
     "Нам понадобилось несколько часов, чтобы навести в столовой марафет."
     "И вот наконец вся битая посуда была собрана, столы и стулья расставлены, пол вымыт."
     with None
-    show us normal sport at center 
+    show us normal sport at center
     with dissolve
     "Мы с Ульянкой сидели рядом с буфетом и отдыхали."
     me "Вот видишь, сколько приходится потратить сил из-за одной глупой выходки."
@@ -7264,46 +6866,46 @@ label day3_cleaning_us:
     us "Чем займёмся дальше?"
     me "Ты – не знаю, а я пойду…"
     with None
-    show us surp3 sport at center 
+    show us surp3 sport at center
     with dspr
     us "Нет! Ещё не всё!"
     us "Ты должен…"
     with None
-    show us shy2 sport at center 
+    show us shy2 sport at center
     with dspr
     "Она замялась."
     with None
-    show us surp1 sport at center 
+    show us surp1 sport at center
     with dspr
     us "Мне ещё помочь!"
     me "Придумываешь очередную глупость?"
     with None
-    show us laugh2 sport at center 
+    show us laugh2 sport at center
     with dspr
     us "Точно!"
     "Она широко улыбнулась."
     me "Тут я тебе не помощник.{w} Мне на сегодня одного наказания уже хватит."
     with None
-    show us laugh sport at center 
+    show us laugh sport at center
     with dspr
     us "А давай так!{w} Если ты поможешь мне сейчас, я больше не буду над тобой прикалываться!"
     "Вариант, конечно, выглядел заманчиво, но я ни секунды не верил в честность Ульяны."
     th "Хотя ради интереса можно и спросить."
     me "И в чём же состоит твой хитрый план?"
     with None
-    show us grin sport at center 
+    show us grin sport at center
     with dspr
     us "Давай украдём конфеты!"
     me "Что?!"
     "Чего-то такого от неё и стоило ожидать."
     th "Конфеты – детям…"
     with None
-    show us laugh sport at center 
+    show us laugh sport at center
     with dspr
     us "Сейчас как раз повариха пойдёт мусор выбрасывать, так что нас никто не заметит!"
     me "Я в этом участвовать не буду!"
     with None
-    show us dontlike sport at center 
+    show us dontlike sport at center
     with dspr
     us "Ну и ладно!"
     "Она фыркнула и отвернулась."
@@ -7350,7 +6952,7 @@ label day3_cleaning_us:
     stop music fadeout 3
     play sound sfx_fall_grass
     with vpunch
-    pause(1)
+    pause 1
     window show
     "Мы повалились на траву..."
     scene cg d3_ussr_catched
@@ -7378,7 +6980,7 @@ label day3_cleaning_us:
     stop music fadeout 3
     play sound sfx_punch_medium
     with vpunch
-    pause(1)
+    pause 1
     scene bg black
     with dissolve
     window show
@@ -7390,12 +6992,12 @@ label day3_cleaning_us:
     with dissolve
     play ambience ambience_forest_day fadein 2
     with None
-    show us grin sport at center 
+    show us grin sport at center
     with dissolve
     window show
     "Этих мгновений как раз хватило ей, чтобы вырваться и отбежать на несколько метров."
     with None
-    show us laugh sport far at center 
+    show us laugh sport far at center
     with dissolve
     us "Смотри!{w} Потом пожалеешь!"
     with None
@@ -7415,12 +7017,12 @@ label day3_cleaning_us:
     with dissolve
     play ambience ambience_camp_center_day fadein 2
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     window show
     "На входе в столовую меня уже ждала Ольга Дмитриевна…"
     with None
-    show mt smile pioneer at center 
+    show mt smile pioneer at center
     with dspr
     mt "Молодец, Семён!"
     me "Это вы про что?"
@@ -7429,7 +7031,7 @@ label day3_cleaning_us:
     mt "Я про уборку.{w} Всё чисто и аккуратно!"
     me "А, да…"
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "А Ульяна где?"
     th "Я бы и сам хотел знать!"
@@ -7448,7 +7050,7 @@ label day3_cleaning_us:
     th "Конечно, можно вечером, но сейчас-то куда мне его девать?!"
     sl "Семён!"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     "Я обернулся.{w} Передо мной стояла Славя."
     sl "Ой, а что это у тебя?"
@@ -7459,14 +7061,14 @@ label day3_cleaning_us:
     th "Украл, откуда…"
     me "Ульяна отдала."
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Понятно. Значит, она опять за своё."
     me "Опять?"
     sl "Ну, она уже не первый раз ворует конфеты."
     th "И почему я не удивлён?"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Давай я их отнесу."
     me "Спасибо…"
@@ -7496,30 +7098,30 @@ label day3_main5:
     sh "Как хочешь."
     "Он развел руками."
     with None
-    show el smile pioneer at cleft 
+    show el smile pioneer at cleft
     with dspr
     el "После ужина танцы!"
     "Электроник хихикнул."
     me "Я в курсе."
     with None
-    show el normal pioneer at cleft 
+    show el normal pioneer at cleft
     with dspr
     el "Кого хотел бы пригласить?"
     me "Не думал ещё об этом.{w} А ты?"
     with None
-    show el shocked pioneer at cleft 
+    show el shocked pioneer at cleft
     with dspr
     el "Я… Ну я…"
     "Кажется, он не ожидал такого вопроса."
     me "Ульянку. Она обрадуется."
     with None
-    show el serious pioneer at cleft 
+    show el serious pioneer at cleft
     with dspr
     el "Ну уж нет!"
     "Электроник неистово замахал руками."
     me "А ты, Шурик, пригласи Алису."
     with None
-    show sh serious pioneer at cright 
+    show sh serious pioneer at cright
     with dspr
     sh "Я, пожалуй, воздержусь."
     "Он выглядел спокойнее своего товарища."
@@ -7529,15 +7131,15 @@ label day3_main5:
     sh "Он ещё даже не ходит."
     "Шурик, кажется, не понял прикола."
     with None
-    show el smile pioneer at cleft 
+    show el smile pioneer at cleft
     with dspr
     el "А что! Будет прекрасная демонстрация наших достижений перед всем лагерем!"
     with None
-    show sh normal pioneer at cright 
+    show sh normal pioneer at cright
     with dspr
     sh "И что мы покажем?"
     with None
-    show el normal pioneer at cleft 
+    show el normal pioneer at cleft
     with dspr
     el "Тут ты прав."
     "Они оба расстроенно уткнулись в тарелки."
@@ -7597,7 +7199,7 @@ label day3_main5:
     "Зайдя в домик вожатой, я моментально плюхнулся на кровать и закрыл глаза."
     window hide
     show blink
-    pause(1)
+    pause 1
     scene bg black
     with fade
     window show
@@ -7608,7 +7210,7 @@ label day3_main5:
     scene bg int_house_of_mt_night
     show unblink
     with fade
-    pause(1)
+    pause 1
     window show
     "Как ни странно, я проснулся вовремя даже без будильника."
     "На часах было ровно девять вечера."
@@ -7624,13 +7226,13 @@ label day3_main5:
             window hide
             menu:
                 "Пойти к Алисе":
-                    $ lp_un = lp_un - 5
+                    $ lp_un -= 5
                     $ day3_un_dumped = True
                     stop ambience fadeout 2
                     jump day3_evening_dv
                 "Пойти на дискотеку":
                     $ day3_dv_dumped = True
-                    $ lp_dv = lp_dv - 5
+                    $ lp_dv -= 5
         else:
             window hide
             stop ambience fadeout 2
@@ -7653,14 +7255,14 @@ label day3_main5:
     "Может быть, мне удастся просто посидеть и мило пообщаться с кем-нибудь."
     us "Чего грустишь?"
     with None
-    show us laugh dress at center 
+    show us laugh dress at center
     with dissolve
     "Ульяна."
     me "А что предложишь?"
     us "Пойдём танцевать!"
     me "Рано ещё…{w} Даже музыка не играет."
     with None
-    show us dontlike dress at center 
+    show us dontlike dress at center
     with dspr
     us "Какой ты скучный!"
     with None
@@ -7670,7 +7272,7 @@ label day3_main5:
     "Она убежала."
     th "А Ульянка таки надела что-то наподобие вечернего платья.{w} Забавно."
     with None
-    show sl normal dress at center 
+    show sl normal dress at center
     with dissolve
     sl "Привет!"
     "Славя."
@@ -7683,7 +7285,7 @@ label day3_main5:
     sl "Ладно, потанцуешь – развеселишься!"
     me "Наверное…"
     with None
-    show sl smile dress at center 
+    show sl smile dress at center
     with dspr
     sl "Не забудь один танец и для меня оставить!"
     with None
@@ -7692,7 +7294,7 @@ label day3_main5:
     "Она засмеялась и побежала к музыкальной аппаратуре."
     "Ситуация, похоже, накалялась – просто отсидеться не получится."
     with None
-    show un normal dress at center 
+    show un normal dress at center
     with dissolve
     un "Привет."
     "Ко мне подошла Лена."
@@ -7702,7 +7304,7 @@ label day3_main5:
     me "Ясно…{w} Зажжёшь сегодняшний вечер?"
     "Острота прозвучала неумело."
     with None
-    show un shy dress at center 
+    show un shy dress at center
     with dspr
     un "…"
     "Лена покраснела и опустила глаза."
@@ -7738,12 +7340,12 @@ label day3_main5:
     "Это выглядело настолько глупо и забавно, что я не удержался и засмеялся."
     "Она заметила."
     with None
-    show us laugh dress far at center 
-    with dissolve   
+    show us laugh dress far at center
+    with dissolve
     us "Эй, Семён!"
     "Я сделал вид, что не слышу."
     with None
-    show us surp1 dress far at center 
+    show us surp1 dress far at center
     with dspr
     us "Не притворяйся! Иди-ка сюда."
     "Я продолжал игнорировать её."
@@ -7756,12 +7358,12 @@ label day3_main5:
     "Конечно, танцевать я не умел, но и это танцем назвать сложно."
     sl "Семён, чего сидишь?{w} Потанцевать не хочешь?"
     with None
-    show sl normal dress at center 
+    show sl normal dress at center
     with dissolve
     "Я был так увлечён своими мыслями, что не заметил Славю."
     me "Да что-то не хочется…"
     with None
-    show sl smile dress at center 
+    show sl smile dress at center
     with dspr
     sl "Точно?"
     "Она улыбнулась."
@@ -7836,18 +7438,18 @@ label day3_evening_sl:
     with dissolve
     play ambience ambience_camp_center_evening
     with None
-    show sl smile dress at center 
+    show sl smile dress at center
     with dissolve
     window show
     sl "Спасибо за танец!"
     with None
-    show sl laugh dress at center 
+    show sl laugh dress at center
     with dspr
     me "Это тебе спасибо."
     "Некоторое время я просто стоял и смотрел на неё."
     "Заиграл следующий трек."
     with None
-    show sl normal dress at center 
+    show sl normal dress at center
     with dspr
     sl "Ещё?"
     me "Нет, пожалуй, передохну."
@@ -8110,8 +7712,8 @@ label day3_evening_sl:
     "Только когда она зашла в предбанник, я смог кое-как прийти в себя, покинул свой наблюдательный пост и спрятался в кустах неподалёку."
     "По-хорошему, стоило не искушать судьбу и просто уйти, но эта мысль пришла мне в голову, когда было уже поздно."
     with None
-    show sl normal pioneer far at center 
-    with dissolve   
+    show sl normal pioneer far at center
+    with dissolve
     "Через секунду показалась Славя, некоторое время постояла на крыльце, видимо наслаждаясь ночной свежестью, и направилась сторону моего укрытия."
     "В голове крутилось несколько десятков оправданий, но она прошла мимо, даже не посмотрев на кусты, в которых я сидел."
     with None
@@ -8134,7 +7736,7 @@ label day3_evening_sl:
     window hide
     with fade
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     window show
     "Вдруг словно из-под земли передо мной возникла Славя."
@@ -8204,7 +7806,7 @@ label day3_evening_sl:
     "И ещё прекраснее ночь казалась, когда стоишь в лесу, чистый и свежий."
     window hide
     play sound sfx_bush_leaves
-    pause (1)
+    pause 1
     window show
     "Внезапно в нескольких метрах от меня послышался шелест кустов."
     "Я вздрогнул, но особо не испугался."
@@ -8228,7 +7830,7 @@ label day3_evening_sl:
     stop ambience fadeout 2
     scene bg black
     with fade3
-    pause (3)
+    pause 3
     jump day4_std_morning
 label day3_evening_un:
     $ day3_un_evening = 1
@@ -8238,7 +7840,7 @@ label day3_evening_un:
     "Ещё одно приглашение на танец окончательно поставило бы крест на моём самолюбии."
     "Я начал придумывать удобный предлог, чтобы уйти, и выбирать для этого подходящий момент, как вдруг увидел Лену.{w} Она медленно шла в мою сторону."
     with None
-    show un normal dress at center 
+    show un normal dress at center
     with dissolve
     un "Может, пойдём?"
     me "Куда?"
@@ -8257,7 +7859,7 @@ label day3_evening_un:
     with dissolve
     play music music_list["goodbye_home_shores"] fadein 3
     with None
-    show un normal dress at center 
+    show un normal dress at center
     with dissolve
     window show
     un "Ну что, пойдём в медпункт?"
@@ -8265,7 +7867,7 @@ label day3_evening_un:
     "Мы уже некоторое время просто молча стояли возле столовой."
     me "Да, конечно… Спасибо тебе!"
     with None
-    show un surprise dress at center 
+    show un surprise dress at center
     with dspr
     un "За что?"
     "Она посмотрела на меня с удивлением."
@@ -8273,14 +7875,14 @@ label day3_evening_un:
     "Может быть, и не стоило говорить ей о том, что танцы – не мой конёк."
     me "А то там…{w} знаешь, так скучно!"
     with None
-    show un normal dress at center 
+    show un normal dress at center
     with dspr
     un "Ты не любишь танцевать, наверное?"
     "На её искреннем, немного даже детском лице не промелькнуло и тени сарказма."
     "Она, похоже, действительно не понимала."
     me "Да, совсем не люблю, не моё это как-то."
     with None
-    show un shy dress at center 
+    show un shy dress at center
     with dspr
     un "И я тоже.{w} Меня никогда никто не приглашает."
     "Сказав это, Лена покраснела и привычно уставилась себе под ноги."
@@ -8288,14 +7890,14 @@ label day3_evening_un:
     un "Что странно?"
     me "Ну… Что тебя не приглашают."
     with None
-    show un surprise dress at center 
+    show un surprise dress at center
     with dspr
     un "Ты так думаешь?"
     "Она опять посмотрела на меня взглядом, полным искреннего непонимания и удивления."
     "Я смутился и не сразу нашёлся, что ответить."
     me "Ну, да! Конечно!{w} Если бы я любил танцевать, то обязательно бы тебя пригласил."
     with None
-    show un shy dress at center 
+    show un shy dress at center
     with dspr
     stop music fadeout 2
     un "Спасибо…"
@@ -8310,7 +7912,7 @@ label day3_evening_un:
     "Уже полностью стемнело, и мрачное здание медпункта, окутанное ночным туманом, больше походило на дом с привидениями."
     "Мне вдруг захотелось развернуться и медленно, не создавая лишнего шума, уйти отсюда."
     with None
-    show un normal dress at center 
+    show un normal dress at center
     with dissolve
     "Я украдкой бросил взгляд на Лену и отметил, что она выглядит как обычно – застенчивой, скромной, неуверенной в себе, но никак не испуганной."
     "Тем больше мне стало не по себе."
@@ -8332,7 +7934,7 @@ label day3_evening_un:
     with flash
     play ambience ambience_medstation_inside_night fadein 3
     with None
-    show un normal dress at center 
+    show un normal dress at center
     with dissolve
     window show
     me "А медсестра позже придёт, да?"
@@ -8353,7 +7955,7 @@ label day3_evening_un:
     "Я поставил одну коробку перед собой на стол и начал выкладывать содержимое."
     "Внутри оказались только бинты – огромное количество небольших упаковочек с бинтами."
     with None
-    show un normal dress at center 
+    show un normal dress at center
     with dissolve
     un "Вот, возьми."
     "Лена протянула мне листок бумаги."
@@ -8365,18 +7967,18 @@ label day3_evening_un:
     "Работа закипела."
     un "Семён…"
     with None
-    show un normal dress at center 
+    show un normal dress at center
     with dissolve
     me "Что?"
     "Я поднял взгляд на Лену."
     "Она несколько секунд пристально смотрела на меня, словно решаясь на что-то, но потом опять опустила глаза."
     with None
-    show un shy dress at center 
+    show un shy dress at center
     with dspr
     un "Нет, ничего."
     "Мне было буквально физически тяжело всё время сидеть молча.{w} Однако и заговорить первым я не решался, потому что не только не мог придумать подходящей темы, но и банально стеснялся, так как смутить эту девочку, казалось, могло вообще всё, что угодно."
     with None
-    show un normal dress at center 
+    show un normal dress at center
     with dspr
     un "Семён…"
     me "Да?"
@@ -8402,7 +8004,7 @@ label day3_evening_un:
     "Лена ответила не сразу."
     "Я не мог точно понять, врёт она или нет."
     with None
-    show un surprise dress at center 
+    show un surprise dress at center
     with dspr
     un "А тебе здесь что, не нравится?"
     th "Интересно, как она из моих слов сделала такой вывод?"
@@ -8410,7 +8012,7 @@ label day3_evening_un:
     "Наигранная дружелюбность прозвучала фальшиво, резанув ухо."
     me "А тебе?"
     with None
-    show un normal dress at center 
+    show un normal dress at center
     with dspr
     un "Да.{w} Тут спокойно, в библиотеке много книг.{w} И люди здесь хорошие…"
     me "Хорошие… Да не все…"
@@ -8419,7 +8021,7 @@ label day3_evening_un:
     "Оказалось, что нет."
     me "Ну, как бы сказать…{w} Возьми Ульянку – батарейка Энерджайзер с катастрофически смещённой точкой приложения силы."
     with None
-    show un surprise dress at center 
+    show un surprise dress at center
     with dspr
     un "Батарейка…{w} Что?"
     "Может быть, меня правда забросило назад во времени."
@@ -8427,19 +8029,19 @@ label day3_evening_un:
     me "Или Алиса! «Пионер – всем ребятам пример!» – этот лозунг явно не про неё. Если все будут брать пример с Алисы, то лет через двадцать такое в стране будет…"
     th "Хотя на момент начала XXI века можно сделать вывод, что в восьмидесятые, где я предположительно сейчас нахожусь, все брали пример именно с Алисы Двачевской…"
     with None
-    show un normal dress at center 
+    show un normal dress at center
     with dspr
     un "На самом деле она не такая."
     me "Не такая – это какая?"
     un "Не такая, как ты о ней говоришь."
     me "Начнём с того, что я ничего ещё не сказал.{w} Просто констатировал факт, что она явно не является примером для подражания."
     with None
-    show un smile dress at center 
+    show un smile dress at center
     with dspr
     un "Ну… Может быть."
     me "Получается, ты её хорошо знаешь?"
     with None
-    show un normal dress at center 
+    show un normal dress at center
     with dspr
     un "Наверное."
     "Вопрос этот я задал просто, чтобы поддержать разговор, и такого ответа никак не ожидал."
@@ -8449,7 +8051,7 @@ label day3_evening_un:
     un "У нас общие друзья, хоть Алиса и на год старше."
     me "Понятно. Но это немного странно.{w} То есть не так. Я просто удивился."
     with None
-    show un smile dress at center 
+    show un smile dress at center
     with dspr
     un "Все удивляются."
     "Лена еле заметно улыбнулась."
@@ -8463,7 +8065,7 @@ label day3_evening_un:
     "Такое положение вещей меня никак не устраивало."
     "Иногда даже казалось, что за маской стеснительности и застенчивости она что-то скрывает.{w} Но что?"
     with None
-    show un normal dress at center 
+    show un normal dress at center
     with dissolve
     me "Знаешь, я тут книжку недавно прочитал…{w} Ты любишь фантастику?"
     un "Не очень."
@@ -8483,14 +8085,14 @@ label day3_evening_un:
     th "И чего ему делать в столовой?"
     "Я замялся."
     with None
-    show un surprise dress at center 
+    show un surprise dress at center
     with dspr
     un "Зачем?"
     "Её искренний взгляд ясно давал понять, что она даже не догадывается о том, что я хочу ей предложить."
     me "Ну… Честно говоря, я не умею танцевать, поэтому и не люблю.{w} И поэтому мне там так неудобно было."
     me "Может быть, я бы смог тебя отблагодарить, потанцевав с тобой."
     with None
-    show un shy dress at center 
+    show un shy dress at center
     with dspr
     un "Но я…"
     "Она на мгновение перестала перекладывать лекарства, покраснела и посмотрела прямо мне в глаза."
@@ -8502,7 +8104,7 @@ label day3_evening_un:
     "С одной стороны, ничего такого.{w} С другой…"
     me "Да все спят уже давно.{w} Тем более кто ночью пойдёт в столовую!"
     with None
-    show un normal dress at center 
+    show un normal dress at center
     with dspr
     un "А как мы туда попадём?"
     "Об этом стоило подумать заранее."
@@ -8517,7 +8119,7 @@ label day3_evening_un:
     un "Разная…{w} Я ей не особо увлекаюсь."
     me "Давай тогда представим, что она играет…{w} Ну, то есть, что ты… мы её слышим."
     with None
-    show un surprise dress at center 
+    show un surprise dress at center
     with dspr
     un "Как это?"
     me "Ну, как будто она у тебя в голове играет!"
@@ -8525,7 +8127,7 @@ label day3_evening_un:
     un "Не уверена, что у меня получится."
     me "Но можно же попробовать!"
     with None
-    show un normal dress at center 
+    show un normal dress at center
     with dspr
     un "Наверное…"
     "Согласие было получено!"
@@ -8542,11 +8144,11 @@ label day3_evening_un:
     "Впрочем, я всё равно большую часть времени молчал."
     "Вскоре с последней коробкой было покончено."
     with None
-    show un normal dress at center 
+    show un normal dress at center
     with dspr
     "Протянув полностью исписанный листок Лене, я уставился на неё, как будто увидел снежного человека на одноколёсном велосипеде, жонглирующего поросятами.{w} Удивительно и страшно, а главное – завораживает."
     with None
-    show un laugh dress at center 
+    show un laugh dress at center
     with dspr
     "Вдруг она засмеялась."
     me "Что?!"
@@ -8555,14 +8157,14 @@ label day3_evening_un:
     un "Забавное."
     me "Да?.."
     with None
-    show un smile dress at center 
+    show un smile dress at center
     with dspr
     un "Ага. Так куда пойдём?"
     me "Куда?"
     "Её последние слова несколько выбили меня из колеи, и я совсем забыл, о чём мы говорили до этого."
     "Да честно признаться, я вообще на минуту выпал из реальности."
     with None
-    show un shy dress at center 
+    show un shy dress at center
     with dspr
     un "Ну, как же…{w} Танцы."
     "Лена мгновенно покраснела, а на её лице появилось стандартное выражение застенчивости, стеснительности и испуга."
@@ -8574,7 +8176,7 @@ label day3_evening_un:
     "В общем, не знаю, но решение пришло само собой."
     me "Или, если тебе не нравится, мы можем…"
     with None
-    show un normal dress at center 
+    show un normal dress at center
     with dspr
     stop music fadeout 3
     un "Нет, хорошо, отличное место."
@@ -8588,7 +8190,7 @@ label day3_evening_un:
     "Лена закрыла дверь на ключ, и мы направились к пристани."
     "На лагерь опустилась ночь, он спал."
     with None
-    show un normal dress at center 
+    show un normal dress at center
     with dissolve
     un "Пойдём по дорожке?"
     me "Зачем? Через лес же быстрее, там есть хорошая тропинка."
@@ -8597,13 +8199,13 @@ label day3_evening_un:
         me "Кто? Совёнок?"
         "Я рассмеялся."
         with None
-        show un surprise dress at center 
+        show un surprise dress at center
         with dspr
         un "Ну, что ты…"
         "На её лице мелькнула тень недовольства."
         me "Нет, ничего, прости!"
         with None
-        show un normal dress at center 
+        show un normal dress at center
         with dspr
     else:
         un "Там темно."
@@ -8635,7 +8237,7 @@ label day3_evening_un:
     with dissolve
     play ambience ambience_boat_station_night fadein 3
     with None
-    show un normal dress at center 
+    show un normal dress at center
     with dissolve
     window show
     "Мы вышли на пристань.{w} Ночь была поистине прекрасна."
@@ -8650,7 +8252,7 @@ label day3_evening_un:
     th "И почему «тоже»?{w} Она же не говорила, что не умеет танцевать, хотя это и было очевидно."
     stop ambience fadeout 2
     with None
-    show un smile dress at center 
+    show un smile dress at center
     with dspr
     un "Хорошо."
     window hide
@@ -8708,7 +8310,7 @@ label day3_evening_un:
     scene bg ext_boathouse_night
     with dissolve
     with None
-    show un normal dress at center 
+    show un normal dress at center
     with dissolve
     window show
     "Лена вопросительно посмотрела на меня."
@@ -8725,7 +8327,7 @@ label day3_evening_un:
     "Я не стал спорить – это было неуместно в данной ситуации."
     "Ольга Дмитриевна покричала-покричала и ушла."
     with None
-    show un normal dress at center 
+    show un normal dress at center
     with dissolve
     un "Ну, пойдём."
     stop ambience fadeout 3
@@ -8736,7 +8338,7 @@ label day3_evening_un:
     with dissolve
     play ambience ambience_forest_night fadein 3
     with None
-    show un normal dress at center 
+    show un normal dress at center
     with dissolve
     window show
     "На обратном пути Лена не взяла меня под руку."
@@ -8753,7 +8355,7 @@ label day3_evening_un:
     with dissolve
     play ambience ambience_camp_center_night fadein 3
     with None
-    show un normal dress at center 
+    show un normal dress at center
     with dissolve
     window show
     "На площади она остановилась."
@@ -8800,13 +8402,13 @@ label day3_evening_un:
     stop ambience fadeout 2
     window hide
     play sound sfx_open_dooor_campus_2
-    pause(1)
+    pause 1
     $ persistent.sprite_time = "sunset"
     scene bg int_house_of_mt_noitem_night
     with dissolve
     play music music_list["smooth_machine"] fadein 3
     with None
-    show mt surprise dress at center 
+    show mt surprise dress at center
     with dissolve
     window show
     mt "Семён! Ты где был?!"
@@ -8816,7 +8418,7 @@ label day3_evening_un:
     mt "Я тут волнуюсь, а он прогуляться решил!"
     me "Ну извините…{w} В следующий раз предупрежу заранее."
     with None
-    show mt normal dress at center 
+    show mt normal dress at center
     with dspr
     mt "Уж постарайся!{w} А теперь спать, уже поздно!"
     "В этом с вожатой сложно было не согласиться."
@@ -8835,7 +8437,7 @@ label day3_evening_un:
     stop music fadeout 3
     scene black
     with fade3
-    pause (3)
+    pause 3
     jump day4_std_morning
 label day3_evening_us:
     $ day3_us_evening = 1
@@ -8859,13 +8461,13 @@ label day3_evening_us:
     scene bg ext_square_night_party
     with dissolve
     with None
-    show mt normal dress at center 
+    show mt normal dress at center
     with dissolve
     window show
     mt "Чего не танцуешь?"
     me "Не хочется что-то…"
     with None
-    show mt smile dress at center 
+    show mt smile dress at center
     with dspr
     mt "Ну, дело твоё."
     "Она хитро улыбнулась."
@@ -8873,7 +8475,7 @@ label day3_evening_us:
     me "Например?"
     "Сейчас мне абсолютно любое занятие казалось лучше, чем танцы."
     with None
-    show mt normal dress at center 
+    show mt normal dress at center
     with dspr
     mt "Вы сегодня, конечно, хорошо в столовой убрались, но всё же…{w} Думаю, вы ещё не полностью загладили свою вину."
     me "Эээ?"
@@ -8881,7 +8483,7 @@ label day3_evening_us:
     us "Что?!"
     mt "Подойди сюда."
     with None
-    show us surp1 dress at right 
+    show us surp1 dress at right
     with dissolve
     "Ульянка нехотя подошла."
     mt "Вижу, ты уже на год вперёд натанцевалась."
@@ -8889,7 +8491,7 @@ label day3_evening_us:
     "С неё стекали ручьи пота, так что вожатая была права."
     mt "У меня для тебя с Семёном поручение!"
     with None
-    show us surp2 dress at right 
+    show us surp2 dress at right
     with dspr
     us "Ну Ольга Дмитриевна!"
     "Взмолилась Ульяна."
@@ -8898,23 +8500,23 @@ label day3_evening_us:
     mt "Вам пара полок осталось."
     us "Но…"
     with None
-    show mt angry dress at center 
+    show mt angry dress at center
     with dspr
     mt "Никаких но!"
     with None
-    show us sad dress at right 
+    show us sad dress at right
     with dspr
     th "Да ради бога."
     "Уж почто я не любил общественную работу, но танцы…"
     me "Я готов!"
     with None
-    show mt smile dress at center 
+    show mt smile dress at center
     with dspr
     mt "Молодец, Семён! Молодец! Настоящий пионер! Видишь, Ульяна, бери пример!"
     "Ульянка такой пример для подражания, похоже, не оценила."
     mt "Так что, давайте!{w} Весь лагерь на вас рассчитывает!"
     with None
-    show us angry dress at right 
+    show us angry dress at right
     with dspr
     us "Я тебе это ещё припомню!"
     stop music fadeout 3
@@ -8928,13 +8530,13 @@ label day3_evening_us:
     "Вечерний лагерь красив.{w} Тишина и покой умиротворяли меня."
     "Лишь далёкие звуки музыки, доносящиеся с площади, напоминали, что я здесь не один."
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dissolve
     "Да, и ещё Ульяна, которая только что вернулась."
     me "Могла бы и в платье убраться."
     "Я усмехнулся."
     with None
-    show us angry pioneer at center 
+    show us angry pioneer at center
     with dspr
     us "Это ты, всё ты!"
     "Она так сопела, а лицо её было таким красным, что я бы не удивился, если бы у Ульянки из ушей пошёл пар."
@@ -8946,14 +8548,14 @@ label day3_evening_us:
     "Она уже не могла говорить и просто шипела."
     me "Ну, промолчал бы я, и что?{w} Думаешь, она бы отпустила тебя дальше развлекаться?"
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     "Ульянка посмотрела на меня."
     "Похоже, она немного успокоилась."
     us "Конечно! Тебя же это не интересует!{w} Ты и танцевать-то не умеешь!"
     me "А если даже и так, то что?"
     with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "Вот пошёл бы со мной танцевать…{w} Было бы весело!"
     "Она вернулась в своё привычное, «детское» состояние."
@@ -8976,14 +8578,14 @@ label day3_evening_us:
     "Внутри было темно, да ко всему ещё и выключатель отказался работать, лишь противно щёлкая при каждом нажатии."
     "Точнее, он, может, и работал, но свет не зажигался."
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dissolve
     us "Подожди, сейчас свечи принесу."
     with None
     hide us
     with dissolve
     window hide
-    pause(1)
+    pause 1
     $ persistent.sprite_time = "sunset"
     scene bg int_library_night2
     with dissolve
@@ -8992,19 +8594,19 @@ label day3_evening_us:
     window show
     "Я только хотел спросить, откуда она знает, где здесь свечи и спички, как на столе рядом со мной уже зажглись два ярких огонька."
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dissolve
     us "Так-то лучше!"
     "Сказала Ульяна, довольная собой."
     me "А дальше что?"
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     us "А что дальше?"
     "Она вопросительно посмотрела на меня."
     me "Ну, что нам делать?"
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "Пфф, мне откуда знать?"
     "Фыркнула она."
@@ -9020,17 +8622,17 @@ label day3_evening_us:
     "Вдруг позади послышались шаги."
     window hide
     play sound sfx_wood_floor_squeak
-    pause(1)
+    pause 1
     window show
     "Старый, растрескавшийся пол предательски скрипел, и это не позволило Ульяне подкрасться незамеченной."
     us "Бу!"
     "Я развернулся."
     with None
-    show us laugh2 pioneer at center 
+    show us laugh2 pioneer at center
     with dissolve
     me "Очень страшно…"
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "Да ну тебя!"
     "Она обиженно отвернулась."
@@ -9040,13 +8642,13 @@ label day3_evening_us:
     th "Интересно, помнит ли о них кто-нибудь ещё?{w} Женя наверняка помнит."
     "Почему-то мне казалось, что она-то точно помнит вообще всё."
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     us "Ладно, садись."
     "Ульяна подвинула ко мне стул.{w} Я сел."
     me "И дальше что?"
     with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dspr
     us "Будем рассказывать страшные истории.{w} У нас с тобой два стула и две свечки, соответственно, две истории – одна моя, одна твоя."
     me "Давай."
@@ -9109,17 +8711,17 @@ label day3_evening_us:
     me "Прекрасно!"
     window hide
     play sound sfx_simon_applause
-    pause(1)
+    pause 1
     window show
     "Я захлопал в ладоши."
     me "На Пулитцеровскую премию, конечно, не тянет, но…"
     with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "Страшно?{w} Испугался?"
     me "Весь дрожу…"
     with None
-    show us sad pioneer at center 
+    show us sad pioneer at center
     with dspr
     us "Да ну тебя…{w} Давай свой рассказ.{w} Уверена, я даже не вздрогну!"
     window hide
@@ -9259,7 +8861,7 @@ label day3_evening_us:
     window hide
     scene black
     with fade3
-    pause (3)
+    pause 3
     jump day4_us_morning
 label day3_evening_dv:
     $ day3_dv_evening = 1
@@ -9283,7 +8885,7 @@ label day3_evening_dv:
     window show
     "Подойдя ближе, я увидел, что кто-то сидит на краю сцены, свесив ноги вниз."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     dv "Значит, всё-таки пришёл!"
     "Алиса отложила гитару в сторону и спрыгнула на землю."
@@ -9292,7 +8894,7 @@ label day3_evening_dv:
     dv "И что будем делать?"
     me "Как это что?.."
     with None
-    show dv smile pioneer at center 
+    show dv smile pioneer at center
     with dspr
     dv "Вот я тебя и спрашиваю."
     me "Ну... ты же хотела..."
@@ -9305,7 +8907,7 @@ label day3_evening_dv:
     dv "Эй!"
     "Алиса крепко схватила меня за рукав."
     with None
-    show dv shy pioneer at center 
+    show dv shy pioneer at center
     with dissolve
     me "Что?"
     dv "Не хочешь послушать?.."
@@ -9401,14 +9003,14 @@ label day3_evening_dv:
     with dissolve
     play ambience ambience_camp_center_night fadein 2
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     window show
     dv "Хотя, конечно, мелодия слишком простая."
     "Я отложил гитару в сторону."
     "Алиса на секунду задумалась."
     with None
-    show dv smile pioneer at center 
+    show dv smile pioneer at center
     with dspr
     dv "Её бы и первоклассник сыграл!"
     me "Спасибо,{w} я старался!"
@@ -9491,11 +9093,11 @@ label day3_evening_dv:
     "Дорога вывела меня на площадь."
     play sound_loop sfx_broom_sweep fadein 2
     with None
-    show sl normal pioneer far at center 
+    show sl normal pioneer far at center
     with dissolve
     "Посреди которой стояла Славя и весело размахивала метлой."
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Ой, Семён, привет, а я думала, что все уже спят."
     me "Нет... А ты что делаешь?"
@@ -9552,7 +9154,7 @@ label day3_evening_dv:
     window hide
     scene black
     with dissolve
-    pause (1)
+    pause 1
     $ persistent.sprite_time = "night"
     scene bg ext_bathhouse_night
     with dissolve
@@ -9564,7 +9166,7 @@ label day3_evening_dv:
     "Внезапно на меня напала сильная зевота и я, вытирая навернувшиеся на глаза слёзы, медленно побрёл по направлению к домику вожатой."
     play music music_list["two_glasses_of_melancholy"] fadein 3
     with None
-    show dv shocked pioneer at center 
+    show dv shocked pioneer at center
     with dissolve
     "Но не успел я сделать и пары шагов, как из кустов буквально в метре от меня выскочила Алиса."
     dv "А ты... ты что здесь делаешь?"
@@ -9606,7 +9208,7 @@ label day3_evening_dv:
     "Алиса шла за мной, но в этот раз не пыталась остановить."
     dv "Но ведь я правда ничего такого не хотела..."
     with None
-    show dv shy pioneer at center 
+    show dv shy pioneer at center
     with dissolve
     "Словно какая-то неведомая сила заставила меня развернуться к ней."
     me "Хорошо. Теперь я могу идти?"
@@ -9637,7 +9239,7 @@ label day3_evening_dv:
     dv "Ну-ка стой!"
     me "Не вынуждай меня бегать от тебя!"
     with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dissolve
     dv "Всё равно не убежишь!"
     "Возможно и так, ведь за сегодняшний день я слишком устал, а уж после бани никакого желания бегать не возникало и подавно."
@@ -9659,11 +9261,11 @@ label day3_evening_dv:
     "Бросил я ей, не оборачиваясь."
     dv "Ну, если бы я это, то ты бы?.."
     with None
-    show dv shy pioneer far at center 
+    show dv shy pioneer far at center
     with dissolve
     me "Не понимаю, о чём речь, но давай думать, что «я бы», если тебе так будет легче."
     with None
-    show dv angry pioneer far at center 
+    show dv angry pioneer far at center
     with dspr
     dv "Придурок!"
     with None
@@ -9713,12 +9315,12 @@ label day3_evening_dv:
     scene bg int_house_of_mt_night
     with dissolve
     with None
-    show mt normal dress at center 
+    show mt normal dress at center
     with dissolve
     window show
     "Внутри меня уже ждала Ольга Дмитриевна, одетая в платье."
     with None
-    show mt surprise dress at center 
+    show mt surprise dress at center
     with dspr
     mt "Итак, Семён, где же ты был?"
     me "Я…"
@@ -9731,33 +9333,28 @@ label day3_evening_dv:
             me "Играли на гитаре…"
         "Придумать другое оправдание":
             window show
-            $ lp_dv = lp_dv + 1
+            $ lp_dv += 1
             me "Я…{w} гулял."
             mt "Один?"
             me "Да…"
-    with None
-    show mt normal dress at center 
+    show mt normal dress at center
     with dspr
     mt "Ладно, не столь важно, где ты был, главное – почему не пришёл на дискотеку!"
     me "Ну, знаете, честно говоря, я не люблю танцевать…"
-    with None
-    show mt angry dress at center 
+    show mt angry dress at center
     with dspr
     mt "Ну и что?{w} Это же общелагерное мероприятие, а значит, на нём должны присутствовать все пионеры!"
     "Она внимательно посмотрела на меня."
-    with None
-    show mt surprise dress at center 
+    show mt surprise dress at center
     with dspr
     mt "В крайнем случае посидел бы в сторонке."
     me "Извините…"
     "Я вздохнул."
-    with None
-    show mt smile dress at center 
+    show mt smile dress at center
     with dspr
     mt "Ладно."
     "Смягчилась вожатая."
     mt "А теперь быстро спать!"
-    with None
     hide mt
     with dissolve
     th "Кажется, всё обошлось."
@@ -9783,7 +9380,7 @@ label day3_evening_dv:
     window hide
     scene bg black
     with fade3
-    pause (3)
+    pause 3
     jump day4_std_morning
 label day3_fail:
     with None
@@ -9837,54 +9434,54 @@ label day3_fail:
     scene white
     with dissolve
     show urhere1 "Ты здесь не просто так":
-        xpos -0.5 
-        ypos 0.3 
-        linear 4.0 xpos 1.5 
+        xpos -0.5
+        ypos 0.3
+        linear 4.0 xpos 1.5
         repeat
     show urhere2 "Ты здесь не просто так":
-        xpos -0.5 
-        ypos 0.1 
-        linear 3.0 xpos 1.5 
+        xpos -0.5
+        ypos 0.1
+        linear 3.0 xpos 1.5
         repeat
     show urhere3 "Ты здесь не просто так":
-        xpos -0.5 
-        ypos 0.7 
-        linear 5.0 xpos 1.5 
+        xpos -0.5
+        ypos 0.7
+        linear 5.0 xpos 1.5
         repeat
     show urhere4 "Ты здесь не просто так":
-        xpos -0.5 
-        ypos 0.5 
-        linear 4.0 xpos 1.5 
+        xpos -0.5
+        ypos 0.5
+        linear 4.0 xpos 1.5
         repeat
     show urhere5 "Ты здесь не просто так":
-        xpos -0.5 
-        ypos 0.8 
-        linear 3.0 xpos 1.5 
+        xpos -0.5
+        ypos 0.8
+        linear 3.0 xpos 1.5
         repeat
     show urhere6 "Ты здесь не просто так":
-        ypos 0.1 
-        xpos 1.0 
-        linear 4.0 xpos -1.0 
+        ypos 0.1
+        xpos 1.0
+        linear 4.0 xpos -1.0
         repeat
     show urhere7 "Ты здесь не просто так":
-        ypos 0.3 
-        xpos 1.0 
-        linear 3.0 xpos -1.0 
+        ypos 0.3
+        xpos 1.0
+        linear 3.0 xpos -1.0
         repeat
     show urhere8 "Ты здесь не просто так":
-        ypos 0.8 
-        xpos 1.0 
-        linear 5.0 xpos -1.0 
+        ypos 0.8
+        xpos 1.0
+        linear 5.0 xpos -1.0
         repeat
     show urhere9 "Ты здесь не просто так":
-        ypos 0.6 
-        xpos 1.0 
-        linear 4.0 xpos -1.0 
+        ypos 0.6
+        xpos 1.0
+        linear 4.0 xpos -1.0
         repeat
     show urhere10 "Ты здесь не просто так":
-        ypos 0.4 
-        xpos 1.0 
-        linear 3.5 xpos -1.0 
+        ypos 0.4
+        xpos 1.0
+        linear 3.5 xpos -1.0
         repeat
     pause (5.0)
     window show
@@ -9927,12 +9524,12 @@ label day3_fail:
     th "Интересно, а что она теперь ответит на вопрос об автобусе?{w} Опять зарядит, что «его не будет пару дней»?!"
     "Я вскочил и побежал на голос Ольги Дмитриевны."
     with None
-    show mt normal dress at center 
+    show mt normal dress at center
     with dissolve
     me "А на это вы что скажете?!"
     "Победоносно выпалил я и показал рукой в сторону дороги."
     with None
-    show mt surprise dress at center 
+    show mt surprise dress at center
     with dspr
     mt "На что?"
     "Удивлённо ответила вожатая."
@@ -9940,7 +9537,7 @@ label day3_fail:
     $ persistent.sprite_time = "night"
     scene bg ext_no_bus_night
     with dissolve
-    stop music fadeout 1 
+    stop music fadeout 1
     play ambience ambience_camp_center_night fadein 1
     window show
     "Я обернулся."
@@ -9951,13 +9548,13 @@ label day3_fail:
     scene bg ext_camp_entrance_night
     with dissolve
     with None
-    show mt normal dress at center 
+    show mt normal dress at center
     with dissolve
     window show
     mt "Ладно, уже спать пора, пойдём!"
     me "Но... но..."
     with None
-    show mt surprise dress at center 
+    show mt surprise dress at center
     with dspr
     mt "Что?"
     me "Автобус! Тут был автобус! Секунду назад ещё стоял!"
@@ -9972,7 +9569,7 @@ label day3_fail:
     me "Не врите! Был здесь автобус! Это всё вы, вы меня здесь держите! Зачем?!"
     "Я скрипел зубами, но старался говорить спокойным тоном, не срываясь на крик."
     with None
-    show mt sad dress at center 
+    show mt sad dress at center
     with dspr
     mt "Ты меня пугаешь... Пойдём уже спать!"
     th "Похоже, от неё ничего не добьёшся, как обычно."
@@ -9988,75 +9585,74 @@ label day3_fail:
     window hide
     scene black
     with fade3
-    pause (3)
+    pause 3
     jump day4_fail_morning
 init:
     python:
-        
         mine_map = {
                         "1":{
-                            "1":["3","2"],
-                            "2":["3","2"],
-                            "3":["3","2"]
+                            "1":["3", "2"],
+                            "2":["3", "2"],
+                            "3":["3", "2"]
                             },
                         "2":{
-                            "1":["4","13"],
-                            "4":["13","1"],
-                            "13":["1","4"]
+                            "1":["4", "13"],
+                            "4":["13", "1"],
+                            "13":["1", "4"]
                             },
                         "3":{
-                            "1":["halt","5"],
-                            "5":["1","halt"],
-                            "halt":["5","1"]
+                            "1":["halt", "5"],
+                            "5":["1", "halt"],
+                            "halt":["5", "1"]
                             },
                         "4":{
-                            "2":["5","6"],
-                            "5":["6","2"],
-                            "6":["2","5"]
+                            "2":["5", "6"],
+                            "5":["6", "2"],
+                            "6":["2", "5"]
                             },
                         "5":{
-                            "3":["7","4"],
-                            "4":["3","7"],
-                            "7":["4","3"]
+                            "3":["7", "4"],
+                            "4":["3", "7"],
+                            "7":["4", "3"]
                             },
                         "6":{
-                            "4":["9","12"],
-                            "9":["12","4"],
-                            "12":["4","9"]
+                            "4":["9", "12"],
+                            "9":["12", "4"],
+                            "12":["4", "9"]
                             },
                         "7":{
-                            "5":["10","8"],
-                            "8":["5","10"],
-                            "10":["8","5"]
+                            "5":["10", "8"],
+                            "8":["5", "10"],
+                            "10":["8", "5"]
                             },
                         "8":{
-                            "7":["10","9"],
-                            "9":["7","10"],
-                            "10":["9","7"]
+                            "7":["10", "9"],
+                            "9":["7", "10"],
+                            "10":["9", "7"]
                             },
                         "9":{
-                            "8":["11","6"],
-                            "6":["8","11"],
-                            "11":["6","8"]
+                            "8":["11", "6"],
+                            "6":["8", "11"],
+                            "11":["6", "8"]
                             },
                         "10":{
-                            "7":["halt","8"],
-                            "8":["7","halt"],
-                            "halt":["8","7"]
+                            "7":["halt", "8"],
+                            "8":["7", "halt"],
+                            "halt":["8", "7"]
                             },
                         "11":{
-                            "9":["exit","12"],
-                            "12":["9","exit"]
+                            "9":["exit", "12"],
+                            "12":["9", "exit"]
                             },
                         "12":{
-                            "13":["6","11"],
-                            "6":["11","13"],
-                            "11":["13","6"]
+                            "13":["6", "11"],
+                            "6":["11", "13"],
+                            "11":["13", "6"]
                             },
                         "13":{
-                            "2":["12","coalface"],
-                            "12":["coalface","2"],
-                            "coalface":["2","12"]
+                            "2":["12", "coalface"],
+                            "12":["coalface", "2"],
+                            "coalface":["2", "12"]
                             }
                 }
         
@@ -10080,7 +9676,7 @@ init:
                 
                 point = mine_map[point][previous_point][1]
                 previous_point = old_point
-            
+                
             if point == "exit":
                 renpy.jump(mine_route+"_mine_exit")
             elif point == "coalface":
@@ -10121,16 +9717,16 @@ init:
     $ day4_uv_mine = 0
 label day4_std_morning:
     $ backdrop = "days"
-    $ new_chapter(4, u"День четвёртый")
+    $ new_chapter(4, "День четвёртый")
     $ day_time()
     with None
     scene bg int_house_of_mt_day:
-        linear 0.1 pos (-5,-5) 
-        linear 0.1 pos (0,0) 
-        linear 0.1 pos (5,5) 
-        linear 0.1 pos (0,5) 
-        linear 0.1 pos (5,0) 
-        linear 0.1 pos (0,0) 
+        linear 0.1 pos (-5,-5)
+        linear 0.1 pos (0,0)
+        linear 0.1 pos (5,5)
+        linear 0.1 pos (0,5)
+        linear 0.1 pos (5,0)
+        linear 0.1 pos (0,0)
         repeat
     with fade
     play sound sfx_hell_alarm_clock fadein 2
@@ -10138,7 +9734,7 @@ label day4_std_morning:
     "Я проснулся от адского звона в голове."
     "Казалось, этот звук идёт откуда-то из глубин сознания."
     window hide
-    pause (2)
+    pause 2
     window show
     "Однако, несколько придя в себя, я понял, что виной всему – будильник."
     window hide
@@ -10162,13 +9758,13 @@ label day4_std_morning:
     with dissolve
     play music music_list["everyday_theme"] fadein 3
     with None
-    show mz normal glasses pioneer at center 
+    show mz normal glasses pioneer at center
     with dissolve
     window show
     "По дороге к умывальникам я встретил Женю."
     me "Чего это ты в такую рань?"
     with None
-    show mz angry glasses pioneer at center 
+    show mz angry glasses pioneer at center
     with dspr
     mz "А что такого?"
     "Она посмотрела на меня так, как будто я её чем-то обидел."
@@ -10203,19 +9799,19 @@ label day4_std_morning:
     with dissolve
     play music music_list["so_good_to_be_careless"] fadein 3
     with None
-    show mi normal pioneer far at center 
+    show mi normal pioneer far at center
     with dissolve
     window show
     "Я вернулся назад и около умывальников увидел Мику, которая что-то высматривала в траве."
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dissolve
     "Заметив меня, она оживилась, улыбнулась и подскочила ко мне."
     mi "Ой, привет, доброе утро! А я тут, знаешь, зубной порошок рассыпала, вот теперь собрать пытаюсь."
     "Покрытая росой трава этому явно не способствовала."
     me "А ты уверена, что это хорошая идея?"
     with None
-    show mi upset pioneer at center 
+    show mi upset pioneer at center
     with dspr
     mi "Ну, как же! Как же! У меня ведь больше нет! Это был последний!"
     "Мику надула губки, как ребёнок, у которого отняли любимую игрушку."
@@ -10228,7 +9824,7 @@ label day4_std_morning:
     "Зная впечатлительность этой девочки, можно предположить, что исчезающие средства гигиены могут вызвать у неё такую бурю эмоций, что мой мозг уйдёт на перезагрузку во избежание перегрева."
     me "Ладно, я пойду тогда…"
     with None
-    show mi smile pioneer at center 
+    show mi smile pioneer at center
     with dspr
     mi "Да, конечно! Ты заходи к нам… Ну, то есть ко мне, я же пока одна в музыкальном клубе. Но мы… То есть я… Будем тебе всегда…"
     with None
@@ -10250,13 +9846,13 @@ label day4_std_morning:
         "Я уже собирался идти на завтрак, как в дверь постучали."
         play sound sfx_knock_door7_polite
         with None
-        show sl normal pioneer at center 
+        show sl normal pioneer at center
         with dissolve
         "На пороге стояла Славя."
         sl "Доброе утро!{w} А Ольга Дмитриевна?.."
         "Я уставился на её грудь и не мог отвести взгляд – слишком уж сильно она врезалась в память вчера."
         with None
-        show sl surprise pioneer at center 
+        show sl surprise pioneer at center
         with dspr
         sl "Семён?"
         "Славя посмотрела на меня встревоженно, но у меня никак не получалось оторвать глаза от её груди."
@@ -10266,7 +9862,7 @@ label day4_std_morning:
         me "Не знаю, когда проснулся, её уже не было."
         "Наконец мне всё-таки удалось пересилить себя."
         with None
-        show sl smile pioneer at center 
+        show sl smile pioneer at center
         with dspr
         sl "Ладно, я ещё в одно место заскочить должна, так что увидимся на завтраке."
         with None
@@ -10277,7 +9873,7 @@ label day4_std_morning:
         "Я уже собирался идти на завтрак, как в дверь постучали."
         play sound sfx_knock_door7_polite
         with None
-        show un normal pioneer at center 
+        show un normal pioneer at center
         with dissolve
         "На пороге стояла Лена."
         un "Доброе утро…"
@@ -10286,7 +9882,7 @@ label day4_std_morning:
         "События вчерашней ночи ещё стояли у меня перед глазами, но заводить о них разговор совершенно не хотелось."
         me "Ольгу Дмитриевну ищешь, наверное?"
         with None
-        show un shy pioneer at center 
+        show un shy pioneer at center
         with dspr
         un "Да нет…{w} То есть да…"
         "Лена была такой же, как и всегда, – скромной и стеснительной."
@@ -10316,7 +9912,7 @@ label day4_std_morning:
     jump day4_main1
 label day4_fail_morning:
     $ backdrop = "days"
-    $ new_chapter(4, u"День четвёртый")
+    $ new_chapter(4, "День четвёртый")
     $ day_time()
     $ persistent.sprite_time = "day"
     scene bg int_house_of_mt_day
@@ -10325,7 +9921,7 @@ label day4_fail_morning:
     window show
     "Меня разбудил адский треск в голове.{w} Казалось, что она разрывается изнутри."
     window hide
-    pause (2)
+    pause 2
     window show
     "Я кое-как продрал глаза, увидел на тумбочке перед собой будильник, выключил его и моментально отрубился."
     window hide
@@ -10374,7 +9970,7 @@ label day4_fail_morning:
     window hide
     jump day4_main1
 label day4_us_morning:
-    $ new_chapter(4, u"День четвёртый")
+    $ new_chapter(4, "День четвёртый")
     $ day_time()
     scene bg black
     window show
@@ -10504,23 +10100,23 @@ label day4_us_morning:
     scene bg int_library_day
     with dissolve
     with None
-    show us fear pioneer at center 
+    show us fear pioneer at center
     with dissolve
     window show
     "Она мгновенно вскочила и начала спросонья озираться по сторонам."
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     "Заметив меня, Ульяна удивилась."
     with None
-    show us surp3 pioneer at center 
+    show us surp3 pioneer at center
     with dspr
     us "А что ты здесь делаешь?"
     me "Играю в разведчиков."
     us "А?"
     me "Неважно… Выспалась?"
     with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dspr
     us "Да…"
     "Кажется, она ещё не совсем пришла в себя."
@@ -10537,26 +10133,26 @@ label day4_us_morning:
     th "Наконец-то!"
     th "Теперь уж точно не придётся никому объяснять, что, как и почему я делал с Ульяной там всю ночь…"
     with None
-    show us shy pioneer at center 
+    show us shy pioneer at center
     with dissolve
     us "Ты прости, что я так вот заснула…"
     me "Да ничего."
     "Наверное, мои слова прозвучали слишком скептически, потому что она посмотрела на меня с недоверием."
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     us "Подожди-ка…{w} А что ты всё время там делал?"
     me "Ты не поверишь…"
     with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dspr
     us "Подожди-ка…{w} То есть…"
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     "Ульянка хихикнула, отбежала от меня на пару метров и звонко прокричала:"
     with None
-    show us laugh pioneer far at center  
+    show us laugh pioneer far at center
     with dissolve
     us "А я первая на завтрак!"
     with None
@@ -10592,11 +10188,11 @@ label day4_main1:
     mt "О, Семён!"
     if day3_us_evening == 1:
         with None
-        show mt angry pioneer at right 
+        show mt angry pioneer at right
         with dspr
         mt "И где же ты был?!{w} Я тебя всю ночь ждала! И ищу с самого раннего утра!{w} Ульяна сказала, что вы вчера вечером вместе уходили из библиотеки."
         with None
-        show us surp1 pioneer at center 
+        show us surp1 pioneer at center
         with dissolve
         "Я посмотрел на Ульянку.{w} Она ехидно улыбалась."
         me "…"
@@ -10605,7 +10201,7 @@ label day4_main1:
         hide us
         with dissolve
         with None
-        show mt normal pioneer at right 
+        show mt normal pioneer at right
         with dspr
     mt "Ты не видел сегодня Шурика?"
     me "Нет, а что такое?"
@@ -10618,11 +10214,11 @@ label day4_main1:
     el "Нет…"
     mt "И почему ты сразу не пошёл ко мне?"
     with None
-    show el upset pioneer at left 
+    show el upset pioneer at left
     with dspr
     el "Ну, я подумал, что, может, он раньше проснулся и умываться пошёл или ещё куда…"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     sl "А он вчера ничего такого не говорил?"
     "В разговор вмешалась Славя."
@@ -10631,7 +10227,7 @@ label day4_main1:
     el "Нет…"
     me "А что такого страшного-то произошло?{w} Время только девять утра. Может, он прогуляться решил."
     with None
-    show sl serious pioneer at center 
+    show sl serious pioneer at center
     with dspr
     sl "Ты не знаешь Шурика."
     "Она серьёзно посмотрела на меня."
@@ -10640,15 +10236,15 @@ label day4_main1:
     mt "Ладно, не будем паниковать. Наверняка найдётся!"
     with None
     show us grin pioneer at right :
-        xpos 1.2 
-        linear 0.5 xpos 0.65 
+        xpos 1.2
+        linear 0.5 xpos 0.65
     with dissolve
     us "Чтобы он пропустил завтрак…"
     "Усмехнулась Ульянка."
     with None
     show dv normal pioneer at left :
-        xpos -0.2 
-        linear 0.5 xpos -0.1 
+        xpos -0.2
+        linear 0.5 xpos -0.1
     with dissolve
     dv "Точно! Пора уже и есть идти."
     hide us
@@ -10661,14 +10257,14 @@ label day4_main1:
     "Пионеры зашли в столовую."
     if day3_us_evening == 1:
         with None
-        show mt normal pioneer at right 
+        show mt normal pioneer at right
         with dspr
         "А меня остановила Ольга Дмитриевна."
         mt "Семён, а ты постой-ка."
         me "Да?"
         with None
         show mt angry pioneer at right :
-            linear 1.0 xalign 0.5 
+            linear 1.0 xalign 0.5
         with dspr
         mt "Изволишь объясниться, где ты был ночью?"
         me "Ну…"
@@ -10683,17 +10279,17 @@ label day4_main1:
         th "И что же, интересно, она говорит?"
         me "Вы же её знаете!"
         with None
-        show mt normal pioneer at center 
+        show mt normal pioneer at center
         with dspr
         mt "Да, пожалуй…"
         "Вожатая задумалась."
         with None
-        show mt angry pioneer at center 
+        show mt angry pioneer at center
         with dspr
         mt "Но ты не думай, что я тебе поверю!"
         "Я и не думал…"
         with None
-        show mt normal pioneer at center 
+        show mt normal pioneer at center
         with dspr
         mt "Разберёмся с этим позже, я не забуду!{w} А сейчас есть дела поважнее – найти Шурика."
         me "Да…"
@@ -10728,18 +10324,18 @@ label day4_main1:
     "Вообще говоря, развлечения сегодня не входили в мои планы, но в то же время отчего бы час-два не поваляться на солнышке и подумать?"
     me "Пойду, почему нет…"
     with None
-    show us laugh2 pioneer at cright 
+    show us laugh2 pioneer at cright
     with dspr
     us "Вот и отлично!"
     "Она мило улыбнулась."
     me "Опять небось что-нибудь замышляешь?"
     with None
-    show us surp2 pioneer at cright 
+    show us surp2 pioneer at cright
     with dspr
     us "Нет, ты что!"
     "Ульяна замахала руками."
     with None
-    show dv smile pioneer at cleft 
+    show dv smile pioneer at cleft
     with dspr
     dv "Наверняка!"
     "Ухмыльнулась Алиса."
@@ -10752,12 +10348,12 @@ label day4_main1:
         "Хотя, наверное, я и не собирался."
         "В конце концов, за ночь произошедшее перестало казаться чем-то действительно необычным, как будто мне всё это приснилось."
     with None
-    show us surp3 pioneer at cright 
+    show us surp3 pioneer at cright
     with dspr
     us "А вот и нет!"
     me "Я склонен с ней согласиться."
     with None
-    show us grin pioneer at cright 
+    show us grin pioneer at cright
     with dspr
     us "Да никто и не сомневался!"
     "Ульянка взяла поднос с грязной посудой и встала."
@@ -10768,33 +10364,33 @@ label day4_main1:
     "Она сказала это так, что я полностью уверился в том, что ничего хорошего сегодня на пляже меня не ждёт."
     with None
     show dv normal pioneer at cleft :
-        linear 0.5 xalign 0.5 
+        linear 0.5 xalign 0.5
     with dspr
     "Мы остались наедине с Алисой."
     me "Знаешь, я всё же, наверное, с вами не пойду."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "А что так?"
     me "Ну, дела кое-какие…"
     with None
-    show dv surprise pioneer at center 
+    show dv surprise pioneer at center
     with dspr
     dv "И что же у тебя за дела?"
     "Она заглянула мне в глаза так, что я не нашёлся, что соврать."
     me "Ну, у меня и плавок даже нет…"
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Надень мои."
     me "Думаешь, они на меня налезут?"
     with None
-    show dv grin pioneer at center 
+    show dv grin pioneer at center
     with dspr
     dv "А ты попробуй!"
     me "Наверное, не стоит…"
     with None
-    show dv smile pioneer at center 
+    show dv smile pioneer at center
     with dspr
     dv "Да ты не бойся!{w} Найдём мы тебе плавки!"
     "От этой фразы страх мой только усилился."
@@ -10818,7 +10414,7 @@ label day4_main1:
     window show
     "Алиса действительно вернулась через пару минут."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     dv "Готов?"
     me "К чему?"
@@ -10827,36 +10423,36 @@ label day4_main1:
     "Больше они походили на розовые семейные трусы, украшенные бабочками и цветочками.{w} Точнее, ими и являлись."
     me "Страшно спросить, откуда ты {i}это{/i} взяла?"
     with None
-    show dv grin pioneer at center 
+    show dv grin pioneer at center
     with dspr
     dv "А что, боишься их надеть?"
     me "Да как-то, знаешь…{w} не имею никакого желания."
     "Её прикол я оценил, но совершенно не собирался выставлять себя на посмешище."
     with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "Надевай!"
     "Грубо сказала она."
     me "Почему бы тебе их не примерить вместо меня?{w} Мне кажется, цвет этого бикини прекрасно оттеняет твои глаза!"
     with None
-    show dv smile pioneer at center 
+    show dv smile pioneer at center
     with dspr
     dv "Давай на спор!"
     "Спорить с ней у меня не было ни малейшего желания."
     me "Нет, спасибо."
     with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "Короче, либо ты идёшь на пляж в этом, либо плаваешь голым!"
     th "Если всё тщательно взвесить, то второй вариант окажется даже лучше первого."
     me "Я вообще уже не планирую никуда идти!"
     with None
-    show dv grin pioneer at center 
+    show dv grin pioneer at center
     with dspr
     dv "Тогда я всем расскажу, что ты подбросил мне эти трусы!"
     me "И зачем мне это?"
     with None
-    show dv laugh pioneer at center 
+    show dv laugh pioneer at center
     with dspr
     dv "А мне откуда знать?"
     "Она расхохоталась."
@@ -10864,7 +10460,7 @@ label day4_main1:
     "Конечно, не в этих гламурных плавках."
     me "Ладно, приду минут через десять."
     with None
-    show dv smile pioneer at center 
+    show dv smile pioneer at center
     with dspr
     dv "И не опаздывай!"
     stop music fadeout 3
@@ -10882,7 +10478,7 @@ label day4_main1:
     with dissolve
     play ambience ambience_int_cabin_day fadein 3
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     window show
     "В комнате меня ждала Ольга Дмитриевна."
@@ -10895,13 +10491,13 @@ label day4_main1:
     "Странно, что этот факт не удивил её при первой встрече."
     me "Нет…"
     with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dspr
     mt "А в чём пойдёшь?"
     th "Действительно, а в чём?"
     me "Не знаю…"
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "Сейчас, подожди."
     play sound sfx_key_drawer
@@ -10927,12 +10523,12 @@ label day4_main1:
     window show
     "Там уже собралось много пионеров, но из знакомых – только Алиса и Ульяна."
     with None
-    show us laugh swim at cright 
+    show us laugh swim at cright
     with dissolve
     us "Иди к нам!"
     "Я подошёл и сел рядом с ними на песок."
     with None
-    show dv smile swim at cleft 
+    show dv smile swim at cleft
     with dissolve
     dv "Смотрю, ты нашёл получше…"
     "Она уставилась на мои плавки и ехидно улыбнулась."
@@ -10982,7 +10578,7 @@ label day4_main1:
     scene bg ext_beach_day
     with dissolve
     with None
-    show us shy2 swim at center 
+    show us shy2 swim at center
     with dissolve
     window show
     us "Да ради бога…"
@@ -10995,7 +10591,7 @@ label day4_main1:
     window show
     "Я отнёс рака к реке и отпустил на волю."
     with None
-    show us surp1 swim at center 
+    show us surp1 swim at center
     with dspr
     us "Ничего, ещё наловлю – тут их много."
     "Сказала Ульянка."
@@ -11021,7 +10617,7 @@ label day4_main1:
     with fade
     play ambience ambience_lake_shore_day fadein 3
     with None
-    show mt normal swim at center 
+    show mt normal swim at center
     with dissolve
     window show
     "Надо мной стояла Ольга Дмитриевна."
@@ -11035,7 +10631,7 @@ label day4_main1:
     "Я искренне возмутился."
     "С каждым разом становилось всё понятнее, что Ольга Дмитриевна держит меня за посыльного с функциями раба.{w} Или наоборот..."
     with None
-    show mt angry swim at center 
+    show mt angry swim at center
     with dspr
     mt "Раз я пришла к тебе, значит, хочу, чтобы ты мне помог."
     "И почему же именно ко мне?"
@@ -11058,10 +10654,10 @@ label day4_main1:
     "И вот спустя десять минут я стоял на пороге домика Ольги Дмитриевны и думал, куда пойти."
     window hide
     $ disable_all_zones()
-    $ set_zone("camp_entrance","day4_busstop")
-    $ set_zone("boat_station","day4_boathouse")
-    $ set_zone("me_mt_house","day4_house_of_mt")
-    $ set_zone("forest","day4_forest")
+    $ set_zone("camp_entrance", "day4_busstop")
+    $ set_zone("boat_station", "day4_boathouse")
+    $ set_zone("me_mt_house", "day4_house_of_mt")
+    $ set_zone("forest", "day4_forest")
     jump day4_map
 label day4_map:
     if day4_map_necessary_done == 2:
@@ -11091,12 +10687,12 @@ label day4_busstop:
     with vpunch
     "Однако из ворот кто-то выскочил и мгновенно врезался в меня.{w} Удар был не сильный, так что я всего лишь немного отшатнулся."
     with None
-    show mi shocked pioneer close at center  
-    with dissolve   
+    show mi shocked pioneer close at center
+    with dissolve
     "Передо мной стояла Мику и потирала ушибленный лоб."
     me "Ой, извини…"
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dissolve
     mi "Да ничего! Это я во всём виновата! Понимаешь, я в музыкальный кружок шла, но задумалась над новой песней… Знаешь, текст придумывала, музыку… И сама не заметила, как здесь оказалась."
     mi "Так что ты не извиняйся!"
@@ -11104,13 +10700,13 @@ label day4_busstop:
     "Я попытался в спешном порядке ретироваться."
     me "Да, да… Мне идти пора… Такие дела…"
     with None
-    show mi shy pioneer at center 
+    show mi shy pioneer at center
     with dspr
     mi "Подожди!"
     "Хотелось, как обычно, уйти, не дослушав её, но Мику схватила меня за руку."
     "От её прикосновения у меня мурашки побежали по коже, а перед глазами пронеслись картины мучительной казни через риторику."
     with None
-    show mi serious pioneer at center 
+    show mi serious pioneer at center
     with dspr
     mi "Можешь мне помочь немного, пожалуйста? Совсем чуть-чуть?"
     "Подобное в мои планы никак не входило."
@@ -11120,7 +10716,7 @@ label day4_busstop:
     "Руку при этом она и не думала отпускать."
     me "А в чём, собственно, помощь заключается?"
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dspr
     mi "Подыграешь мне! А то у меня так совсем не получается сочинять! Я могу петь. Или играть. Или петь. А вместе почему-то не получается."
     th "Даже у человека-оркестра есть свои слабости."
@@ -11137,13 +10733,13 @@ label day4_busstop:
             window show
             me "Знаешь, мне Шурика надо искать, и всё такое..."
             with None
-            show mi upset pioneer at center 
+            show mi upset pioneer at center
             with dspr
             "Мику разочарованно посмотрела на меня."
             mi "Ну совсем чуть-чуть!"
             "Я не нашёлся, что ответить..."
     with None
-    show mi happy pioneer at center 
+    show mi happy pioneer at center
     with dspr
     "Она потащила меня за собой."
     th "Скорее всего, ничего хорошего из этого не выйдет, но единственный вариант вырваться – грубо выхватить руку."
@@ -11156,7 +10752,7 @@ label day4_busstop:
     with dissolve
     play ambience ambience_music_club_day fadein 3
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dissolve
     window show
     "Через минуту мы уже стояли в здании музыкального кружка."
@@ -11175,7 +10771,7 @@ label day4_busstop:
     scene bg int_musclub_day
     with dissolve
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dissolve
     window show
     mi "Запомнил?"
@@ -11198,20 +10794,20 @@ label day4_busstop:
     scene bg int_musclub_day
     with dissolve
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dissolve
     window show
     mi "Попробуй ещё."
     "Во второй раз у меня получилось куда лучше."
     with None
-    show mi smile pioneer at center 
+    show mi smile pioneer at center
     with dspr
     mi "Вот! Уже похоже!"
     "Она улыбнулась."
     "На самом деле, ничего сложного – надо было просто повторять одни и те же ноты."
     th "Главное – не сбиться!"
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dspr
     mi "Давай! На счёт три!"
     me "Давай…"
@@ -11234,7 +10830,7 @@ label day4_busstop:
     scene bg int_musclub_day
     with dissolve
     with None
-    show mi smile pioneer at center 
+    show mi smile pioneer at center
     with dissolve
     window show
     mi "Ой, спасибо тебе! Понравилось? У меня наконец-то получилось, а то одной как-то не очень. Я либо с текста сбивалась, либо мимо струн попадала. А с тобой всё отлично вышло! Спасибо тебе!"
@@ -11253,7 +10849,7 @@ label day4_busstop:
     "Но песенка Мику всё ещё вертелась у меня в голове."
     window hide
     $ disable_current_zone()
-    $ day4_map_necessary_done +=1
+    $ day4_map_necessary_done += 1
     jump day4_map
 label day4_forest:
     $ persistent.sprite_time = "day"
@@ -11306,24 +10902,24 @@ label day4_forest:
     th "В раковину залезть явно не получится, а тут нет даже ковшика…"
     "Вдруг сзади послышались шаги.{w} Я обернулся."
     with None
-    show el normal pioneer far at center  
-    with dissolve   
+    show el normal pioneer far at center
+    with dissolve
     "По дорожке в мою сторону шёл Электроник."
     with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dissolve
     el "Шурика искал?"
     me "Да…{w} А ты?"
     el "И я…"
     me "Слушай, ты же его лучше знаешь, куда он мог пойти?"
     with None
-    show el upset pioneer at center 
+    show el upset pioneer at center
     with dspr
     el "Не имею ни малейшего понятия."
     "Расстроенно ответил он."
     me "Да уж…{w} Просто я не очень понимаю, зачем разводить такую панику? Ночью же он был с тобой в домике? То есть его нет совсем недолго…{w} Может, погулять пошёл?"
     with None
-    show el angry pioneer at center 
+    show el angry pioneer at center
     with dspr
     el "Ты просто не знаешь Шурика!"
     "Сказал Электроник взволнованно."
@@ -11333,7 +10929,7 @@ label day4_forest:
     "Да и жестикуляция соответствовала."
     me "Ладно…{w} И что с того?"
     with None
-    show el shocked pioneer at center 
+    show el shocked pioneer at center
     with dspr
     el "Как это что? Ты не понимаешь?"
     me "Нет…"
@@ -11341,7 +10937,7 @@ label day4_forest:
     me "То есть вот так пропасть для него странно?"
     el "Конечно!"
     with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dspr
     "Электроник, кажется, немного успокоился."
     me "Ладно…"
@@ -11353,7 +10949,7 @@ label day4_forest:
     el "Эх, жаль ни ведра, ни ковшика нет. Не из чего облиться."
     "Это я уже заметил."
     with None
-    show el smile pioneer at center 
+    show el smile pioneer at center
     with dspr
     el "Тогда сделаем так…"
     "Он обошёл умывальники и потянул один из кранов."
@@ -11387,7 +10983,7 @@ label day4_forest:
     th "Интересно, что это на него нашло?.."
     window hide
     $ disable_current_zone()
-    $ day4_map_necessary_done +=1
+    $ day4_map_necessary_done += 1
     jump day4_map
 label day4_house_of_mt:
     $ persistent.sprite_time = "day"
@@ -11415,7 +11011,7 @@ label day4_house_of_mt:
     play sound sfx_open_door_2
     "На пороге стояла Славя."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     sl "А Ольги Дмитриевны нет?"
     me "Нет."
@@ -11429,7 +11025,7 @@ label day4_house_of_mt:
     me "Какой смысл?{w} Она уже наверняка весь лагерь вверх дном перевернула."
     me "Да и прошло не так много времени.{w} Зачем панику разводить?"
     with None
-    show sl serious pioneer at center 
+    show sl serious pioneer at center
     with dspr
     sl "Всякое бывает…"
     "Славя задумчиво посмотрела на меня."
@@ -11437,7 +11033,7 @@ label day4_house_of_mt:
     me "А это обязательно?"
     "Меня настолько разморило, что даже мысль о том, что сейчас придётся куда-то идти, пугала."
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Да!"
     stop ambience fadeout 2
@@ -11448,7 +11044,7 @@ label day4_house_of_mt:
     with dissolve
     play ambience ambience_camp_center_day fadein 3
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     window show
     "Я нехотя встал и вместе с ней вышел на улицу."
@@ -11468,7 +11064,7 @@ label day4_house_of_mt:
     "Я же просто стоял в дверях и ждал – лишний раз общаться с местной библиотекаршей у меня не было никакого желания."
     "Через пару минут Славя вернулась ко мне."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     me "И как?"
     sl "Нет…"
@@ -11493,7 +11089,7 @@ label day4_house_of_mt:
     "Немного соли высыпалось на стол."
     "Если бы я верил в приметы, то наверняка бы расстроился…"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     "Как ни странно, его не оказалось и здесь."
     "Было бы удивительно, если бы она нашла его, скажем, в холодильнике…"
@@ -11520,7 +11116,7 @@ label day4_house_of_mt:
     scene bg ext_clubs_day
     with dissolve
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     window show
     "Наконец, мы подошли к зданию кружков."
@@ -11533,7 +11129,7 @@ label day4_house_of_mt:
     scene bg int_clubs_male_day
     with dissolve
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     window show
     "Внутри никого не было."
@@ -11552,40 +11148,40 @@ label day4_house_of_mt:
     th "Нет, я понимаю, ответственность там, все дела…{w} Но очевидно же, что его нет в лагере!"
     th "В конце концов, не играет же он с нами в прятки?"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     sl "И здесь нет…"
     me "А чего ты ожидала?{w} Что он в шкафу сидит?"
     with None
-    show sl angry pioneer at center 
+    show sl angry pioneer at center
     with dspr
     sl "Ну!"
     "Кажется, я её обидел."
     me "Извини, извини…{w} Просто, серьёзно!"
     with None
-    show sl serious pioneer at center 
+    show sl serious pioneer at center
     with dspr
     sl "Я понимаю…{w} Но надо ведь проверить все варианты."
     me "Слушай, а ты-то что думаешь?"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Насчёт исчезновения Шурика?"
     me "Да."
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Может быть, он гулял в лесу и его там поймал Леший."
     "Она рассмеялась."
     me "Неправдоподобно как-то…"
     th "Впрочем, в этом лагере что угодно может быть правдой."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Да, наверное…{w} Сейчас не время для шуток!"
     me "Не грусти!{w} Найдётся он!"
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Надеюсь…"
     "Славя улыбнулась."
@@ -11603,7 +11199,7 @@ label day4_house_of_mt:
     else:
         window hide
     $ disable_current_zone()
-    $ day4_map_necessary_done +=1
+    $ day4_map_necessary_done += 1
     jump day4_map
 label day4_boathouse:
     $ persistent.sprite_time = "day"
@@ -11622,17 +11218,17 @@ label day4_boathouse:
     window show
     "Я проходил по площади, как вдруг меня кто-то окликнул."
     with None
-    show dv smile pioneer2 far at center  
-    with dissolve   
+    show dv smile pioneer2 far at center
+    with dissolve
     dv "Подожди!"
     with None
-    show dv smile pioneer2 at center 
+    show dv smile pioneer2 at center
     with dissolve
     "Алиса подошла и улыбнулась.{w} Я сразу почуял подвох."
     dv "Куда путь держишь?"
     me "Шурика ищу…{w} Ольга Дмитриевна попросила."
     with None
-    show dv normal pioneer2 at center 
+    show dv normal pioneer2 at center
     with dspr
     dv "И как, интересно?"
     "Она пристально посмотрела мне в глаза, из-за чего я смутился и отвёл взгляд."
@@ -11643,7 +11239,7 @@ label day4_boathouse:
     "Конечно, я был согласен с ней, но вида не подал."
     me "Да, верно.{w} Но всякое может быть…"
     with None
-    show dv smile pioneer2 at center 
+    show dv smile pioneer2 at center
     with dspr
     dv "Давай я тебе помогу!"
     me "Эээ… Чем это?"
@@ -11651,7 +11247,7 @@ label day4_boathouse:
     dv "Шурика искать!"
     me "Да я и сам бы…"
     with None
-    show dv grin pioneer2 at center 
+    show dv grin pioneer2 at center
     with dspr
     dv "Да брось ты!"
     "Она опять как-то недобро улыбнулась."
@@ -11659,7 +11255,7 @@ label day4_boathouse:
     me "Ну, если ты настаиваешь…"
     "Пока что я не мог понять, что она замышляет, а веской причины для отказа не находилось."
     with None
-    show dv smile pioneer2 at center 
+    show dv smile pioneer2 at center
     with dspr
     dv "Только сначала мне надо домой забежать взять кое-что."
     me "Хорошо, я подожду."
@@ -11672,7 +11268,7 @@ label day4_boathouse:
     with dissolve
     play ambience ambience_camp_center_day fadein 3
     with None
-    show dv normal pioneer2 at center 
+    show dv normal pioneer2 at center
     with dissolve
     window show
     "Мы подошли к домику Алисы."
@@ -11682,13 +11278,13 @@ label day4_boathouse:
     window hide
     stop ambience fadeout 2
     play sound sfx_open_dooor_campus_2
-    pause(1)
+    pause 1
     $ persistent.sprite_time = "day"
     scene bg int_house_of_dv_day
     with dissolve
     play ambience ambience_int_cabin_day fadein 2
     with None
-    show dv normal pioneer2 at center 
+    show dv normal pioneer2 at center
     with dissolve
     window show
     "Мы зашли."
@@ -11699,12 +11295,12 @@ label day4_boathouse:
     "Некоторое время мы просто стояли молча."
     me "И что ты хотела взять?"
     with None
-    show dv surprise pioneer2 at center 
+    show dv surprise pioneer2 at center
     with dspr
     dv "А?"
     "Кажется, я вывел Алису из раздумий."
     with None
-    show dv smile pioneer2 at center 
+    show dv smile pioneer2 at center
     with dspr
     dv "Да…{w} На самом деле это не здесь…{w} Подожди, я быстро!"
     with None
@@ -11750,7 +11346,7 @@ label day4_boathouse:
     "К домику подошли Алиса и Ольга Дмитриевна."
     show dv normal pioneer far at cleft
     show mt normal panama pioneer far at cright
-    with dissolve  
+    with dissolve
     dv "Сейчас всё сами увидите!"
     with None
     hide dv
@@ -11779,7 +11375,7 @@ label day4_boathouse:
     scene bg ext_house_of_dv_day
     with dissolve
     with None
-    show dv rage pioneer far at center  
+    show dv rage pioneer far at center
     with dissolve
     window show
     "Наконец вожатая закончила отчитывать её и ушла."
@@ -11788,12 +11384,12 @@ label day4_boathouse:
     "Однако мне всё же было интересно, что же она замышляла, и, наплевав на страх быть поколоченным, я вышел из своего укрытия."
     me "И что же ты хотела показать вожатой?{w} Меня?"
     with None
-    show dv surprise pioneer at center 
+    show dv surprise pioneer at center
     with dissolve
     "Алиса обернулась и недоуменно уставилась в мою сторону."
     "Впрочем, через секунду недоумение сменилось негодованием."
     with None
-    show dv rage pioneer at center 
+    show dv rage pioneer at center
     with dspr
     dv "Ты! Ты!"
     stop music fadeout 3
@@ -11803,7 +11399,7 @@ label day4_boathouse:
     if day2_dv_bet == 1:
         if day2_card_result < 3:
             with None
-            show dv smile pioneer at center 
+            show dv smile pioneer at center
             with dspr
             dv "Хотела тебе вернуть должок."
             "Она ухмыльнулась."
@@ -11812,7 +11408,7 @@ label day4_boathouse:
             th "Интересно, что такого криминального могла бы найти Ольга Дмитриевна в данной ситуации, но речь не о том…"
         if day2_card_result == 3:
             with None
-            show dv angry pioneer at center 
+            show dv angry pioneer at center
             with dspr
             dv "Хотела тебе отомстить!"
             me "За что это?"
@@ -11831,7 +11427,7 @@ label day4_boathouse:
     me "Может быть, мне стоит перед тобой извиниться?"
     "Ехидно спросил я."
     with None
-    show dv sad pioneer at center 
+    show dv sad pioneer at center
     with dspr
     dv "Да иди ты!"
     play sound sfx_slam_door_campus
@@ -11846,7 +11442,7 @@ label day4_boathouse:
     "Посмеиваясь, я удалялся от домика Алисы, который чуть не стал для меня смертельной ловушкой."
     window hide
     $ disable_current_zone()
-    $ day4_map_necessary_done +=1
+    $ day4_map_necessary_done += 1
     jump day4_map
 label day4_main2:
     scene bg black
@@ -11886,17 +11482,17 @@ label day4_main2:
     mt "О Шурике!{w} Уже обед, а его всё нет."
     "Я подметил пушкинскую рифму, но не стал акцентировать на этом внимание."
     with None
-    show sl sad pioneer at right 
+    show sl sad pioneer at right
     with dspr
     sl "Мы обыскали весь лагерь."
     with None
-    show el upset pioneer at left 
+    show el upset pioneer at left
     with dspr
     el "Я обошёл весь окрестный лес."
     "Ольга Дмитриевна посмотрела на меня."
     me "И я…{w} помогал."
     with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dspr
     mt "Надо звонить в милицию!"
     me "Может, хотя бы до вечера подождём?"
@@ -11907,7 +11503,7 @@ label day4_main2:
     mt "До ближайшей станции…"
     "Она замолчала."
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "Далеко…"
     "А вот это было уже интереснее."
@@ -11921,7 +11517,7 @@ label day4_main2:
     "Интересно, что ещё можно найти в его чудо-жилетке (если она у него вообще есть)?"
     "Мне бы компас вряд ли помог, заплутай я в лесу…"
     with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dspr
     mt "И в милицию!{w} В милицию вечером!"
     th "Хотя бы не немедленно."
@@ -11929,11 +11525,11 @@ label day4_main2:
     "Все замолчали."
     me "Ещё далеко до вечера, я в этом смысле."
     with None
-    show mt sad pioneer at center 
+    show mt sad pioneer at center
     with dspr
     mt "Если он правда пропал, то нельзя медлить!"
     with None
-    show sl serious pioneer at right 
+    show sl serious pioneer at right
     with dspr
     sl "Мы не можем пока этого знать."
     mt "Ну а где он тогда, где он?"
@@ -11969,7 +11565,7 @@ label day4_main2:
     "Я задумался над исчезновением руководителя кибернетического кружка."
     th "Может быть, оно тоже как-то связано с моей ситуацией?"
     with None
-    show cs normal at center 
+    show cs normal at center
     with dissolve
     cs "О, пионер!"
     "Передо мной стояла медсестра."
@@ -11978,7 +11574,7 @@ label day4_main2:
     me "Я?"
     cs "Да, ты!{w} Вот ключи!"
     play sound sfx_keys_rattle
-    pause(1)
+    pause 1
     with None
     hide cs
     with dissolve
@@ -12038,7 +11634,7 @@ label day4_main2:
     "Меня разбудил шум открывающейся двери."
     play music music_list["everyday_theme"] fadein 3
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     "На пороге стояла Лена."
     if day3_un_dumped:
@@ -12057,13 +11653,13 @@ label day4_main2:
     me "Нашёл!"
     "Я протянул Лене таблетку анальгина."
     with None
-    show un smile pioneer at center 
+    show un smile pioneer at center
     with dspr
     un "Спасибо…"
     "Она улыбнулась."
     "Это стало для меня неожиданностью, и я несколько выпал из реальности, уставившись на неё."
     with None
-    show un surprise pioneer at center 
+    show un surprise pioneer at center
     with dspr
     un "Что?"
     "Лена моментально смутилась."
@@ -12073,12 +11669,12 @@ label day4_main2:
     "Может быть, я хотел развлечься вместо того, чтобы просто ждать возвращения медсестры."
     "Лена посмотрела на рисунок."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "Да, наверное…"
     me "А сейчас это… модно?"
     with None
-    show un shy pioneer at center 
+    show un shy pioneer at center
     with dspr
     un "Наверное…"
     "Она смутилась и покраснела."
@@ -12088,7 +11684,7 @@ label day4_main2:
     menu:
         "Мне кажется, на тебе это бы смотрелось прекрасно":
             $ day4_un_compl = 1
-            $ lp_un = lp_un + 1
+            $ lp_un += 1
             window show
             un "Спасибо…"
             me "Да не за что, я же правду говорю!"
@@ -12098,7 +11694,7 @@ label day4_main2:
     "Некоторое время мы молчали."
     me "Как голова?"
     with None
-    show un smile pioneer at center 
+    show un smile pioneer at center
     with dspr
     un "Лучше, спасибо."
     "Она улыбнулась."
@@ -12121,52 +11717,52 @@ label day4_main2:
     play sound sfx_open_door_clubs
     play music music_list["eat_some_trouble"] fadein 3
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dissolve
     "Дверь открылась, на пороге стояла Ульянка."
     me "С каких это пор ты стучишься?"
     with None
-    show us sad pioneer at center 
+    show us sad pioneer at center
     with dspr
     us "А что, нельзя?"
     "Она насупилась."
     me "Болит что-то?"
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "А тебе я с какой стати рассказывать должна?{w} Где медсестра?"
     me "Перед тобой."
     "Я вальяжно закинул ногу на ногу и вопросительно посмотрел на неё."
     with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dspr
     us "Тогда я, пожалуй, пойду.{w} Лучше уж умереть, чем лечиться у тебя."
     "Она ехидно улыбнулась."
     me "Ты ведь даже не пробовала!"
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     "Ульяна на мгновение задумалась."
     us "Хотя таблетки можешь и ты мне дать."
     me "А что вас беспокоит?"
     "Она ответила не сразу."
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "Тяжесть в животе…"
     me "А не пустота в голове?"
     "Пробурчал я себе под нос."
     with None
-    show us surp3 pioneer at center 
+    show us surp3 pioneer at center
     with dspr
     us "Чего?"
     me "Ничего, сейчас поищу."
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     "В первом же ящике нашлась упаковка но-шпы."
     with None
-    show us laugh2 pioneer at center 
+    show us laugh2 pioneer at center
     with dspr
     us "Спасибо вам, доктор!"
     "Она весело улыбнулась."
@@ -12174,16 +11770,14 @@ label day4_main2:
     window hide
     menu:
         "Небось ворованных конфет объелась?":
-            with None
-            show us dontlike pioneer at center 
+            show us dontlike pioneer at center
             with dspr
             window show
             "Она недобро посмотрела на меня."
             us "Нет, всё тебе оставила!"
             window hide
-            pause(1)
+            pause 1
             play sound sfx_slam_door_campus
-            with None
             hide us
             with dissolve
             window show
@@ -12191,24 +11785,21 @@ label day4_main2:
             "Наверное, не стоило этого говорить."
         "В столовой отравилась?":
             $ day4_us_compl = 1
-            $ lp_us = lp_us + 1
+            $ lp_us += 1
             window show
             me "Учитывая местную стряпню, это неудивительно."
-            with None
-            show us surp1 pioneer at center 
+            show us surp1 pioneer at center
             with dspr
             us "Может быть…"
             "Она ухмыльнулась."
-            with None
-            show us grin pioneer at center 
+            show us grin pioneer at center
             with dspr
             us "А ты, я погляжу, здоровенький!"
             me "Не жалуюсь…"
             us "Ну, бывай!"
             window hide
-            pause(1)
+            pause 1
             play sound sfx_slam_door_campus
-            with None
             hide us
             with dissolve
             window show
@@ -12229,23 +11820,23 @@ label day4_main2:
     play sound sfx_open_door_clubs
     play music music_list["my_daily_life"] fadein 3
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     "На пороге стояла Славя."
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Ой, привет! А медсестры нет?"
     me "Привет. Нет. Я за неё."
     with None
-    show sl shy pioneer at center 
+    show sl shy pioneer at center
     with dspr
     sl "Хорошо.{w} А мне бы…"
     "Она замялась."
     me "Что?"
     if d1_keys and not d2_gave_keys:
         with None
-        show sl normal pioneer at center 
+        show sl normal pioneer at center
         with dspr
         sl "Кстати, Семён..."
         "Сказала Славя, внимательно посмотрев на меня."
@@ -12256,18 +11847,18 @@ label day4_main2:
         "Я врал очень неумело – меня выдавал румянец на щеках, бегающие глаза и не находящие себе места руки."
         me "Вот."
         with None
-        show sl serious pioneer at center 
+        show sl serious pioneer at center
         with dspr
         "Славя взяла ключи, а я уже был готов к любому уместному в данной ситуации наказанию, но она лишь сказала:"
         with None
-        show sl smile pioneer at center 
+        show sl smile pioneer at center
         with dspr
         sl "Спасибо."
         me "Так зачем приходила?"
         "Нужно было как можно быстрее сменить тему разговора."
         me "Что-то болит?"
         with None
-        show sl shy pioneer at center 
+        show sl shy pioneer at center
         with dspr
     sl "Да нет, ничего…"
     th "Странно.{w} Всегда такая открытая Славя о чем-то умалчивает?"
@@ -12277,12 +11868,12 @@ label day4_main2:
     "После этой фразы деление на ноль для меня стало реальностью."
     me "Ну, так чем могу помочь?"
     with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dspr
     sl "Ты?{w} Думаю, ничем."
     "Она улыбнулась и собралась уходить, но вдруг остановилась."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Хотя…{w} Можешь выйти на минутку?"
     th "Почему бы и нет?"
@@ -12297,7 +11888,7 @@ label day4_main2:
     "Я вышел из медпункта и прислонился к стене."
     th "Интересно, что она такое там делает, что мне нельзя на это даже смотреть?"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     "Через минуту открылась дверь, и вышла Славя."
     "У неё в руках был какой-то небольшой пакетик."
@@ -12306,14 +11897,12 @@ label day4_main2:
         "Спросить, что это":
             window show
             me "А что это такое?"
-            with None
-            show sl shy pioneer at center 
+            show sl shy pioneer at center
             with dspr
             sl "Ничего!"
             "Она покраснела."
             sl "Спасибо тебе!"
             me "Да не за что…"
-            with None
             hide sl
             with dissolve
             "Славя убежала."
@@ -12321,20 +11910,18 @@ label day4_main2:
             th "Кажется, не стоило спрашивать…"
         "Не спрашивать":
             $ day4_sl_compl = 1
-            $ lp_sl = lp_sl + 1
-            with None
-            show sl normal pioneer far at center  
+            $ lp_sl += 1
+            show sl normal pioneer far at center
             with dissolve
             window show
             me "Удачи!"
             "Крикнул я ей вслед."
             with None
-            show sl smile2 pioneer far at center 
+            show sl smile2 pioneer far at center
             with dspr
             sl "Спасибо!"
             stop music fadeout 3
             "Одарила она меня напоследок милой улыбкой."
-            with None
             hide sl
             with dissolve
     window hide
@@ -12354,7 +11941,7 @@ label day4_main2:
     play sound sfx_open_door_kick
     play music music_list["that_s_our_madhouse"] fadein 3
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     "Вдруг дверь распахнулась, и в медпункт вбежала Алиса."
     "Она пристально посмотрела на меня."
@@ -12362,7 +11949,7 @@ label day4_main2:
     me "Сижу…"
     "Честно признался я."
     with None
-    show dv smile pioneer at center 
+    show dv smile pioneer at center
     with dspr
     dv "Ну и ладно!{w} Так даже лучше, что медсестры нет."
     "Пробормотала она."
@@ -12370,7 +11957,7 @@ label day4_main2:
     "Ехидно спросил я."
     "Алиса не ответила и подошла ко мне."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Подвинься."
     me "Зачем?"
@@ -12378,18 +11965,18 @@ label day4_main2:
     me "Зачем это?"
     "Она разозлилась."
     with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "Тебе какое дело?"
     me "Ну, я тут вроде как исполняющий обязанности…"
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     "Она задумалась."
     dv "Дай мне тогда активированный уголь!"
     me "Живот болит?"
     with None
-    show dv grin pioneer at center 
+    show dv grin pioneer at center
     with dspr
     dv "Да."
     "Ехидно усмехнулась она."
@@ -12398,20 +11985,18 @@ label day4_main2:
     menu:
         "Дать Алисе уголь":
             $ day4_dv_compl = 1
-            $ lp_dv = lp_dv + 1
+            $ lp_dv += 1
             window show
             th "Но мало ли…{w} Вдруг правда что-то болит."
             me "Ладно."
             window hide
             play sound sfx_open_table
-            pause (1)
+            pause 1
             window show
             "Я полез в ящик и вытащил оттуда упаковку активированного угля."
-            with None
-            show dv normal pioneer at center 
+            show dv normal pioneer at center
             with dspr
             dv "Спасибо!"
-            with None
             hide dv
             with dissolve
             stop music fadeout 3
@@ -12421,53 +12006,43 @@ label day4_main2:
             me "Точно живот болит?"
             dv "Точно-точно!"
             me "Что-то не похоже…"
-            with None
-            show dv angry pioneer at center 
+            show dv angry pioneer at center
             with dspr
             dv "А что, меня здесь разорвать должно, чтобы ты поверил?"
             me "Я не знаю, что можно плохого сделать с активированным углем, но, уверен, ты придумаешь!"
             "Она замялась."
-            with None
-            show dv normal pioneer at center 
+            show dv normal pioneer at center
             with dspr
             dv "А даже если так?"
             me "Вот!{w} Так и думал!{w} Тогда я тебе точно ничего не дам!"
             "Алиса попыталась силой пролезть к ящикам, но я, как Александр Матросов, закрыл грудью амбразуру."
             "При всей своей наглости она всё же была девочкой, и оттеснить меня у неё бы никак не получилось."
-            with None
-            show dv angry pioneer at center 
+            show dv angry pioneer at center
             with dspr
             dv "Ну и ладно! В другом месте найду."
-            with None
             hide dv
             with dissolve
             "Она развернулась и направилась к выходу."
             "В дверях Алиса остановилась и обернулась."
-            with None
-            show dv normal pioneer at center 
+            show dv normal pioneer at center
             with dspr
             dv "Кстати, там вожатая с медсестрой пионера несут, который ногу сломал.{w} Мне-то всё равно, но им, наверное, тяжело."
             me "Так я тебе и поверил!"
             dv "Иди сам посмотри…"
             "Казалось, что Алиса врёт, но, с другой стороны, пока она была у меня на глазах…"
-            with None
             hide dv
             with dissolve
             "Я подошёл к двери и выглянул на улицу.{w} Там никого не оказалось."
-            with None
-            show dv normal pioneer at center 
+            show dv normal pioneer at center
             with dissolve
             me "Ну и где?"
-            with None
-            show dv surprise pioneer at center 
+            show dv surprise pioneer at center
             with dspr
             dv "Не дошли, значит, ещё."
             "Она развела руками."
-            with None
-            show dv smile pioneer at center 
+            show dv smile pioneer at center
             with dspr
             dv "Счастливо!"
-            with None
             hide dv
             with dissolve
             "Я вернулся к столу и только тогда обнаружил, что один из ящиков открыт."
@@ -12569,13 +12144,13 @@ label day4_main2:
     with dissolve
     play ambience ambience_camp_center_day fadein 3
     with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dissolve
     window show
     "По дороге меня догнал Электроник."
     me "Как поиски Шурика?"
     with None
-    show el upset pioneer at center 
+    show el upset pioneer at center
     with dspr
     el "Да всё так же…"
     me "Ты не расстраивайся…{w} Найдётся он!"
@@ -12618,7 +12193,7 @@ label day4_main2:
     th "Лучше бы, конечно, она была одна."
     un "Спасибо…"
     with None
-    show mz normal glasses pioneer at right 
+    show mz normal glasses pioneer at right
     with dissolve
     "Только и успела сказать Лена, как у неё из-за спины появилась Женя."
     mz "Я сяду тут.{w} Больше некуда."
@@ -12626,26 +12201,26 @@ label day4_main2:
     me "Конечно, располагайтесь..."
     "Грустно пробурчал я себе под нос."
     with None
-    show mz angry glasses pioneer at right 
+    show mz angry glasses pioneer at right
     with dspr
     mz "Что?!"
     me "Ничего..."
     with None
-    show mz normal glasses pioneer at right 
+    show mz normal glasses pioneer at right
     with dspr
     "Честно говоря, я бы с удовольствием сократил эту компанию до одной Лены, но в то же время ни Мику, ни Женя не доставляли мне каких-то особых проблем."
     "Одна разве что говорливая слишком, другая – мнительная."
     th "Но всё равно они обе абсолютно безвредны по сравнению с некоторыми."
     with None
-    show un surprise pioneer at left 
+    show un surprise pioneer at left
     with dspr
     un "Ой, я ключ, кажется, забыла…"
     with None
-    show mi smile pioneer at center 
+    show mi smile pioneer at center
     with dspr
     mi "Ничего страшного, возьми мой!"
     with None
-    show un normal pioneer at left 
+    show un normal pioneer at left
     with dspr
     "Я даже удивился, что Мику ограничилась такой короткой фразой."
     me "А вы…{w} вместе живёте?"
@@ -12653,45 +12228,45 @@ label day4_main2:
     "Я бы не удивился, если бы узнал, что Лена живёт со Славей.{w} С Женей на худой конец.{w} Да хоть с Электроником."
     th "Но молчаливая и застенчивая Лена и не в меру словоохотливая Мику…{w} Да, это сюрприз!"
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dspr
     mz "Нашли своего Шурика?"
     "Странно, что Женю вообще волнуют чужие проблемы."
     me "Нет."
     with None
-    show mz angry glasses pioneer at right 
+    show mz angry glasses pioneer at right
     with dspr
     mz "Небось в деревню убежал за сигаретами.{w} Или за водкой."
     "Она фыркнула."
     me "В деревню?"
     "С этой секунды разговор начал живо меня интересовать."
     with None
-    show mz bukal glasses pioneer at right 
+    show mz bukal glasses pioneer at right
     with dspr
     mz "А что такого?"
     "Женя сделала удивлённое лицо."
     me "Значит, здесь есть поблизости деревня?"
     with None
-    show mz normal glasses pioneer at right 
+    show mz normal glasses pioneer at right
     with dspr
     mz "Наверное…"
     "Сказала она неуверенно."
     "Я посмотрел на Лену и Мику, но они были заняты едой и не обращали внимания на наш разговор."
     me "То есть ты точно не знаешь?"
     with None
-    show mz angry glasses pioneer at right 
+    show mz angry glasses pioneer at right
     with dspr
     mz "Да какое мне дело!"
     "Женя уставилась к себе в тарелку."
     me "Но здесь же должны быть какие-то населённые пункты поблизости?"
     with None
-    show mz angry glasses pioneer at right 
+    show mz angry glasses pioneer at right
     with dspr
     mz "Слушай..."
     me "Слушаю."
     mz "Не знаю я! Дай спокойно поесть."
     with None
-    show mz normal glasses pioneer at right 
+    show mz normal glasses pioneer at right
     with dspr
     th "Похоже, больше от неё ничего не добиться."
     "Хотя, может быть, она правда не знает..."
@@ -12716,7 +12291,7 @@ label day4_main2:
     th "Лучше убежать!{w} Но в то же время интересно…"
     "Наверное, я бы так и стоял здесь, если бы кто-то не схватил меня за руку."
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     "Это была Ольга Дмитриевна."
     mt "Чего стоишь?{w} Пойдём разберёмся, что там произошло!"
@@ -12724,7 +12299,7 @@ label day4_main2:
     "Жалобно взмолился я."
     stop music fadeout 3
     with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dspr
     mt "Да ничего там страшного не должно быть!{w} По идее…"
     window hide
@@ -12739,7 +12314,7 @@ label day4_main2:
     "Но у злоумышленников ничего не вышло – памятник устоял."
     "Лишь на пьедестале были видны еле заметные следы копоти."
     with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dissolve
     mt "Ну, и кто это сделал?"
     "Она оглядела толпу пионеров."
@@ -12755,17 +12330,17 @@ label day4_main2:
     dv "Если вы считаете…"
     mt "Двачевская! Покажи-ка руки!"
     with None
-    show dv surprise pioneer at left 
+    show dv surprise pioneer at left
     with dspr
     dv "А что с ними не так?"
     "Я пригляделся и увидел, что руки Алисы измазаны чем-то чёрным."
     mt "Теперь понятно…{w} Из чего бомбу делала?!"
     with None
-    show dv normal pioneer at left 
+    show dv normal pioneer at left
     with dspr
     "Юная террористка, кажется, раздумывала, сознаваться или нет, но потом гордо выпалила:"
     with None
-    show dv smile pioneer at left 
+    show dv smile pioneer at left
     with dspr
     dv "Активированный уголь, селитра и сера!"
     if day4_dv_compl == 0:
@@ -12773,7 +12348,7 @@ label day4_main2:
     mt "И почему именно памятник?{w} Чем тебе помешал уважаемый, заслуженный человек? Борец за права…"
     if day4_dv_compl == 1:
         with None
-        show dv normal pioneer at left 
+        show dv normal pioneer at left
         with dspr
         dv "Уголь, кстати, он мне дал."
         "Она показала пальцем в мою сторону, и тут же вся толпа уставилась на меня."
@@ -12785,7 +12360,7 @@ label day4_main2:
         "..."
     else:
         with None
-        show dv angry pioneer at left 
+        show dv angry pioneer at left
         with dspr
         "..."
     stop music fadeout 3
@@ -12795,7 +12370,7 @@ label day4_main2:
     hide mt
     with dissolve
     with None
-    show el smile pioneer at center 
+    show el smile pioneer at center
     with dissolve
     el "Нашёл! Нашёл!"
     "Все повернулись в его сторону."
@@ -12805,17 +12380,17 @@ label day4_main2:
     play music music_list["into_the_unknown"] fadein 3
     el "Это ботинок Шурика!"
     with None
-    show mt normal pioneer at right 
+    show mt normal pioneer at right
     with dissolve
     mt "Так, успокойся!{w} Расскажи подробно, где ты его нашёл!"
     with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dspr
     el "В лесу.{w} На тропинке в старый лагерь!"
     "По рядам прошёл какой-то шёпот."
     all "Старый лагерь… Старый лагерь…"
     with None
-    show mt surprise pioneer at right 
+    show mt surprise pioneer at right
     with dspr
     mt "Ты уверен?"
     el "Абсолютно!"
@@ -12825,7 +12400,7 @@ label day4_main2:
     "Она запнулась."
     el "Одна из легенд «Совёнка» гласит, что там живёт привидение молодой вожатой, которая влюбилась в пионера, но, не найдя взаимности, покончила с собой…"
     with None
-    show us laugh pioneer at left 
+    show us laugh pioneer at left
     with dissolve
     us "Сделала харакири кухонным ножом.{w} А мальчика этого на следующий день сбил автобус!"
     "Ульяна выбежала из толпы."
@@ -12833,7 +12408,7 @@ label day4_main2:
     "Я еле удержался, чтобы не спросить о номере маршрута."
     el "Но наука не допускает существования привидений, поэтому опасаться там нечего!"
     with None
-    show mt normal pioneer at right 
+    show mt normal pioneer at right
     with dspr
     mt "Всё равно кто-то должен туда пойти!"
     "Ряды пионеров внезапно начали редеть."
@@ -12850,7 +12425,7 @@ label day4_main2:
     me "Кстати, а где это?"
     "Электроник примерно объяснил дорогу и рассказал про историю старого лагеря."
     with None
-    show mt normal pioneer at left 
+    show mt normal pioneer at left
     with dissolve
     "Вожатая пристально посмотрела на меня."
     me "Если вы думаете, что я…"
@@ -12919,7 +12494,7 @@ label day4_fail:
     "Некоторое время назад я решил занять выжидательную позицию, пока что-нибудь не случится…"
     "И сейчас до меня дошло, что вот оно!"
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     me "Ольга Дмитриевна, я, пожалуй, прогуляюсь перед сном немного."
     mt "Ладно, только недолго!"
@@ -13095,7 +12670,7 @@ label day4_fail:
     scene black
     with dissolve
     play sound sfx_metal_door_large_close_basement
-    pause(1)
+    pause 1
     window show
     "...которая тут же с резким звуком захлопнулась, как только я переступил порог."
     "От этого меня передёрнуло так, что руки начали трястись, а в глазах потемнело."
@@ -13132,7 +12707,7 @@ label day4_fail:
     "Как ни странно, спустя некоторое время мне это удалось, благо она была не такой массивной, как предыдущая."
     window hide
     play sound sfx_fall_metal_door
-    pause (1)
+    pause 1
     $ persistent.sprite_time = "sunset"
     scene bg int_catacombs_living_nodoor
     with vpunch
@@ -13165,7 +12740,7 @@ label day4_fail:
     scene bg int_mine
     with dissolve
     play sound sfx_jump_into_hole_2
-    pause(1)
+    pause 1
     window show
     "Спрыгнув в дыру, я оказался в некоем подобии шахтёрского штрека."
     "Стены и потолок были укреплены деревянными балками."
@@ -13319,7 +12894,7 @@ label fail_mine_miku:
     with fade3
     stop music fadeout 3
     stop ambience fadeout 2
-    pause (3)
+    pause 3
     $ backdrop = "epilogue"
     jump epilogue_mi
 label fail_mine_exit:
@@ -13330,7 +12905,7 @@ label fail_mine_exit:
     "За последним поворотом из темноты показалась дверь."
     window hide
     play sound sfx_open_door_mines
-    pause(1)
+    pause 1
     stop ambience fadeout 3
     $ persistent.sprite_time = "night"
     scene bg int_mine_room
@@ -13350,8 +12925,8 @@ label fail_mine_exit:
     scene bg int_mine_room
     with dissolve
     with None
-    show sh rage pioneer at center 
-    with dissolve    
+    show sh rage pioneer at center
+    with dissolve
     window show
     sh "ААА! Не подходи!"
     me "Шурик, это же я! Семён!"
@@ -13364,7 +12939,7 @@ label fail_mine_exit:
     me "Шурик! Успокойся! Никто мной не прикидывается! Это я и есть!"
     "Я старался говорить как можно спокойнее, но сам волновался едва ли не больше него."
     with None
-    show sh scared pioneer at center 
+    show sh scared pioneer at center
     with dspr
     sh "Семён?"
     "Он прищурился."
@@ -13372,19 +12947,19 @@ label fail_mine_exit:
     me "Да! А теперь расскажи, что случилось? Как ты здесь оказался?"
     "Шурик отдышался и сказал:"
     with None
-    show sh normal pioneer at center 
+    show sh normal pioneer at center
     with dspr
     sh "Мне нужны были кое-какие детали для робота.{w} И я слышал, что в старом лагере есть бомбоубежище…{w} А в нём могут быть всякие приборы."
     sh "Вот с утра пораньше и пошёл…"
     "Он помолчал минуту, унимая дрожь в руках."
     with None
-    show sh scared pioneer at center 
+    show sh scared pioneer at center
     with dspr
     sh "Детали я нашёл, но потом…"
     "В его глазах читался животный страх."
     sh "Голоса… Они сказали мне пойти сюда… Я спустился в шахту… Потом они говорили идти направо, налево, направо, налево, направо, налево…"
     with None
-    show sh laugh pioneer at center 
+    show sh laugh pioneer at center
     with dspr
     "Он истерически захохотал."
     sh "Но теперь я им не дамся! Я буду сидеть здесь! Они меня тут не найдут!"
@@ -13392,7 +12967,7 @@ label fail_mine_exit:
     me "Шурик… Нет там никого… Я тоже прилично поплутал по шахте, но никаких голосов не слышал."
     "Он пристально посмотрел на меня."
     with None
-    show sh rage pioneer at center 
+    show sh rage pioneer at center
     with dspr
     stop music fadeout 2
     sh "Значит, ты с ними заодно!"
@@ -13406,7 +12981,7 @@ label fail_mine_exit:
     window hide
     play sound sfx_break_flashlight
     with vpunch
-    pause(1)
+    pause 1
     window show
     "А вот фонарю повезло меньше – весь удар он принял на себя."
     window hide
@@ -13460,8 +13035,8 @@ label fail_mine_exit:
     "Через минуту мы уже выбрались на поверхность за памятником Генде."
     "Когда я раньше видел эту решётку, то как-то даже на задумывался, что за ней могут скрываться катакомбы…"
     with None
-    show sh laugh pioneer at center 
-    with dissolve   
+    show sh laugh pioneer at center
+    with dissolve
     sh "Они придут за тобой!"
     "Я обессиленно рухнул на траву."
     me "Кто?"
@@ -13484,7 +13059,7 @@ label fail_mine_exit:
     "В полубреду добрался до домика вожатой…"
     "Однако сразу повалиться спать не удалось."
     with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dissolve
     play music music_list["doomed_to_be_defeated"] fadein 2
     mt "Явился не запылился!"
@@ -13492,13 +13067,13 @@ label fail_mine_exit:
     "Усталым голосом начал я, пытаясь свести объяснения к минимуму."
     mt "Ты же сказал, что идёшь «прогуляться», а сам!"
     with None
-    show mt rage pioneer at center 
+    show mt rage pioneer at center
     with dspr
     mt "Да я... Да я уже в милицию собиралась!{w} И вообще..."
     me "Ольга Дмитриевна, это не может подождать до завтра? Я очень устал."
     "Вожатая смерила меня взглядом."
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "Ладно уж..."
     "Меня несколько удивило то, что она так легко согласилась, но предоставленной возможностью я решил воспользоваться побыстрее – выключил свет и шмыгнул под одеяло."
@@ -13523,7 +13098,7 @@ label fail_mine_exit:
     scene black
     with fade3
     stop ambience fadeout 3
-    pause (3)
+    pause 3
     if day4_uv_mine == 1:
         jump epilogue_uv
     jump day5_main1
@@ -13607,20 +13182,20 @@ label day4_uv:
 label day4_sl:
     sl "Я пойду с ним!"
     with None
-    show mt smile pioneer at left 
+    show mt smile pioneer at left
     with dspr
     mt "Вот и отлично! Вдвоём веселее."
     me "Ты уверена?"
     "Спросил я Славю шёпотом."
     "Конечно, хотелось надеяться, но..."
     with None
-    show sl smile pioneer at right 
+    show sl smile pioneer at right
     with dspr
     "Она ничего не ответила, а лишь улыбнулась."
     "Я долго смотрел на Славю как заворожённый."
     th "И почему она всегда мне помогает?"
     with None
-    show sl normal pioneer at right 
+    show sl normal pioneer at right
     with dspr
     mt "Отлично! Тогда удачи вам."
     me "Она нам пригодится…"
@@ -13630,7 +13205,7 @@ label day4_sl:
     hide un
     with dissolve
     show sl normal pioneer at right:
-        linear 1.0 xalign 0.5 
+        linear 1.0 xalign 0.5
     "Вожатая и остальные девочки попрощались и разошлись кто куда."
     play ambience ambience_camp_center_evening fadein 3
     "Меня несколько удивил тот факт, что они восприняли наш поход ночью…{w} через лес…{w} в заброшенный лагерь как должное."
@@ -13650,7 +13225,7 @@ label day4_sl:
     th "Стоит ли мне её опасаться?"
     sl "Вот и я!"
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dissolve
     "Славя улыбаясь протянула мне фонарик."
     sl "Пойдём?"
@@ -13675,7 +13250,7 @@ label day4_sl:
     "Хотя уже само по себе это было странно – Славя словно убаюкивала мой инстинкт самосохранения, а ощущение реальности притуплялось."
     "Ведь если так пойдет дальше, то я и в пасть к какому-нибудь чудовищу прыгну с улыбкой на лице…"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     me "А ты совсем не боишься?"
     with None
@@ -13711,7 +13286,7 @@ label day4_sl:
     "В одно мгновение она совсем скрылась за тучи, и всё погрузилось практически в кромешный мрак."
     window hide
     show blinking
-    pause(3)
+    pause 3
     window show
     "Я сильно зажмурился, и, когда вновь открыл глаза, луна вновь оказалась на своём месте и окрасила мир в ярко-белые цвета ночного савана."
     th "Всё-таки не люблю я темноту!"
@@ -13730,7 +13305,7 @@ label day4_sl:
     "Всю поляну окутывал кладбищенский туман, в котором то и дело виделись привидения, вурдалаки, зомби, черти и другая дьявольская нечисть."
     "Этой картины уже было вполне достаточно, чтобы вызвать сердечный приступ или в крайнем случае паническую атаку у любого."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     "И я бы наверняка не выдержал, если бы Славя не взяла меня за руку…"
     with None
@@ -13763,7 +13338,7 @@ label day4_sl:
     "Луна выглянула из-за туч, осветив здание старого лагеря."
     "Теперь оно меньше напоминало склеп, но при этом все те мёртвые картины в моём воображении ожили – на привидений словно навели резкость, чётче стал вой ветра, шелест травы под ногами, а где-то вдалеке слышались звуки, происхождение которых понять я не мог."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     sl "Наверное, тут раньше здорово было…"
     "Я внимательно посмотрел на Славю."
@@ -13788,7 +13363,7 @@ label day4_sl:
     me "Да уж…"
     "Я поёжился, выхватывая фонарём из темноты всё новые останки былой детской радости."
     with None
-    show sl scared pioneer at center 
+    show sl scared pioneer at center
     with dissolve
     sl "Жутковато."
     "Славя уже давно не просто держала меня за руку, а обхватила её, плотно прижавшись ко мне всем телом."
@@ -13797,7 +13372,7 @@ label day4_sl:
     sl "Наверное."
     me "Вернёмся?"
     with None
-    show sl surprise pioneer at center 
+    show sl surprise pioneer at center
     with dspr
     sl "Нет, ну как же! А Шурик?"
     "Сказала она, искренне удивившись."
@@ -13825,7 +13400,7 @@ label day4_sl:
     window show
     "Мы обыскали все помещения старого лагеря: игровые комнаты, спальни, столовую и кухню, туалеты; я даже заглянул в кладовку, доверху забитую какими-то пустыми истлевшими коробками."
     with None
-    show sl surprise pioneer at center 
+    show sl surprise pioneer at center
     with dissolve
     sl "Смотри."
     "Когда мы вернулись на то место, с которого начинали, Славя подобрала что-то с пола и протянула мне."
@@ -13925,7 +13500,7 @@ label day4_sl:
     "Я подёргал за ручку, и она, казалось, начала поддаваться."
     me "Готова?"
     with None
-    show sl scared pioneer at center 
+    show sl scared pioneer at center
     with dissolve
     sl "Не знаю…"
     "Хотя, собственно, к чему надо вообще быть готовым в подобной ситуации?"
@@ -13944,7 +13519,7 @@ label day4_sl:
     "Бомбоубежище оказалось именно таким, каким я себе его и представлял – здесь имелось всё, чтобы поддерживать длительное существование людей во время войны: в шкафах нашлись костюмы химзащиты, противогазы, сухпайки и канистры с водой, у дальней стены я заметил множество различных приборов (измерители давления и радиации, радио и т.д.)."
     "Однако создавалось впечатление, что им никто никогда не пользовался (что, в общем-то, неудивительно).{w} Более того, даже не заходил сюда ни разу после постройки."
     with None
-    show sl surprise pioneer at center 
+    show sl surprise pioneer at center
     with dissolve
     "Славя вопросительно посмотрела на меня."
     me "Ну, тут Шурика точно нет."
@@ -13974,7 +13549,7 @@ label day4_sl:
     me "Давай попробуем."
     window hide
     play sound sfx_fall_metal_door
-    pause (1)
+    pause 1
     $ persistent.sprite_time = "sunset"
     scene bg int_catacombs_living_nodoor
     with vpunch
@@ -13982,7 +13557,7 @@ label day4_sl:
     "Напрягшись изо всех сил, мне всё же удалось сорвать дверь с петель, и она с грохотом упала на пол."
     "Пока я приходил в себя от чрезмерных усилий, Славя светила фонарём в образовавшийся проход."
     with None
-    show sl surprise pioneer at center 
+    show sl surprise pioneer at center
     with dissolve
     sl "Там такой же коридор."
     me "Да уж… Тут прямо целый лабиринт."
@@ -13991,12 +13566,12 @@ label day4_sl:
     "Я сел на кровать, снял с подушки пыльную наволочку и вытер пот со лба."
     me "Сейчас, отдышусь немного."
     with None
-    show sl normal pioneer close at center 
+    show sl normal pioneer close at center
     with dissolve
     "Славя села рядом и принялась изучать детали узоров плитки на полу."
     me "Ты бы фонарь пока выключила…"
     with None
-    show sl shy pioneer close at center 
+    show sl shy pioneer close at center
     with dspr
     sl "Ах, да…"
     "Она немного покраснела и тут же щёлкнула кнопкой выключения."
@@ -14009,38 +13584,38 @@ label day4_sl:
     "А теперь вот опять, в мгновение ока – лес, старый лагерь, бомбоубежище."
     "Во всём этом не было ровным счётом ничего сверхъестественного, но и нормального, привычного мне по прошлой жизни было мало."
     with None
-    show sl sad pioneer close at center 
+    show sl sad pioneer close at center
     with dspr
     sl "Да…"
     "Согласилась Славя."
     me "А тебе не кажется всё это странным?"
     with None
-    show sl surprise pioneer close at center 
+    show sl surprise pioneer close at center
     with dspr
     sl "Что именно?"
     me "Ну, что мы сидим тут, вдвоём, ночью. Не нормально ли в данной ситуации дождаться утра, вызвать милицию?"
     with None
-    show sl normal pioneer close at center 
+    show sl normal pioneer close at center
     with dspr
     sl "Да, наверное."
     "Сказала она задумчиво."
     me "Конечно, я практически сам вызвался. Не стоило."
     "Ну, «практически» не считается, но всё же."
     with None
-    show sl sad pioneer close at center 
+    show sl sad pioneer close at center
     with dspr
     sl "Но ведь ты просто хотел помочь. Если Шурик там, то нужно его найти как можно скорее."
     me "Такими темпами скорее не мы Шурика найдем, а им потом нас придётся искать. Ведь он как-то смог тут заблудиться."
     "Славя погрустнела."
     me "Ладно-ладно, я ничего такого не имел в виду. Может, его там нет и он давно вернулся в лагерь."
     with None
-    show sl smile2 pioneer close at center 
+    show sl smile2 pioneer close at center
     with dspr
     sl "Да, может быть."
     me "Но проверить стоит?"
     sl "Конечно!"
     with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dissolve
     "Славя встала и протянула мне руку."
     "Похоже, ей всё-таки не было так страшно, как мне."
@@ -14055,7 +13630,7 @@ label day4_sl:
     "Коридор был действительно точно таким же, как и тот, по которому мы попали в бомбоубежище."
     "Я шёл медленно, тщательно осматривая пол и то и дело проверяя, не сужаются ли стены."
     with None
-    show sl surprise pioneer at center 
+    show sl surprise pioneer at center
     with dissolve
     sl "Смотри!"
     window hide
@@ -14066,7 +13641,7 @@ label day4_sl:
     "Славя крепче сжала мою руку и показала на пролом посреди туннеля."
     "Достаточно широкий, чтобы в него пролезть (или провалиться)."
     with None
-    show sl surprise pioneer at center 
+    show sl surprise pioneer at center
     with dissolve
     sl "Может быть…"
     "Я посветил вниз, но на дне не было видно ничего, кроме земли."
@@ -14084,7 +13659,7 @@ label day4_sl:
     "Стены и потолок были укреплены деревянными балками, а вдаль уходили рельсы."
     "Кое-где давящая на эту хлипкую конструкцию земля прорвала прогнившие от старости доски, отчего всё это сооружение не казалось особо надёжным."
     with None
-    show sl surprise pioneer at center 
+    show sl surprise pioneer at center
     with dissolve
     sl "Как думаешь, где мы?"
     me "Не знаю, шахта какая-то. Что здесь могли добывать?"
@@ -14106,7 +13681,7 @@ label day4_sl:
     window show
     "Наконец мы вышли к развилке."
     with None
-    show sl surprise pioneer at center 
+    show sl surprise pioneer at center
     with dissolve
     sl "И куда нам теперь?"
     me "Не знаю."
@@ -14138,7 +13713,7 @@ label sl_mine_coalface:
         window hide
         jump mine_crossroad
     with None
-    show sl scared pioneer at center 
+    show sl scared pioneer at center
     with dissolve
     window show
     "Наконец мы вышли из туннеля в довольно большую комнату с высоким потолком."
@@ -14170,14 +13745,14 @@ label sl_mine_exit:
     me "Ну, уже хоть что-то."
     "По правде говоря, я так устал бродить по этой шахте, что и думать забыл о Шурике – хотелось просто поскорее найти выход."
     with None
-    show sl surprise pioneer at center 
+    show sl surprise pioneer at center
     with dissolve
     sl "А что там?"
     stop ambience fadeout 3
     me "Вот сейчас и выясним."
     window hide
     play sound sfx_open_door_mines
-    pause(1)
+    pause 1
     $ persistent.sprite_time = "night"
     scene bg int_mine_room
     with dissolve
@@ -14216,7 +13791,7 @@ label sl_mine_exit:
     sl "Всё в порядке, это я, Славя."
     sh "Правда?"
     with None
-    show sh cry pioneer at cright 
+    show sh cry pioneer at cright
     with dspr
     "Шурик посмотрел на неё и тут же тихо заплакал."
     sl "Конечно! Кто же ещё? И Семён со мной. Мы пришли за тобой. Теперь всё в порядке!"
@@ -14225,12 +13800,12 @@ label sl_mine_exit:
     "Он попытался встать, но, видимо, потерял ориентацию и был уже готов упасть, если бы Славя не схватила его за руку."
     sl "Вот так! Осторожнее!"
     with None
-    show sh scared pioneer at cright 
+    show sh scared pioneer at cright
     with dspr
     "Когда они подошли ко мне, я сказал:"
     me "Ладно, пора выбираться отсюда!"
     with None
-    show sh upset pioneer at cright 
+    show sh upset pioneer at cright
     with dspr
     sh "Назад нельзя…"
     me "Назад – это куда? В шахту?"
@@ -14238,7 +13813,7 @@ label sl_mine_exit:
     "Шурик говорил спокойно, но при этом его голос еле заметно дрожал."
     me "Почему?"
     with None
-    show sh scared pioneer at cright 
+    show sh scared pioneer at cright
     with dspr
     sh "Там… {i}они{/i}!"
     me "Кто {i}они{/i}-то?"
@@ -14247,12 +13822,12 @@ label sl_mine_exit:
     "Я уже начинал терять терпение."
     "Конечно, это место, эта ситуация не были нормальными, но если бы здесь и водилась какая-то чертовщина, то по всем канонам фильмов ужасов она давно уже должна была показаться."
     with None
-    show sl serious pioneer at cleft 
+    show sl serious pioneer at cleft
     with dspr
     sl "Успокойся, Шурик. И расскажи нам всё подробно."
     "Он сделал несколько глубоких вдохов и выдохов и начал:"
     with None
-    show sh normal pioneer at cright 
+    show sh normal pioneer at cright
     with dspr
     sh "Мне нужны были кое-какие детали для робота, и я слышал, что в старом лагере есть бомбоубежище. А в бомбоубежищах обычно много всякой аппаратуры. Она, конечно, старая, но разобрать вполне можно – катушки, резисторы всегда найдутся."
     sh "Вот я с утра пораньше и пошёл, думал, всё быстро сделаю и к завтраку вернусь."
@@ -14260,21 +13835,21 @@ label sl_mine_exit:
     "Он достал из кармана и показал нам какие-то лампочки и проводочки."
     sh "Но потом из-за двери – там наверху, в бомбоубежище – услышал какие-то звуки. То ли стоны, то ли плач. Сначала стало страшно, но потом я подумал – а вдруг человек в опасности. И пошёл…"
     with None
-    show sh scared pioneer at cright 
+    show sh scared pioneer at cright
     with dspr
     sh "А тут вот – шахта, лабиринт этот чёртов! Я совсем заблудился. И голоса, голоса повсюду что-то говорят мне – то кричат, то шепчут, а я никак разобрать не могу!"
     with None
-    show sl sad pioneer at cleft 
+    show sl sad pioneer at cleft
     with dspr
     "Он уже был готов разрыдаться, но Славя нежно погладила его по голове, и Шурик продолжил:"
     with None
-    show sh normal pioneer at cright 
+    show sh normal pioneer at cright
     with dspr
     sh "В общем, нашёл я эту комнату, тут хотя бы не слышно {i}их{/i}…"
     me "И решил сидеть и ждать, пока тебя спасут, как в фильмах уровня «Б»?"
     "Саркастически спросил я."
     with None
-    show sl angry pioneer at cleft 
+    show sl angry pioneer at cleft
     with dspr
     "Славя бросила на меня гневный взгляд."
     me "Ну, в любом случае пора выбираться отсюда! Если никто не против, конечно?"
@@ -14315,7 +13890,7 @@ label sl_mine_exit:
     window show
     "Через минуту я уже валялся на траве возле памятника и с наслаждением вдыхал свежий ночной воздух.{w} Хотя после шахты мне бы любой воздух показался свежим."
     with None
-    show sh normal pioneer at center 
+    show sh normal pioneer at center
     with dissolve
     sh "Ну ладно, я пойду, спасибо вам…"
     "Шурик выглядел несколько растерянным."
@@ -14326,13 +13901,13 @@ label sl_mine_exit:
     "В конце концов, не было ни сил, ни желания с ним разговаривать."
     th "Да и что сказать?{w} Ругать его сейчас бесполезно, пытаться что-то узнать – наверное, тоже."
     with None
-    show sl normal pioneer close at center  
+    show sl normal pioneer close at center
     with dissolve
     sl "Ну и ночка…"
     "Славя сидела рядом и мечтательно смотрела на луну."
     me "Да уж… Если бы мне кто ещё неделю назад сказал, что я попаду в пионерлагерь да и ещё придётся лазать по бомбоубежищам…"
     with None
-    show sl smile2 pioneer close at center 
+    show sl smile2 pioneer close at center
     with dspr
     sl "Зато весело."
     me "В каком-то смысле."
@@ -14340,18 +13915,18 @@ label sl_mine_exit:
     "Возможно, через пару лет я буду вспоминать это лишь как смешной случай из детства.{w} Если доживу…"
     me "Как думаешь, он правда там что-то слышал?"
     with None
-    show sl serious pioneer close at center 
+    show sl serious pioneer close at center
     with dspr
     sl "Не знаю... Возможно, конечно, но, скорее всего, ему просто показалось. В такой ситуации любому может померещиться."
     "Это было не только самое логичное объяснение, но и самое правильное – ведь с нами-то не случилось ничего."
     me "А я вот думаю, ему стоит психиатру показаться…"
     with None
-    show sl laugh pioneer close at center 
+    show sl laugh pioneer close at center
     with dspr
     sl "Наверное!"
     "Славя рассмеялась."
     with None
-    show sl smile2 pioneer close at center 
+    show sl smile2 pioneer close at center
     with dspr
     sl "Ну ладно, пора спать."
     me "Угу."
@@ -14359,13 +13934,13 @@ label sl_mine_exit:
     "Я чувствовал, что надо что-то сказать Славе.{w} Не был уверен, хочу ли, но необходимость ощущал."
     me "Спасибо тебе!"
     with None
-    show sl smile2 pioneer close at center 
+    show sl smile2 pioneer close at center
     with dspr
     sl "За что?"
     "Она недоуменно посмотрела на меня."
     me "Без тебя я бы не справился."
     with None
-    show sl shy pioneer close at center 
+    show sl shy pioneer close at center
     with dspr
     sl "Да ничего…"
     "Славя покраснела."
@@ -14399,22 +13974,22 @@ label sl_mine_exit:
     "Выяснять, прав я или нет, не было никакого желания."
     "Шезлонг, стоящий рядом, приветливо манил, словно предлагая поспать в нём, забыв про шахту, Шурика, вожатую..."
     with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dissolve
     window hide
     play sound sfx_open_door_strong
-    pause(1)
+    pause 1
     window show
     me "А вот и вы..."
     "Отрешённо бросил я, продолжая смотреть на заветный шезлонг."
     mt "Семён!"
     me "Да-да...{w} Мы нашли Шурика, подробности вам расскажет завтра Славя, а сейчас мне очень бы хотелось поспать..."
     with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dspr
     "Она секунду непонимающе смотрела на меня, а потом сказала:"
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "Ладно уж..."
     window hide
@@ -14429,7 +14004,7 @@ label sl_mine_exit:
     scene black
     with fade3
     stop ambience fadeout 2
-    pause (3)
+    pause 3
     jump day5_main1
 label day4_dv:
     mt "А с тобой пойдёт Двачевская!"
@@ -14438,11 +14013,11 @@ label day4_dv:
     hide un
     with dissolve
     with None
-    show dv angry pioneer at right 
+    show dv angry pioneer at right
     with dissolve
     dv "Это почему?"
     with None
-    show mt angry pioneer at left 
+    show mt angry pioneer at left
     with dspr
     mt "А кто памятник взрывал?{w} И ладно бы только это! Кто ещё пытался оклеветать Семёна?!"
     "Она сказала это таким тоном, что Алиса не решилась возражать."
@@ -14450,12 +14025,12 @@ label day4_dv:
     hide mt
     with dissolve
     show dv angry pioneer at right:
-        linear 1.0 xalign 0.5 
+        linear 1.0 xalign 0.5
     dv "Доволен?"
     "Выпалила она, когда мы остались вдвоём."
     me "А я-то тут при чём?{w} Я, что ли, памятник взрывал?"
     with None
-    show dv guilty pioneer at center 
+    show dv guilty pioneer at center
     with dspr
     "Алиса фыркнула и отвернулась."
     dv "Никуда я с тобой не пойду!"
@@ -14500,13 +14075,13 @@ label day4_dv:
     window show
     "На опушке леса меня догнала Алиса."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     dv "Стой!{w} Я пойду с тобой!"
     me "С чего это вдруг вы соизволили изменить своё решение?"
     "Съязвил я."
     with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "Меньше знаешь – лучше спишь!"
     "Огрызнулась она и протянула мне фонарик."
@@ -14532,7 +14107,7 @@ label day4_dv:
     "Однако с наступлением темноты деревья словно вырастали, кустарники внезапно занимали собой всё свободное пространство, а такие широкие в светлое время суток тропинки превращались в еле заметные волны в тёмно-зелёном лесном океане."
     "Общую картину довершали птицы, насекомые, звери, которые устраивали концерт, каждый со своим инструментом, создавая вместе удивительную, но в то же время пугающую симфонию ноктюрна."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     "Шли мы медленно, Алиса – немного впереди, а я – позади, стараясь сильно не отставать."
     "Она вела себя даже чересчур самоуверенно.{w} Совсем не в пример мне – каждый шорох кустов рядом и крик совы над головой заставлял меня ёжиться и боязливо оглядываться по сторонам."
@@ -14585,13 +14160,13 @@ label day4_dv:
     "Ноги сами понесли меня в ту сторону, куда она ушла."
     scene black
     show bg ext_path2_night:
-        linear 0.2 pos (0,50) 
-        linear 0.2 pos (0,0) 
+        linear 0.2 pos (0,50)
+        linear 0.2 pos (0,0)
     play sound sfx_jump_over_hole
     "Через пару десятков метров я чуть не провалился в яму, успев в последний момент перепрыгнуть её."
     window hide
     play sound sfx_alisa_falls
-    pause(1)
+    pause 1
     window show
     "А вот Алиса, похоже, не успела…"
     "Я только собирался посветить фонарём в темноту, как понял, что она его забрала с собой.{w} Что же, этого стоило ожидать."
@@ -14621,12 +14196,12 @@ label day4_dv:
     window hide
     scene black
     show bg ext_path2_night:
-        linear 0.1 pos (0,25) 
-        linear 0.2 pos (0,-25) 
-        linear 0.1 pos (0,0) 
+        linear 0.1 pos (0,25)
+        linear 0.2 pos (0,-25)
+        linear 0.1 pos (0,0)
         repeat
     play sound sfx_simon_fall_1
-    pause(1)
+    pause 1
     window show
     "Однако не успел я сделать и пары шагов, как почва у меня под ногами поехала, и я начал стремительно проваливаться вниз."
     stop music fadeout 3
@@ -14634,13 +14209,13 @@ label day4_dv:
     "Рука ухватилась за тонкий корень, который несколько затормозил падение..."
     window hide
     play sound sfx_simon_fall_2
-    pause(1)
+    pause 1
     window show
     "... однако под моим весом надломился и полетел вниз вместе со мной."
     window hide
     scene black
     with dissolve
-    pause (1)
+    pause 1
     window show
     "…"
     dv "Ты живой?"
@@ -14651,11 +14226,11 @@ label day4_dv:
     with dissolve
     play ambience ambience_catacombs fadein 3
     play music music_list["sunny_day"] fadein 5
-    pause (1)
+    pause 1
     window show
     "Я с трудом открыл один глаз, в который тут же ударил яркий свет фонаря."
     with None
-    show dv scared pioneer at center 
+    show dv scared pioneer at center
     with dissolve
     me "Убери…"
     "Алиса сидела рядом и взволнованно смотрела на меня."
@@ -14667,27 +14242,27 @@ label day4_dv:
     "Мы действительно находились в длинном коридоре, вдоль стен которого были протянуты какие-то провода, а под потолком висели лампы, закованные в металлические держатели."
     "В другой ситуации я бы сказал, что это подсобный туннель метро, но вряд ли пионерлагерь «Совёнок» уже достиг такого уровня развития…"
     with None
-    show dv sad pioneer at center 
+    show dv sad pioneer at center
     with dspr
     dv "Где мы?"
     me "Не знаю, но надо попытаться выбраться!"
     "Залезть по стене на первый взгляд не представлялось возможным, да и вообще было не очень понятно, как мы, упав с такой высоты, остались живы."
     me "Ну что же, придётся искать выход в другом месте."
     with None
-    show dv scared pioneer at center 
+    show dv scared pioneer at center
     with dspr
     dv "Это как?"
     "Испуганно спросила Алиса."
     "Сейчас на её лице не осталось и следа былой надменности."
     me "Ну, как-как… Должен же здесь быть выход?"
     with None
-    show dv sad pioneer at center 
+    show dv sad pioneer at center
     with dspr
     dv "Наверное, но куда идти?"
     th "Хороший вопрос."
     "Направиться в сторону лагеря (хотя бы туда, где он был по моим прикидкам) казалось разумным, но я не замечал там ничего похожего на выходы из подземелья.{w} Значит, возможно, стоит пойти в противоположную сторону."
     with None
-    show dv shocked pioneer at center 
+    show dv shocked pioneer at center
     with dspr
     me "Дай сюда!"
     "Я грубо вырвал у Алисы из рук фонарь и направил его свет в темноту."
@@ -14724,12 +14299,12 @@ label day4_dv:
     me "Значит, мы в бомбоубежище…"
     "Пробубнил я себе под нос."
     with None
-    show dv scared pioneer at center 
+    show dv scared pioneer at center
     with dissolve
     dv "Да, что-то такое слышала…"
     me "Слышала? А почему раньше не сказала?"
     with None
-    show dv sad pioneer at center 
+    show dv sad pioneer at center
     with dspr
     dv "Откуда я знала, что это важно?"
     me "Ну, пожалуй, да… Ладно."
@@ -14752,21 +14327,21 @@ label day4_dv:
     "Мы оказались в комнате, назначение которой можно было установить безошибочно – бомбоубежище."
     "Шкафы с противогазами и сухпайками, различная аппаратура, койки и трубы вентиляции – всё здесь было сделано для того, чтобы пережить ядерную войну.{w} Ну, или по крайней мере выжить после первого удара."
     with None
-    show dv scared pioneer at center 
+    show dv scared pioneer at center
     with dissolve
     "Алиса ещё крепче сжала мою руку."
     me "Что?"
     dv "Что-что…"
     "Шёпотом лепетала она."
     with None
-    show dv sad pioneer at center 
+    show dv sad pioneer at center
     with dspr
     dv "Страшно…"
     me "А чего тут бояться?"
     th "Действительно, чего?"
     th "Мы провалились в заброшенное бомбоубежище, бродим тут впотьмах, пытаемся найти выход…{w} Чего бояться?"
     with None
-    show dv sad pioneer close at center  
+    show dv sad pioneer close at center
     with dissolve
     "От этих мыслей меня передёрнуло, и я инстинктивно подошёл ближе к Алисе."
     "Она ничего не сказала, лишь слегка покраснела и отвернулась."
@@ -14780,14 +14355,14 @@ label day4_dv:
     with dissolve
     "Однако, сколько я ни пытался, она не поддавалась."
     with None
-    show dv sad pioneer at center 
+    show dv sad pioneer at center
     with dissolve
     dv "Помочь?"
     me "Нет, тут намертво заклинило…"
     "Я окинул комнату взглядом в поисках чего-нибудь, что могло сойти за рычаг, и в дальнем углу заметил фомку."
     me "Отлично!"
     with None
-    show dv surprise pioneer at center 
+    show dv surprise pioneer at center
     with dspr
     "Алиса непонимающе посмотрела на меня."
     me "Сейчас!"
@@ -14796,17 +14371,17 @@ label day4_dv:
     "Я без сил опустился на аккуратно застеленную кровать и вздохнул."
     me "Придётся идти назад."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Но мы же оттуда пришли!"
     "Похоже, к Алисе немного вернулось самообладание, а с ним и привычное нахальство."
     me "Ты можешь остаться здесь – вода, сухпайки, может, радио ещё работает…"
     with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     "Она злобно посмотрела на меня, но ничего не ответила."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     "Всё тело ужасно болело."
     "Я начал это понимать только в состоянии покоя, расслабившись."
@@ -14815,13 +14390,13 @@ label day4_dv:
     "Спросил я Алису то ли из вежливости, то ли действительно беспокоясь за неё."
     "Она ответила не сразу."
     with None
-    show dv sad pioneer at center 
+    show dv sad pioneer at center
     with dspr
     dv "Ну, как тут в такой ситуации может быть нормально."
     me "Я в том плане, что…"
     "Я показал на свой порез на ноге."
     with None
-    show dv shocked pioneer at center 
+    show dv shocked pioneer at center
     with dspr
     dv "Ой!"
     "Вскрикнула Алиса."
@@ -14831,7 +14406,7 @@ label day4_dv:
     "Алиса выглядела и правда обеспокоенной, и я решил с ней не спорить."
     me "Ладно, но мы сейчас далековато от медпункта."
     with None
-    show dv smile pioneer at center 
+    show dv smile pioneer at center
     with dspr
     dv "Ничего."
     with None
@@ -14839,21 +14414,21 @@ label day4_dv:
     with dissolve
     "Улыбнулась она и принялась рыться в шкафах."
     with None
-    show dv smile pioneer at center 
+    show dv smile pioneer at center
     with dissolve
     "Действительно, стоило ожидать, что в бомбоубежище найдутся какие-то средства первой помощи, и вскоре Алиса торжествующе продемонстрировала мне аптечку."
     dv "Не дёргайся."
     me "Постараюсь."
     "Ватный тампон, смоченный йодом, прошёл по ране, словно раскалённый нож, заставив меня крепко стиснуть зубы и зашипеть от боли."
     with None
-    show dv guilty pioneer at center 
+    show dv guilty pioneer at center
     with dspr
     dv "Ой, да ладно, как будто так больно."
     me "Больно! Сама попробуй!"
     "С остальными ранами было попроще, и вскоре я стал напоминать леопарда – весь усеянный коричневыми пятнами."
     me "Спасибо…"
     with None
-    show dv shy pioneer at center 
+    show dv shy pioneer at center
     with dspr
     dv "Не подумай ничего, просто надо было обработать раны!"
     "Алиса фыркнула и отвернулась."
@@ -14861,7 +14436,7 @@ label day4_dv:
     "Устало сказал я и рывком встал с кровати."
     "Непродолжительный отдых явно пошёл мне на пользу."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     me "Ну что, пойдём?"
     "…"
@@ -14878,7 +14453,7 @@ label day4_dv:
     scene bg int_catacombs_entrance
     with dissolve
     with None
-    show dv sad pioneer at center 
+    show dv sad pioneer at center
     with dissolve
     window show
     dv "Мы заблудились?"
@@ -14902,21 +14477,21 @@ label day4_dv:
     window show
     "Через пару минут я заметил дыру в полу.{w} Достаточно большую, похоже образовавшуюся от взрыва, в которую вполне можно было пролезть."
     with None
-    show dv scared pioneer at center 
+    show dv scared pioneer at center
     with dissolve
     dv "А что там?"
     me "Не знаю…"
     "Я наклонился и посветил фонарём вниз – сырая земля, какие-то рельсы."
     me "Наверное, шахта."
     with None
-    show dv surprise pioneer at center 
+    show dv surprise pioneer at center
     with dspr
     "Алиса вопросительно посмотрела на меня."
     "Конечно, дыру можно было легко обойти, но чутьё мне подсказывало, что дальше ничего хорошего нас не ждёт – тупик или очередная закрытая дверь."
     "Хотя, с другой стороны, рассчитывать на то, что выход может скрываться в шахте, было тоже глупо."
     me "Можно проверить. В крайнем случае вернёмся – глубина позволяет выбраться потом."
     with None
-    show dv sad pioneer at center 
+    show dv sad pioneer at center
     with dspr
     "На её лице появилось страдальческое выражение, затем Алиса отвернулась от света и тихо сказала:"
     stop ambience fadeout 3
@@ -14932,7 +14507,7 @@ label day4_dv:
     "Не уверен, что здесь было страшнее, чем в катакомбах бомбоубежища – скорее там, «наверху», царила постапокалиптика, а здесь, «внизу» – оккультные истории Средневековья."
     "В любом случае мне ещё сильнее захотелось убраться отсюда, и как можно быстрее."
     with None
-    show dv sad pioneer at center 
+    show dv sad pioneer at center
     with dissolve
     "Алиса не сказала ни слова после того, как мы спустились в шахту – лишь шла рядом, крепко сжимая мою руку, – и я начал волноваться."
     me "Всё в порядке?"
@@ -14955,7 +14530,7 @@ label day4_dv:
     window show
     me "Так…"
     with None
-    show dv sad pioneer at center 
+    show dv sad pioneer at center
     with dissolve
     dv "И куда?"
     "Похоже, Алиса окончательно отключилась от внешнего мира, и её уже не волновало то, что будет с нами, то, как выбраться отсюда."
@@ -14977,7 +14552,7 @@ label dv_mine_coalface:
         window hide
         jump mine_crossroad
     with None
-    show dv sad pioneer at center 
+    show dv sad pioneer at center
     with dissolve
     window show
     "Наконец мы вышли из туннеля в довольно большую комнату с высоким потолком."
@@ -15007,7 +14582,7 @@ label dv_mine_exit:
     "За очередным поворотом в свете фонаря я разглядел деревянную дверь."
     me "Ну вот, уже что-то!"
     with None
-    show dv sad pioneer at center 
+    show dv sad pioneer at center
     with dissolve
     dv "Думаешь?"
     "Алиса немного оживилась."
@@ -15016,7 +14591,7 @@ label dv_mine_exit:
     "В любом случае выбора не было."
     window hide
     play sound sfx_open_door_mines
-    pause(1)
+    pause 1
     window show
     "Я сильно дёрнул за ручку…"
     window hide
@@ -15048,7 +14623,7 @@ label dv_mine_exit:
     "Она остановилась на мгновение, но, словно не слыша меня, направилась дальше."
     window hide
     play sound sfx_face_slap
-    pause(1)
+    pause 1
     window show
     "Наконец, приблизившись к потерянному пионеру вплотную, Алиса залепила ему хлёсткую пощёчину."
     window hide
@@ -15078,7 +14653,7 @@ label dv_mine_exit:
     window hide
     play sound sfx_break_flashlight
     with vpunch
-    pause(1)
+    pause 1
     window show
     scene black
     with dissolve
@@ -15116,12 +14691,12 @@ label dv_mine_exit:
     show dv sad pioneer at center
     with dissolve
     play sound sfx_alisa_lighter
-    pause(1)
+    pause 1
     window show
     "Тихо сказала Алиса, и комната осветилась тусклым светом зажигалки."
     me "Откуда?"
     with None
-    show dv smile pioneer at center 
+    show dv smile pioneer at center
     with dspr
     dv "Памятник…"
     "Она как-то беззлобно улыбнулась и протянула зажигалку мне."
@@ -15133,12 +14708,12 @@ label dv_mine_exit:
     "На полу нашлись какие-то старые тряпки, палка, а в одной из бутылок – немного жидкости, по запаху напоминающей технический спирт."
     window hide
     play sound sfx_ignite_torch
-    pause(1)
+    pause 1
     play sound_loop sfx_torch fadein 1
     window show
     "Как бы там ни было, через минуту я уже держал в руках худо-бедно горящее нечто."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     me "Не знаю, сколько он продержится, поэтому придётся идти быстро."
     dv "А куда?"
@@ -15162,20 +14737,20 @@ label dv_mine_exit:
     window show
     "Выбрались с трудом, приходилось карабкаться практически на ощупь."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     dv "И куда дальше?"
     "Отдышавшись, спросила Алиса."
     me "В смысле? Ну, в ту комнату с кроватями, шкафами."
     with None
-    show dv surprise pioneer at center 
+    show dv surprise pioneer at center
     with dspr
     dv "А в какую она сторону?"
     "Я уже было открыл рот, но потом понял, что не имею ни малейшего представления."
     "Дыра со всех сторон казалась одинаковой, как и стены, пол и потолок, а значит, не было никакой возможности точно установить направление."
     me "Ну…"
     with None
-    show dv sad pioneer at center 
+    show dv sad pioneer at center
     with dspr
     dv "Не знаешь?"
     "Грустно спросила Алиса и села на землю."
@@ -15214,7 +14789,7 @@ label dv_mine_exit:
     show dv scared pioneer at center
     with dissolve
     play sound sfx_ignite_torch
-    pause(1)
+    pause 1
     play sound_loop sfx_torch fadein 1
     window show
     "Я рывком поднял Алису с земли и трясущимися руками зажёг факел."
@@ -15244,7 +14819,7 @@ label dv_mine_exit:
     "Я бешено шарил по ней глазами, стараясь в углах разглядеть прячущихся врагов, Шурика, нечистую силу, но всё было таким же, как и в первый раз, когда мы здесь были."
     "Разве что дверь, вторая дверь…{w} Она была открыта!"
     with None
-    show dv scared pioneer at center 
+    show dv scared pioneer at center
     with dissolve
     me "Значит, здесь кто-то проходил!"
     "Торжествующе сказал я."
@@ -15264,7 +14839,7 @@ label dv_mine_exit:
     play sound sfx_open_metal_hatch
     "Открыть его не составило особого труда."
     with None
-    show dv scared pioneer at center 
+    show dv scared pioneer at center
     with dissolve
     dv "А что там?"
     me "Наверняка лучше, чем здесь!"
@@ -15285,14 +14860,14 @@ label dv_mine_exit:
     window show
     "Выход из подземелья находился в каком-то старом здании, по виду напоминавшем то ли детский сад, то ли сельскую школу."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     dv "Это, наверное, старый лагерь…"
     "Алиса села на качели и вытерла тыльной стороной ладони пот с лица."
     me "Наверное… Значит, мы его всё-таки нашли."
     "Я невольно улыбнулся."
     with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "Не вижу ничего смешного!"
     "Она нахмурилась и недовольно надулась.{w} Короче говоря, стала такой же, как обычно."
@@ -15304,13 +14879,13 @@ label dv_mine_exit:
     "Я был зол."
     th "Я действительно обиделся на Алису – если бы не я, она бы до сих пор там и сидела, в шахте этой проклятой!"
     with None
-    show dv scared pioneer at center 
+    show dv scared pioneer at center
     with dspr
     dv "Ты куда?"
     "Уже менее уверенно спросила она, когда я развернулся и медленно направился в сторону лагеря."
     me "Назад."
     with None
-    show dv shocked pioneer at center 
+    show dv shocked pioneer at center
     with dspr
     dv "Эй!"
     "Алиса тут же подскочила и зашагала рядом."
@@ -15325,7 +14900,7 @@ label dv_mine_exit:
     with dissolve
     play ambience ambience_camp_center_night fadein 3
     with None
-    show dv shy pioneer at center 
+    show dv shy pioneer at center
     with dissolve
     window show
     "На площади я остановился и повернулся к Алисе."
@@ -15356,7 +14931,7 @@ label dv_mine_exit:
     "Конечно, сначала идёт импульс в мозгу, по нейронным связям проходит ток, отдавая команду телу."
     "Но, наверное, не всегда этот процесс бывает до конца осознанным.{w} Именно поэтому моя рука на автомате поднялась и быстро влетела Шурику под дых, а только потом я осознал, что сделал."
     with None
-    show sh scared pioneer at cright 
+    show sh scared pioneer at cright
     with dspr
     "Он закашлялся, пытаясь поймать дыхание, и скрючился на скамейке."
     me "Что ты там учудил?!"
@@ -15369,7 +14944,7 @@ label dv_mine_exit:
     sh "И почему я тут?"
     sh "И почему вы тут?"
     with None
-    show dv rage pioneer at cleft 
+    show dv rage pioneer at cleft
     with dspr
     dv "Ты что, прикалываешься?"
     "В разговор вмешалась Алиса."
@@ -15379,7 +14954,7 @@ label dv_mine_exit:
     sh "Нет…"
     me "А что последнее помнишь?"
     with None
-    show sh upset pioneer at cright 
+    show sh upset pioneer at cright
     with dspr
     "Шурик напрягся."
     sh "Ну, я утром пошёл в старый лагерь. Там можно найти детали для робота и…"
@@ -15388,7 +14963,7 @@ label dv_mine_exit:
     "Я тяжело вздохнул и отвернулся."
     me "Ладно, спокойной ночи…"
     with None
-    show dv shocked pioneer at cleft 
+    show dv shocked pioneer at cleft
     with dspr
     dv "Эй, ты куда?"
     hide dv
@@ -15414,7 +14989,7 @@ label dv_mine_exit:
     window show
     "Спросил я, не оборачиваясь в сторону дорожки – шаги Алисы в ночи были слышны за много метров."
     with None
-    show dv shy pioneer at center 
+    show dv shy pioneer at center
     with dissolve
     dv "Да я…"
     me "Что Шурик сказал?"
@@ -15425,7 +15000,7 @@ label dv_mine_exit:
     me "Так зачем пришла?"
     "Впрочем, наверное, я и так знал ответ – ведь почему-то спать не лёг, а ждал её здесь."
     with None
-    show dv shy pioneer close at center  
+    show dv shy pioneer close at center
     with dissolve
     dv "Ну я…"
     "Алиса села рядом."
@@ -15434,18 +15009,18 @@ label dv_mine_exit:
     "Спокойно сказал я и откинулся назад."
     dv "Ну ладно тогда…"
     with None
-    show dv shy pioneer at center 
+    show dv shy pioneer at center
     with dissolve
     "Она встала и собралась уходить."
     me "Если ты думаешь, что я злюсь, то не стоит. Всё в порядке."
     with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "Я и не думала!"
     "Завелась Алиса."
     me "Ну тогда хорошо."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Ладно…"
     me "Угу…"
@@ -15453,14 +15028,14 @@ label dv_mine_exit:
     me "Да иди уже!"
     "Беззлобно сказал я и махнул рукой."
     with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "Пойду, когда посчитаю нужным!"
     me "То есть сейчас ты нужным это не считаешь?"
     dv "Считаю!"
     me "Ну? И что тебя останавливает?"
     with None
-    show dv rage pioneer at center 
+    show dv rage pioneer at center
     with dspr
     dv "Дебил!"
     with None
@@ -15478,7 +15053,7 @@ label dv_mine_exit:
     window show
     "Однако всё оказалось не так просто."
     with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dissolve
     "Вожатая стояла посреди комнаты и явно готовилась к долгой беседе."
     "Или скорее – к разбору полётов."
@@ -15488,12 +15063,12 @@ label dv_mine_exit:
     "Показалось, что сейчас её куда больше интересует то, почему я припозднился, а не судьба потерявшегося пионера."
     me "Да.{w} Кстати, а почему вы тут в темноте стоите?"
     with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dspr
     mt "Что?"
     me "В темноте, говорю, почему?"
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "Потому что пора спать."
     "Я был с ней согласен как никогда, хоть и немного удивился такой резкой смене настроения."
@@ -15517,27 +15092,27 @@ label dv_mine_exit:
     stop music fadeout 5
     scene black
     with fade3
-    pause(3)
+    pause 3
     jump day5_main1
 label day4_us:
     hide sl
     with dissolve
     with None
-    show us surp1 pioneer at right 
+    show us surp1 pioneer at right
     with dissolve
     us "И меня запишите!"
     "Я посмотрел на Ульяну с изумлением."
     "Её жажда приключений, похоже, не имела границ."
     with None
-    show us laugh2 pioneer at right 
+    show us laugh2 pioneer at right
     with dspr
     us "А что, ночь, привидения, старый лагерь – весело ведь!"
     th "С одной стороны, такая компания всегда сулит собой неприятности, но с другой – вдвоём оно хотя бы безопаснее…"
     with None
-    show us surp1 pioneer at right 
+    show us surp1 pioneer at right
     with dspr
     with None
-    show mt smile pioneer at left 
+    show mt smile pioneer at left
     with dspr
     mt "Вот и отлично!"
     hide mt
@@ -15548,7 +15123,7 @@ label day4_us:
     play ambience ambience_camp_center_evening fadein 3
     me "Ты считаешь, что это просто увеселительная прогулка?"
     show us surp1 pioneer at right:
-        linear 1.0 xalign 0.5 
+        linear 1.0 xalign 0.5
     us "Ну да, а что такого?"
     "Ульянка хихикнула."
     me "Да нет, ничего… В самом деле…"
@@ -15577,7 +15152,7 @@ label day4_us:
     play ambience ambience_forest_night fadein 3
     play music music_list["door_to_nightmare"] fadein 3
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dissolve
     window show
     "Ульянка шагала вприпрыжку, словно всё происходящее для неё – лишь развлечение."
@@ -15587,51 +15162,51 @@ label day4_us:
     th "И как она ещё ни за одну кочку не зацепилась?"
     me "Слушай, ты бы поаккуратнее…"
     with None
-    show us smile pioneer at center 
+    show us smile pioneer at center
     with dissolve
     us "А то что?"
     "Она так резко обернулась, что я даже вздрогнул."
     me "Ничего. Убьёшься где-нибудь."
     with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "Значит, переживаешь за меня?"
     me "Конечно. Ну, в смысле это нормально в данной ситуации."
     with None
-    show us shy2 pioneer at center 
+    show us shy2 pioneer at center
     with dspr
     "Ульянка надулась."
     me "Слушай…"
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     "Я решил продолжить разговор – так спокойнее да и не так страшно."
     me "А что за старый лагерь вообще? Ты на площади говорила…"
     with None
-    show us smile pioneer at center 
+    show us smile pioneer at center
     with dspr
     us "Да, очень страшное место! Говорят, все пионеры там умерли и стали привидениями, которые охраняют своё последнее земное пристанище."
     me "Умерли от чего?"
     "В её страшные истории вообще верилось с трудом."
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "Ну откуда я знаю? Я даже тогда не родилась ещё."
     me "Но рассказываешь уверенно."
     with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "Информация из надёжного источника!"
     me "Это откуда же? От Алисы?"
     us "Не скажу!"
     me "Ну ладно, и что дальше? Умерли, привидениями стали и?"
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     us "Ну и всё…"
     me "Как это «всё»?"
     with None
-    show us smile pioneer at center 
+    show us smile pioneer at center
     with dspr
     us "Теперь по старому лагерю бродят души умерших пионеров и забирают с собой, в мир мёртвых, всех, кто осмелится переступить порог!"
     me "Ой, ладно, шагай давай!"
@@ -15661,7 +15236,7 @@ label day4_us:
     "Я поёжился и крепче сжал в руке фонарь."
     me "Жуткое место, ей-богу…"
     with None
-    show us smile pioneer at center 
+    show us smile pioneer at center
     with dissolve
     us "Ой, да ладно тебе!"
     "Она весело похлопала меня по спине, отчего стало ещё страшнее."
@@ -15678,14 +15253,14 @@ label day4_us:
     "Однако мне начало чудиться, что из леса – оттуда, где царил вечный мрак, над которым не властна даже луна – на поляну наступали неведомые чудовища."
     th "Хотелось бы надеяться, что они, как вампиры, боятся света…{w} Хотя, возможно, они, наоборот, как оборотни – в полнолуние превращаются в огромных волков…"
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dissolve
     us "Чего встал?"
     me "Думаю…"
     us "О чём?"
     me "Ну, что Шурик мог забыть в таком месте?"
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "А мне откуда знать? Вот найдём его и спросим."
     me "Да уж, логично…"
@@ -15696,18 +15271,18 @@ label day4_us:
     "Сейчас она шла куда аккуратнее – смотрела себе под ноги, иногда останавливалась, даже пару раз обернулась."
     "Понятное дело, ведь в некоторых местах трава доходила ей чуть ли не до груди, а кто знает, что может валяться на земле – железки, камни, битое стекло…"
     with None
-    show us smile pioneer at center 
+    show us smile pioneer at center
     with dissolve
     "Мы всё же добрались до двери, Ульяна остановилась и сказала:"
     us "Ну! Вот и пришли!"
     me "Ты как будто гонку выиграла… Только это не игра."
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "Какой ты… какой ты…"
     me "Какой?"
     with None
-    show us upset pioneer at center 
+    show us upset pioneer at center
     with dspr
     us "Скучный!"
     stop ambience fadeout 2
@@ -15721,13 +15296,13 @@ label day4_us:
     "Ведь наверняка тут раньше через край плескалась простая детская радость, бегали пионеры, играя в игры, о которых я давно забыл, строгая вожатая, вроде Ольги Дмитриевны, следила за порядком, одна смена заканчивалась, начиналась новая."
     "А теперь всё – вот так, стоит разрушенное, гниющее, забытое."
     with None
-    show us surp2 pioneer at center 
+    show us surp2 pioneer at center
     with dissolve
     us "Смотри!"
     "Ульянка протянула мне старую увечную куклу, развалившуюся от сырости – ещё один осколок прошлого."
     me "Ну и?"
     with None
-    show us sad pioneer at center 
+    show us sad pioneer at center
     with dspr
     us "Ничего…"
     "Она вышла из луча света, но я успел заметить грустное выражение на её лице."
@@ -15740,7 +15315,7 @@ label day4_us:
     "Впрочем, что я ожидал найти? Его труп?"
     me "Похоже, его тут нет…"
     with None
-    show us surp2 pioneer at center 
+    show us surp2 pioneer at center
     with dspr
     us "Ну, а второй этаж?"
     me "Шурик!"
@@ -15748,7 +15323,7 @@ label day4_us:
     us "Шурик, выходи!"
     me "Вот видишь…"
     with None
-    show us smile pioneer at center 
+    show us smile pioneer at center
     with dspr
     us "Всё равно надо проверить."
     me "Ладно-ладно…"
@@ -15763,7 +15338,7 @@ label day4_us:
     "Я сел на лестницу и обречённо опустил голову на руки."
     me "И куда дальше? Мы же весь лес не сможем обойти. Да и спать уже рубит…"
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dissolve
     us "Что ты всё ноешь?"
     "Возмутилась Ульянка."
@@ -15776,7 +15351,7 @@ label day4_us:
     "Ульянка сейчас напоминала строгую учительницу, а я – нерадивого школьника."
     th "Хотя всё же должно быть наоборот?"
     with None
-    show us surp3 pioneer at center 
+    show us surp3 pioneer at center
     with dspr
     us "Смотри!"
     "Я посветил в направлении, указанном ей, и заметил в полу люк, вокруг которого, словно бруствер, валялся мусор.{w} Похоже, его недавно открывали."
@@ -15787,7 +15362,7 @@ label day4_us:
     "Ульянка подскочила к люку и попыталась его поднять, вся надувшись от натуги."
     me "Ну и зачем бы он туда полез? Может, это… Не знаю, жители деревни какой-нибудь. Тут же есть рядом деревни?"
     with None
-    show us surp2 pioneer at center 
+    show us surp2 pioneer at center
     with dissolve
     us "Не знаю…"
     "Тяжело дыша, ответила Ульянка.{w} Открыть люк у неё так и не получилось."
@@ -15803,13 +15378,13 @@ label day4_us:
     "Я напрягся и с трудом откинул-таки крышку люка."
     window hide
     play sound sfx_hatch_drop
-    pause(1)
+    pause 1
     window show
     "Она с грохотом ударилась об рассохшийся деревянный пол, и Ульянка тут же свесилась в образовавшийся проём, освещая фонарём подвал или то, что скрывалось там внизу."
     us "Какой-то туннель!"
     me "Туннель?"
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dissolve
     "Я вынул её за шкирку из люка, чтобы посмотреть самому."
     us "Эй!"
@@ -15818,7 +15393,7 @@ label day4_us:
     "На первый взгляд никакой опасности – ни воды по пояс, ни крыс, ни зомби…"
     me "Ладно, давай спустимся посмотрим. Только аккуратно!"
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Так точно!"
     "Ульянка аж вся засияла."
@@ -15851,17 +15426,17 @@ label day4_us:
     me "Бомбоубежище?"
     "Тут же догадался я."
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dissolve
     us "Наверное."
     me "Ты что-нибудь слышала об этом?"
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     us "Не знаю, какая сейчас разница?"
     me "Разница?.. А вдруг там радиация!"
     with None
-    show us laugh2 pioneer at center 
+    show us laugh2 pioneer at center
     with dspr
     us "Какая радиация? Откуда?"
     me "Да, пожалуй…"
@@ -15887,7 +15462,7 @@ label day4_us:
     "Ульянка тут же принялась рыться в шкафах, извлекая оттуда противогазы, какие-то пакеты, различные инструменты."
     me "Тебе больше заняться нечем?"
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dissolve
     us "Нечем!"
     "Она недовольно посмотрела на меня."
@@ -15895,13 +15470,13 @@ label day4_us:
     "Прямо напротив меня в стене была точно такая же дверь, как та, через которую мы попали сюда."
     th "Может быть, Шурик (если он вообще тут был) пошёл туда? Хотя зачем?"
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     us "Что загрустил?"
     me "Устал…"
     "Честно признался я."
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Ну так отдохни!"
     "Ульянка подскочила ко мне и сильно толкнула руками в грудь."
@@ -15912,25 +15487,25 @@ label day4_us:
     "Я схватил её за руки и резко рванул на себя."
     play sound sfx_boat_impact
     with None
-    show us surp3 pioneer close at center  
+    show us surp3 pioneer close at center
     with dissolve
     "Она потеряла равновесие и плюхнулась рядом."
     us "Больно!"
     me "Сама начала!"
     with None
-    show us smile pioneer close at center 
+    show us smile pioneer close at center
     with dspr
     "Ульянка показала язык и села."
     me "Ладно, что дальше?"
     us "Ну вот же, ещё одна дверь."
     me "Ну да, конечно… Шурик предчувствовал ядерную войну и решил заранее спрятаться, так что ли?"
     with None
-    show us laugh pioneer close at center 
+    show us laugh pioneer close at center
     with dspr
     us "Ну а вдруг!"
     me "Что вдруг? Это бомбоубежище слишком близко к поверхности, оно разве что от радиации защитит, но если бомбы упадут рядом…"
     with None
-    show us grin pioneer close at center 
+    show us grin pioneer close at center
     with dspr
     us "Ты так серьёзно к этому подходишь."
     "Ухмыльнулась она."
@@ -15947,7 +15522,7 @@ label day4_us:
     "Засовы скрипели, но колесо не сдвинулось ни на сантиметр."
     me "Заело, похоже…"
     with None
-    show us surp2 pioneer at center 
+    show us surp2 pioneer at center
     with dissolve
     us "Ну-ка дай-ка!"
     with None
@@ -15957,7 +15532,7 @@ label day4_us:
     "Ульянка подскочила к двери, отталкивая меня, с непонятно откуда взявшейся фомкой в руке и налегла всем своим небольшим весом."
     window hide
     play sound sfx_fall_metal_door
-    pause(1)
+    pause 1
     $ persistent.sprite_time = "sunset"
     scene bg int_catacombs_living_nodoor
     with vpunch
@@ -15981,14 +15556,14 @@ label day4_us:
     "Меня это раздражало всё сильнее и сильнее."
     me "Тебе, похоже, весело…"
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dissolve
     us "Конечно весело! А тебе нет?"
     me "Нет. И не вижу никаких причин веселиться. Побыстрее бы найти этого Шурика и выбраться отсюда!"
     us "Может, его вообще тут нет."
     me "Ну и какого чёрта тогда…"
     with None
-    show us surp2 pioneer at center 
+    show us surp2 pioneer at center
     with dspr
     us "Смотри!"
     "Ульянка выхватила у меня фонарь."
@@ -15999,7 +15574,7 @@ label day4_us:
     window show
     "В паре метров от нас зияла довольно большая дыра в полу."
     with None
-    show us surp2 pioneer at center 
+    show us surp2 pioneer at center
     with dissolve
     us "Может, он там!"
     "Она подошла к краю и наклонилась."
@@ -16024,13 +15599,13 @@ label day4_us:
     "Не знаю, что здесь добывали, но забросили эту шахту давно – доски, укрепляющие потолок, отсырели, рельсы заржавели, кое-где земля проломила стены."
     "Да и вообще весь туннель, уходящий в неизвестность, доверия не вызывал – казалось, что он вот-вот готов обвалиться, похоронив нас."
     with None
-    show us smile pioneer at center 
+    show us smile pioneer at center
     with dissolve
     us "Пойдём!"
     "Ульянка отчаянно тянула меня за руку."
     me "Куда? Зачем? Ну что Шурику тут делать?"
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     us "А вдруг!"
     "Она сделала серьёзное лицо."
@@ -16044,23 +15619,23 @@ label day4_us:
     "…"
     "Вскоре мы оказались на развилке."
     with None
-    show us smile pioneer at center 
+    show us smile pioneer at center
     with dissolve
     us "Давай направо!"
     me "Стой!"
     "Я схватил её за руку."
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "Ну что ещё?"
     me "А если там тупик? Да и ладно бы тупик – если там лабиринт целый?"
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     us "Ну…"
     "Она задумалась."
     with None
-    show us smile pioneer at center 
+    show us smile pioneer at center
     with dspr
     us "Давай тогда отметим начало маршрута!"
     "Ульянка схватила с земли довольно большой камень и нацарапала на одной из балок, держащих потолок, крестик."
@@ -16090,16 +15665,16 @@ label us_mine_coalface:
     "Теперь-то ясно, что Шурик здесь."
     me "Шурик! Шурик!"
     with None
-    show us surp2 pioneer at center 
+    show us surp2 pioneer at center
     with dissolve
     us "Шурик!"
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     "Ответом нам стало лишь эхо."
     me "Надеюсь, с ним всё в порядке…"
     with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dspr
     us "Ничего! Найдём его!"
     th "Но куда он мог отсюда уйти?"
@@ -16116,8 +15691,8 @@ label us_mine_exit:
     window show
     "Наконец луч фонаря выхватил из темноты старую деревянную дверь."
     with None
-    show us smile pioneer at center 
-    with dissolve  
+    show us smile pioneer at center
+    with dissolve
     us "Пришли!"
     me "Куда?"
     us "Куда-то. Не знаю."
@@ -16125,9 +15700,9 @@ label us_mine_exit:
     "После всех этих поворотов и развилок я был совершенно не уверен, что мы вообще сможем вернуться обратно, но, с другой стороны, почему бы этой шахте не иметь несколько выходов?"
     window hide
     play sound sfx_open_door_mines
-    pause(1)
+    pause 1
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     window show
     "Ульянка открыла дверь и пристально уставилась в темноту."
@@ -16167,7 +15742,7 @@ label us_mine_exit:
     scene bg int_mine_room
     with dissolve
     with None
-    show sh rage pioneer at center 
+    show sh rage pioneer at center
     with dissolve
     window show
     "Я сделал несколько шагов по направлению к Шурику, но он тут же вскочил и потряс над головой арматурой."
@@ -16194,8 +15769,8 @@ label us_mine_exit:
     scene bg int_mine_room
     with dissolve
     with None
-    show us laugh pioneer at center 
-    with dissolve 
+    show us laugh pioneer at center
+    with dissolve
     window show
     "Когда я открыл глаза, он уже исчез, а рядом стояла Ульянка и посмеивалась, держа арматуру в руках."
     stop music fadeout 3
@@ -16203,7 +15778,7 @@ label us_mine_exit:
     me "Разведчик, да…"
     "Откуда-то издалека, из туннелей, донёсся дьявольский смех Шурика."
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     us "Убежал…"
     me "Да и хрен с ним, пусть хоть сдохнет там!"
@@ -16214,27 +15789,27 @@ label us_mine_exit:
     "А лежать раненым тут равносильно смерти – когда ещё придёт помощь?{w} И найдут ли меня вообще в этих лабиринтах?"
     "И какого чёрта я согласился лезть сюда?{w} Всё ей потакал…"
     with None
-    show us smile pioneer at center 
+    show us smile pioneer at center
     with dspr
     us "У тебя такое выражение лица, как будто ты кого-то сейчас убить собираешься."
     me "Был бы кто под рукой – убил бы."
     with None
-    show us surp3 pioneer at center 
+    show us surp3 pioneer at center
     with dspr
     "Ульянка вздрогнула."
     me "Да нет, не тебя. Тебя бы выпороть неплохо, а убивать, наверное, не за что."
     with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     "Она ухмыльнулась."
     me "Пока…"
     with None
-    show us laugh2 pioneer at center 
+    show us laugh2 pioneer at center
     with dspr
     us "Скажешь тоже!"
     me "Ладно, теперь уж точно пора выбираться отсюда! А завтра пусть они присылают спецназ, МЧС, охотников за привидениями, кого угодно – уже не моя забота."
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     us "Пойдём назад?"
     "Я ещё раз осмотрел комнату и заметил дверь слева от себя."
@@ -16249,7 +15824,7 @@ label us_mine_exit:
     "Я несколько раз дёрнул за колесо, но она лишь глухо заскрипела."
     th "Эх, сейчас бы сюда ту фомку…"
     with None
-    show us sad pioneer at center 
+    show us sad pioneer at center
     with dissolve
     us "Никак?"
     "Грустно спросила Ульянка."
@@ -16260,7 +15835,7 @@ label us_mine_exit:
     "А это значит – надеяться, что я запомнил дорогу через лабиринт."
     me "Пойдём назад."
     with None
-    show us smile pioneer at center 
+    show us smile pioneer at center
     with dspr
     us "Пойдём."
     "Она улыбнулась и взяла меня за руку."
@@ -16309,13 +15884,13 @@ label us_mine_exit:
     with dissolve
     play ambience ambience_old_camp_outside fadein 3
     with None
-    show us smile pioneer at center 
+    show us smile pioneer at center
     with dissolve
     window show
     me "Ну вот, видишь!"
     "Над нами снова светила полная луна, а здание старого лагеря уже не казалось таким зловещим, как раньше.{w} Уж по сравнению с бомбоубежищем и катакомбами – так уж точно."
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Круто было, да?"
     "Похоже, к Ульяне вернулась привычная жизнерадостность."
@@ -16325,7 +15900,7 @@ label us_mine_exit:
     "Я задохнулся на мгновение, не в силах продолжить предложение."
     me "Ты в уме? Зачем его искать – нашли уже! Завтра Ольга Дмитриевна с милицией спустятся и отловят этого пещерного человека. Для опытов."
     with None
-    show us sad pioneer at center 
+    show us sad pioneer at center
     with dspr
     us "Ну!"
     me "Никаких ну! Назад в лагерь! Спать!"
@@ -16343,11 +15918,11 @@ label us_mine_exit:
     "…"
     "Минут через 10 мы уже стояли на площади."
     with None
-    show us smile pioneer at center 
+    show us smile pioneer at center
     with dissolve
     me "Ладно, на сегодня это всё, вы свободны, солдат!"
     with None
-    show us surp2 pioneer at center 
+    show us surp2 pioneer at center
     with dspr
     "Ульянка отдала честь и уже собралась уходить, но неожиданно вскрикнула и бешено замахала руками."
     us "Смотри! Смотри!"
@@ -16358,19 +15933,19 @@ label us_mine_exit:
     with dissolve
     "Растолкать его стало настоящей проблемой – похоже, «пещерный человек» решил отоспаться на год вперёд."
     with None
-    show sh scared pioneer at cright 
+    show sh scared pioneer at cright
     with dissolve
     sh "А? Что? Где я?"
     "Бубнил он сквозь сон."
     me "Не хочешь объясниться?"
     sh "А что такое?"
     with None
-    show us angry pioneer at cleft 
+    show us angry pioneer at cleft
     with dissolve
     us "Мы тебя всю ночь искали, а ты! И Семёна арматурой! И убежал потом!"
     "Ульянка прыгала вокруг лавочки и, кажется, была готова взорваться."
     with None
-    show sh surprise pioneer at cright 
+    show sh surprise pioneer at cright
     with dspr
     sh "Что случилось-то? И почему я тут?"
     "Шурик, похоже, пришёл в себя."
@@ -16379,13 +15954,13 @@ label us_mine_exit:
     "В его глазах читалось такое искреннее удивление, что я засомневался.{w} А вдруг правда не помнит?"
     me "Где ты был последние… часов 12?"
     with None
-    show sh upset pioneer at cright 
+    show sh upset pioneer at cright
     with dspr
     sh "Не знаю…"
     "Шурик сел, и у него на лице появилось выражение крайнего напряжения."
     sh "Я утром пошёл в старый лагерь. Говорят, там осталась старая аппаратура. На детали к роботу. И…"
     with None
-    show sh surprise pioneer at cright 
+    show sh surprise pioneer at cright
     with dspr
     "Он непонимающе уставился на нас."
     me "И?"
@@ -16398,17 +15973,17 @@ label us_mine_exit:
     "Они помнят всё.{w} Кроме того, что делал в бомбоубежище Шурик."
     me "Посттравматический шок."
     with None
-    show us surp2 pioneer at cleft 
+    show us surp2 pioneer at cleft
     with dspr
     us "Постсрама… что?"
     with None
-    show sh normal pioneer at cright 
+    show sh normal pioneer at cright
     with dspr
     sh "Подобные симптомы бывают у людей, переживших сильный стресс. После катастрофы, например."
     "С умным видом заметил он."
     me "Тебе сейчас поспать надо."
     with None
-    show sh surprise pioneer at cright 
+    show sh surprise pioneer at cright
     with dspr
     sh "Да, но…"
     me "Завтра поговорим."
@@ -16417,27 +15992,27 @@ label us_mine_exit:
     with dissolve
     "Шурик ещё некоторое время смотрел на меня, но потом всё же встал и, не прощаясь, медленно направился в сторону своего домика."
     show us surp2 pioneer at cleft:
-        linear 1.0 xalign 0.5 
+        linear 1.0 xalign 0.5
     us "Так что с ним такое всё-таки?"
     me "Видимо, забыл, что случилось в шахте."
     with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "Врёт же небось!"
     me "Ну а зачем ему врать, сама посуди?"
     with None
-    show us shy2 pioneer at center 
+    show us shy2 pioneer at center
     with dspr
     us "Чтобы не отвечать за то, что хотел тебя там… арматурой…"
     "Сказала она неуверенно."
     me "Не похоже. Да и какая уже разница?"
     with None
-    show us surp2 pioneer at center 
+    show us surp2 pioneer at center
     with dspr
     us "Как это какая? Надо выяснить! Виновник должен быть наказан!"
     me "Если бы это правило всегда применялось к тебе, то уже давно бы сидела под домашним арестом. Или что похуже."
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "При чём тут это? Я не кидаюсь на людей со всякими железяками!"
     me "Ну и он не специально."
@@ -16447,7 +16022,7 @@ label us_mine_exit:
     "Тем более что, похоже, он действительно ничего не помнил."
     me "Я иду спать."
     with None
-    show us shy pioneer at center 
+    show us shy pioneer at center
     with dspr
     us "Тогда…"
     "Ульянка вскочила и встала на цыпочки."
@@ -16466,12 +16041,12 @@ label us_mine_exit:
     mt "А я уж думала, ты не вернёшься."
     "От Ольги Дмитриевны можно было ждать любой реакции, но только не такой."
     with None
-    show mt grin pioneer at center 
+    show mt grin pioneer at center
     with dspr
     mt "Раз уж с Ульянкой пошёл."
     me "А вам разве не положено за нас волноваться?"
     with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dspr
     mt "А зачем? С тобой же всё нормально."
     me "Ой, ладно..."
@@ -16489,12 +16064,12 @@ label us_mine_exit:
     scene black
     with fade3
     stop ambience fadeout 3
-    pause (3)
+    pause 3
     jump day5_main1
 label day4_un:
     me "Я же не пойду туда один?!"
     with None
-    show mt normal pioneer at left 
+    show mt normal pioneer at left
     with dspr
     "Ольга Дмитриевна призадумалась."
     mt "Пожалуй, ты прав… Тогда завтра с утра пойдём все вместе."
@@ -16517,7 +16092,7 @@ label day4_un:
     "Всё же здесь, на юге – а может, просто в этом мире, – от первых лучей заходящего солнца до полной темноты – лишь краткий миг, не успеваешь сполна насладиться всем буйством красок заката."
     "Спать ещё рано, но вожатая шла в сторону своего домика уверенно, как будто мысленно таща меня за собой."
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     me "Ольга Дмитриевна, я, пожалуй, прогуляюсь немного."
     mt "Ладно…"
@@ -16535,18 +16110,18 @@ label day4_un:
     "Я сел на лавочку и посмотрел на запад – интересно, {i}здесь{/i} Земля вращается вокруг своей оси именно так, как и должна?{w} Или, может быть, там вообще север? Или юг…"
     "Сложно сказать.{w} По крайней мере тогда мне не приходило в голову ни единого способа проверить фундаментальные законы мироздания."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     un "Привет…"
     "Непонятно откуда рядом со мной появилась Лена."
     me "Привет… Не спится?"
     with None
-    show un surprise pioneer at center 
+    show un surprise pioneer at center
     with dspr
     "Она удивлённо посмотрела на меня."
     me "Ну да, ещё рано, конечно."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "Можно я присяду?"
     me "Да, конечно, садись."
@@ -16572,21 +16147,21 @@ label day4_un:
     un "Я надеюсь."
     me "Завтра Ольга Дмитриевна в милицию позвонит. Найдут они его, обязательно найдут!"
     with None
-    show un sad pioneer at center 
+    show un sad pioneer at center
     with dspr
     un "А если за ночь…"
     "Она погрустнела."
     me "Да что с ним может случиться!"
     th "Один, ночью, в лесу… Да что угодно!"
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "Наверное, ему там одиноко."
     me "Как будто его кто-то заставлял туда идти!"
     un "А если он просто потерялся?"
     me "Ну так не надо по лесам шастать одному."
     with None
-    show un sad pioneer at center 
+    show un sad pioneer at center
     with dspr
     un "Тебе его совсем не жалко. Вдруг Шурик сидит там, совсем один…"
     me "Жалко, конечно…"
@@ -16595,12 +16170,12 @@ label day4_un:
     un "И за ночь что угодно может случиться…"
     me "Не пойдём же мы сейчас его искать?"
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     "Она ничего не ответила, всё так же продолжая смотреть куда-то вдаль – туда, где солнце из последних сил пробивалось сквозь верхушки вековых деревьев, словно стараясь оставить напоследок людям хоть немного своего тепла."
     me "Ты правда думаешь, что на ночь глядя бродить по лесу – это хорошая идея?"
     with None
-    show un sad pioneer at center 
+    show un sad pioneer at center
     with dspr
     un "Нет, наверное."
     "Почему-то я был совершенно уверен, что она именно так и думает."
@@ -16608,13 +16183,13 @@ label day4_un:
     "Для Лены молчание куда красноречивее любой болтовни и уговоров."
     me "Да и тем более днём искали уже."
     with None
-    show un surprise pioneer at center 
+    show un surprise pioneer at center
     with dspr
     un "Везде?"
     "Она наконец оторвалась от созерцания заката и посмотрела на меня."
     me "Не знаю. Вроде бы везде."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "А как же старый лагерь?"
     "Впервые её слова прозвучали не отвлечённо-безразлично, а, кажется, даже уверенно."
@@ -16624,13 +16199,13 @@ label day4_un:
     "Я глупо усмехнулся, но Лена продолжала всё так же серьёзно смотреть на меня."
     me "Конечно, если он не так далеко…"
     with None
-    show un surprise pioneer at center 
+    show un surprise pioneer at center
     with dspr
     un "Значит, ты хочешь пойти?"
     th "Конечно не хочу!"
     me "Можно, если только быстро и сразу назад…"
     with None
-    show un smile pioneer at center 
+    show un smile pioneer at center
     with dspr
     un "Хорошо."
     "Лена улыбнулась и протянула мне непонятно откуда взявшийся фонарь."
@@ -16662,7 +16237,7 @@ label day4_un:
     "В другой день – скорее в другое время суток – здесь наверняка красиво."
     "Возможно, и ночью бояться нечего, но всё же я невольно вздрагивал от каждого дуновения ветерка."
     with None
-    show un surprise pioneer at center 
+    show un surprise pioneer at center
     with dissolve
     un "Смотри."
     stop ambience fadeout 2
@@ -16680,7 +16255,7 @@ label day4_un:
     "Я не мог вспомнить, каким представлял себе это место ещё минуту назад, – все картины как будто стёрли из памяти, заменив на этот унылый кладбищенский пейзаж."
     me "Да уж, жутковато…"
     with None
-    show un shocked pioneer at center 
+    show un shocked pioneer at center
     with dissolve
     "Лена стояла всё так же молча, но на её лице появилось вполне нормальное для подобной ситуации выражение испуга."
     un "Думаешь, он там?"
@@ -16696,13 +16271,13 @@ label day4_un:
     "Или скорее одним новым цветом – могильно-белым, цветом савана."
     "Яснее стали видны деревья вдалеке, окутывающий их туман, да и температура словно упала сразу градусов на пять – так резко по коже побежали мурашки."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     un "Боишься?"
     "Спросила Лена спокойно."
     me "Тебе честно или соврать?"
     with None
-    show un smile pioneer at center 
+    show un smile pioneer at center
     with dspr
     "Она еле заметно улыбнулась и взяла меня за руку."
     "В другой ситуации наверняка это вызвало бы во мне целую бурю эмоций, но тогда ощущалось лишь насущной необходимостью."
@@ -16716,16 +16291,16 @@ label day4_un:
     "…"
     window hide
     play sound sfx_carousel_squeak
-    pause(1)
+    pause 1
     window show
     "Проходя по детской площадке, я толкнул рукой карусель, от чего она мерзко заскрипела и сделала пол-оборота."
     with None
-    show un shocked pioneer at center 
+    show un shocked pioneer at center
     with dissolve
     "Лена вздрогнула и крепче сжала мою руку."
     me "Прости… Наверное, просто детство вспомнил."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "Любил карусели?"
     me "Да… То есть не знаю, не помню. Наверное. Все дети любят."
@@ -16734,12 +16309,12 @@ label day4_un:
     un "От них голова кружится."
     me "Если быстро крутиться – конечно."
     with None
-    show un smile pioneer at center 
+    show un smile pioneer at center
     with dspr
     un "Мне больше качели нравятся."
     me "Так и на качелях можно раскачаться не хуже, чем на центрифуге!"
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "Но зачем?"
     me "Не знаю…"
@@ -16755,14 +16330,14 @@ label day4_un:
     "Внутри старый лагерь напомнил детский сад, в который я ходил в детстве."
     "На первый взгляд даже расположение комнат было таким же."
     with None
-    show un surprise pioneer at center 
+    show un surprise pioneer at center
     with dissolve
     me "Шурик!"
     un "Шурик!"
     "Ответом нам стало лишь звенящее замогильное безмолвие.{w} Стих даже ветер, гуляющий снаружи."
     me "Похоже, нет тут никого."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "Надо всё равно проверить."
     "Я не переставал удивляться смелости Лены."
@@ -16780,7 +16355,7 @@ label day4_un:
     "Повсюду встречались различные свидетельства того, что люди здесь бывают часто – газеты, пустые бутылки, прочий мусор, – но никаких следов Шурика."
     "Мы вернулись в холл, откуда начинали поиски."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     me "Что будем дальше делать?"
     un "Не знаю…"
@@ -16789,7 +16364,7 @@ label day4_un:
     "Осторожно начал я."
     me "Всё-таки уже поздно и… Не будем же мы по всем лесам его искать!"
     with None
-    show un sad pioneer at center 
+    show un sad pioneer at center
     with dspr
     un "Наверное, ты прав."
     "Она выглядела расстроенной и всем своим видом давала понять, что поиски ещё не закончены."
@@ -16797,22 +16372,22 @@ label day4_un:
     "Обречённо всплеснул я руками и сел рядом."
     me "В конце концов, стоит подумать и о худшем сценарии…"
     with None
-    show un scared pioneer at center 
+    show un scared pioneer at center
     with dspr
     un "Ты хочешь сказать…"
     me "Нет, но… Здесь водятся дикие звери?"
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "Вряд ли."
     "Лена моментально успокоилась."
     me "Ну, может, он спит где! Утром проснется и вернётся в лагерь."
     with None
-    show un sad pioneer at center 
+    show un sad pioneer at center
     with dspr
     un "Да, конечно…"
     with None
-    show un sad pioneer far at center 
+    show un sad pioneer far at center
     with dissolve
     "Я резко встал и принялся наматывать круги по холлу."
     th "Очень хочется поскорее уйти отсюда, поскорее выбраться из леса, но пока Лена ведёт себя вот так, словно какая-то неведомая сила удерживает меня."
@@ -16821,7 +16396,7 @@ label day4_un:
     th "Значит, его недавно открывали!"
     me "Смотри."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     un "Думаешь, Шурик там?"
     "Лена присела на корточки и аккуратно протёрла ручку люка."
@@ -16850,7 +16425,7 @@ label day4_un:
     me "Нормально всё."
     "Удостоверившись, что бояться нечего, крикнул я Лене."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     "Мы стояли в длинном коридоре, который совершенно точно не был ни погребом, ни подвалом."
     "Архитектурой он больше напоминал застенки КГБ или подсобный туннель метро – не знаю даже, что лучше."
@@ -16886,7 +16461,7 @@ label day4_un:
     window show
     "Действительно, мы упёрлись в массивную металлическую дверь со значком радиационной опасности."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     me "Значит, бомбоубежище…"
     un "Да, я что-то слышала."
@@ -16908,7 +16483,7 @@ label day4_un:
     "Несколько кроватей, шкафы, какая-то научная аппаратура – к ядерному апокалипсису готовились на совесть."
     "Хотя никаких следов Шурика здесь обнаружить не удалось."
     with None
-    show un smile pioneer at center 
+    show un smile pioneer at center
     with dissolve
     un "Смотри."
     "Лена держала в руках сигнальный пистолет и улыбалась."
@@ -16917,7 +16492,7 @@ label day4_un:
     me "Но тут нет никаких чудовищ."
     "По крайней мере очень хотелось в это верить."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "Как скажешь…"
     me "Гарантирую!"
@@ -16930,7 +16505,7 @@ label day4_un:
     "На секунду я почувствовал азарт, желание дойти до конца этого лабиринта и узнать, что за приз меня там ждёт."
     "Впрочем, вряд ли это – компьютерная игра, да и возможности сохранения тут явно не предусмотрено."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     un "Может быть, этим?"
     "Лена протянула мне внушительных размеров фомку."
@@ -16941,7 +16516,7 @@ label day4_un:
     play sound sfx_metal_door_handle_rattle
     "Впрочем, дверь никак не хотела поддаваться – лишь противно скрипела, – но колесо-ручка не сдвинулось ни на миллиметр."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     me "Ладно, давай."
     with None
@@ -16951,7 +16526,7 @@ label day4_un:
     "С фомкой дело пошло лучше, даже слишком легко."
     window hide
     play sound sfx_fall_metal_door
-    pause(1)
+    pause 1
     $ persistent.sprite_time = "sunset"
     scene bg int_catacombs_living_nodoor
     with vpunch
@@ -16960,24 +16535,24 @@ label day4_un:
     "Оказалось, что петли насквозь проржавели."
     "Я посветил фонарём в образовавшийся проход – за ним был точно такой же коридор, как тот, по которому мы пришли сюда."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     un "Пойдём?"
     "Лена словно постоянно подгоняла меня."
     me "Куда ты так спешишь?"
     with None
-    show un shy pioneer at center 
+    show un shy pioneer at center
     with dspr
     un "Я? Я не спешу…"
     "Она смутилась и покраснела."
     th "Ну вот, опять… И как мне её понимать?{w} То ничего не боится, то теряется от каждого слова."
     me "Тебе как будто совсем не страшно."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "Не знаю, а чего бояться?"
     with None
-    show un smile2 pioneer at center 
+    show un smile2 pioneer at center
     with dspr
     un "Ты же меня защитишь…"
     "Добавила она еле слышно."
@@ -16998,10 +16573,10 @@ label day4_un:
     "Конечно, ничего удивительного, но в какой-то момент у меня появилось ощущение, что мы ходим по кругу."
     scene black
     show cg d4_catac_un:
-        linear 0.1 pos (0,5) 
-        linear 0.1 pos (0,0) 
-        linear 0.1 pos (5,0) 
-        linear 0.1 pos (0,0) 
+        linear 0.1 pos (0,5)
+        linear 0.1 pos (0,0)
+        linear 0.1 pos (5,0)
+        linear 0.1 pos (0,0)
         repeat
     "Фонарь в руке начал всё заметнее дрожать, пятно света прыгало по стенам и полу и вдруг выхватило из темноты довольно большую дыру…"
     window hide
@@ -17011,7 +16586,7 @@ label day4_un:
     window show
     "Яма оказалось неглубокой, а внизу виднелись рельсы."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     un "Что там?"
     me "Шахта, похоже."
@@ -17027,13 +16602,13 @@ label day4_un:
     with dissolve
     play ambience ambience_catacombs_stones fadein 3
     play sound sfx_jump_into_hole_2
-    pause(1)
+    pause 1
     window show
     "Я спрыгнул в яму и помог Лене спуститься."
     "Мы действительно оказались в шахте."
     th "Интересно, что здесь могли добывать?"
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     me "А какие полезные ископаемые бывают в этих краях?"
     un "Не знаю."
@@ -17051,58 +16626,58 @@ label day4_un:
     window show
     "Наконец мы вышли к развилке."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     me "Ну вот, этого ещё не хватало."
     un "Куда пойдём?"
     me "Куда? Не факт, что мы вообще выберемся отсюда, а уж если будем играть в пакмана…"
     with None
-    show un surprise pioneer at center 
+    show un surprise pioneer at center
     with dspr
     un "Во что?"
     me "Неважно. Заблудимся, в общем."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "А вдруг там тоже есть выход?"
     me "Даже если есть… А если нет?"
     with None
-    show un sad pioneer at center 
+    show un sad pioneer at center
     with dspr
     un "Значит, назад?"
     "Я до крови прикусил губу и что есть силы закричал:"
     scene black
     show bg int_mine_crossroad:
-        linear 0.1 pos (0,5) 
-        linear 0.1 pos (0,0) 
-        linear 0.1 pos (5,0) 
-        linear 0.1 pos (0,0) 
-        linear 0.1 pos (0,5) 
-        linear 0.1 pos (0,0) 
-        linear 0.1 pos (5,0) 
-        linear 0.1 pos (0,0) 
-        linear 0.1 pos (0,5) 
-        linear 0.1 pos (0,0) 
-        linear 0.1 pos (5,0) 
-        linear 0.1 pos (0,0) 
+        linear 0.1 pos (0,5)
+        linear 0.1 pos (0,0)
+        linear 0.1 pos (5,0)
+        linear 0.1 pos (0,0)
+        linear 0.1 pos (0,5)
+        linear 0.1 pos (0,0)
+        linear 0.1 pos (5,0)
+        linear 0.1 pos (0,0)
+        linear 0.1 pos (0,5)
+        linear 0.1 pos (0,0)
+        linear 0.1 pos (5,0)
+        linear 0.1 pos (0,0)
     me "Шурик!"
     "Тут же со всех сторон зазвучало гулкое эхо, а с потолка даже кое-где посыпалась земля."
     me "Видишь…"
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "Ладно, тогда я одна пойду."
     me "Что?"
     "Я расплылся в глупой улыбке."
     me "Как это одна? Куда?"
     with None
-    show un shy pioneer at center 
+    show un shy pioneer at center
     with dspr
     un "Но Шурика надо найти, вдруг он там…"
     "Лена тут же покраснела и уставилась в пол."
     me "Не-не-не, так не пойдёт, если идти, то вместе."
     with None
-    show un smile2 pioneer at center 
+    show un smile2 pioneer at center
     with dspr
     un "Хорошо. Значит, пойдём."
     "Она улыбнулась и снова взяла меня за руку."
@@ -17133,7 +16708,7 @@ label un_mine_coalface:
     "Теперь-то ясно, что Шурик здесь."
     me "Шурик! Шурик!"
     with None
-    show un surprise pioneer at center 
+    show un surprise pioneer at center
     with dissolve
     un "Шурик! Шурик!"
     "Ответом нам стало лишь эхо."
@@ -17153,7 +16728,7 @@ label un_mine_exit:
     window show
     "За очередным поворотом в свете фонаря появилась деревянная дверь."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     me "Хоть что-то…"
     un "Что?"
@@ -17177,8 +16752,8 @@ label un_mine_exit:
     "Мне просто не хотелось верить что те, кто оставил всё это, приходили той же дорогой, что и мы."
     "Однако Шурика здесь, к несчастью, не оказалось."
     with None
-    show un normal pioneer at center 
-    with dissolve  
+    show un normal pioneer at center
+    with dissolve
     me "Эх…"
     "Я обессиленно сполз по стене на пол."
     me "Вот теперь мы точно всё обошли."
@@ -17190,11 +16765,11 @@ label un_mine_exit:
     me "Давай отдохнём немного."
     un "Хорошо."
     with None
-    show un normal pioneer close at center  
+    show un normal pioneer close at center
     with dissolve
     "Лена села рядом – очень близко – и взяла меня за руку."
     with None
-    show un smile pioneer close at center 
+    show un smile pioneer close at center
     with dspr
     un "Ничего страшного."
     me "В смысле?"
@@ -17204,7 +16779,7 @@ label un_mine_exit:
     me "Да, наверное, я дорогу запомнил."
     "Или хотя бы думал, что запомнил."
     with None
-    show un smile2 pioneer close at center 
+    show un smile2 pioneer close at center
     with dspr
     un "Мне совсем не страшно."
     "Вдруг сказала она после непродолжительного молчания."
@@ -17216,16 +16791,16 @@ label un_mine_exit:
     play sound_loop sfx_shurik_mines_far
     "Вдруг за дверью в шахту послышался какой-то шум."
     with None
-    show un shocked pioneer at right 
+    show un shocked pioneer at right
     with dissolve
     "Я тут же вскочил и принялся шарить глазами по комнате в поисках чего-то, что можно использовать как оружие."
     "Шум – тяжёлые шаги – приближался."
     window hide
     stop sound_loop fadeout 2
     play sound sfx_shurik_opens_door
-    pause(1)
+    pause 1
     with None
-    show sh rage pioneer far at center 
+    show sh rage pioneer far at center
     with dissolve
     window show
     "Наконец дверь распахнулась, и на пороге появился Шурик."
@@ -17237,11 +16812,11 @@ label un_mine_exit:
     me "Ты что, совсем сдурел, что ли?! Это же мы!"
     sh "Я вижу, что вы!"
     with None
-    show sh rage pioneer at center 
-    with dissolve  
+    show sh rage pioneer at center
+    with dissolve
     "Он сделал несколько шагов в нашу сторону."
     show un shocked pioneer at right:
-        linear 0.2 xalign 1.2 
+        linear 0.2 xalign 1.2
     "Я инстинктивно закрыл Лену собой."
     stop music fadeout 3
     sh "Думали, можно из меня дурака делать? Водить туда-сюда?! «Направо, налево, направо, налево»?! А я ведь ходил, всё ходил…"
@@ -17258,7 +16833,7 @@ label un_mine_exit:
     window hide
     play sound sfx_break_flashlight
     with vpunch
-    pause(1)
+    pause 1
     window show
     "... рука с фонарём, взметнувшаяся вверх..."
     window hide
@@ -17290,13 +16865,13 @@ label un_mine_exit:
     scene bg int_mine_room_red
     with flash_red
     with None
-    show un normal pioneer red at center 
+    show un normal pioneer red at center
     with dissolve
     window show
     "Комната тут же озарилась ярким красным светом."
     "Ракета, лежащая в углу, была похожа на фейерверк или, может быть, на бенгальский огонь."
     with None
-    show un surprise pioneer red at center 
+    show un surprise pioneer red at center
     with dspr
     un "Пойдём скорее, она долго гореть не будет."
     me "Куда?"
@@ -17332,7 +16907,7 @@ label un_mine_exit:
     "Выбравшись на поверхность, я обессиленно упал на траву."
     me "Ужас какой-то…"
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     "Лена села рядом."
     me "Жуть просто…"
@@ -17342,7 +16917,7 @@ label un_mine_exit:
     stop ambience fadeout 2
     play music music_list["what_do_you_think_of_me"] fadein 3
     with None
-    show un smile2 pioneer at center 
+    show un smile2 pioneer at center
     with dspr
     "Лена нежно погладила меня по голове и улыбнулась."
     un "Всё закончилось."
@@ -17379,20 +16954,20 @@ label un_mine_exit:
     scene bg ext_square_night
     with dissolve
     with None
-    show un smile pioneer close at center  
+    show un smile pioneer close at center
     with dissolve
     window show
     "Я слегка приподнялся и понял, что моя голова лежит на коленях у Лены."
     me "Долго я спал?"
     "Спросил я смущённо, но вставать не спешил."
     with None
-    show un laugh pioneer close at center 
+    show un laugh pioneer close at center
     with dspr
     un "Не знаю, у меня же нет часов."
     "Рассмеялась она."
     me "Ну примерно!"
     with None
-    show un smile pioneer close at center 
+    show un smile pioneer close at center
     with dspr
     un "Нет. Может быть, минут двадцать."
     me "Ааа… Ну ладно тогда."
@@ -17402,7 +16977,7 @@ label un_mine_exit:
     un "Шурик вернулся."
     me "Что?!"
     with None
-    show un surprise pioneer at center 
+    show un surprise pioneer at center
     with dissolve
     "Я тут же вскочил."
     un "Вон он, на лавочке спит."
@@ -17412,15 +16987,15 @@ label un_mine_exit:
     "Мне стало страшно, потому что такое поведение было не просто странным – оно было неадекватным, пугало не меньше безумия Шурика в подземелье."
     "Мимо проходит сумасшедший, пытавшийся нас убить ещё полчаса назад, ложится на лавочку и засыпает, а она просто сидит?.."
     with None
-    show un smile pioneer at center 
+    show un smile pioneer at center
     with dspr
     un "Ничего страшного – похоже, он просто был немного не в себе…"
     with None
-    show un shy pioneer at center 
+    show un shy pioneer at center
     with dspr
     "Лена тут же смутилась и покраснела."
     with None
-    show un sad pioneer at center 
+    show un sad pioneer at center
     with dspr
     un "Да и шёл он так, шатаясь, в нашу сторону не смотрел. А если бы я начала шуметь…"
     "Она была готова расплакаться."
@@ -17432,7 +17007,7 @@ label un_mine_exit:
     with dissolve
     "Я резко вскочил, быстро подошёл к лавочке, на которой он спал, и наотмашь ладонью ударил его по щеке."
     with None
-    show sh scared pioneer at cright 
+    show sh scared pioneer at cright
     with dissolve
     sh "Ай!"
     "Он тут же проснулся."
@@ -17446,13 +17021,13 @@ label un_mine_exit:
     sh "Я тебя не понимаю…"
     "Он осмотрелся по сторонам."
     with None
-    show sh surprise pioneer at cright 
+    show sh surprise pioneer at cright
     with dspr
     sh "И почему я здесь?"
     me "А где же тебе надо быть ещё, по-твоему?! Хотя нет, подожди, я знаю – в дурдоме тебе надо быть!"
     sh "Я утром пошёл в старый лагерь за деталями, а потом…"
     with None
-    show un normal pioneer at cleft 
+    show un normal pioneer at cleft
     with dissolve
     un "А потом ты ничего не помнишь?"
     "Спросила подошедшая Лена."
@@ -17461,14 +17036,14 @@ label un_mine_exit:
     "Сказал я спокойнее и сел рядом с ним."
     "Хотя было действительно похоже, что он не врёт."
     with None
-    show sh upset pioneer at cright 
+    show sh upset pioneer at cright
     with dspr
     sh "Ничего не понимаю… Всё это антинаучно!"
     me "Как угодно. Только не думай, что я тебе поверю."
     sh "Ведь провалы в памяти просто так…"
     "Шурик разговаривал сам с собой, что-то не переставая бубнил себе под нос, не обращая на нас никакого внимания."
     with None
-    show un smile pioneer at cleft 
+    show un smile pioneer at cleft
     with dspr
     un "Пойдём."
     "Тихо сказала Лена."
@@ -17491,12 +17066,12 @@ label un_mine_exit:
     window show
     "…"
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     un "Пришли."
     me "Что? Куда?"
     with None
-    show un smile2 pioneer at center 
+    show un smile2 pioneer at center
     with dspr
     un "Пришли, а мне дальше."
     "Лена улыбнулась."
@@ -17508,7 +17083,7 @@ label un_mine_exit:
     "Загадочно сказала она и отвела взгляд."
     me "Ну, тогда пожалуйста."
     with None
-    show un smile pioneer at center 
+    show un smile pioneer at center
     with dspr
     un "Ладно, мне пора!"
     with None
@@ -17543,7 +17118,7 @@ label un_mine_exit:
             me "Нет, с Леной."
             pass
         "Сказать, что ходил один":
-            $ lp_un = lp_un + 1
+            $ lp_un += 1
             window show
             me "Да, один."
             pass
@@ -17553,7 +17128,7 @@ label un_mine_exit:
     th "Вожатая, может, и несколько легкомысленно относится к своей работе, но это же не значит, что она должна быть бессердечной!"
     me "С ним всё в порядке...{w} По крайней мере насколько вообще можеть быть «в порядке» в данной ситуации."
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "Это хорошо.{w} А теперь спать."
     window hide
@@ -17575,14 +17150,14 @@ label un_mine_exit:
     scene black
     with fade3
     stop ambience fadeout 3
-    pause (3)
+    pause 3
     jump day5_main1
 init:
     $ day5_us_wire_accept = 0
     $ day5_map_necessary_done = 0
 label day5_main1:
     $ backdrop = "days"
-    $ new_chapter(5, u"День пятый")
+    $ new_chapter(5, "День пятый")
     $ day_time()
     scene black
     with fade
@@ -17590,14 +17165,14 @@ label day5_main1:
     "Мы бежали…{w} Бежали из последних сил…"
     "Так бежит человек, отчаянно цепляющийся за жизнь."
     "Обречённый человек, который знает, что ему уже не спастись, но всё равно борется с неизбежным, с судьбой..."
-    play sound sfx_metal_door_heavy_close 
+    play sound sfx_metal_door_heavy_close
     "Я с трудом закрыл за собой тяжёлую металлическую дверь."
     window hide
     scene bg int_catacombs_living:
-        linear 0.1 pos (0,20) 
-        linear 0.1 pos (0,0) 
-        linear 0.1 pos (20,0) 
-        linear 0.1 pos (0,0) 
+        linear 0.1 pos (0,20)
+        linear 0.1 pos (0,0)
+        linear 0.1 pos (20,0)
+        linear 0.1 pos (0,0)
         repeat
     show prologue_dream
     with fade
@@ -17623,10 +17198,10 @@ label day5_main1:
     dreamgirl "Знаешь, я…"
     window hide
     scene bg int_catacombs_living:
-        linear 0.05 pos (0,20) 
-        linear 0.05 pos (0,0) 
-        linear 0.05 pos (20,0) 
-        linear 0.05 pos (0,0) 
+        linear 0.05 pos (0,20)
+        linear 0.05 pos (0,0)
+        linear 0.05 pos (20,0)
+        linear 0.05 pos (0,0)
         repeat
     show prologue_dream
     with fade
@@ -17638,7 +17213,7 @@ label day5_main1:
     window hide
     scene bg black
     with fade2
-    pause (3)
+    pause 3
     $ persistent.sprite_time = "day"
     scene bg int_house_of_mt_day
     with flash
@@ -17671,18 +17246,18 @@ label day5_main1:
     play ambience ambience_camp_center_day fadein 3
     window show
     with None
-    show el normal pioneer far at center  
-    with dissolve   
+    show el normal pioneer far at center
+    with dissolve
     "По дороге к умывальникам мне встретился Электроник."
     "Он замахал руками и побежал в мою сторону."
     with None
-    show el smile pioneer at center 
+    show el smile pioneer at center
     with dissolve
     el "Доброе утро!{w} Спасибо тебе, что нашёл Шурика! Без него я бы даже не знаю…"
     me "Да ничего…"
     "Я несколько смутился."
     with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dspr
     el "Нет, правда! Не нужно лишней скромности – страна должна знать своих героев!"
     me "А как Шурик… Как он с утра себя вёл?{w} С ним всё в порядке?"
@@ -17693,7 +17268,7 @@ label day5_main1:
     el "Ну, он говорит, что вчера пошёл в старый лагерь, а потом… Проснулся утром в своей кровати.{w} То есть между этими событиями – провал."
     me "Понятно…{w} Ладно, тогда…"
     with None
-    show el grin pioneer at center 
+    show el grin pioneer at center
     with dspr
     el "Тебя же на завтраке не было? Заходи к нам в кружок! Мы тебя покормим! У меня кое-что особенное есть."
     "Электроник заговорщически улыбнулся."
@@ -17740,19 +17315,19 @@ label day5_main1:
     with dissolve
     "Через мгновение возле умывальников появились Алиса и Ульяна."
     with None
-    show dv angry pioneer far at cleft 
+    show dv angry pioneer far at cleft
     with dspr
     dv "Сама бы могла! Зачем меня сюда притащила?"
     with None
-    show us surp2 pioneer far at cright 
+    show us surp2 pioneer far at cright
     with dspr
     us "Ну что, тебе жалко?"
     with None
-    show dv normal pioneer far at cleft 
+    show dv normal pioneer far at cleft
     with dspr
     dv "Ладно, давай…"
     with None
-    show us normal pioneer far at cright 
+    show us normal pioneer far at cright
     with dspr
     "Я присмотрелся и заметил, что они обе все перепачканы красной краской."
     th "Вот так номер…{w} И откуда?"
@@ -17819,13 +17394,13 @@ label day5_main1:
     "Я же с виноватым видом старался прикрыть свою наготу."
     "Немая сцена продолжалась несколько секунд, затем Алиса схватила рубашку и в мгновение ока кое-как напялила её на себя."
     with None
-    show dv angry pioneer2 far at cleft 
+    show dv angry pioneer2 far at cleft
     with dissolve
     dv "Ты! Ты!"
     "Её лицо из красного стало фиолетовым.{w} Казалось, что сейчас она взорвётся, как ядерная бомба."
     "Единственное, что мне хотелось тогда, – это распасться на атомы и улететь подальше от эпицентра."
     with None
-    show us laugh pioneer far at cright 
+    show us laugh pioneer far at cright
     with dissolve
     us "Он всё время там сидел!"
     th "Значит, всё же заметила…"
@@ -17836,10 +17411,10 @@ label day5_main1:
     with dissolve
     with None
     show dv rage pioneer2 far at cleft :
-        linear 1.0 xalign 0.5 
+        linear 1.0 xalign 0.5
     with dspr
     with None
-    show dv rage pioneer2 at center 
+    show dv rage pioneer2 at center
     with dissolve
     "Алиса бросилась на меня."
     window hide
@@ -17884,9 +17459,9 @@ label day5_main1:
     th "Или пойти в столовую – вдруг что-нибудь осталось?.."
     window hide
     $ disable_all_zones()
-    $ set_zone("clubs","day5_clubs")
-    $ set_zone("medic_house","day5_aidpost")
-    $ set_zone("dining_hall","day5_dining_hall")
+    $ set_zone("clubs", "day5_clubs")
+    $ set_zone("medic_house", "day5_aidpost")
+    $ set_zone("dining_hall", "day5_dining_hall")
     $ show_map()
 label day5_dining_hall:
     $ persistent.sprite_time = "day"
@@ -17920,14 +17495,14 @@ label day5_dining_hall:
     "Разве что совершенно пустой, за исключением…{w} Мику, которая протирала стол."
     "Увидев её, я резко развернулся и попытался незаметно сбежать, но сделать этого мне не удалось…"
     with None
-    show mi smile pioneer at center 
+    show mi smile pioneer at center
     with dissolve
     mi "Привет, Семён! Ты поесть пришёл? Тебя же на завтраке не было. То есть я не видела… Может, ты и был, но я не видела. Но всё же хорошо, что пришёл!"
     me "Эээ, привет…{w} Да я… Да, вот зашёл… Думал, может, осталось чего…"
     mi "А ничего не осталось! Надо ждать обеда! Кстати, не поможешь мне? Я вот убираюсь…"
     me "А зачем?"
     with None
-    show mi upset pioneer at center 
+    show mi upset pioneer at center
     with dspr
     mi "Ну как же?"
     "Она надула губки."
@@ -17936,7 +17511,7 @@ label day5_dining_hall:
     me "Ага, ясно…"
     "Я уже собирался уходить, но Мику никак не унималась."
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dspr
     mi "Так поможешь?"
     window hide
@@ -17944,7 +17519,7 @@ label day5_dining_hall:
         "Ладно…":
             play music music_list["so_good_to_be_careless"] fadein 1
             with None
-            show mi smile pioneer at center 
+            show mi smile pioneer at center
             with dspr
             window show
             "Не знаю, зачем я согласился."
@@ -17977,11 +17552,11 @@ label day5_dining_hall:
             "Я постарался полностью отключиться от каких-либо внешних раздражителей и сконцентрироваться на уборке."
             "Это помогло мне закончить быстрее, чем ожидал."
             with None
-            show mi normal pioneer at center 
+            show mi normal pioneer at center
             with dissolve
             me "Вот и всё!"
             with None
-            show mi smile pioneer at center 
+            show mi smile pioneer at center
             with dspr
             mi "Спасибо!"
             stop music fadeout 3
@@ -17994,7 +17569,7 @@ label day5_dining_hall:
             window show
         "Нет, знаешь, у меня дела ещё…":
             with None
-            show mi upset pioneer at center 
+            show mi upset pioneer at center
             with dspr
             window show
             mi "Ладно, ничего страшного…"
@@ -18065,13 +17640,13 @@ label day5_aidpost:
     "Я собрался с духом и открыл дверь."
     window hide
     play sound sfx_open_door_1
-    pause(1)
+    pause 1
     $ persistent.sprite_time = "day"
     scene bg int_aidpost_day
     with dissolve
     play ambience ambience_medstation_inside_day fadein 3
     with None
-    show cs normal at center 
+    show cs normal at center
     with dissolve
     window show
     cs "Привет, пионер!"
@@ -18079,7 +17654,7 @@ label day5_aidpost:
     cs "Ты извини, что я вчера так долго…"
     me "Да нет, ничего…"
     with None
-    show cs smile at center 
+    show cs smile at center
     with dspr
     cs "А ты что пришёл?{w} Заболел никак?"
     "Она хитро улыбнулась."
@@ -18088,7 +17663,7 @@ label day5_aidpost:
     me "Ступни."
     "Глупо ответил я."
     with None
-    show cs normal at center 
+    show cs normal at center
     with dspr
     cs "Ну, показывай."
     "Я сел на кушетку и снял ботинки."
@@ -18100,7 +17675,7 @@ label day5_aidpost:
     me "А это зачем?"
     "Меня несколько смутили размеры таблетки и её странная форма – обычно ломают пополам, а не на четыре части."
     with None
-    show cs smile at center 
+    show cs smile at center
     with dspr
     cs "А это чтобы тебе потом ноги не пришлось отрезать!"
     me "Что?!"
@@ -18123,7 +17698,7 @@ label day5_aidpost:
     scene bg int_aidpost_day
     with dissolve
     with None
-    show cs normal at center 
+    show cs normal at center
     with dissolve
     window show
     cs "Вот и всё!"
@@ -18131,13 +17706,13 @@ label day5_aidpost:
     "Ступни всё ещё ныли, но острая боль прошла."
     me "Спасибо вам!"
     with None
-    show cs smile at center 
+    show cs smile at center
     with dspr
     cs "Не за что!{w} Заходи в любое время…{w} пионер!"
     window hide
     stop ambience fadeout 2
     play sound sfx_close_door_campus_1
-    pause (1)
+    pause 1
     $ persistent.sprite_time = "day"
     scene bg ext_aidpost_day
     with dissolve
@@ -18170,7 +17745,7 @@ label day5_clubs:
     "Я прислушался, но ничего разобрать не смог."
     window hide
     play sound sfx_open_dooor_campus_1
-    pause(1)
+    pause 1
     scene cg d5_sh_us
     with dissolve
     play music music_list["always_ready"] fadein 3
@@ -18196,7 +17771,7 @@ label day5_clubs:
     with dissolve
     with None
     show us laugh pioneer at center :
-        linear 1.0 xalign 1.2 
+        linear 1.0 xalign 1.2
     with dissolve
     with None
     hide us
@@ -18209,7 +17784,7 @@ label day5_clubs:
     me "Эй, ты чего?!"
     us "Не поймаешь!"
     with None
-    show el angry pioneer at center 
+    show el angry pioneer at center
     with dissolve
     "Она посмотрела на Электроника, который всё это время лишь молча наблюдал за глупой беготнёй, и показала ему язык."
     el "Семён, отбери у неё проволоку!"
@@ -18225,24 +17800,24 @@ label day5_clubs:
     me "А вот и нет! Хватит хулиганить!"
     "Я поднял проволоку над головой так, что Ульянка со своим ростом никак не могла достать."
     with None
-    show el normal pioneer at cleft 
+    show el normal pioneer at cleft
     with dspr
     el "Спасибо!"
     with None
-    show us dontlike pioneer at cright 
+    show us dontlike pioneer at cright
     with dspr
     us "Ну и ладно!"
     "Она фыркнула и отвернулась."
     me "Да зачем тебе она вообще?"
     us "Не твоё дело…"
     with None
-    show us surp1 pioneer at cright 
+    show us surp1 pioneer at cright
     with dspr
     "Ульяна хитро посмотрела на меня."
     us "А хочешь, я всем расскажу, что ты…"
     with None
     show us surp3 pioneer at cright :
-        linear 1.0 xalign 1.5 
+        linear 1.0 xalign 1.5
     with dspr
     with None
     hide us
@@ -18251,7 +17826,7 @@ label day5_clubs:
     me "Ладно, нам пора уже…"
     "Глупо хихикая, сказал я Электронику."
     with None
-    show el surprise pioneer at cleft 
+    show el surprise pioneer at cleft
     with dspr
     el "А зачем приходил?.."
     window hide
@@ -18261,7 +17836,7 @@ label day5_clubs:
     with dissolve
     play ambience ambience_camp_center_day fadein 3
     with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dissolve
     window show
     "На улице я отпустил брыкающуюся Ульянку."
@@ -18271,24 +17846,24 @@ label day5_clubs:
     "С одной стороны, мне было абсолютно наплевать, что про это скажет вожатая, но с другой – всё против меня, а в моём положении в подобные ситуации попадать не стоит."
     me "Ладно, может, мы как-нибудь договориться сможем…"
     with None
-    show us shy2 pioneer at center 
+    show us shy2 pioneer at center
     with dspr
     us "Хм…"
     "Она задумалась."
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "А я знаю!"
     "Я уже предчувствовал недоброе."
     us "Ты принесёшь мне ту проволоку!"
     me "Но зачем она тебе?"
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "За надом!"
     me "Ну ладно, допустим...{w} И тогда будешь молчать?"
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Честное пионерское!"
     "Верилось ей с трудом."
@@ -18300,7 +17875,7 @@ label day5_clubs:
             window show
             me "Ладно уж..."
             with None
-            show us laugh pioneer at center 
+            show us laugh pioneer at center
             with dspr
             us "Вот и отлично!"
             me "Но ты учти..."
@@ -18310,21 +17885,21 @@ label day5_clubs:
             stop ambience fadeout 2
             "С этими словами я вернулся в помещение кружков."
         "Отказаться":
-            $ lp_us = lp_us + 1
+            $ lp_us += 1
             window show
             me "Нет, никаких проволок, хватит уже!"
             with None
-            show us angry pioneer at center 
+            show us angry pioneer at center
             with dspr
             us "Тогда я всё расскажу!"
             me "Да и так всё расскажешь! Или Алиса..."
             with None
-            show us sad pioneer at center 
+            show us sad pioneer at center
             with dspr
             us "Да ну тебя!"
             me "Конечно, как будто я во всём виноват..."
             with None
-            show us grin pioneer at center 
+            show us grin pioneer at center
             with dspr
             us "Виноват. Ты за нами подглядывал."
             me "Не подглядывал я ничего!"
@@ -18332,21 +17907,21 @@ label day5_clubs:
             us "Алиса так не думает."
             me "Она много о чём {i}не так{/i} думает."
             with None
-            show us laugh2 pioneer at center 
+            show us laugh2 pioneer at center
             with dspr
             us "И Ольга Дмитриевна тоже не оценит."
             me "Знаешь что!"
             "Я начал выходить из себя."
             me "Хочешь рассказать – иди прямо сейчас и жалуйся! Не забудь также добавить, что я виноват в дефолте, мировом кризисе, глобальном потеплении, про библейский потоп тоже упомяни!"
             with None
-            show us upset pioneer at center 
+            show us upset pioneer at center
             with dspr
             us "Да ладно тебе так реагировать... Я же пошутила."
             me "Пошутила?.."
             "Я внезапно понял, что действительно слишком завёлся."
             me "Шутки у тебя дурацкие! Что, мне каждый раз догадываться – серьёзно ты или прикалываешься?"
             with None
-            show us grin pioneer at center 
+            show us grin pioneer at center
             with dspr
             us "Да."
             "Ухмыльнулась она."
@@ -18364,7 +17939,7 @@ label day5_clubs:
     with dissolve
     play ambience ambience_clubs_inside_day fadein 3
     with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dissolve
     window show
     "Электроник что-то сосредоточенно мастерил."
@@ -18372,7 +17947,7 @@ label day5_clubs:
     "Мой тон звучал несколько заискивающе, и это меня просто взбесило."
     me "Я, конечно, не настаиваю, просто раз уж…"
     with None
-    show el smile pioneer at center 
+    show el smile pioneer at center
     with dspr
     el "Сейчас."
     "Он оторвался от своего занятия и достал из стола пару булочек и треугольник кефира."
@@ -18386,20 +17961,20 @@ label day5_clubs:
     if day5_us_wire_accept == 1:
         th "И именно эта катушка ей и нужна!"
     with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dissolve
     me "А что это?"
     el "Катушка индуктивности."
     me "Индюктивности?"
     with None
-    show el smile pioneer at center 
+    show el smile pioneer at center
     with dspr
     el "Вступай в наш клуб – будешь всё знать!"
     "Он поднял на меня глаза и хитро улыбнулся."
     me "Подумаю…"
     "Конечно, никуда я вступать не собирался, но с учётом того, что он меня всё же накормил, можно быть и повежливее."
     with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dspr
     el "Кстати, я же тебе говорил, что у меня ещё кое-что есть…"
     me "Ну да…"
@@ -18409,7 +17984,7 @@ label day5_clubs:
     with dissolve
     "Он зашёл в соседнюю комнату и через минуту вернулся с каким-то пакетом."
     with None
-    show el smile pioneer at center 
+    show el smile pioneer at center
     with dissolve
     el "Ту-тту-ру!"
     "И протянул его мне."
@@ -18417,33 +17992,33 @@ label day5_clubs:
     me "Эээ, я всё понимаю, но ещё утро только…"
     th "Или Электронику близок принцип «с утра выпил – весь день свободен»?"
     with None
-    show el shocked pioneer at center 
+    show el shocked pioneer at center
     with dspr
     el "Ты что?!{w} Я же не предлагаю её пить! Это нам на протирку оптики!"
     th "Ага, протирку…{w} Внутриутробно…"
     me "Ясно…"
     with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dspr
     "Я отдал ему пакет."
     if day5_us_wire_accept == 1:
         me "Кстати! А можно у тебя эту катушка позаимствовать?"
         with None
-        show el surprise pioneer at center 
+        show el surprise pioneer at center
         with dspr
         el "А зачем тебе?"
         me "Ну..."
         "Пожалуй, это стоило придумать заранее."
         me "Просто нужна."
         with None
-        show el upset pioneer at center 
+        show el upset pioneer at center
         with dspr
         el "Так и нам без неё никак."
         me "Да? Ну ладно тогда..."
         th "Не буду же я её выбивать у него силой?"
     me "Тогда я пойду…"
     with None
-    show el smile pioneer at center 
+    show el smile pioneer at center
     with dspr
     el "Обязательно приходи ещё!"
     me "Конечно…"
@@ -18455,35 +18030,35 @@ label day5_clubs:
     "На улице я задумался, зачем он мне вообще показывал водку…"
     if day5_us_wire_accept == 1:
         with None
-        show us laugh2 pioneer at center 
+        show us laugh2 pioneer at center
         with dissolve
         "Ко мне тут же подскочила Ульянка."
         us "Ну? Ну? Достал?"
         me "Нет..."
         with None
-        show us upset pioneer at center 
+        show us upset pioneer at center
         with dspr
         us "Значит, сам виноват!"
         me "Сдалась тебе эта катушка вообще..."
         with None
-        show us grin pioneer at center 
+        show us grin pioneer at center
         with dspr
         us "Но за старания хвалю!"
         me "Что?"
         "Удивился я."
         with None
-        show us laugh2 pioneer at center 
+        show us laugh2 pioneer at center
         with dspr
         us "Алиса бы всё равно рассказала!"
         "Ульянка рассмеялась."
         with None
-        show us surp1 pioneer at center 
+        show us surp1 pioneer at center
         with dspr
         us "Она на тебя очень злится."
         me "Надо думать…"
         "Пробурчал я себе под нос."
         with None
-        show us laugh pioneer at center 
+        show us laugh pioneer at center
         with dspr
         us "Ладно, бывай!"
         with None
@@ -18530,7 +18105,7 @@ label day5_main2:
     "Сказав это, Лена некоторое время пристально смотрела на меня, но потом, видимо, поняла, что выглядит несколько странно, и уткнулась в свою тарелку."
     me "И тебе."
     with None
-    show sl normal pioneer at cright 
+    show sl normal pioneer at cright
     with dspr
     sl "Семён, есть какие-нибудь планы на день?"
     me "Нет."
@@ -18539,7 +18114,7 @@ label day5_main2:
     th "Остров…{w} Кажется, я видел его с пристани."
     me "Зачем?"
     with None
-    show sl smile2 pioneer at cright 
+    show sl smile2 pioneer at cright
     with dspr
     sl "Ольга Дмитриевна просила земляники собрать.{w} Там её много, и она такая вкусная!"
     "По выражению лица Слави можно было представить вкус этой земляники, даже не пробуя."
@@ -18570,7 +18145,7 @@ label day5_main2:
     "Я остался наедине с Леной."
     me "А ты землянику любишь?"
     with None
-    show un smile pioneer at cleft 
+    show un smile pioneer at cleft
     with dspr
     un "Не то чтобы очень…{w} Но она вкусная."
     "Лена улыбнулась."
@@ -18578,7 +18153,7 @@ label day5_main2:
     "Я не знал, что сказать дальше, как поддержать разговор."
     "Если бы Славя не вернулась, мы бы, наверное, так и сидели молча до самого вечера."
     with None
-    show sl normal pioneer at cright 
+    show sl normal pioneer at cright
     with dissolve
     sl "Вот!"
     "Она протянула мне два увесистых весла."
@@ -18634,24 +18209,24 @@ label day5_main2:
     sl "Нам бы надо разделиться, так быстрее управимся."
     me "Да, наверное."
     with None
-    show un surprise pioneer at cleft 
+    show un surprise pioneer at cleft
     with dspr
     un "Но корзинки-то только две."
     "Робко заметила Лена."
     with None
-    show sl sad pioneer at cright 
+    show sl sad pioneer at cright
     with dspr
     sl "Да, точно, это я недоглядела!"
     un "И как мы разделимся?"
     window hide
     menu:
         "Пойти с Леной":
-            $ lp_un = lp_un + 2
+            $ lp_un += 2
             window show
             me "Давай я пойду с тобой."
             un "Давай…"
             with None
-            show sl smile pioneer at cright 
+            show sl smile pioneer at cright
             with dspr
             sl "Вот и славно!"
             with None
@@ -18659,12 +18234,12 @@ label day5_main2:
             with dissolve
             "Славя взяла вторую корзинку и пошла в дальнюю часть острова."
             show un surprise pioneer at cleft:
-                linear 1.0 xalign 0.5 
+                linear 1.0 xalign 0.5
             me "Ну что?"
             un "Что?"
             me "Пойдём?"
             with None
-            show un smile pioneer at center 
+            show un smile pioneer at center
             with dspr
             un "Ага."
             "Лена улыбнулась."
@@ -18686,7 +18261,7 @@ label day5_main2:
             "Лена шла совсем рядом, так как корзинка у нас была всего одна."
             "Я чувствовал себя грибником, заглядывая под каждый кустик и внимательно роясь в траве."
             with None
-            show un surprise pioneer at center 
+            show un surprise pioneer at center
             with dissolve
             un "У тебя как-то лучше получается…"
             me "Да?{w} Я их не считаю, если честно."
@@ -18694,7 +18269,7 @@ label day5_main2:
             "Корзинка была уже наполовину заполнена."
             me "А ты, наверное, любишь природу?"
             with None
-            show un smile2 pioneer at center 
+            show un smile2 pioneer at center
             with dspr
             un "Да."
             window hide
@@ -18704,7 +18279,7 @@ label day5_main2:
             "Я опустился на землю и прислонился к дереву."
             me "Красиво всё же здесь!"
             with None
-            show un smile2 pioneer close at center  
+            show un smile2 pioneer close at center
             with dissolve
             "Лена села рядом.{w} Близко настолько, что её локоть касался моего."
             un "Да!"
@@ -18732,14 +18307,14 @@ label day5_main2:
             with dissolve
             play ambience ambience_forest_day fadein 3
             with None
-            show un normal pioneer close at center  
+            show un normal pioneer close at center
             with dissolve
             window show
             "Она открыла глаза и отсутствующим взглядом посмотрела на меня."
             me "Что снилось?"
             un "А?"
             with None
-            show un shy pioneer close at center 
+            show un shy pioneer close at center
             with dspr
             "Поняв, что задремала у меня на плече, Лена покраснела."
             un "Извини…"
@@ -18751,7 +18326,7 @@ label day5_main2:
             sl "И как улов?"
             "Я грустно вздохнул."
             with None
-            show sl normal pioneer at cleft 
+            show sl normal pioneer at cleft
             with dspr
             sl "Что-то негусто…"
             "А из её корзинки земляника так и вываливалась."
@@ -18759,12 +18334,12 @@ label day5_main2:
             stop ambience fadeout 2
             "Я взял корзинку, и мы направились назад к лодке."
         "Пойти со Славей":
-            $ lp_sl = lp_sl + 1
+            $ lp_sl += 1
             window show
             "Мне не хотелось бродить здесь одному, и я надеялся, что Славя составит мне компанию, но спросить не решился."
             me "Одна корзинка у меня, одна – у вас; всё очевидно."
             with None
-            show sl smile pioneer at cright 
+            show sl smile pioneer at cright
             with dspr
             sl "Нет, давай я с тобой пойду!"
             "Славя улыбнулась."
@@ -18790,18 +18365,18 @@ label day5_main2:
             "Славя шла совсем рядом, так как корзинка у нас была всего одна."
             "Я чувствовал себя грибником, заглядывая под каждый кустик и внимательно роясь в траве."
             with None
-            show sl normal pioneer at center 
+            show sl normal pioneer at center
             with dissolve
             sl "Внимательнее!"
             "Целая россыпь земляники осталась позади."
             me "А, да…{w} Извини."
             with None
-            show sl smile pioneer at center 
+            show sl smile pioneer at center
             with dspr
             sl "Ничего."
             me "Тебе, наверное, здесь нравится?{w} Ты ведь любишь природу."
             with None
-            show sl smile2 pioneer at center 
+            show sl smile2 pioneer at center
             with dspr
             sl "Конечно!"
             "Славя улыбнулась."
@@ -18810,12 +18385,12 @@ label day5_main2:
             me "Слушай, давно хотел спросить – а чем ты вообще увлекаешься?"
             me "А то ты целыми днями занята – кажется, времени на отдых совсем не остаётся."
             with None
-            show sl normal pioneer at center 
+            show sl normal pioneer at center
             with dspr
             sl "Ну…"
             "Она задумалась."
             with None
-            show sl smile pioneer at center 
+            show sl smile pioneer at center
             with dspr
             sl "Не знаю даже.{w} Для меня отдых – это смена вида деятельности."
             me "Нет, это понятно, но всё же?"
@@ -18826,7 +18401,7 @@ label day5_main2:
             "При виде его я сразу же представил Славю в старинном сарафане, сидящую на лавочке возле покосившейся избы, окружённую толпой резвящейся детворы."
             me "Очень мило."
             with None
-            show sl smile2 pioneer at center 
+            show sl smile2 pioneer at center
             with dspr
             sl "Спасибо!{w} Давай я его тебе подарю!"
             "Такое предложение меня смутило."
@@ -18842,7 +18417,7 @@ label day5_main2:
             me "Ну, видимо, всё…"
             stop music fadeout 3
             with None
-            show sl normal pioneer at center 
+            show sl normal pioneer at center
             with dspr
             sl "Да.{w} Набрали немало, этого с запасом хватит."
             window hide
@@ -18857,25 +18432,25 @@ label day5_main2:
             sl "О чём думаешь?"
             me "Ни о чём…{w} А ты?"
             with None
-            show sl sad pioneer at center 
+            show sl sad pioneer at center
             with dspr
             sl "А я…{w} Что будет, когда закончатся каникулы? Придётся вернуться домой, покинуть этот лагерь…"
             with None
-            show sl tender pioneer at center 
+            show sl tender pioneer at center
             with dspr
             sl "Увижусь ли я когда-нибудь со всеми, с кем здесь познакомилась?{w} Увижусь ли я когда-нибудь с тобой?.."
             "Она посмотрела на меня, и в её взгляде было столько тоски, что я не нашёлся, что ответить."
             with None
-            show sl normal pioneer at center 
+            show sl normal pioneer at center
             with dspr
             with None
-            show un normal pioneer at right 
+            show un normal pioneer at right
             with dissolve
             "На помощь мне пришла Лена, которая словно из ниоткуда появилась перед нами."
             un "Ой, а вы уже тут…{w} Вот."
             "Она показала полную корзинку земляники."
             with None
-            show sl smile pioneer at center 
+            show sl smile pioneer at center
             with dspr
             sl "Отлично!{w} Теперь можно отправляться назад."
             "А у меня перед глазами всё ещё стояло лицо Слави, в ушах звенели её слова."
@@ -18901,7 +18476,7 @@ label day5_main2:
     un "Да…"
     me "Да нет, ничего…{w} Сейчас полежу, и всё пройдёт…"
     with None
-    show sl smile pioneer at cright 
+    show sl smile pioneer at cright
     with dspr
     sl "Ладно, тогда отнеси корзинки, пожалуйста, Ольге Дмитриевне, а то у нас ещё дела есть."
     me "Да, конечно."
@@ -18969,7 +18544,7 @@ label day5_main2:
     play music music_list["sweet_darkness"] fadein 3
     "Передо мной стояла Ольга Дмитриевна и трясла меня за плечи."
     with None
-    show mt smile panama pioneer at center 
+    show mt smile panama pioneer at center
     with dissolve
     mt "Я смотрю, урожай вы собрали неплохой, не так ли?"
     window hide
@@ -18978,13 +18553,13 @@ label day5_main2:
             pass
         "Это всё благодаря помощи девочек!":
             $ day5_sl_helped = 1
-            $ lp_sl = lp_sl + 1
+            $ lp_sl += 1
             pass
     window show
     mt "Понятно. Но это ещё не всё!"
     th "Действительно, а я-то уже размечтался, хотел спокойно полежать…"
     with None
-    show mt normal panama pioneer at center 
+    show mt normal panama pioneer at center
     with dspr
     mt "Ты же знаешь, зачем эта земляника?"
     me "Не имею ни малейшего понятия…"
@@ -18993,32 +18568,32 @@ label day5_main2:
     me "Ясно…"
     th "Что же, весьма логично."
     with None
-    show mt smile panama pioneer at center 
+    show mt smile panama pioneer at center
     with dspr
     mt "В честь чудесного спасения Шурика!{w} Ведь это всё благодаря тебе!"
     "Было понятно, что земляникой дело не ограничится."
     th "И почему, скажите на милость, если я такой герой, то праздник в честь себя должен организовывать сам?.."
     me "Ну, наверное…"
     with None
-    show mt normal panama pioneer at center 
+    show mt normal panama pioneer at center
     with dspr
     mt "Так вот…{w} У меня для тебя есть ответственное задание!"
     mt "Для торта не хватает ещё дрожжей, муки и сахара.{w} Всё это надо принести в столовую до ужина!"
     me "А те, кто торт будут печь, не могут как-то сами?.."
     "Жалостливо поинтересовался я."
     with None
-    show mt surprise panama pioneer at center 
+    show mt surprise panama pioneer at center
     with dspr
     mt "Конечно нет!{w} Они все заняты!{w} А без дела у нас в лагере слоняешься только ты!"
     "Хоть в её словах и была изрядная доля правды, сейчас мне от этого никак не становилось легче."
     "Более того, они послужили контрольным выстрелом!"
     with None
-    show mt normal panama pioneer at center 
+    show mt normal panama pioneer at center
     with dspr
     mt "Итак, запоминай!{w} Дрожжи возьмёшь в медпункте. Муку – в библиотеке. Сахар – в здании кружков."
     me "Подождите, а..."
     with None
-    show mt grin panama pioneer at center 
+    show mt grin panama pioneer at center
     with dspr
     mt "Мне некогда, я спешу!{w} Удачи тебе!"
     with None
@@ -19038,9 +18613,9 @@ label day5_main2:
     th "Похоже, придётся всё же…"
     window hide
     $ disable_all_zones()
-    $ set_zone("clubs","day5_clubs_2")
-    $ set_zone("library","day5_library_2")
-    $ set_zone("medic_house","day5_aidpost_2")
+    $ set_zone("clubs", "day5_clubs_2")
+    $ set_zone("library", "day5_library_2")
+    $ set_zone("medic_house", "day5_aidpost_2")
     jump day5_map
 label day5_map:
     if day5_map_necessary_done == 3:
@@ -19061,32 +18636,32 @@ label day5_aidpost_2:
     window hide
     stop ambience fadeout 2
     play sound sfx_open_door_2
-    pause(1)
+    pause 1
     $ persistent.sprite_time = "day"
     scene bg int_aidpost_day
     with dissolve
     play ambience ambience_medstation_inside_day fadein 3
     with None
-    show cs normal at center 
+    show cs normal at center
     with dissolve
     window show
     me "Здравствуйте!{w} Меня Ольга Дмитриевна прислала за…"
     "Я несколько замялся."
     me "Дрожжами…"
     with None
-    show cs smile at center 
+    show cs smile at center
     with dspr
     cs "А, да, конечно."
     "Она широко улыбнулась."
     cs "Только у меня их нет…{w} пионер."
     me "Как так?{w} Она сказала, что…"
     with None
-    show cs normal at center 
+    show cs normal at center
     with dspr
     cs "Ну, раньше были, да кончились."
     "Я даже не стал спрашивать, зачем они вообще понадобились медсестре."
     with None
-    show cs smile at center 
+    show cs smile at center
     with dspr
     cs "Впрочем, ты не расстраивайся.{w} Могу предложить тебе аспирин, например."
     th "Может быть, он мне и не помешал бы."
@@ -19098,12 +18673,12 @@ label day5_aidpost_2:
     "Я присмотрелся.{w} Пиво «Останкинское»."
     me "…"
     with None
-    show cs normal at center 
+    show cs normal at center
     with dspr
     cs "А что такого?{w} Пиво тоже продукт брожения."
     "Она пристально посмотрела на меня."
     with None
-    show cs smile at center 
+    show cs smile at center
     with dspr
     cs "Никто и не заметит!"
     "Да, в её словах была логика, но всё происходящее казалось мне настолько гротескным, что я не сразу нашёлся, что ответить."
@@ -19130,7 +18705,7 @@ label day5_aidpost_2:
     scene bg ext_square_day
     with dissolve
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     window show
     "Всё бы и хорошо, но на площади меня окликнула Славя."
@@ -19140,14 +18715,14 @@ label day5_aidpost_2:
     sl "Поиски ингредиентов."
     me "А ты уже знаешь…"
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Да!"
     "Славя улыбнулась."
     me "Нормально…"
     "Стараясь не выдавать своё волнение, ответил я."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "А что у тебя там?"
     "Она показала на выпячивающуюся из-под рубашки бутылку."
@@ -19166,14 +18741,14 @@ label day5_aidpost_2:
     "Но есть в этом лагере те, кого хлебом не корми – дай засунуть нос в чужие дела…"
     "Проходя мимо домиков пионеров, я столкнулся с Ульяной."
     with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dissolve
     us "Что прячешь?"
     "Она хитро посмотрела на меня."
     "Я решил, что отпираться нет смысла, и поэтому вызывающе ответил:"
     me "А не твоё дело! Шифровку в штаб несу."
     with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "Большая…{w} шифровка…"
     "Бутылку я держал на уровне пояса, поэтому несколько смутился."
@@ -19203,7 +18778,7 @@ label day5_aidpost_2:
     th "Хорошо, что сейчас она в безопасности…"
     th "А если даже и найдут, скажу, что не моё – опыт в придумывании оправданий у меня был большой."
     window hide
-    $ day5_map_necessary_done +=1
+    $ day5_map_necessary_done += 1
     $ disable_current_zone()
     jump day5_map
 label day5_clubs_2:
@@ -19216,7 +18791,7 @@ label day5_clubs_2:
     window hide
     stop ambience fadeout 2
     play sound sfx_open_door_clubs
-    pause(1)
+    pause 1
     scene cg d5_clubs_robot
     with dissolve
     play ambience ambience_clubs_inside_day fadein 3
@@ -19245,12 +18820,12 @@ label day5_clubs_2:
     sh "О! Семён! Заходи, всегда рады!"
     th "Да я и так уже зашёл, вообще-то…"
     with None
-    show sh normal pioneer at cleft 
+    show sh normal pioneer at cleft
     with dspr
     sh "Ты это…{w} Извини за вчерашнее!{w} Хотя я почти ничего не помню, но мало ли что…{w} В общем…"
     me "Ничего-ничего!"
     with None
-    show el grin pioneer at cright 
+    show el grin pioneer at cright
     with dspr
     el "А что тебя привело в нашу скромную обитель?"
     "Электроник хитро посмотрел на меня."
@@ -19258,7 +18833,7 @@ label day5_clubs_2:
     me "Сахар.{w} Мне нужен сахар."
     "Перед глазами сразу всплыла картинка из старой компьютерной игры, где какой-то юнит, строитель или что-то подобное, во все свои пять пикселей кричал “More! We need more!”"
     with None
-    show el normal pioneer at cright 
+    show el normal pioneer at cright
     with dspr
     el "Это есть у нас."
     "Спокойно ответил Электроник."
@@ -19272,36 +18847,36 @@ label day5_clubs_2:
     "Электроник скрылся за дверью в соседнюю комнату."
     me "А почему сахар именно у вас лежит, а не в столовой?"
     with None
-    show sh serious pioneer at cleft 
+    show sh serious pioneer at cleft
     with dspr
     sh "Когда в прошлый раз машина с продуктами приезжала, то его выгружали последним."
     sh "А так как наше здание ближе всего к проходной, то, чтобы далеко не носить…"
     th "Логично."
     with None
-    show el normal pioneer at cright 
+    show el normal pioneer at cright
     with dissolve
     "Открылась дверь, и появился Электроник, тащивший за собой огромный мешок."
     "Я, конечно, не знал, какого размера торт планирует испечь Ольга Дмитриевна, но здесь сахара явно многовато."
     me "Спасибо, конечно, но мне столько не надо…"
     with None
-    show el surprise pioneer at cright 
+    show el surprise pioneer at cright
     with dspr
     el "А куда же нам его переложить?"
     "Электроник удивленно посмотрел на меня."
     with None
-    show el smile pioneer at cright 
+    show el smile pioneer at cright
     with dspr
     el "Нам некуда.{w} Просил сахар – забирай."
     th "Похоже, та его улыбка всё же не была беспричинной."
     me "Может быть, тогда поможете мне дотащить?{w} Тут недалеко же…"
     with None
-    show el normal pioneer at cright 
+    show el normal pioneer at cright
     with dspr
     el "А мы заняты."
     "Он показал рукой на робота."
     "Я пристально посмотрел на Шурика.{w} В конце концов, он был мне обязан."
     with None
-    show sh upset pioneer at cleft 
+    show sh upset pioneer at cleft
     with dspr
     "Тот замялся, но всё же стыдливо отвёл глаза."
     "Я вздохнул, взял мешок и направился к выходу."
@@ -19323,7 +18898,7 @@ label day5_clubs_2:
     un "Может, тебе помочь?"
     play music music_list["she_is_kind"] fadein 3
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     "Передо мной стояла Лена."
     me "Не думаю, что у тебя это получится…"
@@ -19332,7 +18907,7 @@ label day5_clubs_2:
     th "Тележка…{w} Почему я сам об этом не подумал?!"
     me "Да, это было бы здорово!"
     with None
-    show un smile3 pioneer at center 
+    show un smile3 pioneer at center
     with dspr
     un "Подожди тут, я быстро!"
     with None
@@ -19347,7 +18922,7 @@ label day5_clubs_2:
     window hide
     with fade
     with None
-    show un smile2 pioneer at center 
+    show un smile2 pioneer at center
     with dissolve
     window show
     "Через пару минут она вернулась с небольшой тележкой."
@@ -19355,7 +18930,7 @@ label day5_clubs_2:
     "Я поставил на неё мешок."
     me "Спасибо."
     with None
-    show un shy pioneer at center 
+    show un shy pioneer at center
     with dspr
     un "Не за что…"
     "Она покраснела и уставилась себе под ноги."
@@ -19378,7 +18953,7 @@ label day5_clubs_2:
     window show
     "Я решил, что лучше принесу все ингредиенты одновременно, поэтому направился с тележкой в сторону домика Ольги Дмитриевны."
     window hide
-    $ day5_map_necessary_done +=1
+    $ day5_map_necessary_done += 1
     $ disable_current_zone()
     jump day5_map
 label day5_library_2:
@@ -19393,7 +18968,7 @@ label day5_library_2:
     window hide
     stop ambience fadeout 2
     play sound sfx_knock_door7_polite
-    pause (2)
+    pause 2
     window show
     mz "Открыто."
     window hide
@@ -19403,7 +18978,7 @@ label day5_library_2:
     with dissolve
     play ambience ambience_library_day fadein 3
     with None
-    show mz normal glasses pioneer at center 
+    show mz normal glasses pioneer at center
     with dissolve
     window show
     "Женя внимательно посмотрела на меня из-под очков."
@@ -19414,7 +18989,7 @@ label day5_library_2:
     me "Меня к тебе послали. А нужна она для торта. Отметить спасение Шурика."
     play music music_list["my_daily_life"] fadein 3
     with None
-    show mz bukal glasses pioneer at center 
+    show mz bukal glasses pioneer at center
     with dspr
     mz "Да, есть у меня мука, что тут такого?"
     "Удивлённо ответила Женя."
@@ -19422,7 +18997,7 @@ label day5_library_2:
     th "Мука в библиотеке…{w} Действительно, что здесь такого…"
     th "Мы же в Зазеркалье, я Алиса, сейчас съем волшебный гриб и отправлюсь домой…"
     with None
-    show mz normal glasses pioneer at center 
+    show mz normal glasses pioneer at center
     with dspr
     mz "Эй!"
     me "А? Да!"
@@ -19432,7 +19007,7 @@ label day5_library_2:
     hide mz
     with dissolve
     "Она скрылась за книжными шкафами, а я скрестил руки на груди и принялся ждать."
-    play sound sfx_cellar_open    
+    play sound sfx_cellar_open
     "Через пару секунд послышался звук скрипящих петель."
     me "Может, тебе помочь?"
     "Крикнул я."
@@ -19447,18 +19022,18 @@ label day5_library_2:
     "Я уже начал волноваться, как вдруг дверь в библиотеку открылась, и вошла Алиса."
     play sound sfx_open_door_2
     with None
-    show dv normal pioneer2 at center 
+    show dv normal pioneer2 at center
     with dissolve
     "Похоже, она не ожидала меня здесь увидеть."
     with None
-    show dv surprise pioneer2 at center 
+    show dv surprise pioneer2 at center
     with dspr
     dv "А ты что тут делаешь?"
     me "А что, нельзя?"
     "Грубо ответил я."
     "Алиса немного опешила."
     with None
-    show dv angry pioneer2 at center 
+    show dv angry pioneer2 at center
     with dspr
     dv "Да мне какое дело…"
     "Фыркнула она и направилась к столу Жени."
@@ -19467,7 +19042,7 @@ label day5_library_2:
     me "Книгу отдать?"
     "Сказал я первое, что пришло в голову."
     with None
-    show dv sad pioneer2 at center 
+    show dv sad pioneer2 at center
     with dspr
     dv "Не твоё дело…"
     "Не очень уверенно ответила она."
@@ -19475,7 +19050,7 @@ label day5_library_2:
     "Алиса промолчала."
     me "Ну, дай посмотреть!{w} Интересно ведь, что читает мисс «Не-влезай-убьёт!»"
     with None
-    show dv guilty pioneer2 at center 
+    show dv guilty pioneer2 at center
     with dspr
     dv "Не твоё дело…"
     "В её голосе было ещё меньше уверенности."
@@ -19490,12 +19065,12 @@ label day5_library_2:
             window show
             "Всё же любопытство взяло верх – я воспользовался тем, что Алиса не смотрит на меня и, тихо подкравшись, аккуратно выхватил книгу."
             with None
-            show dv shocked pioneer2 at center 
+            show dv shocked pioneer2 at center
             with dspr
             dv "Ай!"
             "Взвизгнула она."
             with None
-            show dv rage pioneer2 at center 
+            show dv rage pioneer2 at center
             with dspr
             "В следующую секунду её лицо приняло такое выражение, что я уже начал сомневаться в правильности своего решения."
             th "Раз уж скоро умирать, то хотя бы посмотрю ради чего."
@@ -19504,7 +19079,7 @@ label day5_library_2:
             "От удивления я даже забыл о неминуемой смерти."
             me "Интересно?"
             with None
-            show dv shy pioneer2 at center 
+            show dv shy pioneer2 at center
             with dspr
             dv "Да…"
             "Покраснев, нехотя ответила Алиса."
@@ -19517,7 +19092,7 @@ label day5_library_2:
             th "Значит, и ей ничто человеческое не чуждо.{w} В конце концов, она тоже девочка."
             "Быстро проанализировав произошедшее, я заключил, что ничего такого странного и не случилось."
         "Ничего не делать":
-            $ lp_dv = lp_dv + 1
+            $ lp_dv += 1
             window show
             "Любопытство кошку сгубило."
             th "В конце концов, – это Алиса! – всё может закончиться очень плачевно, а мне ещё продукты для торта собирать."
@@ -19533,7 +19108,7 @@ label day5_library_2:
     "Наконец библиотека огласилась громогласным стоном Жени."
     mz "Забирай!"
     with None
-    show mz bukal glasses pioneer at center 
+    show mz bukal glasses pioneer at center
     with dissolve
     "Я обошёл шкафы с книгами и увидел вспотевшую библиотекаршу, сидевшую рядом с люком в погреб, а рядом с ней – небольшой мешок."
     th "Может быть, у них тут что-то типа склада?.."
@@ -19548,7 +19123,7 @@ label day5_library_2:
     window show
     "Слава богу, что он оказался не очень тяжёлым, и до домика Ольги Дмитриевны я его донёс без особых усилий."
     window hide
-    $ day5_map_necessary_done +=1
+    $ day5_map_necessary_done += 1
     $ disable_current_zone()
     jump day5_map
 label day5_main3:
@@ -19572,7 +19147,7 @@ label day5_main3:
     "Нет, тележка не была тяжёлой, ехала легко, и не приходилось прилагать особых усилий – просто любые физические нагрузки вызывали боль.{w} И физическую, и душевную."
     window hide
     show blink
-    pause (1)
+    pause 1
     window show
     "Я присел на лавочку и закрыл глаза."
     scene black
@@ -19610,7 +19185,7 @@ label day5_main3:
     scene bg ext_square_day
     show unblink
     with dissolve
-    pause (1)
+    pause 1
     window show
     "Внезапно налетел ветер, я инстинктивно схватился за тележку и открыл глаза."
     "Однако передо мной никого не было."
@@ -19630,16 +19205,16 @@ label day5_main3:
     "Проще говоря, я слишком устал, поэтому сел на ступеньки и принялся ждать."
     show blink
     window hide
-    pause (1)
+    pause 1
     window show
     "Глаза закрывались сами собой – наверное, за весь день меня слишком сильно разморило, – поэтому я и не заметил, как кто-то подошёл и легонько стукнул меня по плечу."
     show unblink
     hide blink
     window hide
-    pause (1)
+    pause 1
     play music music_list["so_good_to_be_careless"] fadein 3
     with None
-    show mi smile pioneer at center 
+    show mi smile pioneer at center
     with dissolve
     window show
     mi "Привет!"
@@ -19647,24 +19222,24 @@ label day5_main3:
     me "И тебе…"
     "Даже без зеркала я мог представить выражение крайнего скептицизма и раздражения у себя на лице."
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dspr
     mi "Извини, я помешала, наверное…"
     me "Да нет, я просто сидел."
     with None
-    show mi smile pioneer at center 
+    show mi smile pioneer at center
     with dspr
     mi "А, ну тогда ладно!"
     "Мику расплылась в улыбке."
     mi "Я просто шла на ужин, думала, что уже пора, а оказалось, что ещё рано, но я всё же решила проверить – может, не я ошиблась, а часы!"
     with None
-    show mi upset pioneer at center 
+    show mi upset pioneer at center
     with dspr
     mi "Ну, то есть часы не могут ошибаться, просто я их не так поняла…"
     "Кажется, она окончательно запуталась и замолчала."
     me "Ещё полчаса примерно до ужина."
     with None
-    show mi smile pioneer at center 
+    show mi smile pioneer at center
     with dspr
     mi "Отлично, тогда я с тобой тут посижу подожду, не возражаешь?"
     "Откровенно говоря, я возражал."
@@ -19695,7 +19270,7 @@ label day5_main3:
     th "Точнее, альтернатива приведёт к куда худшим последствиям, чем растянутые мышцы и ущемлённое самолюбие…"
     us "На кого злишься?"
     with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dissolve
     "Передо мной стояла Ульянка и ехидно улыбалась."
     me "Ни на кого…"
@@ -19703,13 +19278,13 @@ label day5_main3:
     "Однако кулаки меня выдавали."
     me "Так, просто…"
     with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "Ладно-ладно, дело твоё…{w} Ты лучше скажи мне, зачем весь день по лагерю бегал со всякими мешками?"
     me "Дела были…"
     "Нехотя ответил я."
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Судя по всему, это продукты."
     me "Может, и продукты…"
@@ -19722,7 +19297,7 @@ label day5_main3:
     scene bg ext_dining_hall_near_day
     with dissolve
     with None
-    show mt smile pioneer at center 
+    show mt smile pioneer at center
     with dissolve
     window show
     mt "Семён, спасибо тебе огромное!"
@@ -19750,7 +19325,7 @@ label day5_main3:
     th "Сегодня что, рыбный день?!"
     window hide
     show blink
-    pause (1)
+    pause 1
     window show
     "Отодвинув в сторону тарелку с жареным морским обитателем, я опустил голову на руки и закрыл глаза."
     scene bg black
@@ -19771,13 +19346,13 @@ label day5_main3:
     show un normal pioneer at cleft
     show unblink
     with dissolve
-    pause (1)
+    pause 1
     window show
     me "Чего? Куда?"
     "Я моментально открыл глаза и поднял голову."
     "Рядом со Славей стояла Лена."
     with None
-    show sl surprise pioneer at cright 
+    show sl surprise pioneer at cright
     with dspr
     sl "Поход…"
     "Она удивилась."
@@ -19808,12 +19383,12 @@ label day5_main3:
     th "Как будто так и положено."
     th "Что же, от вожатой этого стоило ожидать."
     with None
-    show sl smile pioneer at cright 
+    show sl smile pioneer at cright
     with dspr
     sl "Пойдём!{w} А то без нас съедят!"
     "Славя улыбнулась."
     with None
-    show un smile pioneer at cleft 
+    show un smile pioneer at cleft
     with dspr
     un "Пойдём."
     "Согласилась с ней Лена."
@@ -19823,7 +19398,7 @@ label day5_main3:
     with dissolve
     "Я нехотя встал и поплёлся за девочками."
     with None
-    show mt smile pioneer far at center  
+    show mt smile pioneer far at center
     with dissolve
     "Когда мы подошли к толпе пионеров, Ольга Дмитриевна как раз поставила торт на середину стола."
     stop ambience fadeout 2
@@ -19840,7 +19415,7 @@ label day5_main3:
     "Казалось, мне просто здесь не место, сейчас закрою глаза, открою – и вот я уже дома перед компьютером…"
     window hide
     show blinking
-    pause (3)
+    pause 3
     window show
     "Я моргнул, но ничего не изменилось; только шум, гам и крики стали отчётливее:"
     window hide
@@ -19853,24 +19428,24 @@ label day5_main3:
     window show
     mt "Ульяна! Это уже переходит все границы!"
     with None
-    show us sad pioneer at right 
+    show us sad pioneer at right
     with dspr
     us "Я…{w} Я…"
     "Действительно, такое поведение – это перебор даже для неё."
     "В разговор – или трибунал? – вмешался Шурик."
     with None
-    show sh normal pioneer at left 
+    show sh normal pioneer at left
     with dissolve
     sh "Да ладно вам, Ольга Дмитриевна! Раз уж торт в мою честь, то ничего страшного…"
     "Он замялся."
     with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dspr
     mt "Неважно!"
     "Вожатая повернулась в сторону Ульяны."
     mt "А ты…{w} Тебя я сегодня накажу по-настоящему, чтобы в следующий раз знала!"
     with None
-    show us dontlike pioneer at right 
+    show us dontlike pioneer at right
     with dspr
     us "Ради бога!"
     "Она фыркнула и отвернулась."
@@ -19884,7 +19459,7 @@ label day5_main3:
     with dissolve
     "После пары минут замешательства пионеры стали потихоньку расходиться."
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "И тебе пора собираться!{w} Через полчаса – построение на площади."
     "Я посмотрел в глаза вожатой, пытаясь невербально передать всё своё отношение к происходящему, но вышло у меня, видимо, не очень."
@@ -19894,24 +19469,24 @@ label day5_main3:
     with dissolve
     with None
     show us sad pioneer at right :
-        linear 0.5 xalign 0.5 
+        linear 0.5 xalign 0.5
     with dspr
     "Направляясь к выходу, я подошёл к Ульянке, которая сидела на столе."
     me "И зачем?"
     "Выглядела она крайне обиженной.{w} Впрочем, было на что."
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "Захотелось."
     "Резко ответила Ульяна."
     me "Довольна результатом?"
     with None
-    show us shy2 pioneer at center 
+    show us shy2 pioneer at center
     with dspr
     us "Довольна!{w} А тебе удачно в поход сходить!"
     with None
     show us laugh pioneer at center :
-        linear 1.5 xalign 1.5 
+        linear 1.5 xalign 1.5
     with dspr
     with None
     hide us
@@ -19955,7 +19530,7 @@ label day5_main3:
     "Вот он машет рукой с криком «в атаку», и ревущие солдаты в красных галстуках сходятся в битве с невидимым противником…"
     "Впрочем, вместо Генды заговорила появившаяся Ольга Дмитриевна:"
     with None
-    show mt normal pioneer far at center  
+    show mt normal pioneer far at center
     with dissolve
     mt "Вроде все на месте…{w} Отлично!"
     "Я не мог думать ни о чём, потому что за сегодня слишком устал, и решил просто послушать вожатую."
@@ -19972,7 +19547,7 @@ label day5_main3:
     mt "Семён!"
     "Голос вожатой вывел меня из раздумий."
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     "Я нехотя подошёл к ней."
     mt "Тебе пары не нашлось, как я погляжу."
@@ -19985,12 +19560,12 @@ label day5_main3:
     hide mt
     with dissolve
     with None
-    show mz normal glasses pioneer at center 
+    show mz normal glasses pioneer at center
     with dissolve
     "Я медленно подошёл к Жене."
     me "По ходу дела, нам с тобой идти…"
     with None
-    show mz bukal glasses pioneer at center 
+    show mz bukal glasses pioneer at center
     with dspr
     "Она подняла на меня глаза."
     mz "Только не думай, что я рада!"
@@ -19998,7 +19573,7 @@ label day5_main3:
     me "А с чего тебе радоваться?"
     "Наивно спросил я."
     with None
-    show mz angry glasses pioneer at center 
+    show mz angry glasses pioneer at center
     with dspr
     mz "Неважно!{w} Будет ещё лучше, если ты помолчишь."
     with None
@@ -20022,39 +19597,39 @@ label day5_main3:
     "Библиотекаршу, похоже, это нисколько не смущало."
     me "Слушай, а ты не знаешь, когда мы уже придём?"
     with None
-    show mz normal glasses pioneer at center 
+    show mz normal glasses pioneer at center
     with dissolve
     mz "Придём куда?"
     me "Ну, туда, где планируется разбить лагерь."
     with None
-    show mz bukal glasses pioneer at center 
+    show mz bukal glasses pioneer at center
     with dspr
     mz "Смысл похода не в лагере, а в ходьбе пешком!{w} Ты ничего не понимаешь!"
     "Да, в походах я и правда ничего не понимал…"
     me "Ну, наверное, но всё же…"
     with None
-    show mz angry glasses pioneer at center 
+    show mz angry glasses pioneer at center
     with dspr
     mz "Не знаю!"
     with None
-    show mz angry glasses pioneer far at center  
+    show mz angry glasses pioneer far at center
     with dissolve
     "Резко ответила она и ускорила шаг."
     "Я догнал её и спросил:"
     with None
-    show mz angry glasses pioneer at center 
+    show mz angry glasses pioneer at center
     with dissolve
     me "Слушай, а почему ты всегда…"
     "Я хотел сказать «злая», но осёкся."
     me "Я же тебе ничего плохого не делал и не собираюсь!"
     with None
-    show mz bukal glasses pioneer at center 
+    show mz bukal glasses pioneer at center
     with dspr
     "Она удивлённо посмотрела на меня."
     mz "Какая?"
     me "Ну, нелюдимая, что ли…{w} Или это ты только со мной так?"
     with None
-    show mz rage glasses pioneer at center 
+    show mz rage glasses pioneer at center
     with dspr
     mz "Опять ты чушь какую-то несёшь!"
     me "Как знаешь…"
@@ -20071,7 +19646,7 @@ label day5_main3:
     "Наконец Ольга Дмитриевна решила, что пора заканчивать наши хождения по мукам."
     stop ambience fadeout 2
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     mt "Здесь сделаем привал."
     with None
@@ -20090,7 +19665,7 @@ label day5_main3:
     th "Не хватает только котелка с ухой, алюминиевых чашек с водкой и гитары."
     "Впрочем, я бы не удивился, если бы и всё это откуда-нибудь здесь появилось."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     sl "О чём думаешь?"
     "Ко мне подсела Славя."
@@ -20133,7 +19708,7 @@ label day5_main3:
     th "Какая же?"
     mt "Бесконечно можно смотреть на огонь, воду и на то, как работают другие люди!"
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     "Вожатая вывела меня из задумчивости."
     mt "Семён, тебе не кажется, что ты расслабился слишком рано?"
@@ -20142,7 +19717,7 @@ label day5_main3:
     mt "Не знаю…"
     "Она замолчала на минуту."
     with None
-    show mt grin pioneer at center 
+    show mt grin pioneer at center
     with dspr
     mt "Но если что-то будет нужно, то сделай обязательно."
     with None
@@ -20169,7 +19744,7 @@ label day5_main3:
     sh "Ну?"
     me "У меня времени нет…{w} Видите, как я постоянно занят поручениями вожатой?"
     with None
-    show sh upset pioneer at cright 
+    show sh upset pioneer at cright
     with dspr
     sh "Да, пожалуй, ты прав…{w} Неудобно сегодня с Ульяной получилось."
     "Я удивлённо посмотрел на него."
@@ -20215,7 +19790,7 @@ label day5_main3:
     "Я сел на прежнее место и принялся терпеливо ждать конца похода, почти физически ощущая на себе взгляды вожатой."
     "Наконец она встала и объявила:"
     with None
-    show mt smile pioneer at center 
+    show mt smile pioneer at center
     with dissolve
     mt "А теперь давайте играть в города!"
     with None
@@ -20236,7 +19811,7 @@ label day5_main3:
     th "Может, у неё возникли какие-то дела?"
     "Впрочем, сейчас опять же я никак этого узнать не мог."
     with None
-    show mt smile pioneer at center 
+    show mt smile pioneer at center
     with dissolve
     mt "Итак, начнём!{w} Москва!"
     with None
@@ -20250,13 +19825,13 @@ label day5_main3:
     "С каждым новым названием мне всё тяжелее было запоминать всё, что говорили до этого."
     "Внимание рассеивалось, и я терялся в разнообразных столицах, городах-миллионниках, деревнях и посёлках городского типа."
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     mt "Семён! Семён! Твоя очередь!"
     "Ольга Дмитриевна вернула меня к реальности."
     me "Простите, а что было до меня?"
     with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dspr
     mt "Опять ты где-то в облаках витаешь!{w} Севастополь был."
     me "Тогда Лондон…"
@@ -20267,7 +19842,7 @@ label day5_main3:
     mt "Было!"
     me "Лос-Анджелес?"
     with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dspr
     mt "Наконец-то!"
     with None
@@ -20276,7 +19851,7 @@ label day5_main3:
     "Она несколько презрительно посмотрела на меня, и игра продолжилась."
     "Наверное, ещё одного города на «л» я бы не выдержал, но, к счастью, этот кон стал последним."
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     mt "Ладно, пожалуй, хватит на сегодня! Уже поздно, пора возвращаться!"
     "Я с облегчением вздохнул."
@@ -20305,7 +19880,7 @@ label day5_main3:
     "Мне она больше напоминала строй викингов после удачного сражения – воины довольны, улыбаются, ждут возвращения к семьям и уже не задумываются о правильном боевом порядке."
     "Хотя, с другой стороны, можно было увидеть в них и разбитый наголову отряд, небольшую горстку уцелевших, из последних сил совершающих бросок к родным землям."
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     mt "Всем спасибо!{w} А теперь марш спать, поздно уже!"
     "Пионеры быстро разбрелись кто куда, и я остался вдвоём с вожатой."
@@ -20323,7 +19898,7 @@ label day5_main3:
     with dissolve
     play ambience ambience_int_cabin_night fadein 2
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     window show
     mt "Всё, спать!"
@@ -20344,7 +19919,7 @@ label day5_main3:
     "Я погрузился в сон."
     window hide
     stop ambience fadeout 3
-    pause (3)
+    pause 3
     jump day6_main
 label day5_dv:
     "Из всего благолепия выбивались только Лена и Алиса."
@@ -20365,11 +19940,11 @@ label day5_dv:
     "Лена злилась.{w} Одно это уже было в высшей степени странно, даже учитывая то, что я не знал предмета спора."
     dv "А вот это уже не твоё дело!"
     with None
-    show dv surprise pioneer far at cleft 
+    show dv surprise pioneer far at cleft
     with dspr
     "Алиса фыркнула, отвернулась от неё и встретилась глазами со мной."
     with None
-    show un normal pioneer far at cright 
+    show un normal pioneer far at cright
     with dspr
     "Через секунду посмотрела на меня и Лена."
     "Некоторое время девочки стояли в растерянности."
@@ -20381,12 +19956,12 @@ label day5_dv:
     me "Я?{w} Нет-нет! Просто мимо крокодил… проходил."
     "Я натянул самую милую улыбку, которую только смог изобразить, но, кажется, не помогло."
     with None
-    show dv grin pioneer at cleft 
+    show dv grin pioneer at cleft
     with dspr
     dv "Кстати, он сегодня за мной подглядывал!"
     "Ехидно ухмыльнулась Алиса."
     with None
-    show un surprise pioneer at cright 
+    show un surprise pioneer at cright
     with dspr
     "Лена вопросительно посмотрела на меня."
     th "И почему бы ей для начала не усомниться в словах этой рыжей бестии?"
@@ -20394,31 +19969,31 @@ label day5_dv:
     dv "Ври больше!"
     th "Похоже, оправдаться не получится."
     with None
-    show dv laugh pioneer at cleft 
+    show dv laugh pioneer at cleft
     with dspr
     dv "Сиськи-то мои хоть понравились?"
     "Спина покрылась ледяным потом."
     with None
-    show un shocked pioneer at cright 
+    show un shocked pioneer at cright
     with dspr
     un "Это…{w} правда?"
     "Умоляюще посмотрела на меня Лена."
     me "Понимаешь, это случайно вышло…{w} И ничего я там не видел."
     with None
-    show dv rage pioneer at cleft 
+    show dv rage pioneer at cleft
     with dspr
     dv "Не видел? Так я могу повторить!"
     "Гневно воскликнула Алиса."
     "Я просто не знал, что на это ответить."
     with None
-    show dv normal pioneer at cleft 
+    show dv normal pioneer at cleft
     with dspr
     dv "Видишь, я же говорила!"
     un "Нет… Нет…"
     "Начала бормотать Лена и через мгновение бросилась бежать."
     with None
     show un shocked pioneer at cright :
-        linear 1.0 xalign 1.5 
+        linear 1.0 xalign 1.5
     with dspr
     with None
     hide un
@@ -20427,20 +20002,20 @@ label day5_dv:
     "Крикнул я ей вслед."
     with None
     show dv smile pioneer at cleft :
-        linear 1.0 xalign 0.5 
+        linear 1.0 xalign 0.5
     with dspr
     dv "Вот видишь – девочку расстроил!"
     "Ехидно ухмыльнулась Алиса."
     me "Во-первых, не я её расстроил!{w} Во-вторых, неизвестно, о чём вы тут спорили!"
     "Моё терпение было на пределе."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "А тебе всё возьми да расскажи."
     "Кажется, она посчитала, что наш разговор на этом закончен, и собиралась уходить."
     "Я резко схватил её за руку."
     with None
-    show dv scared pioneer at center 
+    show dv scared pioneer at center
     with dspr
     "Алиса испуганно посмотрела на меня, но ничего не сказала."
     "В тот момент я был зол.{w} Очень зол!"
@@ -20452,7 +20027,7 @@ label day5_dv:
     me "Только и можешь, что памятники взрывать да беззащитных девочек обижать!"
     "Она выглядела испуганной, расстроенной и растерянной одновременно."
     with None
-    show dv guilty pioneer at center 
+    show dv guilty pioneer at center
     with dspr
     dv "Она сама…{w} кого хочешь обидит!{w} Ты её просто плохо знаешь!"
     me "Верно только то, что я её плохо знаю. Но при этом абсолютно уверен, что никого она обидеть не может! Это исключительно твоя прерогатива!"
@@ -20461,7 +20036,7 @@ label day5_dv:
     "Решение пришло как-то само собой."
     me "Ты пойдёшь и извинишься!"
     with None
-    show dv surprise pioneer at center 
+    show dv surprise pioneer at center
     with dspr
     dv "С чего бы это вдруг?"
     "Алиса пыталась казаться надменной как всегда, но выходило не очень."
@@ -20476,7 +20051,7 @@ label day5_dv:
     scene bg ext_path_sunset
     with dissolve
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     window show
     "Через несколько сотен метров я отпустил её."
@@ -20484,11 +20059,11 @@ label day5_dv:
     "Вся спесь и надменность давно исчезли с лица Алисы."
     with None
     show dv guilty pioneer at center :
-        linear 0.05 xalign 0.495 
-        linear 0.05 xalign 0.5 
-        linear 0.05 xalign 0.515 
-        linear 0.05 xalign 0.5 
-        pause 2.0 
+        linear 0.05 xalign 0.495
+        linear 0.05 xalign 0.5
+        linear 0.05 xalign 0.515
+        linear 0.05 xalign 0.5
+        pause 2.0
         repeat
     with dspr
     dv "Если ты так хочешь, я пойду с тобой, но извиняться мне не за что – я сказала правду."
@@ -20502,19 +20077,19 @@ label day5_dv:
     with dissolve
     play ambience ambience_camp_center_evening fadein 3
     with None
-    show dv guilty pioneer at center 
+    show dv guilty pioneer at center
     with dissolve
     window show
     "На площади я спросил Алису:"
     me "А дальше куда?"
     with None
-    show dv surprise pioneer at center 
+    show dv surprise pioneer at center
     with dspr
     dv "А мне откуда знать?"
     me "А кто говорил, что хорошо знает Лену? Я?!"
     "Алиса замялась."
     with None
-    show dv guilty pioneer at center 
+    show dv guilty pioneer at center
     with dspr
     dv "Может быть, на острове…{w} Она часто там, когда хочет побыть одна."
     me "Отлично!"
@@ -20529,13 +20104,13 @@ label day5_dv:
     window show
     "Пока я искал вёсла и возился с канатами, на лагерь уже спустилась ночь."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     "Одной лодки действительно не было."
     me "Сегодня у тебя есть отличная возможность заняться упражнениями на укрепление бицепсов, трицепсов и прочих мышц рук."
     "Съязвил я."
     with None
-    show dv scared pioneer at center 
+    show dv scared pioneer at center
     with dspr
     dv "Ты это серьёзно?"
     "Алиса испуганно посмотрела на меня."
@@ -20589,7 +20164,7 @@ label day5_dv:
     window show
     "Выбравшись из лодки, я обессиленно упал на холодную землю."
     with None
-    show dv guilty pioneer at center 
+    show dv guilty pioneer at center
     with dissolve
     "Алиса стояла рядом и смотрела на меня."
     "Сейчас бы стоило ожидать насмешки, какой-нибудь едкой фразочки, но она, наверное, ещё не отошла от шока, поэтому просто молчала."
@@ -20613,7 +20188,7 @@ label day5_dv:
     me "Значит, она где-то в лесу, пойдём!"
     "Я уверенно сделал несколько шагов по направлению к рощице, но Алиса осталась стоять на месте."
     with None
-    show dv scared pioneer at center 
+    show dv scared pioneer at center
     with dissolve
     me "Что такое?{w} Мы же вроде всё уже выяснили…"
     dv "Да нет…{w} Не в этом дело…{w} Просто там…{w} Темно…"
@@ -20660,12 +20235,12 @@ label day5_dv:
     un "А ты…"
     "Она посмотрела на Алису и не закончила фразу."
     with None
-    show dv sad pioneer at cright 
+    show dv sad pioneer at cright
     with dissolve
     "Та в свою очередь отпустила мою руку."
     me "Лена, понимаешь…"
     with None
-    show dv normal pioneer at cright 
+    show dv normal pioneer at cright
     with dspr
     dv "Просто я хотела извиниться, что несколько резко и грубо всё это…"
     "Перебила меня Алиса.{w} В её голос вернулись обычные надменные нотки."
@@ -20674,25 +20249,25 @@ label day5_dv:
     un "Очень умно сначала доказывать мне, что я не права, а потом делать то же самое!"
     "Она сорвалась на крик."
     with None
-    show dv guilty pioneer at cright 
+    show dv guilty pioneer at cright
     with dspr
     dv "Ты всё не так поняла…"
     un "Я поняла ровно то, что видела!"
     me "Девочки, тут такое дело…{w} Вы опять спорите о чём-то, и я вроде как виноват во всём, но я-то ничего не понимаю совсем!"
     with None
-    show un grin pioneer at cleft 
+    show un grin pioneer at cleft
     with dspr
     un "Объясни ему."
     "Сказала Лена Алисе, усмехнувшись."
     dv "А нечего и объяснять…"
     un "Может, тогда лучше мне?"
     with None
-    show dv sad pioneer at cright 
+    show dv sad pioneer at cright
     with dspr
     dv "Как знаешь!"
     "Она скрестила руки на груди и отвернулась."
     with None
-    show un normal pioneer at cleft 
+    show un normal pioneer at cleft
     with dspr
     un "Так вот, Семён…{w} Она упрекала меня, что я за тобой гоняюсь."
     "На минуту наступило полное молчание."
@@ -20702,7 +20277,7 @@ label day5_dv:
     dv "И ничего я такого не имела в виду."
     "Вмешалась в разговор Алиса."
     with None
-    show un cry pioneer at cleft 
+    show un cry pioneer at cleft
     with dspr
     un "Конечно…{w} Ты всегда так…"
     "Лена снова расплакалась."
@@ -20711,7 +20286,7 @@ label day5_dv:
     un "Сама-то! За руку его держишь! А мне пытаешься доказать, что всё это неправильно!"
     th "То есть я нравлюсь Алисе?!{w} Нет, в первый вариант как-то больше верится."
     with None
-    show dv guilty pioneer at cright 
+    show dv guilty pioneer at cright
     with dspr
     dv "Просто тут было темно и…"
     un "Да, это так на тебя похоже.{w} Всегда такая надменная, пытаешься всеми управлять, а когда до самой дело доходит..."
@@ -20719,7 +20294,7 @@ label day5_dv:
     "Я чувствовал, что должен что-то сказать, как-то разрядить сложившуюся ситуацию."
     me "Ну подождите…{w} Может быть, мы просто всё не так поняли…{w} Я…"
     with None
-    show dv angry pioneer at cright 
+    show dv angry pioneer at cright
     with dspr
     dv "Речь вообще не про тебя…"
     "Каким-то отсутствующим тоном сказала Алиса."
@@ -20730,7 +20305,7 @@ label day5_dv:
     un "А нечего повторять!"
     with None
     show un cry pioneer at cleft :
-        linear 1.0 xalign -0.5 
+        linear 1.0 xalign -0.5
     with dspr
     with None
     hide un
@@ -20811,7 +20386,7 @@ label day5_dv:
     scene bg ext_boathouse_night
     with dissolve
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     window show
     "Мы всё-таки кое-как доплыли до лодочной станции."
@@ -20819,7 +20394,7 @@ label day5_dv:
     "А зная вожатую, можно догадаться, как она отреагирует на это."
     me "Ты на самом деле собираешься сейчас идти к Ольге Дмитриевне?"
     with None
-    show dv grin pioneer at center 
+    show dv grin pioneer at center
     with dspr
     dv "А почему нет?"
     "Она лукаво улыбнулась."
@@ -20827,7 +20402,7 @@ label day5_dv:
     dv "А может, и не спит…"
     me "Ты ведь сама понимаешь, что это случайность! Спровоцированное Ульянкой недоразумение!"
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Не понимаю…"
     with None
@@ -20840,7 +20415,7 @@ label day5_dv:
     "Я безвольно плёлся рядом с ней."
     me "Давай обсудим."
     with None
-    show dv surprise pioneer at center 
+    show dv surprise pioneer at center
     with dissolve
     dv "А что обсуждать?"
     "Некоторое время мы просто молча шагали рядом."
@@ -20848,7 +20423,7 @@ label day5_dv:
     me "Слушай, может, я могу что-то сделать, чтобы ты не говорила ей?"
     stop ambience fadeout 2
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Не знаю, может, и можешь…"
     window hide
@@ -20857,7 +20432,7 @@ label day5_dv:
     with dissolve
     play ambience ambience_camp_center_night fadein 3
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     window show
     "Мы вышли на площадь."
@@ -20930,7 +20505,7 @@ label day5_dv:
     scene bg ext_square_night
     with dissolve
     with None
-    show dv laugh pioneer at center 
+    show dv laugh pioneer at center
     with dissolve
     window show
     dv "Ладно, спать пора!"
@@ -20967,7 +20542,7 @@ label day5_dv:
     scene bg black
     with fade3
     stop ambience fadeout 3
-    pause (3)
+    pause 3
     jump day6_dv
 label day5_sl:
     "Мне было действительно интересно, куда ушла Славя."
@@ -21031,14 +20606,14 @@ label day5_sl:
     me "…"
     sl "Я думала, что все ещё в лесу."
     with None
-    show sl shy swim at center 
+    show sl shy swim at center
     with dissolve
     "Я обернулся и увидел Славю в купальнике."
     me "Извини, я помешал, наверное?"
     sl "Да ничего, я уже заканчивала."
     me "А чего это ты решила ночью искупаться?"
     with None
-    show sl smile swim at center 
+    show sl smile swim at center
     with dspr
     sl "А что, нельзя?"
     "Она улыбнулась."
@@ -21048,7 +20623,7 @@ label day5_sl:
     me "Да, и я тоже…"
     "Я сел на песок и уставился на реку."
     with None
-    show sl normal swim at center 
+    show sl normal swim at center
     with dspr
     me "Не понравился поход?"
     sl "Нет, почему…{w} Просто захотелось побыть одной немного."
@@ -21058,7 +20633,7 @@ label day5_sl:
     sl "Ты о чём?"
     me "Ну, вот так вот уходить…"
     with None
-    show sl laugh swim at center 
+    show sl laugh swim at center
     with dspr
     sl "Я же не робот всё-таки, чтобы постоянно действовать по заведённой программе."
     "Она рассмеялась."
@@ -21072,13 +20647,13 @@ label day5_sl:
     play music music_list["forest_maiden"] fadein 3
     me "А тебе не кажется всё это странным?"
     with None
-    show sl normal swim at center 
+    show sl normal swim at center
     with dspr
     sl "Странным?"
     me "Всё, что здесь происходит.{w} Идеальная модель пионерлагеря."
     me "Конечно, я о них знаю не много, но всё именно так, как я себе и представлял."
     with None
-    show sl surprise swim at center 
+    show sl surprise swim at center
     with dspr
     sl "Ты о чём?"
     "Славя недоуменно посмотрела на меня."
@@ -21090,13 +20665,13 @@ label day5_sl:
     "Я лёг на спину и посмотрел на звёзды."
     me "А что, если я тебе скажу, что я пришелец из будущего?"
     with None
-    show sl serious swim at center 
+    show sl serious swim at center
     with dspr
     sl "А ты пришелец из будущего?"
     "Спросила Славя совершенно серьёзно."
     me "Ну, допустим.{w} И как мне вернуться в своё время?"
     with None
-    show sl normal swim at center 
+    show sl normal swim at center
     with dspr
     sl "А ты этого хочешь?"
     th "Да, все разговоры с ней о моей ситуации, даже малейшие намёки, всегда заканчиваются одним и тем же."
@@ -21105,38 +20680,38 @@ label day5_sl:
     me "Практически всё знакомо и к любой ситуации ты готов."
     me "А тут, наоборот, буквально каждая мелочь становится для тебя неожиданностью. И вообще всё…{w} другое."
     with None
-    show sl smile swim at center 
+    show sl smile swim at center
     with dspr
     sl "Разве это плохо?"
     me "Я не говорил, что плохо…{w} Непривычно. Непонятно.{w} Иногда бывает сложно что-то менять. Особенно людям с моим характером."
     with None
-    show sl normal swim at center 
+    show sl normal swim at center
     with dspr
     sl "А чего ты сам хочешь?"
     me "Начнём с того, что я не могу ответить на этот вопрос, пока точно не пойму, где это «тут»."
     with None
-    show sl smile swim at center 
+    show sl smile swim at center
     with dspr
     sl "Так выясни!"
     me "Если бы всё было так просто…"
     with None
-    show sl normal swim at center 
+    show sl normal swim at center
     with dspr
     sl "А что сложного?"
     me "Всё сложно!{w} Я даже не знаю, с какой стороны начать…{w} Да и меня постоянно отвлекают!"
     with None
-    show sl laugh swim at center 
+    show sl laugh swim at center
     with dspr
     sl "Ты так серьёзно об этом рассуждаешь, как будто это всё на самом деле!"
     "Она рассмеялась."
     me "Кто знает…"
     with None
-    show sl normal swim at center 
+    show sl normal swim at center
     with dspr
     "Наступило довольно долгое молчание.{w} Вдруг Славя чихнула."
     me "Будь здорова."
     with None
-    show sl smile swim at center 
+    show sl smile swim at center
     with dspr
     sl "Спасибо!"
     me "Не надо было ночью-то купаться. Простудишься. Иди скорее в домик, а то холодно."
@@ -21146,27 +20721,27 @@ label day5_sl:
     with dissolve
     "Мне было, конечно, приятно, но…"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     me "Пойдём, я тебя провожу."
     "Но не успели мы сделать и десятка шагов, как Славя опёрлась на мою руку."
     me "Что с тобой?"
     with None
-    show sl serious pioneer at center 
+    show sl serious pioneer at center
     with dspr
     sl "Да что-то голова закружилась…"
     "Я потрогал её лоб.{w} Он просто пылал."
     "Никогда не умел определять температуру тела на ощупь, но тут всё было очевидно."
     me "Я же тебе говорил!"
     with None
-    show sl sad pioneer at center 
+    show sl sad pioneer at center
     with dspr
     sl "Апчхи!"
     me "Пойдём скорее!"
     sl "Нет… Я Женю заражу…{w} Слушай, давай лучше в медпункт."
     me "И что ты будешь делать в медпункте ночью одна? Глупости!"
     with None
-    show sl angry pioneer at center 
+    show sl angry pioneer at center
     with dspr
     sl "Нет, не глупости! Не хочешь – я сама пойду!"
     "Она отпустила мою руку и уже собралась уходить."
@@ -21174,7 +20749,7 @@ label day5_sl:
     "Я протянул ей свитер, который прихватил с собой в поход."
     th "Хоть пригодился…"
     with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dspr
     sl "Спасибо!"
     "Она закуталась в него и посмотрела на меня таким нежным взглядом, что я решил не спорить."
@@ -21193,26 +20768,26 @@ label day5_sl:
     "И я не видел никакой особой причины, чтобы проводить ночь в медпункте."
     window hide
     play sound sfx_medpunkt_door_open
-    pause (1)
+    pause 1
     $ persistent.sprite_time = "day"
     scene bg int_aidpost_night
     with dissolve
     play ambience ambience_medstation_inside_night fadein 3
     with None
-    show sl shy pioneer at center 
+    show sl shy pioneer at center
     with dissolve
     window show
     "Наконец Славя открыла дверь и облокотилась о мою руку."
     sl "Голова немного кружится."
     "Виновато сказала она."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     "Славя села на койку, а я – на стул рядом."
     me "Слушай, ну всё-таки! Ночью одной в медпункте…"
     th "В конце концов, та же самая Женя может в крайнем случае хоть стакан воды подать.{w} Да и не заразится она – молодая, здоровая ещё."
     with None
-    show sl sad pioneer at center 
+    show sl sad pioneer at center
     with dspr
     sl "Всё нормально.{w} Не хочу никого стеснять. Тем более завтра придёт медсестра."
     "Я вдруг представил себя на месте Слави, что мне придётся провести здесь ночь одному..."
@@ -21220,7 +20795,7 @@ label day5_sl:
     me "Слушай, может, я с тобой побуду…"
     "Я был многим обязан Славе.{w} Да и просто не хотелось уходить."
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Зачем?{w} Всё в порядке будет. Спасибо, что проводил. Иди и ты спать."
     me "Мне кажется, что всё же…"
@@ -21229,14 +20804,14 @@ label day5_sl:
     "Конечно, с ней ничего страшного здесь не случится, но всё же мне будет спокойнее, если останусь."
     me "Я всё-таки..."
     with None
-    show sl angry pioneer at center 
+    show sl angry pioneer at center
     with dspr
     sl "Не надо, говорю же!"
     "Обиженно воскликнула Славя."
     me "Ты же меня не выгонишь."
     "Лукаво улыбнулся я."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Ладно, но если заразишься, пеняй на себя!"
     "Я был доволен своей маленькой победой."
@@ -21245,7 +20820,7 @@ label day5_sl:
     me "В дурака?"
     "По правде говоря, кроме этой игры и покера, я никаких и не знал."
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Давай."
     with None
@@ -21259,14 +20834,14 @@ label day5_sl:
     "Казалось, что Славя и не болеет вовсе."
     "Но вот и наступила полночь…"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     sl "Пора спать."
     me "Пожалуй…"
     sl "А ты где собираешься?"
     "Она пристально посмотрела на меня."
     with None
-    show sl serious pioneer at center 
+    show sl serious pioneer at center
     with dspr
     sl "Иди всё же!{w} Не надо со мной тут сидеть."
     me "Да я и так…"
@@ -21302,8 +20877,8 @@ label day5_sl:
     window show
     "Я в ужасе вскочил.{w} С меня ручьём лил холодный пот."
     with None
-    show sl surprise pioneer at center 
-    with dissolve   
+    show sl surprise pioneer at center
+    with dissolve
     "С кушетки испуганно смотрела Славя."
     me "Просто плохой сон…"
     "Я попытался улыбнуться."
@@ -21312,7 +20887,7 @@ label day5_sl:
     sl "Не знаю…{w} Неразборчиво."
     "Часы показывали всего лишь полпервого ночи."
     with None
-    show sl shy pioneer at center 
+    show sl shy pioneer at center
     with dspr
     sl "Семён."
     me "А?"
@@ -21327,7 +20902,7 @@ label day5_sl:
     "Её голос прозвучал нежно и настолько жалобно, что у меня на секунду перехватило дыхание."
     me "А ты уверена, что это…{w} что…{w} это нормально?"
     with None
-    show sl sad pioneer at center 
+    show sl sad pioneer at center
     with dspr
     sl "Значит, нельзя?"
     "Расстроено спросила она."
@@ -21431,25 +21006,25 @@ label day5_sl:
     stop music fadeout 2
     play sound sfx_open_door_1
     with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dissolve
-    pause(1)
+    pause 1
     window show
     "Я только задумался о том, что будет плохо, если нас кто-нибудь здесь найдёт, как дверь распахнулась, зажёгся свет, и в медпункт ворвалась Ольга Дмитриевна."
     "Сердце ёкнуло и остановилось на мгновение."
     with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dspr
     mt "Семён…"
     "Дьявольски спокойно начала вожатая."
     with None
-    show mt rage pioneer at center 
+    show mt rage pioneer at center
     with dspr
     mt "Я тебя везде ищу, а ты – смылся из леса раньше времени, не пришёл ночевать и развращаешь нашу лучшую пионерку!"
     "Тут же проснулась и Славя."
     "Она некоторое время заспанными глазами смотрела на вожатую, потом, похоже, поняла, что происходит, и быстро вскочила с койки."
     with None
-    show sl scared pioneer at right 
+    show sl scared pioneer at right
     with dissolve
     sl "Ольга Дмитриевна! Это совсем не то, что вы думаете! Я просто заболела, и Семён проводил меня сюда."
     sl "А потом мне стало холодно и…{w} Я ему говорила, чтобы шёл к себе!"
@@ -21457,12 +21032,12 @@ label day5_sl:
     sl "Да…"
     "Робко ответила Славя."
     with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dspr
     mt "Так вот и лечись!"
     "Она грозно посмотрела на меня."
     with None
-    show mt rage pioneer at center 
+    show mt rage pioneer at center
     with dspr
     mt "А ты! Быстро со мной!"
     stop ambience fadeout 2
@@ -21475,7 +21050,7 @@ label day5_sl:
     window show
     "Мы молча дошли до площади."
     with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dissolve
     "Ольга Дмитриевна злобно посмотрела на меня и сказала:"
     mt "Домой! Там поговорим!"
@@ -21501,7 +21076,7 @@ label day5_sl:
     window show
     "Войдя в домик, вожатая продолжила допрос."
     with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dissolve
     mt "Не хочешь мне ничего объяснить?"
     "Похоже, она немного успокоилась."
@@ -21511,7 +21086,7 @@ label day5_sl:
     me "Я не заставляю вас в это верить, но и никаких оправданий придумывать не собираюсь, так как это правда."
     "Она долго смотрела на меня и потом сказала:"
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "Ладно, я завтра буду думать, что с тобой делать."
     window hide
@@ -21529,7 +21104,7 @@ label day5_sl:
     scene bg black
     with fade3
     stop ambience fadeout 3
-    pause (3)
+    pause 3
     jump day6_sl
 label day5_us:
     "Вечером я совсем не думал об Ульяне."
@@ -21571,27 +21146,27 @@ label day5_us:
     "Вдруг что-то сбило меня с ног, и я упал на асфальт.{w} Хорошо, что успел выставить вперёд руки, а то остался бы без носа…"
     us "Попался!"
     with None
-    show us laugh2 pioneer at center 
+    show us laugh2 pioneer at center
     with dissolve
     "Я быстро вскочил с земли и увидел Ульянку, стоящую передо мной."
     me "Ты что делаешь?!"
     "Крик у меня вырвался сам собой."
     with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dspr
     us "А нечего рот разевать!"
     "Ехидно ответила она."
     me "А если бы я нос разбил? Руку сломал?"
     "Сказал я уже спокойнее."
     with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "Но не разбил же, не сломал."
     me "Слушай, почему ты постоянно надо мной издеваешься?"
     "Я уже пожалел, что решил скрасить её одиночество."
     me "Тебе мало, что ли, сегодняшнего наказания? Выводы вообще делать не умеешь?"
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     us "Это всё ты виноват."
     "Улыбка моментально пропала с лица Ульяны."
@@ -21599,7 +21174,7 @@ label day5_us:
     us "Во всём!"
     me "То есть я всегда виноват?"
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "Да!"
     "Она скрестила руки на груди и отвернулась."
@@ -21610,17 +21185,17 @@ label day5_us:
     "Захотелось побыстрее убраться отсюда."
     me "А ведь я сюда ради тебя пришёл…"
     with None
-    show us shy pioneer at center 
+    show us shy pioneer at center
     with dissolve
     us "Что?"
     me "Тебе же, наверное, не очень весело, когда все в походе, а ты тут одна…"
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Да плевать!"
     "Весело воскликнула она."
     with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dspr
     us "Но раз так, то чем хочешь заняться?"
     me "В каком смысле?"
@@ -21629,17 +21204,17 @@ label day5_us:
     th "Хотя я же действительно не знаю, зачем пришёл..."
     me "После такого приёма уже ничего не хочется."
     with None
-    show us laugh2 pioneer at center 
+    show us laugh2 pioneer at center
     with dspr
     us "Тогда выбирать мне!"
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     "Весело сказала Ульяна и задумалась."
     "Я смотрел на неё некоторое время, потом не выдержал:"
     me "Слушай, если ты опять планируешь…"
     with None
-    show us laugh2 pioneer at center 
+    show us laugh2 pioneer at center
     with dspr
     us "Я знаю!{w} Давай напугаем остальных! Нарядимся, например, привидениями! Во смеха-то будет!"
     th "Ничего смешного в этом не нахожу."
@@ -21650,23 +21225,23 @@ label day5_us:
     "Раз уж я сюда пришёл ради Ульяны, то стоит подыграть."
     me "Пожалуй, ты права…"
     with None
-    show us surp3 pioneer at center 
+    show us surp3 pioneer at center
     with dspr
     us "Что?"
     "Она смотрела на меня глазами по пять рублей."
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     us "И ты вот так просто согласишься?"
     me "Ну а что такого?..{w} Тем более ты настаиваешь…"
     "Она внимательно, изучающе смотрела на меня несколько секунд и потом выпалила:"
     with None
-    show us laugh2 pioneer at center 
+    show us laugh2 pioneer at center
     with dspr
     us "Отлично!{w} Тогда нам нужны простыни! Мы же хотим казаться настоящими привидениями."
     me "Наверное…"
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Ты их достанешь!"
     "Безапелляционно заявила Ульянка."
@@ -21674,7 +21249,7 @@ label day5_us:
     us "Возьми в своём домике, очевидно же."
     me "Мне что-то не настолько очевидно…"
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "Значит, не хочешь?"
     "Она мгновенно состроила кислую мину."
@@ -21685,13 +21260,13 @@ label day5_us:
     scene bg ext_house_of_mt_night_without_light
     with dissolve
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dissolve
     window show
     "Мы подошли к домику вожатой, и я сказал Ульяне:"
     me "Подожди здесь."
     with None
-    show us laugh2 pioneer at center 
+    show us laugh2 pioneer at center
     with dspr
     us "Слушаюсь, сэр!"
     "Выпалила она и отдала мне честь."
@@ -21709,7 +21284,7 @@ label day5_us:
     with dissolve
     play ambience ambience_camp_center_night fadein 3
     with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dissolve
     window show
     me "Вот."
@@ -21720,7 +21295,7 @@ label day5_us:
     me "Дай сюда."
     "Я сложил простыню пополам и отдал ей."
     with None
-    show us laugh2 pioneer at center 
+    show us laugh2 pioneer at center
     with dspr
     us "Вот теперь куда лучше.{w} За мной!"
     with None
@@ -21770,7 +21345,7 @@ label day5_us:
     show us cry2 pioneer far at center :
         pass
     with dissolve
-    pause (2)
+    pause 2
     play ambience ambience_forest_night fadein 3
     with None
     hide us
@@ -21787,7 +21362,7 @@ label day5_us:
     scene bg ext_polyana_night
     with dissolve
     with None
-    show us cry2 pioneer far at center 
+    show us cry2 pioneer far at center
     with dissolve
     window show
     "Ульяна сидела на пеньке...{w} и плакала."
@@ -21801,8 +21376,8 @@ label day5_us:
     "Однако вид рыдающей Ульяны вынуждал к действиям."
     "Я подошёл к ней и сел рядом на землю."
     with None
-    show us cry2 pioneer at center 
-    with dissolve    
+    show us cry2 pioneer at center
+    with dissolve
     me "Ну, а чего ты ожидала?.."
     "Философски начал я."
     me "Всё и должно было так закончиться."
@@ -21811,7 +21386,7 @@ label day5_us:
     me "И что бы изменилось, если бы я тогда выскочил с тобой?{w} Засмеяли бы нас обоих, только и всего."
     us "Ты всегда так! Всегда так!"
     with None
-    show us cry2 pioneer close at center  
+    show us cry2 pioneer close at center
     with dissolve
     "Её рыдания становились всё громче, и вдруг она бросилась на меня и начала стучать кулаками мне по груди.{w} Удары были несильные."
     "Ульяной владело скорее отчаяние, чем действительно желание меня побить."
@@ -21819,7 +21394,7 @@ label day5_us:
     "Твёрдо сказал я."
     "Она на секунду прекратила плакать и обняла меня."
     with None
-    show us sad pioneer close at center 
+    show us sad pioneer close at center
     with dspr
     us "Может быть, ничего не изменилось бы, но вдвоём мне было бы спокойнее."
     "Я не знал, что сказать, поэтому просто погладил её по голове."
@@ -21829,7 +21404,7 @@ label day5_us:
     "Я совсем не злился на Ульянку, более того, я как будто сам начинал переживать неудачу номера с привидениями."
     me "Ладно-ладно…{w} Напугаем их в следующий раз как следует!"
     with None
-    show us shy pioneer close at center 
+    show us shy pioneer close at center
     with dspr
     us "Угу…"
     window hide
@@ -21873,7 +21448,7 @@ label day5_us:
     with None
     show bg semen_room
     with fade
-    pause(1)
+    pause 1
     $ persistent.sprite_time = "night"
     scene bg ext_square_night
     with fade
@@ -21917,7 +21492,7 @@ label day5_us:
     with dissolve
     play music music_list["you_won_t_let_me_down"] fadein 3
     with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dissolve
     window show
     mt "Семён!"
@@ -21932,7 +21507,7 @@ label day5_us:
     "Я решил гнуть свою линию, раз уж начал."
     me "Ну, я вот простыни достал. И стоял тогда за деревом."
     with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dspr
     mt "За каким деревом?"
     "Вожатая удивлённо посмотрела на меня."
@@ -21940,7 +21515,7 @@ label day5_us:
     "Я понял, что облажался."
     me "Так вы не про то, что в лесу?"
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "Семён, я тебя не понимаю."
     mt "Я хотела узнать, куда ты так таинственно исчез посреди похода, но теперь с удовольствием выслушаю историю про простыни."
@@ -21948,14 +21523,14 @@ label day5_us:
     th "Смеющиеся взахлёб пионеры не могли мне просто померещиться."
     me "Ольга Дмитриевна, я серьёзно…{w} Вы же буквально недавно в лесу видели кого-то в белой простыне, кто выскочил на вас?"
     with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dspr
     mt "Так это ты был?"
     "Она пристально посмотрела на меня."
     me "Нет, не я…"
     th "А по росту не догадаться?"
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "Но простыни у тебя…"
     me "У меня…"
@@ -21981,7 +21556,7 @@ label day5_us:
     stop ambience fadeout 1
     play sound sfx_knock_glass
     window hide
-    pause(1)
+    pause 1
     play ambience ambience_int_cabin_night fadein 2
     window show
     "Вдруг со стороны окна донёсся тихий стук."
@@ -21999,7 +21574,7 @@ label day5_us:
     with dissolve
     play music music_list["went_fishing_caught_a_girl"] fadein 3
     with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dissolve
     window show
     "Передо мной стояла Ульянка и хитро улыбалась."
@@ -22009,14 +21584,14 @@ label day5_us:
     us "Как она? Получил втык?"
     me "Нет, обошлось как-то…"
     with None
-    show us laugh2 pioneer at center 
+    show us laugh2 pioneer at center
     with dspr
     us "Вот и отлично! Мне всегда везёт!"
     me "Это точно..."
     "Глаза начали закрываться сами собой.{w} Кажется, наконец пришёл сон."
     me "Слушай, я устал очень…"
     with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dspr
     us "Я ненадолго.{w} Закрой глаза."
     "Это сделать было проще всего, да и выяснять, зачем ей это, мне совершенно не хотелось – может, побыстрее отвяжется."
@@ -22025,7 +21600,7 @@ label day5_us:
     window hide
     scene cg d5_us_kiss
     with dissolve
-    pause (2)
+    pause 2
     window show
     "И через мгновение почувствовал короткий поцелуй."
     window hide
@@ -22049,7 +21624,7 @@ label day5_us:
     scene bg black
     with fade3
     stop ambience fadeout 3
-    pause (3)
+    pause 3
     jump day6_us
 label day5_un:
     "Из всего благолепия выбивались только Лена и Алиса."
@@ -22070,17 +21645,17 @@ label day5_un:
     "Сначала она явно не поняла, что происходит, но потом…"
     play music music_list["blow_with_the_fires"] fadein 3
     with None
-    show dv angry pioneer far at cleft 
+    show dv angry pioneer far at cleft
     with dspr
     dv "Так ты подслушиваешь!"
     me "Что? Я? Нет!"
     with None
-    show dv angry pioneer at cleft 
+    show dv angry pioneer at cleft
     with dissolve
     "Она медленно пошла в мою сторону, а я сделал несколько шагов назад."
     "Лена же осталась стоять на месте."
     with None
-    show dv normal pioneer at cleft 
+    show dv normal pioneer at cleft
     with dspr
     dv "Хотя ладно, слушай!"
     "Алиса остановилась на полпути и обернулась к Лене."
@@ -22088,7 +21663,7 @@ label day5_un:
     un "Что?"
     dv "Подглядывал. И {i}всё{/i} видел!"
     with None
-    show un shocked pioneer far at cright 
+    show un shocked pioneer far at cright
     with dspr
     un "Это… это правда?"
     "Лена жалобно заломила руки, бросила на меня короткий взгляд и уставилась себе под ноги, словно отключившись от реальности."
@@ -22098,7 +21673,7 @@ label day5_un:
     with dissolve
     "Я подошёл к Лене, бросив на Алису гневный взгляд."
     with None
-    show dv grin pioneer far at cleft 
+    show dv grin pioneer far at cleft
     with dspr
     dv "Как же не было? У меня и свидетели есть!"
     me "Да твои свидетели ещё похлеще тебя!"
@@ -22108,14 +21683,14 @@ label day5_un:
     th "Впрочем, откуда я вообще знаю, что она думает?"
     me "Нет! Не было!"
     with None
-    show un sad pioneer at cright 
+    show un sad pioneer at cright
     with dspr
     "Лена бросила на Алису гневный взгляд и тут же подняла на меня глаза, полные томления и надежды."
     "Вдруг стало невыносимо тяжело смотреть в них."
     me "Нет, не было…"
     "Повторил я уже менее уверенно."
     with None
-    show dv laugh pioneer far at cleft 
+    show dv laugh pioneer far at cleft
     with dspr
     dv "Ну, как знаешь."
     "Усмехнулась позади меня Алиса."
@@ -22125,18 +21700,18 @@ label day5_un:
     with dissolve
     "Бросила она Лене, развернулась и направилась к костру."
     show un sad pioneer at cright :
-        linear 1.0 xalign 0.5 
+        linear 1.0 xalign 0.5
     un "Правда?"
     "Мне было неудобно, не по себе, я ощущал дискомфорт и острое желание побыстрее закончить с этим."
     th "И с какой стати мне перед ней оправдываться?"
     me "Ну а если и было?"
     with None
-    show un cry pioneer at center 
+    show un cry pioneer at center
     with dspr
     "Я вызывающе посмотрел на Лену, но смог заметить лишь яркий луч заката, отразившийся в слезе, стекавшей по её щеке."
     me "Нет, то есть я хотел сказать…"
     with None
-    show un cry_smile pioneer at center 
+    show un cry_smile pioneer at center
     with dspr
     un "Тебе не нужно врать."
     "Она вытерла слёзы и попыталась улыбнуться."
@@ -22151,14 +21726,14 @@ label day5_un:
     "Я даже был бы готов в это поверить, если бы не слёзы пару секунд назад…"
     me "А мне кажется, не веришь."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "Это что, какая-то игра?"
     "Сказала Лена тихо, но в её голосе проскакивали нотки злости."
     un "Тебе обязательно нужно меня в этом убедить? И даже если я поверю, то что? Всё так и будет на самом деле?"
     me "Я не пытаюсь тебя ни в чём убедить, просто хочу, чтобы ты поняла, что я не виноват… и не хотел…"
     with None
-    show un rage pioneer at center 
+    show un rage pioneer at center
     with dspr
     un "Да какое мне вообще дело!"
     "Закричала Лена."
@@ -22167,7 +21742,7 @@ label day5_un:
     me "Я не…"
     "А ведь действительно, как ни посмотри, всё выглядело именно так – я безуспешно пытаюсь оправдаться перед Леной.{w} Как провинившийся ребёнок или, может быть, даже как проштрафившийся муж…"
     with None
-    show un angry pioneer at center 
+    show un angry pioneer at center
     with dspr
     un "Знаешь что! Мне всё равно!"
     with None
@@ -22187,7 +21762,7 @@ label day5_un:
     $ night_time()
     play ambience ambience_forest_night fadein 3
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     window show
     dv "Ну?"
@@ -22205,31 +21780,31 @@ label day5_un:
     "Мне наконец удалось подцепить самый большой уголь и закинуть его в центр костра, отчего пламя поднялось на полметра вверх и во все стороны полетели искры."
     me "Лена часто так себя ведёт?"
     with None
-    show dv surprise pioneer at center 
+    show dv surprise pioneer at center
     with dspr
     dv "Как?"
     me "Кричит.{w} Не думал, что она так отреагирует."
     with None
-    show dv laugh pioneer at center 
+    show dv laugh pioneer at center
     with dspr
     dv "Что она, не человек, что ли?"
     "Алиса засмеялась."
     dv "Как будто ты раньше не замечал."
     me "Что не замечал?"
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Её."
     me "В смысле?"
     dv "В прямом. Что она вот такая."
     me "Какая «такая»?"
     with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "Какой же ты тупой!"
     me "Нет, подожди, раз начала – договаривай уж."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Что она не такая, как кажется, как ты о ней думал."
     me "А какая?"
@@ -22237,14 +21812,14 @@ label day5_un:
     "Алиса встала и собралась уходить."
     "Я ничего не стал говорить, просто сидел и вслушивался в ночное безмолвие леса."
     with None
-    show dv grin pioneer at center 
+    show dv grin pioneer at center
     with dspr
     dv "Кстати, если захочешь за ней пойти, то, думаю, она на острове."
     me "На каком острове?"
     dv "На котором вы землянику собирали сегодня."
     me "А что она там делает?"
     with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "Тьфу, ты правда идиот!"
     with None
@@ -22440,7 +22015,7 @@ label day5_un:
     un "Да так…"
     window hide
     show blink
-    pause(1)
+    pause 1
     window show
     "Я закрыл глаза и задумался."
     scene black
@@ -22482,7 +22057,7 @@ label day5_un:
     "На площади меня кто-то окликнул."
     dv "Эй!"
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     "Ко мне подбежала Алиса."
     dv "На острове был?"
@@ -22491,13 +22066,13 @@ label day5_un:
     dv "И как?"
     me "Никак… Я очень устал, иду спать."
     with None
-    show dv grin pioneer at center 
+    show dv grin pioneer at center
     with dspr
     dv "Ну расскажи уж!"
     "На её лице появилась такая мерзкая гримаса, что меня буквально передёрнуло от злобы."
     me "Тебе какое дело?!"
     with None
-    show dv scared pioneer at center 
+    show dv scared pioneer at center
     with dspr
     dv "Ну, нет, просто…"
     "Испуганно пролепетала она."
@@ -22543,7 +22118,7 @@ label day5_un:
     with dissolve
     $ persistent.sprite_time = "night"
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     window show
     "Вдалеке послышались шаги, и через некоторое время показалась Ольга Дмитриевна."
@@ -22564,16 +22139,16 @@ label day5_un:
     stop music fadeout 4
     scene bg black
     with fade3
-    pause (3)
+    pause 3
     jump day6_un
 init:
     $ day6_map = 0
 label day6_main:
     $ backdrop = "days"
-    $ new_chapter(6, u"День шестой")
+    $ new_chapter(6, "День шестой")
     $ day_time()
     scene black
-    pause (2)
+    pause 2
     window show
     "Не знаю, сколько времени было, когда Ольга Дмитриевна разбудила меня, но, ещё даже не открыв глаза, я почувствовал приближение смерти."
     "Всё тело болело, голова кружилась, сознание заволокла мутная дымка."
@@ -22617,7 +22192,7 @@ label day6_main:
     scene bg ext_houses_day
     with dissolve
     with None
-    show pi at center 
+    show pi at center
     with dissolve
     window show
     "По дороге мне встретился пионер, лицо которого показалось почему-то знакомым."
@@ -22634,7 +22209,7 @@ label day6_main:
     "Наверное, все заняты своими делами, поручениями Ольги Дмитриевны и бог весть чем ещё."
     "Я быстро почистил зубы, ополоснул лицо и уже собирался уходить, как вдруг услышал шум воды, потёкшей из крана напротив."
     with None
-    show pi at center 
+    show pi at center
     with dissolve
     "Там стоял пионер, склонившийся над умывальником."
     "Его лица я не видел, но по фигуре он был похож на того, которого я встретил пару минут назад."
@@ -22682,7 +22257,7 @@ label day6_main:
     "Меня это уже волновало не так, как раньше."
     th "Может, я вообще уже умер.{w} Тогда здесь – последняя остановка, просьба освободить вагоны…"
     with None
-    show pi at center 
+    show pi at center
     with dissolve
     pi "О чём думаешь?"
     "Я поднял взгляд и увидел того самого пионера."
@@ -22771,17 +22346,17 @@ label day6_main:
     "Я вдруг понял, что и не знаю, как его толком описать."
     me "Ну, ростом с меня, комплекции такой же…"
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "По такому описанию не поймёшь."
     "Улыбнулась Славя."
     with None
-    show el smile pioneer at left 
+    show el smile pioneer at left
     with dspr
     el "К тому же тут пол-лагеря таких, если уж на то пошло."
     "В целом они были правы."
     with None
-    show sh serious pioneer at right 
+    show sh serious pioneer at right
     with dspr
     sh "А почему спрашиваешь?"
     me "Просто встретился сегодня с ним.{w} И показалось, что раньше его здесь не видел."
@@ -22836,7 +22411,7 @@ label day6_main:
     scene bg int_house_of_mt_day
     with fade
     play sound sfx_knock_door7_polite
-    pause(1)
+    pause 1
     window show
     "Разбудил меня стук в дверь.{w} Стучали негромко, но настойчиво."
     "Я нехотя встал и пошёл открывать."
@@ -22876,7 +22451,7 @@ label day6_main:
     pi "Кто к тебе только что приходил?"
     "Я вздрогнул от неожиданности."
     with None
-    show pi at center 
+    show pi at center
     with dissolve
     "Передо мной стоял тот же таинственный парень.{w} И опять его лицо мешал разглядеть яркий свет."
     "А сейчас я вообще на мгновение ослеп от солнца, поэтому не видел ничего, кроме размытых очертаний."
@@ -22888,7 +22463,7 @@ label day6_main:
     me "Никого."
     window hide
     show blinking
-    pause(2)
+    pause 2
     window show
     "Я протёр глаза, но помогло не сильно."
     me "Почему тебя не было на обеде?"
@@ -22897,7 +22472,7 @@ label day6_main:
     "Он громко рассмеялся."
     window hide
     show blinking
-    pause (1)
+    pause 1
     with None
     hide pi
     with dissolve
@@ -22922,20 +22497,20 @@ label day6_main:
     stop ambience fadeout 2
     play music music_list["everyday_theme"] fadein 3
     with None
-    show mt angry swim at center 
+    show mt angry swim at center
     with dissolve
     mt "Семён!"
     mt "На линейке ты так и не был! И вообще весь день где-то шляешься!"
     "Я не знал, что ответить."
     with None
-    show mt normal swim at center 
+    show mt normal swim at center
     with dspr
     mt "И как же из тебя выйдет образцовый пионер…"
     "Продолжила она уже мягче."
     me "Ольга Дмитриевна, а есть у нас в лагере пионер…{w} Такой… очень похожий на меня?"
     "Вожатая удивилась."
     with None
-    show mt surprise swim at center 
+    show mt surprise swim at center
     with dspr
     mt "Не знаю, наверное…{w} А зачем тебе?"
     me "Ну, просто интересно…"
@@ -22949,7 +22524,7 @@ label day6_main:
     "Я уселся на пылающий песок и уставился на пионеров, резвящихся в воде."
     "Через некоторое время от общей группы отделилась Ульянка и направилась ко мне."
     with None
-    show us surp1 swim at center 
+    show us surp1 swim at center
     with dissolve
     us "Чего грустишь?"
     me "Я не грущу."
@@ -22959,24 +22534,24 @@ label day6_main:
     "Я не стал ей рассказывать историю про непонятного пионера."
     me "Вот представь, что ты общаешься с каким-то странным человеком…{w} И тебе надо понять, в чём его странность."
     with None
-    show us laugh2 swim at center 
+    show us laugh2 swim at center
     with dspr
     us "Ну так я спрошу!"
     "Она засмеялась."
     me "Это понятно…{w} Но он же не ответит."
     with None
-    show us surp1 swim at center 
+    show us surp1 swim at center
     with dspr
     us "А ты пробовал?"
     me "Нет, но это и так очевидно…"
     "Ульянка ничего не сказала, а просто села рядом и устало вздохнула."
     with None
-    show us normal swim at center 
+    show us normal swim at center
     with dspr
     us "Наплавалась я."
     me "А вот, допустим, если он что-то знает, но говорить не хочет?"
     with None
-    show us surp3 swim at center 
+    show us surp3 swim at center
     with dspr
     us "Заставь!"
     th "Но как?.."
@@ -23035,7 +22610,7 @@ label day6_main:
     scene black
     with dissolve
     play sound sfx_wind_gust
-    pause(1)
+    pause 1
     window show
     "Вдруг поднялся настолько сильный ветер, что с деревьев полетели листья, а мне в лицо ударился бумажный пакет, из-за чего на секунду пришлось закрыть глаза."
     window hide
@@ -23126,7 +22701,7 @@ label day6_main:
     stop ambience fadeout 3
     play music music_list["orchid"] fadein 3
     with None
-    show pi at center 
+    show pi at center
     with dissolve
     pi "Значит, ты всё-таки решил убежать?"
     "Я обернулся, но в темноте не смог разглядеть лица пионера."
@@ -23138,13 +22713,13 @@ label day6_main:
     pi "Да? А как же тогда?"
     me "Тактическое отступление…"
     with None
-    show pi smile at center 
+    show pi smile at center
     with dspr
     pi "Блестяще!"
     "Он расхохотался."
     me "Слушай, может, ты расскажешь всё-таки, что здесь происходит, кто ты и чего от меня хочешь?"
     with None
-    show pi at center 
+    show pi at center
     with dspr
     pi "А что тебе сказал {i}тот{/i} у ворот?"
     "Он словно не слышал моего вопроса."
@@ -23155,23 +22730,23 @@ label day6_main:
     "В его голосе проскользнули нотки раздражения."
     me "Я не знаю, что у вас тут за цирк с конями, но у меня, честно говоря, нет никакого желания участвовать в этом представлении!"
     with None
-    show pi smile at center 
+    show pi smile at center
     with dspr
     pi "О, почему же…{w} Ты ведь главная звезда!"
     "Я не видел его лица, но мог поклясться, что он улыбался."
     me "Если так, то объясни мне мою роль!"
     with None
-    show pi at center 
+    show pi at center
     with dspr
     pi "Знаешь, я вначале тоже был таким, как ты…{w} Первый раз всё прошло спокойно."
     with None
-    show pi smile at center 
+    show pi smile at center
     with dspr
     pi "Потом я убегал, пытался выяснить, что происходит, сходил с ума и даже…{w} Пытками выбивал из них правду!"
     "Он заржал как умалишённый."
     "У меня мороз пробежал по коже."
     with None
-    show pi at center 
+    show pi at center
     with dspr
     pi "Но всё бесполезно!"
     "Немного успокоившись, продолжил пионер."
@@ -23203,13 +22778,13 @@ label day6_main:
     pi "Всё сначала – ты опять проснёшься в автобусе, пойдёшь в лагерь, встретишь там Ольгу Дмитриевну, девочек, Электроника…"
     me "Но если это было с тобой, то почему это должно случиться и со мной?"
     with None
-    show pi smile at center 
+    show pi smile at center
     with dspr
     pi "Так случается со всеми!"
     "Он опять истерически засмеялся."
     me "И сколько «повторений» с тобой происходило?"
     with None
-    show pi at center 
+    show pi at center
     with dspr
     pi "Я уже не считаю…{w} Поначалу пытался запомнить, но сейчас…{w} Может быть, несколько сотен…"
     "Теперь неудивительно, почему мне так явно казалось, что мой собеседник страдает от тяжёлой прогрессирующей ментальной дисфункции."
@@ -23245,7 +22820,7 @@ label day6_main:
     "Наконец я спросил:"
     me "А люди? Ведь они вызывают абсолютно обоснованные подозрения!"
     with None
-    show pi smile at center 
+    show pi smile at center
     with dspr
     pi "Подозрения?"
     "Опять смех."
@@ -23255,7 +22830,7 @@ label day6_main:
     pi "Можно предсказать любую их реакцию, предугадать любое слово или действие!"
     me "Значит, их бояться не стоит?"
     with None
-    show pi at center 
+    show pi at center
     with dspr
     pi "Тебе стоит бояться себя…"
     "Тихо сказал он."
@@ -23285,7 +22860,7 @@ label day6_main:
     "Коротко сказал он."
     window hide
     show blink
-    pause (1)
+    pause 1
     scene black
     hide pi
     hide blink
@@ -23296,7 +22871,7 @@ label day6_main:
     scene bg ext_polyana_night
     show unblink
     with dissolve
-    pause (1)
+    pause 1
     window show
     "Открыв их, я, как и в тот раз, никого не увидел."
     th "Значит, теперь понятно, что здесь происходит…{w} Хотя, по большому счету, как всё рассказанное им приблизило меня к разгадке?"
@@ -23325,37 +22900,37 @@ label day6_main:
     with dissolve
     play music music_list["two_glasses_of_melancholy"] fadein 3
     with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dissolve
     window show
     mt "Явился не запылился!"
     "Грозно сказала вожатая."
     me "Ольга Дмитриевна, я сегодня очень устал, давайте вы оставите свои нравоучения на потом."
     with None
-    show mt rage pioneer at center 
+    show mt rage pioneer at center
     with dspr
     mt "Отчего это он устал, интересно?"
     me "От всего!"
     "Грубо огрызнулся я."
     with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dspr
     "Вожатая удивлённо посмотрела на меня."
     "Я, не раздеваясь, упал на постель."
     with None
-    show mt sad pioneer at center 
+    show mt sad pioneer at center
     with dspr
     mt "Семён, образцовый пионер так себя не ведёт!"
     me "Ну и как же он себя ведёт?"
     mt "Не так..."
     "Вожатая на секунду замялась, словно подбирая слова."
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "Он должен уважать старших!"
     me "Я вас безмерно уважаю, можете быть уверены..."
     with None
-    show mt sad pioneer at center 
+    show mt sad pioneer at center
     with dspr
     mt "Семён!"
     "Сарказм в моём голосе не остался незамеченным."
@@ -23363,14 +22938,14 @@ label day6_main:
     mt "Подожди, я..."
     me "А сколько до ближайшего города? Когда приедет автобус? Как мне вообще отсюда выбраться?"
     with None
-    show mt sad pioneer at center 
+    show mt sad pioneer at center
     with dspr
     "На удивление спокойным голосом спросил я."
     "Ответа не последовало, его и не стоило ожидать."
     "Я сказал всё это лишь для того, чтобы она отстала."
     me "Чего молчите?"
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "Я устала, давай завтра поговорим."
     window hide
@@ -23387,15 +22962,15 @@ label day6_main:
     scene black
     with fade3
     stop music fadeout 3
-    pause (3)
+    pause 3
     jump day7_main
 label day6_un:
     $ backdrop = "un"
     $ persistent.sprite_time = "day"
     $ day_time()
-    $ new_chapter(6, u"День шестой")
+    $ new_chapter(6, "День шестой")
     scene black
-    pause (2)
+    pause 2
     window show
     "Я проснулся оттого, что кто-то тряс меня за плечи."
     "Глаза открывать было слишком тяжело, поэтому мне удалось лишь жалобно замычать."
@@ -23409,7 +22984,7 @@ label day6_un:
     with fade
     play music music_list["sweet_darkness"] fadein 3
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     window show
     "Я всё же кое-как продрал глаза и присел на кровати."
@@ -23417,7 +22992,7 @@ label day6_un:
     me "Может быть, хотя бы сегодня можно поспать подольше?"
     "Начал причитать я."
     with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dspr
     mt "И речи быть не может! Линейка обязательна для каждого пионера!{w} А ты тем более уже пару раз её пропускал."
     "Голова совершенно не соображала, так что я просто не нашёлся, что возразить."
@@ -23426,8 +23001,8 @@ label day6_un:
     scene bg ext_square_day
     with dissolve
     with None
-    show mt normal pioneer far at center  
-    with dissolve   
+    show mt normal pioneer far at center
+    with dissolve
     window show
     "Через пару минут мы уже стояли на площади."
     "Я клевал носом, прилагая последние усилия, чтобы не заснуть стоя, так что Ольгу Дмитриевну абсолютно не слушал."
@@ -23446,7 +23021,7 @@ label day6_un:
     scene bg ext_dining_hall_near_day
     with dissolve
     with None
-    show mi smile pioneer at center 
+    show mi smile pioneer at center
     with dissolve
     window show
     "Возле столовой меня догнала Мику."
@@ -23455,17 +23030,17 @@ label day6_un:
     me "Нормально."
     "Лениво ответил я."
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dspr
     mi "А то сегодня день такой… Может, из-за погоды – пасмурно же, вдруг дождь пойдёт… Ну так вот! Все какие-то мрачные, грустные! Я уж думала, что что-то случилось, а мне забыли рассказать."
     with None
-    show mi serious pioneer at center 
+    show mi serious pioneer at center
     with dspr
     mi "Представляешь! Что-то плохое случилось, все знают, а я – нет. И тут я так расстроилась, но потом…"
     me "Не волнуйся, конец света не пропустишь."
     "Съязвил я."
     with None
-    show mi surprise pioneer at center 
+    show mi surprise pioneer at center
     with dspr
     mi "Что?"
     "Похоже, она так увлеклась своим монологом, что не замечала ничего и никого вокруг."
@@ -23482,7 +23057,7 @@ label day6_un:
     "Я сел и постарался сделать такое выражение лица, чтобы другие думали, что подходить ко мне ближе, чем на десять метров, можно только в случае крайней необходимости."
     "Просто посидеть одному и подумать.{w} Тем более не отвлекаясь ни на что, мне меньше хотелось спать."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     sl "Привет, можно к тебе?"
     "Я совсем не заметил Славю."
@@ -23492,7 +23067,7 @@ label day6_un:
     sl "Не в настроении?"
     me "Не особо."
     with None
-    show sl surprise pioneer at center 
+    show sl surprise pioneer at center
     with dspr
     sl "Что-то случилось?"
     me "Да ничего…"
@@ -23501,13 +23076,13 @@ label day6_un:
     "Некоторое время мы просто молча ели, потом я спросил:"
     me "А куда ты вчера ушла?"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Я? Просто хотелось побыть одной."
     me "Это на тебя не похоже."
     "Я несколько оживился."
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Да? Ну, может быть…{w} Ты тоже не часто бываешь таким угрюмым."
     th "Пожалуй, она права."
@@ -23517,17 +23092,17 @@ label day6_un:
     me "Наверное."
     "Когда Славя закончила есть, я всё ещё лениво ковырял ложкой манную кашу."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Ладно, я пойду…"
     me "Кстати, а ты Лену не видела?"
     with None
-    show sl surprise pioneer at center 
+    show sl surprise pioneer at center
     with dspr
     sl "Нет, а что?"
     me "Просто её не было на линейке.{w} Странно… Не похоже на неё."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Да, пожалуй.{w} Ну, думаю, ничего страшного."
     me "Да, конечно, просто спросил…"
@@ -23569,8 +23144,8 @@ label day6_un:
     window show
     "В «жилом квартале» было немноголюдно.{w} Точнее, там вообще не оказалось ни единой живой души."
     with None
-    show el normal pioneer far at center  
-    with dissolve   
+    show el normal pioneer far at center
+    with dissolve
     "Тем больше было моё удивление, когда за очередным поворотом появился Электроник."
     "Я уже хотел его окликнуть, но меня остановило то, что он как-то слишком уверенно шёл в неизвестном направлении."
     th "Странно, не похоже на него…"
@@ -23598,19 +23173,19 @@ label day6_un:
     "Мои размышления нарушил громкий хлопок двери."
     play music music_list["always_ready"] fadein 3
     with None
-    show el scared pioneer at right 
-    with dissolve   
+    show el scared pioneer at right
+    with dissolve
     with None
-    show mz angry pioneer far at left  
-    with dissolve   
+    show mz angry pioneer far at left
+    with dissolve
     "Я посмотрел в сторону библиотеки и увидел Электроника, вылетающего оттуда, и Женю, которая бежала за ним, попутно выкрикивая:"
     mz "И чтобы я этого больше не слышала! И тебя не видела!"
     with None
-    show el scared pioneer at right 
-    with dspr   
+    show el scared pioneer at right
+    with dspr
     with None
-    show mz angry pioneer at left 
-    with dissolve   
+    show mz angry pioneer at left
+    with dissolve
     "Они пробежали мимо, но, естественно, были так увлечены погоней, что меня заметить не могли."
     with None
     hide el
@@ -23623,9 +23198,9 @@ label day6_un:
     th "Интересно, куда мог побежать Электроник?"
     window hide
     $ disable_all_zones()
-    $ set_zone("medic_house","day6_aidpost")
-    $ set_zone("dining_hall","day6_dinner")
-    $ set_zone("clubs","day6_clubs")
+    $ set_zone("medic_house", "day6_aidpost")
+    $ set_zone("dining_hall", "day6_dinner")
+    $ set_zone("clubs", "day6_clubs")
     jump day6_map
 label day6_aidpost:
     $ persistent.sprite_time = "day"
@@ -23648,7 +23223,7 @@ label day6_dinner:
     $ disable_current_zone()
     jump day6_map
 label day6_clubs:
-    $ day6_map = day6_map + 1
+    $ day6_map += 1
     jump day6_map
 label day6_map:
     if day6_map >= 1:
@@ -23669,13 +23244,13 @@ label day6_after_map:
     me "Электроник, это я!"
     "Из соседней комнаты послышались шаги, и вскоре появился сам Электроник."
     with None
-    show el surprise pioneer at center 
-    with dissolve   
+    show el surprise pioneer at center
+    with dissolve
     el "Семён, привет! А я тут вот…"
     "Его глаза виновато бегали, а на рубашке были видны следы пота."
     me "Спортом занимаешься, я погляжу.{w} Бегом на короткие дистанции."
     with None
-    show el sad pioneer at center 
+    show el sad pioneer at center
     with dspr
     el "А я это…{w} Ты видел?"
     "Обреченно спросил он."
@@ -23685,7 +23260,7 @@ label day6_after_map:
     me "Мне-то можешь рассказать."
     "Я обезоруживающе улыбнулся."
     with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dspr
     el "Да? А ты никому потом не…"
     me "Конечно! Могила! Вот тебе крест!"
@@ -23693,7 +23268,7 @@ label day6_after_map:
     el "Ладно."
     "Он глубоко вздохнул, собираясь с силами."
     with None
-    show el upset pioneer at center 
+    show el upset pioneer at center
     with dspr
     el "Знаешь, мне Женя с первого дня нравится…"
     "После этих слов мне захотелось упасть на пол и начать кататься, разрываясь от яростных приступов хохота, но из уважения к нему я сдержался, однако дальнейшие его слова пролетели мимо ушей."
@@ -23702,7 +23277,7 @@ label day6_after_map:
     me "Ты это…{w} Старайся, что ли, и всё будет!"
     "Я, еле сдерживая смех, похлопал его по плечу."
     with None
-    show el smile pioneer at center 
+    show el smile pioneer at center
     with dspr
     el "Спасибо за поддержку."
     "Он грустно улыбнулся."
@@ -23751,11 +23326,11 @@ label day6_after_map:
     us "А чего такой хмурый?"
     me "Ты-то весёлая чересчур.{w} Равновесие энергии во Вселенной восстанавливаю."
     with None
-    show us laugh2 pioneer at cleft 
+    show us laugh2 pioneer at cleft
     with dspr
     "Ульянка захихикала."
     with None
-    show us laugh pioneer at cleft 
+    show us laugh pioneer at cleft
     with dspr
     "Как ни странно, девочки не обращали на меня никакого внимания и разговаривали о своём."
     "Сначала я подумал, что это и хорошо, но потом мне начало казаться, что они просто не замечают меня."
@@ -23770,12 +23345,12 @@ label day6_after_map:
     dv "Нет."
     me "А вам это не кажется странным?"
     with None
-    show us surp1 pioneer at cleft 
+    show us surp1 pioneer at cleft
     with dspr
     us "А что странного?{w} Может, зачиталась, может, спит, может, ещё что."
     me "Ты её с собой не путаешь?"
     with None
-    show dv angry pioneer at cright 
+    show dv angry pioneer at cright
     with dspr
     dv "Да и тебе-то какое дело?"
     "Раздражённо вставила Алиса."
@@ -23785,7 +23360,7 @@ label day6_after_map:
     dv "Да? И почему же?"
     "Я не нашёлся, что ответить, и несколько секунд отсутствующим взглядом просто смотрел на Алису, а потом уткнулся к себе в тарелку."
     with None
-    show dv normal pioneer at cright 
+    show dv normal pioneer at cright
     with dspr
     "Она не стала допытываться."
     window hide
@@ -23818,12 +23393,12 @@ label day6_after_map:
     "Я быстрыми шагами направился к домику вожатой."
     window hide
     play sound sfx_open_dooor_campus_1
-    pause(1)
+    pause 1
     $ persistent.sprite_time = "day"
     scene bg int_house_of_mt_day
     with dissolve
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     window show
     "Зайдя внутрь, я увидел Ольгу Дмитриевну, которая лежала на кровати и читала книжку."
@@ -23831,7 +23406,7 @@ label day6_after_map:
     mt "Нет, а что такое?"
     me "Её с утра нигде нет, не было на завтраке, не было на обеде!"
     with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dspr
     mt "И?"
     "Она непонимающе посмотрела на меня."
@@ -23840,7 +23415,7 @@ label day6_after_map:
     "Похоже, с вожатой опять творилось что-то странное.{w} Она вела себя абсолютно необъяснимо, нелогично."
     me "То есть это нормально? И где она тогда сейчас?"
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "Не знаю."
     "Спокойно ответила Ольга Дмитриевна."
@@ -23850,7 +23425,7 @@ label day6_after_map:
     th "Да, идея хорошая, тем более что здесь мне явно ничего не добиться."
     window hide
     play sound sfx_close_door_campus_1
-    pause(1)
+    pause 1
     $ persistent.sprite_time = "day"
     scene bg ext_house_of_mt_day
     with dissolve
@@ -23869,12 +23444,12 @@ label day6_after_map:
     "Послышался знакомый голос."
     window hide
     play sound sfx_open_dooor_campus_2
-    pause(1)
+    pause 1
     $ persistent.sprite_time = "day"
     scene bg int_house_of_un_day
     with dissolve
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dissolve
     window show
     me "Привет… А ты не знаешь, где Лена?"
@@ -23882,12 +23457,12 @@ label day6_after_map:
     me "И тебе не кажется это странным?"
     "В тот момент я начал подозревать всех обитателей лагеря в сокрытии информации о местоположении Лены, в заговорах, в причастности к моему появлению здесь, в убийстве Кеннеди и в сотне ещё более ужасных вещей."
     with None
-    show mi surprise pioneer at center 
+    show mi surprise pioneer at center
     with dspr
     mi "Ну… Знаешь, может быть… Я думала, что она ушла куда-то, а потом как-то забегалась – завтрак, музыкальный кружок, помогала убираться, а потом обед, а потом, а потом…"
     me "Хорошо, понятно… А вчера всё было нормально?"
     with None
-    show mi serious pioneer at center 
+    show mi serious pioneer at center
     with dspr
     mi "Ну… Она пришла поздно и сразу легла спать, я даже как-то ничего такого и не заметила."
     "Похоже, здесь мне тоже ничего не светит."
@@ -23908,7 +23483,7 @@ label day6_after_map:
     scene bg ext_square_day
     with dissolve
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     window show
     "Моё шестое чувство не подвело."
@@ -23918,12 +23493,12 @@ label day6_after_map:
     sl "Нет, а что?"
     me "Её с утра нигде нет. Не было на завтраке, не было на обеде."
     with None
-    show sl surprise pioneer at center 
+    show sl surprise pioneer at center
     with dspr
     sl "Странно."
     me "Вот и я думаю, что, мягко говоря, странно.{w} Поможешь мне её найти?"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Ой, извини.{w} Может, попозже? А то у меня тут уборка…"
     "Меня словно молния ударила."
@@ -23978,8 +23553,8 @@ label day6_after_map:
     th "Хотя о чём ещё думать? Сколько можно?"
     "Однако моим ожиданиям не суждено было оправдаться."
     with None
-    show mz normal glasses pioneer at center 
-    with dissolve   
+    show mz normal glasses pioneer at center
+    with dissolve
     "На пляже я встретил Женю, чему сильно удивился."
     me "А ты тоже сюда ходишь?"
     "Она внимательно посмотрела на меня из-под очков."
@@ -23992,13 +23567,13 @@ label day6_after_map:
     mz "А зачем она тебе?"
     me "Ну… Её никто не видел с прошлой ночи."
     with None
-    show mz laugh glasses pioneer at center 
+    show mz laugh glasses pioneer at center
     with dspr
     mz "Думаешь, в этом лагере можно потеряться?"
     "Она громко рассмеялась."
     me "Шурик же потерялся…"
     with None
-    show mz smile glasses pioneer at center 
+    show mz smile glasses pioneer at center
     with dspr
     mz "Это отдельный разговор…{w} Эти два брата-акробата на что угодно способны."
     "Я сразу вспомнил утренний случай."
@@ -24006,13 +23581,13 @@ label day6_after_map:
     play music music_list["your_bright_side"] fadein 3
     me "Скажи…{w} А почему ты сегодня за Электроником бегала?"
     with None
-    show mz shy glasses pioneer at center 
+    show mz shy glasses pioneer at center
     with dspr
     "Женя смутилась."
     mz "Тебе какое дело?"
     me "Просто спросил."
     with None
-    show mz angry glasses pioneer at center 
+    show mz angry glasses pioneer at center
     with dspr
     mz "Потому что он дурак!"
     "После этих слов она отвернулась."
@@ -24021,13 +23596,13 @@ label day6_after_map:
     mz "А как ещё-то?"
     me "Ну, дать ему шанс…{w} Всё же на такой поступок нужно немало смелости, знаешь ли."
     with None
-    show mz normal glasses pioneer at center 
+    show mz normal glasses pioneer at center
     with dspr
     mz "Ты говоришь это так… как будто это что-то такое особенное, подвиг какой-то.{w} Сам бы не смог, что ли?"
     "Я задумался и ответил не сразу."
     me "Не знаю…{w} Пока подходящего момента не было."
     with None
-    show mz angry glasses pioneer at center 
+    show mz angry glasses pioneer at center
     with dspr
     mz "Желаю, чтобы он вскоре тебе представился."
     with None
@@ -24073,7 +23648,7 @@ label day6_after_map:
     "Постояв с минуту, я уже собирался уходить, как вдруг услышал какие-то звуки."
     th "Хлопок, ещё хлопок…{w} Что-то до боли знакомое!"
     with None
-    show un normal pioneer far at center  
+    show un normal pioneer far at center
     with dissolve
     play sound sfx_lena_plays_tennis_fail
     "Я побежал в сторону волейбольной площадки и увидел там Лену, которая безуспешно пыталась попасть ракеткой по воланчику."
@@ -24101,7 +23676,7 @@ label day6_after_map:
     "Я вошёл на площадку, подошёл к Лене, улыбнулся и сказал:"
     me "Привет!"
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     "Она обернулась и пристально посмотрела на меня."
     un "Привет…"
@@ -24116,14 +23691,14 @@ label day6_after_map:
     un "Не думаю, что это действительно кого-то волнует."
     me "Меня волнует, например."
     with None
-    show un surprise pioneer at center 
+    show un surprise pioneer at center
     with dspr
     un "Почему?"
     "В её глазах читалось удивление."
     me "Потому что… Потому что это неправильно!"
     "Как я ни старался быть до конца откровенным, на деле выходило не очень."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "А, вот как…{w} Хорошо, больше не буду."
     "Похоже, этот разговор её мало интересовал."
@@ -24217,7 +23792,7 @@ label day6_after_map:
     scene bg ext_playground_night
     with dissolve
     with None
-    show un cry pioneer at center 
+    show un cry pioneer at center
     with dissolve
     window show
     un "Слышал бы ты сам себя сейчас!"
@@ -24230,14 +23805,14 @@ label day6_after_map:
     me "Подожди!{w} Что я такого сказал? Ведь всё это правда!"
     un "Ей будешь лапшу на уши вешать!"
     with None
-    show un rage pioneer at center 
+    show un rage pioneer at center
     with dspr
     "Я ещё раз попытался остановить Лену, но она посмотрела на меня так, что спорить я не решился."
     me "А ты представь, каково мне!{w} Ты напридумывала каких-то глупостей, уверилась в них и теперь считаешь меня виноватым во всех смертных грехах!"
     un "И какая тебе разница?"
     me "Есть разница!"
     with None
-    show un angry pioneer at center 
+    show un angry pioneer at center
     with dspr
     "Она остановилась на секунду и пристально посмотрела на меня."
     un "Всё это ложь!"
@@ -24247,7 +23822,7 @@ label day6_after_map:
     me "Подожди, давай спокойно поговорим!"
     un "Нам не о чем разговаривать!"
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     "Она шла по футбольному полю, а я плёлся сзади, тщетно пытаясь уговорить её выслушать меня."
     th "Даже не знаю, зачем мне всё это. Чтобы доказать, что я прав?"
@@ -24259,7 +23834,7 @@ label day6_after_map:
     scene bg ext_square_night
     with dissolve
     with None
-    show un normal pioneer far at center  
+    show un normal pioneer far at center
     with dissolve
     window show
     "Мы вышли на площадь."
@@ -24275,17 +23850,17 @@ label day6_after_map:
     un "И что, какая разница?"
     "Странно, но сейчас я больше волновался о приличиях, чем Лена."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     "Она остановилась."
     with None
-    show un grin pioneer at center 
+    show un grin pioneer at center
     with dspr
     un "Спасибо, что проводил, дальше я сама."
     "Едко сказала Лена."
     me "Ты так меня и не выслушала!"
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "А по-моему, всё я выслушала, и не один раз!"
     me "Тогда что же ты от меня хочешь?"
@@ -24300,7 +23875,7 @@ label day6_after_map:
     un "Нет, серьёзно, зачем?{w} Есть много вариантов более приятного времяпрепровождения.{w} Да и мне, по правде говоря, это совсем не нужно."
     me "Если тебе это не нужно, то зачем постоянно упоминать Алису?!"
     with None
-    show un rage pioneer at center 
+    show un rage pioneer at center
     with dspr
     "Лена переменилась в лице."
     un "Это не твоё дело, понятно?!"
@@ -24316,7 +23891,7 @@ label day6_after_map:
     hide un
     with dissolve
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     dv "А что здесь происходит?"
     "Я обернулся и увидел Алису, лениво жующую булочку."
@@ -24328,7 +23903,7 @@ label day6_after_map:
     "Но Лена оказалась более сообразительной."
     un "Сдаю с рук на руки, принимай!"
     with None
-    show dv surprise pioneer at cright 
+    show dv surprise pioneer at cright
     with dspr
     "Алиса выглядела удивлённой.{w} Немудрено, она же не слышала всего нашего разговора."
     dv "Чего?"
@@ -24336,13 +23911,13 @@ label day6_after_map:
     "Лена вмиг стала прежней – спокойной и невозмутимой."
     dv "Что принимать?"
     with None
-    show un grin pioneer at cleft 
+    show un grin pioneer at cleft
     with dspr
     un "Его!"
     "Она брезгливо показала пальцем на меня."
     un "Он мне тут всё жалуется, как тебя любит, как не может без тебя жить, и всё в таком духе."
     with None
-    show dv shocked pioneer at cright 
+    show dv shocked pioneer at cright
     with dspr
     dv "Что?"
     "Алиса выпучила глаза от удивления."
@@ -24354,23 +23929,23 @@ label day6_after_map:
     me "Хочешь, чтобы были жертвы?"
     un "Зачем? Я тебе давно предлагала идти к ней."
     with None
-    show dv angry pioneer at cright 
+    show dv angry pioneer at cright
     with dspr
     dv "Не знаю, о чём вы тут, но меня сюда не приплетайте!"
     with None
-    show un angry pioneer at cleft 
+    show un angry pioneer at cleft
     with dspr
     un "Не знаешь?.."
     "Лена сказала это тихо, но в её голосе прозвучали нотки ярости."
     un "Опять за своё?!"
     with None
-    show dv guilty pioneer at cright 
+    show dv guilty pioneer at cright
     with dspr
     "Алиса испуганно посмотрела на неё."
     dv "Слушай, я понимаю, что ты это…{w} Но я, честно, ни словом, ни мыслью по отношению к нему! Клянусь!"
     stop ambience fadeout 2
     with None
-    show un rage pioneer at cleft 
+    show un rage pioneer at cleft
     with dspr
     un "Не знаешь?!"
     window hide
@@ -24378,7 +23953,7 @@ label day6_after_map:
     scene cg d6_un_punch
     with flash
     play sound sfx_lena_hits_alisa
-    pause(1)
+    pause 1
     window show
     "Лена подскочила к ней и быстрее, чем я успел опомниться, влепила Алисе мощный хук справа."
     "Нет, пощёчину я бы ещё понял, но таким ударом можно и челюсть сломать!"
@@ -24396,7 +23971,7 @@ label day6_after_map:
             th "Мужик я или кто?!"
             window hide
         "Помочь Алисе":
-            $ lp_un = lp_un + 1
+            $ lp_un += 1
             pass
     scene cg d6_dv_fight
     with dissolve
@@ -24429,7 +24004,7 @@ label day6_after_map:
     scene bg ext_square_night
     with dissolve
     with None
-    show dv sad pioneer at center 
+    show dv sad pioneer at center
     with dissolve
     window show
     dv "Я же тебе говорила насчёт неё…"
@@ -24437,7 +24012,7 @@ label day6_after_map:
     dv "Да какой медпункт в такое время…{w} Отосплюсь, завтра схожу."
     me "Ладно, тогда я провожу тебя."
     with None
-    show dv smile pioneer at center 
+    show dv smile pioneer at center
     with dspr
     dv "Не откажусь."
     "Ответила Алиса, силясь улыбнуться."
@@ -24446,7 +24021,7 @@ label day6_after_map:
     scene bg ext_house_of_dv_night
     with dissolve
     with None
-    show dv sad pioneer at center 
+    show dv sad pioneer at center
     with dissolve
     window show
     "Всю дорогу мы молчали."
@@ -24457,7 +24032,7 @@ label day6_after_map:
     with dissolve
     window hide
     play sound sfx_close_door_campus_1
-    pause(1)
+    pause 1
     window show
     "Когда за Алисой захлопнулась дверь, я ещё долго стоял и смотрел на её домик."
     th "И что мне делать после всего этого?"
@@ -24475,15 +24050,15 @@ label day6_after_map:
     scene bg black
     with fade3
     stop ambience fadeout 3
-    pause (3)
+    pause 3
     jump day7_un
 label day6_us:
     $ backdrop = "us"
     $ persistent.sprite_time = "day"
     $ day_time()
-    $ new_chapter(6, u"День шестой")
+    $ new_chapter(6, "День шестой")
     scene black
-    pause (2)
+    pause 2
     window show
     "Не могу сказать, что утро моё было добрым.{w} Наоборот, проснулся я совершенно разбитым."
     window hide
@@ -24499,7 +24074,7 @@ label day6_us:
     window hide
     scene cg d5_us_kiss
     with fade2
-    pause (2)
+    pause 2
     $ persistent.sprite_time = "day"
     scene bg int_house_of_mt_day
     with fade2
@@ -24535,14 +24110,14 @@ label day6_us:
     stop music fadeout 3
     sl "Привет!"
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dissolve
     "Я поднял глаза и увидел Славю, которая мило улыбалась мне."
     me "Привет."
     sl "Опять проспал?"
     me "Видимо да…"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Нехорошо это…"
     me "Пожалуй… А ты куда идёшь?"
@@ -24552,17 +24127,17 @@ label day6_us:
     "Наступило молчание.{w} Она уже собиралась уходить, как вдруг я сказал:"
     me "Может, посидишь со мной немного?"
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Можно, почему нет?"
     "Славя села рядом."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Тебя что-то беспокоит?"
     me "Да нет, с чего ты взяла?"
     with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dspr
     sl "По лицу видно."
     "Она тихо рассмеялась."
@@ -24570,12 +24145,12 @@ label day6_us:
     "Хотя, наверное, Славя была права – что-то меня действительно беспокоило.{w} Очевидно, случай вчера ночью."
     me "Слушай, а у тебя есть младшие братья, сёстры?"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Есть."
     me "И какие отношения с ними?"
     with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dspr
     sl "Нормальные."
     "Она широко улыбнулась."
@@ -24583,7 +24158,7 @@ label day6_us:
     me "Нет…"
     "После небольшой паузы ответил я."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "А почему тогда спрашиваешь?"
     me "Не знаю, просто…"
@@ -24594,36 +24169,36 @@ label day6_us:
     th "Славя же не знает, что на самом деле мне значительно больше лет, чем на вид.{w} Для неё я, в общем-то, и сам всё ещё ребёнок."
     me "Тех, кто младше…"
     with None
-    show sl serious pioneer at center 
+    show sl serious pioneer at center
     with dspr
     sl "Почему?"
     me "Ну, не всегда получается понять мотивацию их поступков. Они зачастую нелогично себя ведут."
     with None
-    show sl surprise pioneer at center 
+    show sl surprise pioneer at center
     with dspr
     sl "Но разве тебе не было столько же лет, сколько им сейчас?"
     "Она удивлённо посмотрела на меня."
     me "Было, конечно…"
     "Тогда мне казалось, что было это очень давно.{w} А при взгляде на Ульянку это «давно» становилось целой пропастью лет."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Ну вот! Вспомни себя в то время."
     me "Я таким не был…"
     "По крайней мере мне так действительно казалось."
     with None
-    show sl laugh pioneer at center 
+    show sl laugh pioneer at center
     with dspr
     sl "Что ж, хорошо, если так!"
     "Славя опять рассмеялась."
     me "А ты?{w} Тоже делала всякие глупости?"
     with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dspr
     sl "Смотря в каком возрасте."
     me "Ну не знаю…{w} Лет четырнадцать, может…"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Всякое было…"
     "Сказала она задумчиво."
@@ -24654,13 +24229,13 @@ label day6_us:
     window show
     "Хоть она была тихой и доносилась издалека, мой организм сработал как часы, и в назначенное время я уже стоял возле дверей столовой…"
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dissolve
     "Где столкнулся с Ульянкой."
     us "Привет!"
     me "А… Да…"
     with None
-    show us laugh2 pioneer at center 
+    show us laugh2 pioneer at center
     with dspr
     us "А я уже поела!"
     with None
@@ -24678,7 +24253,7 @@ label day6_us:
     window show
     "Взяв еду, я уже было направился к своему излюбленному месту в углу, как вдруг меня кто-то схватил за руку."
     with None
-    show dv normal pioneer2 at center 
+    show dv normal pioneer2 at center
     with dissolve
     dv "Садись-ка сюда!"
     "Голос Алисы прозвучал грозно, но в то же время как-то заискивающе."
@@ -24692,25 +24267,25 @@ label day6_us:
     th "Алисе, наверное, врать не стоит."
     me "Ну, был…"
     with None
-    show dv laugh pioneer2 at center 
+    show dv laugh pioneer2 at center
     with dspr
     dv "Это же… Это же…"
     "Она громко рассмеялась."
     dv "Зачем всё это?"
     with None
-    show dv normal pioneer2 at center 
+    show dv normal pioneer2 at center
     with dspr
     "Алиса в мгновение ока стала вновь серьёзной и пристально посмотрела на меня."
     me "У неё спроси."
     with None
-    show dv angry pioneer2 at center 
+    show dv angry pioneer2 at center
     with dspr
     dv "Нет уж, раз у тебя спрашиваю, то и отвечай!"
     me "Не знаю!"
     "Огрызнулся я."
     me "Ты мне лучше скажи, почему вожатая на это никак не отреагировала?"
     with None
-    show dv normal pioneer2 at center 
+    show dv normal pioneer2 at center
     with dspr
     dv "А как она должна была реагировать?"
     me "Думаю, ты знаешь…"
@@ -24726,13 +24301,13 @@ label day6_us:
     dv "И потом…{w} Она ночью куда-то бегала и вернулась вся такая счастливая…"
     me "И?"
     with None
-    show dv grin pioneer2 at center 
+    show dv grin pioneer2 at center
     with dspr
     dv "Ты ничего про это не знаешь?"
     me "Даже если знаю, то тебе какая разница?"
     "Она пристально посмотрела на меня."
     with None
-    show dv normal pioneer2 at center 
+    show dv normal pioneer2 at center
     with dspr
     dv "Есть мне разница."
     th "Неужели и она умеет беспокоиться о ком-то, кроме себя?"
@@ -24746,7 +24321,7 @@ label day6_us:
     me "Об этом что?"
     "Попытался отшутиться я."
     with None
-    show dv angry pioneer2 at center 
+    show dv angry pioneer2 at center
     with dspr
     dv "Ладно… Смотри у меня! Я за тобой слежу."
     me "Очень страшно!"
@@ -24800,7 +24375,7 @@ label day6_us:
     with fade
     play ambience ambience_lake_shore_day fadein 3
     with None
-    show un normal swim at center 
+    show un normal swim at center
     with dissolve
     window show
     "Когда проснулся, увидел рядом Лену."
@@ -24816,12 +24391,12 @@ label day6_us:
     me "Конечно!"
     "Я улыбнулся."
     with None
-    show un surprise swim at center 
+    show un surprise swim at center
     with dspr
     un "А о чём тогда ты хочешь поговорить?"
     me "С чего ты это взяла?"
     with None
-    show un normal swim at center 
+    show un normal swim at center
     with dspr
     un "Мне так кажется."
     me "Да нет, ни о чём."
@@ -24830,12 +24405,12 @@ label day6_us:
     un "Нет. А у тебя?"
     me "И у меня нет."
     with None
-    show un surprise swim at center 
+    show un surprise swim at center
     with dspr
     un "А почему тогда спрашиваешь?"
     me "Просто иногда не понимаю детей."
     with None
-    show un normal swim at center 
+    show un normal swim at center
     with dspr
     un "И я."
     "Лицо Лены ничего не выражало."
@@ -24850,19 +24425,19 @@ label day6_us:
     me "Делать то, что первым придёт в голову?"
     "Я рассмеялся."
     with None
-    show un smile swim at center 
+    show un smile swim at center
     with dspr
     un "Первая мысль, как говорят, самая правильная."
     me "Ты веришь в это?"
     with None
-    show un normal swim at center 
+    show un normal swim at center
     with dspr
     un "Я не знаю…"
     "Мы ещё некоторое время просидели молча, потом она встала."
     un "Ладно, мне пора."
     me "Спасибо за беседу!"
     with None
-    show un smile swim at center 
+    show un smile swim at center
     with dspr
     un "Не за что!"
     "Лена еле заметно улыбнулась."
@@ -24888,7 +24463,7 @@ label day6_us:
     window show
     "На площади меня кто-то окликнул."
     with None
-    show el shocked pioneer at center 
+    show el shocked pioneer at center
     with dissolve
     "Это был Электроник.{w} Он подбежал ко мне, отдышался и сказал:"
     el "Семён…"
@@ -24897,7 +24472,7 @@ label day6_us:
     "Он протянул мне какой-то ключ."
     me "Что это?"
     with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dspr
     el "Это ключ от нашего кружка."
     me "И зачем мне он?"
@@ -24912,7 +24487,7 @@ label day6_us:
     el "Потом мне отдашь."
     me "Слушай…"
     with None
-    show el smile pioneer at center 
+    show el smile pioneer at center
     with dspr
     el "Ладно, мне пора!"
     with None
@@ -24938,7 +24513,7 @@ label day6_us:
     "Я сел в дальний угол на своё любимое место и принялся сосредоточенно крутить в руке зубочистку, не отвлекаясь ни на что."
     "Вскоре появилось ощущение, что кто-то стоит рядом со мной."
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     "Я поднял глаза и увидел Ольгу Дмитриевну."
     "Некоторое время мы просто смотрели друг на друга."
@@ -24957,11 +24532,11 @@ label day6_us:
     "Я так и не мог понять, к чему она клонит."
     play music music_list["revenga"] fadein 3
     with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dspr
     mt "Выяснила!{w} И знаешь что!{w} Для настоящего пионера это… это! Это просто неприемлемо! Позорно! Постыдно! Но ещё и с ней!"
     with None
-    show mt rage pioneer at center 
+    show mt rage pioneer at center
     with dspr
     "Она аж покраснела от натуги."
     mt "Даже не хочу слушать твои оправдания!"
@@ -24973,7 +24548,7 @@ label day6_us:
     "Я начал заводиться."
     me "Ничего такого там не было, а уж я имею отношение ко всей этой ситуации в последнюю очередь."
     with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dspr
     mt "И ты думаешь…"
     me "Во-вторых…"
@@ -24983,19 +24558,19 @@ label day6_us:
     "Ульянка бы не стала, а если бы даже и решила в очередной раз надо мной прикольнуться, то сделала бы это гораздо раньше – за всё время, проведённое здесь, я уже неплохо её понял."
     th "Значит, остаётся только один человек…"
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "Какая разница?"
     me "Нет уж! Есть разница!"
     with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dspr
     mt "Может быть, ты лучше объяснишь своё поведение?"
     "Ольга Дмитриевна несколько смутилась от моего напора."
     me "А нечего объяснять!"
     "Я резко встал и направился к выходу из столовой."
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "Семён, подожди…"
     with None
@@ -25012,7 +24587,7 @@ label day6_us:
     scene bg ext_square_day
     with dissolve
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     window show
     "На площади, мне встретилась Славя."
@@ -25033,26 +24608,26 @@ label day6_us:
     me "Ничего не хочешь объяснить?"
     "Начал я с места в карьер."
     with None
-    show dv grin pioneer at cleft 
+    show dv grin pioneer at cleft
     with dspr
     dv "Нет, а что такое?"
     "Алиса мило улыбнулась."
     with None
-    show mi smile pioneer at cright 
+    show mi smile pioneer at cright
     with dspr
     mi "Ой, Семён, привет! Как хорошо, что и ты здесь! Может, тогда втроём что-нибудь сыграем? У меня и песня новая есть, знаешь, такая весёлая! Тебе точно понравится, обещаю!"
     mi "Ну, или можно что-нибудь из старого…"
     "Мику вмешалась в разговор."
     me "Ты не могла бы…"
     with None
-    show mi happy pioneer at cright 
+    show mi happy pioneer at cright
     with dspr
     mi "Что?"
     "Она смотрела на меня с такой детской непонимающей улыбкой, что я точно понял, что у неё в голове – зайчатки, мишки, кошечки, но нет ни малейших признаков интеллекта."
     me "Нам с Алисой надо поговорить."
     "Сказал я не терпящим возражений тоном."
     with None
-    show mi sad pioneer at cright 
+    show mi sad pioneer at cright
     with dspr
     mi "Ладно, тогда потом…"
     with None
@@ -25063,12 +24638,12 @@ label day6_us:
     me "Итак…"
     with None
     show dv surprise pioneer at cleft :
-        linear 1.0 xalign 0.5 
+        linear 1.0 xalign 0.5
     with dspr
     dv "Я не понимаю, о чём ты."
     "Обиженно сказала Алиса."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "И вообще! Мне пора."
     "Она развернулась и собралась уходить."
@@ -25076,17 +24651,17 @@ label day6_us:
         "Грубо схватить её за руку":
             "Я резко схватил Алису за запястье."
             with None
-            show dv scared pioneer at center 
+            show dv scared pioneer at center
             with dspr
             dv "Ты что делаешь?!"
             "Девочка явно испугалась."
         "Попытаться остановить словами":
-            $ lp_us = lp_us +1
+            $ lp_us += 1
             me "Эй, подожди."
             "Она остановилась и повернулась ко мне."
             me "Я же тебя здесь убивать не собираюсь..."
             with None
-            show dv scared pioneer at center 
+            show dv scared pioneer at center
             with dspr
             "Мои слова прозвучали как шутка, но Алиса вздрогнула."
     me "Кто рассказал вожатой о том, что Ульянка ко мне ночью приходила?"
@@ -25096,7 +24671,7 @@ label day6_us:
     "Она ничего не ответила, только продолжала со страхом в глазах смотреть на меня."
     me "И самое главное – зачем было придумывать всякие небылицы?"
     with None
-    show dv cry pioneer at center 
+    show dv cry pioneer at center
     with dspr
     dv "Я правда не знаю, о чём ты!"
     "На её глазах показались слёзы."
@@ -25121,8 +24696,7 @@ label day6_us:
     window show
     "Я нашёл её на крыльце столовой."
     "К тому времени солнце уже почти скрылось за горизонтом."
-    with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     mt "Вернулся-таки…"
     "Начала было она."
@@ -25132,7 +24706,7 @@ label day6_us:
     "По правде говоря, я и сам толком не понимал, зачем мне знать это."
     th "Поначалу просто разозлился на Алису, но сейчас…"
     with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dspr
     mt "Ну…"
     "Она замялась."
@@ -25141,7 +24715,7 @@ label day6_us:
     mt "Ну, да... Не из нашего лагеря, похоже."
     me "И зачем ей вам об этом рассказывать?"
     with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dspr
     mt "А мне откуда знать?!"
     me "Ольга Дмитриевна, но ведь это..."
@@ -25164,22 +24738,19 @@ label day6_us:
     stop music fadeout 3
     us "Чего стоим, кого ждём?"
     "Услышал я весёлый голосок позади себя."
-    with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dissolve
     "Это была Ульяна."
     me "Ничего, просто…"
     "Похоже, установить информатора Ольги Дмитриевны всё же не удастся, да и вчерашний случай вроде бы кое-как замяли, так что я решил больше не думать об этом."
     play music music_list["eat_some_trouble"] fadein 3
-    with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "Какие планы на вечер?"
     me "Никаких…"
     "После всех своих оголтелых попыток докопаться до правды я чувствовал какую-то необъяснимую вину перед Алисой и перед Ульяной."
     "Хотя, в чём именно она состояла перед последней, было совершенно непонятно."
-    with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dspr
     us "Тогда у меня есть предложение."
     me "Какое?"
@@ -25187,8 +24758,7 @@ label day6_us:
     "Её глаза заговорщически блеснули."
     me "И?"
     th "Вообще не знаю, когда в последний раз смотрел или слушал кассеты."
-    with None
-    show us laugh2 pioneer at center 
+    show us laugh2 pioneer at center
     with dspr
     us "С клёвым фильмом!"
     me "И где же мы здесь найдём видик?"
@@ -25196,21 +24766,19 @@ label day6_us:
     us "Так в кружке кибернетики же!"
     me "Нет там!"
     "Уверенно возразил я."
-    with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "А в дальней комнате?"
     "Её правда.{w} Там он может быть."
     me "Ну не знаю…{w} В любом случае уже поздно, наверное, всё закрыто."
     "Непонятное чувство вины перед Ульяной не давало мне сразу отказаться."
-    with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Можно в окно влезть!"
     "Ехидно ухмыльнулась она."
     me "Ну знаешь!"
     with None
-    show us shy2 pioneer at center 
+    show us shy2 pioneer at center
     with dspr
     us "Да, ты прав. Вот если бы был ключ…"
     "Задумчиво сказала Ульяна."
@@ -25219,7 +24787,7 @@ label day6_us:
     me "Кстати, да! Ключ-то есть!"
     "Надо было сначала думать, а потом говорить."
     with None
-    show us laugh2 pioneer at center 
+    show us laugh2 pioneer at center
     with dspr
     us "Вот и отлично! Тогда я сейчас быстренько за кассетой, а ты тут подожди."
     with None
@@ -25239,7 +24807,7 @@ label day6_us:
     "..."
     "Не прошло и пары минут, как она вернулась."
     with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dissolve
     us "Опять задумался?"
     "Посмотрев на Ульяну, я смутился."
@@ -25247,13 +24815,13 @@ label day6_us:
     me "Слушай, ты же знаешь, что у тебя все идеи…{w} как бы это сказать…{w} не совсем безопасные."
     me "Опять же чем-нибудь нехорошим закончится."
     with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "Боишься?"
     me "Ничего я не боюсь."
     me "Просто я уже взрослый человек, и такие игры меня не интересуют."
     with None
-    show us laugh2 pioneer at center 
+    show us laugh2 pioneer at center
     with dspr
     us "Взрослый?"
     "Она рассмеялась."
@@ -25267,13 +24835,13 @@ label day6_us:
     "Эти слова Ульянки настолько задели меня, что я спросил:"
     me "А кто такой, по-твоему, взрослый человек?"
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     us "Тот, кто умеет отвечать за свои поступки. Тот, кто не делает чего-то, не задумываясь о последствиях. Человек, способный взять на себя ответственность не только за себя, но и за других."
     me "Ты-то тогда точно под своё описание не подходишь."
     "Попытался отшутиться я."
     with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "Я и не претендую."
     "Ухмыльнулась Ульяна."
@@ -25293,25 +24861,25 @@ label day6_us:
     window show
     "Мы вошли, Ульянке понадобилось некоторое время, чтобы найти выключатель."
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dissolve
     us "Вуаля!"
     me "Молодец, браво!"
     "Я наигранно захлопал в ладоши."
     with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dspr
     us "Ну! Хватит издеваться!"
     "Она надула губы."
     me "Хорошо, и что дальше?"
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Сюда!"
     "Ульяна подошла к двери во вторую комнату, постояла некоторое время в нерешительности и резким движением открыла её."
     window hide
     play sound sfx_open_door_clubs_2
-    pause(1)
+    pause 1
     $ persistent.sprite_time = "sunset"
     scene bg int_clubs_male2_night
     with dissolve
@@ -25323,7 +24891,7 @@ label day6_us:
     "Интересно, что они были не советскими, а самыми что ни на есть японскими.{w} По крайней мере с виду."
     "Ну, что же, в те времена (точнее, для меня – в эти) тоже существовал импорт."
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dissolve
     us "Что я тебе говорила!"
     "Победоносно улыбнулась Ульянка."
@@ -25332,34 +24900,34 @@ label day6_us:
     me "Видел…"
     "Пожалуй, и у меня дома где-то на антресоли валяется видеомагнитофон."
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "Ты что-то не удивлён совсем."
     me "А чему удивляться?"
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Импортный телевизор, видак! Как будто часто такое видишь!"
     me "Последнее время действительно нечасто."
     "Лениво согласился я."
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "Какой-то ты угрюмый…"
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Впрочем, ладно! На!"
     "Она протянула мне кассету.{w} Я повертел её в руках, но не увидел ни одной наклейки, ни одной надписи."
     me "И что там?"
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     us "Я точно не знаю."
     "Задумчиво сказала Ульянка."
     stop music fadeout 3
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Но точно что-то интересное!"
     window hide
@@ -25397,17 +24965,17 @@ label day6_us:
     scene bg int_clubs_male2_night
     with dissolve
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dissolve
     play sound sfx_open_door_clubs_nextroom
-    pause(1)
+    pause 1
     window show
     "Когда фильм дошёл примерно до середины, я услышал, что кто-то пытается открыть входную дверь."
     "Говорят, что когда у человека слабеет одно из чувств, остальные усиливаются.{w} Я был прилично подслеповат, зато слышал отменно."
     me "Гаси свет!"
     "Прошептал я."
     with None
-    show us surp2 pioneer at center 
+    show us surp2 pioneer at center
     with dspr
     us "Что?"
     me "Свет гаси!"
@@ -25424,45 +24992,45 @@ label day6_us:
     "Голос Ольги Дмитриевны."
     window hide
     play sound sfx_close_door_clubs_nextroom
-    pause(1)
+    pause 1
     window show
     "Вскоре входная дверь захлопнулась, и я с облегчением вздохнул."
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dissolve
     me "Видишь? Это опять всё из-за тебя!"
     with None
-    show us surp2 pioneer at center 
+    show us surp2 pioneer at center
     with dspr
     us "Что?"
     "Ульянка удивлённо посмотрела на меня."
     me "Ну а зачем она сюда ночью приходила?{w} Наверняка нас искала!"
     me "Если Алисе на твоё отсутствие, скорее всего, наплевать, то я-то прописан в домике у вожатой!"
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     "Она задумалась."
     us "Ну и что такого?"
     me "Что такого… Почему ты постоянно впутываешься в неприятности? Тебе как будто это нравится."
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Так веселее же!"
     me "Веселее, когда тебя постоянно ругают и наказывают?"
     with None
-    show us laugh2 pioneer at center 
+    show us laugh2 pioneer at center
     with dspr
     us "Кто не рискует, тот не пьёт шампанское!"
     "Она весело расхохоталась."
     me "Есть же и какие-то нормы, в конце концов.{w} Ладно, пока у тебя всё без последствий обходилось, но кто знает, что дальше будет! Можно же и доиграться!"
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "Ты брюзжишь как старый дед!"
     "Обиженно сказала она."
     me "А кто недавно говорил, что меня нельзя назвать взрослым?"
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Ладно, проехали, давай фильм дальше смотреть."
     window hide
@@ -25502,41 +25070,41 @@ label day6_us:
     scene bg int_clubs_male2_night
     with dissolve
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dissolve
     window show
     us "Фух!"
     "С облегчением выдохнула она, когда пошли финальные титры."
     me "Понравилось?"
     with None
-    show us laugh2 pioneer at center 
+    show us laugh2 pioneer at center
     with dspr
     us "Ты ещё спрашиваешь! Конечно!"
     me "Ясно…"
     with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "А тебе, я погляжу, не очень."
     "Она лукаво прищурилась."
     me "Ну, это больше для детей всё же."
     with None
-    show us surp3 pioneer at center 
+    show us surp3 pioneer at center
     with dspr
     us "Да?.."
     me "Ну…{w} Да, а что?"
     with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dspr
     us "Ничего."
     "Она зевнула и села на пол, прислонившись спиной к груде коробок."
     me "Пора спать идти, наверное."
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     us "Я устала – никуда не пойду."
     me "Как хочешь.{w} А я, пожалуй, пойду."
     with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dspr
     us "Эй, подожди!"
     "Ульянка моментально подскочила ко мне и схватила за руку."
@@ -25545,7 +25113,7 @@ label day6_us:
     "Неуверенно сказал я."
     "В конце концов, подобный опыт у меня уже был."
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "Не хочу! Хочу здесь спать!"
     "Она порылась в рядом стоящей коробке и извлекла оттуда некое подобие одеяла и подушки."
@@ -25553,19 +25121,19 @@ label day6_us:
     "Обречённо вздохнул я."
     me "Подумай, нас уже ищет Ольга Дмитриевна. И если мы всю ночь тут проведём…"
     with None
-    show us laugh2 pioneer at center 
+    show us laugh2 pioneer at center
     with dspr
     us "Ну, во-первых, ищет тебя. Насчёт меня – ещё не факт."
     "Рассмеялась Ульянка."
     me "Даже если и так, то тебе тоже попадёт!"
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "С чего это ты взял?{w} А даже если так, то ничего страшного, мне не привыкать!"
     me "Да что ты упёрлась-то? До твоего домика идти метров сто-двести."
     "К тому же по Ульяне нельзя было сказать, что она валилась с ног."
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     us "Я устала!"
     with None
@@ -25575,7 +25143,7 @@ label day6_us:
     me "Ладно, до завтра тогда."
     "Я попытался уйти, но Ульянка вновь схватила меня за руку."
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dissolve
     me "Да что ты так упёрлась-то?!"
     "Она ничего не ответила – кажется, я её напугал."
@@ -25586,7 +25154,7 @@ label day6_us:
     "Меня что-то останавливало – то ли чувство долга, то ли жалость, то ли терпение, которое необходимо проявлять, общаясь с детьми."
     me "Ладно, и что же ты от меня хочешь?"
     with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dspr
     us "Ложись спать со мной!"
     "Кажется, где-то я уже это видел."
@@ -25670,15 +25238,15 @@ label day6_us:
     scene bg black
     with fade3
     stop ambience fadeout 3
-    pause (3)
+    pause 3
     jump day7_us
 label day6_sl:
     $ backdrop = "sl"
     $ persistent.sprite_time = "day"
     $ day_time()
-    $ new_chapter(6, u"День шестой")
+    $ new_chapter(6, "День шестой")
     scene bg black
-    pause (2)
+    pause 2
     window show
     "Спалось плохо."
     "Я постоянно просыпался на пару минут, а потом снова отключался."
@@ -25691,14 +25259,14 @@ label day6_sl:
     with fade
     play music music_list["two_glasses_of_melancholy"] fadein 3
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     window show
     mt "Вставай уж!"
     "Я протёр глаза и вопросительно посмотрел на неё."
     me "Сколько времени?"
     with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dspr
     mt "Достаточно!"
     "Всё тело болело, а голова была тяжёлая, как шар для боулинга."
@@ -25738,11 +25306,11 @@ label day6_sl:
     "Я просто сидел и смотрел в окно на восходящее солнце."
     window hide
     play sound sfx_open_door_2
-    pause(1)
+    pause 1
     window show
     "Тихо скрипнула дверь, и вошла вожатая."
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     me "Ольга Дмитриевна, я всё же хочу вам объяснить, что…"
     mt "Не стоит…"
@@ -25750,13 +25318,13 @@ label day6_sl:
     mt "Я всё понимаю!"
     me "То есть вы понимаете, что это совсем не так, как выглядело?!"
     with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dspr
     mt "Почему, выглядело это именно так!{w} Я не хочу осуждать тебя или Славю. Понимаю, молодые организмы, гормоны и всё такое…"
     "Я обессиленно вздохнул и опустил голову на руки."
     me "Что мне сказать, чтобы вы мне поверили?"
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "Ничего.{w} Я же говорю – всё понимаю."
     me "Ничего вы не понимаете…"
@@ -25770,14 +25338,14 @@ label day6_sl:
     window show
     me "Но зайти-то мне можно к ней?"
     with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dissolve
     mt "Конечно же нет."
     "Вожатая удивлённо посмотрела на меня, как будто такой вопрос был чем-то абсолютно неуместным."
     mt "Я уже предупредила медсестру, чтобы тебя не пускали."
     me "Ну, хотя бы как она себя чувствует?"
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     stop music fadeout 3
     play ambience ambience_camp_center_day fadein 3
@@ -25789,7 +25357,7 @@ label day6_sl:
     window show
     "Я не успел спросить, насколько серьёзно, потому что мы уже вышли на площадь."
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     mt "Иди вставай на своё место."
     with None
@@ -25797,7 +25365,7 @@ label day6_sl:
     with dissolve
     "Я остановился рядом с Электроником."
     with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dissolve
     el "Что вчера было?"
     "Шепнул он мне."
@@ -25838,11 +25406,11 @@ label day6_sl:
     th "Заперто?"
     window hide
     play sound sfx_unlock_medpunkt_door
-    pause (2)
+    pause 2
     window show
     "Через несколько секунд в замочной скважине повернулся ключ, и показалась медсестра."
     with None
-    show cs normal at center 
+    show cs normal at center
     with dissolve
     cs "Доброе утро, пионер…"
     me "Доброе!"
@@ -25850,14 +25418,14 @@ label day6_sl:
     cs "Ты же знаешь, что тебе сюда нельзя?"
     me "Знаю, но…{w} Если бы вы…"
     with None
-    show cs smile at center 
+    show cs smile at center
     with dspr
     cs "Нет… Нет, так не пойдёт!"
     "Лукаво сказала она."
     cs "Приказ вожатой есть приказ.{w} Если ты спросишь лично меня, то я ничего плохого в твоём поведении не нахожу, но вот Ольга Дмитриевна…"
     me "Может, всё-таки?.."
     with None
-    show cs normal at center 
+    show cs normal at center
     with dspr
     cs "Нет."
     "Я злобно посмотрел на неё, развернулся и демонстративно медленно зашагал прочь от медпункта."
@@ -25890,13 +25458,13 @@ label day6_sl:
     "Я вздохнул с облегчением и сел в дальний угол, чтобы, не дай бог, меня никто не увидел."
     "Кое-как запихнув в себя завтрак, я уже собирался уходить, как к моему столику подлетела Мику."
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dissolve
     mi "Доброе утро, Семён! А я сегодня проспала что-то… Можно я тут с тобой посижу?"
     "И не дожидаясь ответа, села рядом."
     me "Я ухожу уже, вообще-то…"
     with None
-    show mi serious pioneer at center 
+    show mi serious pioneer at center
     with dspr
     mi "А правда, что у вас со Славей это… того? Ну, ты понял."
     "Она пристально уставилась на меня, хлопая глазами."
@@ -25952,7 +25520,7 @@ label day6_sl:
     scene bg ext_house_of_mt_day
     with dissolve
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     window show
     "Выйдя на улицу, я нос к носу столкнулся с Алисой."
@@ -25960,7 +25528,7 @@ label day6_sl:
     me "Да, в поход."
     "Уверенно ответил я."
     with None
-    show dv grin pioneer at center 
+    show dv grin pioneer at center
     with dspr
     dv "Что же, удачи!"
     "Она хитро улыбнулась и пошла дальше."
@@ -25980,8 +25548,8 @@ label day6_sl:
     "Я не обдумывал свой план дальше ближайшего хода, мне было всё равно."
     th "Главное, что я действую именно так, как сам считаю нужным, а там дальше – будь, что будет."
     with None
-    show cs normal far at center  
-    with dissolve   
+    show cs normal far at center
+    with dissolve
     "Наконец показалась медсестра."
     "Она осмотрелась, но, видимо не обнаружив угрозы, закрыла медпункт на ключ и быстро пошла в сторону столовой."
     with None
@@ -25991,9 +25559,9 @@ label day6_sl:
     "Как только она скрылась за поворотом, я в несколько прыжков подскочил к окну и яростно забарабанил по стеклу."
     window hide
     play sound sfx_open_window
-    pause(1)
+    pause 1
     with None
-    show sl surprise pioneer at center 
+    show sl surprise pioneer at center
     with dissolve
     window show
     "Вскоре показалась Славя."
@@ -26009,11 +25577,11 @@ label day6_sl:
     "Она некоторое время внимательно смотрела на меня, потом без возражений открыла окно."
     window hide
     play sound sfx_slavya_gets_out
-    pause(1)
+    pause 1
     window show
     "Я помог ей спрыгнуть на землю."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "И что дальше?"
     me "Пойдём!"
@@ -26027,8 +25595,8 @@ label day6_sl:
     window show
     "Через несколько минут Славя остановилась."
     with None
-    show sl surprise pioneer at center 
-    with dissolve   
+    show sl surprise pioneer at center
+    with dissolve
     sl "Семён, что мы делаем?"
     me "А что такого? Ты считаешь, что всё это правильно?"
     sl "Нет, но так будет только хуже."
@@ -26039,18 +25607,18 @@ label day6_sl:
     me "Смотри!"
     "Я открыл сумку и показал вещи, которые забрал из домика вожатой."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "И?"
     "Славя вопросительно посмотрела на меня."
     me "Не знаю…{w} Отсидимся в лесу пока что…{w} Покажем, что с нами тоже надо считаться!"
     with None
-    show sl serious pioneer at center 
+    show sl serious pioneer at center
     with dspr
     sl "Но ведь это глупо! По-детски!"
     me "Если не хочешь…"
     with None
-    show sl tender pioneer at center 
+    show sl tender pioneer at center
     with dspr
     "Она жалобно посмотрела на меня."
     sl "Я сделаю, как ты скажешь…"
@@ -26102,38 +25670,38 @@ label day6_sl:
     th "Не могу же я вот просто так взять и войти туда…"
     play music music_list["eat_some_trouble"] fadein 3
     with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dissolve
     us "Прячешься?"
     "Я аж подпрыгнул от испуга."
     "Сзади стояла Ульянка."
     with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dspr
     us "Проголодался небось?"
     "Она пристально уставилась на меня."
     with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "Ну, чего молчишь?"
     "Я на секунду потерял дар речи, поэтому ответить не смог."
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Так зачем пришёл?"
     menu:
         "Да просто есть захотелось":
             pass
         "Хочу взять еду для Слави":
-            $ lp_sl = lp_sl + 1
+            $ lp_sl += 1
             pass
     with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "Вот как..."
     me "Да, вот так..."
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Ладно, сейчас!"
     "К моему удивлению, Ульянка не стала задавать неудобных вопросов."
@@ -26143,19 +25711,19 @@ label day6_sl:
     "Она побежала к столовой и в мгновение ока скрылась за дверью."
     "Я не знал, что делать дальше – довериться ей и ждать или бежать, пока она не вернулась с кавалерией?.."
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dissolve
     "Однако Ульянка не дала мне времени на обдумывание, так как уже спустя пару минут появилась вновь с каким-то пакетом в руках."
     us "Вот!"
     "В пакете оказалось полно булочек в пакетах и несколько треугольников с кефиром."
     me "Но почему?"
     with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "Потому что это смело… и… круто!"
     "Она хитро улыбнулась."
     with None
-    show us laugh2 pioneer at center 
+    show us laugh2 pioneer at center
     with dspr
     us "Славе привет передавай!"
     with None
@@ -26174,29 +25742,29 @@ label day6_sl:
     "Вообще, это не похоже на Ульянку, но я был ей благодарен."
     "В конце концов, одному мне бы вряд ли удалось днём достать еду без приключений…"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     "Вернувшись на полянку, я обнаружил там Славю, всё в той же позе сидевшую на спальнике."
     me "Вот…"
     "Я протянул ей пакет с едой."
     with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dspr
     sl "Как у тебя ловко получилось!"
     "Восторженно сказала она."
     me "Ну, мне помогали…"
     with None
-    show sl surprise pioneer at center 
+    show sl surprise pioneer at center
     with dspr
     "Славя вопросительно посмотрела на меня, но я не стал углубляться в подробности."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     "Мы сосредоточенно ели, не говоря ни слова."
     "Наконец я удовлетворённо вздохнул."
     me "Неплохо, весьма неплохо."
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Да."
     "Согласилась Славя."
@@ -26205,7 +25773,7 @@ label day6_sl:
     sl "Что теперь будем делать?"
     me "Может, у тебя есть какие-то предложения?"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Насчёт чего?"
     me "Ну, хотя бы как договориться с вожатой."
@@ -26218,17 +25786,17 @@ label day6_sl:
     "Похоже, сказал глупость."
     "Если я для Ольги Дмитриевны точно был мальчиком на побегушках, то Славя…"
     with None
-    show sl laugh pioneer at center 
+    show sl laugh pioneer at center
     with dspr
     sl "Ты смешной!"
     "Она мило улыбнулась."
     with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dspr
     sl "Можно же было просто подойти к ней и поговорить.{w} Но раз ты хочешь сидеть здесь и ждать, то я согласна."
     me "Я пытался говорить…"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Именно так, как надо?"
     th "А как надо?"
@@ -26238,7 +25806,7 @@ label day6_sl:
     "Конечно, я сам боялся, чувствовал себя виноватым – откуда же взяться уверенности…"
     me "Не знаю…"
     with None
-    show sl laugh pioneer at center 
+    show sl laugh pioneer at center
     with dspr
     "Славя рассмеялась."
     me "Что?!"
@@ -26249,7 +25817,7 @@ label day6_sl:
     me "Да… Аналогия прослеживается."
     "Чеканя каждое слово, сказал я."
     with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dspr
     sl "И у принцесс обычно не бывает выбора в таких ситуациях."
     "Загадочно ответила Славя."
@@ -26266,12 +25834,12 @@ label day6_sl:
     "И далеко не только потому что находился чёрт знает где и когда."
     me "Знаешь, возможно, я был неправ."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     "Славя вопросительно посмотрела на меня."
     me "Мы действительно ничего не добьёмся сидя здесь.{w} Даже не так! Это просто глупо и по-детски, тут ты права."
     with None
-    show sl serious pioneer at center 
+    show sl serious pioneer at center
     with dspr
     sl "И что же тогда делать?"
     me "Пойдём!"
@@ -26284,36 +25852,36 @@ label day6_sl:
     with dissolve
     play ambience ambience_camp_center_day fadein 3
     with None
-    show sl normal pioneer at cright 
+    show sl normal pioneer at cright
     with dissolve
     window show
     "Через некоторое время мы вышли на площадь, где нас как будто уже поджидала Ольга Дмитриевна."
     stop ambience fadeout 2
     play music music_list["afterword"] fadein 3
     with None
-    show mt angry pioneer at cleft 
+    show mt angry pioneer at cleft
     with dissolve
     mt "Явились не запылились!"
     "Сказала она злобно."
     mt "И есть тебе что сказать в своё оправдание?"
     menu:
         "Мне не в чем оправдываться":
-            $ lp_sl = lp_sl + 1
+            $ lp_sl += 1
             "Ответил я спокойно."
         "Мы ничего такого не делали, чтобы перед вами оправдываться!":
             "Ответил я вызывающе."
     with None
-    show mt surprise pioneer at cleft 
+    show mt surprise pioneer at cleft
     with dspr
     mt "Да?{w} Ну ладно. То есть ты считаешь всё это нормальным? Хорошо…"
     "Она остановилась на пару секунд и перевела взгляд на Славю."
     mt "Иди к себе.{w} Я понимаю, что ты ни в чём не виновата."
     with None
-    show sl sad pioneer at cright 
+    show sl sad pioneer at cright
     with dspr
     "Славя не сдвинулась с места, лишь опустила глаза и крепче сжала мою руку."
     with None
-    show mt angry pioneer at cleft 
+    show mt angry pioneer at cleft
     with dspr
     mt "Славя!"
     me "Как видите, она не хочет."
@@ -26322,38 +25890,38 @@ label day6_sl:
     "Я начал заводиться."
     me "Почему вы считаете, что мы сделали что-то неправильное?{w} И вообще! Ничего мы и не делали."
     with None
-    show mt grin pioneer at cleft 
+    show mt grin pioneer at cleft
     with dspr
     mt "То-то я не видела!"
     "Она ухмыльнулась."
     me "И что же вы видели?"
     with None
-    show mt normal pioneer at cleft 
+    show mt normal pioneer at cleft
     with dspr
     "Она замялась, но почти сразу ответила тем же тоном:"
     mt "Достаточно."
     me "Хорошо же вы выводы делаете. Вам бы в НКВД работать."
     with None
-    show mt rage pioneer at cleft 
+    show mt rage pioneer at cleft
     with dspr
     mt "Не хами мне!"
     me "И не собирался даже."
     "Ехидно ответил я."
     with None
-    show mt angry pioneer at cleft 
+    show mt angry pioneer at cleft
     with dspr
     mt "В общем, я не желаю дальше вести бессмысленные споры. Ты наказан до конца смены."
     me "О, правда? И как же?"
     mt "Будешь сидеть под замком!"
     me "А если я не соглашусь?"
     with None
-    show mt surprise pioneer at cleft 
+    show mt surprise pioneer at cleft
     with dspr
     "Ольга Дмитриевна удивлённо посмотрела на меня."
     "Только сейчас я заметил, что вокруг нас начали собираться пионеры."
     "В толпе были видны и Лена, и Алиса, и Ульяна."
     with None
-    show mt angry pioneer at cleft 
+    show mt angry pioneer at cleft
     with dspr
     mt "Что значит «не соглашусь»?"
     "Медленно произнесла вожатая."
@@ -26362,14 +25930,14 @@ label day6_sl:
     me "Значит, я фальшивый!"
     "Ольга Дмитриевна замолчала, словно собираясь с силами."
     with None
-    show mt surprise pioneer at cleft 
+    show mt surprise pioneer at cleft
     with dspr
     mt "Думаешь, я не смогу тебя заставить?"
     me "И каким же образом?"
     "Я демонстративно рассмеялся."
     th "Если не брать во внимание всякие потусторонние силы, о которых я сейчас думал в последнюю очередь, то средств принуждения у вожатой действительно не было никаких."
     with None
-    show mt angry pioneer at cleft 
+    show mt angry pioneer at cleft
     with dspr
     mt "Знаешь что!"
     me "Что?"
@@ -26379,12 +25947,12 @@ label day6_sl:
     mt "Короче говоря, у тебя всё равно выбора нет!"
     "Славя, всё время молчавшая до этого, вдруг вмешалась в разговор:"
     with None
-    show sl angry pioneer at cright 
+    show sl angry pioneer at cright
     with dspr
     sl "А почему вы изначально правы, Ольга Дмитриевна? Что, Семён всегда во всём виноват? Что такого произошло? Что он… что мы сделали не так? Вы хоть сами знаете, в чём нас обвиняете?"
     sl "А если бы на моём месте была бы другая, вы бы вели себя точно так же?"
     with None
-    show mt surprise pioneer at cleft 
+    show mt surprise pioneer at cleft
     with dspr
     mt "Славя, ты же знаешь…"
     sl "В том-то и дело, что я знаю! Знаю вас, знаю, что Семён ни в чём не виноват. Знаю, что у вас к нему предвзятое отношение. Не понятно почему, кстати. А ведь он старается!"
@@ -26393,7 +25961,7 @@ label day6_sl:
     "Кажется, даже сами её слова пролетали мимо ушей."
     "Мне достаточно было слышать мелодию её голоса, которая завораживала, уносила отсюда – от этой больной вожатой и дурного пионерлагеря, – успокаивала и залечивала душевные раны."
     with None
-    show mt normal pioneer at cleft 
+    show mt normal pioneer at cleft
     with dspr
     mt "Ладно, не знаю, что уж с вами и делать…"
     "Ольга Дмитриевна несколько смягчилась."
@@ -26406,30 +25974,30 @@ label day6_sl:
     play ambience ambience_camp_center_day fadein 3
     with None
     show sl normal pioneer at cright :
-        linear 1.0 xalign 0.5 
+        linear 1.0 xalign 0.5
     with dspr
     "Я начал ждать оглушительных аплодисментов, как в американских фильмах, но толпа, посмотрев зрелище, начала быстро расходиться."
     "Лишь Ульянка хитро подмигнула мне."
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Знаешь, по-моему, мы несколько переборщили."
     "Я посмотрел на Славю, она улыбалась."
     me "Нет, ты что!{w} Сам я бы с ней спорил до глубокой ночи, а ты так чётко и ясно всё расписала…{w} Я бы и за неделю таких слов не подобрал!"
     with None
-    show sl shy pioneer at center 
+    show sl shy pioneer at center
     with dspr
     sl "Да ладно тебе…"
     me "Что ладно? Это чистая правда, ни капли лжи, ни капли комплиментов!"
     with None
-    show sl laugh pioneer at center 
+    show sl laugh pioneer at center
     with dspr
     "Она пристально посмотрела мне в глаза и рассмеялась."
     sl "А я сказала просто первое, что в голову пришло, а вышло вот как."
     me "Первая мысль – самая правильная, как говорят."
     sl "Наверное."
     with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dspr
     "Только сейчас я заметил, что мы всё ещё продолжали держаться за руки."
     "Несколько смутившись, я попытался освободить свою, но Славя не дала.{w} От этого меня пробил на секунду холодный пот."
@@ -26437,12 +26005,12 @@ label day6_sl:
     "Идти к себе в домик совершенно не хотелось.{w} Точнее, не хотелось вообще оставаться в лагере."
     me "А что ты скажешь, если я предложу вернуться в лес?"
     with None
-    show sl surprise pioneer at center 
+    show sl surprise pioneer at center
     with dspr
     "Славя удивлённо посмотрела на меня."
     me "Ну, понимаешь, просто иногда…"
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Хорошо, пойдём!"
     "Я не ожидал такой быстрой реакции, поэтому не знал, как закончить фразу."
@@ -26453,7 +26021,7 @@ label day6_sl:
     "А значит, мои среднестатистические проблемы не столь трагичны, как кажется."
     "Я невольно усмехнулся."
     with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dspr
     sl "Что?"
     me "Ничего, просто я тут вспоминал…{w} Ну да неважно! Пойдём!"
@@ -26467,13 +26035,13 @@ label day6_sl:
     window show
     "Вскоре мы вышли на полянку, возможно ту же самую, где сидели час назад, а может на совсем другую, я разобрать не мог."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     sl "Сюда?"
     "Славя вопросительно посмотрела на меня."
     me "Нет, давай пойдём дальше."
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Хорошо."
     with None
@@ -26485,7 +26053,7 @@ label day6_sl:
     "Поблуждав по лесу ещё примерно с полчаса, мы оказались возле небольшого озера."
     me "Отличное место!"
     with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dissolve
     sl "Это точно…"
     "Славя загадочно улыбнулась."
@@ -26495,20 +26063,20 @@ label day6_sl:
     "Моему примеру последовала Славя."
     me "И что будем делать?"
     with None
-    show sl serious pioneer at center 
+    show sl serious pioneer at center
     with dspr
     sl "Не знаю… Ты же хотел в лес…"
     me "Да, хотел…"
     th "Опять мне приходится принимать решения.{w} А ведь я совершенно не знаю, чем можно заняться."
     th "Например, поговорить.{w} Но о чём?.."
     with None
-    show sl laugh pioneer at center 
+    show sl laugh pioneer at center
     with dspr
     sl "Да ладно, не напрягайся ты так!"
     "Славя рассмеялась."
     me "Я совсем не…"
     with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dspr
     sl "Я же вижу!"
     me "Ну просто потому что…"
@@ -26516,17 +26084,17 @@ label day6_sl:
     me "Как скажешь."
     "Я вздохнул и уставился себе под ноги."
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Лучше расскажи мне про себя."
     me "Да и нечего, в общем..."
     with None
-    show sl surprise pioneer at center 
+    show sl surprise pioneer at center
     with dspr
     sl "Не может такого быть, чтобы у человека совсем ничего интересного не было!"
     me "Почему же?{w} Вот я, например…"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Просто ты…"
     "Она задумалась."
@@ -26535,21 +26103,21 @@ label day6_sl:
     sl "Не знаю…{w} Скрываешь от меня что-нибудь?"
     me "Но зачем?"
     with None
-    show sl serious pioneer at center 
+    show sl serious pioneer at center
     with dspr
     sl "Откуда мне знать? Тебе виднее."
     me "Ну…{w} Нет…"
     sl "Как-то ты это сказал…"
     me "Как?"
     with None
-    show sl laugh pioneer at center 
+    show sl laugh pioneer at center
     with dspr
     sl "Не так!"
     "Славя вновь рассмеялась."
     "Уверен, что если бы на её месте был бы кто-нибудь другой, он бы не вёл себя настолько спокойно."
     me "Хорошо, что тебя интересует?"
     with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dspr
     sl "Ну, расскажи про себя. Какие-нибудь интересные случаи из жизни!"
     "Сейчас мне почему-то совершенно явно казалось, что ничего в моей жизни интересного не было."
@@ -26563,50 +26131,50 @@ label day6_sl:
     me "Упал я на грядку и ничего не почувствовал – понятное дело, земля рыхлая, её там целая гора."
     me "Вот такая вот история…"
     with None
-    show sl laugh pioneer at center 
+    show sl laugh pioneer at center
     with dspr
     "Славя рассмеялась."
     sl "Но это же глупо!"
     me "Мне в то время так не казалось."
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "А сейчас?"
     me "Не знаю…{w} Наверное…"
     with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dspr
     sl "Ладно.{w} Ещё что-нибудь расскажи!"
     me "Опять скажешь, что глупость…"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Не скажу!"
     me "Эх…"
     "Я вновь задумался."
     me "Ещё я как-то с мостика упал в пруд и чуть не утонул."
     with None
-    show sl serious pioneer at center 
+    show sl serious pioneer at center
     with dspr
     sl "У тебя все истории какие-то…"
     "Обиженно сказала Славя."
     me "Ну, я же говорил – вспомнить особо нечего, вот и рассказываю первое, что в голову придёт."
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Кстати, насчёт озера!"
     "Славя посмотрела в сторону воды."
     sl "Может, искупаемся?"
     me "Да я как-то не любитель особо.{w} Да и не в чем."
     with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dspr
     sl "Да ладно тебе!"
     "Она одарила меня загадочной улыбкой."
     me "Ну, я даже не знаю."
     "Само собой, хотелось сразу же согласиться, но всё же было как-то неловко."
     with None
-    show sl laugh pioneer at center 
+    show sl laugh pioneer at center
     with dspr
     sl "Давай-давай!"
     with None
@@ -26706,7 +26274,7 @@ label day6_sl:
     with dissolve
     stop ambience fadeout 2
     stop sound_loop2 fadeout 2
-    pause (2)
+    pause 2
     play music music_list["i_dont_blame_you"] fadein 1
     if persistent.hentai:
         scene cg d6_sl_hentai_2
@@ -26741,7 +26309,7 @@ label day6_sl:
         "С трудом ответила Славя."
         window hide
     else:
-        pause (5)
+        pause 5
     if persistent.hentai:
         scene cg d6_sl_hentai_1
         with dissolve
@@ -26760,10 +26328,10 @@ label day6_sl:
         "Мы двигались в бешеном темпе, и долго это явно продолжаться не могло – я почувствовал, что кончаю."
         "Мыслей о том, чтобы вынуть, у меня в тот момент не возникало, и я разрядился прямо в Славю, после чего обессиленно упал на нее."
         window hide
-        pause (3)
+        pause 3
         window show
     else:
-        pause (5)
+        pause 5
     "Между нами случилось нечто прекрасное, такое, о чём еще шесть дней назад я не мог и мечтать."
     "Может быть, вот она – цель моего попадания в этот лагерь?"
     window hide
@@ -26831,7 +26399,7 @@ label day6_sl:
     voice "Не надо так орать…"
     "Голос показался знакомым."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     "Я подошёл ближе и увидел Лену."
     me "Что ты здесь делаешь?"
@@ -26847,7 +26415,7 @@ label day6_sl:
     th "И даже ночью можно увидеть в паре десятков шагов отсюда спящую Славю..."
     me "И?"
     with None
-    show un surprise pioneer at center 
+    show un surprise pioneer at center
     with dspr
     un "Что?"
     me "Что скажешь?"
@@ -26856,7 +26424,7 @@ label day6_sl:
     un "Не понимаю, о чём ты."
     me "Хорошо…{w} Ты тут давно?"
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "Ну, не так уж…"
     me "Это сколько?"
@@ -26868,12 +26436,12 @@ label day6_sl:
     un "Тебе, наверное, пора возвращаться, а то Славя замёрзнет."
     me "Значит, ты видела?"
     with None
-    show un smile3 pioneer at center 
+    show un smile3 pioneer at center
     with dspr
     un "Сложно было не заметить."
     me "Если ты думаешь, что…"
     with None
-    show un serious pioneer at center 
+    show un serious pioneer at center
     with dspr
     un "А что я должна думать, а?{w} По-моему, тут всё предельно понятно."
     me "Да, наверное…{w} То есть ничего не скажешь?"
@@ -26892,18 +26460,18 @@ label day6_sl:
     un "Я так не считаю.{w} Но это вполне возможно."
     me "И вообще!{w} Может быть, не стоит лезть не в своё дело?"
     with None
-    show un grin pioneer at center 
+    show un grin pioneer at center
     with dspr
     un "Я просто даю совет."
     me "Кажется, я не просил никаких советов."
     with None
-    show un angry pioneer at center 
+    show un angry pioneer at center
     with dspr
     un "Кажется, тебе стоит больше думать о том, что ты делаешь и собираешься сделать, чтобы потом не было мучительно больно."
     me "Слушай, всё это похоже на угрозу!"
     th "И ведь действительно похоже…"
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "Может и так…"
     "Сказала Лена загадочно."
@@ -26930,15 +26498,15 @@ label day6_sl:
     window hide
     scene bg black
     with fade3
-    pause (3)
+    pause 3
     jump day7_sl
 label day6_dv:
     $ backdrop = "dv"
     $ persistent.sprite_time = "day"
     $ day_time()
-    $ new_chapter(6, u"День шестой")
+    $ new_chapter(6, "День шестой")
     scene black
-    pause (2)
+    pause 2
     $ persistent.sprite_time = "day"
     scene bg int_house_of_mt_day
     with fade2
@@ -26996,15 +26564,15 @@ label day6_dv:
     window show
     "Тем больше было моё удивление, когда я увидел, что на пристани кто-то сидит, свесив ноги в воду."
     with None
-    show dv guilty pioneer far at center  
-    with dissolve   
+    show dv guilty pioneer far at center
+    with dissolve
     "Алиса."
     with None
-    show dv guilty pioneer at center 
+    show dv guilty pioneer at center
     with dissolve
     "Я подошёл и остановился в нерешительности, не зная, что сказать."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     "Вдруг она обернулась и уставилась на меня."
     dv "Давно здесь стоишь?"
@@ -27012,30 +26580,30 @@ label day6_dv:
     dv "Чего не спишь?"
     me "А ты?"
     with None
-    show dv guilty pioneer at center 
+    show dv guilty pioneer at center
     with dspr
     "Она отвернулась и вновь уставилась на реку."
     th "Кажется, сегодня хорошее настроение не только у меня."
     "По крайней мере в её голосе не слышались нахальные нотки."
     with None
-    show dv smile pioneer at center 
+    show dv smile pioneer at center
     with dspr
     dv "Не спится."
     me "Ясно…"
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Насчёт вчерашнего…{w} Ты же всё понял?"
     me "Что именно?"
     with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "Тьфу!"
     th "Кажется, мой ответ не засчитан."
     me "Не, понял, да…"
     "Соврал я."
     with None
-    show dv smile pioneer at center 
+    show dv smile pioneer at center
     with dspr
     dv "Хорошо… Хорошо…"
     "Она вдруг резко подняла взгляд на меня и улыбнулась."
@@ -27044,18 +26612,18 @@ label day6_dv:
     dv "А тебе незачем знать!"
     me "Ну, если я в них участвую…"
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Узнаешь, когда время придёт."
     me "Ну, ты хотя бы намекни."
     with None
-    show dv grin pioneer at center 
+    show dv grin pioneer at center
     with dspr
     dv "Нет!"
     "Она встала и пошла в мою сторону."
     "Я несколько испугался и уступил ей дорогу."
     with None
-    show dv grin pioneer far at center  
+    show dv grin pioneer far at center
     with dissolve
     dv "Не делай никаких глупостей!"
     "Бросила Алиса, удаляясь от лодочной станции."
@@ -27087,35 +26655,35 @@ label day6_dv:
     un "Доброе утро! Сегодня ты что-то рано…"
     play music music_list["she_is_kind"] fadein 3
     with None
-    show un smile2 pioneer at center 
-    with dissolve   
+    show un smile2 pioneer at center
+    with dissolve
     "Я поднял взгляд и увидел Лену, стоящую передо мной.{w} Она улыбалась."
     me "Как и ты…"
     "Перед глазами сразу пронеслись все события минувшей ночи."
     me "Слушай…"
     with None
-    show un smile3 pioneer at center 
+    show un smile3 pioneer at center
     with dspr
     un "Если ты насчёт вчерашнего, то не надо!"
     "Она резко перебила меня."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "Не знаю, что на меня нашло…{w} Это всё было…{w} Просто забудь!"
     "Она пристально посмотрела на меня."
     "Лена казалась куда более уверенной в себе, чем обычно."
     me "Если бы всё было так просто, как ты говоришь…"
     with None
-    show un smile2 pioneer at center 
+    show un smile2 pioneer at center
     with dspr
     un "А ничего сложного нет!"
     with None
-    show un smile2 pioneer close at center  
+    show un smile2 pioneer close at center
     with dissolve
     "Она села рядом."
     "Так близко, что я даже несколько смутился, но не стал отодвигаться."
     with None
-    show un normal pioneer close at center 
+    show un normal pioneer close at center
     with dspr
     un "У нас бывают ссоры с Алисой."
     th "Это я заметил уже."
@@ -27132,25 +26700,25 @@ label day6_dv:
     "Я закрыл лицо руками, явно давая понять, что абсолютно не представляю, что здесь происходит, и что всё это мне, мягко говоря, неприятно."
     me "Может, ты как-то яснее будешь выражаться?"
     with None
-    show un smile2 pioneer close at center 
+    show un smile2 pioneer close at center
     with dspr
     un "Зачем?"
     "Уклончиво спросила она."
     me "Слушай, если я не понимаю, в чём виноват, то и не могу исправиться!{w} Правильно «вести себя дальше», как ты выражаешься."
     with None
-    show un smile3 pioneer close at center 
+    show un smile3 pioneer close at center
     with dspr
     un "Я думаю, ты поймёшь…"
     me "Мне тоже очень хотелось бы в это верить, но…"
     window hide
     stop music fadeout 3
     play sound sfx_open_door_strong
-    pause(1)
+    pause 1
     with None
-    show mt normal pioneer at left 
+    show mt normal pioneer at left
     with dissolve
     with None
-    show un normal pioneer close at center 
+    show un normal pioneer close at center
     with dspr
     window show
     "Неожиданно дверь в столовую распахнулась, и оттуда вышла Ольга Дмитриевна."
@@ -27159,8 +26727,8 @@ label day6_dv:
     un "Доброе утро!"
     "Весело ответила Лена, встала и направилась внутрь."
     with None
-    show un smile2 pioneer at center 
-    with dissolve    
+    show un smile2 pioneer at center
+    with dissolve
     un "Пойдём?"
     stop ambience fadeout 2
     me "Да-да…"
@@ -27176,7 +26744,7 @@ label day6_dv:
     "Похоже, все пионеры уже здесь."
     "Кто-то весело болтал, кто-то, как Электроник с Шуриком, сосредоточенно ел, а кто-то, как и я, считал ворон."
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dissolve
     "Я уже собирался уходить, как к моему столу подскочила Ульянка с подносом, доверху забитым разными яствами."
     us "Приятного аппетита!"
@@ -27184,20 +26752,20 @@ label day6_dv:
     me "Опять воруешь?"
     "Спросил я, недвусмысленно косясь на поднос."
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "Растущему организму нужно много калорий!"
     me "Да, тебе бы подрасти не мешало…"
     "Прошептал я."
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Что?"
     "Кажется, она не услышала."
     me "Ничего…"
     "Я направился к выходу."
     with None
-    show us surp2 pioneer at center 
+    show us surp2 pioneer at center
     with dspr
     us "Уже уходишь?"
     stop ambience fadeout 2
@@ -27217,7 +26785,7 @@ label day6_dv:
     $ persistent.sprite_time = "day"
     scene bg int_house_of_mt_day
     with dissolve
-    pause (1)
+    pause 1
     $ persistent.sprite_time = "day"
     scene bg ext_house_of_mt_day
     with dissolve
@@ -27225,7 +26793,7 @@ label day6_dv:
     window show
     "Выйдя из домика вожатой, я на мгновение остановился в нерешительности, как вдруг меня кто-то окликнул."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     sl "Семён!"
     "Это была Славя."
@@ -27240,7 +26808,7 @@ label day6_dv:
     th "И опять эти злосчастные изобретатели…"
     me "Хорошо…"
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Спасибо!"
     with None
@@ -27257,13 +26825,13 @@ label day6_dv:
     "Я решительно толкнул дверь и вошёл внутрь."
     window hide
     play sound sfx_open_door_clubs_2
-    pause(1)
+    pause 1
     $ persistent.sprite_time = "day"
     scene bg int_clubs_male_day
     with dissolve
     play ambience ambience_clubs_inside_day fadein 3
     with None
-    show el grin pioneer at cright 
+    show el grin pioneer at cright
     with dissolve
     window show
     el "Семён…"
@@ -27274,7 +26842,7 @@ label day6_dv:
     el "Что?"
     "В это время вторая дверь открылась, и вошёл Шурик."
     with None
-    show sh normal pioneer at cleft 
+    show sh normal pioneer at cleft
     with dissolve
     sh "Семён."
     "Таким же тоном, как и Электроник, поприветствовал он меня."
@@ -27282,12 +26850,12 @@ label day6_dv:
     "Съязвил я."
     me "Так что от меня требуется?"
     with None
-    show el normal pioneer at cright 
+    show el normal pioneer at cright
     with dspr
     el "У нас к тебе ответственное задание!"
     me "Слушаю."
     with None
-    show sh serious pioneer at cleft 
+    show sh serious pioneer at cleft
     with dspr
     sh "Дело в том, что к нам вчера заходила медсестра."
     "Он остановился, словно не собирался дальше продолжать."
@@ -27296,48 +26864,48 @@ label day6_dv:
     el "И у нас к тебе ответственное поручение."
     me "Это я уже понял…"
     with None
-    show sh normal pioneer at cleft 
+    show sh normal pioneer at cleft
     with dspr
     sh "Ты должен передать ей посылку."
     me "А сами не можете? До медпункта рукой подать."
     "Скептически сказал я."
     with None
-    show el surprise pioneer at cright 
+    show el surprise pioneer at cright
     with dspr
     el "Нет."
     "Удивлённо ответил Электроник."
     th "Действительно, странная парочка."
     me "Ясно…{w} Только, надеюсь, это не очередной пудовый мешок?"
     with None
-    show el grin pioneer at cright 
+    show el grin pioneer at cright
     with dspr
     el "Нет-нет, ничего такого!"
     "Улыбнулся он."
     me "Ладно, хорошо…"
     "Осторожно согласился я."
     with None
-    show el normal pioneer at cright 
+    show el normal pioneer at cright
     with dspr
     sh "Сейчас."
     with None
     hide sh
     with dissolve
     window hide
-    pause(1)
+    pause 1
     with None
-    show sh normal pioneer at cleft 
+    show sh normal pioneer at cleft
     with dissolve
     window show
     "Шурик скрылся за дверью и вернулся через секунду, держа в руках бумажный свёрток."
     with None
-    show sh serious pioneer at cleft 
+    show sh serious pioneer at cleft
     with dspr
     sh "Только аккуратно."
     me "Понял-понял."
     "Я взял у него свёрток и заметил, что пионеры смотрели на меня так, как будто вручают мне если и не ключи от рая, то точно передают эстафету олимпийского огня."
     me "Я могу идти?"
     with None
-    show el grin pioneer at cright 
+    show el grin pioneer at cright
     with dspr
     el "Конечно."
     "Зловеще сказал Электроник."
@@ -27403,19 +26971,19 @@ label day6_dv:
     th "Так что ничего такого ровным счётом!"
     window hide
     play sound sfx_knock_door7_polite
-    pause(1)
+    pause 1
     window show
     "Собравшись с силами, я постучался в дверь медпункта."
     window hide
     stop ambience fadeout 3
     play sound sfx_open_door_1
-    pause(1)
+    pause 1
     $ persistent.sprite_time = "day"
     scene bg int_aidpost_day
     with dissolve
     play ambience ambience_medstation_inside_day fadein 3
     with None
-    show cs normal at center 
+    show cs normal at center
     with dissolve
     window show
     cs "Привет…{w} пионер!"
@@ -27430,7 +26998,7 @@ label day6_dv:
     me "Нет конечно!"
     "Выпалил я."
     with None
-    show cs smile at center 
+    show cs smile at center
     with dspr
     cs "Молодец."
     me "Ладно, тогда я…"
@@ -27447,7 +27015,7 @@ label day6_dv:
     window hide
     $ persistent.sprite_time = "day"
     scene bg ext_square_day
-    with dissolve    
+    with dissolve
     window show
     "Я вышел на площадь.{w} На часах был полдень, а значит, до обеда оставалось всего ничего."
     "Я сел на лавочку с твёрдым намерением не сходить с этого места, пока не заиграет музыка, означающая, что время трапезничать настало."
@@ -27457,7 +27025,7 @@ label day6_dv:
     stop ambience fadeout 2
     play music music_list["take_me_beautifully"] fadein 3
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     un "Отдыхаешь?"
     me "Что-то типа того…"
@@ -27480,13 +27048,13 @@ label day6_dv:
     un "Просто тебя так волнует то, что было вчера."
     me "Конечно… Но как это связано?"
     with None
-    show un laugh pioneer at center 
+    show un laugh pioneer at center
     with dspr
     un "Напрямую!"
     "Она засмеялась."
     me "Предположим…"
     with None
-    show un smile2 pioneer at center 
+    show un smile2 pioneer at center
     with dspr
     un "Так что?"
     me "Ну, она…"
@@ -27498,13 +27066,13 @@ label day6_dv:
     me "Если ты хочешь узнать, не испытываю ли я к ней каких-то отрицательных эмоций, то нет."
     me "Её, конечно, заносит, но у всех свои тараканы…"
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     "Лена пристально посмотрела на меня."
     un "Вот как?"
     me "А я что-то не так сказал?"
     with None
-    show un laugh pioneer at center 
+    show un laugh pioneer at center
     with dspr
     un "Нет, почему же…"
     stop music fadeout 3
@@ -27512,7 +27080,7 @@ label day6_dv:
     play ambience ambience_camp_center_day fadein 3
     "Она вновь рассмеялась, и тут заиграла обеденная музыка."
     with None
-    show un smile2 pioneer at center 
+    show un smile2 pioneer at center
     with dspr
     un "Ладно, увидимся!"
     with None
@@ -27539,13 +27107,13 @@ label day6_dv:
     el "Без происшествий?"
     me "Да…{w} А что там было?"
     with None
-    show el surprise pioneer at cleft 
+    show el surprise pioneer at cleft
     with dspr
     el "Ты же не открывал?"
     "Он пристально посмотрел на меня."
     me "Нет…"
     with None
-    show el smile pioneer at cleft 
+    show el smile pioneer at cleft
     with dspr
     stop ambience fadeout 2
     el "Вот и отлично!"
@@ -27595,7 +27163,7 @@ label day6_dv:
     th "Нет, это уже рекурсия какая-то…"
     window hide
     stop music fadeout 3
-    pause(1)
+    pause 1
     play sound sfx_knock_door3_dull
     window show
     "В дверь постучали."
@@ -27610,7 +27178,7 @@ label day6_dv:
     window hide
     play sound sfx_open_dooor_campus_1
     with None
-    show dv sad pioneer2 far at center  
+    show dv sad pioneer2 far at center
     with dissolve
     window show
     "Дверь открылась, и я увидел Алису.{w} Интересное совпадение…"
@@ -27626,7 +27194,7 @@ label day6_dv:
     "Я поймал себя на мысли, что не боюсь её и не испытываю никаких опасений, когда она ведёт себя вот так – нормально."
     me "Зачем?"
     with None
-    show dv sad pioneer2 at center 
+    show dv sad pioneer2 at center
     with dissolve
     dv "Хочу всё прояснить."
     "Она села на кровать напротив."
@@ -27640,22 +27208,22 @@ label day6_dv:
     dv "Не ври"
     "Алиса казалась скованной и взволнованной.{w} Она сидела, положив ногу на ногу, и кусала губы."
     with None
-    show dv guilty pioneer2 at center 
+    show dv guilty pioneer2 at center
     with dspr
     dv "Ты же понимаешь, что мне…{w} Что я в любой ситуации оказываюсь виноватой?"
     me "Потому что так и есть."
     with None
-    show dv normal pioneer2 at center 
+    show dv normal pioneer2 at center
     with dspr
     "Неосторожно обронил я."
     with None
-    show dv sad pioneer2 at center 
+    show dv sad pioneer2 at center
     with dspr
     "В её глазах сверкнул огонёк, но продолжила Алиса так же спокойно:"
     dv "Может и так…{w} Но в данной ситуации…{w} У нас с Леной всегда так – она ни при чём, даже если сама кашу заварит, а все шишки сыплются на меня!"
     me "Ты хочешь сказать, что Лена…{w} Вообще, я не очень понимаю, о чём ты."
     with None
-    show dv angry pioneer2 at center 
+    show dv angry pioneer2 at center
     with dspr
     dv "Ты вечно ничего не понимаешь!"
     "Вспылила она."
@@ -27663,7 +27231,7 @@ label day6_dv:
     me "Так объясни."
     dv "Ты же знаешь, что нравишься Лене?"
     with None
-    show dv shy pioneer2 at center 
+    show dv shy pioneer2 at center
     with dspr
     "После этих слов она покраснела."
     me "Нет…"
@@ -27677,11 +27245,11 @@ label day6_dv:
     "Самым странным тут было то, что я воспринял эту новость почти без волнения."
     "Сейчас я слушал Алису и был сосредоточен только на ней, остальное же можно было обдумать потом."
     with None
-    show dv sad pioneer2 at center 
+    show dv sad pioneer2 at center
     with dspr
     dv "И она думает, что я тебя у неё уведу!{w} Она постоянно так думает, понимаешь? Хотя всегда всё совершенно наоборот! Все смотрят на неё, потому что она такой ангелочек, а на меня внимания не обращают!"
     with None
-    show dv cry pioneer2 at center 
+    show dv cry pioneer2 at center
     with dspr
     dv "Если только поплакаться приходят…"
     "Алиса сорвалась на крик."
@@ -27691,13 +27259,13 @@ label day6_dv:
     "Как будто смотрел очередной эпизод какого-нибудь сериала, и происходящее в этой комнате было по ту сторону экрана."
     me "Я понимаю, что стал причиной всего этого…{w} Но сегодня Лена говорила, что всё в порядке."
     with None
-    show dv guilty pioneer2 at center 
+    show dv guilty pioneer2 at center
     with dspr
     dv "Это очень похоже на неё! Ты же уже наверняка понял, что она не такая тихоня, какой хочет казаться!"
     th "Догадывался."
     me "Если я что-то могу сделать…"
     with None
-    show dv sad pioneer2 at center 
+    show dv sad pioneer2 at center
     with dspr
     dv "Скажи…"
     "Алиса подняла на меня глаза.{w} Только сейчас я увидел, что её лицо было заплакано."
@@ -27714,14 +27282,14 @@ label day6_dv:
     dv "Ты же хотел, чтобы эта ситуация разрешилась."
     me "Конечно, но…"
     with None
-    show dv guilty pioneer2 at center 
+    show dv guilty pioneer2 at center
     with dspr
     dv "Почему опять «но»?"
     me "Почему «опять»?"
     dv "Почему «почему»?"
     me "Слушай, мы так ни к чему не придём…"
     with None
-    show dv normal pioneer2 at center 
+    show dv normal pioneer2 at center
     with dspr
     dv "Тогда отвечай!"
     "Её лицо приняло обычное выражение наглости и надменности."
@@ -27729,7 +27297,7 @@ label day6_dv:
     dv "Подумай!"
     "Алиса резко встала и направилась к выходу."
     with None
-    show dv smile pioneer2 far at center  
+    show dv smile pioneer2 far at center
     with dissolve
     dv "Не забудь, что на вечер у нас с тобой планы!"
     "Улыбнувшись, сказала она с порога."
@@ -27757,16 +27325,16 @@ label day6_dv:
     window hide
     stop music fadeout 3
     play sound sfx_open_door_strong
-    pause(1)
+    pause 1
     with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dissolve
     window show
     "Внезапно дверь распахнулась и вошла Ольга Дмитриевна."
     mt "Опять бездельничаешь!"
     me "Отдыхаю…{w} Там жара такая…"
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "Иди помоги Славе. Она просила."
     me "Куда?"
@@ -27782,7 +27350,7 @@ label day6_dv:
     window show
     "На спортивной площадке было многолюдно.{w} Кто-то играл в футбол, кто-то – в бадминтон.{w} Дети помладше просто бегали друг за другом."
     with None
-    show sl serious pioneer at center 
+    show sl serious pioneer at center
     with dissolve
     sl "Семён!"
     "Ко мне подошла Славя."
@@ -27792,7 +27360,7 @@ label day6_dv:
     me "Нет."
     th "И почему снова я-то?!"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Просто ты там последнее время частенько бывал."
     th "Пожалуй, правда…"
@@ -27805,7 +27373,7 @@ label day6_dv:
     sl "Нет, говорит, что потерять точно не могла."
     me "В общем, не знаю я."
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Ладно."
     "Она улыбнулась и убежала."
@@ -27849,11 +27417,11 @@ label day6_dv:
     "На пороге я остановился и задумался о том, что делать дальше."
     "Не знаю, сколько бы так простоял – голова всё ещё была тяжёлая после сна, – если бы кто-то меня не окликнул."
     with None
-    show sl normal pioneer far at center  
-    with dissolve   
+    show sl normal pioneer far at center
+    with dissolve
     "К домику быстро шла Славя."
     with None
-    show sl serious pioneer at center 
+    show sl serious pioneer at center
     with dissolve
     sl "Семён…"
     "Начала она, пытаясь отдышаться."
@@ -27863,14 +27431,14 @@ label day6_dv:
     me "Нет. А что-то случилось?"
     play music music_list["always_ready"] fadein 3
     with None
-    show sl sad pioneer at center 
+    show sl sad pioneer at center
     with dspr
     sl "Да… Пропало кое-что."
     me "Что же?"
     sl "Важное…"
     "Славя замялась."
     with None
-    show sl serious pioneer at center 
+    show sl serious pioneer at center
     with dspr
     sl "Лекарства кое-какие."
     th "Неужели из-за лекарств начался бы такой переполох?{w} Хотя…"
@@ -27879,7 +27447,7 @@ label day6_dv:
     "Я постарался сохранить каменное лицо, ничем не выдавая себя."
     me "Ясно.{w} Ну, я не знаю, ты уж извини…"
     with None
-    show sl sad pioneer at center 
+    show sl sad pioneer at center
     with dspr
     sl "Ладно…"
     "Расстроенно сказала Славя."
@@ -27913,37 +27481,37 @@ label day6_dv:
     dv "Эй!"
     "Я с трудом обернулся, стараясь придать своему лицу как можно более непринуждённое выражение."
     with None
-    show dv smile pioneer at center 
+    show dv smile pioneer at center
     with dissolve
     dv "Что это мы тут делаем?"
     me "Да так, гуляю…"
     "Хоть мой голос и прозвучал спокойно, я уже понимал, что обмануть Алису не получится."
     with None
-    show dv laugh pioneer at center 
+    show dv laugh pioneer at center
     with dspr
     dv "Один? Ночью? В лесу?"
     me "Ну, да… А что такого?"
     with None
-    show dv grin pioneer at center 
+    show dv grin pioneer at center
     with dspr
     dv "Ничего. Совершенно ничего."
     "Она внимательно посмотрела на меня."
     me "Ладно, тогда я…"
     with None
-    show dv smile pioneer at center 
+    show dv smile pioneer at center
     with dspr
     dv "Подожди-ка!{w} Ничего не забыл?"
     me "Да вроде нет."
     dv "Мы же с тобой договаривались!"
     me "О чём?"
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "О вечере!"
     "Пожалуй, она права – что-то такое действительно было."
     me "Да, но понимаешь…"
     with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "Ничего не знаю! Пошли!"
     "Она развернулась и жестом показала мне следовать за ней."
@@ -27960,7 +27528,7 @@ label day6_dv:
     "Не прошло и пары минут, как мы оказались в её домике."
     "Пока шли, я был занят тем, что выбирал удобное место и время, чтобы выкинуть водку, но Алиса всё время держалась рядом, поэтому ничего не вышло."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     dv "Ну?"
     "Она внимательно посмотрела на меня."
@@ -27971,7 +27539,7 @@ label day6_dv:
     me "Насчёт чего?"
     "Алиса задумалась."
     with None
-    show dv smile pioneer at center 
+    show dv smile pioneer at center
     with dspr
     dv "Ладно, наверное, ты прав – всё же я тебя сюда привела, значит, мне и решать."
     me "Ладно…"
@@ -27982,7 +27550,7 @@ label day6_dv:
     "Она полезла под кровать и через несколько секунд достала оттуда…{w} ту самую бутылку «Столичной»!"
     "Я застыл в шоке."
     with None
-    show dv grin pioneer at center 
+    show dv grin pioneer at center
     with dspr
     dv "Вижу, удивлён?"
     th "Не то слово!{w} Но не водкой как таковой, а тем, что это явно та же самая бутылка, что я отнёс утром в медпункт."
@@ -27991,32 +27559,32 @@ label day6_dv:
     "Алиса заговорщически посмотрела на меня."
     me "Что?"
     with None
-    show dv laugh pioneer at center 
+    show dv laugh pioneer at center
     with dspr
     dv "Будем?"
     "Я даже не знал, что ей и ответить."
     th "Ведь там просто протухшая вода, а настоящая водка – в бутылке, торчащей у меня за поясом."
     me "Ну, я как бы…"
     with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "Только не говори, что не пьёшь!"
     "Алиса надулась."
     me "Я не знаю... Нет, просто…"
     with None
-    show dv smile pioneer at center 
+    show dv smile pioneer at center
     with dspr
     dv "Ладно, я сейчас!"
     "В мгновение ока на столе появились два стакана, и Алиса наполнила их до краёв."
     dv "Давай!"
     "Сказала она, протягивая мне один стакан, и, не дожидаясь ответа, опрокинула свой."
     with None
-    show dv shocked pioneer at center 
+    show dv shocked pioneer at center
     with dspr
     dv "Уф!"
     "Выдохнула она."
     with None
-    show dv rage pioneer at center 
+    show dv rage pioneer at center
     with dspr
     "Спустя мгновение к ней пришло осознание…"
     dv "Что это такое?!"
@@ -28028,13 +27596,13 @@ label day6_dv:
     dv "Что ржёшь, я тебя спрашиваю?!"
     me "Так ведь правда смешно."
     with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "Смешно ему! Давай пей своё – посмотрим, как тогда посмеёшься!"
     "У меня не было совершенно никакого желания пробовать тухлую воду, но, чтобы не наводить на себя подозрения, я спросил:"
     me "И что, как оно по вкусу?"
     with None
-    show dv sad pioneer at center 
+    show dv sad pioneer at center
     with dspr
     dv "Как тухлая вода."
     "Расстроенно сказала Алиса."
@@ -28042,7 +27610,7 @@ label day6_dv:
     me "Культурно отдохнуть…"
     "Повторил я и скрючился в новом приступе хохота."
     with None
-    show dv rage pioneer at center 
+    show dv rage pioneer at center
     with dspr
     dv "Эй, прекрати!"
     "Закричала Алиса и набросилась на меня."
@@ -28061,13 +27629,13 @@ label day6_dv:
     "Когда я понял, что она вынула бутылку у меня из-за пояса, вся боль мгновенно прошла."
     me "Отдай!"
     with None
-    show dv grin pioneer far at center  
+    show dv grin pioneer far at center
     with dissolve
     "Я попытался выхватить водку, но Алиса ловко вскочила с кровати и отбежала в дальний угол комнаты."
     dv "Ну-ка, ну-ка!"
     "Она тут же открутила крышку и сделала большой глоток."
     with None
-    show dv shocked pioneer far at center 
+    show dv shocked pioneer far at center
     with dspr
     "Через мгновение лицо Алисы покраснело, а глаза словно были готовы вылезти наружу."
     dv "Что… что это?!"
@@ -28075,14 +27643,14 @@ label day6_dv:
     me "Вот это как раз водка…"
     "Похоже, я окончательно смирился с поражением."
     with None
-    show dv surprise pioneer far at center 
+    show dv surprise pioneer far at center
     with dspr
     dv "Но откуда?.."
     me "Ты думала, что украла из медпункта нужную бутылку?"
     "Она кивнула."
     me "Ну, на самом деле, бутылка-то та, но вот содержимое…"
     with None
-    show dv laugh pioneer at center 
+    show dv laugh pioneer at center
     with dissolve
     dv "Ух, и хитёр ты!"
     "Её язык уже начал заплетаться."
@@ -28148,7 +27716,7 @@ label day6_dv:
     "Алиса последовала моему примеру."
     dv "Уф, что-то голова кружится…"
     with None
-    show dv laugh pioneer2 at center 
+    show dv laugh pioneer2 at center
     with dspr
     "Она расстегнула несколько пуговиц на рубашке."
     "Я внимательно посмотрел на неё."
@@ -28196,7 +27764,7 @@ label day6_dv:
         "Я был не в состоянии отвечать и начал снимать с нее остатки одежды."
         "Она не сопротивлялась – похоже, не было сил."
     else:
-        pause (5)
+        pause 5
     window hide
     if persistent.hentai:
         scene cg d6_dv_hentai
@@ -28222,7 +27790,7 @@ label day6_dv:
         with dissolve
         window show
     else:
-        pause (5)
+        pause 5
     "..."
     stop music fadeout 3
     play ambience ambience_music_club_night fadein 3
@@ -28242,7 +27810,7 @@ label day6_dv:
     stop ambience fadeout 2
     "Лучший выход в такой ситуации – последовать её примеру и тоже поспать.{w}Не успев додумать мысль, я отключился."
     window hide
-    pause (3)
+    pause 3
     jump day7_dv
 init:
     $ epilogue_us_good = 0
@@ -28253,10 +27821,10 @@ init:
     $ epilogue_sl_bad = 0
 label day7_main:
     $ backdrop = "days"
-    $ new_chapter(7, u"День седьмой")
+    $ new_chapter(7, "День седьмой")
     $ day_time()
     scene black
-    pause (2)
+    pause 2
     window show
     "Яркий солнечный свет бил в глаза через закрытые веки."
     window hide
@@ -28282,7 +27850,7 @@ label day7_main:
     "Буквально через несколько метров на меня сзади кто-то налетел."
     "Я обернулся и увидел Алису."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     dv "Аккуратнее!"
     with None
@@ -28305,7 +27873,7 @@ label day7_main:
     scene bg ext_washstand_day
     with dissolve
     with None
-    show pi at center 
+    show pi at center
     with dissolve
     window show
     pi "Доброе утро…"
@@ -28335,7 +27903,7 @@ label day7_main:
     hide pi
     with dissolve
     with None
-    show sl normal sport at center 
+    show sl normal sport at center
     with dissolve
     "Я обернулся."
     "Передо мной стояла Славя."
@@ -28348,13 +27916,13 @@ label day7_main:
     stop ambience fadeout 2
     play music music_list["afterword"] fadein 3
     with None
-    show sl surprise sport at center 
+    show sl surprise sport at center
     with dspr
     sl "Нет же!{w} Сегодня последний день смены."
     me "Чего?.."
     "Глупая улыбка застыла на моём лице."
     with None
-    show sl normal sport at center 
+    show sl normal sport at center
     with dspr
     sl "Вечером автобус. Уезжаем."
     me "Ах, вот так даже…"
@@ -28365,13 +27933,13 @@ label day7_main:
     th "Но теперь я знаю всё!"
     me "Пока не собрался…{w} Да у меня и вещей-то особо нет."
     with None
-    show sl shy sport at center 
+    show sl shy sport at center
     with dspr
     sl "Ладно…"
     "Славя отвела взгляд."
     "Кажется, она хотела что-то сказать, но не решалась."
     with None
-    show sl smile sport at center 
+    show sl smile sport at center
     with dspr
     sl "Тогда увидимся ещё!"
     me "Ага…"
@@ -28417,18 +27985,18 @@ label day7_main:
     me "Собрался."
     "Передразнивая его, ответил я."
     with None
-    show el surprise pioneer at cleft 
+    show el surprise pioneer at cleft
     with dspr
     el "Ты последние дни какой-то сам не свой…"
     me "С чего это вдруг?"
     with None
-    show el normal pioneer at cleft 
+    show el normal pioneer at cleft
     with dspr
     el "Не знаю, тебе виднее…"
     me "Я имею в виду – с чего вдруг интересуешься?"
     el "Да просто…"
     with None
-    show sh serious pioneer at cright 
+    show sh serious pioneer at cright
     with dspr
     sh "Настоящий пионер всегда переживает проблемы товарища как свои!"
     "Я скептически посмотрел на него."
@@ -28444,26 +28012,26 @@ label day7_main:
     "Я с удовольствием съел всё это, запивая тухловатой водой, которую Ольга Дмитриевна держала скорее для поливки растений."
     window hide
     play sound sfx_knock_door2
-    pause(1)
+    pause 1
     window show
     "Как только закончил, в дверь постучали."
     me "Войдите."
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dissolve
     "В комнату влетела Ульянка."
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "А, это всего лишь ты!"
     "Обиженно сказала она."
     me "А кого ожидала увидеть? Цирк с медведями?"
     with None
-    show us laugh2 pioneer at center 
+    show us laugh2 pioneer at center
     with dspr
     "Ульянка хихикнула."
     with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dspr
     us "А где Ольга Дмитриевна?"
     me "Не знаю."
@@ -28473,12 +28041,12 @@ label day7_main:
     us "Надо перед отъездом кое-чего спросить."
     me "Если увижу, скажу, что ты её искала."
     with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "А ты чего не собираешься?"
     me "А мне и собирать особо нечего…"
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Ладно, бывай!"
     with None
@@ -28486,7 +28054,7 @@ label day7_main:
     with dissolve
     window hide
     play sound sfx_close_door_campus_1
-    pause(1)
+    pause 1
     window show
     "Она хитро улыбнулась и выскочила из домика, захлопнув за собой дверь."
     "И всё же весьма странно, что никто не удивляется внезапному отъезду."
@@ -28512,7 +28080,7 @@ label day7_main:
     with fade
     play music music_list["orchid"] fadein 3
     with None
-    show pi at center 
+    show pi at center
     with dissolve
     window show
     "Напротив спиной ко мне сидел уже знакомый пионер."
@@ -28529,13 +28097,13 @@ label day7_main:
     pi "И что он тебе сказал?"
     me "Да ничего особенного. Сказал, что отсюда есть выход."
     with None
-    show pi smile at center 
+    show pi smile at center
     with dspr
     "Пионер расхохотался."
     pi "Да, я тоже когда-то в это верил."
     me "А сейчас?"
     with None
-    show pi at center 
+    show pi at center
     with dspr
     pi "А что такое {i}сейчас{/i}?{w} Для меня есть прошлое, моя жизнь тогда…"
     "Он надолго замолчал."
@@ -28543,7 +28111,7 @@ label day7_main:
     pi "В будущем то же самое – витки-витки-витки, повторения одной и той же истории.{w} Где оно {i}сейчас{/i}?"
     me "Ну, прости, я пока не настолько заблудился во времени, как ты."
     with None
-    show pi smile at center 
+    show pi smile at center
     with dspr
     pi "Ничего! Дело наживное!"
     "Он залился дьявольским смехом."
@@ -28551,7 +28119,7 @@ label day7_main:
     pi "Я? Да ничего."
     me "И зачем тогда?"
     with None
-    show pi at center 
+    show pi at center
     with dspr
     pi "Просто ты, он и другие, такие же, как мы, – единственные настоящие люди здесь."
     "При всём при том, что он мне уже рассказал, я всё равно не был готов до конца поверить, что все местные обитатели всего лишь куклы в какой-то дьявольской пьесе."
@@ -28575,11 +28143,11 @@ label day7_main:
     stop music fadeout 3
     play ambience ambience_int_cabin_day fadein 3
     play sound sfx_knock_door7_polite
-    pause(1)
+    pause 1
     window show
     "В дверь постучали.{w} Я пошёл открывать."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     "На пороге стояла Славя."
     me "Ты к Ольге Дмитриевне?"
@@ -28593,7 +28161,7 @@ label day7_main:
     sl "Нет… Просто сегодня же последний день…"
     me "Да я уже в курсе. Лучше поздно, чем никогда."
     with None
-    show sl shy pioneer at center 
+    show sl shy pioneer at center
     with dspr
     sl "Ну, и я думала…{w} В смысле…{w} Мы же больше не увидимся, наверное."
     me "Мир тесен, как говорится."
@@ -28601,19 +28169,19 @@ label day7_main:
     th "Да я бы с радостью, если бы сам его знал."
     me "Понимаешь… Давай лучше ты мне свой. Я тебе обязательно напишу по приезду."
     with None
-    show sl sad pioneer at center 
+    show sl sad pioneer at center
     with dspr
     sl "А почему ты не хочешь?"
     me "Ну… Мы просто переезжать совсем скоро собирались, поэтому мало ли что…{w} Лучше я тебе писать буду."
     "Я постарался натянуть как можно более милую улыбку, чтобы моё враньё показалось правдоподобнее."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "А, хорошо, понятно… Тогда ладно."
     "Славя встала и собралась уходить."
     me "Подожди, а адрес?"
     with None
-    show sl sad pioneer at center 
+    show sl sad pioneer at center
     with dspr
     sl "Давай потом."
     "На её лице застыло выражение грусти и разочарования."
@@ -28624,7 +28192,7 @@ label day7_main:
     stop ambience fadeout 2
     play music music_list["orchid"] fadein 3
     with None
-    show pi smile at center 
+    show pi smile at center
     with dissolve
     pi "Ну что, доволен? Обидел девочку."
     me "Чем я её обидел? Что мне ей надо было сказать? Пиши, дорогая, на деревню дедушке?"
@@ -28636,7 +28204,7 @@ label day7_main:
     stop music fadeout 2
     play ambience ambience_int_cabin_day fadein 3
     play sound sfx_knock_door7_polite
-    pause(1)
+    pause 1
     window show
     "Я не успел закончить фразу – в дверь опять постучали."
     with None
@@ -28644,18 +28212,18 @@ label day7_main:
     with dissolve
     me "Войдите!"
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dissolve
     "В домик вбежала Ульянка."
     me "Зачем пожаловали, миледи?"
     "Я излишне наигранно поклонился."
     with None
-    show us shy2 pioneer at center 
+    show us shy2 pioneer at center
     with dspr
     us "Я? Да я… просто…"
     "У неё как-то опасливо забегали глаза, а щёки покраснели."
     with None
-    show us shy pioneer at center 
+    show us shy pioneer at center
     with dspr
     us "Просто хотела попрощаться!"
     me "Так ещё время будет. В конце концов, на одном автобусе поедем."
@@ -28663,12 +28231,12 @@ label day7_main:
     me "Неужели ты можешь чего-то стесняться?"
     "Я рассмеялся."
     with None
-    show us sad pioneer at center 
+    show us sad pioneer at center
     with dspr
     us "Ну!"
     "Она надулась."
     with None
-    show us laugh2 pioneer at center 
+    show us laugh2 pioneer at center
     with dspr
     us "Просто хотела сказать, что ты на самом деле не такой уж и тормоз… Даже почти что прикольный чувак!"
     "Её слова меня удивили."
@@ -28681,7 +28249,7 @@ label day7_main:
     stop ambience fadeout 2
     play music music_list["orchid"] fadein 3
     with None
-    show pi at center 
+    show pi at center
     with dissolve
     pi "Что, не ожидал от неё такого?"
     me "А ты?"
@@ -28698,13 +28266,13 @@ label day7_main:
     pi "Все психологи немного того…"
     me "Да, но не все психи – психологи."
     with None
-    show pi smile at center 
+    show pi smile at center
     with dspr
     "Он громко расхохотался."
     pi "Чувство юмора, одобряю! Правда, шутки у тебя неудачные.{w} Над кем смеёшься? Над собой смеёшься!"
     me "Слушай, если тебе нечего делать в своём мире, иди пообщайся с тем {i}вторым{/i}."
     with None
-    show pi at center 
+    show pi at center
     with dspr
     pi "А тебе есть что делать в своём?"
     "Резко парировал пионер."
@@ -28723,7 +28291,7 @@ label day7_main:
     stop music fadeout 2
     play ambience ambience_int_cabin_day fadein 3
     play sound sfx_knock_door7_polite
-    pause(1)
+    pause 1
     window show
     "В дверь снова постучали.{w} Настолько тихо, что я еле-еле расслышал."
     me "Кого ещё чёрт принес?!"
@@ -28732,13 +28300,13 @@ label day7_main:
     "Но дверь не открылась."
     "Тогда я сам дёрнул за ручку."
     with None
-    show un scared pioneer at center 
-    with dissolve   
+    show un scared pioneer at center
+    with dissolve
     "На пороге стояла Лена."
     "Похоже, я её сильно напугал."
     me "Ой, извини, я не хотел… Ты к Ольге Дмитриевне?"
     with None
-    show un shy pioneer at center 
+    show un shy pioneer at center
     with dspr
     un "Нет."
     "Сказала она, уставившись себе под ноги."
@@ -28746,7 +28314,7 @@ label day7_main:
     th "Что же Лене понадобилось от меня?"
     me "Проходи."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     "Она зашла и в нерешительности остановилась посреди комнаты."
     me "Присядешь?"
@@ -28754,12 +28322,12 @@ label day7_main:
     "Лена помялась немного, но всё же села."
     me "Что-то случилось?"
     with None
-    show un shy pioneer at center 
+    show un shy pioneer at center
     with dspr
     un "Нет, просто…"
     "Она посмотрела на меня и тут же, покраснев, отвела взгляд."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "Вот!"
     "Лена достала что-то из кармана и протянула мне."
@@ -28778,7 +28346,7 @@ label day7_main:
     "Я быстро выбрал в меню змейку и протянул мобильник ей."
     me "На, дарю! На память!"
     with None
-    show un surprise pioneer at center 
+    show un surprise pioneer at center
     with dspr
     un "Ой, ты что, я не могу…"
     "Лена замахала руками."
@@ -28787,14 +28355,14 @@ label day7_main:
     un "И что мне с ним делать?"
     me "Кнопочками влево-вправо, надо есть квадратики и не биться о свой хвост."
     with None
-    show un smile pioneer at center 
+    show un smile pioneer at center
     with dspr
     un "Ой, как интересно!"
     "Она улыбнулась."
     un "Спасибо! А ведь у меня для тебя ничего нет, как неудобно."
     me "Мне ничего не надо, спасибо."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "Нет, так нехорошо!"
     "Сказала она более уверенным, чем обычно, голосом."
@@ -28803,14 +28371,14 @@ label day7_main:
     un "Надеюсь, мы ещё увидимся…"
     me "Увидимся, я думаю."
     with None
-    show un shy pioneer at center 
+    show un shy pioneer at center
     with dspr
     un "Тогда у меня для тебя всё же есть подарок."
     me "И какой?"
     un "Закрой глаза."
     window hide
     show blink
-    pause(1)
+    pause 1
     window show
     "Я закрыл."
     un "И обещай, что не откроешь, пока я не скажу!"
@@ -28825,7 +28393,7 @@ label day7_main:
     scene bg int_house_of_mt_day
     show unblink
     with dissolve
-    pause(1)
+    pause 1
     window show
     "Комната была пуста."
     me "Ну и Лена…"
@@ -28833,7 +28401,7 @@ label day7_main:
     stop ambience fadeout 2
     play music music_list["orchid"] fadein 3
     with None
-    show pi smile at center 
+    show pi smile at center
     with dissolve
     pi "Ну как, мачо-мен?"
     "С того места, где только что сидела Лена, послышался злорадный смешок."
@@ -28854,49 +28422,49 @@ label day7_main:
     me "Просто заткнись!"
     pi "Не понимая…"
     scene bg int_house_of_mt_day:
-        linear 0.1 pos (0,5) 
-        linear 0.1 pos (0,0) 
-        linear 0.1 pos (5,0) 
-        linear 0.1 pos (0,0) 
-        linear 0.1 pos (0,5) 
-        linear 0.1 pos (0,0) 
-        linear 0.1 pos (5,0) 
-        linear 0.1 pos (0,0) 
-        linear 0.1 pos (0,5) 
-        linear 0.1 pos (0,0) 
-        linear 0.1 pos (5,0) 
-        linear 0.1 pos (0,0) 
+        linear 0.1 pos (0,5)
+        linear 0.1 pos (0,0)
+        linear 0.1 pos (5,0)
+        linear 0.1 pos (0,0)
+        linear 0.1 pos (0,5)
+        linear 0.1 pos (0,0)
+        linear 0.1 pos (5,0)
+        linear 0.1 pos (0,0)
+        linear 0.1 pos (0,5)
+        linear 0.1 pos (0,0)
+        linear 0.1 pos (5,0)
+        linear 0.1 pos (0,0)
     show pi smile at center
     me "ДА ЗАТКНИСЬ ТЫ!!!"
     "Заорал я так, что стены затряслись."
     window hide
     stop music fadeout 2
     play sound sfx_open_dooor_campus_1
-    pause(1)
+    pause 1
     play ambience ambience_int_cabin_day fadein 3
     with None
     hide pi
     with dissolve
     window show
     with None
-    show dv scared pioneer far at center 
+    show dv scared pioneer far at center
     with dissolve
     "Вдруг распахнулась входная дверь и вошла Алиса."
     with None
-    show dv scared pioneer at center 
+    show dv scared pioneer at center
     with dissolve
     dv "К тебе тут что, белочка на обед заскочила?"
     "Испуганно спросила она."
     me "Можно и так сказать."
     "Сердито ответил я."
     with None
-    show dv guilty pioneer at center 
+    show dv guilty pioneer at center
     with dspr
     dv "Что орёшь-то?"
     me "Хочется."
     "Я уже понимал, что «случайный» приход Алисы либо был спланирован этим пионером, либо будет им откомментирован так, что мне захочется забить по гвоздю себе в уши."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Совсем уже крыша поехала, что ли?"
     "Алиса вальяжно развалилась на кровати."
@@ -28906,7 +28474,7 @@ label day7_main:
     dv "Делать мне нечего. Вещи уже собрала. Скучно…"
     me "Ну-ну…"
     with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "Если ты думаешь, что я к тебе зашла, потому что…"
     "Она злобно посмотрела на меня и отвернулась."
@@ -28948,13 +28516,13 @@ label day7_main:
     "Её голос звучал не так, как обычно."
     me "Бывал в местах и получше."
     with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "Да, ты такой тупой, что и разговаривать с тобой – только время тратить."
     "Она встала и направилась к выходу."
     me "Ага, удачи!"
     with None
-    show dv rage pioneer at center 
+    show dv rage pioneer at center
     with dspr
     "Алиса обернулась в мою сторону.{w} Её лицо исказила гримаса злобы."
     dv "Хоть бы сказал, что скучать будешь!"
@@ -28965,7 +28533,7 @@ label day7_main:
     with dissolve
     window hide
     play sound sfx_close_door_campus_1
-    pause(1)
+    pause 1
     window show
     "Она громко хлопнула дверью."
     me "Дура!"
@@ -28973,7 +28541,7 @@ label day7_main:
     stop ambience fadeout 2
     play music music_list["orchid"] fadein 3
     with None
-    show pi at center 
+    show pi at center
     with dissolve
     pi "Своенравная какая, да?"
     me "Не хуже тебя."
@@ -28984,13 +28552,13 @@ label day7_main:
     me "И уже успел окончательно двинуться."
     pi "Немудрено."
     with None
-    show pi smile at center 
+    show pi smile at center
     with dspr
     "Его смех – или скорее конское ржание – выводил меня из себя."
     me "Слушай, тебе в кино надо сниматься, я тебе уже говорил? Ганнибал Лектер из тебя бы прекрасный вышел!"
     me "Как раз, ты же себя психиатром считаешь."
     with None
-    show pi at center 
+    show pi at center
     with dspr
     pi "Я учту.{w} А теперь мне пора! Может быть, ещё увидимся."
     me "Вали!"
@@ -29016,7 +28584,7 @@ label day7_main:
     th "А то вдруг уедут без меня…"
     "Покидав зимние вещи в пакет, я только хотел вновь развалиться на кровати, как открылась дверь и вошла Ольга Дмитриевна."
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     mt "Смотрю, ты уже собрался.{w} Отлично! Тогда пошли!"
     stop ambience fadeout 2
@@ -29039,7 +28607,7 @@ label day7_main:
     scene bg ext_clubs_day
     with dissolve
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     window show
     "Когда мы уже почти подошли к воротам, я услышал, что кто-то зовёт меня по имени."
@@ -29122,7 +28690,7 @@ label day7_main:
             window hide
             scene bg black
             with fade3
-            pause(3)
+            pause 3
             if not persistent.endings["main_bad"]:
                 $ persistent.endings["main_bad"] = True
                 $ show_achievement("main_bad")
@@ -29226,16 +28794,16 @@ label day7_main:
     scene bg black
     with fade3
     stop music fadeout 3
-    pause (3)
+    pause 3
     jump epilogue_main
 label day7_un:
     $ backdrop = "un"
     $ persistent.sprite_time = "day"
     $ day_time()
-    $ new_chapter(7, u"День седьмой")
+    $ new_chapter(7, "День седьмой")
     scene black
     play music music_list["orchid"] fadein 3
-    pause (2)
+    pause 2
     $ persistent.sprite_time = "night"
     scene bg semen_room
     show prologue_dream
@@ -29266,7 +28834,7 @@ label day7_un:
     dreamgirl "Проснись!"
     window hide
     play sound sfx_home_phone_break
-    pause(1)
+    pause 1
     window show
     "Я в бешенстве разбил телефон об пол, но он не разлетелся на куски, а всё продолжал звонить."
     window hide
@@ -29310,7 +28878,7 @@ label day7_un:
     "Я постучал ещё раз, а затем дёрнул ручку двери."
     window hide
     play sound sfx_open_dooor_campus_2
-    pause (1)
+    pause 1
     $ persistent.sprite_time = "day"
     scene bg int_house_of_un_day
     with dissolve
@@ -29359,7 +28927,7 @@ label day7_un:
     play music music_list["afterword"] fadein 3
     un "Нет, они просто уехали."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     "Я аж подскочил от неожиданности.{w} Рядом со мной стояла Лена."
     me "Ты… Ты…{w} Нельзя так подкрадываться!{w} Заикой на всю жизнь останешься после такого!"
@@ -29375,7 +28943,7 @@ label day7_un:
     "Лена говорила настолько невозмутимым тоном, как будто всё произошедшее – совершенно обыденное и будничное явление."
     me "Как? Почему?"
     with None
-    show un smile3 pioneer at center 
+    show un smile3 pioneer at center
     with dspr
     un "Что непонятного?{w} Когда смена в лагере заканчивается, дети разъезжаются по домам, разве не так?"
     me "И когда стало известно, что сегодня последний день?"
@@ -29385,7 +28953,7 @@ label day7_un:
     "Я так давно ждал шанса выбраться из этого чёртового лагеря, и, когда он наконец представился, я всё банально проспал..."
     th "Что же, вполне в моём стиле."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "Я попросила."
     me "Даже если ты и просила, то Ольга…{w} Стой! Что?!"
@@ -29395,18 +28963,18 @@ label day7_un:
     un "Да."
     me "А ты не находишь, что всё это несколько…"
     scene bg ext_dining_hall_near_day:
-        linear 0.1 pos (0,5) 
-        linear 0.1 pos (0,0) 
-        linear 0.1 pos (5,0) 
-        linear 0.1 pos (0,0) 
-        linear 0.1 pos (0,5) 
-        linear 0.1 pos (0,0) 
-        linear 0.1 pos (5,0) 
-        linear 0.1 pos (0,0) 
-        linear 0.1 pos (0,5) 
-        linear 0.1 pos (0,0) 
-        linear 0.1 pos (5,0) 
-        linear 0.1 pos (0,0) 
+        linear 0.1 pos (0,5)
+        linear 0.1 pos (0,0)
+        linear 0.1 pos (5,0)
+        linear 0.1 pos (0,0)
+        linear 0.1 pos (0,5)
+        linear 0.1 pos (0,0)
+        linear 0.1 pos (5,0)
+        linear 0.1 pos (0,0)
+        linear 0.1 pos (0,5)
+        linear 0.1 pos (0,0)
+        linear 0.1 pos (5,0)
+        linear 0.1 pos (0,0)
     show un normal pioneer at center
     me "АБСОЛЮТНО НЕПРАВИЛЬНО?!"
     "Сорвался я на крик."
@@ -29423,24 +28991,24 @@ label day7_un:
     "Я совершенно не боялся её и всего происходящего со мной в данную минуту."
     "Меня лишь раздирала изнутри злость."
     with None
-    show un smile3 pioneer at center 
+    show un smile3 pioneer at center
     with dspr
     un "Очень приятно, Лена."
     me "Ладно, давай теперь серьёзно.{w} Я считаю, что то, что ты говоришь, просто невозможно."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     me "Сегодня, оказывается, последний день, о чём я почему-то ни сном ни духом, вожатая уезжает вместе со всеми, оставив меня по твоей просьбе здесь."
     me "Это как-то всё ненормально, не думаешь?"
     un "Может быть и так…"
     me "Или ты что-то недоговариваешь?"
     with None
-    show un smile3 pioneer at center 
+    show un smile3 pioneer at center
     with dspr
     un "Может, и недоговариваю…"
     me "Тогда давай рассказывай всё как есть!"
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "Я уже рассказала."
     "Я закрыл лицо руками и глубоко вздохнул."
@@ -29451,13 +29019,13 @@ label day7_un:
     me "Так вот тебе обстоятельства эти."
     "Прошипел я, резко разведя руки в стороны."
     with None
-    show un surprise pioneer at center 
+    show un surprise pioneer at center
     with dspr
     un "А чего ты так переживаешь?"
     "Впервые за всё время на её лице промелькнула заинтересованность."
     me "А что, мне радоваться надо?"
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "Нет, наверное, но ты же сам этого хотел."
     me "Я? Ты бредишь!"
@@ -29471,13 +29039,13 @@ label day7_un:
     un "Всегда есть приёмы, с помощью которых можно добиться своего."
     me "И ты…{w} вот так вот…"
     with None
-    show un smile pioneer at center 
+    show un smile pioneer at center
     with dspr
     un "Да."
     "На её лице промелькнула улыбка."
     me "Эх, знал бы я с самого начала, что ты такая коварная…"
     with None
-    show un smile pioneer at center 
+    show un smile pioneer at center
     with dspr
     "По правде говоря, вся эта ситуация мне отчасти нравилась.{w} Даже не нравилась – была интересна."
     th "Конечно, я очень жалел, что не смог уехать вместе со всеми.{w} Но зато теперь я один на один с Леной."
@@ -29485,7 +29053,7 @@ label day7_un:
     "Да и ответы, которые я так долго искал, вполне могут быть здесь, а не в каком-то таинственном городе, куда уехали остальные."
     me "Хорошо, и что всё-таки нам делать?"
     with None
-    show un smile3 pioneer at center 
+    show un smile3 pioneer at center
     with dspr
     un "Нам?"
     "Она улыбнулась."
@@ -29494,7 +29062,7 @@ label day7_un:
     un "Да какая разница?"
     me "Хорошо, разницы нет.{w} Твои предложения?"
     with None
-    show un grin pioneer at center 
+    show un grin pioneer at center
     with dspr
     un "А тебе что хочется?"
     "Лукаво спросила она."
@@ -29510,7 +29078,7 @@ label day7_un:
     with dissolve
     play ambience ambience_int_cabin_day fadein 3
     with None
-    show un smile2 pioneer at center 
+    show un smile2 pioneer at center
     with dissolve
     window show
     "Когда мы зашли внутрь, Лена начала рыться в ящике стола."
@@ -29519,27 +29087,27 @@ label day7_un:
     me "Как мило…"
     "Съязвил я."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "Что именно?"
     me "Печенье…{w} Как в детстве…"
     with None
-    show un smile3 pioneer at center 
+    show un smile3 pioneer at center
     with dspr
     un "Пожалуй, да."
     with None
-    show un smile3 pioneer close at center  
+    show un smile3 pioneer close at center
     with dissolve
     "Она улыбнулась и села рядом."
     me "Ну?"
     "Спросил я с набитым ртом."
     with None
-    show un surprise pioneer close at center 
+    show un surprise pioneer close at center
     with dspr
     un "Что?"
     me "Так что будем делать?"
     with None
-    show un smile3 pioneer close at center 
+    show un smile3 pioneer close at center
     with dspr
     un "Не знаю…"
     "Она мечтательно уставилась в окно."
@@ -29550,7 +29118,7 @@ label day7_un:
     "Но сейчас здесь, рядом с ней, похоже, что-то изменилось."
     me "Ну… Я даже не знаю…"
     with None
-    show un normal pioneer close at center 
+    show un normal pioneer close at center
     with dspr
     un "Подумай посерьёзнее."
     "Она приблизилась и заглянула мне в глаза."
@@ -29563,7 +29131,7 @@ label day7_un:
     stop ambience fadeout 2
     play music music_list["confession_oboe"] fadein 3
     with None
-    show un grin pioneer close at center 
+    show un grin pioneer close at center
     with dspr
     me "Лена, я…"
     un "Что?"
@@ -29574,25 +29142,25 @@ label day7_un:
     "Томно шепнула она мне на ухо."
     me "Хотел…{w} То есть и сейчас хочу!"
     with None
-    show un normal pioneer close at center 
+    show un normal pioneer close at center
     with dspr
     un "Так в чём тогда проблема?"
     me "Понимаешь, всё так сразу…{w} Да и у меня есть свои обстоятельства…"
     un "Какие же?"
     with None
-    show un angry pioneer at center 
+    show un angry pioneer at center
     with dissolve
     "Она отодвинулась от меня."
     me "Ну…{w} разные…"
     with None
-    show un laugh pioneer at center 
+    show un laugh pioneer at center
     with dspr
     un "Ты же не…"
     "Лена рассмеялась."
     me "Нет-нет, как ты могла подумать!"
     "Похоже, я покраснел ещё больше."
     with None
-    show un smile2 pioneer at center 
+    show un smile2 pioneer at center
     with dspr
     un "Так в чём тогда проблема?"
     me "Ты уверена, что хочешь этого?"
@@ -29601,7 +29169,7 @@ label day7_un:
     "А теперь я в непонятном пионерлагере, а рядом со мной Лена, которая недвусмысленно на что-то намекает."
     th "Как же вести себя в такой ситуации?"
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "Да…"
     "Нахмурилась она."
@@ -29609,7 +29177,7 @@ label day7_un:
     me "Просто у меня…"
     "Я вёл себя так, как будто мне даже не семнадцать лет, на которые я выглядел, а гораздо меньше."
     with None
-    show un smile3 pioneer at center 
+    show un smile3 pioneer at center
     with dspr
     un "И у меня…"
     "Она улыбнулась."
@@ -29633,7 +29201,7 @@ label day7_un:
     scene bg int_house_of_un_day
     with dissolve
     with None
-    show un smile2 pioneer close at center  
+    show un smile2 pioneer close at center
     with dissolve
     window show
     "Я нежно отстранил её."
@@ -29708,7 +29276,7 @@ label day7_un:
         "В ее голосе было столько желания, что от перевозбуждения я зажмурился и глубоко вздохнул."
         window hide
     else:
-       pause (5)
+       pause 5
     if persistent.hentai:
         scene cg d7_un_hentai
         with dissolve
@@ -29762,7 +29330,7 @@ label day7_un:
         window hide
         scene black
     else:
-        pause (5)
+        pause 5
     with dissolve
     stop music fadeout 3
     window show
@@ -29771,7 +29339,7 @@ label day7_un:
     "Она прижала палец к моим губам и улыбнулась…"
     "..."
     window hide
-    pause (3)
+    pause 3
     $ night_time()
     $ persistent.sprite_time = "night"
     scene bg int_house_of_un_night
@@ -29801,21 +29369,21 @@ label day7_un_bad:
     "Я легонько потряс Лену за плечо."
     if persistent.hentai:
         with None
-        show un normal body close at center 
+        show un normal body close at center
         with dissolve
     else:
         with None
-        show un normal pioneer close at center 
+        show un normal pioneer close at center
         with dissolve
     "Она открыла глаза."
     me "Доброе утро. Точнее, вечер."
     if persistent.hentai:
         with None
-        show un smile2 body close at center 
+        show un smile2 body close at center
         with dspr
     else:
         with None
-        show un smile2 pioneer close at center 
+        show un smile2 pioneer close at center
         with dspr
     un "Доброе."
     "Она нежно улыбнулась."
@@ -29824,11 +29392,11 @@ label day7_un_bad:
     me "Ну, нет…{w} Просто мы тут с тобой совершенно одни в этом лагере…"
     if persistent.hentai:
         with None
-        show un normal body close at center 
+        show un normal body close at center
         with dspr
     else:
         with None
-        show un normal pioneer close at center 
+        show un normal pioneer close at center
         with dspr
     un "И что?"
     "Она внимательно посмотрела на меня."
@@ -29839,11 +29407,11 @@ label day7_un_bad:
     "Рассмеялся я."
     if persistent.hentai:
         with None
-        show un angry body close at center 
+        show un angry body close at center
         with dspr
     else:
         with None
-        show un angry pioneer close at center 
+        show un angry pioneer close at center
         with dspr
     un "Можешь уезжать тогда."
     "Она отвернулась к стене."
@@ -29854,11 +29422,11 @@ label day7_un_bad:
     me "Не знаю, если честно."
     if persistent.hentai:
         with None
-        show un normal body close at center 
+        show un normal body close at center
         with dspr
     else:
         with None
-        show un normal pioneer close at center 
+        show un normal pioneer close at center
         with dspr
     un "Я сказала Ольге Дмитриевне, что у нас с тобой остались здесь срочные дела, и мы приедем попозже."
     me "Что?"
@@ -29876,11 +29444,11 @@ label day7_un_bad:
     "Я смотрел на её спину и пытался понять, о чём она думает."
     if persistent.hentai:
         with None
-        show un smile2 body close at center 
+        show un smile2 body close at center
         with dspr
     else:
         with None
-        show un smile2 pioneer close at center 
+        show un smile2 pioneer close at center
         with dspr
     un "Хорошо!"
     with None
@@ -29888,7 +29456,7 @@ label day7_un_bad:
     with dissolve
     "Через некоторое время весело воскликнула она, вскочила с постели и начала быстро одеваться."
     with None
-    show un smile2 pioneer at center 
+    show un smile2 pioneer at center
     with dissolve
     un "Иди собирайся, через десять минут на площади!"
     "Лена наклонилась ко мне и страстно поцеловала."
@@ -29926,14 +29494,14 @@ label day7_un_bad:
     $ persistent.sprite_time = "night"
     scene bg int_house_of_un_night
     with dissolve
-    pause (1)
+    pause 1
     window show
     "Я распахнул дверь и увидел Лену, лежащую на кровати."
     window hide
-    pause (3)
+    pause 3
     scene cg d7_un_suicide:
-        pos (0,-360) 
-        linear 10.0 pos (0,0) 
+        pos (0,-360)
+        linear 10.0 pos (0,0)
     with dissolve
     window show
     "Всё вокруг было перепачкано кровью – простынь, одеяло; кровь была на полу, а главное – на правой руке Лены я увидел огромный порез."
@@ -29980,7 +29548,7 @@ label day7_un_bad:
     scene bg black
     with dissolve
     play sound sfx_close_door_1
-    pause(1)
+    pause 1
     window show
     "В ужасе я выскочил из домика и бросился бежать."
     "Не знаю, сколько прошло времени, но в конце концов я выбился из сил и рухнул на землю."
@@ -30027,8 +29595,8 @@ label day7_un_bad:
     "Через некоторое время я очнулся, снова стоя в её домике."
     window hide
     scene cg d7_un_suicide:
-        pos (0,-360) 
-        linear 10.0 pos (0,0) 
+        pos (0,-360)
+        linear 10.0 pos (0,0)
     with dissolve
     window show
     "Кровь уже засохла, лунный свет больше не отражался в ней."
@@ -30041,7 +29609,7 @@ label day7_un_bad:
     me "Прости, что я не замечал твои чувства. Прости, что думал только о себе. Просто прости меня за всё…{w} Это я должен был умереть, а не ты."
     "Я накрыл её тело одеялом и медленно вышел из домика."
     window hide
-    pause(3)
+    pause 3
     $ persistent.sprite_time = "night"
     scene bg ext_no_bus_night
     with dissolve
@@ -30078,7 +29646,7 @@ label day7_un_bad:
     with fade3
     stop sound_loop fadeout 2
     stop music fadeout 3
-    pause (3)
+    pause 3
     jump epilogue_un_bad
 label day7_un_good:
     window show
@@ -30101,12 +29669,12 @@ label day7_un_good:
     "Наконец она проснулась."
     if persistent.hentai:
         with None
-        show un smile2 body close at center 
-        with dissolve  
+        show un smile2 body close at center
+        with dissolve
     else:
         with None
-        show un smile2 pioneer close at center 
-        with dissolve   
+        show un smile2 pioneer close at center
+        with dissolve
     un "Доброе утро."
     "Лена нежно улыбнулась."
     un "Иди сюда."
@@ -30125,11 +29693,11 @@ label day7_un_good:
     me "Да ещё и то, как ты с Алисой…"
     if persistent.hentai:
         with None
-        show un angry body close at center 
+        show un angry body close at center
         with dspr
     else:
         with None
-        show un angry pioneer close at center 
+        show un angry pioneer close at center
         with dspr
     un "Опять она…"
     "Лена прикрылась одеялом и отвернулась от меня."
@@ -30141,32 +29709,32 @@ label day7_un_good:
     me "Уж за сегодня, наверное, должна была понять, что последний человек, о котором я буду думать сейчас, – это Алиса."
     if persistent.hentai:
         with None
-        show un smile3 body close at center 
+        show un smile3 body close at center
         with dspr
     else:
         with None
-        show un smile3 pioneer close at center 
+        show un smile3 pioneer close at center
         with dspr
     un "Ну ладно, ты прав."
     "Она повернулась ко мне, улыбнулась и крепко обняла."
     me "Подожди…{w} Мне всё же нужно понять..."
     if persistent.hentai:
         with None
-        show un normal body close at center 
+        show un normal body close at center
         with dspr
     else:
         with None
-        show un normal pioneer close at center 
+        show un normal pioneer close at center
         with dspr
     un "Зачем?"
     me "Я не могу так просто…{w} И – нет, мне не всё равно! Именно поэтому я хочу точно знать, кто ты на самом деле."
     if persistent.hentai:
         with None
-        show un grin body close at center 
+        show un grin body close at center
         with dspr
     else:
         with None
-        show un grin pioneer close at center 
+        show un grin pioneer close at center
         with dspr
     un "Я – это я."
     "Ответила она всё тем же томным голосом."
@@ -30174,11 +29742,11 @@ label day7_un_good:
     th "Надо как-то успокоиться."
     if persistent.hentai:
         with None
-        show un normal body at center 
+        show un normal body at center
         with dissolve
     else:
         with None
-        show un normal pioneer at center 
+        show un normal pioneer at center
         with dissolve
     "Я резко вскочил и сел на кровать напротив."
     un "Ну и ладно…"
@@ -30187,7 +29755,7 @@ label day7_un_good:
     with dissolve
     "Сказала Лена разочарованно и начала одеваться."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     me "Я же многого не прошу.{w} Просто несколько ответов на простые вопросы."
     un "Потом. Пора собираться."
@@ -30201,7 +29769,7 @@ label day7_un_good:
     me "Тут не ходят автобусы."
     "Ухмыльнулся я."
     with None
-    show un smile2 pioneer at center 
+    show un smile2 pioneer at center
     with dspr
     un "Как это не ходят? Ходят! Маршрут 410."
     "Я не знал, верить ей или нет – ситуация становилась всё страннее и страннее, – но спорить не стал."
@@ -30227,19 +29795,19 @@ label day7_un_good:
     with dissolve
     play ambience ambience_camp_center_night fadein 3
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     window show
     "Там меня уже ждала Лена со спортивной сумкой на плече."
     me "Что-то не много у тебя вещей."
     with None
-    show un smile3 pioneer at center 
+    show un smile3 pioneer at center
     with dspr
     un "В самый раз."
     "Улыбнулась она."
     me "Давай понесу."
     with None
-    show un grin pioneer at center 
+    show un grin pioneer at center
     with dspr
     un "Пожалуйста."
     stop ambience fadeout 2
@@ -30256,13 +29824,13 @@ label day7_un_good:
     "Было уже почти одиннадцать."
     th "Не поздновато ли для автобусов?"
     with None
-    show un surprise pioneer at center 
+    show un surprise pioneer at center
     with dissolve
     un "Ой, а что это?"
     "С любопытством спросила Лена."
     me "Да так, игрушка…{w} Бери, дарю."
     with None
-    show un smile2 pioneer at center 
+    show un smile2 pioneer at center
     with dspr
     un "Спасибо!"
     "Она улыбнулась и взяла телефон."
@@ -30273,7 +29841,7 @@ label day7_un_good:
     window hide
     with fade
     with None
-    show un laugh pioneer at center 
+    show un laugh pioneer at center
     with dspr
     window show
     "Мы стояли уже с полчаса, а Лена всё говорила и говорила."
@@ -30281,7 +29849,7 @@ label day7_un_good:
     me "А что насчёт..."
     "Я не успел закончить предложение, как вдалеке забрезжил свет фар."
     with None
-    show un smile2 pioneer at center 
+    show un smile2 pioneer at center
     with dspr
     un "А вот и он!"
     stop ambience fadeout 2
@@ -30297,13 +29865,13 @@ label day7_un_good:
     "Впрочем, окружающая местность меня сейчас интересовала меньше всего – я просто слушал Лену."
     "За сегодняшний день она сказала, наверное, больше, чем за всю предыдущую жизнь."
     with None
-    show un smile pioneer close at center  
+    show un smile pioneer close at center
     with dissolve
     me "Знаешь…"
     "Перебил я её наконец."
     me "Я всё-таки не понимаю…"
     with None
-    show un smile2 pioneer close at center 
+    show un smile2 pioneer close at center
     with dspr
     un "Чего?"
     "Улыбнулась она."
@@ -30311,7 +29879,7 @@ label day7_un_good:
     un "Разве это так важно?"
     me "Да, для меня важно!"
     with None
-    show un normal pioneer close at center 
+    show un normal pioneer close at center
     with dspr
     un "Хорошо…"
     "Ответила она не сразу."
@@ -30321,7 +29889,7 @@ label day7_un_good:
     un "Мне с детства не удавалось жить так, как хочется. И… я придумала себе маску…"
     "Она замолчала."
     with None
-    show un laugh pioneer close at center 
+    show un laugh pioneer close at center
     with dspr
     un "Хотя давай не будем об этом!"
     "Лена рассмеялась и обхватила мою руку, плотно прижавшись всем телом."
@@ -30330,7 +29898,7 @@ label day7_un_good:
     "Впрочем, даже из такого короткого объяснения я многое понял."
     me "Но всё же…{w} Могу ли я быть уверен, что ты завтра не станешь опять такой?..{w} Не замкнёшься в себе, не поддашься приступам ярости?"
     with None
-    show un grin pioneer close at center 
+    show un grin pioneer close at center
     with dspr
     un "Это от тебя зависит."
     "Лена лукаво улыбнулась."
@@ -30345,7 +29913,7 @@ label day7_un_good:
     th "Мне хорошо и спокойно сейчас, рядом с ней, и я не хочу никуда возвращаться, не хочу искать никаких ответов, не хочу думать о том, что будет завтра!"
     me "Если это зависит от меня… то я очень хочу верить, что ты всегда будешь такой, как сейчас. Ведь именно такой я тебя люблю!"
     with None
-    show un smile2 pioneer close at center 
+    show un smile2 pioneer close at center
     with dspr
     un "Значит, пока мы вместе, я буду такой!"
     "Она ещё крепче прижалась ко мне."
@@ -30361,11 +29929,11 @@ label day7_un_good:
     "Я и сам уже начал проваливаться в сон."
     me "И всё же, за что ты Алису ударила?"
     with None
-    show un normal pioneer close at center  
+    show un normal pioneer close at center
     with dissolve
     "Она внимательно посмотрела на меня, её лицо приняло серьёзное выражение."
     with None
-    show un laugh pioneer close at center 
+    show un laugh pioneer close at center
     with dspr
     un "Всегда ненавидела эту суку!"
     "Лена громко засмеялась и уткнулась носом мне в плечо."
@@ -30383,15 +29951,15 @@ label day7_un_good:
     scene bg black
     with fade3
     stop music fadeout 3
-    pause (3)
+    pause 3
     jump epilogue_un_good
 label day7_us:
     $ backdrop = "us"
     $ persistent.sprite_time = "day"
     $ day_time()
-    $ new_chapter(7, u"День седьмой")
+    $ new_chapter(7, "День седьмой")
     scene black
-    pause (2)
+    pause 2
     window show
     "Наверное, в жизни бывают вещи и похуже, чем заснуть в обнимку с маленькой девочкой."
     "Вот открывается дверь и на нас кидаются военные с автоматами."
@@ -30409,7 +29977,7 @@ label day7_us:
     "Я мысленно проклял проектировщиков этого помещения и потряс Ульянку за плечи."
     me "Давай вставай живо!"
     with None
-    show us normal pioneer close at center  
+    show us normal pioneer close at center
     with dissolve
     "Она потянулась, и, так как мы лежали рядом, даже в полумраке я мог видеть её заспанные глаза."
     us "Что? Дай ещё поспать!"
@@ -30420,7 +29988,7 @@ label day7_us:
     me "Вставай, кому говорят!"
     "Я вскочил и легко поднял её на ноги."
     with None
-    show us sad pioneer at center 
+    show us sad pioneer at center
     with dissolve
     us "Ну вот…"
     "Обиженно сказала Ульянка."
@@ -30434,7 +30002,7 @@ label day7_us:
     me "Тихо!"
     "Прошептал я Ульянке."
     with None
-    show us surp2 pioneer at center 
+    show us surp2 pioneer at center
     with dspr
     us "А что такого-то…"
     with vpunch
@@ -30454,7 +30022,7 @@ label day7_us:
     "Меня больше интересовало, когда они наконец уйдут."
     th "Наверняка скоро, так как приближается завтрак.{w} Хотя учитывая запал Шурика…"
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "Да отпусти ты!"
     "Ульянка всё-таки вырвалась, но голос повышать не стала."
@@ -30462,7 +30030,7 @@ label day7_us:
     "Спросила она шёпотом."
     me "А ты как думаешь? Считаешь всё это нормальным?"
     with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dspr
     us "А что такого-то?"
     me "Мы тут с тобой провели всю ночь…"
@@ -30472,7 +30040,7 @@ label day7_us:
     "Я обессиленно вздохнул."
     me "Просто поверь мне! Я понимаю, что тебе всё равно, но мне-то нет!"
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "Ладно-ладно, будем сидеть."
     "Расстроено согласилась Ульяна."
@@ -30496,12 +30064,12 @@ label day7_us:
     "Шурик дёрнул за ручку, но ничего не вышло – мне составило немалых усилий удержать её."
     play sound sfx_knock_door_closed_hard1
     sh "Похоже, заело. Помоги-ка!"
-    play sound sfx_knock_door_closed_hard2    
+    play sound sfx_knock_door_closed_hard2
     "Через пару секунд они уже вдвоём с Электроником пытались открыть дверь."
     "Я вцепился в ручку так, как будто от этого зависела моя жизнь, но борьба всё равно продолжалась недолго – вскоре руки ослабли, и я сдался."
     window hide
     play sound sfx_open_door_strong
-    pause(1)
+    pause 1
     $ persistent.sprite_time = "sunset"
     scene bg int_clubs_male2_night
     with dissolve
@@ -30509,7 +30077,7 @@ label day7_us:
     "Когда дверь распахнулась, мне в глаза ударил яркий дневной свет, и я не сразу смог разглядеть ошарашенные лица Шурика, Электроника и Слави."
     show el surprise pioneer at right
     show sh surprise pioneer at left
-    with dissolve   
+    with dissolve
     el "Эээ… Доброе утро!"
     us "Доброе…"
     "Ульянка стояла у меня за спиной, так что я не мог её видеть, но по голосу чувствовалось, что она тоже растеряна."
@@ -30517,12 +30085,10 @@ label day7_us:
     "Почти спокойно спросил Шурик."
     me "Ну, вообще…{w} Если честно, мы фильм смотрели. Ульянка принесла кассету, а ведь у вас тут магнитофон…"
     "Шурик недоверчиво посмотрел вглубь комнаты."
-    with None
-    show us shy2 pioneer at center 
+    show us shy2 pioneer at center
     with dissolve
     "Я незаметно ткнул Ульянку в бок, и она, без слов поняв меня, показала кассету."
-    with None
-    show el grin pioneer at right 
+    show el grin pioneer at right
     with dspr
     el "И что за фильм?"
     "На лице Электроника промелькнула еле заметная ухмылка."
@@ -30531,26 +30097,20 @@ label day7_us:
     me "Если вы думаете… Да мы ничего такого!"
     menu:
         "Это всё она!":
-            $ lp_us = lp_us - 2
+            $ lp_us -= 2
             "Я показал пальцем в сторону Ульяны."
-            with None
-            show us angry pioneer at center 
+            show us angry pioneer at center
             with dspr
             "Та же в свою очередь грозно посмотрела на меня."
-            pass
         "Всё это моя вина...":
-            $ lp_us = lp_us + 2
-            pass
-    with None
+            $ lp_us += 2
     hide sh
     with dissolve
-    with None
-    show sl normal pioneer at left 
+    show sl normal pioneer at left
     with dissolve
     sl "Вас никто ни в чём не обвиняет…"
     "Не смотря на меня, сказала Славя."
-    with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     me "Вот хоть один разумный человек из здесь присутствующих!"
     sl "Пока что…"
@@ -30562,7 +30122,7 @@ label day7_us:
     el "Мы ничего такого и не думали…{w} Глупая ситуация, с кем не бывает…"
     "Попытался отшутиться Электроник."
     with None
-    show sl serious pioneer at left 
+    show sl serious pioneer at left
     with dspr
     sl "Думаю, Ольга Дмитриевна во всём разберётся."
     "Холодно сказала Славя."
@@ -30579,7 +30139,7 @@ label day7_us:
     scene bg int_clubs_male_day
     with dissolve
     with None
-    show sl serious pioneer at center 
+    show sl serious pioneer at center
     with dissolve
     window show
     "Я одним скачком оказался у двери и преградил ей путь."
@@ -30590,7 +30150,7 @@ label day7_us:
     sl "Просто я должна…"
     me "Кому ты должна-то? Зачем это всё нужно?"
     with None
-    show sl shy pioneer at center 
+    show sl shy pioneer at center
     with dspr
     sl "Потому что…"
     "Она не нашлась, что ответить."
@@ -30598,7 +30158,7 @@ label day7_us:
     sl "Нет…"
     "Робко сказала она, а потом резко подняла голову и пристально посмотрела на меня."
     with None
-    show sl serious pioneer at center 
+    show sl serious pioneer at center
     with dspr
     sl "Извини, Семён."
     with None
@@ -30606,7 +30166,7 @@ label day7_us:
     with dissolve
     stop music fadeout 3
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dissolve
     us "Да оставь ты её, пусть идёт."
     "Я обернулся к Ульяне, и этой доли секунды как раз хватило Славе, чтобы ускользнуть."
@@ -30614,14 +30174,14 @@ label day7_us:
     "Крикнул я ей вслед, но безрезультатно."
     th "Гоняться за Славей, насильно препятствовать дойти до вожатой не было смысла – если уж она так хочет, то не пристегну же я её наручниками к батарее…"
     with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "Она всё равно ничего не докажет."
     "Хмыкнула Ульянка."
     me "Да при чём тут докажет или нет?{w} Ты вообще понимаешь, на каком ты здесь счету?"
     me "В любой ситуации с твоим участием виноватый известен заранее.{w} А тут тем более такое…"
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Ну, тогда нам вместе отвечать."
     "Ехидно улыбнулась она."
@@ -30644,7 +30204,7 @@ label day7_us:
     with dissolve
     "Вскоре пионеры скрылись из виду."
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dissolve
     us "Пойдём тоже поедим!"
     "Весело сказала Ульянка."
@@ -30669,25 +30229,25 @@ label day7_us:
     "На завтраке собрался весь лагерь, но ни Ольги Дмитриевны, ни Слави я не заметил."
     th "Что же, оно и к лучшему, наверное."
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dissolve
     us "О чём думаешь?"
     "Весело спросила Ульянка, когда мы взяли еду и сели за стол."
     me "Всё о том же."
     with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dspr
     us "Да хватит тебе напрягаться по пустякам!"
     me "Для тебя, может, и пустяки…"
     th "Действительно, а что такого страшного произошло?"
     th "При желании любую ситуацию можно истолковать с той или иной точки зрения.{w} А если есть ещё и повод…"
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Да ладно, что может случиться?"
     me "Сама понимаешь, что наша вожатая – женщина, как сказать… эксцентричная слегка."
     with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dspr
     us "Эксце… Ну, ладно, может и так, но мы же ничего такого не делали. То есть совсем-совсем!"
     me "Я надеюсь, что она в это поверит…"
@@ -30698,12 +30258,12 @@ label day7_us:
     th "Хотя, может быть, я всё сам надумал, а реакция Слави была просто вызвана неожиданностью…"
     play music music_list["you_won_t_let_me_down"] fadein 3
     with None
-    show mt angry pioneer at right 
+    show mt angry pioneer at right
     with dissolve
     mt "Завтракаете?"
     "Надо мной нависла Ольга Дмитриевна.{w} Вид у неё был грозный."
     with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dspr
     us "Да."
     mt "Не желаете объяснить своё поведение?"
@@ -30713,28 +30273,28 @@ label day7_us:
     th "Надо бы с Электроником ещё поговорить на эту тему."
     me "Если Славя вам рассказала нашу версию событий…"
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     us "Мы там кино смотрели!"
     "Серьёзно заявила Ульяна."
     with None
-    show mt grin pioneer at right 
-    with dissolve   
+    show mt grin pioneer at right
+    with dissolve
     mt "Всю ночь?"
     "Иронично спросила вожатая."
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Потом я заснула, а Семён остался со мной."
     mt "И что, не было никакой возможности дойти до своих домиков?"
     with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "Ни малейшей!"
     mt "А ты что скажешь?"
     me "Ну, я понимаю, что всё это выглядит довольно глупо, но она правду говорит."
     with None
-    show mt normal pioneer at right 
+    show mt normal pioneer at right
     with dspr
     mt "Предлагаете, значит, мне в это поверить?"
     me "Ну, если это правда…"
@@ -30747,7 +30307,7 @@ label day7_us:
     "Я внимательно посмотрел на Ульянку.{w} Вопреки моим ожиданиям она не выглядела расстроенной."
     mt "По правде говоря, не думаю, что ты в чём-то виноват, но всё же, чтобы быть до конца справедливой…"
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Хорошо! Тогда вы знаете, где меня найти, если понадоблюсь!"
     "Она резко встала из-за стола и направилась к выходу."
@@ -30758,13 +30318,13 @@ label day7_us:
     mt "С ней вечно хлопот не оберёшься! И тебя втянула вот…"
     me "Честно говоря, я не очень понимаю, во что она меня втянула.{w} Да и кажется, вы всё же слишком к ней строги."
     with None
-    show mt laugh pioneer at right 
+    show mt laugh pioneer at right
     with dspr
     mt "А ты покажи мне ещё одного такого пионера!"
     "Рассмеялась вожатая."
     me "Если она получает за дело, то это одно, но тут…"
     with None
-    show mt normal pioneer at right 
+    show mt normal pioneer at right
     with dspr
     mt "Вообще, я не очень понимаю, что там и как было на самом деле, но мой долг – следить за вашим моральным обликом! А ситуация подозрительная. В высшей степени подозрительная."
     me "Хорошо, и долго вы её собираетесь взаперти держать?"
@@ -30776,7 +30336,7 @@ label day7_us:
     "Перебил я её."
     with None
     show mt surprise pioneer at right :
-        linear 1.0 xalign 0.5 
+        linear 1.0 xalign 0.5
     with dspr
     mt "Смена заканчивается. Сегодня последний день."
     me "Что?.."
@@ -30785,13 +30345,13 @@ label day7_us:
     th "Может быть, моим мучениям придёт конец, и я вернусь в привычную реальность?"
     me "Но почему так внезапно?"
     with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dspr
     mt "Для кого же это внезапно? Я говорила на линейке!"
     "Да, на линейках я в основном считал ворон или спал стоя – не до объявлений вожатой."
     me "И во сколько?"
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "Часов в пять примерно. Не забудь собраться!"
     th "Было бы что собирать."
@@ -30803,12 +30363,12 @@ label day7_us:
     me "А разве так можно?"
     "Я искренне удивился."
     with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dspr
     mt "А что такого страшного?"
     th "Не знаю насчёт «страшного», но странного много."
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "Ладно, у меня ещё дел полно."
     with None
@@ -30849,27 +30409,24 @@ label day7_us:
     "Постучав (учитывая прошлый мой опыт, это было не лишним), я вошёл."
     window hide
     play sound sfx_open_dooor_campus_2
-    pause(1)
+    pause 1
     $ persistent.sprite_time = "day"
     scene bg int_library_day
     with dissolve
     play ambience ambience_library_day fadein 3
-    with None
-    show mz normal glasses pioneer at center 
+    show mz normal glasses pioneer at center
     with dissolve
     window show
     "Женя оторвалась от книги и внимательно посмотрела на меня."
     mz "Чего тебе?"
     me "А что такого? Зачем сразу так реагировать? Уже и зайти нельзя?"
-    with None
-    show mz bukal glasses pioneer at center 
+    show mz bukal glasses pioneer at center
     with dspr
     mz "И что, просто так пришёл?{w} Вряд ли что-то почитать решил."
     me "Ну, да…"
     "Классика марксизма-ленинизма не была моей любимой литературой."
     me "Хотел узнать, где Славя."
-    with None
-    show mz normal glasses pioneer at center 
+    show mz normal glasses pioneer at center
     with dspr
     mz "А зачем тебе?"
     "Этим вопросом она словно закончила разговор, вновь углубившись в чтение."
@@ -30894,7 +30451,7 @@ label day7_us:
     "На пристани одни пионеры затаскивали лодки в лодочный домик, другие бегали туда-сюда с вёслами и канатами."
     "Присмотревшись, я увидел вдалеке Славю, которая сидела около воды."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     me "Убираетесь?"
     "Задал я самый нейтральный вопрос, который пришёл в голову."
@@ -30915,20 +30472,20 @@ label day7_us:
     me "Рассказала, и кому от этого лучше стало?"
     "Промычал я себе под нос."
     with None
-    show sl shy pioneer at center 
+    show sl shy pioneer at center
     with dspr
     sl "Я не уверена, конечно, что это было правильно…"
     "Растерянно ответила она."
     me "Ну, что было, того уже не вернёшь…{w} Как думаешь, что сделать, чтобы Ульянку выпустили из-под домашнего ареста?"
     with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dspr
     sl "Ты так за неё переживаешь."
     "Славя наконец посмотрела на меня и улыбнулась."
     me "Не за неё… За справедливость!"
     "Несколько смутившись, всё же нашёлся я."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Ты же знаешь нашу вожатую."
     me "Знаю, это точно."
@@ -30940,7 +30497,7 @@ label day7_us:
     "Всё же оставалось какое-то ощущение недосказанности, но, учитывая всю неловкость ситуации последних часов, я не стал навязываться."
     me "Ладно, я пойду."
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Увидимся."
     stop ambience fadeout 3
@@ -30975,7 +30532,7 @@ label day7_us:
     with dissolve
     play music music_list["two_glasses_of_melancholy"] fadein 3
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dissolve
     window show
     me "Привет арестантам!"
@@ -30992,23 +30549,23 @@ label day7_us:
     us "Я? Злюсь?"
     me "Ну не я же…"
     with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "Тебе просто нечего делать, поэтому ты сюда пришёл, так?"
     me "Виновен…"
     "Я наигранно вздохнул и опустил голову."
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     us "Садись тогда, что ли."
     "Я сел на кровать напротив."
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Что расскажешь?"
     me "Предлагаю придумать, как нам убедить Ольгу Дмитриевну, что мы не виноваты!"
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Я не виновата."
     "Поправила меня Ульяна."
@@ -31027,7 +30584,7 @@ label day7_us:
     "Я посмотрел на часы."
     me "Да, и правда."
     with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "Вот тебе занятие. Раз мне выходить нельзя, принеси мне поесть."
     me "Так точно!"
@@ -31057,7 +30614,7 @@ label day7_us:
     window show
     "Вскоре я уже сидел в домике Ульяны и с жадностью уплетал котлеты с картошкой."
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dissolve
     me "Прямо как последняя трапеза."
     us "Ты о чём?"
@@ -31066,29 +30623,29 @@ label day7_us:
     "Еда была действительно на удивление вкусной."
     me "А что бы ты пожелала?"
     with None
-    show us laugh2 pioneer at center 
+    show us laugh2 pioneer at center
     with dspr
     us "Ну… Чтобы меня не казнили, конечно же!"
     "Она рассмеялась."
     me "Так нельзя."
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "Почему? Если желание любое."
     me "Ну, любое, но ограниченное какими-то рамками."
     with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "Значит, уже не любое."
     me "Ну, значит, не любое…"
     with None
-    show us sad pioneer at center 
+    show us sad pioneer at center
     with dspr
     us "Тогда так не интересно."
     me "Думаю, в том, чтобы быть приговорённым к смерти, вообще мало интересного."
     "Усмехнулся я."
     with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "Не знаю, не пробовала."
     "Хотя, если задуматься, это почти что про меня."
@@ -31096,12 +30653,12 @@ label day7_us:
     th "Отличие только в том, что желаний у меня было больше: хочу – пойду на линейку, хочу – не пойду…"
     me "Чем займёшься потом?"
     with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dspr
     us "В смысле?"
     me "Ну, после лагеря."
     with None
-    show us surp2 pioneer at center 
+    show us surp2 pioneer at center
     with dspr
     "Она удивлённо посмотрела на меня."
     us "В школу пойду, естественно."
@@ -31110,18 +30667,18 @@ label day7_us:
     "А теперь всё по новой…"
     th "Только сейчас меня терзает не чувство страха и ужаса, а тупое, щемящее чувство неизвестности."
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "А ты?"
     me "Я… Ну, тоже займусь чем-нибудь."
     with None
-    show us laugh2 pioneer at center 
+    show us laugh2 pioneer at center
     with dspr
     us "Чем-нибудь?"
     "Она расхохоталась."
     me "Ну да, что такого?"
     with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "Тебе бы в цирковое училище на клоуна!"
     me "Почему?"
@@ -31132,18 +30689,18 @@ label day7_us:
     me "На то есть свои причины."
     "Неуверенно сказал я и уставился в окно."
     with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dspr
     us "Какие же?"
     me "Разные…{w} Что ты такая любопытная?"
     with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "Я же ребёнок, забыл?"
     "Она лукаво улыбнулась."
     me "Да уж… Полчаса с тобой – как будто вагоны всю ночь разгружал."
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "Кто бы говорил! Ты-то человек тяжёлый, каких мало!"
     me "С чего это ты взяла?"
@@ -31152,12 +30709,12 @@ label day7_us:
     "Никогда бы не подумал, что такая маленькая девочка способна на столь взрослые суждения."
     me "Ну... и?"
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     us "Ну и всё…"
     me "Зато я веду себя приличнее – меня не закрывают и не наказывают."
     with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "Дело случая."
     "Она ехидно улыбнулась."
@@ -31166,16 +30723,16 @@ label day7_us:
     "Она не закончила фразу."
     me "Что вчера ночью?"
     with None
-    show us shy2 pioneer at center 
+    show us shy2 pioneer at center
     with dspr
     us "Да так…"
     me "Нет уж, ты договаривай!"
     "Она только открыла рот, как за дверью послышались шаги, и через секунду в комнату вошла Ольга Дмитриевна."
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     with None
-    show mt normal pioneer at right 
+    show mt normal pioneer at right
     with dissolve
     mt "А, вы оба тут. Вот и хорошо."
     "Кажется, она была смущена и никак не могла подобрать слова."
@@ -31183,12 +30740,12 @@ label day7_us:
     me "Вот сразу бы так."
     "Пробубнил я."
     with None
-    show mt surprise pioneer at right 
+    show mt surprise pioneer at right
     with dspr
     mt "Ты что-то сказал?"
     me "Да нет, ничего."
     with None
-    show mt normal pioneer at right 
+    show mt normal pioneer at right
     with dspr
     mt "Скоро отъезд, пора уже собираться."
     with None
@@ -31196,7 +30753,7 @@ label day7_us:
     with dissolve
     "С этими словами она вышла из домика."
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Вот видишь, как всё хорошо получилось!"
     me "Да уж…"
@@ -31268,7 +30825,7 @@ label day7_us_bad:
     scene bg ext_bus
     with dissolve
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     window show
     me "А где Ульяна?"
@@ -31285,7 +30842,7 @@ label day7_us_bad:
     th "Действительно, я остался последним."
     me "Но подождите…"
     with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dspr
     mt "Давай быстрее!"
     "Она попыталась затолкнуть меня в автобус.{w} Я не стал сопротивляться."
@@ -31301,12 +30858,12 @@ label day7_us_bad:
     "Пары мне не нашлось, что меня в тот момент обрадовало."
     "Однако вскоре ко мне подсела Алиса."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     dv "А где Ульянка?"
     me "Осталась…"
     with None
-    show dv surprise pioneer at center 
+    show dv surprise pioneer at center
     with dspr
     dv "Почему это?"
     me "Наказана…"
@@ -31314,14 +30871,14 @@ label day7_us_bad:
     dv "За что?"
     me "Не знаю…"
     with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "И что, ты даже не попытался узнать?"
     me "Оставаться мне ради этого, что ли?"
     dv "Мог бы и остаться."
     me "С какой стати? Тебе интересно, вот ты и оставайся. Ещё не так далеко уехали."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Ладно-ладно…"
     with None
@@ -31374,7 +30931,7 @@ label day7_us_bad:
     scene bg black
     with fade3
     stop music fadeout 3
-    pause (3)
+    pause 3
     jump epilogue_us
 label day7_us_good:
     $ day_time()
@@ -31387,14 +30944,14 @@ label day7_us_good:
     "Она начала вытаскивать из шкафов одежду и кидать её на кровать."
     me "Ты бы аккуратнее, а то помнётся всё."
     with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dspr
     us "Ничего! Дома постираю!"
     "Футболки, юбки, шорты, платья, туфли, кроссовки, нижнее бельё…{w} Гора тряпок всё высилась и высилась."
     me "Неужели ты всё это одна довезла?"
     "Учитывая комплекцию Ульянки, это было сложно представить."
     with None
-    show us laugh2 pioneer at center 
+    show us laugh2 pioneer at center
     with dspr
     us "Да, конечно!"
     "Она засмеялась."
@@ -31403,13 +30960,13 @@ label day7_us_good:
     "Сначала я пытался всё складывать ровно, но потом понял, что это бесполезно, и стал просто трамбовать так, чтобы всё влезло."
     "Наконец вещей на кровати больше не осталось, а сумка даже кое-как застегнулась."
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Ну, вот и всё."
     me "Да…"
     "Я посмотрел на часы.{w} До отъезда оставалось ещё минут сорок."
     with None
-    show us smile pioneer at center 
+    show us smile pioneer at center
     with dspr
     us "Знаешь, весело здесь было."
     me "Ты о чём?"
@@ -31417,7 +30974,7 @@ label day7_us_good:
     me "А, ну да…"
     "Рассеянно сказал я."
     with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dspr
     us "Ты так не считаешь?"
     me "Почему…"
@@ -31427,25 +30984,25 @@ label day7_us_good:
     th "Не мог же я рассказать обо всём…"
     me "Просто… Некоторые моменты были для меня, так скажем, неожиданными."
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "Какой ты скучный…"
     "Сказала Ульянка и отвернулась."
     me "Ну, а что ты от меня хочешь?"
     with None
-    show us normal pioneer at center 
+    show us normal pioneer at center
     with dspr
     us "Как будто потом нечего будет вспомнить?"
     me "Да, воспоминаний действительно останется навалом."
     "Улыбнулся я."
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Ну вот! И я про что!"
     "Она внимательно посмотрела на меня.{w} Я даже несколько смутился."
     me "Что ещё?"
     with None
-    show us shy pioneer at center 
+    show us shy pioneer at center
     with dspr
     us "А обо мне, будешь обо мне вспоминать?"
     me "Буду, конечно. Обо всех буду…"
@@ -31453,7 +31010,7 @@ label day7_us_good:
     me "О тебе – в первую очередь!"
     "Я демонстративно поднёс руку к сердцу и вытянулся по стойке смирно."
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Так-то лучше!"
     th "Хотя что мне о ней вспоминать?"
@@ -31465,7 +31022,7 @@ label day7_us_good:
     "Одно из этих условий сидело сейчас передо мной и широко улыбалось."
     me "Знаешь, а ты не такая уж и глупая, как я сначала думал."
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "Почему сразу глупая?"
     "Обиженно сказала она."
@@ -31473,7 +31030,7 @@ label day7_us_good:
     us "Шутки у него…"
     me "Ладно, уже пора, наверное."
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Пойдём."
     "Весело сказала Ульянка и показала на сумку."
@@ -31513,8 +31070,8 @@ label day7_us_good:
     "На первом ряду расположились Славя и Женя, чуть ближе к нам – Лена, Мику, Электроник и Шурик, которые разложили карты.{w} А в двух рядах от нас одиноко развалилась на кресле Алиса – ей не нашлось пары."
     me "Как-то неудобно по отношению к твоей соседке получилось…"
     with None
-    show us smile pioneer close at center 
-    with dissolve   
+    show us smile pioneer close at center
+    with dissolve
     us "Ничего! Ты же мне помог собраться и вещи донести."
     "Я внимательно посмотрел на неё."
     th "Похоже, этот бесёнок радикально изменил отношение ко мне."
@@ -31528,13 +31085,13 @@ label day7_us_good:
     "Ведь именно это значит быть товарищами, друзьями."
     "Я улыбнулся и нежно потрепал её по голове."
     with None
-    show us shy2 pioneer close at center 
+    show us shy2 pioneer close at center
     with dspr
     us "Это ещё зачем?"
     "Она надула губки."
     me "Просто так!"
     with None
-    show us laugh2 pioneer close at center 
+    show us laugh2 pioneer close at center
     with dspr
     us "Извращенец!"
     us "Женишься на мне, когда я вырасту?"
@@ -31567,14 +31124,14 @@ label day7_us_good:
     th "Кажется, эта реальность действительно абсолютно нормальна."
     th "И столь ли уж важно, как я сюда попал, если всё складывается так замечательно – я стал другим человеком, нашёл новых друзей."
     with None
-    show us smile pioneer close at center 
-    with dissolve   
+    show us smile pioneer close at center
+    with dissolve
     us "О чём думаешь?"
     me "О жизни."
     us "И как думается?"
     me "Прекрасно!"
     with None
-    show us laugh2 pioneer close at center 
+    show us laugh2 pioneer close at center
     with dspr
     "Ульянка тихонько рассмеялась."
     th "Возвращаться мне всё равно некуда, так что я могу выбрать любую дорогу в жизни, какую захочу."
@@ -31596,15 +31153,15 @@ label day7_us_good:
     scene bg black
     with fade3
     stop music fadeout 3
-    pause (3)
+    pause 3
     jump epilogue_us
 label day7_dv:
     $ backdrop = "dv"
     $ persistent.sprite_time = "day"
     $ day_time()
-    $ new_chapter(7, u"День седьмой")
+    $ new_chapter(7, "День седьмой")
     scene black
-    pause (2)
+    pause 2
     window show
     "Какие-то люди преследовали меня…"
     "Или это были не люди, а просто размытые чёрные кляксы на фоне адского пейзажа."
@@ -31634,22 +31191,22 @@ label day7_dv:
     "Через некоторое время Алиса проснулась."
     if persistent.hentai:
         with None
-        show dv shy body close at center 
+        show dv shy body close at center
         with dissolve
     else:
         with None
-        show dv shy pioneer2 close at center 
+        show dv shy pioneer2 close at center
         with dissolve
     "Я нежно поцеловал её и сказал:"
     me "Доброе утро!"
     "Она пару секунд смотрела на меня отсутствующим взглядом, а потом вскочила и заорала:"
     if persistent.hentai:
         with None
-        show dv shocked body close at center 
+        show dv shocked body close at center
         with dspr
     else:
         with None
-        show dv shocked pioneer2 close at center 
+        show dv shocked pioneer2 close at center
         with dspr
     dv "Ты! Ты!"
     me "Что я?"
@@ -31657,11 +31214,11 @@ label day7_dv:
         "Поняв, что она слегка раздета, Алиса сорвала с меня одеяло и закуталась в него."
     if persistent.hentai:
         with None
-        show dv rage body close at center 
+        show dv rage body close at center
         with dspr
     else:
         with None
-        show dv rage pioneer2 close at center 
+        show dv rage pioneer2 close at center
         with dspr
     dv "Ты меня вчера…"
     "Шипела она."
@@ -31671,22 +31228,22 @@ label day7_dv:
     "Алиса смотрела на меня бешеным взглядом, но потом успокоилась и села рядом."
     if persistent.hentai:
         with None
-        show dv normal body close at center 
+        show dv normal body close at center
         with dspr
     else:
         with None
-        show dv normal pioneer2 close at center 
+        show dv normal pioneer2 close at center
         with dspr
     dv "Ладно, что было, то было…"
     me "Ты уверена?"
     "Я привстал и обнял её."
     if persistent.hentai:
         with None
-        show dv shy body close at center 
+        show dv shy body close at center
         with dspr
     else:
         with None
-        show dv shy pioneer2 close at center 
+        show dv shy pioneer2 close at center
         with dspr
     dv "Не надо…"
     "Стыдливо прошептала она."
@@ -31701,11 +31258,11 @@ label day7_dv:
     me "Куда?"
     if persistent.hentai:
         with None
-        show dv surprise body close at center 
+        show dv surprise body close at center
         with dspr
     else:
         with None
-        show dv surprise pioneer2 close at center 
+        show dv surprise pioneer2 close at center
         with dspr
     dv "Сегодня же последний день!"
     me "Последний день чего?"
@@ -31714,22 +31271,22 @@ label day7_dv:
     play music music_list["into_the_unknown"] fadein 3
     if persistent.hentai:
         with None
-        show dv normal body close at center 
+        show dv normal body close at center
         with dspr
     else:
         with None
-        show dv normal pioneer2 close at center 
+        show dv normal pioneer2 close at center
         with dspr
     dv "Последний день смены!"
     me "Что?!"
     "Похмелье, отступившее на некоторое время, с новой силой накрыло меня."
     if persistent.hentai:
         with None
-        show dv surprise body close at center 
+        show dv surprise body close at center
         with dspr
     else:
         with None
-        show dv surprise pioneer2 close at center 
+        show dv surprise pioneer2 close at center
         with dspr
     dv "А ты не знал?"
     "Удивлённо спросила Алиса."
@@ -31740,11 +31297,11 @@ label day7_dv:
     th "Если сегодня последний день, значит, все уедут куда-то.{w} Значит, как-то всё-таки можно выбраться из этого лагеря!"
     if persistent.hentai:
         with None
-        show dv normal body close at center 
+        show dv normal body close at center
         with dspr
     else:
         with None
-        show dv normal pioneer2 close at center 
+        show dv normal pioneer2 close at center
         with dspr
     dv "Ну, я не знаю."
     me "Может, ещё успеем!"
@@ -31760,7 +31317,7 @@ label day7_dv:
     scene bg ext_square_day
     with dissolve
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     window show
     "Через пару минут мы уже стояли на пустой площади."
@@ -31783,7 +31340,7 @@ label day7_dv:
     scene bg ext_square_day
     with dissolve
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     window show
     "Вернувшись на площадь, я сел и обречённо закрыл лицо руками."
@@ -31804,33 +31361,33 @@ label day7_dv:
     "В реальной жизни это был бы точно не вариант, а у меня не было другого выбора, кроме как воспринимать всё происходящее как реальность."
     me "Пойдём."
     with None
-    show dv surprise pioneer at center 
+    show dv surprise pioneer at center
     with dspr
     dv "Куда?"
     me "В райцентр!"
     with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "Ты с ума сошёл?!"
     me "Предлагаешь здесь сидеть?"
     dv "Конечно! Они заметят, что нас нет, и вернутся."
     me "А тебе не кажется странным, что они этого не заметили при отъезде?"
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Ну, да, но…"
     "Она задумалась."
     dv "Но одним вот так вот идти куда-то…"
     me "Ты же сказала, что знаешь направление!"
     with None
-    show dv guilty pioneer at center 
+    show dv guilty pioneer at center
     with dspr
     dv "Знаю…"
     "Неуверенно согласилась она."
     me "Тогда нечего и думать!{w} Может, по дороге встретятся какие-нибудь рейсовые автобусы."
     th "Я и сам в это особо не верю, но, если из этого лагеря всё же есть выход, то и такой вариант кажется вполне реальным."
     with None
-    show dv shy pioneer at center 
+    show dv shy pioneer at center
     with dspr
     dv "Я не знаю… Как скажешь…"
     "Смущенно пролепетала она."
@@ -31863,7 +31420,7 @@ label day7_dv:
     th "Что она не такая, какой хочет казаться, уже понятно.{w} Но где же настоящая Алиса?"
     th "И испытываю ли я к ней какие-то чувства?{w} Симпатия, некая привязанность – да, но что-то большее?.."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     "Мои размышления прервала Алиса."
     dv "На, держи."
@@ -31873,19 +31430,19 @@ label day7_dv:
     dv "Мои вещи."
     me "А чего же так мало?"
     with None
-    show dv smile pioneer at center 
+    show dv smile pioneer at center
     with dspr
     dv "Сколько поместилось."
     me "Слушай…{w} Нам же ещё неизвестно сколько идти.{w} Давай ты возьмёшь только самое необходимое."
     with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "Что же это, мне их выбрасывать, что ли? Здесь оставлять?"
     "Фыркнула Алиса."
     "Я никак не мог понять, во-первых, откуда у неё столько вещей, а во-вторых – что же там такого ценного."
     me "Но почётная обязанность нести всё это возложена на меня, так?"
     with None
-    show dv grin pioneer at center 
+    show dv grin pioneer at center
     with dspr
     dv "Конечно!"
     "Она лукаво улыбнулась."
@@ -31893,12 +31450,12 @@ label day7_dv:
     th "Килограмм десять, наверное.{w} Если пару-тройку километров я его ещё пронесу, то вот дальше…"
     me "Ты же понимаешь, что далеко мы с ним не уйдём."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Ну, как получится…"
     me "То есть потом часть можно будет выбросить?"
     with None
-    show dv smile pioneer at center 
+    show dv smile pioneer at center
     with dspr
     dv "Посмотрим."
     "Хитро сверкнув глазами, ответила она."
@@ -31916,25 +31473,25 @@ label day7_dv:
     "Никогда бы не подумал, что обладаю такой выносливостью."
     "То ли вещмешок оказался очень удобным, то ли ночная физкультура подкачала мои мышцы."
     window hide
-    play sound sfx_drop_alisa_bag 
-    pause(1)
+    play sound sfx_drop_alisa_bag
+    pause 1
     window show
     "Я остановился у обочины дороги и бросил скарб Алисы на землю."
     with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dissolve
     dv "Что такое?"
     "Возмутилась она."
     me "Сама не желаешь понести?"
     with None
-    show dv guilty pioneer at center 
+    show dv guilty pioneer at center
     with dspr
     dv "Вот ещё!"
     me "Тогда мне надо отдохнуть."
     "Конечно, самым рациональным решением было бы выбросить большую часть вещей и оставить только самое необходимое, но на такие радикальные меры я не решался."
     me "Ты всю дорогу молчишь…"
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     "Алиса отсутствующим взглядом смотрела на уходящую вдаль дорогу."
     dv "А о чём говорить?"
@@ -31943,7 +31500,7 @@ label day7_dv:
     "Рассеянно спросила она."
     me "Ну… Как бы…"
     with None
-    show dv grin pioneer at center 
+    show dv grin pioneer at center
     with dspr
     dv "Отдохнул? Тогда пошли!"
     "Алиса быстрым шагом начала удаляться от меня."
@@ -31967,7 +31524,7 @@ label day7_dv:
     play music music_list["you_lost_me"] fadein 3
     me "Знаешь…"
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     "Она повернулась и пристально посмотрела на меня."
     me "Если я что-то сделал не так…"
@@ -31987,7 +31544,7 @@ label day7_dv:
     me "Меняться? Это ты называешь изменениями?{w} Да ты совсем другим человеком стала! Прямо как Лена, честное слово."
     "Алиса остановилась, но не обернулась."
     with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dissolve
     dv "Не сравнивай…{w} Понял?!{w} Не сравнивай меня с ней!"
     "Она говорила тихо, но в голосе звенела ярость."
@@ -32001,7 +31558,7 @@ label day7_dv:
     "Похоже, это признание Алисе далось нелегко, но поначалу я не придал особого значения её словам."
     me "Ну, ты мне сама вчера сказала приходить, вот я и…"
     with None
-    show dv cry pioneer at center 
+    show dv cry pioneer at center
     with dspr
     dv "Я не про это!"
     "Алиса громко разрыдалась и закрыла лицо руками."
@@ -32018,7 +31575,7 @@ label day7_dv:
     stop music fadeout 3
     "Вскоре она, похоже, пришла в себя."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Ладно, забудь. Пошли дальше."
     "Конечно, забыть у меня бы никак не получилось при всём желании, но сказать я всё равно ничего не мог, так что молча направился за ней."
@@ -32046,7 +31603,7 @@ label day7_dv:
     "И не могу сказать Алисе ни да, ни нет, потому что просто не знаю, что будет потом."
     "Тем временем уже совсем стемнело."
     with None
-    show dv sad pioneer at center 
+    show dv sad pioneer at center
     with dissolve
     me "Пожалуй, пора сделать привал на ночь."
     dv "Нам не так много осталось."
@@ -32062,7 +31619,7 @@ label day7_dv:
     scene cg d7_dv
     with dissolve
     stop ambience fadeout 2
-    play sound_loop sfx_forest_fireplace fadein 2     
+    play sound_loop sfx_forest_fireplace fadein 2
     window show
     "Вскоре мы уже сидели на упавшем дереве и грели руки у огня..."
     "Только сейчас я наконец осознал, что выбрался из этого проклятого лагеря."
@@ -32176,7 +31733,7 @@ label day7_dv_bad:
     stop music fadeout 3
     stop sound_loop fadeout 2
     play sound sfx_bus_honk
-    pause(1)
+    pause 1
     window show
     "Я собирался ещё что-то сказать, но вдруг со стороны дороги раздался гудок."
     window hide
@@ -32189,7 +31746,7 @@ label day7_dv_bad:
     "Непонятно, как мы не заметили его приближение…"
     th "Наконец-то! Спасение!"
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     dv "Идём?"
     "Совершенно безэмоционально спросила Алиса."
@@ -32210,7 +31767,7 @@ label day7_dv_bad:
     "Вскоре мы уже мирно подпрыгивали на заднем сиденье автобуса."
     "Во мне боролись разные чувства: с одной стороны, я был безмерно рад такой удаче – возможности наконец-то попасть в цивилизованный мир, – но с другой – меня терзали угрызения совести из-за неоконченного разговора с Алисой."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     me "Извини, что я всё это так…{w} Ты же совсем другого от меня ждала…"
     dv "Ничего я от тебя не ждала."
@@ -32222,17 +31779,17 @@ label day7_dv_bad:
     dv "Особенно я тебе нравилась, наверное, вчера ночью."
     me "Нет, ты всё не так…"
     with None
-    show dv grin pioneer at center 
+    show dv grin pioneer at center
     with dspr
     dv "Может, пока водитель не видит, ещё разок?"
     me "Да подожди ты! Я и не думал об этом совершенно!"
     with None
-    show dv sad pioneer at center 
+    show dv sad pioneer at center
     with dspr
     dv "Да а что такого-то?{w} Ты же хочешь, а мне что, мне всё равно – на что я ещё нужна…"
     me "Алиса, подожди…"
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Ладно, я хочу спать."
     "Она положила голову на спинку кресла и закрыла глаза."
@@ -32269,7 +31826,7 @@ label day7_dv_bad:
     with fade3
     stop ambience fadeout 2
     stop sound_loop fadeout 2
-    pause (3)
+    pause 3
     jump epilogue_dv
 label day7_dv_good:
     dv "Я бы не была так уверена."
@@ -32311,7 +31868,7 @@ label day7_dv_good:
     "Она встала и пошла по направлению к дороге."
     me "Нет уж!"
     with None
-    show dv surprise pioneer at center 
+    show dv surprise pioneer at center
     with dissolve
     "Я настолько вышел из себя, что вскочил, в пару прыжков догнал её, схватил за руку и дёрнул на себя."
     window hide
@@ -32319,7 +31876,7 @@ label day7_dv_good:
     with dissolve
     play sound sfx_fall_grass
     play music music_list["confession_oboe"] fadein 3
-    pause(1)
+    pause 1
     window show
     "Но рассчитать силу не получилось, поэтому мы повалились на землю так, что Алиса оказалась снизу, а я – сверху."
     dv "Что, вчера не хватило? Ещё хочешь?"
@@ -32342,32 +31899,32 @@ label day7_dv_good:
     scene bg ext_road_night2
     with dissolve
     with None
-    show dv guilty pioneer at center 
+    show dv guilty pioneer at center
     with dissolve
     window show
     dv "Почему ты сейчас здесь… со мной?"
     me "Потому что все уехали из лагеря, а мы остались…"
     with None
-    show dv shy pioneer at center 
+    show dv shy pioneer at center
     with dspr
     dv "Я не про это…"
     me "Ну, потому что ты мне нравишься…"
     "В конце концов я решился на прямой ответ."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "А ты уверен?{w} А что же Лена?{w} Ведь она всегда рядом была..."
     dv "Может, с ней просто сложнее?{w} А я что, со мной всё просто – раз и в койку!"
     th "Я бы не сказал, что с ней всё так уж просто…"
     me "Не приписывай мне того, чего я не говорил!"
     with None
-    show dv angry pioneer at center 
+    show dv angry pioneer at center
     with dspr
     dv "Да ты вообще ничего не говоришь, тебе и приписать-то нечего!{w} Зато вот думаешь за десятерых!"
     "Тут она, конечно же, была права."
     me "И не думал я ничего такого!"
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dspr
     dv "Получается, мне вот так просто стоит во всё это поверить?"
     me "Можешь не верить, я тебя не заставляю!{w} Но это правда, поэтому и придумывать ничего я не собираюсь!"
@@ -32377,7 +31934,7 @@ label day7_dv_good:
     "С глупой улыбкой произнёс я."
     "Непонятно, откуда у меня в такой ситуации возникли мысли о шуточках, да ещё и о таких."
     with None
-    show dv grin pioneer at center 
+    show dv grin pioneer at center
     with dspr
     dv "Конечно, валяй!"
     with None
@@ -32387,17 +31944,17 @@ label day7_dv_good:
     "Я вскочил, подбежал к ней и схватил за руку."
     me "Ты что?! Подожди! Я совсем не это имел в виду!"
     with None
-    show dv grin pioneer at center 
+    show dv grin pioneer at center
     with dissolve
     dv "Да нет, что такого-то?{w} Я же только за этим и нужна."
     me "Да нет же, ты всё совсем не так поняла!"
     with None
-    show dv cry pioneer at center 
+    show dv cry pioneer at center
     with dspr
     dv "А как мне надо понимать?!"
     "Она вырвала руку и зарыдала."
     with None
-    show dv cry pioneer close at center  
+    show dv cry pioneer close at center
     with dissolve
     "Я лёг рядом с ней, обнял и начал гладить по голове."
     me "Ну, всё, всё, успокойся…"
@@ -32419,14 +31976,14 @@ label day7_dv_good:
     me "Но ты…{w} Зачем я тебе?"
     me "У меня ничего нет за душой, я сам не знаю, что мне нужно в жизни.{w} Да и помимо этого, сейчас я есть, а завтра меня здесь уже может и не быть…"
     with None
-    show dv sad pioneer close at center 
+    show dv sad pioneer close at center
     with dspr
     "Алиса на секунду перестала рыдать."
     dv "Ты разве не понимаешь, что я давно уже приняла это решение."
     me "Тогда…"
     "Она подняла на меня заплаканные глаза."
     with None
-    show dv cry pioneer close at center 
+    show dv cry pioneer close at center
     with dspr
     "Кажется, на секунду я увидел в них счастье."
     "Алиса обняла меня и нежно поцеловала."
@@ -32436,7 +31993,7 @@ label day7_dv_good:
     "Всё, что мне было нужно, это она.{w} Сейчас.{w} И всегда!"
     window hide
     play sound sfx_bus_honk
-    pause(1)
+    pause 1
     window show
     "Наверное, этот поцелуй мог бы продолжаться вечность, но вдруг где-то рядом, а казалось, глубоко в мозгу, прозвучал гудок."
     with None
@@ -32448,7 +32005,7 @@ label day7_dv_good:
     "Вскоре из автобуса вышел водитель и прокричал нам:"
     FIXME_voice "Эй, голубки! Последний автобус до райцентра! Едете?"
     with None
-    show dv smile pioneer close at center  
+    show dv smile pioneer close at center
     with dissolve
     dv "Пошли?"
     "Весело сказала Алиса."
@@ -32482,15 +32039,15 @@ label day7_dv_good:
     scene bg black
     with fade3
     stop music fadeout 3
-    pause (3)
+    pause 3
     jump epilogue_dv
 label day7_sl:
     $ backdrop = "sl"
     $ persistent.sprite_time = "day"
     $ day_time()
-    $ new_chapter(7, u"День седьмой")
+    $ new_chapter(7, "День седьмой")
     scene black
-    pause (2)
+    pause 2
     if persistent.hentai:
         scene cg d7_sl_morning
         with dissolve
@@ -32545,20 +32102,20 @@ label day7_sl:
     with dissolve
     play ambience ambience_dining_hall_empty fadein 3
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dissolve
     window show
     "Столовая действительно была уже открыта, и мы, как ни странно, оказались первыми посетителями."
     "Завтрак, что неудивительно, изысканностью не блистал: овсянка, пара яиц, чёрствый хлеб и водянистый чай."
     me "Знаешь, мне здесь еда никогда не нравилась."
     with None
-    show sl laugh pioneer at center 
+    show sl laugh pioneer at center
     with dspr
     sl "Мне тоже, по правде говоря."
     "Рассмеялась Славя."
     me "Но поскольку выбора нет…{w} Да и с голодухи весьма неплохо идёт."
     with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dspr
     sl "Да, это точно!"
     "Она в отличие от меня ела аккуратно."
@@ -32567,13 +32124,13 @@ label day7_sl:
     me "А что такое?"
     "Спросил я с набитым ртом."
     with None
-    show sl laugh pioneer at center 
+    show sl laugh pioneer at center
     with dspr
     "Она в ответ лишь рассмеялась."
     me "А… Нет, не всегда. Но когда очень голодный, то бывает.{w} Правда, я могу и покультурнее."
     th "Хотя бы могу попробовать."
     with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dspr
     sl "Да ладно, ничего страшного."
     window hide
@@ -32583,19 +32140,19 @@ label day7_sl:
     window show
     "Вскоре с завтраком было покончено, и мы направились к выходу."
     with None
-    show sl normal pioneer at left 
+    show sl normal pioneer at left
     with dissolve
     with None
-    show mt normal pioneer far at right  
-    with dissolve   
+    show mt normal pioneer far at right
+    with dissolve
     "Только я успел про себя отметить, что в столовой мы до сих пор одни, как в дверях показалась Ольга Дмитриевна."
     with None
-    show mt surprise pioneer at right 
+    show mt surprise pioneer at right
     with dissolve
     mt "А, это вы…{w} Ну, я не буду спрашивать, где вы ночевали…{w} В общем, это…"
     "Вожатая была явно смущена."
     with None
-    show sl smile2 pioneer at left 
+    show sl smile2 pioneer at left
     with dspr
     sl "И вам доброе утро, Ольга Дмитриевна!"
     "Сказала Славя с лучезарной улыбкой на лице."
@@ -32608,7 +32165,7 @@ label day7_sl:
     with dissolve
     play ambience ambience_camp_center_day fadein 3
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     window show
     me "А что она имела в виду? Опять какой-то поход?"
@@ -32621,13 +32178,13 @@ label day7_sl:
     "Сказать, что её слова меня ошарашили, значило бы не сказать ничего."
     me "Как? Почему?.."
     with None
-    show sl surprise pioneer at center 
+    show sl surprise pioneer at center
     with dspr
     sl "А что ты удивляешься? Ты разве не знал? На линейке же объявляли."
     "Ну, даже на тех линейках, на которых был, я большей частью спал стоя."
     me "Нет…"
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Теперь знаешь!"
     "Славя непринуждённо улыбнулась."
@@ -32636,7 +32193,7 @@ label day7_sl:
     th "С одной стороны, я наконец вырвусь из этого проклятого лагеря, возможно, получу какие-то ответы."
     th "С другой – я только что, похоже, нашёл то, что для меня действительно важно, а теперь мне придётся с этим расстаться?"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "В смысле?"
     me "Да ладно, ничего…{w} И когда отъезд?"
@@ -32656,25 +32213,25 @@ label day7_sl:
     stop music fadeout 3
     play ambience ambience_camp_center_day fadein 3
     with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dissolve
     el "Привет!"
     "Передо мной стоял Электроник, весёлый как всегда."
     me "И тебе…"
     "Ответил я рассеянно."
     with None
-    show el smile pioneer at center 
+    show el smile pioneer at center
     with dspr
     el "Знаешь, о вас весь лагерь говорит!"
     me "Догадываюсь…"
     with None
-    show el grin pioneer at center 
+    show el grin pioneer at center
     with dspr
     el "А вы это… уже того?"
     "Спросил он, ехидно хихикая."
     me "Это твоё дело, как считаешь?"
     with None
-    show el upset pioneer at center 
+    show el upset pioneer at center
     with dspr
     el "Да нет, я просто…"
     me "Вот и помолчи!"
@@ -32690,12 +32247,12 @@ label day7_sl:
     play sound sfx_body_bump
     with vpunch
     with None
-    show mi shocked pioneer close at center  
-    with dissolve 
+    show mi shocked pioneer close at center
+    with dissolve
     window show
     "Я был полностью погружён в свои мысли, не особо смотрел по сторонам, поэтому и не заметил Мику, налетевшую на меня."
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dissolve
     mi "Ой, извини! Надо было внимательнее! А я что-то совсем задумалась и не заметила тебя. Знаешь, иногда так бывает… Привет, кстати!"
     "Я посмотрел сквозь неё и направился дальше."
@@ -32723,7 +32280,7 @@ label day7_sl:
     "Глаза уже закрылись, как вдруг я услышал, что рядом со мной кто-то сел."
     play music music_list["smooth_machine"] fadein 3
     with None
-    show dv normal swim at center 
+    show dv normal swim at center
     with dissolve
     "Это была Алиса."
     dv "Поздравляю!"
@@ -32732,11 +32289,11 @@ label day7_sl:
     th "Да, догадаться несложно…"
     me "Честно признаться, уже надоело…{w} Здесь как будто каждому необходимо об этом упомянуть.{w} Достало!"
     with None
-    show dv smile swim at center 
+    show dv smile swim at center
     with dspr
     dv "А ты как думал?{w} Событие-то для лагеря необычное. Я бы даже сказала, неслыханное!"
     with None
-    show dv laugh swim at center 
+    show dv laugh swim at center
     with dspr
     "Она рассмеялась."
     dv "Да и вожатую так задвинуть! Даже Ульянка бы не смогла.{w} Да и я бы, наверное, тоже..."
@@ -32744,14 +32301,14 @@ label day7_sl:
     me "Знаешь, это вам только так кажется.{w} Для меня ничего такого не произошло."
     me "Более того, я не очень понимаю, зачем всем лезть в мою жизнь.{w} В конце концов, это моё дело и больше ничьё, ты так не считаешь?"
     with None
-    show dv grin swim at center 
+    show dv grin swim at center
     with dspr
     dv "Может и так… Может и так…"
     "Загадочно сказала Алиса."
     "Некоторое время мы просто сидели молча."
     "Мне хотелось, чтобы она побыстрее ушла, но Алиса разглядывала пионеров на пляже и, похоже, никуда не собиралась."
     with None
-    show dv normal swim at center 
+    show dv normal swim at center
     with dspr
     dv "И какие у тебя дальше планы?"
     me "Ты о чём?"
@@ -32767,7 +32324,7 @@ label day7_sl:
     dv "И что ты думаешь по этому поводу?"
     me "А что я должен думать? Не могу же я вечно быть здесь."
     with None
-    show dv surprise swim at center 
+    show dv surprise swim at center
     with dspr
     dv "Конечно нет.{w} Но что, ты её так просто отпустишь?"
     me "Нет…{w} То есть, а что мне прикажешь делать?"
@@ -32777,7 +32334,7 @@ label day7_sl:
     th "Возможно, они жили в тысячах километров друг от друга.{w} В моём же случае – в разных мирах."
     th "И с такими входными данными придумать решение за пару часов невозможно."
     with None
-    show dv grin swim at center 
+    show dv grin swim at center
     with dspr
     dv "Я откуда знаю? Это тебе решать!"
     with None
@@ -32801,20 +32358,20 @@ label day7_sl:
     "Только я собрался приступить к еде, как кто-то резким движением отодвинул стул рядом со мной и сел."
     play music music_list["i_want_to_play"] fadein 3
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dissolve
     us "Привет! Как поживаешь?"
     "Это была Ульянка.{w} Необычайно вежливая к тому же."
     me "До последней секунды – ничего было."
     "Съязвил я."
     with None
-    show us grin pioneer at center 
+    show us grin pioneer at center
     with dspr
     us "Да, ладно тебе! Лучше расскажи, что дальше делать планируешь?"
     me "Есть."
     "Вздохнул я."
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Я не про это.{w} Вот вы уедете со Славей, а что дальше?"
     th "Как будто первоочередная проблема у всех местных обитателей – это моё будущее."
@@ -32822,14 +32379,14 @@ label day7_sl:
     us "Просто интересно!"
     me "Что интересного?{w} Я же тебя не спрашиваю, что ты будешь делать завтра, послезавтра, через месяц! Зачем лезть в чужую жизнь?"
     with None
-    show us dontlike pioneer at center 
+    show us dontlike pioneer at center
     with dspr
     us "Я же не лезу."
     "Обиженно сказала Ульяна."
     us "Просто я во всём этом плохо разбираюсь…"
     me "Само собой, лет-то ещё мало."
     with None
-    show us surp1 pioneer at center 
+    show us surp1 pioneer at center
     with dspr
     us "Ну, вот и объясни, раз такой взрослый!"
     me "Что тебе объяснить?"
@@ -32839,12 +32396,12 @@ label day7_sl:
     "Нет, дикими были не сами листочки и бумажные конвертики, а перспектива не увидеть Славю ещё год, а может, и больше.{w} Или не увидеть никогда…"
     us "Ну так что?"
     with None
-    show sl normal pioneer at right 
+    show sl normal pioneer at right
     with dissolve
     sl "Можно к вам?"
     "Я поднял глаза и увидел стоящую рядом со мной Славю с подносом."
     with None
-    show us laugh pioneer at center 
+    show us laugh pioneer at center
     with dspr
     us "Ладно, я уже ухожу."
     with None
@@ -32854,19 +32411,19 @@ label day7_sl:
     stop music fadeout 3
     with None
     show sl normal pioneer at right :
-        linear 1.0 xalign 0.5 
+        linear 1.0 xalign 0.5
     with dspr
     sl "О чём разговаривали?"
     me "Ну, ты же её знаешь, о чём с ней можно разговаривать?"
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     "Славя улыбнулась."
     me "Разобралась с делами?"
     sl "Да! Теперь я полностью свободна. Могу помочь тебе собраться."
     me "Да что мне собирать-то…"
     with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dspr
     sl "Ну, тогда ты можешь помочь собраться мне."
     me "Хорошо."
@@ -32881,14 +32438,14 @@ label day7_sl:
     window show
     "Внутри всё было чисто и аккуратно, не то что в домике Ольги Дмитриевны."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     sl "Не знаю даже, с чего начать…"
     "Она достала сумку и принялась рыться в шкафу."
     "Я тем временем сел на кровать и начал собираться с мыслями."
     me "А какие у тебя планы после лагеря? Что делать собираешься?"
     with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dspr
     sl "Ну как же…"
     "Она посмотрела на меня и улыбнулась."
@@ -32900,7 +32457,7 @@ label day7_sl:
     me "Хотя… Мне не очень хочется возвращаться в родной город."
     th "По правде говоря, мне и некуда возвращаться, даже если бы было желание."
     with None
-    show sl serious pioneer at center 
+    show sl serious pioneer at center
     with dspr
     sl "Почему?"
     stop ambience fadeout 3
@@ -32909,12 +32466,12 @@ label day7_sl:
     sl "А родители?"
     me "Ну, родители…{w} Понимаешь ли… Их как бы сейчас нет."
     with None
-    show sl surprise pioneer at center 
+    show sl surprise pioneer at center
     with dspr
     sl "А где они?"
     me "Работают за границей, так сказать."
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "Так тебе повезло!"
     "Она весело улыбнулась."
@@ -32923,14 +32480,14 @@ label day7_sl:
     th "Да я бы мою ситуацию особым везением не назвал."
     me "Ну, в любом случае..."
     with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dspr
     sl "Не расстраивайся!"
     th "Похоже, она совсем не понимает, о чём я говорю."
     me "По этому поводу я и не расстраиваюсь."
     "И это было правдой."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "А что тогда?"
     me "Много всего…"
@@ -32938,33 +32495,33 @@ label day7_sl:
     me "Ну, например…"
     window hide
     play sound sfx_open_door_kick
-    pause(1)
+    pause 1
     window show
     "Я уже было собрался начать пространную тираду о моём положении и нежелании оставлять Славю, как вдруг с грохотом распахнулась дверь и вошла Женя."
     with None
-    show mz normal glasses pioneer at right 
+    show mz normal glasses pioneer at right
     with dissolve
     mz "Ага, вот вы где."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Да, как раз собираемся."
     with None
-    show mz bukal glasses pioneer at right 
+    show mz bukal glasses pioneer at right
     with dspr
     mz "Вижу-вижу… Хорошо, что я не пришла минут на десять попозже, а то могла бы помешать… «сборам»."
     with None
-    show sl shy pioneer at center 
+    show sl shy pioneer at center
     with dspr
     "Славя густо покраснела и лихорадочно продолжила запихивать вещи в сумку."
     with None
-    show mz smile glasses pioneer at right 
+    show mz smile glasses pioneer at right
     with dspr
     mz "Ну что, герой-любовник?"
     "От такого обращения у меня мурашки по коже побежали."
     me "Что?"
     with None
-    show mz normal glasses pioneer at right 
+    show mz normal glasses pioneer at right
     with dspr
     mz "Да ничего…"
     "Она некоторое время пристально разглядывала меня."
@@ -32974,7 +32531,7 @@ label day7_sl:
     hide mz
     with dissolve
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Что она имела в виду?"
     me "По-моему, этого никогда точно знать нельзя."
@@ -32990,24 +32547,24 @@ label day7_sl:
     me "И когда я смогу тебя увидеть в следующий раз?"
     "Славя задумалась."
     with None
-    show sl serious pioneer at center 
+    show sl serious pioneer at center
     with dspr
     sl "Не знаю…"
     me "Вот и я не знаю…"
     with None
-    show sl smile2 pioneer at center 
+    show sl smile2 pioneer at center
     with dspr
     sl "Но ты можешь писать мне письма!"
     "Она улыбнулась, но от её улыбки мне не стало спокойнее."
     me "Да, конечно, но это не то, ты сама понимаешь."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "А что тогда?"
     me "Может быть, я поеду с тобой?"
     "Я решил рискнуть и сказать всё напрямую."
     with None
-    show sl surprise pioneer at center 
+    show sl surprise pioneer at center
     with dspr
     sl "И что ты там будешь делать?"
     "Славя казалась даже не удивлённой, а несколько возмущённой."
@@ -33017,30 +32574,30 @@ label day7_sl:
     sl "Какой же?"
     me "Придумаем!"
     with None
-    show sl angry pioneer at center 
+    show sl angry pioneer at center
     with dspr
     sl "Семён, нам ещё мало лет для такого…"
     th "Мне-то на самом деле вполне достаточно."
     me "И что?"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Может быть, позже…"
     me "Через сколько? Через год? Два? Пять?"
     with None
-    show sl sad pioneer at center 
+    show sl sad pioneer at center
     with dspr
     sl "Ты так говоришь…{w} Я не знаю…"
     "Она казалась растерянной."
     me "То есть всё, что было, – это так, курортный роман?"
     "Я начал заводиться."
     with None
-    show sl surprise pioneer at center 
+    show sl surprise pioneer at center
     with dspr
     sl "Нет! Конечно нет! Просто…"
     me "Что?"
     with None
-    show sl sad pioneer at center 
+    show sl sad pioneer at center
     with dspr
     sl "Я сейчас не готова об этом говорить. Давай попозже."
     me "Когда попозже? У нас осталась пара часов до отъезда."
@@ -33057,13 +32614,13 @@ label day7_sl:
 label day7_sl_bad:
     me "Слушай, я всё-таки не понимаю."
     with None
-    show sl surprise pioneer at center 
+    show sl surprise pioneer at center
     with dspr
     sl "Чего?"
     "Не оборачиваясь, спросила Славя."
     me "Почему ты не хочешь…"
     with None
-    show sl sad pioneer at center 
+    show sl sad pioneer at center
     with dspr
     sl "А как ты себе это представляешь?"
     me "Ну, я могу найти работу, снять квартиру."
@@ -33075,19 +32632,19 @@ label day7_sl_bad:
     sl "Это тебе так кажется."
     me "Может и так. Но я всё равно не понимаю, почему ты на всё это так реагируешь!{w} Ведь если мы просто разъедемся, то это всё, конец…"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Я этого не говорила."
     me "Но это ведь и так понятно."
     with None
-    show sl angry pioneer at center 
+    show sl angry pioneer at center
     with dspr
     sl "Да с чего ты это взял?!"
     "Закричала она."
     "Пожалуй, я впервые видел Славю такой."
     me "Хорошо, поставим вопрос по-другому – я просто не хочу ехать к себе, где я там живу…{w} И общаться с тобой только письмами или по телефону, надеясь на случайную встречу."
     with None
-    show sl sad pioneer at center 
+    show sl sad pioneer at center
     with dspr
     sl "Для меня это тоже будет тяжело."
     me "Ну, а в чём тогда проблема?"
@@ -33099,7 +32656,7 @@ label day7_sl_bad:
     sl "Если для тебя это не так важно, то важно для меня."
     me "Хорошо.{w} Я готов даже вести себя так, как положено по этим твоим нормам, но ведь есть и что-то более важное."
     with None
-    show sl shy pioneer at center 
+    show sl shy pioneer at center
     with dspr
     sl "Может быть… Но я не могу вот так сразу…"
     me "У тебя не так много времени для раздумий."
@@ -33107,22 +32664,22 @@ label day7_sl_bad:
     me "Могу предложить только себя...{w} Потому что больше у меня ничего нет."
     me "Более того, я не знаю, что будет со мной через час, но зато точно уверен, что, как бы там ни было, начинать с чистого листа я хочу именно с тобой!"
     with None
-    show sl sad pioneer at center 
+    show sl sad pioneer at center
     with dspr
     sl "Ты всё так красиво говоришь, но, представь, каково мне!{w} Если для тебя это всё так просто, то у меня есть и своя жизнь, к которой я привыкла, и вот так сразу всё менять…"
     me "У меня тоже когда-то была…"
     "Сказал я тихо."
     with None
-    show sl surprise pioneer at center 
+    show sl surprise pioneer at center
     with dspr
     sl "Что?"
     me "Я говорю, что это неизбежно.{w} Перемены – это часть жизни, без них никуда."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     "Славя задумалась, постояла некоторое время, держа сумку в руках, потом подошла ко мне, села рядом и положила голову мне на плечо."
     with None
-    show sl smile2 pioneer close at center  
+    show sl smile2 pioneer close at center
     with dissolve
     sl "Ладно, я тебе верю. Раз ты так говоришь, то так и будет!"
     "В эту минуту я ощущал абсолютное счастье."
@@ -33135,7 +32692,7 @@ label day7_sl_bad:
     sl "Пора."
     me "Да, точно.{w} Ты иди на остановку, а я сейчас сбегаю в домик к вожатой, возьму свои вещи."
     with None
-    show sl laugh pioneer at center 
+    show sl laugh pioneer at center
     with dissolve
     sl "Какой ты неорганизованный! Надо было заранее собраться."
     "Рассмеялась Славя."
@@ -33152,12 +32709,12 @@ label day7_sl_bad:
     scene bg ext_house_of_mt_day
     with dissolve
     with None
-    show mt normal panama pioneer at center 
+    show mt normal panama pioneer at center
     with dissolve
     window show
     "Вожатая стояла на пороге и, видимо, ждала меня."
     with None
-    show mt surprise panama pioneer at center 
+    show mt surprise panama pioneer at center
     with dspr
     mt "Я уж думала, не придёшь…"
     window hide
@@ -33171,7 +32728,7 @@ label day7_sl_bad:
     scene bg ext_house_of_mt_day
     with dissolve
     with None
-    show mt normal panama pioneer at center 
+    show mt normal panama pioneer at center
     with dissolve
     window show
     mt "Пойдём уж, пора."
@@ -33212,19 +32769,19 @@ label day7_sl_bad:
     play music music_list["farewell_to_the_past_edit"] fadein 3
     th "И столь ли уж важно, как я сюда попал, если всё сложилось так замечательно – я стал другим человеком, встретил Славю."
     with None
-    show sl smile2 pioneer close at center  
-    with dissolve   
+    show sl smile2 pioneer close at center
+    with dissolve
     sl "О чём думаешь?"
     me "О жизни."
     sl "И как думается?"
     me "Замечательно!"
     with None
-    show sl laugh pioneer close at center 
+    show sl laugh pioneer close at center
     with dspr
     "Она тихонько рассмеялась."
     me "Знаешь…"
     with None
-    show sl tender pioneer close at center 
+    show sl tender pioneer close at center
     with dspr
     sl "Давай потом, что-то меня укачало, я посплю, если ты не возражаешь."
     me "Да, конечно!"
@@ -33243,17 +32800,17 @@ label day7_sl_bad:
     scene bg black
     with fade3
     stop music fadeout 3
-    pause (3)
+    pause 3
     jump epilogue_sl
 label day7_sl_good:
     me "Ты думаешь, только для тебя это всё сложно!"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Думаю, что и для тебя непросто, но ты так почему-то не считаешь."
     me "А что если я тебе скажу, что мне совсем некуда возвращаться, что у меня, начиная с прошедшего понедельника, больше нет никакой жизни, и мне всё равно придётся начинать всё сначала?"
     with None
-    show sl serious pioneer at center 
+    show sl serious pioneer at center
     with dspr
     sl "Не знаю…{w} Это звучит не очень правдоподобно."
     me "А и не должно! Но всё же это правда."
@@ -33266,7 +32823,7 @@ label day7_sl_good:
     "Эти мгновения тянулись для меня бесконечно."
     "Я ждал, что она посмеётся надо мной, назовёт больным или что похуже."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "И зачем ты всё это говоришь?"
     "Наконец спокойно спросила она."
@@ -33274,26 +32831,26 @@ label day7_sl_good:
     sl "Но это же…{w} Это звучит просто глупо…"
     me "Конечно! Я на твоём месте отреагировал бы точно так же."
     with None
-    show sl serious pioneer at center 
+    show sl serious pioneer at center
     with dspr
     sl "И что ты от меня ждёшь?"
     me "Не знаю…{w} Я просто почувствовал необходимость признаться."
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Я не говорю, что ты врёшь, и психом тебя не считаю, но пойми, я не могу в это вот так поверить."
     me "Да, понимаю…{w} Я думал просто, что это поможет тебе понять мою ситуацию и мотивацию моих поступков."
     sl "Не помогло, если честно."
     "Я расстроенно вздохнул."
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dspr
     sl "И мнение моё не изменилось."
     me "Но?.."
     sl "Тебе лучше собрать свои вещи, а то опоздаешь."
     me "Да там…"
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dspr
     sl "Потом поговорим."
     "Я не стал спорить."
@@ -33308,24 +32865,24 @@ label day7_sl_good:
     "В расстроенных чувствах я поплёлся к домику Ольги Дмитриевны."
     "Вожатая стояла на пороге и, кажется, ждала меня."
     with None
-    show mt normal panama pioneer at center 
+    show mt normal panama pioneer at center
     with dissolve
     mt "Что такой хмурый идёшь? Случилось что-то?"
     me "Нет, ничего, собираться вот иду."
     with None
-    show mt smile panama pioneer at center 
+    show mt smile panama pioneer at center
     with dspr
     mt "Рассказывай уж. Может, легче станет."
     me "Ладно…{w} Вот, как вы думаете, как человеку доказать, что я говорю правду, если он в это не верит?"
     with None
-    show mt normal panama pioneer at center 
+    show mt normal panama pioneer at center
     with dspr
     mt "А ты точно говоришь правду?"
     me "Точно!"
     mt "Тогда, может быть, ему просто нужно время."
     me "Но его-то как раз и нет."
     with None
-    show mt surprise panama pioneer at center 
+    show mt surprise panama pioneer at center
     with dspr
     mt "Тогда не знаю."
     "Она развела руками."
@@ -33348,13 +32905,13 @@ label day7_sl_good:
     "До отправления автобуса оставалось ещё прилично времени."
     "Я сел на бордюр и закрыл голову руками."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     un "О чём грустишь?"
     "Знакомый голос вывел меня из раздумий."
     me "Да так…"
     with None
-    show un surprise pioneer at center 
+    show un surprise pioneer at center
     with dspr
     un "Поссорились со Славей?"
     me "Можно и так сказать."
@@ -33362,13 +32919,13 @@ label day7_sl_good:
     me "Она не верит, что я пришелец из будущего."
     "Я криво улыбнулся."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "Я бы тоже не поверила."
     "Серьёзно сказала Лена."
     me "Да и я бы на вашем месте себе не поверил."
     with None
-    show un smile pioneer at center 
+    show un smile pioneer at center
     with dspr
     un "Ничего страшного, помиритесь!"
     me "Да, только времени осталось не много."
@@ -33407,7 +32964,7 @@ label day7_sl_good:
     scene bg ext_bus
     with dissolve
     with None
-    show sl normal pioneer at center 
+    show sl normal pioneer at center
     with dissolve
     window show
     me "Давай сядем вместе."
@@ -33429,11 +32986,11 @@ label day7_sl_good:
     stop sound_loop fadeout 3
     play music music_list["a_promise_from_distant_days"] fadein 3
     with None
-    show sl normal pioneer close at center  
+    show sl normal pioneer close at center
     with dissolve
     me "Не бери в голову то, что я тогда сказал! Я не хочу оправдываться или говорить, что это неправда.{w} Просто для меня сейчас самое главное – это ты."
     with None
-    show sl serious pioneer close at center 
+    show sl serious pioneer close at center
     with dspr
     sl "Я понимаю."
     "Она внимательно посмотрела на меня."
@@ -33443,7 +33000,7 @@ label day7_sl_good:
     sl "Ты понимаешь, что это будет непросто? И что нельзя вот так, очертя голову, бросаться в омут? Ведь проблем потом будет столько, что не разгребёшь."
     me "Да, теперь понимаю!{w} Но ради тебя я на всё готов."
     with None
-    show sl tender pioneer close at center 
+    show sl tender pioneer close at center
     with dspr
     "Она ничего не ответила, лишь легонько поцеловала и положила голову мне на плечо."
     "Это определённо значило «да»!"
@@ -33464,7 +33021,7 @@ label day7_sl_good:
     scene bg black
     with fade3
     stop music fadeout 3
-    pause (3)
+    pause 3
     jump epilogue_sl
 init:
     $ epilogue_un_bad = False
@@ -33476,16 +33033,16 @@ label postscriptum:
     "У каждой истории есть начало и конец."
     "Почти у каждой…"
     window hide
-    pause (5)
+    pause 5
     if epilogue_un_bad:
         jump final_credits_410
     jump final_credits
 label epilogue_main:
     $ backdrop = "epilogue"
-    $ new_chapter(-1, u"Эпилог")
+    $ new_chapter(-1, "Эпилог")
     $ prolog_time()
     scene black
-    pause (2)
+    pause 2
     "Резкая боль сковала всё моё тело."
     "Особенно остро она ощущалась в висках."
     "Они словно были готовы расколоться на тысячу маленьких кусочков, давая свободный доступ ветру в мою пустую голову."
@@ -33640,7 +33197,7 @@ label epilogue_main:
     stop music fadeout 5
     "…"
     window hide
-    pause (2)
+    pause 2
     scene black
     with dissolve
     nvl clear
@@ -33722,7 +33279,7 @@ label epilogue_main:
     "Если бы в тот момент меня кто-то видел, то можно было бы заметить, что я улыбаюсь…"
     "..."
     window hide
-    pause (2)
+    pause 2
     $ set_mode_adv()
     $ persistent.sprite_time = "night"
     scene bg semen_room
@@ -33736,21 +33293,21 @@ label epilogue_main:
     scene black
     with fade3
     stop music fadeout 5
-    pause (5)
+    pause 5
     if not persistent.endings["main_good"]:
         $ persistent.endings["main_good"] = True
         $ show_achievement("main_good")
     jump postscriptum
 label epilogue_mi:
     $ backdrop = "epilogue"
-    $ new_chapter(-1, u"Эпилог")
+    $ new_chapter(-1, "Эпилог")
     $ day_time()
     $ meet('mi','Маша')
     $ meet('sl','Саша')
     $ meet('el','Роутер')
     $ meet('me','Я')
     scene black
-    pause (2)
+    pause 2
     window show
     "Ведь иногда сон – это просто сон."
     "Не надо заглядывать в интернет, чтобы найти толкование слону, нагло вторгшемуся в твой мир грёз, не надо думать, что ты видел знамение, пророчество, предсказание будущего."
@@ -33758,7 +33315,7 @@ label epilogue_mi:
     "Иногда сон – это просто сон..."
     "Пусть и в нескольких частях."
     window hide
-    pause (2)
+    pause 2
     $ persistent.sprite_time = "day"
     scene bg int_bus
     with fade2
@@ -33767,7 +33324,7 @@ label epilogue_mi:
     mi "Как же всё это уже надоело…"
     me "А?"
     with None
-    show mi dontlike pioneer at center 
+    show mi dontlike pioneer at center
     with dissolve
     "Я поднял глаза и увидел девочку, нависшую надо мной."
     me "Что надоело?"
@@ -33778,12 +33335,12 @@ label epilogue_mi:
     mi "Да ты вечно…"
     mt "Хватит трепаться! Марш за работу!"
     with None
-    show mi surprise pioneer at center 
+    show mi surprise pioneer at center
     with dspr
     "Издалека донёсся голос, которому здесь не принято было возражать."
     "Автобус вмиг опустел."
     with None
-    show mi dontlike pioneer at center 
+    show mi dontlike pioneer at center
     with dspr
     "Девочка, с которой я спорил, смешно надулась, резко развернулась, цокнув каблучками, и направилась к выходу."
     with None
@@ -33792,12 +33349,12 @@ label epilogue_mi:
     "Её звали Маша."
     mt "Ладно, ты готов?"
     with None
-    show mt normal panama pioneer at center 
+    show mt normal panama pioneer at center
     with dissolve
     "Перед глазами возникла женщина с выражением лица, сочетающим одновременно муки за судьбы всего человечества, надменность, сосредоточенность и усталость."
     me "Да… Пожалуй…"
     with None
-    show mt smile panama pioneer at center 
+    show mt smile panama pioneer at center
     with dspr
     mt "Отлично!"
     mt "Тогда…{w} Мотор!"
@@ -33807,7 +33364,7 @@ label epilogue_mi:
     "Я даже не успел заметить, как она вышла из автобуса, а надо мной уже появилась камера."
     window hide
     show blink
-    pause(1)
+    pause 1
     window show
     "Я тут же закрыл глаза – всё верно, ведь по сценарию я сплю."
     "Сколько же так сидеть? Десять секунд? Двадцать?"
@@ -33815,7 +33372,7 @@ label epilogue_mi:
     window hide
     hide blink
     show unblink
-    pause(1)
+    pause 1
     window show
     "Я медленно открыл глаза и начал невидящим взглядом осматривать автобус."
     "Точно, ведь совершенно неизвестно, как я попал сюда!"
@@ -33828,7 +33385,7 @@ label epilogue_mi:
     mt "Стоп! Стоп!"
     "Кричала режиссёр."
     with None
-    show mt angry panama pioneer at center 
+    show mt angry panama pioneer at center
     with dissolve
     mt "Это уже ни в какие ворота не лезет! Неделю снимаем, а материала с гулькин нос!"
     "Она подскочила ко мне."
@@ -33839,22 +33396,22 @@ label epilogue_mi:
     "Смотреть ей в глаза было тяжело."
     "Не потому что я действительно расстроился из-за того, что сорвал очередной дубль, а скорее потому что просто боялся вновь засмеяться."
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "Ладно, перерыв!"
     "Режиссёр сняла с себя панамку и начала ей обмахиваться."
     mt "Как же жарко…"
     with None
-    show sh normal pioneer at right 
+    show sh normal pioneer at right
     with dissolve
     sh "Так лето же."
     "Метко подметил непонятно откуда взявшийся Шурик."
     with None
-    show mt rage pioneer at center 
+    show mt rage pioneer at center
     with dspr
     mt "Без тебя знаю, дурень! За камерой лучше следи!"
     show sh normal pioneer at right:
-        linear 1.0 xalign 1.5 
+        linear 1.0 xalign 1.5
     with None
     hide sh
     with dissolve
@@ -33871,7 +33428,7 @@ label epilogue_mi:
     scene bg ext_dining_hall_near_day
     with dissolve
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dissolve
     window show
     "И в дверях столкнулся с Машей..."
@@ -33880,11 +33437,11 @@ label epilogue_mi:
     mi "Неудивительно."
     me "Хочешь поесть?"
     with None
-    show mi surprise pioneer at center 
+    show mi surprise pioneer at center
     with dspr
     "Она некоторое время непонимающе смотрела на меня."
     with None
-    show mi smile pioneer at center 
+    show mi smile pioneer at center
     with dspr
     mi "Ну пойдём, что ли."
     "Странно, вроде бы Маша уже была в столовой – что, не успела пообедать?"
@@ -33897,88 +33454,88 @@ label epilogue_mi:
     me "Тебе вообще удобно с такими волосами?"
     "Спросил я Машу, когда мы сели за стол."
     with None
-    show mi surprise pioneer at center 
+    show mi surprise pioneer at center
     with dissolve
     mi "А что такого?"
     me "Ну, они как бы…{w} длинные слишком, не?"
     with None
-    show mi dontlike pioneer at center 
+    show mi dontlike pioneer at center
     with dspr
     mi "Так роль у меня такая, дурень!"
     me "Как будто до этого они у тебя короче были…"
     with None
-    show mi angry pioneer at center 
+    show mi angry pioneer at center
     with dspr
     "Она злобно посмотрела на меня и принялась яростно размешивать бомж-пакет."
     with None
-    show mi dontlike pioneer at center 
+    show mi dontlike pioneer at center
     with dspr
     mi "Я когда-нибудь гастрит заработаю с такой диетой."
     me "Да я уже…"
     mi "Конечно, весь реквизит выпил с этими деятелями!"
     me "И что такого?{w} Мне за работу не платят, знаешь ли! А она у меня тяжёлая – главная роль как-никак! Камеры и плёнку не пью!"
     with None
-    show mi grin pioneer at center 
+    show mi grin pioneer at center
     with dspr
     mi "Как будто на Оскар претендуешь!"
     me "Как знать… Как знать…"
     "Я откинулся на спинку стула и закурил."
     with None
-    show mi angry pioneer at center 
+    show mi angry pioneer at center
     with dspr
     mi "Здесь, вообще-то, детский лагерь, если ты не в курсе!"
     me "Да? И где ты здесь видишь детей?"
     with None
-    show mi dontlike pioneer at center 
+    show mi dontlike pioneer at center
     with dspr
     "Маша фыркнула и ничего не ответила."
     me "А ведь между тем все великие с чего-то начинали…{w} Вот кто-то, например, с дипломного проекта…"
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dspr
     mi "Ни одному нормальному человеку в голову бы не пришло такой бред снимать!"
     with None
-    show mi scared pioneer at center 
+    show mi scared pioneer at center
     with dspr
     "Она боязливо оглянулась по сторонам, удостоверилась, что, кроме нас, в столовой никого нет, и продолжила."
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dspr
     mi "Только нашей Ольге Дмитриевне."
     me "Тебя же никто не заставлял."
     with None
-    show mi grin pioneer at center 
+    show mi grin pioneer at center
     with dspr
     mi "Дааа?"
     "Ехидно протянула Маша."
     with None
-    show mi serious pioneer at center 
+    show mi serious pioneer at center
     with dspr
     mi "А что, у меня был выбор, по-твоему? Или у тебя? Или у всех остальных…"
     me "Начнём с того, что ты могла бы, например, предложить другую тему."
     with None
-    show mi dontlike pioneer at center 
+    show mi dontlike pioneer at center
     with dspr
     mi "Тему ему предложить…{w} Какую тему…"
     "Всё это время Маша сыпала соль в кружку и, похоже, не собиралась останавливаться."
     me "Я смотрю, ты любишь поострее…"
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dspr
     mi "Что?"
     "Я взглядом указал на кружку."
     with None
-    show mi shocked pioneer at center 
+    show mi shocked pioneer at center
     with dspr
     mi "Чёрт!"
     window hide
     play sound sfx_salt_impact
     with vpunch
-    pause(1)
+    pause 1
     window show
     "Она грохнула солонку об стол и расстроенно уставилась на горку соли, которая, как айсберг, борющийся с глобальным потеплением, никак не хотела растворяться."
     with None
-    show mi upset pioneer at center 
+    show mi upset pioneer at center
     with dspr
     mi "Ну вот…"
     "Мне внезапно стало жалко Машу."
@@ -33986,19 +33543,19 @@ label epilogue_mi:
     me "На."
     "Я пододвинул к ней свою чашку."
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dspr
     "Она молча взяла её и принялась есть."
     me "Даже спасибо не скажешь?"
     mi "Так это всё ты виноват!"
     me "В чём же?"
     with None
-    show mi dontlike pioneer at center 
+    show mi dontlike pioneer at center
     with dspr
     mi "В том, что отвлёк меня, и я…{w} В общем, ты виноват!"
     me "Как скажешь…"
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dspr
     "Маша ела молча."
     "Я докурил сигарету и затушил её об угол стола."
@@ -34006,12 +33563,12 @@ label epilogue_mi:
     mi "Да нет, если привыкнуть – очень вкусная лапша."
     "Я посмотрел на Машу так, что без слов стало понятно, до какой степени глупым и неуместным был её ответ."
     with None
-    show mi serious pioneer at center 
+    show mi serious pioneer at center
     with dspr
     mi "А, ты про фильм…"
     me "Про фильм."
     with None
-    show mi dontlike pioneer at center 
+    show mi dontlike pioneer at center
     with dspr
     mi "Хотя бы моя роль!{w} Да почему хотя бы! Это самое главное! Ты вообще читал сценарий, когда его писал?!"
     "Первые два дня – читал, дальше стало лень."
@@ -34019,29 +33576,29 @@ label epilogue_mi:
     mi "И что, тебе это кажется нормальным?"
     me "Что именно?"
     with None
-    show mi angry pioneer at center 
+    show mi angry pioneer at center
     with dspr
     mi "Роль, моя роль!"
     me "А что с ней не так?"
     "Я решил до конца прикидываться дурачком."
     with None
-    show mi rage pioneer at center 
+    show mi rage pioneer at center
     with dspr
     mi "Хватит издеваться!"
     "Если бы её взгляд мог убивать, то смерть моя была бы не из лёгких."
     me "Хорошо-хорошо…{w} Успокойся."
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dspr
     "Маша пристально посмотрела на меня."
     me "А что плохого? Обычная девочка-даун…{w} Таких же много, так?"
     with None
-    show mi rage pioneer at center 
+    show mi rage pioneer at center
     with dspr
     "Она сначала покраснела, потом посинела, а потом позеленела."
     "Не уверен, что на самом деле именно такая гамма красок сменилась на её лице за долю секунды, но выглядела Маша угрожающе."
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dspr
     mi "По-моему, это отвратительно."
     "Внезапно успокоившись, сказала она."
@@ -34049,24 +33606,24 @@ label epilogue_mi:
     mi "Да, но не второго эшелона!"
     me "Как будто в жизни таких мало…"
     with None
-    show mi dontlike pioneer at center 
+    show mi dontlike pioneer at center
     with dspr
     mi "Но я-то не такая!"
     me "Так ты и играешь не себя!"
     "Её упрямство начало мне надоедать."
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dspr
     mi "А вот люди посмотрят и сразу скажут: Маша – дура!"
     "Я закрыл лицо руками и опустил голову на стол."
     me "Хорошо, и какой выход из сложившейся ситуации?"
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dspr
     mi "Не знаю…{w} Просто всё плохо!"
     me "От того, что ты будешь ныть и возмущаться, станет лучше?"
     with None
-    show mi angry pioneer at center 
+    show mi angry pioneer at center
     with dspr
     mi "Я не ною!"
     me "А я не слышу как будто…"
@@ -34082,7 +33639,7 @@ label epilogue_mi:
     with dissolve
     stop music fadeout 3
     play sound sfx_open_door_strong
-    pause(1)
+    pause 1
     "Она не успела закончить фразу – дверь распахнулась, и с порога послышались весёлые крики."
     play music music_list["eat_some_trouble"] fadein 3
     sl "Маша-нян! Семён-кун!"
@@ -34096,7 +33653,7 @@ label epilogue_mi:
     "Если сравнивать её в реальной жизни и того персонажа, которого ей предстоит играть, то Машины слова о несправедливости этого мира могут показаться не такими уж и глупыми."
     "Хотя, с другой стороны, Саше не откажешь в наличии актёрского таланта – так-то перевоплощаться на экране!"
     with None
-    show mi angry pioneer at cleft 
+    show mi angry pioneer at cleft
     with dspr
     mi "Я же тебе тысячу раз говорила – не называй меня Маша-нян!"
     "Маша скрежетала зубами."
@@ -34107,25 +33664,25 @@ label epilogue_mi:
     "Саша, похоже, не услышала реплики о своей профнепригодности."
     me "А мы тут обсуждали, что конкретно Маше-нян не нравится в сценарии."
     with None
-    show mi rage pioneer at cleft 
+    show mi rage pioneer at cleft
     with dspr
     mi "Я тебе сейчас понякаю тут!"
-    play sound sfx_punch_medium 
+    play sound sfx_punch_medium
     with vpunch
     "Она попыталась ударить меня в лоб, но я ловко увернулся, и её кулак с грохотом опустился на стол."
     with None
-    show sl scared pioneer at cright 
+    show sl scared pioneer at cright
     with dspr
     "Саша вскрикнула и задрожала."
     me "Видишь, как она недовольна? Пытливый юный ум, не ищущий компромиссов, готовый к долгой, кропотливой работе, к самоотречению и отказу от тлена материального мира. А всё ради чего? Ради истины!"
     with None
-    show sl happy pioneer at cright 
+    show sl happy pioneer at cright
     with dspr
     sl "Ты такой умный!"
     "Мурлыкнула Саша и обхватила мою руку."
     "Жаль, конечно, что ты не такая…"
     with None
-    show mi normal pioneer at cleft 
+    show mi normal pioneer at cleft
     with dspr
     mi "Не, ты точно конченый…"
     me "Сочту за комплимент."
@@ -34133,7 +33690,7 @@ label epilogue_mi:
     mi "Ладно, пора."
     me "Тебе-то куда? Ты только во втором дне появляешься."
     with None
-    show mi dontlike pioneer at cleft 
+    show mi dontlike pioneer at cleft
     with dspr
     mi "Тебе пора, дурень!"
     sl "И мне, и мне!"
@@ -34142,7 +33699,7 @@ label epilogue_mi:
     "Я встал, задвинул стул и посмотрел на Машу сверху вниз."
     me "Увидимся."
     with None
-    show mi normal pioneer at cleft 
+    show mi normal pioneer at cleft
     with dspr
     mi "Иди уж…"
     "Она фыркнула и отвернулась."
@@ -34177,7 +33734,7 @@ label epilogue_mi:
     "Если я просижу здесь ещё хотя бы пять минут, то сам превращусь в насекомое!"
     "И почему в советских автобусах не ставили кондиционеров…"
     with None
-    show mt angry panama pioneer at center 
+    show mt angry panama pioneer at center
     with dissolve
     mt "Эй! Алло! Есть кто дома?"
     "На меня был направлен мегафон, а за ним сквозь плавящийся воздух можно было разглядеть лицо Ольги Дмитриевны."
@@ -34185,7 +33742,7 @@ label epilogue_mi:
     play sound sfx_punch_medium
     with vpunch
     with None
-    show mt rage panama pioneer at center 
+    show mt rage panama pioneer at center
     with dspr
     "Я почувствовал удар."
     me "Эй! Нельзя так обращаться с главным героем! Вы хоть читали мой райдер?"
@@ -34201,7 +33758,7 @@ label epilogue_mi:
     scene bg ext_bus
     with dissolve
     with None
-    show mt smile panama pioneer at cleft 
+    show mt smile panama pioneer at cleft
     with dissolve
     window show
     mt "Стоп! Снято!"
@@ -34210,12 +33767,12 @@ label epilogue_mi:
     "Да, пожалуй, желание здесь – главное."
     mt "А теперь – знакомство со Славей."
     with None
-    show el sad pioneer at cright 
+    show el sad pioneer at cright
     with dissolve
     el "Может, перерывчик?.."
     "Взмолился Роутер."
     with None
-    show mt smile panama pioneer at cleft 
+    show mt smile panama pioneer at cleft
     with dspr
     mt "Мы сюда не отдыхать приехали! А ну, марш к камере!"
     with None
@@ -34229,7 +33786,7 @@ label epilogue_mi:
     "Я уставился на ворота лагеря."
     "Задержал взгляд на статуях пионеров и сделал несколько шагов вперёд."
     with None
-    show sl happy pioneer far at center  
+    show sl happy pioneer far at center
     with dissolve
     "Из ворот показалась Саша."
     stop music fadeout 1
@@ -34241,7 +33798,7 @@ label epilogue_mi:
     play music music_list["always_ready"] fadein 3
     mt "Ты вообще читала сценарий?"
     with None
-    show sl sad pioneer far at center 
+    show sl sad pioneer far at center
     with dspr
     sl "Ну, читала, да, но там всё так скучно же!"
     "Кричать, ругаться, биться в истерике было уже бесполезно – другую актрису тут не найдёшь."
@@ -34257,7 +33814,7 @@ label epilogue_mi:
     "Я живо представил, как главный герой изучает незнакомую местность, в его голове крутятся миллионы теорий, он в шоке, он не знает, что думать, а мозг готов взорваться, сознание уходит, и тут появляется девочка – обычная пионерка, – которая и не подозревает, что с ним произошло."
     "Она просто приветствует героя и отправляет его к вожатой…"
     with None
-    show sl smile pioneer at center 
+    show sl smile pioneer at center
     with dissolve
     play ambience ambience_camp_entrance_day fadein 3
     "Я сделал несколько шагов, и из ворот показалась Саша."
@@ -34277,7 +33834,7 @@ label epilogue_mi:
     hide sl
     with dissolve
     with None
-    show mt normal panama pioneer at center 
+    show mt normal panama pioneer at center
     with dissolve
     mt "Кажется! Но сил больше нет!"
     me "Как знаете…"
@@ -34306,85 +33863,85 @@ label epilogue_mi:
     dv "Да что вы, Саша отлично готовит!"
     "Промычала Алиса."
     with None
-    show mi dontlike pioneer at left 
+    show mi dontlike pioneer at left
     with dspr
     mi "Тебя не учили, что нехорошо говорить с набитым ртом?"
     dv "А ты вечно чем-то недовольна…"
     with None
-    show sl sad pioneer at center 
+    show sl sad pioneer at center
     with dspr
     sl "Я… Я…"
     "Саша была готова разрыдаться."
     with None
-    show mi normal pioneer at left 
+    show mi normal pioneer at left
     with dspr
     mi "Господи…{w} Да успокойся ты! Всё очень вкусно!"
     with None
-    show sl happy pioneer at center 
+    show sl happy pioneer at center
     with dspr
     sl "Ня! Маша-нян, хочешь я завтра ещё что-нибудь…"
     with None
-    show mi angry pioneer at left 
+    show mi angry pioneer at left
     with dspr
     with None
-    show sl scared pioneer at center 
+    show sl scared pioneer at center
     with dspr
     "Маша посмотрела на неё так, что без слов стало понятно, что продолжать не стоит."
     with None
-    show mi normal pioneer at left 
+    show mi normal pioneer at left
     with dspr
     mi "Так всё-таки, скажи мне честно…"
     me "Не скажу!"
     with None
-    show mi dontlike pioneer at left 
+    show mi dontlike pioneer at left
     with dspr
     mi "Но ты же даже не знаешь, что я спросить хочу!"
     me "Знаю…"
     with None
-    show mi normal pioneer at left 
+    show mi normal pioneer at left
     with dspr
     mi "И что же?"
     "Она уставилась на меня с видом победителя."
     me "Почему я придумал такой бредовый сценарий…"
     with None
-    show mi dontlike pioneer at left 
+    show mi dontlike pioneer at left
     with dspr
     mi "Тьфу!"
     with None
-    show sl laugh pioneer at center 
+    show sl laugh pioneer at center
     with dspr
     with None
-    show dv laugh pioneer at right 
+    show dv laugh pioneer at right
     with dspr
     "Алиса и Саша засмеялись."
     mi "Вас-то, я смотрю, всё устраивает!"
     with None
-    show dv smile pioneer at right 
+    show dv smile pioneer at right
     with dspr
     dv "А что, лето, природа, пляж, всё отлично!"
     mi "Могла бы в Турцию съездить, чего сюда-то припёрлась?"
     with None
-    show dv normal pioneer at right 
+    show dv normal pioneer at right
     with dspr
     "Алиса непонимающе посмотрела на Машу и углубилась в тарелку."
     with None
-    show sl happy pioneer at center 
+    show sl happy pioneer at center
     with dspr
     with None
-    show mi normal pioneer at left 
+    show mi normal pioneer at left
     with dspr
     mi "Ну?"
     "Она тыкнула меня вилкой."
     me "Не бойся вилки – бойся ложки, один удар – и череп в крошки!"
     with None
-    show mi dontlike pioneer at left 
+    show mi dontlike pioneer at left
     with dspr
     mi "Вот вы мне скажите – он вообще нормальный?"
     me "Семён-кун – няша!"
     "Саша обхватила мою руку и закивала головой."
     dv "А что такого? Организовал нам бесплатный отдых."
     with None
-    show mi normal pioneer at left 
+    show mi normal pioneer at left
     with dspr
     mi "Я не понимаю, что здесь делаю."
     me "В конце концов, тебя никто и не держит."
@@ -34393,44 +33950,44 @@ label epilogue_mi:
     me "А чем ты всё время сама занимаешься?{w} Всё других ругаешь, а до твоего появления ещё порядком по сценарию. Небось готовишься вовсю?"
     "Перебил я её."
     with None
-    show mi dontlike pioneer at left 
+    show mi dontlike pioneer at left
     with dspr
     mi "А может, и готовлюсь!"
     with None
-    show dv smile pioneer at right 
+    show dv smile pioneer at right
     with dspr
     dv "Двойные стандарты!"
     with None
-    show mi angry pioneer at left 
+    show mi angry pioneer at left
     with dspr
     mi "Тройные, блин!"
     me "Ну так всё же?"
     with None
-    show mi normal pioneer at left 
+    show mi normal pioneer at left
     with dspr
     mi "А что мне прикажешь делать?"
     me "Я – ничего. Просто интересуюсь."
     with None
-    show mi upset pioneer at left 
+    show mi upset pioneer at left
     with dspr
     mi "Книжки читаю…"
     "Неуверенно ответила она."
     me "И все – по актёрскому мастерству..."
     with None
-    show mi dontlike pioneer at left 
+    show mi dontlike pioneer at left
     with dspr
     mi "Хватит уже, а? Сидим тут, в глуши, – ни интернета, ни телефон не ловит. Вообще ничего!{w} Если бы я ещё средство от комаров не взяла…"
     sl "Его я взяла, ня!"
     with None
-    show sl scared pioneer at center 
+    show sl scared pioneer at center
     with dspr
     "Маша посмотрела на неё так, что Саша внезапно стала занимать куда меньше места, чем обычно."
     with None
-    show dv normal pioneer at right 
+    show dv normal pioneer at right
     with dspr
     dv "Не понимаю я тебя… Какой смысл всё время возмущаться… Могла бы и не ехать…"
     with None
-    show mi normal pioneer at left 
+    show mi normal pioneer at left
     with dspr
     mi "Тебя забыла спросить!"
     with None
@@ -34438,12 +33995,12 @@ label epilogue_mi:
     with dissolve
     "Маша резко встала и направилась к выходу."
     with None
-    show sl sad pioneer at center 
+    show sl sad pioneer at center
     with dspr
     sl "Маша-нян расстроилась…"
     "Сказала Саша грустно."
     with None
-    show dv smile pioneer at right 
+    show dv smile pioneer at right
     with dspr
     dv "Если она так «расстроилась» сейчас, то что будет к концу съёмок…"
     me "Пионерская резня бензопилой «Дружба», не иначе…"
@@ -34454,17 +34011,17 @@ label epilogue_mi:
     "Да, точно! Кузнечики!{w} Ведь они дико мешают спать!"
     "Вот бы была такая кнопка – выпустить отравляющий газ…"
     with None
-    show sl happy pioneer at center 
+    show sl happy pioneer at center
     with dspr
     sl "О чём задумался?"
     me "О кузнечиках!"
     with None
-    show dv surprise pioneer at right 
+    show dv surprise pioneer at right
     with dspr
     dv "А что с ними не так?"
     me "С ними всё так."
     with None
-    show sl sad pioneer at center 
+    show sl sad pioneer at center
     with dspr
     sl "Кузнечики – не ня."
     me "Почему?"
@@ -34479,19 +34036,19 @@ label epilogue_mi:
     "Всё-таки что бы там ни нашло на Машу, она всегда может поддержать любой разговор.{w} Наверное, даже о кузнечиках."
     "Я тут же представил, как она живо рассказывает всем о своей ненависти к этим исчадиям ада, которые не только имеют наглость отравлять своим присутствием и без того несовершенный мир, так ещё и стрекочут по ночам, нарушая уже её собственный внутренний покой и тонкую душевную организацию…"
     with None
-    show mt normal pioneer at left 
+    show mt normal pioneer at left
     with dissolve
     "К нашему столу подошла Ольга Дмитриевна."
     mt "Готовы к ночным съёмкам?"
     me "Ночным? Мы же даже начало не отсняли…{w} Да и вы говорили, что вроде бы на сегодня всё…"
     with None
-    show mt surprise pioneer at left 
+    show mt surprise pioneer at left
     with dspr
     mt "Надо использовать время по максимуму! А то так вообще никогда не закончим!"
     "Нельзя сказать, что я сильно устал, да и хоть какую-то заинтересованность в успехе своего проекта показать было необходимо."
     me "Хорошо. И что снимать будем?"
     with None
-    show mt normal pioneer at left 
+    show mt normal pioneer at left
     with dspr
     mt "Сцену в лесу ночью со Славей."
     sl "Нани-нани?"
@@ -34501,7 +34058,7 @@ label epilogue_mi:
     mt "В этот раз придерживайся текста!"
     sl "Хай-хай!"
     with None
-    show mt angry pioneer at left 
+    show mt angry pioneer at left
     with dspr
     mt "И перестань уже…"
     with None
@@ -34511,7 +34068,7 @@ label epilogue_mi:
     dv "А что там за сцена?"
     me "Что, не читала сценарий?"
     with None
-    show dv smile pioneer at right 
+    show dv smile pioneer at right
     with dspr
     dv "Нет конечно!"
     "Гордо сказала Алиса."
@@ -34521,18 +34078,18 @@ label epilogue_mi:
     sl "Ня-ня! Как романтично!"
     me "… и раздевается при этом!"
     with None
-    show sl surprise pioneer at center 
+    show sl surprise pioneer at center
     with dspr
     sl "Ня?"
     "Саша непонимающе посмотрела на меня."
     "Через несколько секунд к ней пришло осознание."
     with None
-    show sl scared pioneer at center 
+    show sl scared pioneer at center
     with dspr
     sl "Ра… раздевается?"
     me "Не полностью, не волнуйся."
     with None
-    show sl shy pioneer at center 
+    show sl shy pioneer at center
     with dspr
     sl "Ну, если это с тобой…"
     "Она покраснела."
@@ -34541,11 +34098,11 @@ label epilogue_mi:
     "Как по мне, так Маша куда лучше бы подошла на роль Слави, а Саша – на роль Мику."
     "Впрочем, решать режиссёру, а он у нас – Ольга Дмитриевна."
     with None
-    show dv grin pioneer at right 
+    show dv grin pioneer at right
     with dspr
     dv "А там будет {i}это{/i}?"
     with None
-    show sl surprise pioneer at center 
+    show sl surprise pioneer at center
     with dspr
     sl "Что?"
     "Саша непонимающе уставилась на Алису."
@@ -34556,7 +34113,7 @@ label epilogue_mi:
     "Алиса ехидно ухмыльнулась."
     me "Если тебе так интересно – взяла бы и прочитала сценарий уже!"
     with None
-    show dv smile pioneer at right 
+    show dv smile pioneer at right
     with dspr
     dv "А мне совсем и не интересно."
     "Алиса встала из-за стола."
@@ -34565,7 +34122,7 @@ label epilogue_mi:
     hide dv
     with dissolve
     with None
-    show sl happy pioneer at center 
+    show sl happy pioneer at center
     with dspr
     sl "Так что «это»? Что будет?"
     me "Ничего.{w} Иди готовься – солнце уже садится."
@@ -34581,12 +34138,12 @@ label epilogue_mi:
     "Я внезапно почувствовал, что мне, в принципе, уже всё равно…"
     sh "Готов?"
     with None
-    show sh normal pioneer at center 
+    show sh normal pioneer at center
     with dissolve
     "Я обернулся и увидел Шурика."
     me "Я-то чего…{w} А ты как с ночными съёмками?"
     with None
-    show sh upset pioneer at center 
+    show sh upset pioneer at center
     with dspr
     sh "Ох… Как-нибудь…"
     me "Ну ок, тогда пошли."
@@ -34602,25 +34159,25 @@ label epilogue_mi:
     "К вечеру наконец-то похолодало.{w} Даже слишком."
     "Я сидел на пеньке и кутался в лёгкую кофточку, пока остальные расставляли камеры и освещение."
     with None
-    show mi dontlike pioneer at cright 
+    show mi dontlike pioneer at cright
     with dissolve
     mi "И почему я этим должна заниматься? Меня ведь даже в этой сцене нет!"
     "Маша натягивала между деревьями светоотражающее полотно."
     with None
-    show mt normal pioneer at cleft 
+    show mt normal pioneer at cleft
     with dissolve
     mt "А кому ещё? У нас и так нехватка кадров!"
     with None
-    show mi grin pioneer at cright 
+    show mi grin pioneer at cright
     with dspr
     mi "Вот и взяли бы больше народу! В съёмках такого шедевра любой бы согласился поучаствовать."
     with None
-    show mt angry pioneer at cleft 
+    show mt angry pioneer at cleft
     with dspr
     mt "Ты чем-то недовольна?"
     "Ольга Дмитриевна грозно посмотрела на неё."
     with None
-    show mi normal pioneer at cright 
+    show mi normal pioneer at cright
     with dspr
     mi "Н… нет, всё в порядке…"
     "Пожалуй, режиссёр была единственным человеком, с которым Маша спорить не решалась."
@@ -34632,7 +34189,7 @@ label epilogue_mi:
     window hide
     with fade
     with None
-    show sh normal pioneer at center 
+    show sh normal pioneer at center
     with dissolve
     window show
     "Ко мне подсел Шурик."
@@ -34640,7 +34197,7 @@ label epilogue_mi:
     me "Не знаю… Не от меня зависит…"
     "Я кивнул в сторону Саши, которая усердно прыгала на берегу озера, входя в роль."
     with None
-    show sh upset pioneer at center 
+    show sh upset pioneer at center
     with dspr
     sh "Понятно…"
     with None
@@ -34668,47 +34225,47 @@ label epilogue_mi:
     window show
     "Вскоре Саша скрылась в лесу, а я некоторое время постоял на берегу и направился за ней."
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     mt "Стоп! Снято!"
     "Саша выбежала из-за деревьев."
     with None
-    show sl happy pioneer at right 
+    show sl happy pioneer at right
     with dissolve
     sl "Ну? Ну? Как?"
     with None
-    show mt smile pioneer at center 
+    show mt smile pioneer at center
     with dspr
     mt "Отлично! Превосходно! Вот всегда бы так – с первого дубля! И закончили бы тогда всё вовремя!"
     me "Вы так говорите, как будто мы не закончим всё вовремя."
     "Скептически заметил я."
     mt "Закончим, не сомневайся!"
     with None
-    show mi normal pioneer at left 
+    show mi normal pioneer at left
     with dissolve
     mi "И что, это всё?"
     "Рядом со мной непонятно откуда возникла Маша."
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "А что ты ещё хотела?"
     with None
-    show mi dontlike pioneer at left 
+    show mi dontlike pioneer at left
     with dspr
     mi "Почти три часа подготовки ради минуты съёмки?"
     with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dspr
     mt "Это кино! Кино! Искусство! Тут можно годами ловить нужный кадр! Десятилетиями снимать картину на пять минут!"
     "Ольга Дмитриевна смешно размахивала руками."
     with None
-    show mi normal pioneer at left 
+    show mi normal pioneer at left
     with dspr
     mi "Ладно…"
     "Устало сказала Маша."
     mi "Это всё?"
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "На сегодня – да."
     mi "Тогда всем спокойной ночи!"
@@ -34728,31 +34285,31 @@ label epilogue_mi:
     me "Эй!"
     "Я догнал её только на площади."
     with None
-    show mi upset pioneer at center 
+    show mi upset pioneer at center
     with dissolve
     mi "Ну что тебе ещё?"
     "На лице Маши читалась крайняя усталость."
     me "Может… хочешь пройтись перед сном?"
     with None
-    show mi surprise pioneer at center 
+    show mi surprise pioneer at center
     with dspr
     mi "С чего это вдруг?"
     "Она непонимающе посмотрела на меня."
     me "Ну просто…{w} рано ведь ещё! В городе в такое время всё равно бы никогда спать не легла."
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dspr
     mi "В городе…{w} Тут не город, как видишь. Тут сутки за трое."
     me "Да брось ты! Время детское!"
     with None
-    show mi smile pioneer at center 
+    show mi smile pioneer at center
     with dspr
     mi "Ладно уж…"
     "Она посмотрела на меня и улыбнулась."
     mi "Только недолго!"
     me "Так точно!"
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dspr
     mi "И зачем ты его везде с собой таскаешь?"
     "Она показала на пачку бумаги, которую я держал в руках."
@@ -34765,7 +34322,7 @@ label epilogue_mi:
     with dissolve
     play ambience ambience_lake_shore_night fadein 3
     with None
-    show mi smile pioneer at center 
+    show mi smile pioneer at center
     with dissolve
     window show
     "Вскоре мы вышли на пляж."
@@ -34779,38 +34336,38 @@ label epilogue_mi:
     me "Значит, и ты умеешь веселиться!"
     "Крикнул я."
     with None
-    show mi upset swim close at center 
+    show mi upset swim close at center
     with dissolve
     "Она обиженно посмотрела на меня, подошла и села рядом."
     mi "Вы тут прямо последнее время все считаете, что я карга старая."
     me "Нет конечно…{w} Но брюзжишь ты здорово."
     with None
-    show mi dontlike swim close at center 
+    show mi dontlike swim close at center
     with dspr
     mi "Наверное, не просто так!"
     me "Не знаю… Я особых причин не вижу."
     with None
-    show mi upset swim at center 
+    show mi upset swim at center
     with dissolve
     "Маша встала и отошла от меня на метр."
     me "Да ладно тебе!"
     with None
-    show mi sad swim at center 
+    show mi sad swim at center
     with dspr
     mi "Ничего не ладно! Просто нельзя быть таким... таким..."
     me "Каким?"
     with None
-    show mi upset swim close at center 
+    show mi upset swim close at center
     with dissolve
     mi "Вечно ты ничего не видишь…"
     "Она опустила голову на колени и тихо добавила:"
     with None
-    show mi upset swim close at center 
+    show mi upset swim close at center
     with dspr
     mi "И не понимаешь…"
     me "Вот такой вот я – чёрствый, глупый и недогадливый."
     with None
-    show mi smile swim close at center 
+    show mi smile swim close at center
     with dspr
     "Маша еле слышно рассмеялась."
     mi "Да, именно такой…"
@@ -34907,7 +34464,7 @@ label epilogue_mi:
         "Я не ожидал от нее такого напора, но решил не отставать и спустился рукой ниже."
         window hide
     else:
-        pause (5)
+        pause 5
     if persistent.hentai:
         if persistent.cg_set == "new":
             scene cg epilogue_mi_hentai_2_new
@@ -34927,7 +34484,7 @@ label epilogue_mi:
         "Сейчас это было не столь важно, куда важнее – слиться воедино, стать как будто одним целым, достичь апогея соития!"
         window hide
     else:
-        pause (5)
+        pause 5
     if persistent.hentai:
         if persistent.cg_set == "new":
             scene cg epilogue_mi_hentai_3_new
@@ -34943,7 +34500,7 @@ label epilogue_mi:
         "Я уж думал, что она, как обычно, обидится, но Маша улыбнулась, подцепила немного пальцем, и облизала его."
         window hide
     else:
-        pause (5)
+        pause 5
     with fade
     window show
     "..."
@@ -34954,18 +34511,18 @@ label epilogue_mi:
     play ambience ambience_lake_shore_night fadein 3
     me "Ладно, пора спать.{w} Завтра тяжёлый день – Ольга Дмитриевна точно нас загоняет."
     with None
-    show mi smile pioneer close at center 
+    show mi smile pioneer close at center
     with dissolve
     "Я медленно застёгивал рубашку и смотрел на одевающуюся Машу."
     mi "Я не хочу одна спать…"
     "Тихо сказала она."
     me "Что, кузнечиков боишься?"
     with None
-    show mi normal pioneer close at center 
+    show mi normal pioneer close at center
     with dspr
     mi "Не кузнечиков, а сверчков! И не боюсь я их…"
     with None
-    show mi shy pioneer close at center 
+    show mi shy pioneer close at center
     with dspr
     "Она отвела взгляд и немного покраснела."
     mi "Просто… ну… непривычно."
@@ -34973,17 +34530,17 @@ label epilogue_mi:
     "Я подумал, что, в общем, ничего плохого в этом не будет.{w} Тем более после всего случившегося…"
     me "Ладно…"
     with None
-    show mi smile pioneer close at center 
+    show mi smile pioneer close at center
     with dspr
     mi "А где?"
     "Маша вопрошающе посмотрела на меня."
     me "Есть ещё пара домиков незанятых. Для будущих сцен.{w} Ну вот, воспользуемся реквизитом, так сказать."
     with None
-    show mi happy pioneer close at center 
+    show mi happy pioneer close at center
     with dspr
     mi "Хорошо."
     with None
-    show mi happy pioneer at center 
+    show mi happy pioneer at center
     with dissolve
     "Она улыбнулась, встала, взяла меня под руку, и мы медленно направились в сторону площади…"
     stop ambience fadeout 2
@@ -34991,7 +34548,7 @@ label epilogue_mi:
     window hide
     scene black
     with fade3
-    pause (2)
+    pause 2
     $ day_time()
     $ persistent.sprite_time = "day"
     scene bg int_house_of_un_day
@@ -35020,7 +34577,7 @@ label epilogue_mi:
     "И ведь круглые сутки, круглые сутки…"
     "Продирая глаза, я медленно шёл по дорожке и не заметил, как на меня кто-то налетел."
     with None
-    show el smile pioneer at center 
+    show el smile pioneer at center
     with dissolve
     "Это был Роутер."
     el "Привет, Семён!"
@@ -35041,28 +34598,28 @@ label epilogue_mi:
     scene bg int_house_of_mt_day
     with dissolve
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     window show
     "Внутри была Ольга Дмитриевна.{w} Она пристально посмотрела на меня."
     mt "Изволишь объясниться?"
     me "А что такого?"
     with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dspr
     mt "Где ты всю ночь пропадал?!"
     "Её вид был чересчур грозным."
     me "С Машей, а что?"
     "В конце концов, все и так всё поняли, так что скрывать смысла никакого."
     with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dspr
     mt "С кем?"
     "Ольга Дмитриевна удивлённо посмотрела на меня."
     me "С Машей."
     "Спокойно повторил я."
     with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dspr
     mt "У нас тут нет никаких Маш."
     me "Теперь уже я не понимаю…"
@@ -35075,7 +34632,7 @@ label epilogue_mi:
     "Однако моего рюкзака там не оказалось."
     me "А вы мой рюкзак не брали?"
     with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dspr
     mt "Рюкзак?"
     "Она удивлённо посмотрела на меня."
@@ -35084,7 +34641,7 @@ label epilogue_mi:
     me "Что?"
     "Я расплылся в глупой улыбке."
     with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dspr
     mt "И вообще, я ещё не закончила!"
     me "Ольга Дмитриевна, я понимаю, что у вас с утра прекрасное настроение и большое желание пошутить, но…"
@@ -35108,13 +34665,13 @@ label epilogue_mi:
     $ persistent.sprite_time = "day"
     scene bg int_house_of_un_day
     with dissolve
-    pause(1)
+    pause 1
     window show
     "Я сильно толкнул дверь домика и вбежал внутрь."
     me "Маш, они тут знаешь, что придумали…"
     stop music fadeout 3
     with None
-    show mi scared pioneer at center 
+    show mi scared pioneer at center
     with dissolve
     "Маша сидела в углу кровати с совершенно белым лицом, обхватив ноги руками."
     me "Что случилось?"
@@ -35135,7 +34692,7 @@ label epilogue_mi:
     me "Глупости! Не может такого быть…"
     "Хотя, вспоминая разговор с режиссёром…"
     with None
-    show mi cry pioneer close at center  
+    show mi cry pioneer close at center
     with dissolve
     mi "Нет! Нет! Точно!"
     "Она кинулась ко мне в объятия."
@@ -35150,13 +34707,13 @@ label epilogue_mi:
     me "Ладно, давай разберёмся. Поговорим с кем-нибудь.{w} Например, с Роутером – он точно не первый шутник на деревне."
     "По правде говоря, мне уже и самому было интересно, что же это за шутки такие, которые могут довести спокойную и готовую ко всему Машу до истерики."
     with None
-    show mi sad pioneer at center 
+    show mi sad pioneer at center
     with dissolve
     mi "Ладно…"
     "Она вытерла слёзы и встала с кровати."
     me "Успокоилась?"
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dspr
     mi "Как тут успокоишься…"
     "Маша с трудом улыбнулась."
@@ -35170,7 +34727,7 @@ label epilogue_mi:
     window show
     "Мы вышли из домика."
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dissolve
     mi "И куда?"
     me "Ольга Дмитриевна говорила про какую-то линейку. Давай на площадь – они наверняка там."
@@ -35187,24 +34744,24 @@ label epilogue_mi:
     "Ольга Дмитриевна пыталась построить всех в ряд."
     "Я не стал медлить и подошёл к ней."
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     me "Ольга Дмитриевна, знаете ли…"
     with None
-    show mt smile pioneer at center 
+    show mt smile pioneer at center
     with dspr
     mt "А, вот и Мику нашлась!"
     "Перебила она меня."
     mt "Отлично! Поговорим после линейки."
     me "Какой линейки ещё…{w} Может, хватит дурью маяться. Не смешно уже, ей-богу!"
     with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dspr
     "Она непонимающе посмотрела на меня."
     mt "Ты о чём?"
     me "О том!"
     with None
-    show mi normal pioneer at left 
+    show mi normal pioneer at left
     with dissolve
     "Из-за спины робко выглянула Маша."
     mi "Ольга Дмитриевна, ведь правда уже не смешно…"
@@ -35223,7 +34780,7 @@ label epilogue_mi:
     with dissolve
     with None
     show mi surprise pioneer at left :
-        linear 1.0 xalign 0.5 
+        linear 1.0 xalign 0.5
     with dspr
     "Я схватил Машу за руку и направился прочь с площади."
     mi "Эй, подожди! Ты куда?"
@@ -35235,7 +34792,7 @@ label epilogue_mi:
     scene bg ext_clubs_day
     with dissolve
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dissolve
     window show
     "Вскоре мы вышли к зданию кружков."
@@ -35257,19 +34814,19 @@ label epilogue_mi:
     with dissolve
     me "Здорово."
     with None
-    show el smile pioneer at cleft 
+    show el smile pioneer at cleft
     with dspr
     el "О, Семён! И не один! Привет! Пришли в наш кружок записываться?"
     "Похоже, и с ним было что-то не так."
     me "А почему не на линейке?"
     "Ехидно спросил я."
     with None
-    show el grin pioneer at cleft 
+    show el grin pioneer at cleft
     with dspr
     el "Эээ…{w} Ну, тут кое-что доделать осталось."
     me "Ладно, расскажи лучше, что здесь происходит."
     with None
-    show el surprise pioneer at cleft 
+    show el surprise pioneer at cleft
     with dspr
     el "А что здесь происходит?"
     "Он, так же, как и Ольга Дмитриевна, непонимающе уставился на меня."
@@ -35288,11 +34845,11 @@ label epilogue_mi:
     "Вроде бы и ничего страшного, но меня же не Семён зовут!"
     "Я в ужасе сделал шаг назад и налетел на Машу."
     with None
-    show mi shocked pioneer at cright 
+    show mi shocked pioneer at cright
     with dspr
     "Она вскрикнула."
     with None
-    show el normal pioneer at cleft 
+    show el normal pioneer at cleft
     with dspr
     el "А ты, Мику…"
     stop ambience fadeout 2
@@ -35311,20 +34868,20 @@ label epilogue_mi:
     window show
     "Остановиться смог лишь на автобусной остановке."
     with None
-    show mi shocked pioneer at center 
+    show mi shocked pioneer at center
     with dissolve
     "Обернувшись, увидел Машу, которая еле дышала."
     stop music fadeout 3
     "Я отпустил её руку и сел на бордюр."
     me "По ходу, мы с тобой попали…"
     with None
-    show mi surprise pioneer at center 
+    show mi surprise pioneer at center
     with dspr
     mi "..."
     me "Ты понимаешь, что все здесь себя ведут так, как написано у меня в сценарии!"
     "Она некоторое время ошалело смотрела на меня, а потом сказала:"
     with None
-    show mi sad pioneer at center 
+    show mi sad pioneer at center
     with dspr
     mi "Да, очень похоже…{w} Но что… почему?"
     me "Откуда же мне знать…"
@@ -35339,7 +34896,7 @@ label epilogue_mi:
     "Я вздохнул и резким движением встал."
     me "Пойдём поедим хотя бы.{w} Думаю, при любых раскладах тут кормят."
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dspr
     "Маша еле заметно улыбнулась и направилась за мной."
     stop ambience fadeout 2
@@ -35355,13 +34912,13 @@ label epilogue_mi:
     "Неужели приехали дети? В заброшенный лагерь?"
     "Нет, тут что-то явно нечисто…"
     with None
-    show mi normal pioneer at cleft 
+    show mi normal pioneer at cleft
     with dissolve
     "Однако еду выдавали, мы с Машей взяли по подносу и сели подальше от остальных."
     "Я сосредоточенно ел, стараясь не вынимать головы из тарелки и не смотреть на окружающих."
     "Однако это меня спасло не сильно – через пару минут к нашему столику кто-то подошёл."
     with None
-    show un shy pioneer at cright 
+    show un shy pioneer at cright
     with dissolve
     "Я с трудом поднял глаза и увидел Лену."
     un "Можно?.."
@@ -35369,18 +34926,18 @@ label epilogue_mi:
     mi "Да, пожалуйста!"
     "Пока я думал, что ответить, Маша отодвинула стул рядом с собой и жестом пригласила Лену сесть."
     with None
-    show un normal pioneer at cright 
+    show un normal pioneer at cright
     with dspr
     un "Ты утром сама не своя была..."
     "Встревоженно начала она."
     with None
-    show mi shocked pioneer at cleft 
+    show mi shocked pioneer at cleft
     with dspr
     mi "Ну… Не с той ноги встала…"
     "Маша нервно засмеялась."
     "Лена посмотрела на меня и тут же отвела взгляд."
     with None
-    show mi normal pioneer at cleft 
+    show mi normal pioneer at cleft
     with dspr
     me "Как отдых проходит?"
     "Начал я издалека."
@@ -35391,7 +34948,7 @@ label epilogue_mi:
     un "А вы ничего про Славю не слышали?"
     me "А что такое?"
     with None
-    show un shy pioneer at cright 
+    show un shy pioneer at cright
     with dspr
     un "Ну, её со вчерашнего дня никто не видел…{w} Сначала вы пропали… Но вы нашлись… А вот Славя…"
     "Она делала длинные паузы после каждого предложения."
@@ -35399,7 +34956,7 @@ label epilogue_mi:
     me "Нет."
     mi "Не видели."
     with None
-    show un smile pioneer at cright 
+    show un smile pioneer at cright
     with dspr
     un "Ну, я надеюсь, найдётся."
     me "Да, и мы надеемся."
@@ -35407,7 +34964,7 @@ label epilogue_mi:
     "Я уже заканчивал доедать резиновую овсянку, как вдруг в столовую, размахивая руками, вбежала Ольга Дмитриевна."
     "Она ошалело оглядывалась по сторонам и наконец, посмотрев на меня, быстрыми шагами направилась к нашему столику."
     with None
-    show mt rage pioneer at center 
+    show mt rage pioneer at center
     with dissolve
     mt "Ах, вот вы где! Пойдём-ка поговорим!"
     "Она тихо шипела прямо мне в лицо."
@@ -35427,12 +34984,12 @@ label epilogue_mi:
     me "Какая разница…"
     "Я пожал плечами."
     with None
-    show mt rage pioneer at cright 
+    show mt rage pioneer at cright
     with dspr
     mt "Такая! Вы знаете, что пропала Славя?"
     me "Слышали только что от Лены."
     with None
-    show mt scared pioneer at cright 
+    show mt scared pioneer at cright
     with dspr
     mt "Так вот! Я отправилась её искать и…{w} нашла!"
     "Похоже, она пыталась сдержать слёзы."
@@ -35444,7 +35001,7 @@ label epilogue_mi:
     "Тихо сказала она и направилась в сторону леса."
     "Я посмотрел на Машу."
     with None
-    show mi scared pioneer at cleft 
+    show mi scared pioneer at cleft
     with dspr
     mi "Может, не надо?"
     me "Да что такого-то?"
@@ -35460,7 +35017,7 @@ label epilogue_mi:
     window show
     "Вскоре мы вышли на небольшую полянку."
     with None
-    show mt scared pioneer at center 
+    show mt scared pioneer at center
     with dissolve
     mt "Там…"
     "Ольга Дмитриевна показала в сторону дерева."
@@ -35497,7 +35054,7 @@ label epilogue_mi:
     "Сейчас было уже не столь важно, что здесь творится – глупые шутки или что похлеще – убили человека!"
     "Человека, которого мы знали.{w} Славю, Сашу – неважно!"
     with None
-    show mt sad pioneer at cright 
+    show mt sad pioneer at cright
     with dspr
     mt "Ну, нет…"
     "Замялась она."
@@ -35511,7 +35068,7 @@ label epilogue_mi:
     "Её рыдания стали тише."
     mt "В общем, надо звонить в милицию."
     with None
-    show mt normal pioneer at cright 
+    show mt normal pioneer at cright
     with dspr
     me "Конечно надо! Пойдёмте!"
     stop music fadeout 3
@@ -35543,7 +35100,7 @@ label epilogue_mi:
     "Точно, надо посмотреть, как она там!"
     "Я уже собирался встать, как вдруг почувствовал чьё-то присутствие."
     with None
-    show un shy pioneer at center 
+    show un shy pioneer at center
     with dissolve
     "Я обернулся и увидел Лену."
     un "Ой, я не хотела тебя напугать…"
@@ -35552,26 +35109,26 @@ label epilogue_mi:
     me "Да, садись, пожалуйста."
     "Она аккуратным движением разгладила юбку, села, и уставилась на заходящее солнце."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "Как всё это грустно…"
     me "Да, весёлого мало."
     un "Как думаешь, кто это мог сделать?"
     me "Откуда же мне знать? Точно – не я."
     with None
-    show un shocked pioneer at center 
+    show un shocked pioneer at center
     with dspr
     un "Нет-нет! Я тебя ни в коем случае не подозреваю!"
     "Она смешно замахала руками."
     me "И на том спасибо."
     "Грустно ухмыльнулся я."
     with None
-    show un sad pioneer at center 
+    show un sad pioneer at center
     with dspr
     un "Но это сделал очень жестокий, очень злой человек."
     me "Ну, необязательно…"
     with None
-    show un surprise pioneer at center 
+    show un surprise pioneer at center
     with dspr
     "Лена непонимающе посмотрела на меня."
     me "Может быть, разовое помутнение. Маньяки же в обычной жизни – милейшие люди."
@@ -35580,14 +35137,14 @@ label epilogue_mi:
     un "Что это мог сделать любой из нас?.."
     me "Ну, я не утверждаю, конечно… Но круг подозреваемых достаточно широк."
     with None
-    show un sad pioneer at center 
+    show un sad pioneer at center
     with dspr
     un "Нет… Не мог это сделать никто из ребят… Не мог…"
     me "В любом случае в этом разбираться милиции…"
     "Мы ещё некоторое время сидели молча."
     "Я уже собирался уходить, как вдруг Лена шёпотом сказала:"
     with None
-    show un evil_smile pioneer at center 
+    show un evil_smile pioneer at center
     with dspr
     un "А ты бы мог…"
     me "Что?"
@@ -35608,13 +35165,13 @@ label epilogue_mi:
     un "Но ты же сам говорил, что стоит подозревать всех."
     me "Я не говорил, что надо «подозревать»! Я имел в виду, что мы не знаем, кто преступник. Пока не знаем…"
     with None
-    show un laugh pioneer at center 
+    show un laugh pioneer at center
     with dspr
     un "Понятно. Надеюсь, я не стану следующей жертвой!"
     "Лена сказала это громко и рассмеялась."
     "Так, что у меня мурашки побежали по коже."
     with None
-    show un smile3 pioneer at center 
+    show un smile3 pioneer at center
     with dspr
     un "Ладно, мне пора."
     with None
@@ -35643,7 +35200,7 @@ label epilogue_mi:
     "Чёрт! Я совсем запутался, и такие рассуждение меня ни к чему не приведут!"
     window hide
     play sound sfx_door_squeak_light
-    pause(1)
+    pause 1
     window show
     "Еле слышно скрипнула дверь."
     "Я насторожился, приподнялся на локтях и посмотрел в темноту."
@@ -35659,7 +35216,7 @@ label epilogue_mi:
     "Я отодвинул шкаф, прикинул, где конкретно находится задняя стенка ящика, и сильно, но в то же время аккуратно, чтобы не будить Машу, ударил туда ногой."
     window hide
     play sound sfx_break_cupboard
-    pause(1)
+    pause 1
     window show
     "Фанера треснула и из ящичка на пол посыпались какие-то предметы."
     "Нижнее бельё...{w} Ещё нижнее бельё...{w} Спички."
@@ -35676,19 +35233,19 @@ label epilogue_mi:
     "Наверное, уж огнестрельное оружие здесь достать негде…{w} Хотя…"
     window hide
     play sound sfx_open_door_squeak_2
-    pause(1)
+    pause 1
     window show
     "Дверь скрипнула ещё раз и слегка приоткрылась."
     window hide
     play sound sfx_open_door_strong
-    pause(1)
+    pause 1
     window show
     "Я на секунду зажмурился и что есть силы рванул её на себя."
     window hide
     play sound sfx_bodyfall_1
-    pause(1)
+    pause 1
     with None
-    show dv shocked pioneer at center 
+    show dv shocked pioneer at center
     with dissolve
     window show
     "Послышался приглушенный вскрик, и на пороге растянулась Алиса."
@@ -35697,7 +35254,7 @@ label epilogue_mi:
     me "Нельзя так людей пугать – можно же и заикой остаться!"
     "Она встала, медленно отряхнулась и виновато посмотрела на меня."
     with None
-    show dv guilty pioneer at center 
+    show dv guilty pioneer at center
     with dspr
     dv "Прости…"
     me "Да ладно, ничего. Просто опасно одной ночью ходить по лагерю – тут же такое творится…"
@@ -35705,22 +35262,22 @@ label epilogue_mi:
     "Всё же «творится» – это процесс.{w} Как будто что-нибудь ещё должно произойти..."
     me "То есть случилось…"
     show dv sad pioneer at center:
-        linear 0.05 xalign 0.495 
-        linear 0.05 xalign 0.5 
-        linear 0.05 xalign 0.515 
-        linear 0.05 xalign 0.5 
-        pause 2.0 
+        linear 0.05 xalign 0.495
+        linear 0.05 xalign 0.5
+        linear 0.05 xalign 0.515
+        linear 0.05 xalign 0.5
+        pause 2.0
         repeat
     with dspr
     dv "Я поэтому и пришла…"
     "Алиса смотрела себе под ноги и еле заметно дрожала."
     dv "Уже поздно, а Ульянка так и не вернулась."
     show dv cry pioneer at center:
-        linear 0.05 xalign 0.495 
-        linear 0.05 xalign 0.5 
-        linear 0.05 xalign 0.515 
-        linear 0.05 xalign 0.5 
-        pause 2.0 
+        linear 0.05 xalign 0.495
+        linear 0.05 xalign 0.5
+        linear 0.05 xalign 0.515
+        linear 0.05 xalign 0.5
+        pause 2.0
         repeat
     with dspr
     "Она подняла на меня глаза – в них стояли слёзы."
@@ -35741,7 +35298,7 @@ label epilogue_mi:
     with dissolve
     play ambience ambience_camp_center_night fadein 3
     with None
-    show dv sad pioneer at center 
+    show dv sad pioneer at center
     with dissolve
     window show
     "Когда мы вышли, я сел на ступеньки и задумался."
@@ -35752,7 +35309,7 @@ label epilogue_mi:
     me "И Ольга Дмитриевна. Ты её видела?"
     dv "Нет… А что, и она тоже?.."
     with None
-    show dv cry pioneer at center 
+    show dv cry pioneer at center
     with dspr
     "Алиса расплакалась."
     me "Пока мы ничего не знаем, но…"
@@ -35769,11 +35326,11 @@ label epilogue_mi:
     "Конечно, всех их не перебить…"
     "Да что там, наверняка этих тварей больше, чем людей…"
     show dv scared pioneer close at center:
-        linear 0.05 xalign 0.495 
-        linear 0.05 xalign 0.5 
-        linear 0.05 xalign 0.515 
-        linear 0.05 xalign 0.5 
-        pause 2.0 
+        linear 0.05 xalign 0.495
+        linear 0.05 xalign 0.5
+        linear 0.05 xalign 0.515
+        linear 0.05 xalign 0.5
+        pause 2.0
         repeat
     with dissolve
     dv "Слышишь?.."
@@ -35787,12 +35344,12 @@ label epilogue_mi:
     "Хотя я и был в этом совершенно не уверен."
     "Руки сами стали рыскать в поисках чего-нибудь пригодного для самообороны."
     with None
-    show dv shocked pioneer close at center 
+    show dv shocked pioneer close at center
     with dspr
     dv "Эй!"
     me "Извини…"
     with None
-    show dv sad pioneer close at center 
+    show dv sad pioneer close at center
     with dspr
     "Вскоре под скамейкой я нашёл обломок водопроводной трубы."
     "Не бог весть что, конечно, – слишком толстая и неудобная, но всё же лучше, чем голыми руками."
@@ -35807,13 +35364,13 @@ label epilogue_mi:
     "Вскоре силуэт незнакомца стал чётче.{w} Небольшого роста, странная причёска, юбка…"
     stop sound_loop fadeout 1
     with None
-    show un scared pioneer far at center 
+    show un scared pioneer far at center
     with dissolve
     "Так это же Лена!"
     "Я опустил трубу."
     me "Ты что тут так поздно делаешь?"
     with None
-    show un cry pioneer at center 
+    show un cry pioneer at center
     with dissolve
     un "Я… я…"
     "Лицо Лены было всё заплакано."
@@ -35880,19 +35437,19 @@ label epilogue_mi:
     el "Нигде не горит свет, тишина…"
     me "Ладно, не надо атмосферу нагнетать! Без тебя тошно!"
     with None
-    show el smile pioneer at center 
+    show el smile pioneer at center
     with dspr
     el "А что? Я ничего…"
     "Он загадочно улыбнулся, отчего мне стало не по себе."
     me "Ладно, я обойду лагерь, а вы оставайтесь здесь!"
     with None
-    show un surprise pioneer at left 
+    show un surprise pioneer at left
     with dspr
     un "Один?"
     "Да, пожалуй, не лучшая идея…{w} Надо сначала думать, а потом говорить."
     me "Ну…"
     with None
-    show dv normal pioneer at right 
+    show dv normal pioneer at right
     with dspr
     dv "Я пойду с тобой!"
     me "Ладно, тогда вы оставайтесь тут! И не забывайте, что в домике Ма… Мику спит."
@@ -35913,13 +35470,13 @@ label epilogue_mi:
     "Я с трудом волочил за собой обломок трубы."
     "Вначале он казался таким лёгким, но, поносив его некоторое время, я понял, что и от мешка пуха можно устать."
     with None
-    show dv normal pioneer at center 
+    show dv normal pioneer at center
     with dissolve
     dv "Да где же они все…"
     "Алиса казалась более-менее спокойной.{w} Ужас первых минут, когда мы проходили один пустой домик за другим, похоже, отступил."
     me "Хотя бы можем быть уверены, что с ними… не случилось то же самое, что со Славей!"
     with None
-    show dv surprise pioneer at center 
+    show dv surprise pioneer at center
     with dspr
     dv "Почему?"
     me "Ну, сама посуди… А тела?"
@@ -35928,7 +35485,7 @@ label epilogue_mi:
     me "Исчезли?.."
     "Не очень правдоподобное объяснение…{w} Хотя за последние сутки со мной вообще ничего правдоподобного не происходило."
     with None
-    show dv sad pioneer at center 
+    show dv sad pioneer at center
     with dspr
     dv "Не могли же они вот просто так взять и…"
     me "Сейчас от нас ничего не зависит. В любом случае утро вечера мудренее!"
@@ -35940,7 +35497,7 @@ label epilogue_mi:
     "Не успели мы сделать и пары шагов, как где-то за спиной послышался шорох кустов."
     "Я резко обернулся и посмотрел в ту сторону."
     with None
-    show dv scared pioneer at center 
+    show dv scared pioneer at center
     with dspr
     "Алиса больно вцепилась в мою руку, а я крепче сжал трубу."
     dv "Кто… там?.."
@@ -35966,7 +35523,7 @@ label epilogue_mi:
     scene bg ext_house_of_mt_night_without_light
     with dissolve
     with None
-    show dv scared pioneer at center 
+    show dv scared pioneer at center
     with dissolve
     window show
     "Через минуту мы подошли к домику Ольги Дмитриевны."
@@ -35978,13 +35535,13 @@ label epilogue_mi:
     me "Никого."
     un "Как это… никого?"
     with None
-    show dv cry pioneer at center 
+    show dv cry pioneer at center
     with dspr
     dv "Все исчезли…"
     "Сквозь слёзы сказала Алиса."
     play sound sfx_drop_pipe
     with None
-    show un cry pioneer at left 
+    show un cry pioneer at left
     with dspr
     "Девочки бросились в объятия друг друга, а я сел рядом с Роутером и наконец-то бросил ненавистную трубу на землю."
     el "Вот так просто?"
@@ -36000,14 +35557,14 @@ label epilogue_mi:
     el "И со Славей? Это тоже такой розыгрыш?"
     me "Нет, её определённо кто-то убил."
     with None
-    show el normal pioneer at right 
+    show el normal pioneer at right
     with dspr
     el "Кто?"
     "Он пристально посмотрел на меня."
     me "Не знаю! Может, ты!"
     "Я начал заводиться."
     with None
-    show el angry pioneer at right 
+    show el angry pioneer at right
     with dspr
     el "Может, ты!"
     me "Уж точно не я."
@@ -36024,18 +35581,18 @@ label epilogue_mi:
     me "Не хуже твоего!"
     "Не знаю, сколько бы ещё мы могли так спорить, если бы в разговор не вмешалась Лена."
     with None
-    show un sad pioneer at left 
+    show un sad pioneer at left
     with dspr
     un "Мальчики, хватит…"
     me "Ладно, извини…"
     with None
-    show el upset pioneer at right 
+    show el upset pioneer at right
     with dspr
     el "Да…"
     "В конце концов, сейчас действительно не время для подобного."
     me "В общем, нам стоит держаться вместе…"
     with None
-    show dv sad pioneer at center 
+    show dv sad pioneer at center
     with dspr
     dv "Это поможет нам не исчезнуть?.."
     "Робко спросила Алиса."
@@ -36055,22 +35612,22 @@ label epilogue_mi:
     window show
     mi "А? Что такое?.."
     with None
-    show mi sad pioneer at center 
+    show mi sad pioneer at center
     with dissolve
     "Похоже, мы разбудили Машу."
     me "Ничего, спи…"
     "Но она уже села на кровати и непонимающе смотрела на собравшихся."
     with None
-    show el upset pioneer at left 
+    show el upset pioneer at left
     with dissolve
     el "Понимаешь, тут…"
     with None
-    show un cry pioneer at right 
+    show un cry pioneer at right
     with dissolve
     un "Они все исчезли! Пропали! Их больше нет!"
     "Лена в слезах бросилась на шею Маше."
     with None
-    show mi shocked pioneer at center 
+    show mi shocked pioneer at center
     with dspr
     mi "Что? Что случилось-то? Можешь внятно объяснить?"
     me "В общем…"
@@ -36079,12 +35636,12 @@ label epilogue_mi:
     el "То есть все присутствующие в этой комнате!"
     me "Спасибо, капитан! Будешь первым дежурить!"
     with None
-    show el shocked pioneer at left 
+    show el shocked pioneer at left
     with dspr
     el "Что?"
     me "Ничего! Или ты думаешь, безопасно всем сразу спать?"
     with None
-    show el upset pioneer at left 
+    show el upset pioneer at left
     with dspr
     el "Ну, нет… но…"
     me "Вот и всё!"
@@ -36114,7 +35671,7 @@ label epilogue_mi:
     window show
     "Очнулся я оттого, что кто-то упорно пытался вывести меня из состояния равновесия."
     with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dissolve
     "Скорее физического, чем морального – Роутер навис надо мной и тряс за плечо."
     me "Что?"
@@ -36123,7 +35680,7 @@ label epilogue_mi:
     el "Примерно час."
     me "Час? Ну и сиди ещё…"
     with None
-    show el upset pioneer at center 
+    show el upset pioneer at center
     with dspr
     el "Я уже отключаюсь…"
     "Да уж, ему бы источник бесперебойного питания!{w} Впрочем, мне бы он тоже не помешал…"
@@ -36150,7 +35707,7 @@ label epilogue_mi:
     "Но ведь так хочется…{w} Хотя бы пять минуточек…"
     window hide
     show blinking
-    pause(1)
+    pause 1
     window show
     "Глаза сами собой открывались и закрывались, сознание то улетало, то возвращалось."
     "За дверью послышались какие-то шорохи.{w} Нет, не шорохи – опять эти проклятые кузнечики!"
@@ -36191,43 +35748,43 @@ label epilogue_mi:
     "Ладно… Значит, пронесло."
     "Я растолкал ребят."
     with None
-    show el normal pioneer at fleft 
+    show el normal pioneer at fleft
     with dissolve
     el "Уже?.."
     me "Ты только и дрыхнешь! Пока я всю ночь… сидел здесь…"
     "Конечно, это было неправдой, но для их же спокойствия не стоит говорить, что всю ночь я во сне спасался от кузнечиков."
     with None
-    show el upset pioneer at fleft 
+    show el upset pioneer at fleft
     with dspr
     el "Извини…"
     "Роутер повесил голову."
     me "Да ничего…"
     with None
-    show mi smile pioneer at cleft 
+    show mi smile pioneer at cleft
     with dissolve
     mi "Ох, как есть хочется."
     "Маша потянулась и мило улыбнулась мне."
     with None
-    show mi surprise pioneer at cleft 
+    show mi surprise pioneer at cleft
     with dspr
     mi "А почему вы все здесь?"
     with None
-    show un sad pioneer at cright 
+    show un sad pioneer at cright
     with dissolve
     un "Ты не помнишь?"
     mi "Нет, а что такое?"
     with None
-    show dv sad pioneer at fright 
+    show dv sad pioneer at fright
     with dissolve
     dv "Все исчезли…"
     "Мрачно сказала Алиса."
     with None
-    show mi shocked pioneer at cleft 
+    show mi shocked pioneer at cleft
     with dspr
     mi "Что?"
     dv "Все исчезли… испарились…"
     with None
-    show mi normal pioneer at cleft 
+    show mi normal pioneer at cleft
     with dspr
     "Маша посмотрела в окно и ничего не сказала.{w} Похоже, она вспомнила…"
     me "Ладно… Поесть – действительно отличная идея!"
@@ -36317,7 +35874,7 @@ label epilogue_mi:
     with dissolve
     play ambience ambience_camp_center_day fadein 3
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dissolve
     window show
     "Выйдя наружу, я спросил:"
@@ -36327,14 +35884,14 @@ label epilogue_mi:
     mi "Похоже, они правда в это верят. И до вчерашнего дня на нашем месте были некие Семён и Мику."
     me "Некие…"
     with None
-    show mi dontlike pioneer at center 
+    show mi dontlike pioneer at center
     with dspr
     mi "Ну да, совсем не некие!"
     me "Ой, ладно уж!"
     "Перебил я её."
     me "Давай более реалистичные теории!"
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dspr
     mi "У меня пока нет никаких теорий… Я вообще не представляю, что и думать."
     me "И я тоже…"
@@ -36354,17 +35911,17 @@ label epilogue_mi:
     mi "Давай пока остановимся на этом."
     me "Хорошо…"
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dspr
     mi "Пойдём?"
     me "Ты иди, я догоню."
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dspr
     mi "Опасно одному…"
     me "Да что опасного-то? День, да и вы рядом."
     with None
-    show mi smile pioneer at center 
+    show mi smile pioneer at center
     with dspr
     mi "Ладно."
     with None
@@ -36412,7 +35969,7 @@ label epilogue_mi:
     "Но она исчезла…"
     "Маша, похоже заметившая смертельную бледность на моём лице, в мгновение ока подскочила ко мне."
     with None
-    show mi shocked pioneer at center 
+    show mi shocked pioneer at center
     with dissolve
     mi "Что? Что такое?"
     me "Я… Я… видел Ульяну… Там…"
@@ -36424,13 +35981,13 @@ label epilogue_mi:
     "Маша трясла меня за плечи."
     me "Это была не она… Это было… Я не знаю…"
     with None
-    show mi rage pioneer at center 
+    show mi rage pioneer at center
     with dspr
     mi "Соберись!"
     window hide
     play sound sfx_face_slap
     with vpunch
-    pause(1)
+    pause 1
     window show
     "Я почувствовал хлёсткий удар по лицу и непонимающе посмотрел на Машу."
     stop music fadeout 3
@@ -36438,7 +35995,7 @@ label epilogue_mi:
     "Щека горела, а самообладание начало постепенно возвращаться."
     me "Там стояла Ульяна… с лицом…{w} В общем, зомби. Да, Ульяна-зомби. Самое подходящее объяснение!"
     with None
-    show mi shocked pioneer at center 
+    show mi shocked pioneer at center
     with dspr
     "Маша ошарашенно смотрела на меня."
     mi "Чего тут только не бывает..."
@@ -36600,7 +36157,7 @@ label epilogue_mi:
     with dissolve
     "Я помог отнести Лену к обочине дороги, где была хоть какая-то тень от небольшой рощицы."
     with None
-    show mi dontlike pioneer at center 
+    show mi dontlike pioneer at center
     with dissolve
     mi "Доходились…"
     "Мрачно сказала Маша, повалившись на траву."
@@ -36658,7 +36215,7 @@ label epilogue_mi:
     window show
     "Мы шли уже около пятнадцати минут, девочки остались далеко позади."
     with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dissolve
     el "Как думаешь, встретим кого?"
     "Тихо спросил он."
@@ -36670,7 +36227,7 @@ label epilogue_mi:
     "А здесь и сейчас мы словно маленькие кляксы на картине какого-то малоизвестного художника, рисующего лето в средней полосе России.{w} Или где мы сейчас находились…"
     "От этого становилось только страшнее…"
     with None
-    show el shocked pioneer at center 
+    show el shocked pioneer at center
     with dspr
     el "Смотри!"
     "Закричал Роутер."
@@ -36690,7 +36247,7 @@ label epilogue_mi:
     "Я обессиленно сел на бордюр и закрыл голову руками."
     "Страха не было, не было вообще никаких эмоций, лишь усталость и опустошение."
     with None
-    show el shocked pioneer at center 
+    show el shocked pioneer at center
     with dissolve
     el "Но… но… как?!"
     "Бормотал Роутер."
@@ -36712,7 +36269,7 @@ label epilogue_mi:
     "Спросила Маша, пережёвывая непонятно откуда взявшуюся землянику."
     me "Нашли… лагерь…"
     with None
-    show mi surprise pioneer at cright 
+    show mi surprise pioneer at cright
     with dspr
     mi "Какой?"
     "Она удивлённо посмотрела на меня."
@@ -36722,7 +36279,7 @@ label epilogue_mi:
     mi "Вы же шли вперёд, а не назад."
     me "Вперёд… И там Совёнок."
     with None
-    show mi dontlike pioneer at cright 
+    show mi dontlike pioneer at cright
     with dspr
     mi "Хватит прикалываться!"
     "Вскрикнула она."
@@ -36733,19 +36290,19 @@ label epilogue_mi:
     me "Вот так…"
     "Устало сказал я и опустился на землю."
     with None
-    show mi normal pioneer at cright 
+    show mi normal pioneer at cright
     with dspr
     mi "Ладно, значит, пойдём туда!"
     "Я внимательно посмотрел на Машу и понял, что больше ждать нельзя."
     me "Слушай, что с тобой такое?"
     with None
-    show mi dontlike pioneer at cright 
+    show mi dontlike pioneer at cright
     with dspr
     mi "В смысле?"
     "Она всем видом давала понять, что сейчас не время для пустых разговоров."
     me "Вчера ты боялась, а сегодня выглядишь так, как будто с тобой каждый день происходит что-то подобное."
     with None
-    show mi normal pioneer at cright 
+    show mi normal pioneer at cright
     with dspr
     mi "Ну а какой смысл паниковать?"
     "Она еле заметно улыбнулась."
@@ -36760,19 +36317,19 @@ label epilogue_mi:
     "И если вспомнить тот разговор вечером на пляже…"
     "Наверное, она действительно более сильный человек, чем я."
     with None
-    show mi dontlike pioneer at cright 
+    show mi dontlike pioneer at cright
     with dspr
     mi "Эй! Ты вообще меня слушаешь?!"
     me "Прости, я задумался. Столько всего…"
     with None
-    show mi angry pioneer at cright 
+    show mi angry pioneer at cright
     with dspr
     "Она грозно посмотрела на меня."
     mi "Идём в лагерь! Ну или туда, где вы были… Если это тот же лагерь…"
     me "Хорошо…"
     "На самом деле у нас и не было другого выбора – ещё несколько часов на таком солнцепёке, и свалится не только Лена…"
     with None
-    show mi normal pioneer at cright 
+    show mi normal pioneer at cright
     with dspr
     mi "Но её придётся нести."
     me "Понимаю… Сейчас придумаем что-нибудь."
@@ -36784,11 +36341,11 @@ label epilogue_mi:
     "Тот запротестовал сначала, но вскоре понял, что спорить бессмысленно."
     "Я снял свою и, связав палки с двух концов, сделал импровизированные носилки."
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dissolve
     mi "А выдержит?"
     with None
-    show mi smile pioneer at center 
+    show mi smile pioneer at center
     with dspr
     "Маша с сомнением посмотрела на эту конструкцию, подёргала несколько раз и, убедившись в её прочности, улыбнулась."
     me "До лагеря – выдержит…"
@@ -36835,26 +36392,26 @@ label epilogue_mi:
     "Скорее всего, потому что прошлую ночь мы провели здесь относительно спокойно.{w} По крайней мере остались в живых…"
     "Мы с Роутером без сил валялись на кровати, а на соседней девочки раздевали Лену."
     with None
-    show mi angry pioneer at center 
+    show mi angry pioneer at center
     with dissolve
     mi "Не смотри!"
     "Грозно сказала Маша."
     me "Да что я там не видел…"
     "Фыркнул я и отвернулся, больно толкнув Роутера в бок, заставив последовать моему примеру."
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dspr
     mi "Мы пойдём за водой. И в столовую, наверное…"
     me "Опасно одним…"
     with None
-    show mi grin pioneer at center 
+    show mi grin pioneer at center
     with dspr
     mi "Хочешь составить компанию?"
     "Ухмыльнулась она."
     me "Нет уж… Тогда хотя бы возьми трубу с собой."
     "Неуверенно сказал я."
     with None
-    show mi laugh pioneer at center 
+    show mi laugh pioneer at center
     with dspr
     mi "Думаешь, поможет?"
     "Я тяжело вздохнул и закрыл глаза."
@@ -36872,7 +36429,7 @@ label epilogue_mi:
     "Лена ворочалась под одеялом."
     "Вдруг она открыла глаза и резко повернулась в мою сторону."
     with None
-    show un evil_smile pioneer at center 
+    show un evil_smile pioneer at center
     with dissolve
     "На её лице застыла дьявольская улыбка.{w} Такая же, как вчера вечером…"
     un "Жарко, да?"
@@ -36888,7 +36445,7 @@ label epilogue_mi:
     me "Смотри!"
     "Я замахал руками в сторону Лениной кровати."
     with None
-    show el surprise pioneer at center 
+    show el surprise pioneer at center
     with dissolve
     el "Что?"
     "Он приподнялся, посмотрел сначала туда, куда показывал я, а затем на меня."
@@ -36935,7 +36492,7 @@ label epilogue_mi:
     me "И какие планы дальше?"
     mi "Пока придётся сидеть тут."
     with None
-    show dv normal pioneer at cleft 
+    show dv normal pioneer at cleft
     with dspr
     dv "Ольга Дмитриевна же звонила в милицию…"
     "Неуверенно сказала Алиса."
@@ -36946,7 +36503,7 @@ label epilogue_mi:
     hide mi
     with dissolve
     with None
-    show mi smile pioneer close at center  
+    show mi smile pioneer close at center
     with dissolve
     "Алиса легла на кровать к Лене, а Маша села рядом со мной."
     mi "Поспи."
@@ -36967,7 +36524,7 @@ label epilogue_mi:
     "Я закрыл глаза и мгновенно провалился в сон."
     window hide
     play music music_list["faceless"] fadein 3
-    pause(2)
+    pause 2
     window show
     "..."
     "И опять кузнечики."
@@ -36998,13 +36555,13 @@ label epilogue_mi:
     me "Эй!"
     "Я грубо растолкал Машу."
     with None
-    show mi dontlike pioneer at center 
+    show mi dontlike pioneer at center
     with dissolve
     mi "Что?"
     "С трудом придя в себя, спросила она."
     me "Я же просил!"
     with None
-    show mi upset pioneer at center 
+    show mi upset pioneer at center
     with dspr
     mi "Прости, я заснула…"
     "Она сделала виноватое выражение лица, от которого мне стало тошно."
@@ -37015,7 +36572,7 @@ label epilogue_mi:
     "Я разбудил Роутера."
     me "Где Алиса?"
     with None
-    show mi scared pioneer at center 
+    show mi scared pioneer at center
     with dspr
     mi "Не знаю…"
     "Встревоженно сказала Маша."
@@ -37024,17 +36581,17 @@ label epilogue_mi:
     "Её глаза виновато забегали."
     me "А потом ты заснула!"
     with None
-    show mi upset pioneer at center 
+    show mi upset pioneer at center
     with dspr
     "Она опустила голову и тяжело вздохнула."
     me "Прекрасно, просто прекрасно!"
     play sound sfx_table_hit
     with None
-    show mi sad pioneer at center 
+    show mi sad pioneer at center
     with dspr
     "Я ударил кулаком по столу, отчего Маша вздрогнула."
     with None
-    show mi scared pioneer at center 
+    show mi scared pioneer at center
     with dspr
     me "Ты сиди здесь, а мы с ним пойдём её искать!"
     mi "Одна?.."
@@ -37045,7 +36602,7 @@ label epilogue_mi:
     mi "Но…"
     me "Или хочешь всё-таки здесь сидеть вместе с Леной?"
     with None
-    show mi sad pioneer at center 
+    show mi sad pioneer at center
     with dspr
     "Маша ничего не ответила."
     with None
@@ -37086,7 +36643,7 @@ label epilogue_mi:
     scene bg int_house_of_mt_night
     with dissolve
     with None
-    show mi shocked pioneer at center 
+    show mi shocked pioneer at center
     with dissolve
     window show
     mi "Что такое?!"
@@ -37102,7 +36659,7 @@ label epilogue_mi:
     "Открыв дверь, Маша вскрикнула и замерла."
     window hide
     play sound sfx_close_door_campus_1
-    pause(1)
+    pause 1
     window show
     "Собрав последние силы, я приподнялся и ударом ноги захлопнул дверь."
     with None
@@ -37112,7 +36669,7 @@ label epilogue_mi:
     "Я отнёс её на кровать и положил рядом с трясущимся Роутером."
     "По его выражению лица было понятно, что он совершенно не хочет знать, что же там произошло."
     with None
-    show un scared pioneer at center 
+    show un scared pioneer at center
     with dissolve
     "От криков проснулась Лена, с трудом приподнялась на кровати и посмотрела на нас."
     un "Что такое?.."
@@ -37137,19 +36694,19 @@ label epilogue_mi:
     play ambience ambience_music_club_night fadein 3
     "Маша тихо застонала."
     with None
-    show mi scared pioneer close at right  
+    show mi scared pioneer close at right
     with dissolve
     mi "Мне такой кошмар снился…"
     me "Это был не сон…"
     "Она широко открыла глаза и с ужасом посмотрела на меня."
     with None
-    show mi cry pioneer close at right 
+    show mi cry pioneer close at right
     with dspr
     mi "Тогда… там?!"
     me "Не смотри!"
     "Вскричал я и крепко обнял её."
     with None
-    show un cry pioneer close at left  
+    show un cry pioneer close at left
     with dissolve
     "Лена громко разрыдалась, бросилась ко мне и прижалась, дрожа всем телом."
     "Долгие минуты проходили в мучительной тишине."
@@ -37175,7 +36732,7 @@ label epilogue_mi:
     "Она ничего не ответила."
     me "Идти можешь?"
     with None
-    show un sad pioneer close at left 
+    show un sad pioneer close at left
     with dspr
     un "Наверное…"
     show un cry pioneer at left
@@ -37184,7 +36741,7 @@ label epilogue_mi:
     "Я бережно освободился от их объятий и встал."
     me "Надо бежать! Ночью будет проще идти."
     with None
-    show mi sad pioneer at right 
+    show mi sad pioneer at right
     with dspr
     mi "Но мы же…"
     "Робко возразила Маша."
@@ -37210,7 +36767,7 @@ label epilogue_mi:
     $ persistent.sprite_time = "night"
     scene bg ext_house_of_mt_night
     with dissolve
-    pause (1)
+    pause 1
     play music music_list["orchid"] fadein 3
     scene cg epilogue_mi_4
     with dissolve
@@ -37239,7 +36796,7 @@ label epilogue_mi:
     "Спросила Маша, не отпуская мою руку."
     "Я лишь кивнул."
     with None
-    show un cry pioneer at left 
+    show un cry pioneer at left
     with dspr
     un "Кто?! Алиса?!"
     "Вскрикнула Лена и разрыдалась."
@@ -37258,7 +36815,7 @@ label epilogue_mi:
     me "Здесь оставаться нельзя!"
     "Я подошёл к Маше, наклонился и взял её за руку."
     with None
-    show mi cry pioneer at center 
+    show mi cry pioneer at center
     with dissolve
     "Она подняла на меня заплаканные глаза и кивнула."
     "Мы медленно пошли в сторону автобусной остановки…"
@@ -37297,14 +36854,14 @@ label epilogue_mi:
     stop music fadeout 3
     "Я вгляделся и увидел, что по дороге кто-то идёт."
     with None
-    show el shocked pioneer at left 
+    show el shocked pioneer at left
     with dspr
     el "Автобус!"
     "Радостно вскричал Роутер."
     me "Тихо, дурень! Какой автобус! Это люди!"
     "Зашипел я на него."
     with None
-    show mi shocked pioneer at center 
+    show mi shocked pioneer at center
     with dspr
     mi "Много людей…"
     "Испуганно сказала Маша."
@@ -37330,7 +36887,7 @@ label epilogue_mi:
     "Девочки с трудом передвигали ногами, поэтому мне буквально приходилось тащить их за собой."
     "Выбежав на площадь, я остановился, чтобы немного отдышаться, и только тогда понял, что Роутер остался там."
     with None
-    show mi shocked pioneer at cright 
+    show mi shocked pioneer at cright
     with dspr
     mi "Надо вернуться за ним!"
     "Закричала Маша и дёрнулась по направлению к автобусной остановке."
@@ -37347,12 +36904,12 @@ label epilogue_mi:
     $ persistent.sprite_time = "night"
     with None
     scene bg ext_path2_night:
-        pos (0,0) 
-        linear 0.1 pos (-5,-5) 
-        linear 0.1 pos (5,5) 
-        pos (0,0) 
-        linear 0.1 pos (0,-5) 
-        linear 0.1 pos (0,5) 
+        pos (0,0)
+        linear 0.1 pos (-5,-5)
+        linear 0.1 pos (5,5)
+        pos (0,0)
+        linear 0.1 pos (0,-5)
+        linear 0.1 pos (0,5)
         repeat
     with dissolve
     "Я крепко держал девочек за руки."
@@ -37376,7 +36933,7 @@ label epilogue_mi:
     "Лена лежала вся белая и, похоже, окончательно тронулась рассудком."
     "Маша сидела, обхватив руками колени, и раскачивалась из стороны в сторону."
     with None
-    show mi sad pioneer at center 
+    show mi sad pioneer at center
     with dissolve
     me "Нам надо что-то делать…"
     "Сказал я, сев рядом."
@@ -37399,7 +36956,7 @@ label epilogue_mi:
     "Кузнечиков уже почти не было слышно."
     "Если бы не прерывистое дыхание Маши, я бы подумал, что умер."
     with None
-    show mi normal pioneer close at center  
+    show mi normal pioneer close at center
     with dissolve
     mi "Прости меня…"
     "Тихо прошептала она."
@@ -37409,7 +36966,7 @@ label epilogue_mi:
     "Нежно сказал я."
     mi "Нам осталось жить совсем чуть-чуть… Поэтому сейчас – самое время."
     with None
-    show mi smile pioneer close at center 
+    show mi smile pioneer close at center
     with dspr
     "Она подняла на меня взгляд и с трудом улыбнулась."
     mi "Прости меня, если бы я не была такой эгоистичной…"
@@ -37422,7 +36979,7 @@ label epilogue_mi:
     mi "Я знаю…"
     "Тихо сказала она."
     with None
-    show mi cry pioneer close at center 
+    show mi cry pioneer close at center
     with dspr
     "Маша вновь улыбнулась, её лицо задрожало, и по нему потекли слёзы."
     me "И сейчас люблю…"
@@ -37444,7 +37001,7 @@ label epilogue_mi:
     "Я не мог рассмотреть их, но был точно уверен, что это те же самые «люди», что и на автобусной остановке."
     "Всё тело сковало оцепенение, я боялся дышать."
     with None
-    show mi cry pioneer close at center  
+    show mi cry pioneer close at center
     with dissolve
     mi "Ну вот и всё…"
     "Тихо сказала Маша и крепче прижалась ко мне."
@@ -37456,7 +37013,7 @@ label epilogue_mi:
     with dissolve
     "Я вскочил, рывком поднял её с земли и бросился к Лене."
     with None
-    show un shocked pioneer at center 
+    show un shocked pioneer at center
     with dissolve
     "Она лежала мертвенно бледная с открытыми глазами и, похоже, совершенно не понимала, что происходит."
     "Я начал трясти её за плечи."
@@ -37465,7 +37022,7 @@ label epilogue_mi:
     "Тогда я влепил ей несколько хлёстких пощечин, отчего она застонала."
     me "Вставай! Вставай!"
     with None
-    show un scared pioneer at center 
+    show un scared pioneer at center
     with dspr
     "Я поднял Лену на ноги, и она ошалело посмотрела на меня."
     me "Бежим!"
@@ -37477,12 +37034,12 @@ label epilogue_mi:
     $ persistent.sprite_time = "night"
     with None
     scene bg ext_path2_night:
-        pos (0,0) 
-        linear 0.1 pos (-5,-5) 
-        linear 0.1 pos (5,5) 
-        pos (0,0) 
-        linear 0.1 pos (0,-5) 
-        linear 0.1 pos (0,5) 
+        pos (0,0)
+        linear 0.1 pos (-5,-5)
+        linear 0.1 pos (5,5)
+        pos (0,0)
+        linear 0.1 pos (0,-5)
+        linear 0.1 pos (0,5)
         repeat
     with dissolve
     window show
@@ -37500,7 +37057,7 @@ label epilogue_mi:
     me "Что это?"
     "Пробормотал я."
     with None
-    show un scared pioneer at center 
+    show un scared pioneer at center
     with dissolve
     un "Старый корпус лагеря…"
     "Еле слышно сказала Лена."
@@ -37597,7 +37154,7 @@ label epilogue_mi:
     un "Ай…"
     "Послышался сзади крик Лены."
     with None
-    show un shocked pioneer at cleft 
+    show un shocked pioneer at cleft
     with dspr
     me "Что такое?"
     un "Кажется, ногу подвернула…"
@@ -37614,7 +37171,7 @@ label epilogue_mi:
     window show
     "Вскоре каменные стены сменились деревянными, и мы оказались в некоем подобии шахты."
     with None
-    show mi sad pioneer at cright 
+    show mi sad pioneer at cright
     with dspr
     mi "Давайте немного передохнём!"
     "Взмолилась Маша."
@@ -37639,7 +37196,7 @@ label epilogue_mi:
     scene bg int_mine
     with fade
     with None
-    show mi scared pioneer at cright 
+    show mi scared pioneer at cright
     with dissolve
     window show
     "Я несколько раз ударил по нему ладонью, стены шахты вновь осветились тусклым светом, и я тут же понял, что что-то не так!"
@@ -37647,13 +37204,13 @@ label epilogue_mi:
     me "Лена исчезла…"
     "Прошептал я."
     with None
-    show mi shocked pioneer at cright 
+    show mi shocked pioneer at cright
     with dspr
     mi "Что?"
     "Маша схватила меня за рукав и уставилась на то место, где секунду назад сидела Лена."
     mi "Как? Но как?"
     with None
-    show mi cry pioneer at cright 
+    show mi cry pioneer at cright
     with dspr
     "Она начала тихо плакать."
     mi "Мы умрём… Мы точно умрём!"
@@ -37666,7 +37223,7 @@ label epilogue_mi:
     scene bg int_mine_crossroad
     with fade
     with None
-    show mi scared pioneer at center 
+    show mi scared pioneer at center
     with dissolve
     window show
     "Через пару минут мы вышли к развилке."
@@ -37690,7 +37247,7 @@ label epilogue_mi:
     scene bg int_mine
     with fade
     with None
-    show mi scared pioneer at center 
+    show mi scared pioneer at center
     with dissolve
     window show
     "Мы блуждали слишком долго, не осталось ни сил, ни желания двигаться дальше."
@@ -37711,7 +37268,7 @@ label epilogue_mi:
     mi "Ну вот и всё…"
     "…"
     window hide
-    pause(3)
+    pause 3
     window show
     "Не знаю, сколько времени прошло."
     "Мучительно хотелось спать, глаза закрывались сами собой."
@@ -37733,7 +37290,7 @@ label epilogue_mi:
     "..."
     window hide
     play ambience ambience_catacombs_stones fadein 5
-    pause (5)
+    pause 5
     window show
     "..."
     "Всё тело болело..."
@@ -37757,13 +37314,13 @@ label epilogue_mi:
     window show
     "Но неожиданно луч фонаря выхватил из темноты узкий проход, и вскоре мы оказались в шахтёрском забое."
     with None
-    show mi shocked pioneer at center 
+    show mi shocked pioneer at center
     with dissolve
     "Смотри!"
     "Маша показала куда-то в темноту."
     "Я посветил и увидел там пионерский галстук, лежащий на земле."
     with None
-    show mi cry pioneer at center 
+    show mi cry pioneer at center
     with dissolve
     "Это же не..."
     stop ambience fadeout 2
@@ -37774,7 +37331,7 @@ label epilogue_mi:
     with fade
     play music music_list["sunny_day"] fadein 3
     with None
-    show mi scared pioneer at center 
+    show mi scared pioneer at center
     with dissolve
     window show
     "Наконец мы выбрались из лабиринта и очутились в небольшой комнате."
@@ -37783,7 +37340,7 @@ label epilogue_mi:
     "Вздохнул я."
     "Фонарь уже практически погас, и каждые 10 секунд приходилось трясти его, чтобы хоть немного оживить аккумулятор."
     with None
-    show mi sad pioneer at center 
+    show mi sad pioneer at center
     with dspr
     "Маша в изнеможении опустилась на пол."
     me "Нельзя останавливаться. Где-то здесь есть выход, я уверен!"
@@ -37796,7 +37353,7 @@ label epilogue_mi:
     "Она опёрлась о стену и с трудом встала."
     me "Посиди пока здесь, я посмотрю, что там дальше…"
     with None
-    show mi scared pioneer at center 
+    show mi scared pioneer at center
     with dspr
     mi "Я боюсь…"
     "Маша вся задрожала."
@@ -37822,13 +37379,13 @@ label epilogue_mi:
     scene bg int_mine_room
     with fade
     with None
-    show mi scared pioneer at center 
+    show mi scared pioneer at center
     with dissolve
     window show
     "Я подбежал к Маше, наклонился и улыбнулся."
     me "За этой дверью точно выход!"
     with None
-    show mi sad pioneer at center 
+    show mi sad pioneer at center
     with dspr
     mi "Угу…"
     "Она устало посмотрела на меня."
@@ -37958,7 +37515,7 @@ label epilogue_mi:
     "По стенам комнаты запрыгали бесформенные тени, и я увидел тело Лены, распластавшееся на полу.{w} Похоже, она была ещё жива."
     "Мне очень хотелось добить её."
     with None
-    show mi cry pioneer at center 
+    show mi cry pioneer at center
     with dissolve
     mi "Не надо…"
     "Маша подползла ко мне и схватила за ногу."
@@ -37978,7 +37535,7 @@ label epilogue_mi:
     "Подойдя к двери, я всунул его в колесо и дёрнул изо всех сил."
     window hide
     play sound sfx_open_door_mines_metal
-    pause (1)
+    pause 1
     window show
     "Дверь заскрипела и открылась.{w} В комнату ворвался поток свежего воздуха."
     me "Спасены…"
@@ -38004,7 +37561,7 @@ label epilogue_mi:
     "На востоке еле заметно забрезжил ярко-красный рассвет, сжигая верхушки далёкого леса."
     "Последние звёзды весело подмигивали мне, не догадываясь о том, что происходит здесь, в этом аду…"
     with None
-    show mi cry_smile pioneer close at center 
+    show mi cry_smile pioneer close at center
     with dissolve
     "Маша положила мне голову на плечо и дрожащей рукой показала на небо."
     mi "Вот бы сейчас туда…"
@@ -38016,13 +37573,13 @@ label epilogue_mi:
     me "Поспи…"
     "Я погладил Машу по голове."
     with None
-    show mi laugh pioneer close at center 
+    show mi laugh pioneer close at center
     with dspr
     mi "А неплохой бы сценарий для фильма вышел!"
     "Она громко засмеялась."
     "Я в ужасе посмотрел на неё."
     with None
-    show mi smile pioneer close at center 
+    show mi smile pioneer close at center
     with dspr
     "Маша улыбалась."
     "Но не той дьявольской Лениной улыбкой, а чистой, искренней, даже детской."
@@ -38046,17 +37603,17 @@ label epilogue_mi:
     window hide
     scene bg black
     with fade3
-    pause (3)
+    pause 3
     window show
     "..."
     window hide
     play music music_list["everlasting_summer"] fadein 5
-    pause (5)
+    pause 5
     $ night_time()
     $ persistent.sprite_time = "night"
     scene bg ext_beach_night
     with fade3
-    pause (2)
+    pause 2
     window show
     "Я с трудом открыл глаза."
     "Яркий лунный свет отражался в воде, весело скача по волнам, дул лёгкий ночной ветерок, а вдалеке ухала сова."
@@ -38069,7 +37626,7 @@ label epilogue_mi:
     "К горлу подступила тошнота, а в глазах потемнело."
     "Маша перевернулась на другой бок, открыла глаза и посмотрела на меня."
     with None
-    show mi smile swim close at center  
+    show mi smile swim close at center
     with dissolve
     mi "Проснулся?"
     me "Это… ты написала?"
@@ -38077,19 +37634,19 @@ label epilogue_mi:
     mi "Да, а что такого?"
     "Я не знал, что ответить.{w} Я просто не понимал, что происходит."
     with None
-    show mi happy swim close at center 
+    show mi happy swim close at center
     with dspr
     mi "Ты так мило спал, что не хотелось тебя будить. А кузнечики так громко стрекотали… Ну вот я и…"
     "Она улыбнулась."
     me "Подожди, но мы ведь сейчас здесь?! В смысле мы не пионеры, мы снимаем фильм, и всё такое?"
     with None
-    show mi normal swim close at center 
+    show mi normal swim close at center
     with dspr
     mi "Да, конечно…"
     "Маша непонимающе посмотрела на меня."
     "Может быть, я проснулся, прочитал то, что она написала, а потом заснул?.."
     with None
-    show mi smile swim close at center 
+    show mi smile swim close at center
     with dspr
     mi "Ты весь вспотел!"
     "Она порылась в карманах лежащей рядом пионерской формы и протянула мне платочек.{w} Такой типичный русский платочек, расшитый разноцветными цветами."
@@ -38109,7 +37666,7 @@ label epilogue_mi:
     scene bg ext_square_night
     with dissolve
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dissolve
     window show
     "Мы вышли на площадь."
@@ -38119,7 +37676,7 @@ label epilogue_mi:
     mi "Кузнечики!"
     me "А… да, хорошо бы…"
     with None
-    show mi normal pioneer at center 
+    show mi normal pioneer at center
     with dspr
     mi "Ну ладно, я пойду…"
     "Она внимательно посмотрела на меня, развернулась и собралась уходить."
@@ -38132,21 +37689,21 @@ label epilogue_mi:
     "Ведь иногда сон – это просто сон..."
     "А реальность – это просто реальность..."
     window hide
-    pause (5)
+    pause 5
     scene black
     with fade3
     stop music fadeout 5
-    pause (5)
+    pause 5
     if not persistent.endings["mi"]:
         $ persistent.endings["mi"] = True
         $ show_achievement("mi")
     jump final_credits
 label epilogue_un_bad:
     $ backdrop = "epilogue"
-    $ new_chapter(-1, u"Эпилог")
+    $ new_chapter(-1, "Эпилог")
     $ prolog_time()
     scene black
-    pause (5)
+    pause 5
     window show
     "Бывают моменты, когда реальность становится неважной, незначительной, недостойной внимания."
     "Бывают моменты, когда душевные переживания затмевают всё остальное."
@@ -38227,19 +37784,19 @@ label epilogue_un_bad:
     "Небольшая, сантиметров 20 длиной, она была изогнута почти под прямым углом, но при этом сохраняла форму, с одного из концов даже торчал фитиль."
     window hide
     stop music fadeout 3
-    pause(2)
+    pause 2
     scene black
     show candle
     with dissolve
     play sound sfx_light_candle
     play music music_list["meet_me_there"] fadein 3
-    pause(1)
+    pause 1
     window show
     "Я нашарил зажигалку и зажег её."
     "Пусть это будет в память о Лене…"
     "Может быть, в другом мире ей лучше, чем…"
     window hide
-    pause (3)
+    pause 3
     window show
     "…"
     "Я сидел на полу и смотрел, как воск медленно капает мне на пальцы."
@@ -38248,7 +37805,7 @@ label epilogue_un_bad:
     "Наконец-то хоть какой-то покой…"
     "…"
     window hide
-    pause (3)
+    pause 3
     window show
     "Свечка догорела до половины."
     "Внезапно я представил, что моя жизнь – это та же самая свечка."
@@ -38267,17 +37824,17 @@ label epilogue_un_bad:
     "Зачем она мне?{w} Я не чувствую боли от раскалённого воска, её пламя не согревает меня, она почти не освещает комнату."
     "В общем, пустая трата верёвок, воска и кислорода…"
     window hide
-    play sound sfx_blow_out_candle  
+    play sound sfx_blow_out_candle
     scene black
     with fade2
-    pause(1)
+    pause 1
     window show
     "Я задул свечу."
     "Это действие не вызвало у меня совершенно никаких эмоций."
     "Затем я медленно встал и направился в ванную…"
     "…"
     window hide
-    pause (3)
+    pause 3
     scene cg epilogue_un_bad
     with fade3
     window show
@@ -38298,7 +37855,7 @@ label epilogue_un_bad:
     scene black
     with fade3
     stop music fadeout 5
-    pause (5)
+    pause 5
     if not persistent.endings["un_bad"]:
         $ persistent.endings["un_bad"] = True
         $ show_achievement("un_bad")
@@ -38306,11 +37863,11 @@ label epilogue_un_bad:
     jump postscriptum
 label epilogue_un_good:
     $ backdrop = "epilogue"
-    $ new_chapter(-1, u"Эпилог")
+    $ new_chapter(-1, "Эпилог")
     $ prolog_time()
     $ make_names_known()
     scene black
-    pause (2)
+    pause 2
     window show
     un "Хватит спать!"
     "Сознание начало медленно возвращаться ко мне."
@@ -38419,7 +37976,7 @@ label epilogue_un_good:
     scene bg ext_square_night
     with dissolve
     with None
-    show un smile2 pioneer at center 
+    show un smile2 pioneer at center
     with dissolve
     window show
     un "Не надо."
@@ -38448,7 +38005,7 @@ label epilogue_un_good:
     scene black
     with fade3
     stop music fadeout 3
-    pause (3)
+    pause 3
     $ set_mode_nvl()
     play music music_list["raindrops"] fadein 3
     window show
@@ -38506,7 +38063,7 @@ label epilogue_un_good:
     if persistent.cg_set == "new":
         stop music fadeout 3
         window hide
-        pause (3)
+        pause 3
         $ set_mode_adv()
         scene cg epilogue_un_good_2_new
         with fade
@@ -38515,7 +38072,7 @@ label epilogue_un_good:
     "Сегодня в полночь начнётся что-то новое – {i}завтра{/i}, которого я ждал столько лет…"
     window hide
     stop music fadeout 3
-    pause (3)
+    pause 3
     $ set_mode_adv()
     scene black
     window show
@@ -38568,7 +38125,7 @@ label epilogue_un_good:
         "Лена поцеловала меня и мечтательно уставилась на огонь."
         window hide
         show blink
-        pause(1)
+        pause 1
         window show
         scene black
         "Глаза закрылись, и вся моя действительность свелась к тихому потрескиванию дров в камине."
@@ -38579,7 +38136,7 @@ label epilogue_un_good:
         if persistent.cg_set == "new":
             scene cg epilogue_un_good_new
         else:
-            scene cg epilogue_un_good   
+            scene cg epilogue_un_good
         with fade2
         play music music_list["everlasting_summer"] fadein 3
         window show
@@ -38625,17 +38182,17 @@ label epilogue_un_good:
     scene black
     with fade3
     stop music fadeout 5
-    pause (5)
+    pause 5
     if not persistent.endings["un_good"]:
         $ persistent.endings["un_good"] = True
         $ show_achievement("un_good")
     jump postscriptum
 label epilogue_us:
     $ backdrop = "epilogue"
-    $ new_chapter(-1, u"Эпилог")
+    $ new_chapter(-1, "Эпилог")
     $ prolog_time()
     scene black
-    pause (2)
+    pause 2
     window show
     "Кажется, я совсем и не спал."
     "Такое часто бывает – только закрыл глаза и отключился, как стрелки часов сами собой делают несколько оборотов, и вот уже утро, сознание возвращается, а ощущение такое, что только и успел, что моргнуть."
@@ -38710,7 +38267,7 @@ label epilogue_us:
     scene black
     with fade3
     play music music_list["farewell_to_the_past_full"] fadein 3
-    pause (3)
+    pause 3
     $ set_mode_nvl()
     window show
     nvl clear
@@ -38864,7 +38421,7 @@ label epilogue_us:
         scene black
         with fade3
         stop music fadeout 5
-        pause (5)
+        pause 5
         if not persistent.endings["us_bad"]:
             $ persistent.endings["us_bad"] = True
             $ show_achievement("us_bad")
@@ -38962,17 +38519,17 @@ label epilogue_us:
         scene black
         with fade3
         stop music fadeout 5
-        pause (5)
+        pause 5
         if not persistent.endings["us_good"]:
             $ persistent.endings["us_good"] = True
             $ show_achievement("us_good")
     jump postscriptum
 label epilogue_dv:
     $ backdrop = "epilogue"
-    $ new_chapter(-1, u"Эпилог")
+    $ new_chapter(-1, "Эпилог")
     $ prolog_time()
     scene black
-    pause (2)
+    pause 2
     window show
     "Похоже, староват я стал…"
     "Уже прошёл день, и похмелье должно было остаться в прошлом, но меня всё равно мутило, кружилась голова."
@@ -39069,7 +38626,7 @@ label epilogue_dv:
     scene anim prolog_1
     with fade3
     play music music_list["everlasting_summer"] fadein 3
-    pause (3)
+    pause 3
     $ set_mode_nvl()
     window show
     nvl clear
@@ -39167,7 +38724,7 @@ label epilogue_dv:
     "…"
     window hide
     stop music fadeout 4
-    pause (2)
+    pause 2
     scene anim prolog_1
     with dissolve
     window show
@@ -39201,7 +38758,7 @@ label epilogue_dv:
     "Наше выступление подходило к концу, и настало время сложного соло, на изучение которого я потратил столько времени."
     "К тому моменту всё волнение куда-то исчезло, и я сыграл его идеально, даже лучше, чем на репетициях."
     play sound sfx_concert_applause
-    pause (2)
+    pause 2
     "Наконец наше выступление было закончено, и зал взорвался аплодисментами."
     "Я смущённо (или мне просто так казалось) улыбнулся и вместе с остальными несколько раз поклонился публике."
     "Нам кричали «бис» – да я бы и сам с удовольствием сыграл что-нибудь ещё, – но наша программа была исчерпана целиком – в конце концов, мы только начинающая группа."
@@ -39244,7 +38801,7 @@ label epilogue_dv:
         scene black
         with fade3
         stop music fadeout 5
-        pause (5)
+        pause 5
         if not persistent.endings["dv_bad"]:
             $ persistent.endings["dv_bad"] = True
             $ show_achievement("dv_bad")
@@ -39314,17 +38871,17 @@ label epilogue_dv:
         scene black
         with fade3
         stop music fadeout 5
-        pause (5)
+        pause 5
         if not persistent.endings["dv_good"]:
             $ persistent.endings["dv_good"] = True
             $ show_achievement("dv_good")
     jump postscriptum
 label epilogue_sl:
     $ backdrop = "epilogue"
-    $ new_chapter(-1, u"Эпилог")
+    $ new_chapter(-1, "Эпилог")
     $ prolog_time()
     scene black
-    pause (2)
+    pause 2
     window show
     "Бывают сны, от которых не хочется просыпаться."
     "Ты словно плывёшь по тёплой реке куда-то далеко за горизонт, блаженно созерцая суетный мир, скрывающийся за облаками."
@@ -39350,7 +38907,7 @@ label epilogue_sl:
     "Смутные догадки начали рождаться где-то в глубине сознания."
     window hide
     play sound sfx_blanket_off_stand
-    pause(1)
+    pause 1
     window show
     "Я отбросил одеяло, вскочил и начал бешено озираться по сторонам."
     "Да, я вновь оказался в своей квартире."
@@ -39412,7 +38969,7 @@ label epilogue_sl:
     scene anim prolog_1
     with fade3
     play music music_list["everlasting_summer"] fadein 3
-    pause (3)
+    pause 3
     $ set_mode_nvl()
     window show
     nvl clear
@@ -39507,7 +39064,7 @@ label epilogue_sl:
         scene black
         with fade3
         stop music fadeout 5
-        pause(5)
+        pause 5
         if not persistent.endings["sl_bad"]:
             $ persistent.endings["sl_bad"] = True
             $ show_achievement("sl_bad")
@@ -39556,7 +39113,7 @@ label epilogue_sl:
         "Она тихо засмеялась."
         sl "Я думаю, вы хороший человек!"
         "Тут она повернулась и…"
-        window hide                                                                                                       
+        window hide
         scene cg epilogue_sl_2
         with dissolve
         window show
@@ -39673,18 +39230,18 @@ label epilogue_sl:
         scene black
         with fade3
         stop music fadeout 5
-        pause (5)
+        pause 5
         if not persistent.endings["sl_good"]:
             $ persistent.endings["sl_good"] = True
             $ show_achievement("sl_good")
     jump postscriptum
 label epilogue_uv:
     $ backdrop = "epilogue"
-    $ new_chapter(-1, u"Эпилог")
+    $ new_chapter(-1, "Эпилог")
     $ day_time()
     scene black
     play music music_list["afterword"] fadein 3
-    pause (3)
+    pause 3
     window show
     "Интересно, как простые на первый взгляд события могут повлиять на человека."
     "Например, такое распространённое у детей ОКР (обсессивно-компульсивное расстройство), как идти по дороге, наступая строго на плитку, избегая швов."
@@ -39763,14 +39320,14 @@ label epilogue_uv:
     window hide
     play sound sfx_punch_washstand
     with vpunch
-    pause(1)
+    pause 1
     window show
     "Я больно ударил кулаком по умывальнику и тут же вскочил, держась за руку и чертыхаясь."
     me "Твою мать!"
     stop ambience fadeout 2
     play music music_list["mystery_girl_v2"] fadein 3
     with None
-    show uv normal at center 
+    show uv normal at center
     with dissolve
     "Внезапно из кустов напротив вышел кто-то.{w} Или что-то…"
     uv "Привет!"
@@ -39781,7 +39338,7 @@ label epilogue_uv:
     "Может быть, она исчадие ада и пришла сюда окончить мой земной путь?{w} Это, конечно, только если он уже не окончен…"
     "Девочка-кошка внимательно смотрела на меня."
     with None
-    show uv sad at center 
+    show uv sad at center
     with dspr
     uv "Больно?"
     "Она взглядом показала на руку."
@@ -39794,13 +39351,13 @@ label epilogue_uv:
     "Я совершенно не понимал, как с ней говорить."
     "Может быть, одно неверное слово, фраза, жест станет для меня роковым."
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "На кого?"
     "Однако девочка не выказывала совершенно никаких признаков агрессии – скорее казалось, что ей просто интересно всё происходящее."
     me "На себя."
     with None
-    show uv smile at center 
+    show uv smile at center
     with dspr
     uv "Понятно."
     "Она еле заметно улыбнулась."
@@ -39808,11 +39365,11 @@ label epilogue_uv:
     "Я замолчал на некоторое время, собираясь с духом."
     me "Ты кто?.."
     with None
-    show uv surprise at center 
+    show uv surprise at center
     with dspr
     "Девочка непонимающе посмотрела на меня."
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Я – это я, конечно же!"
     "Уверенно заявила она."
@@ -39827,7 +39384,7 @@ label epilogue_uv:
     uv "Что такое сказка?"
     me "Ну…{w} Это история, которая не может произойти на самом деле."
     with None
-    show uv laugh at center 
+    show uv laugh at center
     with dspr
     uv "То есть меня на самом деле нет?"
     "Девочка рассмеялась."
@@ -39837,7 +39394,7 @@ label epilogue_uv:
     me "Ну, допустим, существую, да…"
     "Я сделал шаг назад."
     with None
-    show uv smile at center 
+    show uv smile at center
     with dspr
     uv "Вот и славно!"
     "Девочка улыбнулась и помахала хвостом."
@@ -39875,7 +39432,7 @@ label epilogue_uv:
     "С трудом выдавил я из себя."
     "Значит, показалось.{w} Значит, я всё-таки…"
     with None
-    show mz angry glasses pioneer at cright 
+    show mz angry glasses pioneer at cright
     with dspr
     mz "Да тебе лечиться надо!"
     "Фыркнула Женя и прошла мимо.{w} Славя виновато улыбнулась и поспешила за ней."
@@ -39912,11 +39469,11 @@ label epilogue_uv:
     "Откуда же тогда взялась эта странная девочка?"
     "Она представлялась мазком краски, который оказался на картине мастера из-за дрогнувшей руки неумелого реставратора."
     with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dissolve
     "Ко мне неожиданно подсел Электроник."
     with None
-    show el smile pioneer at center 
+    show el smile pioneer at center
     with dspr
     el "Привет!"
     "Мерзко улыбнулся он."
@@ -39926,19 +39483,19 @@ label epilogue_uv:
     "Не было совершенно ничего страшного в том, чтобы поговорить с ним начистоту.{w} Уже не было…"
     me "А ты здесь никого странного не видел?"
     with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dspr
     el "Странного?"
     me "Ну…{w} Не совсем человека."
     with None
-    show el laugh pioneer at center 
+    show el laugh pioneer at center
     with dspr
     el "Не понимаю."
     "Рассмеялся Электроник."
     me "Девочку с кошачьими ушами и хвостом."
     "Коротко сказал я."
     with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dspr
     el "Девочку с ушами и хвостом?.."
     "Он задумался."
@@ -39948,7 +39505,7 @@ label epilogue_uv:
     el "Допустим или видел?"
     me "Это так важно?"
     with None
-    show el serious pioneer at center 
+    show el serious pioneer at center
     with dspr
     "Электроник внимательно посмотрел на меня."
     el "Есть у нас в лагере легенда о девочке-кошке.{w} Она ворует еду, мелкие предметы, боится людей."
@@ -39957,7 +39514,7 @@ label epilogue_uv:
     el "Я сам её никогда не видел.{w} Говорят, что с хвостом и ушами, как ты и описал."
     me "А что ещё говорят?"
     with None
-    show el normal pioneer at center 
+    show el normal pioneer at center
     with dspr
     el "Ну, легенда старая, да и я не много знаю."
     me "А у кого можно узнать поподробнее?"
@@ -39977,7 +39534,7 @@ label epilogue_uv:
     "Пожалуй, Ольга Дмитриевна была единственным элементом, который несколько выбивался из общей идиллической картины – на роль «образцовой» вожатой она никак не тянула."
     window hide
     play sound sfx_open_door_1
-    pause (1)
+    pause 1
     $ persistent.sprite_time = "day"
     scene bg int_house_of_mt_day
     with dissolve
@@ -39985,7 +39542,7 @@ label epilogue_uv:
     "Я распахнул дверь и уверенно вошёл в домик."
     play music music_list["just_think"] fadein 3
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     "И действительно, как и ожидалось, она лежала на кровати и читала книжку."
     mt "Семён… Опять бездельничаешь?"
@@ -39998,14 +39555,14 @@ label epilogue_uv:
     me "Ольга Дмитриевна, я тут на обеде…{w} с Электроником говорил.{w} И он мне рассказал про легенду о девочке-кошке, якобы живущей здесь."
     me "И ещё сказал, что вы можете что-то знать…"
     with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dspr
     mt "А зачем тебе?"
     "Вожатая окинула меня пристальным взглядом и встала с кровати."
     me "Просто интересно!{w} Люблю подобные вещи!"
     "Я попытался улыбнуться, но вышло не очень."
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "У нас совершенно обычный лагерь."
     "Ну да, ещё бы!{w} Совершенно обычный!{w} Не хочу даже представлять, какой тогда «необычный» – небось с зомби и маньяками."
@@ -40018,23 +39575,23 @@ label epilogue_uv:
     "Та девочка скорее наблюдала за мной, изучала, пыталась понять, но никак не боялась."
     me "А вы сами.."
     with None
-    show mt smile pioneer at center 
+    show mt smile pioneer at center
     with dspr
     mt "Видела ли?"
     "Оживившись, перебила меня Ольга Дмитриевна."
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "Нет, не видела, но пару раз, похоже, была очень близко.{w} Иногда у меня из домика пропадали бутылки, молоко, зубной порошок, да много чего ещё.{w} Пропадали совершенно бесследно и необъяснимо."
     "Я уже совсем забыл про то, что все пионеры здесь на самом деле не существуют, и просто внимательно слушал вожатую."
     mt "Раньше и мне было интересно, куда исчезают вещи.{w} Но, в конце концов, никаких доказательств её существования нет…"
     with None
-    show mt smile pioneer at center 
+    show mt smile pioneer at center
     with dspr
     "Она улыбнулась, как будто давая понять, что на этом разговор закончен."
     me "А если бы они были?"
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dspr
     mt "Почему ты так этим интересуешься?"
     me "А кто на моём месте бы не интересовался…"
@@ -40042,11 +39599,11 @@ label epilogue_uv:
     mt "Не знаю…"
     "Вожатая задумалась на секунду, потом снова вернулась в своё привычное состояние {i}Матери всея лагеря{/i}."
     with None
-    show mt smile pioneer at center 
+    show mt smile pioneer at center
     with dspr
     mt "Ладно, что-то ты совсем расслабился!{w} Иди уже…"
     with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dspr
     "Она сделал паузу, напряглась всем телом, от чего у неё на лбу выступили глубокие, совсем не по возрасту, морщины; видимо, обдумывала, куда бы меня отправить."
     mt "Иди… делом займись!"
@@ -40077,7 +39634,7 @@ label epilogue_uv:
     "Наверное, этому {i}кому-то{/i} попросту нечего бояться.{w} Хотя тогда он бы так тщательно не скрывался за пиками деревьев..."
     window hide
     show blink
-    pause(1)
+    pause 1
     window show
     "Я вздохнул и закрыл глаза."
     stop music fadeout 2
@@ -40105,7 +39662,7 @@ label epilogue_uv:
     "И чувствую всё, кроме своей жизни…"
     window hide
     stop music fadeout 5
-    pause (2)
+    pause 2
     $ persistent.sprite_time = "day"
     scene bg ext_house_of_mt_day
     with flash
@@ -40143,18 +39700,18 @@ label epilogue_uv:
     stop ambience fadeout 2
     play music music_list["reflection_on_water"] fadein 3
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dissolve
     un "Привет."
     "Я нехотя поднял глаза и пару секунд смотрел сквозь неё."
     me "Привет…"
     un "А я…"
     with None
-    show un shy pioneer at center 
+    show un shy pioneer at center
     with dspr
     "Она осеклась, отвела взгляд и покраснела."
     with None
-    show un normal pioneer at center 
+    show un normal pioneer at center
     with dspr
     un "Хотя ладно.{w} Можно я присяду?"
     me "Садись."
@@ -40178,7 +39735,7 @@ label epilogue_uv:
     un "Да…{w} То есть нет.{w} На самом деле…"
     me "Что?"
     with None
-    show un shy pioneer at center 
+    show un shy pioneer at center
     with dspr
     un "Мне тоже иногда так кажется."
     me "Ты о чём?"
@@ -40186,7 +39743,7 @@ label epilogue_uv:
     "Я внимательно посмотрел на неё."
     "Она сидела, потупив глаза, нервно крутя в руках охапку полевых цветов – жёлтых, как жаркий луч летнего солнца."
     with None
-    show un sad pioneer at center 
+    show un sad pioneer at center
     with dspr
     un "Ну, просто понимаешь…{w} Вот, допустим, эти цветы – они росли себе, а потом я их сорвала, и всё!"
     "Она буквально была готова расплакаться.{w} Это совсем не похоже на Лену."
@@ -40199,7 +39756,7 @@ label epilogue_uv:
     "Она резко встала и, не прощаясь, быстро зашагала в сторону площади."
     window hide
     show blink
-    pause(1)
+    pause 1
     window show
     "Действительно, Лена, как и остальные пионеры, казалась настоящей.{w} Не плодом моего воображения, не куклой, не NPC."
     window hide
@@ -40233,7 +39790,7 @@ label epilogue_uv:
     "А ведь именно этого мне так страстно хотелось последние пять дней…"
     window hide
     stop music fadeout 3
-    pause (2)
+    pause 2
     $ night_time()
     $ persistent.sprite_time = "night"
     scene bg ext_house_of_mt_night
@@ -40262,43 +39819,43 @@ label epilogue_uv:
     $ persistent.sprite_time = "night"
     scene bg ext_square_night
     with dissolve
-    pause (1)
+    pause 1
     $ persistent.sprite_time = "night"
     scene bg ext_aidpost_night
     with dissolve
-    pause (1)
+    pause 1
     $ persistent.sprite_time = "night"
     scene bg ext_dining_hall_away_night
     with dissolve
-    pause (1)
+    pause 1
     $ persistent.sprite_time = "night"
     scene bg ext_playground_night
     with dissolve
-    pause (1)
+    pause 1
     $ persistent.sprite_time = "night"
     scene bg ext_clubs_night
     with dissolve
-    pause (1)
+    pause 1
     $ persistent.sprite_time = "night"
     scene bg ext_camp_entrance_night
     with dissolve
-    pause (1)
+    pause 1
     $ persistent.sprite_time = "night"
     scene bg ext_no_bus_night
     with dissolve
-    pause (1)
+    pause 1
     $ persistent.sprite_time = "night"
     scene bg ext_path_night
     with dissolve
-    pause (1)
+    pause 1
     $ persistent.sprite_time = "night"
     scene bg ext_path2_night
     with dissolve
-    pause (1)
+    pause 1
     $ persistent.sprite_time = "night"
     scene bg ext_polyana_night
     with dissolve
-    pause (1)
+    pause 1
     window show
     "Дорожка между домиками пионеров, площадь с памятником Генде, лесная тропинка – все они сменялись как картинки в детской книжке.{w} И таким же нарисованным казался и весь этот мир."
     "И ведь ещё вчера я так не думал…"
@@ -40308,7 +39865,7 @@ label epilogue_uv:
     "Что угодно – лишь бы не думать о том, почему я здесь и как отсюда выбраться.{w} Что угодно…"
     window hide
     show blink
-    pause(1)
+    pause 1
     window show
     "Я сел на пенёк и закрыл глаза."
     stop ambience fadeout 3
@@ -40316,16 +39873,16 @@ label epilogue_uv:
     window hide
     scene cg d1_uv
     with fade
-    pause (1.5)
+    pause 1.5
     scene black
     with fade
-    pause (1)
+    pause 1
     $ persistent.sprite_time = "night"
     scene bg ext_polyana_night
     show uv normal at center
     show unblink
     with fade
-    pause(1)
+    pause 1
     window show
     "Я резко открыл глаза и увидел перед собой её."
     play sound sfx_wind_gust
@@ -40432,14 +39989,14 @@ label epilogue_uv:
     scene bg ext_polyana_night
     with dissolve
     with None
-    show uv normal at center 
+    show uv normal at center
     with dissolve
     window show
     "Девочка встала и отряхнулась."
     me "А мне интересно!{w} Если не ты конкретно во всём этом виновата, то точно знаешь ответы!"
     me "Кто-то же их знать должен..."
     with None
-    show uv laugh at center 
+    show uv laugh at center
     with dspr
     "Она внимательно посмотрела на меня и засмеялась."
     uv "А ты смешной!"
@@ -40447,13 +40004,13 @@ label epilogue_uv:
     me "Хватит надо мной издеваться! Ты! Вы все меня уже достали! Почему именно я?! Чем я хуже остальных?! Я не просил о такой радости! Оставьте меня в покое! Я никого не трогаю! Никому не мешаю! Что я вам сделал такого! Отстаньте! Дайте жить спокойно!"
     "Всё тело тряслось мелкой дрожью, в голове, словно артподготовка, стучала кровь, а в глазах потемнело."
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Выговорился?"
     "Спокойно спросила девочка."
     "Я уже был готов с размаху ударить её по голове.{w} Хотя бы проверю – из плоти и крови она или нет."
     with None
-    show uv smile at center 
+    show uv smile at center
     with dspr
     uv "Ладно, пойдём."
     me "Куда?.."
@@ -40471,19 +40028,19 @@ label epilogue_uv:
     me "Подожди."
     "Я не решился хватать её за руку, поэтому попытался остановить словами."
     with None
-    show uv normal at center 
+    show uv normal at center
     with dissolve
     uv "Что?"
     me "Куда ты меня ведёшь?"
     uv "Увидишь, сказала же!"
     me "Но мы ведь ходим кругами."
     with None
-    show uv dontlike at center 
+    show uv dontlike at center
     with dspr
     uv "Ну и что?"
     me "Как это «и что»?{w} Если ходить кругами, то никуда не придёшь!"
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Но ты ведь сам говорил, что гуляешь…"
     "Девочка казалась странной, нелогичной, иногда даже надменной, словно она получает удовольствие, издеваясь надо мной."
@@ -40493,18 +40050,18 @@ label epilogue_uv:
     uv "Просто мне стало скучно! Всегда было одно и то же, одно и то же…{w} А недавно столько всего случилось и теперь…"
     me "Что теперь?"
     with None
-    show uv grin at center 
+    show uv grin at center
     with dspr
     uv "Теперь я могу с тобой поговорить."
     "Она улыбнулась."
     me "А раньше не могла?"
     with None
-    show uv smile at center 
+    show uv smile at center
     with dspr
     uv "Ну, могла, конечно.{w} Наверное…"
     me "А что случилось?"
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Не знаю."
     me "Откуда же ты знаешь тогда, что что-то вообще случилось?"
@@ -40525,19 +40082,19 @@ label epilogue_uv:
     "И пусть она знает ответы, пусть может вернуть меня в привычный мир – что угодно, но только не сегодня.{w} Сегодня с меня хватит!"
     "Если я ещё секунду останусь здесь, то уже некого будет возвращать."
     with None
-    show uv smile at center 
+    show uv smile at center
     with dspr
     uv "Спокойной ночи."
     "Мило сказала девочка."
     me "И всё?"
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "А что ещё? Ты же спать идёшь."
     "И ведь она права…"
     me "Ладно, у тебя хоть имя-то есть?"
     with None
-    show uv surprise at center 
+    show uv surprise at center
     with dspr
     uv "Имя?"
     me "Да, имя!"
@@ -40550,18 +40107,18 @@ label epilogue_uv:
     "Она непонимающе посмотрела на меня."
     me "Ладно, тогда будешь Юлей!"
     with None
-    show uv shocked at center 
+    show uv shocked at center
     with dspr
     uv "Юлей…"
     "Не знаю, почему я выбрал именно это имя. Просто первое, что пришло в голову."
     with None
-    show uv smile at center 
+    show uv smile at center
     with dspr
     uv "Хорошо."
     $ meet('uv','Юля')
     "Она весело улыбнулась."
     with None
-    show uv laugh at center 
+    show uv laugh at center
     with dspr
     uv "А теперь и мне пора!"
     with None
@@ -40662,28 +40219,28 @@ label epilogue_uv:
     "Хотя, может быть, всё совсем не так, совсем-совсем не так…{w} И может, Юля не виновата…"
     play sound sfx_bush_leaves
     show uv normal:
-        xalign 0.5 
-        yalign 0.0 
-        ypos 670 
+        xalign 0.5
+        yalign 0.0
+        ypos 670
     with dissolve
     "Кусты рядом тихо зашуршали, и над ними показались знакомые уши."
     me "Я тебя вижу."
     with None
     show uv normal:
-        xalign 0.5 
-        yalign 0.0 
-        ypos 670 
-        linear 1.0 ypos 0 
+        xalign 0.5
+        yalign 0.0
+        ypos 670
+        linear 1.0 ypos 0
     with dspr
     "Юля нехотя вылезла из своего укрытия."
     with None
-    show uv upset at center 
+    show uv upset at center
     with dspr
     uv "Ну вот…"
     "Насупившись, фыркнула она."
     me "Ты следишь за мной?"
     with None
-    show uv smile at center 
+    show uv smile at center
     with dspr
     uv "Да, а что, нельзя?"
     me "Ну, наверное, можно.{w} Я всё равно хотел поговорить с тобой."
@@ -40691,7 +40248,7 @@ label epilogue_uv:
     me "О чём это?"
     "Удивился я."
     with None
-    show uv upset at center 
+    show uv upset at center
     with dspr
     uv "Тут происходит что-то странное…"
     me "Странное? Что?"
@@ -40710,7 +40267,7 @@ label epilogue_uv:
     "Я обернулся и увидел быстро приближающуюся Славю."
     "Юля, как и следовало ожидать, скрылась в лесу."
     with None
-    show sl scared pioneer at center 
+    show sl scared pioneer at center
     with dissolve
     me "Привет."
     "Улыбнулся я."
@@ -40748,7 +40305,7 @@ label epilogue_uv:
 label epilogue_uv_part2:
     "Я подбежал к Ольге Дмитриевне."
     with None
-    show mt shocked pioneer at center 
+    show mt shocked pioneer at center
     with dissolve
     me "Вы же это тоже видите?!"
     mt "Да, конечно."
@@ -40775,7 +40332,7 @@ label epilogue_uv_part2:
     me "Вы не видели?{w} А, чёрт, сидите тут с роботами своими как сычи!{w} Бинокль, подзорная труба есть?!"
     "Я чеканил слова, как пещерный человек, только что научившийся говорить."
     with None
-    show sh scared pioneer at cright 
+    show sh scared pioneer at cright
     with dspr
     sh "Да что такое-то, ты можешь спокойной объяснить?"
     me "Некогда объяснять, давайте бинокль и бегом на площадь!"
@@ -40788,7 +40345,7 @@ label epilogue_uv_part2:
     "Дальше препираться со мной юные кибернетики не стали, и через минуту мы уже стояли вместе с остальными пионерами, а я внимательно изучал в бинокль непонятно откуда взявшийся город."
     "На первый взгляд в нём не было ничего необычного и по всему создавалось впечатление, что он скорее из моего времени, начала XXI века: рекламные щиты, спутниковые тарелки, помпезные вывески на магазинах и торговых центрах, {i}современные{/i} модели машин…"
     with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dissolve
     mt "Дай сюда!"
     "Вожатая выхватила у меня бинокль."
@@ -40797,30 +40354,30 @@ label epilogue_uv_part2:
     with dissolve
     uv "Значит, это вот твой мир?"
     with None
-    show uv normal at center 
+    show uv normal at center
     with dissolve
     "Я обернулся и увидел Юлю, стоящую рядом."
     me "Ты же говорила, что тебя никто не должен видеть…"
     uv "Да, но…"
     "Она задумалась."
     with None
-    show uv smile at center 
+    show uv smile at center
     with dspr
     uv "Меня и сейчас никто не видит."
     "На странную девочку с кошачьими ушами пионеры, занятые созерцанием далёкого города, не обращали ни малейшего внимания."
     me "Ты знаешь, что это… почему это?"
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Н-нет."
     "Ответила она после небольшой паузы."
     with None
-    show uv surprise2 at center 
+    show uv surprise2 at center
     with dspr
     uv "Раньше никогда такого не было! То есть совсем-совсем."
     me "А что было?"
     with None
-    show uv surprise at center 
+    show uv surprise at center
     with dspr
     uv "Ну как же! Ты приезжал, а потом уезжал, а потом опять приезжал…"
     me "А ты что делала всё это время?"
@@ -40833,7 +40390,7 @@ label epilogue_uv_part2:
     with dissolve
     mt "Семён."
     with None
-    show mt shocked pioneer at center 
+    show mt shocked pioneer at center
     with dissolve
     "Я повернулся к вожатой."
     mt "Я не знаю, что это, но выглядит оно очень странно.{w} Надо звонить в милицию!"
@@ -40843,7 +40400,7 @@ label epilogue_uv_part2:
     with dissolve
     "Я повернулся к Юле, чтобы победоносно сообщить об этом, но девочка-кошка уже исчезла."
     with None
-    show mt surprise pioneer at center 
+    show mt surprise pioneer at center
     with dissolve
     mt "Что это может быть?.."
     "Тихо сказала вожатая, не обращаясь ни к кому конкретно."
@@ -40964,7 +40521,7 @@ label epilogue_uv_part2:
     me "Ясно."
     "Не то чтобы я ожидал помощи от этих двоих."
     with None
-    show mt normal pioneer at center 
+    show mt normal pioneer at center
     with dissolve
     mt "Тогда надо собраться, взять всё необходимое…"
     "Захлопотала Ольга Дмитриевна."
@@ -40999,7 +40556,7 @@ label epilogue_uv_part2:
     with dspr
     "Первая к рюкзаку подошла Ульяна и, недовольно фыркая, забрала фонарь и тёплую кофту."
     window hide
-    pause(1)
+    pause 1
     window show
     "Её примеру последовали и остальные."
     "Я не ожидал от себя такой смелости, а ещё меньше – того, что со мной так безропотно согласятся."
@@ -41031,7 +40588,7 @@ label epilogue_uv_part2:
     "Тёплый свитер, лежащий в пакете, казался просто-таки насмешкой, ведь сейчас я бы и его, и все фонари, и даже рацию отдал за панамку вожатой и бутылку воды."
     "И почему никто не догадался взять с собой фляжку?"
     with None
-    show dv normal pioneer2 at cleft 
+    show dv normal pioneer2 at cleft
     with dissolve
     dv "Уф…"
     "С каждой минутой одежды на Алисе становилось всё меньше и меньше."
@@ -41039,7 +40596,7 @@ label epilogue_uv_part2:
     "Я притормозил, прикрыл глаза ладонью и посмотрел в сторону города, который лежал от нас по правую сторону."
     "Казалось, что мы не приблизились ни на метр."
     with None
-    show us dontlike pioneer at cright 
+    show us dontlike pioneer at cright
     with dissolve
     us "И почему не пойти напрямик?"
     "Возмутилась Ульяна."
@@ -41066,7 +40623,7 @@ label epilogue_uv_part2:
     "Но почему мы не приближаемся? Или это всё проклятый зной, создающий оптическую иллюзию?"
     window hide
     play sound sfx_bush_leaves
-    pause(1)
+    pause 1
     window show
     "Рядом еле слышно зашуршали кусты, я обернулся и увидел торчащие над ними уши."
     me "Я отойду на минутку…"
@@ -41075,19 +40632,19 @@ label epilogue_uv_part2:
     window show
     "Обойдя кусты с другой стороны, я жестом показал Юле следовать за мной и, только убедившись, что мы отошли на достаточное расстояние от остальных и нас никто не видит, сказал:"
     with None
-    show uv normal at center 
+    show uv normal at center
     with dissolve
     me "Значит, следишь за нами?"
     uv "Да, конечно, мне ведь тоже интересно!"
     me "Ах, вот как?{w} И ты точно не знаешь, что нас там ждёт?"
     with None
-    show uv smile at center 
+    show uv smile at center
     with dspr
     uv "Точно-точно!"
     "Улыбнулась она."
     me "И почему мы не приближаемся к городу, тоже не знаешь?"
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Знаю."
     "Спокойно ответила Юля."
@@ -41099,14 +40656,14 @@ label epilogue_uv_part2:
     uv "Просто всегда было не так.{w} Ты приезжал, а потом… потом ты уезжал, а потом опять приезжал. И даже если заходил так далеко, то там всё было то же самое. А этот город… твой мир…"
     me "Почему ты постоянно его называешь моим миром?"
     with None
-    show uv dontlike at center 
+    show uv dontlike at center
     with dspr
     uv "Потому что он не принадлежит этому месту, конечно же!"
     "Возмутилась Юля."
     me "Ну а что это за место тогда? Ты можешь говорить более понятно?"
     "Я совсем не злился на неё – сейчас мне правда казалось, что девочка-кошка не скрывает ничего важного, а просто не понимает вопросов или действительно не знает на них ответов."
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Я не знаю."
     me "Ладно, давай пошагово.{w} Как давно ты здесь?"
@@ -41119,7 +40676,7 @@ label epilogue_uv_part2:
     uv "Ну, это ты и как бы не ты. Вас много."
     me "А ты одна?"
     with None
-    show uv smile at center 
+    show uv smile at center
     with dspr
     uv "Я одна."
     "Юля приветливо улыбнулась и помахала хвостом."
@@ -41128,7 +40685,7 @@ label epilogue_uv_part2:
     me "То есть ты что… всемогущая?"
     "Лучшего слова я не подобрал."
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Не знаю."
     me "Ну, у тебя есть какие-то сверхспособности? Может, умеешь летать, кидаться фаерболлами или телепортироваться?"
@@ -41208,7 +40765,7 @@ label epilogue_uv_part2:
     show un rage pioneer
     with dspr
     show sl angry pioneer:
-        linear 0.3 xalign 0.5 
+        linear 0.3 xalign 0.5
     with None
     show dv scared pioneer2 behind sl
     with dspr
@@ -41221,13 +40778,13 @@ label epilogue_uv_part2:
     "В слезах вскрикнула Ульянка."
     "Я не знал, как вести себя в такой ситуации, но допустить драку точно не мог."
     with None
-    show uv rage at center 
+    show uv rage at center
     with dissolve
     "Однако вмешиваться мне не пришлось – непонятно откуда выскочила Юля, в два прыжка оказалась между девочками и хищно зашипела."
     uv "Это всё не так! Неправильно! Вы не должны себя так вести! Вы не для этого тут!"
     show dv scared pioneer2 behind uv
     show sl scared pioneer behind dv:
-        linear 0.3 xalign -0.1 
+        linear 0.3 xalign -0.1
     show us fear pioneer behind uv
     show un scared pioneer behind us
     with hpunch
@@ -41243,7 +40800,7 @@ label epilogue_uv_part2:
     show us fear pioneer far behind uv
     show un scared pioneer far behind us
     with dissolve
-    pause(1)
+    pause 1
     window show
     "Я встал между ними и девочкой-кошкой."
     me "Я могу всё объяснить."
@@ -41293,7 +40850,7 @@ label epilogue_uv_part2:
     hide dv
     hide sl
     with dissolve
-    pause(1)
+    pause 1
     window show
     "Бросил я и отправился вперёд по дороге, в сторону города, который с каждым моим шагом отдалялся на шаг."
     stop music fadeout 3
@@ -41317,7 +40874,7 @@ label epilogue_uv_part2:
     "Я с трудом сел на обочину, подняв с земли маленькую пыльную бурю, которая тут же налетела на меня, заставив прокашляться."
     window hide
     show blink
-    pause(1)
+    pause 1
     window show
     "На глаза навернулись слёзы."
     window hide
@@ -41326,7 +40883,7 @@ label epilogue_uv_part2:
     with dissolve
     hide blink
     show unblink
-    pause(1)
+    pause 1
     window show
     "Когда я вновь открыл их, передо мной стояла Юля."
     me "Наверное, быть кошкой имеет свои преимущества – передвигаешься ты явно быстрее людей."
@@ -41350,12 +40907,12 @@ label epilogue_uv_part2:
     "Вдруг тихо сказала она."
     me "Ну так помоги!"
     with None
-    show uv surprise at center 
+    show uv surprise at center
     with dspr
     uv "Но я не знаю как…"
     me "Расскажи про этот город, про этот мир вообще! Почему я здесь, как вернуться назад?"
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Я не знаю…{w} Ну, то есть…{w} Так всегда было и всегда будет: ты приезжаешь на автобусе, проводишь в этом лагере неделю, а потом, вне зависимости от исхода, всё повторяется. И… и… тебя много, они все разные…"
     me "Как это {i}разные?{/i}?"
@@ -41369,14 +40926,14 @@ label epilogue_uv_part2:
     uv "Я не знаю. В этот раз что-то не так."
     me "Но зачем это всё? Кто они, те {i}другие{/i}?"
     with None
-    show uv surprise2 at center 
+    show uv surprise2 at center
     with dspr
     "Она непонимающе посмотрела на меня."
     uv "Но ведь это – ты…"
     me "Как это {i}я{/i}?"
     uv "Ты и все те другие…"
     with None
-    show uv surprise at center 
+    show uv surprise at center
     with dspr
     "Она недовольно фыркнула, видимо силясь подобрать слова."
     uv "Вы одно и то же!"
@@ -41384,7 +40941,7 @@ label epilogue_uv_part2:
     uv "Что такое «клоны»?"
     me "Копии.{w} Ну как два одинаковых гриба, которые ты заготавливаешь на зиму!"
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Не бывает двух одинаковых грибов."
     "Серьёзно сказала Юля."
@@ -41400,25 +40957,25 @@ label epilogue_uv_part2:
     me "Ладно, что мне делать?"
     "Спросил я серьёзно."
     with None
-    show uv surprise at center 
+    show uv surprise at center
     with dspr
     "Она непонимающе посмотрела на меня."
     me "Что ты посоветуешь мне делать?"
     uv "Я не знаю."
     me "Если бы ты была на моём месте, что бы предприняла?"
     with None
-    show uv surprise2 at center 
+    show uv surprise2 at center
     with dspr
     uv "Я?..{w} На твоём месте?.."
     with None
-    show uv laugh at center 
+    show uv laugh at center
     with dspr
     uv "Но ведь такого не может быть!"
     "Юля залилась звонким смехом."
     uv "Ты – это ты, а я – это я!"
     me "Ну а если представить! Ты же обладаешь разумом – значит, у тебя должно быть воображение!"
     with None
-    show uv smile at center 
+    show uv smile at center
     with dspr
     uv "Ну…{w} Я бы ничего не стала менять."
     me "Почему?"
@@ -41446,7 +41003,7 @@ label epilogue_uv_part2:
     "И тем страннее выглядела дорога, по которой я шёл – пустынная, словно заброшенная, по которой давным-давно не ездят машины и не ходят люди."
     "Словно узкая тропинка из {i}этого{/i} мира в какой-то другой."
     with None
-    show uv normal at center 
+    show uv normal at center
     with dissolve
     "Юля всё это время шла рядом, не проронив ни слова."
     me "Зачем ты здесь?"
@@ -41465,7 +41022,7 @@ label epilogue_uv_part2:
     window hide
     stop ambience fadeout 2
     play sound sfx_radio_squelch_1
-    pause(1)
+    pause 1
     play music music_list["trapped_in_dreams"] fadein 3
     window show
     "Вдруг противно зашипела рация, которую я почему-то всё ещё нёс с собой, и взволнованный голос Ольги Дмитриевны, искажённый помехами, сказал:"
@@ -41481,11 +41038,11 @@ label epilogue_uv_part2:
     mt "Семён, скорее! Нет времени объяснять! Беда…"
     window hide
     play sound sfx_radio_squelch_2
-    pause(1)
+    pause 1
     window show
     "Шипение усилилось, заглушив голос вожатой."
     with None
-    show uv surprise at center 
+    show uv surprise at center
     with dspr
     uv "Пойдёшь?"
     "Взволнованно спросила Юля."
@@ -41505,7 +41062,7 @@ label epilogue_uv_part2:
     "И вдруг всё случится так, как и говорила Юля?..{w} Нет, этого тоже допустить нельзя."
     "Рация противно шипела, но я не хотел её выключать – вдруг услышу ещё что-нибудь."
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Так что ты решил?"
     "Надо было принять решение."
@@ -41534,7 +41091,7 @@ label epilogue_uv_city:
     "Кажется, впервые за весь день мы приблизились к городу хоть немножко, хотя бы на пару сотен метров."
     window hide
     play sound sfx_ikarus_arrive
-    pause(1)
+    pause 1
     window show
     "Я уже почти уверился в том, что мне наконец-таки суждено дойти до него, как вдруг сзади послышались гудки…"
     "К нам стремительно приближался автобус, Икарус, рассекая ночную темноту ярким светом фар."
@@ -41544,11 +41101,11 @@ label epilogue_uv_city:
     "И как только у неё получается так незаметно исчезать и появляться!"
     window hide
     play sound sfx_ikarus_open_doors
-    pause(1)
+    pause 1
     window show
     "Автобус медленно остановился рядом со мной, открылась дверь и…"
     with None
-    show mt angry pioneer at center 
+    show mt angry pioneer at center
     with dissolve
     "... из неё вышла Ольга Дмитриевна!"
     mt "Семён! Почему не вернулся? Я же тебя просила!"
@@ -41583,7 +41140,7 @@ label epilogue_uv_city:
     scene black
     with fade3
     stop sound_loop fadeout 5
-    pause (5)
+    pause 5
     $ prolog_time()
     scene black
     with fade3
@@ -41647,7 +41204,7 @@ label epilogue_uv_city:
     "Ещё немного, и я сойду с ума!"
     window hide
     play sound sfx_door_bell
-    pause(1)
+    pause 1
     window show
     "Тишину моей квартиры нарушила противная трель дверного звонка."
     "И кому только понадобилось в такой час?!"
@@ -41760,7 +41317,7 @@ label epilogue_uv_city:
     "Лена сверкнула глазами."
     me "Ну ладно, давайте танцы оставим на потом…"
     window hide
-    pause(5)
+    pause 5
     scene black
     with fade3
     window show
@@ -41770,11 +41327,11 @@ label epilogue_uv_city:
     "Но у каждой книги есть и своя последняя страница, перевернув которую, мы ставим книгу на полку."
     "Чтобы завтра открыть новую…"
     window hide
-    pause(10)
+    pause 10
     scene black
     with fade3
     stop music fadeout 5
-    pause(5)
+    pause 5
     if not persistent.endings["uv_city"]:
         $ persistent.endings["uv_city"] = True
         $ show_achievement("uv_city")
@@ -41784,13 +41341,13 @@ label epilogue_uv_ulya:
     me "Ладно."
     "С трудом выдавил я из себя."
     with None
-    show uv surprise2 at center 
+    show uv surprise2 at center
     with dspr
     uv "Что?"
     "Удивилась Юля."
     me "Ладно, пошли.{w} Ты же этого ответа ждала?"
     with None
-    show uv grin at center 
+    show uv grin at center
     with dspr
     "Она лукаво улыбнулась."
     stop music fadeout 3
@@ -41798,12 +41355,12 @@ label epilogue_uv_ulya:
     uv "Нет, с чего ты взял?"
     me "Потому что ты постоянно говоришь, что всё повторяется через семь дней и мне не выбраться отсюда…"
     with None
-    show uv smile at center 
+    show uv smile at center
     with dspr
     uv "Ну вот и проверим!"
     me "Ага, проверим, значит?{w} Почему бы не проверить для начала тот город тогда?"
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Это тебе решать."
     "Я внимательно посмотрел на неё."
@@ -41817,25 +41374,25 @@ label epilogue_uv_ulya:
     me "Быстрее?.."
     "В голове начали с бешеной скоростью носиться мысли, сливаясь в одну, которая вряд ли окажется приятной."
     with None
-    show uv surprise2 at center 
+    show uv surprise2 at center
     with dspr
     me "То есть ты всё время…"
     "Я в два прыжка догнал её и схватил за хвост."
     me "…всё время знала?{w} Что можно сюда дойти напрямик? Не петляя весь день?!"
     with None
-    show uv rage at center 
+    show uv rage at center
     with dspr
     with vpunch
     "Юля хищно зашипела и оскалилась. Я отпустил хвост."
     with None
-    show uv guilty at center 
+    show uv guilty at center
     with dspr
     uv "Нет!{w} То есть, может, и знала, но тебе там нечего делать!"
     me "В этом городе?"
     uv "Да."
     me "Почему?"
     with None
-    show uv upset at center 
+    show uv upset at center
     with dspr
     uv "Не знаю. Просто это всё не так, неправильно! Я не могу объяснить – просто знаю!"
     with None
@@ -41845,7 +41402,7 @@ label epilogue_uv_ulya:
     "Интересно, а может всё быть ещё хуже?"
     "Не то чтобы сейчас всё катастрофически плохо, но вдруг этот город никуда не денется? А что там, в лагере? Что означают слова Ольги Дмитриевны по рации? И если я уже решил, то стоит ли сейчас колебаться?"
     with None
-    show uv guilty at center 
+    show uv guilty at center
     with dissolve
     stop ambience fadeout 2
     me "Ладно, пошли…"
@@ -41859,17 +41416,17 @@ label epilogue_uv_ulya:
     "Юля казалась чем-то необычайно довольной."
     me "Может, наконец объяснишь, что с тобой происходит?"
     with None
-    show uv smile at center 
+    show uv smile at center
     with dissolve
     uv "Просто это всё так необычно."
     me "Потому что раньше всё было не так, семь дней – а потом всё заново…{w} Ага, я уже слышал."
     with None
-    show uv grin at center 
+    show uv grin at center
     with dspr
     "Она лишь улыбнулась в ответ."
     me "И что там случилось у них…"
     with None
-    show uv shocked at center 
+    show uv shocked at center
     with dspr
     uv "Смотри!"
     "Вдалеке за деревьями показались ворота лагеря."
@@ -41893,7 +41450,7 @@ label epilogue_uv_ulya:
     play music music_list["door_to_nightmare"] fadein 3
     me "Город! Города нет!"
     with None
-    show uv surprise2 at center 
+    show uv surprise2 at center
     with dissolve
     "Юля тоже выглядела удивлённой, по-настоящему удивлённой, так что я не стал набрасываться на неё с расспросами."
     window hide
@@ -41908,7 +41465,7 @@ label epilogue_uv_ulya:
     "Я решительно дернул ручку и вошёл."
     window hide
     play sound sfx_open_door_1
-    pause(1)
+    pause 1
     scene bg int_house_of_mt_night2
     with dissolve
     window show
@@ -41921,7 +41478,7 @@ label epilogue_uv_ulya:
     "Я бросился в сторону домика Ульяны и Алисы."
     window hide
     play sound sfx_knocking_door_2
-    pause(1)
+    pause 1
     window show
     "Без лишних раздумий несколько раз громко постучал в дверь…"
     "Однако ответом мне стала тишина."
@@ -41947,7 +41504,7 @@ label epilogue_uv_ulya:
     window show
     "Я вернулся на площадь и обессиленно опустился на лавочку."
     with None
-    show uv normal at center 
+    show uv normal at center
     with dissolve
     uv "Набегался?"
     "Без интереса спросила Юля, всё это время молча сопровождавшая меня."
@@ -41967,7 +41524,7 @@ label epilogue_uv_ulya:
     window hide
     play sound_loop sfx_thunder_rumble fadein 1
     stop ambience fadeout 2
-    pause(1)
+    pause 1
     scene bg ext_square_night_flash
     play music music_list["faceless"] fadein 3
     play sound sfx_thunder_crack
@@ -42049,7 +41606,7 @@ label epilogue_uv_ulya:
     window hide
     play sound sfx_thunder_wood
     with flash
-    pause(1)
+    pause 1
     window show
     "Вдруг где-то рядом послышался взрыв – похоже, молния попала в дерево буквально в нескольких десятках метров от меня."
     window hide
@@ -42063,7 +41620,7 @@ label epilogue_uv_ulya:
     window hide
     scene bg ext_square_night
     with None
-    show uv normal at center 
+    show uv normal at center
     with dissolve
     with dissolve
     play ambience ambience_camp_center_night fadein 3
@@ -42071,12 +41628,12 @@ label epilogue_uv_ulya:
     "Я открыл глаза…"
     "На месте пионера стояла Юля."
     with None
-    show uv smile at center 
+    show uv smile at center
     with dspr
     uv "Вот ты и познакомился с коллегой."
     "Она улыбнулась и протянула мне руку.{w} От шока я не знал, что делать, и остался лежать."
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Долго планируешь там сидеть?"
     "Я кое-как поднялся."
@@ -42089,13 +41646,13 @@ label epilogue_uv_ulya:
     uv "И некоторые могут появляться в других местах. Вот, например, как этот."
     me "То есть ты всё время знала, но не говорила?"
     with None
-    show uv guilty at center 
+    show uv guilty at center
     with dspr
     uv "Ты не спрашивал."
     "Она пожала плечами."
     me "Мне стоит его бояться?"
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Я думаю, что нет… Хотя…"
     me "Так стоит или нет?"
@@ -42116,24 +41673,24 @@ label epilogue_uv_ulya:
     "Я широко открыл рот и уставился на неё."
     me "Как это… не знаешь?"
     with None
-    show uv guilty at center 
+    show uv guilty at center
     with dspr
     uv "Всё, что я помню, это как оказалась здесь. Точнее, я больше ничего не помню. Как будто ничего до этого и не было. Я должна следить за тобой… за всеми вами, и я существую одновременно во всех лагерях."
     "Когда шок немного прошёл, я продолжил."
     me "И при этом ты не знаешь, кто ты?"
     with None
-    show uv laugh at center 
+    show uv laugh at center
     with dspr
     uv "Совершенно верно!"
     "Она рассмеялась."
     me "Но такого же просто не может быть! Ладно, я могу понять – амнезия… Но ведь у всемогущих существ её не бывает."
     with None
-    show uv grin at center 
+    show uv grin at center
     with dspr
     uv "А кто тебе сказал, что я всемогущая?"
     me "А разве нет?"
     with None
-    show uv smile at center 
+    show uv smile at center
     with dspr
     uv "На самом деле я ничего и не могу. Не могу вмешиваться в естественный ход событий."
     me "Но ты же знаешь… видела?"
@@ -42141,14 +41698,14 @@ label epilogue_uv_ulya:
     me "И что будет… Ну, ты поняла…"
     "Я не знал, как сформулировать вопрос."
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Ничего. Обычно проходит семь дней, и один из вас уезжает из лагеря. Даже исчезает, я бы сказала. Потом появляется новый, и так по кругу… Количество лагерей при этом остается неизменным."
     me "Это мы уже проходили.{w} Исчезает… куда?"
     uv "Я не знаю."
     me "Не может же быть такого! Ты столько всего рассказала и…"
     with None
-    show uv upset at center 
+    show uv upset at center
     with dspr
     uv "Думаешь, я от тебя что-то скрываю?"
     me "Нет."
@@ -42156,17 +41713,17 @@ label epilogue_uv_ulya:
     "Наверное, сейчас сомневаться в её словах не стоило.{w} По крайней мере пока…"
     me "Может быть, они не исчезают, а идут на второй круг?"
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Этого варианта тоже исключать нельзя, но всё же я думаю, что нет."
     me "А что тогда сейчас со мной происходит?"
     with None
-    show uv guilty at center 
+    show uv guilty at center
     with dspr
     uv "И тут я не могу тебе ничего объяснить. Но я точно знаю, что это должно было случиться. И это что-то необычное. События развиваются не так, как всегда."
     me "Про это говорил пионер…"
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Может быть, он знает больше, чем я."
     me "Но как всё это понять вообще?"
@@ -42174,13 +41731,13 @@ label epilogue_uv_ulya:
     uv "Я думаю, что мы вскоре узнаем."
     me "Ладно… Но всё-таки кто ты такая?"
     with None
-    show uv dontlike at center 
+    show uv dontlike at center
     with dspr
     "Юля недовольно надула губки."
     uv "Я же тебе уже сказала!"
     me "То есть у тебя потеря памяти?"
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Нет…"
     "Она задумалась."
@@ -42191,24 +41748,24 @@ label epilogue_uv_ulya:
     "А значит, не стоит удивляться и этой девочке с ушами."
     me "Ты как наблюдатель здесь?"
     with None
-    show uv smile at center 
+    show uv smile at center
     with dspr
     uv "Наверное…{w} Думаю, это слово лучше всего подходит."
     me "А что насчёт того, что все обитатели исчезли, сыграв свою роль?"
     with None
-    show uv surprise2 at center 
+    show uv surprise2 at center
     with dspr
     uv "Это ты о чём?"
     me "Так сказал пионер…"
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Роль…"
     "Она забавно пошевелила ушками, от чего я невольно улыбнулся."
     uv "Да, что-то в этом есть. Ведь настоящие здесь только вы… я имею в виду тебя, того пионера и всех остальных."
     me "Как это?"
     with None
-    show uv upset at center 
+    show uv upset at center
     with dspr
     uv "Не знаю, говорю же! Считай, что я появилась здесь с некоторым багажом знаний, но не более. Есть вещи, в которых я уверена, а есть – о которых я знаю не больше тебя."
     me "Ладно…"
@@ -42216,23 +41773,23 @@ label epilogue_uv_ulya:
     "Если в подобной ситуации о логике вообще может идти речь…"
     me "И что ты предполагаешь делать дальше?"
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Ждать, смотреть, что из всего этого выйдет."
     me "Да, ты же не можешь никак повлиять ни на что…"
     "Пробурчал я себе под нос."
     with None
-    show uv grin at center 
+    show uv grin at center
     with dspr
     uv "В любом случае время ужина!"
     "Она весело улыбнулась и помахала хвостом."
     me "Так ты же ходила что-то искать…"
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Но ничего не нашла!{w} Точнее, не успела – я увидела вспышки молний и сразу бросилась назад."
     with None
-    show uv smile at center 
+    show uv smile at center
     with dspr
     uv "Пойдём!"
     "Она направилась в сторону столовой."
@@ -42258,19 +41815,19 @@ label epilogue_uv_ulya:
     "Зевнул я.{w} Время было уже далеко за полночь."
     me "Кстати, а как ты столовую открыла?"
     with None
-    show uv smile at center 
+    show uv smile at center
     with dspr
     uv "Уметь надо!"
     "Уточнять я не стал."
     me "Может, спать пойдём?"
     with None
-    show uv dontlike at center 
+    show uv dontlike at center
     with dspr
     uv "Готовь."
     "Безапелляционно заявила она."
     me "Я?"
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Больше некому."
     me "Л… ладно…"
@@ -42284,7 +41841,7 @@ label epilogue_uv_ulya:
     uv "Ну… наверное."
     window hide
     play sound sfx_cooking_eggs_1
-    pause(1)
+    pause 1
     window show
     "Я начал готовить."
     "Однако всё же интересно получается…"
@@ -42297,7 +41854,7 @@ label epilogue_uv_ulya:
     "Остаётся только откинуться поудобнее на спинку кресла и ждать, когда закончится инсталляция."
     window hide
     play sound sfx_cooking_eggs_2
-    pause(1)
+    pause 1
     window show
     "Я натёр сыр, добавил майонез, посолил, поперчил и вылил хорошо размешанную массу на сковородку."
     "В холодильнике ещё нашлась колбаса, а на полке рядом – батон хлеба."
@@ -42306,22 +41863,22 @@ label epilogue_uv_ulya:
     window show
     "Вскоре мы уже сидели и молча уплетали горячую яичницу."
     with None
-    show uv smile at center 
+    show uv smile at center
     with dissolve
     uv "Вкусно!"
     me "Ничего особенного… Обломовский такой ужин."
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Никогда такого не ела."
     me "Наверное, лучше грибов и орехов?"
     with None
-    show uv dontlike at center 
+    show uv dontlike at center
     with dspr
     uv "Сойдёт."
     "Недовольно ответила Юля."
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     "Когда с едой было покончено, я сказал:"
     me "Расскажи что-нибудь про себя, что ли… Хотя… тебе, наверное, нечего."
@@ -42330,12 +41887,12 @@ label epilogue_uv_ulya:
     uv "Не знаю. Давно…"
     me "Но ты вообще человек?"
     with None
-    show uv grin at center 
+    show uv grin at center
     with dspr
     uv "Ну, наверное!"
     me "А как же тогда ты можешь одновременно в разных местах…"
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Это сложно объяснить, я сама толком не понимаю. Давай считать, что здесь и сейчас перед тобой я единственная."
     "Такое допущение я мог принять."
@@ -42343,13 +41900,13 @@ label epilogue_uv_ulya:
     "Так, по крайней мере, я думал."
     me "Хорошо, предположим… А что ты вообще знаешь о мире?"
     with None
-    show uv laugh at center 
+    show uv laugh at center
     with dspr
     uv "Писать и читать я умею, если ты об этом."
     "Она рассмеялась."
     me "Не совсем об этом. Ты знаешь, где находится этот лагерь?"
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Нет…"
     me "Тогда, может быть, знаешь, что я не отсюда… не из этого времени… не из этой реальности."
@@ -42364,12 +41921,12 @@ label epilogue_uv_ulya:
     uv "А что ты предлагаешь?"
     me "Не знаю… Но по деревьям лазать как-то не хочется, ты уж прости."
     with None
-    show uv smile at center 
+    show uv smile at center
     with dspr
     uv "Ладно-ладно. Может, тогда про себя что-нибудь расскажешь?"
     me "Давай не сейчас."
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Ну, как хочешь… А что тогда?"
     me "Не знаю. Можно просто сидеть и ждать. Я, например, не против."
@@ -42383,28 +41940,28 @@ label epilogue_uv_ulya:
     "Если верить её словам, то в этом нет ничего необычного."
     me "Ты же понимаешь, всё, что происходит, для меня не совсем нормально. Я даже сам не понимаю, почему сейчас не сижу где-нибудь под кроватью, трясясь от каждого шороха."
     with None
-    show uv grin at center 
+    show uv grin at center
     with dspr
     uv "Получается, ты смелый."
     "Я ничего не ответил, а лишь ухмыльнулся."
     with None
-    show uv laugh at center 
+    show uv laugh at center
     with dspr
     uv "Придумала!"
     "Я внимательно посмотрел на неё."
     with None
-    show uv upset at center 
+    show uv upset at center
     with dspr
     uv "Нет, опять забыла…"
     "Юля почесала ушки."
     with None
-    show uv laugh at center 
+    show uv laugh at center
     with dspr
     uv "А, нет, вспомнила! Пойдём купаться!"
     "Я с недоверием посмотрел на неё."
     me "Может, всё-таки лучше спать?"
     with None
-    show uv upset at center 
+    show uv upset at center
     with dspr
     uv "Ну!"
     "Надулась она."
@@ -42422,13 +41979,13 @@ label epilogue_uv_ulya:
     "Меня тут же разморило."
     me "Знаешь, я, вообще-то, не очень купаться люблю."
     with None
-    show uv grin at center 
+    show uv grin at center
     with dissolve
     uv "Значит, плавать не умеешь?"
     "Юля села рядом."
     me "Ну, не то чтобы не умею…{w} Да и вообще, при чём тут это! Ладно – пионеры! Но город-то, город куда исчез?"
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Не знаю, я же уже говорила.{w} Пойдём лучше купаться!"
     me "Не хочу…"
@@ -42440,7 +41997,7 @@ label epilogue_uv_ulya:
     uv "Что?"
     me "Прямо так собираешься плавать?"
     with None
-    show uv surprise2 at center 
+    show uv surprise2 at center
     with dspr
     uv "Да, а что?"
     with None
@@ -42539,7 +42096,7 @@ label epilogue_uv_ulya:
     "..."
     window hide
     stop music fadeout 3
-    pause(2)
+    pause 2
     scene bg int_house_of_mt_night2
     with dissolve
     play ambience ambience_int_cabin_night fadein 3
@@ -42660,7 +42217,7 @@ label epilogue_uv_ulya:
     "…"
     "Не знаю, сколько мы так сидели, но вскоре я начал засыпать."
     with None
-    show uv smile at center 
+    show uv smile at center
     with dspr
     uv "Пойдём на звёзды смотреть."
     me "Пойдём."
@@ -42770,7 +42327,7 @@ label epilogue_uv_ulya:
     me "Слушай, да я не хотел ничего такого… Если нужно, заберём все твои запасы."
     "В конце концов, может быть, нам они действительно пригодятся, в моём положении ничего исключать нельзя."
     with None
-    show uv grin at center 
+    show uv grin at center
     with dissolve
     uv "Да я пошутила!"
     "Она высунулась из-под одеяла и показала мне язык."
@@ -42784,7 +42341,7 @@ label epilogue_uv_ulya:
     scene bg black
     with fade3
     stop ambience fadeout 3
-    pause(3)
+    pause 3
     $ day_time()
     $ persistent.sprite_time = "day"
     scene black
@@ -42843,14 +42400,14 @@ label epilogue_uv_ulya:
     "Она встала с кровати и начала одеваться."
     "Я заворожённо смотрел на неё, не в силах оторвать взгляд."
     with None
-    show uv normal at center 
+    show uv normal at center
     with dissolve
     stop music fadeout 3
     play ambience ambience_int_cabin_day fadein 3
     uv "Что уставился? Вставай! Пора собираться!"
     me "Ты про ягоды и грибы?"
     with None
-    show uv upset at center 
+    show uv upset at center
     with dspr
     uv "Конечно!"
     "Юля подпёрла бока руками и недовольно посмотрела на меня."
@@ -42869,14 +42426,14 @@ label epilogue_uv_ulya:
     "Она зашла за дерево, откинула в сторону листву и достала из тайника увесистый мешок."
     me "И это…"
     with None
-    show uv normal at center 
+    show uv normal at center
     with dissolve
     uv "Это ещё не всё. Здесь только самое необходимое."
     "Культурных слов на ответ у меня не нашлось, поэтому я решил промолчать."
     "В мешке были грибы, ягоды, яблоки, орехи – всё вперемешку."
     "У меня сразу же возникли серьёзные опасения за безопасность употребления в пищу этой солянки."
     with None
-    show uv smile at center 
+    show uv smile at center
     with dspr
     uv "Неси."
     "Непринуждённо улыбнувшись, сказала Юля, показывая пальцем на мешок."
@@ -42889,13 +42446,13 @@ label epilogue_uv_ulya:
     uv "Почему же? В этих краях зимы длинные."
     me "Тебе-то оттуда знать?"
     with None
-    show uv grin at center 
+    show uv grin at center
     with dspr
     uv "Догадываюсь."
     "Я попытался скорчить самую страдальческую гримасу, на которую только был способен."
     me "Я его донесу в лучшем случае до площади. Пожалей меня!"
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     "Юля задумалась."
     uv "Ладно, тогда выкидывай ягоды!"
@@ -42904,13 +42461,13 @@ label epilogue_uv_ulya:
     me "Не сильно легче стало."
     "Сказал я, закончив с ягодами."
     with None
-    show uv upset at center 
+    show uv upset at center
     with dspr
     uv "Ничего не знаю!"
     "Я вздохнул и обессиленно опустился на землю рядом с мешком."
     me "Давай тогда нести по очереди."
     with None
-    show uv surprise2 at center 
+    show uv surprise2 at center
     with dspr
     uv "Но он же тяжёлый!"
     "Воскликнула Юля."
@@ -42919,20 +42476,20 @@ label epilogue_uv_ulya:
     me "А для меня как будто лёгкий…"
     "Пробубнил я себе под нос, стараясь, чтобы Юля не услышала."
     with None
-    show uv surprise at center 
+    show uv surprise at center
     with dspr
     uv "Лёгкий!"
     "Похоже, не стоило недооценивать её кошачий слух."
     me "Ладно, давай вернёмся сюда попозже, а сейчас неплохо бы и поесть!"
     with None
-    show uv smile at center 
+    show uv smile at center
     with dspr
     uv "Ну, наверное…"
     "Она улыбнулась и протянула мне руку."
     window hide
     stop ambience fadeout 2
     scene bg int_dining_hall_day
-    with dissolve 
+    with dissolve
     play music music_list["farewell_to_the_past_full"] fadein 3
     window show
     "…"
@@ -42942,17 +42499,17 @@ label epilogue_uv_ulya:
     "Всегда хотелось есть сразу, а не ждать, пока будут подготовлены все ингредиенты, вскипит вода, всплывут пельмени…"
     "Поэтому раньше я часто обходился бутербродами или фаст-фудом."
     with None
-    show uv smile at center 
+    show uv smile at center
     with dissolve
     uv "Как хорошо у тебя получается!"
     me "Я же уже говорил, что тут нет ничего особенного."
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Но… Но…"
     "Она силилась подобрать слова."
     with None
-    show uv grin at center 
+    show uv grin at center
     with dspr
     uv "Но… Всё равно хорошо!"
     me "Я рад, что тебе нравится."
@@ -42962,42 +42519,42 @@ label epilogue_uv_ulya:
     window show
     "Судя по тому, как Юля уплетала картошку, ей правда пришлась по вкусу моя нехитрая стряпня."
     with None
-    show uv smile at center 
+    show uv smile at center
     with dspr
     uv "Волнуешься?"
     me "Сначала прожуй, потом говори!"
     with None
-    show uv dontlike at center 
+    show uv dontlike at center
     with dspr
     uv "Грубиян!"
     me "Надо уметь себя вести в приличном обществе."
     with None
-    show uv laugh at center 
+    show uv laugh at center
     with dspr
     uv "И где ты видишь здесь общество?"
     "Юля развела руками по сторонам и засмеялась."
     "Действительно, столовая была пуста.{w} Как и весь лагерь…"
     me "Как думаешь, куда всё же все исчезли?"
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Откуда мне знать…"
     "Она подцепила вилкой последний кусочек и ловко отправила его в рот."
     uv "Скучаешь?"
     me "В какой-то мере."
     with None
-    show uv grin at center 
+    show uv grin at center
     with dspr
     uv "А как же я! Я же лучше собаки!"
     "Опять цитата…{w} Однако в этот раз я не стал обращать на это особого внимания."
     me "Учитывая то, что ты вроде как кошка, то точно лучше."
     with None
-    show uv sad at center 
+    show uv sad at center
     with dspr
     uv "Тебе одиноко?"
     me "Ну я же не один."
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Нас только двое…"
     me "Но если бы не произошло то, что произошло, мы, может быть…"
@@ -43012,7 +42569,7 @@ label epilogue_uv_ulya:
     me "Ну потому что лагерей много, как ты говоришь, и по теории вероятности…"
     me "Значит, то, что произошло с нами за последние два дня, вообще из ряда вон…"
     with None
-    show uv grin at center 
+    show uv grin at center
     with dspr
     uv "Как будто что-то плохое."
     me "Нет конечно!"
@@ -43026,13 +42583,13 @@ label epilogue_uv_ulya:
     "Кажется, на любой мой аргумент у неё был уже готов ответ. Как будто она знала наперёд, что я буду говорить."
     me "Ладно… Пойдём?"
     with None
-    show uv surprise2 at center 
+    show uv surprise2 at center
     with dspr
     uv "Куда?"
     "Я понял, что зря это сказал – теперь она точно меня потащит за тем мешком."
     me "Ну… До автобуса ещё долго. Пока можно…"
     with None
-    show uv grin at center 
+    show uv grin at center
     with dspr
     uv "А, точно! Запасы!"
     "Я лишь почесал подбородок и побеждённый направился за ней."
@@ -43051,13 +42608,13 @@ label epilogue_uv_ulya:
     "Я в изнеможении упал рядом с ним."
     me "Всё…"
     with None
-    show uv grin at center 
+    show uv grin at center
     with dissolve
     uv "Вот видишь, какой молодец! А ты боялся!"
     "Всё тело ныло, мышцы горели, со лба рекой лился пот, разъедая глаза."
     "Не знаю, какая награда мне полагается, но это соревнование было больше похоже на олимпиаду умственно отсталых – хоть я и выиграл, я всё равно дебил."
     with None
-    show uv grin at center 
+    show uv grin at center
     with dspr
     uv "Смотри, а вон и автобус едет!"
     me "Что?!"
@@ -43076,7 +42633,7 @@ label epilogue_uv_ulya:
     "Вскоре автобус поравнялся с нами и распахнул дверь, приглашая нас внутрь."
     "Водительское место было пусто, но меня это не сильно удивило – тут случаются и более странные вещи!"
     with None
-    show uv normal at center 
+    show uv normal at center
     with dissolve
     uv "Пошли?"
     "Юля легко вскочила на первую ступеньку и жестом пригласила меня последовать за ней."
@@ -43103,7 +42660,7 @@ label epilogue_uv_ulya:
     "Так было по крайней мере ещё несколько дней назад."
     "Хотя как я могу судить, пробыв здесь всего неделю…"
     with None
-    show uv smile at center 
+    show uv smile at center
     with dissolve
     uv "Ну вот! Теперь я уверена, всё будет хорошо!"
     "Я внимательно посмотрел на неё."
@@ -43115,12 +42672,12 @@ label epilogue_uv_ulya:
     "Я сжал нервы в узду и старался не думать ни о чём."
     "Но и отвлечься не получалось."
     with None
-    show uv dontlike at center 
+    show uv dontlike at center
     with dspr
     uv "Эй! Ты меня слушаешь?"
     me "А? Нет, прости, я задумался…"
     with None
-    show uv upset at center 
+    show uv upset at center
     with dspr
     uv "Ну вот так всегда!"
     "Она надулась."
@@ -43128,17 +42685,17 @@ label epilogue_uv_ulya:
     uv "Ну и для меня важный, но я же не волнуюсь."
     me "Просто тебе не с чем сравнивать."
     with None
-    show uv surprise2 at center 
+    show uv surprise2 at center
     with dspr
     uv "Ты про что?"
     me "Я до этого жил в другом мире – реальном, как тогда казалось. Так что мне есть, с чем сравнить этот лагерь. А ты, можно сказать, родилась здесь."
     with None
-    show uv sad at center 
+    show uv sad at center
     with dspr
     uv "И ничего я здесь не родилась…"
     me "Откуда ты знаешь?"
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     uv "Просто знаю! Это я знаю…"
     with None
@@ -43166,17 +42723,17 @@ label epilogue_uv_ulya:
     play sound_loop sfx_bus_interior_moving fadein 2
     play sound sfx_punch_medium
     with vpunch
-    pause(1)
+    pause 1
     window show
     "Я почувствовал сильный удар по голове."
     with None
-    show uv dontlike at center 
+    show uv dontlike at center
     with dissolve
     uv "Эй, не спи!"
     me "Я что, мешаю?"
     "Возмутился я, потирая ушибленное место."
     with None
-    show uv upset at center 
+    show uv upset at center
     with dspr
     uv "Ты меня не слушаешь!"
     me "Если мы выберемся отсюда, у нас будет ещё много времени для разговоров."
@@ -43184,13 +42741,13 @@ label epilogue_uv_ulya:
     me "Тогда будет ещё больше."
     "Я попытался улыбнуться, но идея о том, что мы всё-таки не сможем покинуть этот лагерь, настолько испугала меня, что на лице появилась лишь глупая гримаса."
     with None
-    show uv guilty at center 
+    show uv guilty at center
     with dspr
     uv "Вот и хорошо, если не выберемся! А то в твоём мире… Я, конечно, не знаю, что там и как, но… Совсем на меня внимания обращать не будешь!"
     me "Буду, обещаю!"
     "Я нежно обнял её."
     with None
-    show uv smile at center 
+    show uv smile at center
     with dspr
     uv "Честно-честно?"
     me "Честно-честно!"
@@ -43200,18 +42757,18 @@ label epilogue_uv_ulya:
     uv "И соглашаться со мной будешь?"
     me "Обязательно!"
     with None
-    show uv normal at center 
+    show uv normal at center
     with dspr
     "Она отодвинулась и внимательно посмотрела мне в глаза."
     uv "Ладно, тогда прощаю!"
     with None
-    show uv laugh at center 
+    show uv laugh at center
     with dspr
     "Салон автобуса огласил громкий смех."
     uv "Но смотри, если забудешь или попытаешься обмануть, будет хуже!"
     me "Хочешь контракт подпишем?"
     with None
-    show uv grin at center 
+    show uv grin at center
     with dspr
     uv "Брачный?"
     me "Да у меня и имущества никакого нет для него…"
@@ -43222,7 +42779,7 @@ label epilogue_uv_ulya:
     me "Тогда вот!"
     "Я достал из кармана телефон.{w} К этому времени он уже совсем разрядился."
     with None
-    show uv surprise2 at center 
+    show uv surprise2 at center
     with dspr
     uv "А что это?"
     "С любопытством сказала Юля, взяв мобильник."
@@ -43230,7 +42787,7 @@ label epilogue_uv_ulya:
     uv "Ух ты, как круто! Отлично, подойдёт!"
     "Она положила телефон на сиденье."
     with None
-    show uv grin at center 
+    show uv grin at center
     with dspr
     uv "Тогда по рукам? С моей стороны – запасы на зиму, с твоей… вот эта штука!"
     me "Ладно."
@@ -43243,12 +42800,12 @@ label epilogue_uv_ulya:
     me "Если приедем, конечно…"
     stop sound_loop fadeout 1
     with None
-    show uv shocked at center 
+    show uv shocked at center
     with dspr
     "Юля ничего не ответила, а лишь, раскрыв рот, уставилась куда-то вперёд."
     window hide
     play music music_list["orchid"] fadein 3
-    pause(1)
+    pause 1
     scene bg int_bus_black
     with dissolve
     window show
@@ -43269,7 +42826,7 @@ label epilogue_uv_ulya:
     window hide
     with fade
     with None
-    show uv rage at center 
+    show uv rage at center
     with dspr
     window show
     uv "Кто вы?! Что вам надо?!"
@@ -43353,7 +42910,7 @@ label epilogue_uv_ulya:
     uv "Отпусти! Да я его!"
     me "Не надо… Что ты сможешь ему сделать? Да и что это даст?"
     with None
-    show uv surprise at center 
+    show uv surprise at center
     with dissolve
     "Она удивлённо посмотрела на меня, но всё же села."
     uv "И что, предлагаешь ничего не делать и просто ждать?"
@@ -43390,7 +42947,7 @@ label epilogue_uv_ulya:
     stop sound_loop fadeout 2
     with fade
     play music music_list["faceless"] fadein 3
-    pause(1)
+    pause 1
     window show
     "…"
     "Я услышал тихое посапывание Юли – она заснула."
@@ -43413,7 +42970,7 @@ label epilogue_uv_ulya:
     scene bg black
     with fade3
     stop music fadeout 3
-    pause(3)
+    pause 3
     scene black
     with fade2
     $ prolog_time()
@@ -43580,9 +43137,9 @@ label epilogue_uv_ulya:
     "………"
     window hide
     $ set_mode_adv()
-    pause(3)
+    pause 3
     play music music_list["everlasting_summer"] fadein 5
-    pause(2)
+    pause 2
     scene cg epilogue_uv_2
     with dissolve
     window show
@@ -43639,7 +43196,7 @@ label epilogue_uv_ulya:
     "Ответил я ей."
     "Выбор… Да какой вообще у меня был выбор?.."
     window hide
-    pause(2)
+    pause 2
     scene black
     with fade3
     window show
@@ -43649,11 +43206,11 @@ label epilogue_uv_ulya:
     "Но у каждой книги есть и своя последняя страница, перевернув которую, мы ставим книгу на полку."
     "Чтобы завтра открыть новую…"
     window hide
-    pause(10)
+    pause 10
     scene black
     with fade3
     stop music fadeout 5
-    pause(5)
+    pause 5
     if not persistent.endings["uv_unknown_fucken_shit"]:
         $ persistent.endings["uv_unknown_fucken_shit"] = True
         $ show_achievement("uv_unknown_fucken_shit")
@@ -43663,12 +43220,12 @@ init:
 label final_credits:
     scene bg black
     with dissolve2
-    pause(1)
+    pause 1
     play music music_list["opening"] fadein 3
     show credits credits_text:
-        xalign 0.5 
-        ypos 1.3 
-        linear 87.0 ypos -1.0 
+        xalign 0.5
+        ypos 1.3
+        linear 87.0 ypos -1.0
     pause 87
     scene black
     with dissolve2
@@ -43678,12 +43235,12 @@ label final_credits:
 label final_credits_410:
     scene bg black
     with dissolve2
-    pause(1)
+    pause 1
     play music music_list["410"] fadein 3
     show credits credits_text:
-        xalign 0.5 
-        ypos 1.3 
-        linear 87.0 ypos -1.0 
+        xalign 0.5
+        ypos 1.3
+        linear 87.0 ypos -1.0
     pause 87
     scene black
     with dissolve2

@@ -22,7 +22,8 @@ screen snow:
 			
 			obj.x, obj.y = next_x, next_y
 			if IMAGE_RENDER:
-				tmp_image_args += [(int(next_x), int(next_y)), obj.image]
+				tmp_image_args.append((next_x, next_y))
+				tmp_image_args.append(obj.image)
 		
 		if IMAGE_RENDER:
 			tmp_image = im.Composite(*tmp_image_args)
@@ -33,8 +34,8 @@ screen snow:
 		for obj in objs:
 			image obj.image:
 				pos (int(obj.x), int(obj.y))
-				#xpos int(obj.x)
-				#ypos int(obj.y)
+#				xpos int(obj.x)
+#				ypos int(obj.y)
 	
 	use fps_meter
 
@@ -47,7 +48,7 @@ label snow:
 	python:
 		IMAGE_RENDER = True
 		
-		COUNT = 1000
+		COUNT = 5000
 		
 		width, height = get_stage_width(), get_stage_height()
 		

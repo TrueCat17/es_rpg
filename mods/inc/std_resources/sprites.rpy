@@ -1,4 +1,7 @@
 init -1000:
+	
+	$ default_decl_at = ["pause 0.1", "repeat"]
+	
     image cs normal stethoscope far = im.MatrixColor(im.FactorScale( im.Composite((630,1080), (0,0), "images/sprites/far/cs/cs_1_body.png",(0,0), "images/sprites/far/cs/cs_1_stethoscope.png",(0,0), "images/sprites/far/cs/cs_1_normal.png") , get_stage_width() / 1920.0), persistent.tint_sprite_time)
     image dv grin swim far = im.MatrixColor(im.FactorScale( im.Composite((630,1080), (0,0), "images/sprites/far/dv/dv_2_body.png",(0,0), "images/sprites/far/dv/dv_2_swim.png",(0,0), "images/sprites/far/dv/dv_2_grin.png") , get_stage_width() / 1920.0), persistent.tint_sprite_time)
     image dv laugh swim far = im.MatrixColor(im.FactorScale( im.Composite((630,1080), (0,0), "images/sprites/far/dv/dv_4_body.png",(0,0), "images/sprites/far/dv/dv_4_swim.png",(0,0), "images/sprites/far/dv/dv_4_laugh.png") , get_stage_width() / 1920.0), persistent.tint_sprite_time)
@@ -1099,3 +1102,9 @@ init -1000:
     
     
     image pi smile = im.MatrixColor(im.FactorScale( im.Composite((900,1080), (0,0), "images/sprites/normal/pi/pi_1_pioneer_smile.png") , get_stage_width() / 1920.0), persistent.tint_sprite_time)
+    
+    image un night = im.MatrixColor(im.FactorScale( im.Composite((900,1080), (0,0), "images/sprites/normal/un/un_1_body.png",(0,0), "images/sprites/normal/un/un_1_pioneer.png",(0,0), "images/sprites/normal/un/un_1_shy.png"), get_stage_width() / 1920.0), im.matrix.tint(0.63, 0.78, 0.82))
+    
+    
+    $ default_decl_at = []
+    
