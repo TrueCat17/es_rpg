@@ -71,12 +71,12 @@ init -1001 python:
 		res.xcrop, res.ycrop, res.xsizecrop, res.ysizecrop = 0, 0, 1.0, 1.0
 		res.alpha = 1.0
 		res.rotate = 0
-	
+		
 		res.end_pause_time = 0
-	
+		
 		res.start_changing_time = 0
 		res.end_changing_time = 0
-	
+		
 		res.contains = []
 		res.image = None
 		return res
@@ -86,9 +86,15 @@ init -1001 python:
 		def __init__(self, actions, spr = None):
 			Object.__init__(self)
 			
+			self.ended = False
+			self.repeated = {}
+			
 			self.action_num = 0
 			self.actions = actions
 			self.last_command = ''
+			
+			self.block = None
+			self.parallels = []
 			
 			self.sprite = spr
 		
@@ -97,8 +103,10 @@ init -1001 python:
 		
 		def update(self):
 			now = time.time()
+			
 			if now < self.end_pause_time:
 				return
+			
 			
 			if self.start_changing_time:
 				self.update_changing()
@@ -107,8 +115,32 @@ init -1001 python:
 				else:
 					self.start_changing_time = 0
 			
-			if self.action_num >= len(self.actions):
+			
+			if self.block:
+				self.block.update()
+				if self.block.ended:
+					self.block = None
+				
 				return
+			
+			
+			if self.parallels:
+				for parallel in self.parallels:
+					parallel.update()
+				
+				for parallel in self.parallels:
+					if not parallel.ended:
+						break
+				else:
+					self.parallels = []
+				
+				return
+			
+			
+			if self.action_num >= len(self.actions):
+				self.ended = True
+				return
+			
 			
 			
 			while self.action_num < len(self.actions):
@@ -121,6 +153,10 @@ init -1001 python:
 					return
 				
 				if type(action) is str:
+					if self.parallels:
+						self.action_num -= 1
+						return
+					
 					args = get_args(action)
 					if len(args) == 0:
 						continue
@@ -135,8 +171,22 @@ init -1001 python:
 							out_msg('Transition.update', 'pause ожидает 1 аргумент: время\n' + action)
 						return
 					elif command == 'repeat':
-						self.action_num = 0
-						return
+						if len(args) > 2:
+							out_msg('Transition.update', 'repeat ожидает 1 необязательный аргумент: количество повторов\n' + action)
+						
+						count = int(10e9) if len(args) == 1 else int(args[1])
+						num = self.action_num - 1
+						repeated = self.repeated.get(num, 0)
+						
+						if repeated < count:
+							self.action_num = 0
+							self.repeated[num] = self.repeated.get(num, 0) + 1
+							
+							for key in self.repeated.keys():
+								if key < num:
+									self.repeated[key] = 0
+							
+							return
 					else:
 						is_prop = get_transition_props(command) is not None
 						if is_prop:
@@ -187,7 +237,11 @@ init -1001 python:
 						command = action[0]
 						extra_param = str(self.sprite) + ': ' + command + '_' + str(self.action_num)
 					
-#					print action, '---', command
+					
+					if self.parallels and command != 'parallel':
+						self.action_num -= 1
+						return
+					
 					
 					if command == 'contains':
 						if self.last_command != command:
@@ -195,10 +249,15 @@ init -1001 python:
 						spr = Sprite([], [], action[1:], None)
 						spr.call_str = extra_param
 						self.sprite.new.contains.append(spr)
+					elif command == 'block':
+						self.block = Transition(action[1:], self.sprite)
+						return
 					elif command == 'parallel':
-						pass
+						if self.last_command != command:
+							self.parallels = []
+						self.parallels.append(Transition(action[1:], self.sprite))
 					else:
-						out_msg('Transition.update', 'Ожидались блоки <contains> или <parallel>, получен <' + str(action[0]) + '>')
+						out_msg('Transition.update', 'Ожидались блоки <contains>, <block> или <parallel>, получен <' + str(action[0]) + '>')
 					
 					self.last_command = command
 				else:
@@ -498,15 +557,4 @@ init -1001 python:
 	
 	hpunch = Punch('xpos', 10, 0.1, 0.5)
 	vpunch = Punch('ypos',  7, 0.1, 0.5)
-
-
-
-
-
-
-
-
-
-
-
 

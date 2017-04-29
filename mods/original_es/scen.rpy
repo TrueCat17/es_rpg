@@ -7,13 +7,6 @@ init:
 label prologue:
 	$ set_fps(60)
 	
-	if not True:
-		show us grin pioneer at center
-		with dspr
-		us "А, ну тогда ладно, ешь."
-		hide us
-		with dissolve
-		"qwe"
 	
 #	jump day1
 #	jump day2_main1
