@@ -1,8 +1,11 @@
 init -1001 python:
-	cur_location = None
 	
+	location_start_time = time.time()
+	location_fade_time = 0.5
+	
+	cur_location = None
 	cur_location_name = None
-	cur_place_name = None
+	cur_to_place = None
 	
 	
 	cam_object = None
@@ -13,9 +16,9 @@ init -1001 python:
 			if not cur_location_name:
 				out_msg('cam_to("place_name")', 'Текущая локация не установлена, сначала следует вызвать set_location')
 				return
-			place = cur_location.get_place(place_name)
+			place = cur_location.get_place(obj)
 			if not place:
-				out_msg('cam_to("place_name")', 'В локации <' + cur_location_name + '> нет места с именем <' + place_name + '>')
+				out_msg('cam_to("place_name")', 'В локации <' + cur_location_name + '> нет места с именем <' + obj + '>')
 				return
 			cam_object = place
 		else:
@@ -36,9 +39,9 @@ init -1001 python:
 		
 		for location_name in locations.keys():
 			location = locations[location_name]
-			if location.is_room: # Помещение (комната, автобус...)?
+			if location.is_room:  # Помещение (комната, автобус...)?
 				scale = min(stage_width / location.width, stage_height / location.height) # Увеличение до одной из сторон экрана
-				scale = int(scale) # Округление в меньшую сторону
+				scale = int(scale)  # Округление в меньшую сторону
 			else:
 				scale = max(stage_width / location.width, stage_height / location.height) # Увеличение до обоих сторон экрана
 				scale = ceil(scale) # Округление в большую сторону
@@ -68,8 +71,15 @@ init -1001 python:
 			out_msg('set_location', 'Локация <' + location_name + '> не содержит места <' + place_name + '>')
 			return
 		
-		global cur_location, cur_location_name, cur_place_name, objects_on_location, cam_object
+		global cur_location, cur_location_name, cur_to_place
+		global objects_on_location, location_start_time
+		
+		objects_on_location = []
+		location_start_time = time.time()
+		
 		cur_location = locations[location_name]
+		cur_location_name = location_name
+		cur_to_place = place_name
 		
 		main = cur_location.main
 		real_width, real_height = get_texture_width(main), get_texture_height(main)
@@ -79,15 +89,8 @@ init -1001 python:
 			real_size = str(real_width) + 'x' + str(real_height)
 			out_msg('set_location', 
 					'Размер локации при регистрации (' + reg_size + ') не соответствует реальному размеру (' + real_size + ')\n' + 
-					'Локация: <' + cur_location.name + '>\n' + 
+					'Локация: <' + cur_location_name + '>\n' + 
 					'Основное изображение: <' + main + '>')
-		
-		cur_location_name = location_name
-		cur_place_name = place_name
-		
-		objects_on_location = []
-		show_character(me, place_name)
-		cam_object = me
 	
 	def show_character(character, place_name):
 		if not character:
@@ -98,7 +101,7 @@ init -1001 python:
 			return
 		place = cur_location.get_place(place_name)
 		if not place:
-			out_msg('show_character', 'В локации <' + cur_location_name + '> нет места с именем <' + place_name + '>')
+			out_msg('show_character', 'В локации <' + cur_location_name + '> нет места с именем <' + str(place_name) + '>')
 			return
 		
 		character.x, character.y = place.x + place.width / 2, place.y + place.height / 2
@@ -119,10 +122,10 @@ init -1001 python:
 			out_msg('hide_character', 'Персонаж <' + character.real_name + ', ' + character.unknow_name + '> не добавлен в список отображаемых')
 	
 	def hide_location():
-		global cur_location_name, cur_place_name
+		global cur_location_name, cur_to_place
 		
 		cur_location_name = None
-		cur_place_name = None
+		cur_to_place = None
 	
 	
 	def set_map_object(obj_name, place_name):
@@ -306,7 +309,4 @@ init -1001 python:
 			was_out_place = True
 		
 		return None
-		
-	
-	
-	
+

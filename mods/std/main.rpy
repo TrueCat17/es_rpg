@@ -4,13 +4,16 @@ init python:
 	set_fps(60)
 	day_num = 0
 	
+	
+	cur_place_name = None
+	
 	def can_exit_to(to_location_name, to_place_name):
 		day_func = globals()['day' + str(day_num) + '_can_exit_to']
 		return day_func(to_location_name, to_place_name)
 
 
 label main:
-	call day0_start
+	call day1_start
 	
 	while True:
 		call on_update

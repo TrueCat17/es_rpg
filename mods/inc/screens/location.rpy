@@ -1,5 +1,10 @@
 init python:
-
+	
+	loc__background_alpha = 0.0
+	
+	draw_location = draw_location_name = None
+	draw_objects_on_location = []
+	
 	max_time = time.time() * 2
 	
 	
@@ -55,7 +60,26 @@ init python:
 screen location:
 	zorder -4
 	
-	if cur_location_name:
+	python:
+		if time.time() - location_start_time < location_fade_time and cur_location_name:
+			loc__background_alpha = (time.time() - location_start_time) / location_fade_time
+		elif time.time() - location_start_time < location_fade_time * 2:
+			if not cur_location_name:
+				location_start_time -= location_fade_time
+			loc__background_alpha = 1.0 - (time.time() - location_start_time - location_fade_time) / location_fade_time
+			
+			if draw_location_name != cur_location_name:
+				draw_location, draw_location_name = cur_location, cur_location_name
+				
+				draw_objects_on_location = objects_on_location
+				was_out_exit = False
+				show_character(me, cur_to_place)
+				cam_object = me
+		else:
+			loc__background_alpha = 0.0
+	
+	
+	if draw_location_name:
 		$ exec_action = False
 		key 'E' action SetVariable('exec_action', True)
 		
@@ -82,35 +106,36 @@ screen location:
 		key 's' 		action SetVariable('loc__down', 	True) first_delay 0.0
 		
 		python:
-			loc__character_dx = loc__character_dy = 0
-			if loc__left:
-				loc__character_dx -= 1
-			if loc__right:
-				loc__character_dx += 1
-			if loc__up:
-				loc__character_dy -= 1
-			if loc__down:
-				loc__character_dy += 1
-			loc__move_character(loc__character_dx, loc__character_dy)
+			if draw_location_name == cur_location_name:
+				loc__character_dx = loc__character_dy = 0
+				if loc__left:
+					loc__character_dx -= 1
+				if loc__right:
+					loc__character_dx += 1
+				if loc__up:
+					loc__character_dy -= 1
+				if loc__down:
+					loc__character_dy += 1
+				loc__move_character(loc__character_dx, loc__character_dy)
 				
 			
-			if control:
-				if loc__left and not loc__prev_left:
-					loc__left_time = time.time()
-				if loc__right and not loc__prev_right:
-					loc__right_time = time.time()
-				if loc__up and not loc__prev_up:
-					loc__up_time = time.time()
-				if loc__down and not loc__prev_down:
-					loc__down_time = time.time()
+				if control:
+					if loc__left and not loc__prev_left:
+						loc__left_time = time.time()
+					if loc__right and not loc__prev_right:
+						loc__right_time = time.time()
+					if loc__up and not loc__prev_up:
+						loc__up_time = time.time()
+					if loc__down and not loc__prev_down:
+						loc__down_time = time.time()
 			
-				if loc__left or loc__right or loc__up or loc__down:
-					loc__direction = loc__directions[loc__get_min(	loc__left_time if loc__left else max_time,
-																	loc__right_time if loc__right else max_time,
-																	loc__up_time if loc__up else max_time,
-																	loc__down_time if loc__down else max_time
-					)]
-					me.set_direction(loc__direction)
+					if loc__left or loc__right or loc__up or loc__down:
+						loc__direction = loc__directions[loc__get_min(	loc__left_time if loc__left else max_time,
+																		loc__right_time if loc__right else max_time,
+																		loc__up_time if loc__up else max_time,
+																		loc__down_time if loc__down else max_time
+						)]
+						me.set_direction(loc__direction)
 		
 		
 		python:
@@ -121,11 +146,11 @@ screen location:
 					obj.update()
 			objects_on_location.sort(key = lambda obj: obj.y)
 			
-			cur_location.update_pos()
+			draw_location.update_pos()
 		
-		image cur_location.main:
-			pos (cur_location.x, cur_location.y)
-			xysize (cur_location.width * location_scale, cur_location.height * location_scale)
+		image draw_location.main:
+			pos (draw_location.x, draw_location.y)
+			xysize (draw_location.width * location_scale, draw_location.height * location_scale)
 			
 			for obj in objects_on_location:
 				python:
@@ -144,7 +169,14 @@ screen location:
 					xysize 	(obj_width, obj_height)
 					crop 	obj.crop
 		
-		if cur_location.over:
-			image cur_location.over:
-				pos (cur_location.x, cur_location.y)
-				xysize (cur_location.width * location_scale, cur_location.height * location_scale)
+		if draw_location.over:
+			image draw_location.over:
+				pos (draw_location.x, draw_location.y)
+				xysize (draw_location.width * location_scale, draw_location.height * location_scale)
+		
+		
+		image 'images/bg/black.jpg':
+			xysize (1.0, 1.0)
+			alpha loc__background_alpha 
+
+
