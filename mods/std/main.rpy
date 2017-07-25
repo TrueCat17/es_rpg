@@ -36,8 +36,11 @@ label on_change_location:
 		call expression 'on__' + cur_location_name
 
 label on_change_place:
-	if exec_action and renpy.has_label(cur_location_name + '__' + cur_place_name):
-		call expression cur_location_name + '__' + cur_place_name
-	if renpy.has_label('day' + str(day_num) + '__' + cur_location_name + '__' + cur_place_name):
-		call expression 'day' + str(day_num) + '__' + cur_location_name + '__' + cur_place_name
+	$ cur_label = 'day' + str(day_num) + '__' + cur_location_name + '__' + cur_place_name
+	$ cur_exec_label = cur_location_name + '__' + cur_place_name
+	
+	if renpy.has_label(cur_label):
+		call expression cur_label
+	if exec_action and renpy.has_label(cur_exec_label):
+		call expression cur_exec_label
 

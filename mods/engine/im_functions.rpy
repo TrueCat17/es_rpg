@@ -236,6 +236,11 @@ init -1001 python:
 			r, g, b, a = renpy.easy.color(color)
 			matrix = im.matrix.invert() * im.matrix.tint(r / 255.0, g / 255.0, b / 255.0, a / 255.0)
 			return self.Scale(im.MatrixColor('images/bg/black.jpg', matrix), width, height)
+		def Circle(self, color, width = 64, height = None):
+			height = width if not height else height
+			r, g, b, a = renpy.easy.color(color)
+			matrix = im.matrix.invert() * im.matrix.tint(r / 255.0, g / 255.0, b / 255.0, a / 255.0)
+			return self.Scale(im.MatrixColor('images/bg/black_circle.png', matrix), width, height)
 	
 	
 
