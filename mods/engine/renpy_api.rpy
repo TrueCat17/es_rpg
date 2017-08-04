@@ -29,7 +29,7 @@ init -1001 python:
 			if isinstance(c, tuple) or isinstance(c, list):
 				r, g, b = c[0], c[1], c[2]
 				if len(c) == 4:
-					a = c[4]
+					a = c[3]
 				else:
 					a = 255
 			
