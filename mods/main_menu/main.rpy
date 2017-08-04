@@ -24,7 +24,7 @@ screen main_menu:
 		ground  ground
 		hover   hover
 		
-		hotspot (ix - tw, iy +   0, tw, 45) action Function(start_mod, "std")
+		hotspot (ix - tw, iy +   0, tw, 45) action Function(start_mod, "test_1623")
 		hotspot (ix - tw, iy +  45, tw, 55) action Function(out_msg, "Не реализовано")
 		hotspot (ix - tw, iy + 100, tw, 60) action Function(out_msg, "Не реализовано")
 		hotspot (ix - tw, iy + 160, tw, 50) action Function(out_msg, "Не реализовано")
@@ -37,3 +37,4 @@ label start_main_menu:
 	
 	while True:
 		pause 0.1
+

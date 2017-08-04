@@ -29,13 +29,13 @@ init -1001 python:
 			out_msg('Ошибка при сохранении объекта в файл <' + path + '>')
 			raise
 	
-	def loadGlobalVars(path):
+	def load_global_vars(path):
 		g = globals()
 		obj = load_object(path)
 		for k in obj.keys():
 			g[k] = obj[k]
 	
-	def saveGlobalVars(path):
+	def save_global_vars(path):
 		g = globals()
 		obj = Object()
 		
