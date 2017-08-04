@@ -33,12 +33,11 @@ screen snow:
 	else:
 		for obj in objs:
 			image obj.image:
-				pos (int(obj.x), int(obj.y))
-#				xpos int(obj.x)
-#				ypos int(obj.y)
+#				pos (int(obj.x), int(obj.y))
+				xpos int(obj.x)
+				ypos int(obj.y)
 	
 	use fps_meter
-
 
 
 label snow:
@@ -46,9 +45,9 @@ label snow:
 	scene bg bus_stop
 	
 	python:
-		IMAGE_RENDER = True
+		IMAGE_RENDER = False
 		
-		COUNT = 5000
+		COUNT = 1000
 		
 		width, height = get_stage_width(), get_stage_height()
 		
