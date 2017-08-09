@@ -149,8 +149,8 @@ screen location:
 			draw_location.update_pos()
 		
 		image draw_location.main:
-			pos (draw_location.x, draw_location.y)
-			xysize (draw_location.width * location_scale, draw_location.height * location_scale)
+			pos  (draw_location.x, draw_location.y)
+			size (draw_location.width * location_scale, draw_location.height * location_scale)
 			
 			for obj in objects_on_location:
 				python:
@@ -164,19 +164,19 @@ screen location:
 						obj_yanchor *= location_scale
 				
 				image obj.image:
-					pos 	(int(obj_x), int(obj_y))
-					anchor 	(obj_xanchor, obj_yanchor)
-					xysize 	(obj_width, obj_height)
-					crop 	obj.crop
+					pos    (int(obj_x), int(obj_y))
+					anchor (obj_xanchor, obj_yanchor)
+					size   (obj_width, obj_height)
+					crop    obj.crop
 		
 		if draw_location.over:
 			image draw_location.over:
-				pos (draw_location.x, draw_location.y)
-				xysize (draw_location.width * location_scale, draw_location.height * location_scale)
+				pos  (draw_location.x, draw_location.y)
+				size (draw_location.width * location_scale, draw_location.height * location_scale)
 		
 		
 		image 'images/bg/black.jpg':
-			xysize (1.0, 1.0)
+			size (1.0, 1.0)
 			alpha loc__background_alpha 
 
 

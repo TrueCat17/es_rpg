@@ -14,7 +14,7 @@ init -9000 python:
 		('xpos', 'ypos', 'pos'),
 		('xanchor', 'yanchor', 'anchor'),
 		('xalign', 'yalign', 'align'),
-		('xsize', 'ysize', 'xysize'),
+		('xsize', 'ysize', 'size'),
 		('xcrop', 'ycrop', 'xsizecrop', 'ysizecrop', 'crop'),
 		('alpha'),
 		('rotate')

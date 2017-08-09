@@ -1,6 +1,6 @@
 init -1000:
 	
-	$ default_decl_at = ["xysize (1.0, 1.0)"]
+	$ default_decl_at = ["size (1.0, 1.0)"]
 	
 	
 	image anim blink_down = "images/anim/blink_down.png"
@@ -70,7 +70,7 @@ init -1000:
 	
 	
 	image prologue_dream:
-		xysize (1.0, 1.0)
+		size (1.0, 1.0)
 		"images/anim/prologue_1.png"
 		pause 0.1
 		"images/anim/prologue_2.png"
@@ -81,7 +81,7 @@ init -1000:
 		repeat
 	
 	image anim 1 _prologue:
-		xysize (1.0, 1.0)
+		size (1.0, 1.0)
 		"anim prologue_keyboard_1"
 		pause 6
 		"anim prologue_keyboard_2"
@@ -97,7 +97,7 @@ init -1000:
 		"anim prologue_keyboard_1"
 	
 	image anim 2 _prologue:
-		xysize (1.0, 1.0)
+		size (1.0, 1.0)
 		"anim prologue_keyboard_monitor_1"
 		pause 6
 		"anim prologue_keyboard_monitor_2"
@@ -113,7 +113,7 @@ init -1000:
 		"anim prologue_keyboard_monitor_1"
 	
 	image anim 3 _prologue:
-		xysize (1.0, 1.0)
+		size (1.0, 1.0)
 		"anim prologue_monitor_1"
 		pause 6
 		"anim prologue_monitor_2"
@@ -133,7 +133,7 @@ init -1000:
 	
 	
 	image blink:
-		xysize (1.0, 1.0)
+		size (1.0, 1.0)
 		
 		contains:
 			"anim blink_up"
@@ -146,7 +146,7 @@ init -1000:
 	
 	
 	image unblink:
-		xysize (1.0, 1.0)
+		size (1.0, 1.0)
 		
 		contains:
 			"anim blink_up"
@@ -159,7 +159,7 @@ init -1000:
 	
 	
 	image blinking:
-		xysize (1.0, 1.0)
+		size (1.0, 1.0)
 		
 		contains:
 			"anim blink_up"

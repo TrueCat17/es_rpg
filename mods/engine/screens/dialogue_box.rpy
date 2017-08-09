@@ -219,43 +219,43 @@ screen dialogue_box:
 				
 				image db_name:
 					xpos max(get_stage_width() / 10, db_prev_btn_size * 2)
-					xysize (max(250, get_stage_width() / 5), db_text_size * 1.5)
+					size (max(250, get_stage_width() / 5), db_text_size * 1.5)
 					
 					text db_name_text:
 						text_align 'center'
-						size db_text_size
-						color db_name_color
-						align (0.5, 0.7)
+						text_size  db_text_size
+						color      db_name_color
+						align      (0.5, 0.7)
 				
 				hbox:
 					spacing 5
 					xalign 0.5
 					
 					button:
-						yalign		0.5
-						ground		db_prev_btn
-						xysize		(db_prev_btn_size, db_prev_btn_size)
-#						action		db_on_enter
+						yalign 0.5
+						ground db_prev_btn
+						size   (db_prev_btn_size, db_prev_btn_size)
+#						action db_on_enter
 					
 					image db_voice:
-						xysize (0.85, max(80, 0.2 * get_stage_height()))
+						size (0.85, max(80, 0.2 * get_stage_height()))
 		
 						text db_voice_text:
-							size	db_text_size
-							color	db_voice_color
-							align	(0.5, 0.5)
-							xysize	(0.825, max(70, 0.18 * get_stage_height()))
+							text_size db_text_size
+							color     db_voice_color
+							align     (0.5, 0.5)
+							size      (0.825, max(70, 0.18 * get_stage_height()))
 					
 					button:
-						yalign 		0.5
-						ground		db_next_btn
-						xysize		(db_next_btn_size, db_next_btn_size)
-						action		db_on_enter
+						yalign 0.5
+						ground db_next_btn
+						size   (db_next_btn_size, db_next_btn_size)
+						action db_on_enter
 		
 		
 		elif db_mode == 'nvl':
 			image im.Alpha('images/bg/black.jpg', 0.3):
-				xysize (1.0, 1.0)
+				size (1.0, 1.0)
 				
 				vbox:
 					anchor 	(0.5, 0.0)
@@ -270,27 +270,27 @@ screen dialogue_box:
 							db_tmp_voice = db_voice_text_i if db_voice_text_i else ' '
 					
 						text (db_tmp_name + db_tmp_voice):
-							size db_text_size
-							color db_voice_color_i
-							xsize 0.75
+							text_size db_text_size
+							color     db_voice_color_i
+							xsize     0.75
 			
 				hbox:
 					spacing 5
 					align (0.5, 0.99)
 				
 					button:
-						yalign		0.5
-						ground		db_prev_btn
-						xysize		(db_prev_btn_size, db_prev_btn_size)
-#						action		db_on_enter
+						yalign 0.5
+						ground db_prev_btn
+						size   (db_prev_btn_size, db_prev_btn_size)
+#						action db_on_enter
 				
-					null xysize (0.9, 0.2)
+					null size (0.9, 0.2)
 				
 					button:
-						yalign 		0.5
-						ground		db_next_btn
-						xysize		(db_next_btn_size, db_next_btn_size)
-						action		db_on_enter
+						yalign 0.5
+						ground db_next_btn
+						size   (db_next_btn_size, db_next_btn_size)
+						action db_on_enter
 		
 		
 		if renpy.config.fps_meter:
@@ -300,7 +300,7 @@ screen dialogue_box:
 	button:
 		ground 	db_menu_btn
 
-		anchor	(1.0, 0.0)
-		pos		(get_stage_width() - db_menu_btn_indent, db_menu_btn_indent)
-		xysize	(db_menu_btn_size, db_menu_btn_size)
+		anchor (1.0, 0.0)
+		pos    (get_stage_width() - db_menu_btn_indent, db_menu_btn_indent)
+		size   (db_menu_btn_size, db_menu_btn_size)
 

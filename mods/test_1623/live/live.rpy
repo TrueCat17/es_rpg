@@ -199,7 +199,7 @@ screen test_1623_live__screen:
 	    hbox:
 	        xalign 0.5
 	        
-	        text 'Make: ' size 20
+	        text 'Make: ' text_size 20
 	        textbutton 'Planer' action test_1623_live__make_planer
 	        textbutton 'SpaceShip' action test_1623_live__make_space_ship
 	        textbutton 'R-Pentamino' action test_1623_live__make_r_pentamino

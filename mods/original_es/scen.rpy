@@ -31,8 +31,8 @@ label prologue:
     with fade3
     scene bg ext_camp_entrance_night
     show owl:
-        pos (get_stage_width() * 931 / 1920, get_stage_height() * 88 / 1080)
-        xysize (get_stage_width() * 60 / 1920, get_stage_height() * 77 / 1080)
+        pos  (get_stage_width() * 931 / 1920, get_stage_height() * 88 / 1080)
+        size (get_stage_width() *  60 / 1920, get_stage_height() * 77 / 1080)
         pause 0.1
         repeat
     show prologue_dream

@@ -13,7 +13,7 @@ init python:
 screen test_1623__main_screen:
     image 'mods/test_1623/images/px/white.png':
         align (0.5, 0.4)
-        xysize (test_1623__width * test_1623__size, test_1623__height * test_1623__size)
+        size (test_1623__width * test_1623__size, test_1623__height * test_1623__size)
     
     vbox:
         align (0.5, 0.4)
@@ -46,7 +46,7 @@ screen test_1623__main_screen:
                     		test_1623__count = 0
                 for test_1623__color, test_1623__count in test_1623__line:
                     image ('mods/test_1623/images/px/' + test_1623__color + '.png'):
-                    	xysize (test_1623__size * test_1623__count, test_1623__size)
+                    	size (test_1623__size * test_1623__count, test_1623__size)
 
 
 label test_1623__start:

@@ -24,8 +24,8 @@ screen fps_meter:
 	zorder 1000
 	
 	text get_last_fps():
-		font fps_meter_font
-		size fps_meter_size
-		color fps_meter_color
-		xalign fps_meter_xalign
-		yalign fps_meter_yalign
+		font      fps_meter_font
+		text_size fps_meter_size
+		color     fps_meter_color
+		xalign    fps_meter_xalign
+		yalign    fps_meter_yalign

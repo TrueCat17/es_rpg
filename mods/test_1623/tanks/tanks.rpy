@@ -345,7 +345,7 @@ screen test_1623_tanks__screen:
                 
                 text ('Вы: ' + '\n' + info):
                     color test_1623_tanks__hex_colors[player.color]
-                    size 25
+                    text_size 25
                 null ysize 25
             
             $ test_1623_tanks__was_friends = False
@@ -354,8 +354,8 @@ screen test_1623_tanks__screen:
                     if not test_1623_tanks__was_friends:
                         $ test_1623_tanks__was_friends = True
                         text 'Друзья: ':
-                            color '#00AA00'
-                            size 25
+                            color     '#00AA00'
+                            text_size 25
                     
                     if test_1623_tanks__limit_bullets:
                         $ info = '  Level: ' + str(tank.level) + '\n' + '  HP: ' + str(tank.hp)
@@ -377,8 +377,8 @@ screen test_1623_tanks__screen:
                     if not test_1623_tanks__was_enemies:
                         $ test_1623_tanks__was_enemies = True
                         text 'Враги: ':
-                            color '#AA0000'
-                            size 25
+                            color     '#AA0000'
+                            text_size 25
                     
                     text ('  Level: ' + str(tank.level) + '\n' + '  HP: ' + str(tank.hp)):
                         color test_1623_tanks__hex_colors[tank.color]

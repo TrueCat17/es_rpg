@@ -38,7 +38,7 @@ init -1001 python:
 	style.text = Style(style.default)
 	style.text.xsize = -1
 	style.text.ysize = -1
-	style.text.size = 20
+	style.text.text_size = 20
 	style.text.color = '#FFFFFF'
 	style.text.font = 'Calibri'
 	style.text.text_align = 'left' 				# left | center | right
@@ -53,7 +53,7 @@ init -1001 python:
 	style.textbutton.text_valign = 'center'		# top  | center |  down
 	style.textbutton.xsize = 175
 	style.textbutton.ysize = 25
-	style.textbutton.size = 15
+	style.textbutton.text_size = 15
 	style.textbutton.ground = 'images/es2d/gui/std/btn/usual.png'
 	style.textbutton.hover = ''
 	

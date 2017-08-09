@@ -169,21 +169,21 @@ screen sprites:
 						tmp.image  =  data.image
 						tmp.pos    = (data.real_xpos, data.real_ypos)
 						tmp.anchor = (data.real_xanchor, data.real_yanchor)
-						tmp.xysize = (data.real_xsize, data.real_ysize)
+						tmp.size   = (data.real_xsize, data.real_ysize)
 						tmp.crop   = (data.xcrop, data.ycrop, data.xsizecrop, data.ysizecrop)
 						tmp.alpha  =  data.real_alpha
 						sprites_images.append(tmp)
 	
 	null:
-		pos (screen.new_data.xpos, screen.new_data.ypos)
+		pos    (screen.new_data.xpos, screen.new_data.ypos)
 		anchor (screen.new_data.xanchor, screen.new_data.yanchor)
-		xysize (screen.new_data.real_ysize, screen.new_data.real_xsize)
+		size   (screen.new_data.real_ysize, screen.new_data.real_xsize)
 		
 		for tmp in sprites_images:
 			image tmp.image:
 				pos     tmp.pos
 				anchor  tmp.anchor
-				xysize  tmp.xysize
+				size    tmp.size
 				crop    tmp.crop
 				alpha   tmp.alpha
 

@@ -348,7 +348,7 @@ init -1 python:
             return x - self.x, y - self.y
         
         def fair(self):
-            if (self.bullets_to_shorts <= 0 and not test_1623_tanks__simpled) or (time.time() - test_1623_tanks__start_level_time < 3):
+            if (self.bullets_to_shorts <= 0 and not test_1623_tanks__simpled and test_1623_tanks__limit_bullets) or (time.time() - test_1623_tanks__start_level_time < 3):
                 return
             
             if (test_1623_tanks__limit_bullets or self.team != test_1623_tanks__PLAYER) and not test_1623_tanks__simpled:
