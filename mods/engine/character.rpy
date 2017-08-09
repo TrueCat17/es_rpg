@@ -1,9 +1,9 @@
 init -1001 python:
-	character_walk_fps =               get_from_hard_config('character_walk_fps', int)
-	character_run_fps =                get_from_hard_config('character_run_fps', int)
-	character_acceleration_time =      get_from_hard_config('character_acceleration_time', float)
-	character_walk_speed =             get_from_hard_config('character_walk_speed', int)
-	character_run_speed =              get_from_hard_config('character_run_speed', int)
+	character_walk_fps =            4
+	character_run_fps =            12
+	character_acceleration_time = 0.5
+	character_walk_speed =         50
+	character_run_speed =         150
 	
 	character_walk_acceleration = character_walk_speed / character_acceleration_time
 	character_run_acceleration = character_run_speed / character_acceleration_time
@@ -12,7 +12,7 @@ init -1001 python:
 	character_max_frame = 4
 	character_max_direction = 4
 	
-	character_radius = 5 # used physics.rpy
+	character_radius = 10 # used physics.rpy
 	
 	character_xsize = 48
 	character_ysize = 96

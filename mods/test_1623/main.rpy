@@ -44,7 +44,6 @@ screen test_1623__main_screen:
                     	if test_1623__need_draw:
                     		test_1623__line.append((test_1623__color, test_1623__count))
                     		test_1623__count = 0
-                    
                 for test_1623__color, test_1623__count in test_1623__line:
                     image ('mods/test_1623/images/px/' + test_1623__color + '.png'):
                     	xysize (test_1623__size * test_1623__count, test_1623__size)
