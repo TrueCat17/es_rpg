@@ -192,6 +192,9 @@ init -1001 python:
 		def ReColor(self, image, r, g, b, a):
 			return 'ReColor (' + image + ') (' + str(r) + ' ' + str(g) + ' ' + str(b) + ' ' + str(a) + ')'
 		
+		def Rotozoom(self, image, angle, zoom):
+			return 'Rotozoom (' + image + ') (' + str(int(angle)) + ') (' + str(zoom) + ')'
+		
 		def Color(self, image, color):
 			r, g, b, a = renpy.easy.color(color)
 			return self.ReColor(image, r, g, b, a)
