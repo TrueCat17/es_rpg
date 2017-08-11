@@ -40,6 +40,12 @@ init -1001 python:
 	def Stop(channel):
 		return Function(renpy.stop, channel)
 	
+	def Show(name):
+		return Function(show_screen, name)
+	def Hide(name):
+		return Function(hide_screen, name)
+	ShowMenu = ShowScreen = Show
+	HideMenu = HideScreen = Hide
 	
 	
 	# Return -> call_screen.rpy

@@ -203,7 +203,10 @@ screen dialogue_box:
 	zorder -2
 	
 	key 'RETURN' action db_on_enter
-	key 'SPACE' action db_on_enter
+	key 'SPACE'  action db_on_enter
+	key 'ESCAPE' action If(time.time() - pause_hided_time > 0.4,
+	                       true  = [SetVariable('pause_showed_time', time.time()), ShowMenu('pause')],
+	                       false = None)
 	
 	$ db_update()
 	
@@ -303,4 +306,5 @@ screen dialogue_box:
 		anchor (1.0, 0.0)
 		pos    (get_stage_width() - db_menu_btn_indent, db_menu_btn_indent)
 		size   (db_menu_btn_size, db_menu_btn_size)
+		action ShowMenu('pause')
 
