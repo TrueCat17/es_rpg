@@ -8,20 +8,20 @@ init -1001 python:
 	
 	class Music:
 		def register_channel(self, name, mixer, loop):
-			_register_channel(name, mixer, loop)
+			_register_channel(name, mixer, loop, get_filename(1), get_numline(1))
 		
-		def play(self, file_names, channel, **kwargs):
+		def play(self, file_names, channel, depth = 0, **kwargs):
 			fadein = kwargs.get('fadein', 0)
 			file_name = file_names if isinstance(file_names, str) else file_names[0]
-			_play(channel + ' ' + file_name + ' fadein ' + fadein)
-		def stop(self, channel, **kwargs):
+			_play(channel + ' "' + file_name + '" fadein ' + str(float(fadein)), get_filename(depth + 1), get_numline(depth + 1))
+		def stop(self, channel, depth = 0, **kwargs):
 			fadeout = kwargs.get('fadeout', 0)
-			_stop(channel + ' fadeout ' + fadeout)
+			_stop(channel + ' fadeout ' + str(float(fadeout)), get_filename(depth + 1), get_numline(depth + 1))
 		
-		def set_volume(self, vol, channel):
-			_set_volume(vol, channel)
-		def set_mixer_volume(self, vol, mixer):
-			_set_mixer_volume(vol, mixer)
+		def set_volume(self, vol, channel, depth = 0):
+			_set_volume(vol, channel, get_filename(depth + 1), get_numline(depth + 1))
+		def set_mixer_volume(self, vol, mixer, depth = 0):
+			_set_mixer_volume(vol, mixer, get_filename(depth + 1), get_numline(depth + 1))
 	
 	
 	class Easy:
@@ -101,9 +101,9 @@ init -1001 python:
 			who(what)
 		
 		def play(self, file_names, channel, **kwargs):
-			self.music.play(file_name, channel, **kwargs)
+			self.music.play(file_name, channel, 1, **kwargs)
 		def stop(self, channel, **kwargs):
-			self.music.stop(channel, **kwargs)
+			self.music.stop(channel, 1, **kwargs)
 		
 		def has_label(self, label):
 			return _has_label(label)
@@ -119,4 +119,4 @@ init -999 python:
 	renpy = Renpy()
 	
 	def volume(vol, channel):
-		renpy.music.set_volume(vol, channel = channel)
+		renpy.music.set_volume(vol, channel = channel, depth = 1)

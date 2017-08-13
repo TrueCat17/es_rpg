@@ -5,3 +5,4 @@ init -100000 python:
 	import time
 	import random
 	import math
+	import inspect

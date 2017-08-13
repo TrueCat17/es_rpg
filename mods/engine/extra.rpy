@@ -14,6 +14,16 @@ init -1100000000 python:
 		l = traceback.format_tb(tb)
 		return ''.join(l)
 
+init -1000000 python:
+	def get_numline(depth):
+		s = inspect.stack()
+		frame = s[1 + depth]
+		return frame[2]
+	def get_filename(depth):
+		s = inspect.stack()
+		frame = s[1 + depth]
+		return frame[1]
+
 
 init -10000 python:
 	def ceil(n):
