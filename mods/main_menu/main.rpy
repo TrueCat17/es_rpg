@@ -2,9 +2,9 @@ init python:
 	mods['start_main_menu'] = 'main_menu'
 	start_screens = 'main_menu'
 	
-	back_path   = es2d_gui + 'menu/back.png'
-	ground_path = es2d_gui + 'menu/ground.png'
-	hover_path  = es2d_gui + 'menu/hover.png'
+	back_path   = es2d_gui + 'menu/main/back.png'
+	ground_path = es2d_gui + 'menu/main/ground.png'
+	hover_path  = es2d_gui + 'menu/main/hover.png'
 
 
 screen main_menu:
@@ -33,7 +33,7 @@ screen main_menu:
 
 
 label start_main_menu:
-	$ set_fps(20)
+	$ set_fps(60)
 	
 	while True:
 		pause 0.1

@@ -1,7 +1,17 @@
 init python:
 	
 	pause_showed_time = 0
-	pause_hided_time  = 0
+	pause_start_hided_time = 0
+	pause_hided_time = 0
+	
+	
+	pause_x, pause_y = 0, 0
+	pause_rotate = 0
+	pause_hide_rotate = 15
+	pause_rotate_time = 0.2
+	pause_disappearance_time = 0.2
+	pause_appearance_time = 0.4
+	
 	
 	pause_show = 'inventory'
 	
@@ -35,15 +45,44 @@ init python:
 	style.pause_button.xsize = 0.2
 	style.pause_button.ysize = 0.1
 	
+	
+	def pause_close_func():
+		global pause_start_hided_time
+		pause_start_hided_time = time.time()
 
 
 screen pause:
 	zorder 10000
 	modal  True
 	
+	python:
+		if time.time() - pause_showed_time > pause_appearance_time:
+			pause_y = 0
+			if pause_start_hided_time:
+				if time.time() - pause_start_hided_time < pause_rotate_time:
+					pause_rotate = pause_hide_rotate * (time.time() - pause_start_hided_time) / pause_rotate_time
+				else:
+					pause_rotate = pause_hide_rotate
+					pause_x = (time.time() - pause_start_hided_time - pause_rotate_time) * (get_stage_width() / pause_disappearance_time)
+					pause_y = (time.time() - pause_start_hided_time - pause_rotate_time) * (get_stage_height() / pause_disappearance_time)
+					
+					if pause_x > get_stage_width():
+						pause_x, pause_y = 0, 0
+						pause_rotate = 0
+						
+						pause_start_hided_time = 0
+						pause_hided_time = time.time()
+						hide_screen('pause')
+		else:
+			pause_y = (time.time() - pause_showed_time) * (get_stage_height() / pause_appearance_time) - get_stage_height()
+	
+	xpos   pause_x
+	ypos   pause_y
+	rotate pause_rotate
+	
 	
 	key 'ESCAPE' action If(time.time() - pause_showed_time > 0.4,
-	                       true  = [SetVariable('pause_hided_time', time.time()), HideMenu('pause')],
+	                       true  = pause_close_func,
 	                       false =  None)
 	
 	
@@ -59,7 +98,7 @@ screen pause:
 			spacing 5
 			yalign 0.5
 			
-			textbutton 'Продолжить'   style pause_button action HideMenu('pause')
+			textbutton 'Продолжить'   style pause_button action pause_close_func
 			textbutton 'Загрузить'    style pause_button action ShowMenu('load')
 			textbutton 'Сохранить'    style pause_button action ShowMenu('save')
 			textbutton 'Настройки'    style pause_button action ShowMenu('settings')
@@ -94,5 +133,5 @@ screen pause:
 					anchor (0.5, 0.5)
 					size   (pause_close_size, pause_close_size)
 					ground pause_close
-					action HideMenu('pause')
+					action pause_close_func
 

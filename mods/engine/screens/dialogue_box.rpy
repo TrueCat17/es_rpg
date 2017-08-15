@@ -204,7 +204,7 @@ screen dialogue_box:
 	
 	key 'RETURN' action db_on_enter
 	key 'SPACE'  action db_on_enter
-	key 'ESCAPE' action If(time.time() - pause_hided_time > 0.4,
+	key 'ESCAPE' action If(time.time() - pause_hided_time > pause_rotate_time + pause_disappearance_time,
 	                       true  = [SetVariable('pause_showed_time', time.time()), ShowMenu('pause')],
 	                       false = None)
 	
@@ -228,7 +228,7 @@ screen dialogue_box:
 						text_align 'center'
 						text_size  db_text_size
 						color      db_name_color
-						align      (0.5, 0.7)
+						align      (0.5, 0.8)
 				
 				hbox:
 					spacing 5
@@ -303,8 +303,10 @@ screen dialogue_box:
 	button:
 		ground 	db_menu_btn
 
-		anchor (1.0, 0.0)
-		pos    (get_stage_width() - db_menu_btn_indent, db_menu_btn_indent)
+		anchor (0.5, 0.5)
+		pos    (get_stage_width() - db_menu_btn_indent - db_menu_btn_size / 2, db_menu_btn_indent + db_menu_btn_size / 2)
 		size   (db_menu_btn_size, db_menu_btn_size)
 		action ShowMenu('pause')
-
+		
+		rotate (int(time.time() * 10) % 360)
+	
