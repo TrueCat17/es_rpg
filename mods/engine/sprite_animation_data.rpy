@@ -15,11 +15,26 @@ init -9000 python:
 			self.image = None
 		
 		
-		def get_all_data(self):
-			sw, sh = get_stage_width(), get_stage_height()
+		def get_all_data(self, parent = None):
+			if parent is not None:
+				p_xsize,   p_ysize   = parent.real_xsize,   parent.real_ysize
+				p_xanchor, p_yanchor = parent.real_xanchor, parent.real_yanchor
+				p_rotate             = parent.real_rotate
+			else:
+				p_xsize,   p_ysize   = get_stage_width(),   get_stage_height()
+				p_xanchor, p_yanchor = 0, 0
+				p_rotate             = 0
 			
-			self.real_xpos    = get_absolute(self.xpos, sw)
-			self.real_ypos    = get_absolute(self.ypos, sh)
+			
+			x = get_absolute(self.xpos, p_xsize) - p_xanchor
+			y = get_absolute(self.ypos, p_ysize) - p_yanchor
+			
+			sinA = _sin(p_rotate)
+			cosA = _cos(p_rotate)
+			
+			self.real_xpos    = int(x * cosA - y * sinA)
+			self.real_ypos    = int(x * sinA + y * cosA)
+			
 			self.real_xanchor = get_absolute(self.xanchor, self.real_xsize)
 			self.real_yanchor = get_absolute(self.yanchor, self.real_ysize)
 			self.real_alpha   = self.alpha
@@ -29,13 +44,11 @@ init -9000 python:
 			
 			for spr in self.contains:
 				for spr_data in spr.data_list:
-					for data in spr_data.get_all_data():
-						data.real_xpos    += self.real_xpos
-						data.real_ypos    += self.real_ypos
-						data.real_xanchor += self.real_xanchor
-						data.real_yanchor += self.real_yanchor
-						data.real_alpha   *= self.real_alpha
-						data.real_rotate  += self.real_rotate
+					for data in spr_data.get_all_data(self):
+						data.real_xpos   += self.real_xpos
+						data.real_ypos   += self.real_ypos
+						data.real_alpha  *= self.real_alpha
+						data.real_rotate += self.real_rotate
 						res.append(data)
 			
 			return res

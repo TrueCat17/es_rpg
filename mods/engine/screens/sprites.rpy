@@ -167,23 +167,25 @@ screen sprites:
 					if data.image:
 						tmp = Object()
 						tmp.image  =  data.image
-						tmp.pos    = (data.real_xpos, data.real_ypos)
+						tmp.pos    = (data.real_xpos,    data.real_ypos)
 						tmp.anchor = (data.real_xanchor, data.real_yanchor)
-						tmp.size   = (data.real_xsize, data.real_ysize)
+						tmp.size   = (data.real_xsize,   data.real_ysize)
 						tmp.crop   = (data.xcrop, data.ycrop, data.xsizecrop, data.ysizecrop)
 						tmp.alpha  =  data.real_alpha
+						tmp.rotate =  data.real_rotate
 						sprites_images.append(tmp)
 	
 	null:
-		pos    (screen.new_data.xpos, screen.new_data.ypos)
-		anchor (screen.new_data.xanchor, screen.new_data.yanchor)
+		pos    (screen.new_data.xpos,       screen.new_data.ypos)
+		anchor (screen.new_data.xanchor,    screen.new_data.yanchor)
 		size   (screen.new_data.real_ysize, screen.new_data.real_xsize)
 		
 		for tmp in sprites_images:
 			image tmp.image:
-				pos     tmp.pos
-				anchor  tmp.anchor
-				size    tmp.size
-				crop    tmp.crop
-				alpha   tmp.alpha
+				pos    tmp.pos
+				anchor tmp.anchor
+				size   tmp.size
+				crop   tmp.crop
+				alpha  tmp.alpha
+				rotate tmp.rotate
 
