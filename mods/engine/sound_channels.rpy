@@ -10,3 +10,5 @@ init -998 python:
 	renpy.music.register_channel("sound_loop2", "ambience", True)
 	renpy.music.register_channel("sound_loop3", "ambience", True)
 	
+	renpy.music.register_channel("button_click", "sfx", False)
+	renpy.music.register_channel("button_hover", "sfx", False)
