@@ -33,7 +33,7 @@ screen main_menu:
 
 
 label start_main_menu:
-	$ set_fps(60)
+	$ set_fps(20)
 	
 	while True:
 		pause 0.1

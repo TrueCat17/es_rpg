@@ -96,6 +96,7 @@ init -9000 python:
 				return
 			
 			
+			
 			if self.action_num >= len(self.actions):
 				self.ended = True
 				return
