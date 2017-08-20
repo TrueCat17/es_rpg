@@ -36,6 +36,10 @@ init -1001 python:
 	style.hbox = Style(style.vbox)
 	style.null = Style(style.vbox)
 	
+	style.image = Style(style.default)
+	style.image.xsize = -1
+	style.image.ysize = -1
+	
 	style.text = Style(style.default)
 	style.text.xsize = -1
 	style.text.ysize = -1
@@ -50,6 +54,7 @@ init -1001 python:
 #	style.text.underline = False
 	
 	style.textbutton = Style(style.text)
+	style.textbutton.mouse = True
 	style.textbutton.text_align = 'center'		# left | center | right
 	style.textbutton.text_valign = 'center'		# top  | center |  down
 	style.textbutton.xsize = 175
@@ -59,14 +64,14 @@ init -1001 python:
 	style.textbutton.hover = ''
 	
 	style.button = Style(style.default)
+	style.button.mouse = True
 	style.button.xsize = 175
 	style.button.ysize = 25
 	style.button.ground = 'images/es2d/gui/std/btn/usual.png'
 	style.button.hover = ''
 	
-	style.image = Style(style.default)
-	style.image.xsize = -1
-	style.image.ysize = -1
+	style.hotspot = Style(style.default)
+	style.hotspot.mouse = True
 	
 	style.imagemap = Style(style.default)
 	style.imagemap.ground = ''

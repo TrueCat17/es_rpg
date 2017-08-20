@@ -5,13 +5,13 @@ init -998 python:
 	
 	config = renpy.config
 	
-	if not config.has_attr('fps_meter'):
+	if config.fps_meter is None:
 		config.fps_meter = True
 	
-	if not config.has_attr('text_cps'):
+	if config.text_cps is None:
 		config.text_cps = 60
 	
-	if not config.has_attr('music_volume'):
+	if config.music_volume is None:
 		config.music_volume = 100
 		config.voice_volume = 100
 		config.ambience_volume = 100

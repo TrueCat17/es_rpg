@@ -213,6 +213,16 @@ screen dialogue_box:
 	$ db_text_size = max(14, get_stage_height() / 30)
 	
 	
+	button:
+		ground 'images/bg/black.jpg'
+		hover  'images/bg/black.jpg'
+		
+		size   (1.0, 1.0)
+		alpha  0.01
+		mouse  False
+		
+		action db_on_enter
+	
 	
 	if db_visible:
 		
