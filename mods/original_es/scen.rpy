@@ -1,12 +1,11 @@
 init:
+    $ set_fps(60)
     $ mods["prologue"] = "Оригинал БЛ"
 
     $ prologue = 0
 
 
 label prologue:
-	$ set_fps(60)
-	
 #	jump day1
 #	jump day2_main1
 	

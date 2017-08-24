@@ -13,3 +13,19 @@ screen choose_menu:
 					size (300, 35)
 			elif choose_menu_variants[i] is not None:
 				null ysize 35
+	
+	key 'Q' action [
+		SetVariable('save_table', 1),
+		SetVariable('save_num', 1),
+		SetVariable('need_save', True)]
+	
+	button:
+		ground 	db_menu_btn
+
+		anchor (0.5, 0.5)
+		pos    (get_stage_width() - db_menu_btn_indent - db_menu_btn_size / 2, db_menu_btn_indent + db_menu_btn_size / 2)
+		size   (db_menu_btn_size, db_menu_btn_size)
+		action ShowMenu('pause')
+		
+		rotate (int(time.time() * 10) % 360)
+	

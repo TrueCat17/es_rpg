@@ -53,13 +53,17 @@ init -10000 python:
 		mods_dict = eval(mods_str)
 		return mods_dict
 	
+	def load(table, num):
+		_load(str(table), str(num))
+	
+	
 	def out_msg(msg, err = ''):
 		_out_msg(str(msg), str(err))
 	
 	def get_image(name):
 		code = get_image_code(name)
 		
-		empty_image = im.Scale('images/bg/black.jpg', 256, 256)
+		empty_image = im.Rect('#000', 256, 256)
 		if image_was_registered(name):
 			try:
 				if code:
@@ -76,7 +80,7 @@ init -10000 python:
 		return res
 	
 	def can_exec_next_command():
-		return read and not character_moving and sprites_effects_ended()
+		return (read) and (call_screen_choosed) and (not character_moving) and (sprites_effects_ended())
 	
 	
 	persistent_updates = False

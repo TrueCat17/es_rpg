@@ -208,6 +208,11 @@ screen dialogue_box:
 	                       true  = [SetVariable('pause_showed_time', time.time()), ShowMenu('pause')],
 	                       false = None)
 	
+	key 'Q' action [
+		SetVariable('save_table', 1),
+		SetVariable('save_num', 1),
+		SetVariable('need_save', True)]
+	
 	$ db_update()
 	
 	$ db_text_size = max(14, get_stage_height() / 30)

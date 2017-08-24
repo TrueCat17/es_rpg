@@ -63,6 +63,7 @@ screen location:
 	python:
 		if time.time() - location_start_time < location_fade_time and cur_location_name:
 			loc__background_alpha = (time.time() - location_start_time) / location_fade_time
+			cur_location.preload()
 		elif time.time() - location_start_time < location_fade_time * 2:
 			if not cur_location_name:
 				location_start_time -= location_fade_time

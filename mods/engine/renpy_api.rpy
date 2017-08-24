@@ -9,6 +9,8 @@ init -1001 python:
 	class Music:
 		def register_channel(self, name, mixer, loop):
 			_register_channel(name, mixer, loop, get_filename(1), get_numline(1))
+		def has_channel(self, name):
+			return _has_channel(name)
 		
 		def play(self, file_names, channel, depth = 0, **kwargs):
 			fadein = kwargs.get('fadein', 0)
@@ -109,10 +111,11 @@ init -1001 python:
 			return _has_label(label)
 		
 		def call_screen(self, screen_name, ret_name, **kwargs):
-			global menu_item_choosed
-			menu_item_choosed = False
+			global call_screen_choosed, call_screen_name, call_ret_name
 			
-			push_ret_names(screen_name, ret_name)
+			call_screen_choosed = False
+			call_screen_name, call_ret_name = screen_name, ret_name
+			
 			show_screen(screen_name)
 
 init -999 python:

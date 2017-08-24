@@ -1,9 +1,33 @@
 init python:
 	mods['snow'] = 'snow'
+	start_screens = 'snow'
+	
+	IMAGE_RENDER = False
+	
+	COUNT = 1000
+	
+	width, height = get_stage_width(), get_stage_height()
+	
+	objs = []
+	for i in xrange(COUNT):
+		obj = Object()
+		obj.size = random.randint(2, 10)
+		obj.x = random.randint(0, width - obj.size - 1)
+		obj.y = random.randint(0, height - obj.size - 1)
+		obj.dx = (random.random() * 2 - 1) * obj.size / 8
+		obj.dy = (random.random() * 7 + 5) * obj.size / 30
+		obj.image = im.Scale('images/anim/snow.png', obj.size, obj.size)
+		objs.append(obj)
+	
+	prev_time = time.time()
+	frame_times = []
 
 
 screen snow:
 	zorder -2.5
+	
+	image 'images/bg/bus_stop.jpg':
+		size (1.0, 1.0)
 	
 	python:
 		width, height = get_stage_width(), get_stage_height()
@@ -33,36 +57,25 @@ screen snow:
 	else:
 		for obj in objs:
 			image obj.image:
-#				pos (int(obj.x), int(obj.y))
 				xpos int(obj.x)
 				ypos int(obj.y)
 	
-	use fps_meter
+	python:
+		dtime = (time.time() - prev_time) * 1000
+		prev_time = time.time()
+		
+		frame_times.append(dtime)
+		frame_times = frame_times[-30:]
+		
+		mid_time = int(sum(frame_times) / len(frame_times) * 10) / 10.0
+		fps = 1000.0 / mid_time
+		print fps
+	
+#	use fps_meter
 
 
 label snow:
 	$ set_fps(60)
-	scene bg bus_stop
-	
-	python:
-		IMAGE_RENDER = False
-		
-		COUNT = 1000
-		
-		width, height = get_stage_width(), get_stage_height()
-		
-		objs = []
-		for i in xrange(COUNT):
-			obj = Object()
-			obj.size = random.randint(2, 10)
-			obj.x = random.randint(0, width - obj.size - 1)
-			obj.y = random.randint(0, height - obj.size - 1)
-			obj.dx = (random.random() * 2 - 1) * obj.size / 8
-			obj.dy = (random.random() * 7 + 5) * obj.size / 30
-			obj.image = im.Scale('images/anim/snow.png', obj.size, obj.size)
-			objs.append(obj)
-	
-	show screen snow
 	
 	while True:
 		pause 0.1

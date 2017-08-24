@@ -214,6 +214,13 @@ init -1001 python:
 			self.places = dict()
 			self.exits = []
 		
+		def preload(self):
+			load_image(self.main)
+			if self.over:
+				load_image(self.over)
+			if self.free:
+				load_image(self.free)
+		
 		def add_place(self, place, place_name):
 			self.places[place_name] = place
 		

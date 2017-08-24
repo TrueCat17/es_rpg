@@ -2,7 +2,7 @@ init -1001 python:
 	def load_object(path):
 		try:
 			if (not os.path.exists(path)) or os.path.getsize(path) == 0:
-				res = Object()
+				res = dict()
 				out_msg('Файл <' + path + '> не существует или пуст')
 			else:
 				tmp_file = open(path, 'rb')
@@ -37,7 +37,7 @@ init -1001 python:
 	
 	def save_global_vars(path):
 		g = globals()
-		obj = Object()
+		obj = dict()
 		
 		safe_types = ['bool', 'int', 'float', 'long', 'str', 'list', 'tuple', 'NoneType', 'classobj', 'instance']
 		for i in xrange(len(safe_types)):

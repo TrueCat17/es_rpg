@@ -25,7 +25,7 @@ screen main_menu:
 		hover   hover
 		
 		hotspot (ix - tw, iy +   0, tw, 45) action Function(start_mod, "std")
-		hotspot (ix - tw, iy +  45, tw, 55) action Function(out_msg, "Не реализовано")
+		hotspot (ix - tw, iy +  45, tw, 55) action Function(load, 1, 1)
 		hotspot (ix - tw, iy + 100, tw, 60) action Function(out_msg, "Не реализовано")
 		hotspot (ix - tw, iy + 160, tw, 50) action Function(out_msg, "Не реализовано")
 		hotspot (ix - tw, iy + 210, tw, 60) action Function(out_msg, "Не реализовано")
