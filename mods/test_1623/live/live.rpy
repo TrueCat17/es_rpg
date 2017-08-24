@@ -7,12 +7,12 @@ init python:
     test_1623_live__rect_x = 0
     test_1623_live__rect_y = 0
     
+    test_1623_live__fps = 20
+    
     
     def test_1623_live__init():
         global test_1623_live__field, test_1623__color_field, test_1623_live__pause, test_1623_live__exit
         global test_1623__width, test_1623__height
-        
-        set_fps(20)
         
         test_1623__width = 50
         test_1623__height = 25
@@ -39,6 +39,8 @@ init python:
         test_1623_live__render()
     
     def test_1623_live__render():
+    	set_fps(test_1623_live__fps)
+    	
         for y in xrange(test_1623__height):
             for x in xrange(test_1623__width):
                 index = y * test_1623__width + x

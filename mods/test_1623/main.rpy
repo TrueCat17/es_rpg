@@ -54,7 +54,7 @@ label test_1623__start:
 
 
 label test_1623__main:
-    $ set_fps(60)
+    $ set_fps(20)
     
     scene bg int_clubs_male_day
     show el normal pioneer far at fright

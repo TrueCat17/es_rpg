@@ -19,6 +19,8 @@ init python:
     
     test_1623_tanks__time = time.time()
     
+    test_1623_tanks__fps = 10
+    
     
     test_1623_tanks__positions = {
         'left':  (0, 4, 6, 1, 3, 0, 0, 2, 5),
@@ -43,8 +45,6 @@ init python:
         global test_1623_tanks__direction_changed, test_1623_tanks__pause, test_1623_tanks__exit, test_1623_tanks__level
         global test_1623_tanks__fps, test_1623_tanks__frame_for_bullets, test_1623_tanks__player
         global test_1623_tanks__limit_bullets, test_1623_tanks__limit_moves
-        
-        test_1623_tanks__fps = 10
         
         test_1623_tanks__frame_for_bullets = False
         test_1623_tanks__direction_changed = False
@@ -181,6 +181,8 @@ init python:
     
     
     def test_1623_tanks__render():
+    	set_fps(test_1623_tanks__fps)
+    	
         for y in xrange(test_1623__height):
             for x in xrange(test_1623__width):
                 index = y * test_1623__width + x

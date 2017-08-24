@@ -14,11 +14,11 @@ init python:
     test_1623_shake__dx = 1
     test_1623_shake__dy = 0
     
+    test_1623_shake__fps = 4
+    
     
     def test_1623_shake__init():
         global test_1623_shake__pause, test_1623_shake__exit, test_1623_shake__level
-        
-        set_fps(4)
         
         test_1623_shake__pause = False
         test_1623_shake__exit = False
@@ -87,6 +87,8 @@ init python:
     
     
     def test_1623_shake__render():
+    	set_fps(test_1623_shake__fps)
+    	
         for y in xrange(test_1623__height):
             for x in xrange(test_1623__width):
                 index = y * test_1623__width + x

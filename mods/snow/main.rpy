@@ -1,4 +1,6 @@
 init python:
+	set_fps(60)
+	
 	mods['snow'] = 'snow'
 	start_screens = 'snow'
 	
@@ -75,7 +77,5 @@ screen snow:
 
 
 label snow:
-	$ set_fps(60)
-	
 	while True:
 		pause 0.1
