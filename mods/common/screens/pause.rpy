@@ -15,12 +15,6 @@ init python:
 	
 	pause_show = 'inventory'
 	
-	def get_back_with_color(image, color = '#000', alpha = 0.05):
-		w, h = get_texture_width(image), get_texture_height(image)
-		return im.Composite((w, h),
-		                    (0, 0), im.Alpha(im.Rect(color, w, h), alpha),
-		                    (0, 0), image)
-	
 	
 	pause_back       = es2d_gui + 'menu/pause/back.png'
 	pause_inventory  = es2d_gui + 'menu/pause/inventory.png'
@@ -46,6 +40,11 @@ init python:
 	style.pause_button.ysize = 0.1
 	
 	
+	def show_pause():
+		global pause_showed_time
+		if time.time() - pause_hided_time > pause_rotate_time + pause_disappearance_time:
+			pause_showed_time = time.time()
+			show_screen('pause')
 	def pause_close_func():
 		global pause_start_hided_time
 		pause_start_hided_time = time.time()
@@ -86,52 +85,53 @@ screen pause:
 	                       false =  None)
 	
 	
-	image 'images/bg/black.jpg':
-		alpha 0.4
-		pos  (0, 0)
-		size (1.0, 1.0)
-	
-	hbox:
-		align (0.5, 0.5)
+	if not screenshotting:
+		image 'images/bg/black.jpg':
+			alpha 0.4
+			pos  (0, 0)
+			size (1.0, 1.0)
 		
-		vbox:
-			spacing 5
-			yalign 0.5
+		hbox:
+			align (0.5, 0.5)
 			
-			textbutton 'Продолжить'   style pause_button action pause_close_func
-			textbutton 'Загрузить'    style pause_button action ShowMenu('load')
-			textbutton 'Сохранить'    style pause_button action ShowMenu('save')
-			textbutton 'Настройки'    style pause_button action ShowMenu('settings')
-			textbutton 'Выход в меню' style pause_button action Function(start_mod, 'main_menu')
-		
-		null xsize 10
-		
-		vbox:
-			hbox:
-				xalign 0.5
+			vbox:
+				spacing 5
+				yalign 0.5
 				
-				textbutton 'Инвентарь':
-					style pause_button
-					xsize  0.2
-					ground (pause_button if pause_show != 'inventory' else pause_button_selected)
-					action SetVariable('pause_show', 'inventory')
-				textbutton 'Записи':
-					style pause_button
-					xsize  0.2
-					ground (pause_button if pause_show != 'notes'     else pause_button_selected)
-					action SetVariable('pause_show', 'notes')
-				
-			image pause_back:
-				size (0.4, 0.6)
-				
-				image (globals()['pause_' + pause_show]):
-					align (0.5, 0.5)
-					size  (0.3, 0.25)
-				
-				button:
-					pos    (get_stage_width() * 0.4 + 10 + pause_close_size / 2, -10 - pause_close_size / 2)
-					anchor (0.5, 0.5)
-					size   (pause_close_size, pause_close_size)
-					ground pause_close
-					action pause_close_func
+				textbutton 'Продолжить'   style pause_button action pause_close_func
+				textbutton 'Загрузить'    style pause_button action ShowMenu('load')
+				textbutton 'Сохранить'    style pause_button action ShowMenu('save')
+				textbutton 'Настройки'    style pause_button action ShowMenu('settings')
+				textbutton 'Выход в меню' style pause_button action Function(start_mod, 'main_menu')
+			
+			null xsize 10
+			
+			vbox:
+				hbox:
+					xalign 0.5
+					
+					textbutton 'Инвентарь':
+						style pause_button
+						xsize  0.2
+						ground (pause_button if pause_show != 'inventory' else pause_button_selected)
+						action SetVariable('pause_show', 'inventory')
+					textbutton 'Записи':
+						style pause_button
+						xsize  0.2
+						ground (pause_button if pause_show != 'notes'     else pause_button_selected)
+						action SetVariable('pause_show', 'notes')
+					
+				image pause_back:
+					size (0.4, 0.6)
+					
+					image (globals()['pause_' + pause_show]):
+						align (0.5, 0.5)
+						size  (0.3, 0.25)
+					
+					button:
+						pos    (get_stage_width() * 0.4 + 10 + pause_close_size / 2, -10 - pause_close_size / 2)
+						anchor (0.5, 0.5)
+						size   (pause_close_size, pause_close_size)
+						ground pause_close
+						action pause_close_func
 

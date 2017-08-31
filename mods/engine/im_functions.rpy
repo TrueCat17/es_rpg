@@ -58,6 +58,11 @@ init -1001 python:
 		out_msg('ConditionSwitch', 'Ни одно условие не выполнено')
 		return args[1]
 	
+	def get_back_with_color(image, color = '#000', alpha = 0.05):
+		w, h = get_texture_width(image), get_texture_height(image)
+		return im.Composite((w, h),
+		                    (0, 0), im.Alpha(im.Rect(color, w, h), alpha),
+		                    (0, 0), image)
 	
 	
 	

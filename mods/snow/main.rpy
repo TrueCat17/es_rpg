@@ -6,7 +6,7 @@ init python:
 	
 	IMAGE_RENDER = False
 	
-	COUNT = 1000
+	COUNT = 250
 	
 	width, height = get_stage_width(), get_stage_height()
 	
