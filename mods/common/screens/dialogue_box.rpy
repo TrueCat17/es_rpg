@@ -302,10 +302,6 @@ screen dialogue_box:
 						ground db_next_btn
 						size   (db_next_btn_size, db_next_btn_size)
 						action db_on_enter
-		
-		
-		if renpy.config.fps_meter:
-			use fps_meter
 	
 	
 	button:

@@ -39,6 +39,7 @@ init -2 python:
 		
 		if save_exists:
 			screenshot = os.path.join(save_dir, table, save, 'screenshot.png')
+			screenshot += "?" + str(os.path.getmtime(screenshot))
 			w, h = get_texture_width(screenshot), get_texture_height(screenshot)
 			return im.Composite((w, h), (0, 0), screenshot, (0, 0), im.Scale(over, w, h))
 		
