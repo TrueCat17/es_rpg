@@ -6,7 +6,7 @@ init python:
 	
 	IMAGE_RENDER = False
 	
-	COUNT = 250
+	COUNT = 450
 	
 	width, height = get_stage_width(), get_stage_height()
 	
@@ -63,17 +63,18 @@ screen snow:
 				ypos int(obj.y)
 	
 	python:
-		dtime = (time.time() - prev_time) * 1000
-		prev_time = time.time()
-		
-		frame_times.append(dtime)
-		frame_times = frame_times[-30:]
-		
-		mid_time = int(sum(frame_times) / len(frame_times) * 10) / 10.0
-		fps = 1000.0 / mid_time
-		print fps
+		if 0:
+			dtime = (time.time() - prev_time) * 1000
+			prev_time = time.time()
+			
+			frame_times.append(dtime)
+			frame_times = frame_times[-60:]
+			
+			mid_time = int(sum(frame_times) / len(frame_times) * 10) / 10.0
+			fps = 1000.0 / mid_time
+			print fps
 	
-#	use fps_meter
+	use fps_meter
 
 
 label snow:
