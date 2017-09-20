@@ -6,6 +6,7 @@ init python:
 label test_label:
 	image bg bus_stop = im.MatrixColor('images/bg/bus_stop.jpg',
 											im.matrix.saturation(0.5*4))
-	scene bg bus_stop
+	scene bg bus_stop:
+		size (1.0, 1.0)
 	me "qwe"
 

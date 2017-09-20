@@ -103,3 +103,5 @@ screen load:
 		textbutton 'Назад':
 			align (0.95, 0.95)
 			action HideMenu('load')
+	
+	key 'ESCAPE' action HideMenu('load')

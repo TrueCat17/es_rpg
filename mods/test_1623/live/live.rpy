@@ -17,7 +17,7 @@ init python:
 		global test_1623_live__nears
 		
 		test_1623__width = 50
-		test_1623__height = 25
+		test_1623__height = 30
 		
 		test_1623_live__pause = False
 		test_1623_live__exit = False

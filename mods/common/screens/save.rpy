@@ -98,3 +98,6 @@ screen save:
 			textbutton 'Назад':
 				align (0.95, 0.95)
 				action HideMenu('save')
+	
+	key 'ESCAPE' action HideMenu('save')
+

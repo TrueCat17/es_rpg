@@ -8,7 +8,6 @@ init python:
 	ground_path = es2d_gui + 'menu/main/ground.png'
 	hover_path  = es2d_gui + 'menu/main/hover.png'
 
-
 screen main_menu:
 	python:
 		sw, sh = get_stage_width(), get_stage_height()

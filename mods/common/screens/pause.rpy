@@ -41,13 +41,17 @@ init python:
 	
 	
 	def show_pause():
-		global pause_showed_time
-		if time.time() - pause_hided_time > pause_rotate_time + pause_disappearance_time:
+		global pause_showed_time, pause_start_hided_time
+		if not has_screen('pause') and time.time() - pause_hided_time > pause_rotate_time + pause_disappearance_time:
 			pause_showed_time = time.time()
+			pause_start_hided_time = 0
 			show_screen('pause')
 	def pause_close_func():
 		global pause_start_hided_time
-		pause_start_hided_time = time.time()
+		a = time.time() - pause_start_hided_time > pause_rotate_time + pause_disappearance_time
+		b = time.time() - pause_showed_time > pause_appearance_time
+		if a and b:
+			pause_start_hided_time = time.time()
 
 
 screen pause:
@@ -80,9 +84,7 @@ screen pause:
 	rotate pause_rotate
 	
 	
-	key 'ESCAPE' action If(time.time() - pause_showed_time > 0.4,
-	                       true  = pause_close_func,
-	                       false =  None)
+	key 'ESCAPE' action pause_close_func
 	
 	
 	if not screenshotting:

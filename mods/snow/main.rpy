@@ -4,25 +4,33 @@ init python:
 	mods['snow'] = 'snow'
 	start_screens = 'snow'
 	
+	draw_fps = False
 	IMAGE_RENDER = False
 	
-	COUNT = 450
+	COUNT = 1000
 	
 	width, height = get_stage_width(), get_stage_height()
 	
 	objs = []
 	for i in xrange(COUNT):
+		size = random.randint(2, 10)
+		
 		obj = Object()
-		obj.size = random.randint(2, 10)
-		obj.x = random.randint(0, width - obj.size - 1)
-		obj.y = random.randint(0, height - obj.size - 1)
-		obj.dx = (random.random() * 2 - 1) * obj.size / 8
-		obj.dy = (random.random() * 7 + 5) * obj.size / 30
-		obj.image = im.Scale('images/anim/snow.png', obj.size, obj.size)
+		obj.x = random.randint(0, width - size - 1)
+		obj.y = random.randint(0, height - size - 1)
+		obj.dx = (random.random() * 2 - 1) * size / 8
+		obj.dy = (random.random() * 7 + 5) * size / 30
+		
+		if IMAGE_RENDER:
+			obj.image = im.Scale('images/anim/snow.png', size, size)
+		else:
+			obj.size = (size, size)
 		objs.append(obj)
 	
-	prev_time = time.time()
-	frame_times = []
+	prev_time_update = time.time()
+	if not draw_fps:
+		prev_time = time.time()
+		frame_times = []
 
 
 screen snow:
@@ -32,49 +40,44 @@ screen snow:
 		size (1.0, 1.0)
 	
 	python:
-		width, height = get_stage_width(), get_stage_height()
-		tmp_image_args = [(width, height)]
+		k = (time.time() - prev_time_update) * 60
+		prev_time_update = time.time()
 		
-		for obj in objs:
-			next_x, next_y = obj.x + obj.dx, obj.y + obj.dy
-			
-			if next_x < -obj.size:
-				next_x = width
-			elif next_x > width:
-				next_x = 0
-			
-			if next_y > height:
-				next_y = 0
-			
-			obj.x, obj.y = next_x, next_y
-			if IMAGE_RENDER:
-				tmp_image_args.append((next_x, next_y))
-				tmp_image_args.append(obj.image)
+		width, height = get_stage_width(), get_stage_height()
 		
 		if IMAGE_RENDER:
+			tmp_image_args = [(width, height)]
+			for obj in objs:
+				obj.x, obj.y = (obj.x + obj.dx * k) % width, (obj.y + obj.dy * k) % height
+				tmp_image_args.append((obj.x, obj.y))
+				tmp_image_args.append(obj.image)
 			tmp_image = im.Composite(*tmp_image_args)
+		else:
+			for obj in objs:
+				obj.x, obj.y = (obj.x + obj.dx * k) % width, (obj.y + obj.dy * k) % height
 	
 	if IMAGE_RENDER:
 		image tmp_image
 	else:
 		for obj in objs:
-			image obj.image:
+			image 'images/anim/snow.png':
 				xpos int(obj.x)
 				ypos int(obj.y)
+				size obj.size
 	
-	python:
-		if 0:
+	if draw_fps:
+		use fps_meter
+	else:
+		python:
 			dtime = (time.time() - prev_time) * 1000
 			prev_time = time.time()
 			
 			frame_times.append(dtime)
-			frame_times = frame_times[-60:]
+			frame_times = frame_times[-120:]
 			
-			mid_time = int(sum(frame_times) / len(frame_times) * 10) / 10.0
-			fps = 1000.0 / mid_time
+			mid_time = sum(frame_times) / len(frame_times)
+			fps = int(1000.0 / mid_time * 10) / 10.0
 			print fps
-	
-	use fps_meter
 
 
 label snow:

@@ -53,6 +53,7 @@ init -2 python:
 	
 	def sl_delete_save(table, save):
 		shutil.rmtree(os.path.join(save_dir, table, save))
+		sl_update_table_saves()
 	
 	def sl_update_table_saves():
 		global sl_tables, sl_table_saves, sl_table_saves_exists
