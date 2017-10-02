@@ -6,9 +6,6 @@ init python:
 	test_1623__size = 16
 	
 	test_1623__color_field = ['green']
-	
-	mods['test_1623__start'] = 'test_1623'
-
 
 screen test_1623__main_screen:
 	image 'mods/test_1623/images/px/white.png':
@@ -48,9 +45,8 @@ screen test_1623__main_screen:
 						size (test_1623__size * test_1623__count, test_1623__size)
 
 
-label test_1623__start:
+label start:
 	jump test_1623__main
-
 
 label test_1623__main:
 	$ set_fps(20)

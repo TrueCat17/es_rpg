@@ -1,10 +1,9 @@
 init python:
 	set_fps(60)
 	
-	mods['snow'] = 'snow'
 	start_screens = 'snow'
 	
-	draw_fps = False
+	draw_fps = not False
 	IMAGE_RENDER = False
 	
 	COUNT = 1000
@@ -42,9 +41,9 @@ screen snow:
 	python:
 		k = (time.time() - prev_time_update) * 60
 		prev_time_update = time.time()
-		
+	
 		width, height = get_stage_width(), get_stage_height()
-		
+	
 		if IMAGE_RENDER:
 			tmp_image_args = [(width, height)]
 			for obj in objs:
@@ -73,13 +72,13 @@ screen snow:
 			prev_time = time.time()
 			
 			frame_times.append(dtime)
-			frame_times = frame_times[-120:]
+			frame_times = frame_times[-300:]
 			
 			mid_time = sum(frame_times) / len(frame_times)
 			fps = int(1000.0 / mid_time * 10) / 10.0
 			print fps
 
 
-label snow:
+label start:
 	while True:
 		pause 0.1

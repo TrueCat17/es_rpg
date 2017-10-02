@@ -1,7 +1,6 @@
 init python:
 	set_fps(20)
 	
-	mods['start_main_menu'] = 'main_menu'
 	start_screens = 'main_menu'
 	
 	back_path   = es2d_gui + 'menu/main/back.png'
@@ -25,7 +24,7 @@ screen main_menu:
 		ground  ground
 		hover   hover
 		
-		hotspot (ix - tw, iy +   0, tw, 45) action Function(start_mod, "std")
+		hotspot (ix - tw, iy +   0, tw, 45) action Function(start_mod, "original_es")
 		hotspot (ix - tw, iy +  45, tw, 55) action ShowMenu('load')
 		hotspot (ix - tw, iy + 100, tw, 60) action Function(out_msg, "Не реализовано")
 		hotspot (ix - tw, iy + 160, tw, 50) action Function(out_msg, "Не реализовано")
@@ -33,7 +32,7 @@ screen main_menu:
 		hotspot (ix - tw, iy + 270, tw, 50) action exit_from_game
 
 
-label start_main_menu:
+label start:
 	while True:
 		pause 0.1
 

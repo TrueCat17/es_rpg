@@ -48,14 +48,8 @@ init -10000 python:
 		res = _get_from_hard_config(str(param))
 		return ret_type(res)
 	
-	def get_mods():
-		mods_str = _get_mods()
-		mods_dict = eval(mods_str)
-		return mods_dict
-	
 	def load(table, num):
 		_load(str(table), str(num))
-	
 	
 	def out_msg(msg, err = ''):
 		_out_msg(str(msg), str(err))

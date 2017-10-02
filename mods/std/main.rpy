@@ -1,9 +1,6 @@
 init python:
-	mods["main"] = "Бесконечное Лето 2D"
-	
 	set_fps(60)
 	day_num = 0
-	
 	
 	cur_place_name = None
 	
@@ -12,7 +9,7 @@ init python:
 		return day_func(to_location_name, to_place_name)
 
 
-label main:
+label start:
 	call day1_start
 	
 	while True:
