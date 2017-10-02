@@ -59,8 +59,8 @@ init -1001 python:
 	objects_on_location = []
 	
 	
-	def register_location(name, path_to_images, no_pictures, is_room, width, height):
-		location = Location(name, path_to_images, no_pictures, is_room, width, height)
+	def register_location(name, path_to_images, is_room, width, height):
+		location = Location(name, path_to_images, is_room, width, height)
 		locations[name] = location
 	
 	def set_location(location_name, place_name):
@@ -200,16 +200,16 @@ init -1001 python:
 	
 	
 	class Location(Object):
-		def __init__(self, name, path_to_images, no_pictures, is_room, width, height):
+		def __init__(self, name, path_to_images, is_room, width, height):
 			Object.__init__(self)
 			self.name = name
 			
 			self.is_room = is_room
 			self.width, self.height = width, height
 			
-			self.main = path_to_images + 'main.png'
-			self.over = None if 'o' in no_pictures else path_to_images + 'over.png'
-			self.free = None if 'f' in no_pictures else path_to_images + 'free.png'
+			self.main =  path_to_images + 'main.png'
+			self.over = (path_to_images + 'over.png') if os.path.exists('../resources/' + path_to_images + 'over.png') else None
+			self.free = (path_to_images + 'free.png') if os.path.exists('../resources/' + path_to_images + 'free.png') else None
 			
 			self.places = dict()
 			self.exits = []

@@ -60,14 +60,14 @@ init -1001 python:
 	style.textbutton.xsize = 175
 	style.textbutton.ysize = 25
 	style.textbutton.text_size = 15
-	style.textbutton.ground = 'images/es2d/gui/std/btn/usual.png'
+	style.textbutton.ground = 'images/gui/std/btn/usual.png'
 	style.textbutton.hover = ''
 	
 	style.button = Style(style.default)
 	style.button.mouse = True
 	style.button.xsize = 175
 	style.button.ysize = 25
-	style.button.ground = 'images/es2d/gui/std/btn/usual.png'
+	style.button.ground = 'images/gui/std/btn/usual.png'
 	style.button.hover = ''
 	
 	style.hotspot = Style(style.default)

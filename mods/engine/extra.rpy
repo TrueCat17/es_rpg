@@ -1,7 +1,7 @@
 init -1001 python:
 	default_decl_at = []
 	
-	es2d_gui = 'images/es2d/gui/'
+	es2d_gui = 'images/gui/'
 	
 	alphabet = tuple(map(chr, xrange(ord('a'), ord('z') + 1))) # a-z
 	numbers = tuple(xrange(10)) # 0-9

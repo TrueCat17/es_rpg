@@ -44,7 +44,7 @@ init -1000 python:
 	
 	g = globals()
 	for name in rpg_characters:
-		g[name].make_rpg('images/es2d/characters/' + name + '_', 'pi')
+		g[name].make_rpg('images/characters/' + name + '_', 'pi')
 		g['lp_' + name] = 0
 	
 	
