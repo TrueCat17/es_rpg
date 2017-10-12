@@ -7,7 +7,7 @@ screen save:
 	modal  True
 	
 	python:
-		if random.random() < 1.0 / get_fps():
+		if random.random() < 10.0 / get_fps():
 			sl_update_table_saves()
 	
 	if not screenshotting:
