@@ -6,7 +6,7 @@ init python:
 	draw_fps = not False
 	IMAGE_RENDER = False
 	
-	COUNT = 1000
+	COUNT = 1300
 	
 	width, height = get_stage_width(), get_stage_height()
 	
@@ -14,22 +14,20 @@ init python:
 	for i in xrange(COUNT):
 		size = random.randint(2, 10)
 		
-		obj = Object()
-		obj.x = random.randint(0, width - size - 1)
-		obj.y = random.randint(0, height - size - 1)
-		obj.dx = (random.random() * 2 - 1) * size / 8
-		obj.dy = (random.random() * 7 + 5) * size / 30
+		obj = {}
+		obj['x'] = random.randint(0, width - size - 1)
+		obj['y'] = random.randint(0, height - size - 1)
+		obj['dx'] = (random.random() * 2 - 1) * size / 8
+		obj['dy'] = (random.random() * 7 + 5) * size / 30
 		
 		if IMAGE_RENDER:
-			obj.image = im.Scale('images/anim/snow.png', size, size)
+			obj['image'] = im.Scale('images/anim/snow.png', size, size)
 		else:
-			obj.size = (size, size)
+			obj['size'] = (size, size)
 		objs.append(obj)
 	
-	prev_time_update = time.time()
-	if not draw_fps:
-		prev_time = time.time()
-		frame_times = []
+	prev_time = prev_time_update = time.time()
+	frame_times = []
 
 
 screen snow:
@@ -47,22 +45,22 @@ screen snow:
 		if IMAGE_RENDER:
 			tmp_image_args = [(width, height)]
 			for obj in objs:
-				obj.x, obj.y = (obj.x + obj.dx * k) % width, (obj.y + obj.dy * k) % height
-				tmp_image_args.append((obj.x, obj.y))
-				tmp_image_args.append(obj.image)
+				obj['x'], obj['y'] = (obj['x'] + obj['dx'] * k) % width, (obj['y'] + obj['dy'] * k) % height
+				tmp_image_args.append((obj['x'], obj['y']))
+				tmp_image_args.append(obj['image'])
 			tmp_image = im.Composite(*tmp_image_args)
 		else:
 			for obj in objs:
-				obj.x, obj.y = (obj.x + obj.dx * k) % width, (obj.y + obj.dy * k) % height
+				obj['x'], obj['y'] = (obj['x'] + obj['dx'] * k) % width, (obj['y'] + obj['dy'] * k) % height
 	
 	if IMAGE_RENDER:
 		image tmp_image
 	else:
 		for obj in objs:
 			image 'images/anim/snow.png':
-				xpos int(obj.x)
-				ypos int(obj.y)
-				size obj.size
+				xpos int(obj['x'])
+				ypos int(obj['y'])
+				size obj['size']
 	
 	if draw_fps:
 		use fps_meter

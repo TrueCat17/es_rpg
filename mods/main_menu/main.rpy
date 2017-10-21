@@ -3,9 +3,12 @@ init python:
 	
 	start_screens = 'main_menu'
 	
-	back_path   = es2d_gui + 'menu/main/back.png'
-	ground_path = es2d_gui + 'menu/main/ground.png'
-	hover_path  = es2d_gui + 'menu/main/hover.png'
+	hover_matrix = im.matrix.identity()
+	hover_matrix.t[19] += 0.01 # alpha += 0.01
+	
+	back_path   =                es2d_gui + 'menu/main/back.png'
+	ground_path =                es2d_gui + 'menu/main/ground.png'
+	hover_path  = im.MatrixColor(es2d_gui + 'menu/main/hover.png', hover_matrix)
 
 screen main_menu:
 	python:
@@ -18,13 +21,14 @@ screen main_menu:
 		                      (0, 0), im.Scale(back_path, sw, sh),
 		                      (ix - tw, iy), ground_path)
 		hover  = im.Composite((sw, sh),
-		                      (ix - tw, iy), hover_path)
+		                      (ix - tw, iy), hover_path,
+		                      (ix - tw, iy), im.Rect("00000040", tw, 45))
 	
 	imagemap:
 		ground  ground
 		hover   hover
 		
-		hotspot (ix - tw, iy +   0, tw, 45) action Function(start_mod, "original_es")
+		hotspot (ix - tw, iy +   0, tw, 45) action Function(start_mod, "std")
 		hotspot (ix - tw, iy +  45, tw, 55) action ShowMenu('load')
 		hotspot (ix - tw, iy + 100, tw, 60) action Function(out_msg, "Не реализовано")
 		hotspot (ix - tw, iy + 160, tw, 50) action Function(out_msg, "Не реализовано")

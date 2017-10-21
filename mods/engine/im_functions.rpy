@@ -91,13 +91,13 @@ init -1001 python:
 		
 		
 		def identity(self):
-			res = ImMatrix((
+			res = ImMatrix([
 				1, 0, 0, 0, 0,
 				0, 1, 0, 0, 0,
 				0, 0, 1, 0, 0,
 				0, 0, 0, 1, 0,
 				0, 0, 0, 0, 1
-			))
+			])
 			return res
 		
 		def tint(self, r, g, b, a = 1):
