@@ -34,22 +34,27 @@ init -1001 python:
 			return
 		upd_loc_psw, upd_loc_psh = stage_width, stage_height
 		
+		
+		round_part = 8
+		spec_floor = lambda n: math.floor(n * round_part) / round_part
+		spec_ceil  = lambda n: math.ceil( n * round_part) / round_part
+		
 		global location_scale
-		location_scale = 1
+		location_scale = 1.0
 		
 		for location_name in locations.keys():
 			location = locations[location_name]
 			if location.is_room:  # Помещение (комната, автобус...)?
 				scale = min(stage_width / location.width, stage_height / location.height) # Увеличение до одной из сторон экрана
-				scale = int(scale)  # Округление в меньшую сторону
+				scale = spec_floor(scale) # Округление в меньшую сторону
 			else:
 				scale = max(stage_width / location.width, stage_height / location.height) # Увеличение до обоих сторон экрана
-				scale = ceil(scale) # Округление в большую сторону
+				scale = spec_ceil(scale)  # Округление в большую сторону
 			
 			location_scale = max(location_scale, scale)
 		
-		if location_scale > 3:
-			location_scale = 3
+		if location_scale > 2.5:
+			location_scale = 2.5
 	
 	
 	

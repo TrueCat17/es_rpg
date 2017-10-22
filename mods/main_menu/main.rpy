@@ -1,6 +1,5 @@
 init python:
 	set_fps(20)
-	
 	start_screens = 'main_menu'
 	
 	hover_matrix = im.matrix.identity()
@@ -21,8 +20,7 @@ screen main_menu:
 		                      (0, 0), im.Scale(back_path, sw, sh),
 		                      (ix - tw, iy), ground_path)
 		hover  = im.Composite((sw, sh),
-		                      (ix - tw, iy), hover_path,
-		                      (ix - tw, iy), im.Rect("00000040", tw, 45))
+		                      (ix - tw, iy), hover_path)
 	
 	imagemap:
 		ground  ground
