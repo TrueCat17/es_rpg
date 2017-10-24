@@ -35,7 +35,7 @@ init -1001 python:
 		upd_loc_psw, upd_loc_psh = stage_width, stage_height
 		
 		
-		round_part = 8
+		round_part = 4
 		spec_floor = lambda n: math.floor(n * round_part) / round_part
 		spec_ceil  = lambda n: math.ceil( n * round_part) / round_part
 		

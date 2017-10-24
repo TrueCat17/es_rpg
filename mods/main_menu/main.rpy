@@ -9,6 +9,7 @@ init python:
 	ground_path =                es2d_gui + 'menu/main/ground.png'
 	hover_path  = im.MatrixColor(es2d_gui + 'menu/main/hover.png', hover_matrix)
 
+
 screen main_menu:
 	python:
 		sw, sh = get_stage_width(), get_stage_height()
@@ -26,7 +27,7 @@ screen main_menu:
 		ground  ground
 		hover   hover
 		
-		hotspot (ix - tw, iy +   0, tw, 45) action Function(start_mod, "std")
+		hotspot (ix - tw, iy +   0, tw, 45) action Function(start_mod, "original_es")
 		hotspot (ix - tw, iy +  45, tw, 55) action ShowMenu('load')
 		hotspot (ix - tw, iy + 100, tw, 60) action Function(out_msg, "Не реализовано")
 		hotspot (ix - tw, iy + 160, tw, 50) action Function(out_msg, "Не реализовано")

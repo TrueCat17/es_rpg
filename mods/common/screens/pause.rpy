@@ -38,6 +38,7 @@ init python:
 	style.pause_button.hover  = pause_button_hover
 	style.pause_button.xsize = 0.2
 	style.pause_button.ysize = 0.1
+	style.pause_button.text_size = 20
 	
 	
 	def show_pause():

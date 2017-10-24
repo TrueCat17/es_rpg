@@ -39,19 +39,22 @@ screen snow:
 	python:
 		k = (time.time() - prev_time_update) * 60
 		prev_time_update = time.time()
-	
+		
 		width, height = get_stage_width(), get_stage_height()
-	
+		
 		if IMAGE_RENDER:
 			tmp_image_args = [(width, height)]
 			for obj in objs:
-				obj['x'], obj['y'] = (obj['x'] + obj['dx'] * k) % width, (obj['y'] + obj['dy'] * k) % height
+				obj['x'] = (obj['x'] + obj['dx'] * k) % width
+				obj['y'] = (obj['y'] + obj['dy'] * k) % height
+				
 				tmp_image_args.append((obj['x'], obj['y']))
 				tmp_image_args.append(obj['image'])
 			tmp_image = im.Composite(*tmp_image_args)
 		else:
 			for obj in objs:
-				obj['x'], obj['y'] = (obj['x'] + obj['dx'] * k) % width, (obj['y'] + obj['dy'] * k) % height
+				obj['x'] = (obj['x'] + obj['dx'] * k) % width
+				obj['y'] = (obj['y'] + obj['dy'] * k) % height
 	
 	if IMAGE_RENDER:
 		image tmp_image
