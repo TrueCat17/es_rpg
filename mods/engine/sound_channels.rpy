@@ -1,4 +1,8 @@
 init -998 python:
+	std_mixers = ('music', 'sfx', 'ambience')
+	std_mixer_names = ('Музыка', 'Звуки', 'Окружение')
+	
+	
 	renpy.music.register_channel("music", "music", True)
 	
 	renpy.music.register_channel("sound",  "sfx", False)

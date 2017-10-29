@@ -1,4 +1,4 @@
-init -998 python:
+init -997 python:
 	
 	start_screens = 'location sprites dialogue_box'
 	
@@ -11,8 +11,8 @@ init -998 python:
 	if config.text_cps is None:
 		config.text_cps = 60
 	
-	if config.music_volume is None:
-		config.music_volume = 100
-		config.voice_volume = 100
-		config.ambience_volume = 100
+	for std_mixer in std_mixers:
+		if config[std_mixer + '_volume'] is None:
+			config[std_mixer + '_volume'] = 1
+		renpy.music.set_mixer_volume(config[std_mixer + '_volume'], std_mixer)
 	

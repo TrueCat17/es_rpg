@@ -19,21 +19,23 @@ init -1001 python:
 		def __call__(self):
 			apply(self.func, self.args, self.kwargs)
 	
-	class AddVariable(Object):
-		def __init__(self, var_name, d):
+	class AddDict(Object):
+		def __init__(self, obj, var_name, value):
 			Object.__init__(self)
-			self.var_name, self.d = var_name, d
+			self.obj, self.var_name, self.value = obj, var_name, value
 		def __call__(self):
-			g = globals()
-			g[self.var_name] += self.d
+			self.obj[self.var_name] += self.value
+	class SetDict(Object):
+		def __init__(self, obj, var_name, value):
+			Object.__init__(self)
+			self.obj, self.var_name, self.value = obj, var_name, value
+		def __call__(self):
+			self.obj[self.var_name] = self.value
 	
-	class SetVariable(Object):
-		def __init__(self, var_name, value):
-			Object.__init__(self)
-			self.var_name, self.value = var_name, value
-		def __call__(self):
-			g = globals()
-			g[self.var_name] = self.value
+	def AddVariable(var_name, value):
+		return AddDict(globals(), var_name, value)
+	def SetVariable(var_name, value):
+		return SetDict(globals(), var_name, value)
 	
 	def Play(file_name, channel):
 		return Function(renpy.play, file_name, channel)

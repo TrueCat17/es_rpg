@@ -249,6 +249,20 @@ init -1001 python:
 			r, g, b, a = renpy.easy.color(color)
 			matrix = im.matrix.invert() * im.matrix.tint(r / 255.0, g / 255.0, b / 255.0, a / 255.0)
 			return self.Scale(im.MatrixColor('images/bg/black_circle.png', matrix), width, height)
+		
+		def Bar(self, progress_end, progress_start = 0, vertical = False, ground = None, hover = None):
+			if ground is None:
+				ground = vbar_ground if vertical else bar_ground
+			if hover is None:
+				hover  = vbar_hover if vertical else bar_hover
+			tw, th = get_texture_width(ground), get_texture_height(ground)
+			x = 0 if vertical else progress_start * tw
+			y = 0 if not vertical else progress_start * th
+			w = (1 if vertical else progress_end - progress_start) * tw
+			h = (1 if not vertical else progress_end - progress_start) * th
+			return self.Composite((tw, th),
+			                      (0, 0), ground,
+			                      (x, y), im.Scale(hover, w, h))
 	
 	
 
