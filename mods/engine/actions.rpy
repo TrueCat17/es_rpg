@@ -24,18 +24,20 @@ init -1001 python:
 			Object.__init__(self)
 			self.obj, self.var_name, self.value = obj, var_name, value
 		def __call__(self):
-			self.obj[self.var_name] += self.value
+			obj = self.obj if self.obj is not None else globals()
+			obj[self.var_name] += self.value
 	class SetDict(Object):
 		def __init__(self, obj, var_name, value):
 			Object.__init__(self)
 			self.obj, self.var_name, self.value = obj, var_name, value
 		def __call__(self):
-			self.obj[self.var_name] = self.value
+			obj = self.obj if self.obj is not None else globals()
+			obj[self.var_name] = self.value
 	
 	def AddVariable(var_name, value):
-		return AddDict(globals(), var_name, value)
+		return AddDict(None, var_name, value)
 	def SetVariable(var_name, value):
-		return SetDict(globals(), var_name, value)
+		return SetDict(None, var_name, value)
 	
 	def Play(file_name, channel):
 		return Function(renpy.play, file_name, channel)

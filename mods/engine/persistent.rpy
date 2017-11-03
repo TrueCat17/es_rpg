@@ -39,16 +39,18 @@ init -1001 python:
 		g = globals()
 		obj = dict()
 		
-		safe_types = ['bool', 'int', 'float', 'long', 'str', 'list', 'tuple', 'set', 'dict', 'NoneType', 'classobj', 'instance']
-		for i in xrange(len(safe_types)):
-			safe_types[i] = "<type '" + safe_types[i] + "'>"
+		class TmpClass: pass
+		tmp_instance = TmpClass()
+		
+		safe_types = [bool, int, float, long, str, list, tuple, set, dict, type(None), type(TmpClass), type(tmp_instance)]
 		
 		for k in g.keys():
-			# renpy contains module <random>, modules can't saves
 			o = g[k]
+			
+			# renpy contains module <random>, modules can't saves
+			# reference to globals() too
 			if o is not renpy and o is not g:
-				str_type = str(type(o))
-				if str_type in safe_types:
+				if type(o) in safe_types:
 					obj[k] = o
 		
 		save_object(path, obj)

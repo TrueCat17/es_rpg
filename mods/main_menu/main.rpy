@@ -27,7 +27,7 @@ screen main_menu:
 		ground  ground
 		hover   hover
 		
-		hotspot (ix - tw, iy +   0, tw, 45) action Function(start_mod, "snow")
+		hotspot (ix - tw, iy +   0, tw, 45) action Function(start_mod, "std")
 		hotspot (ix - tw, iy +  45, tw, 55) action ShowMenu('load')
 		hotspot (ix - tw, iy + 100, tw, 60) action ShowMenu('settings')
 		hotspot (ix - tw, iy + 160, tw, 50) action Function(out_msg, "Не реализовано")

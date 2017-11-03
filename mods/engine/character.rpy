@@ -65,7 +65,7 @@ init -1001 python:
 			self.location = None
 		
 		def __str__(self):
-			return self.name
+			return str(self.name)
 		
 		def __call__(self, text):
 			show_text(	self.name, self.name_prefix, self.name_postfix, self.color,
