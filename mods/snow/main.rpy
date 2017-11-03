@@ -6,7 +6,7 @@ init python:
 	draw_fps = not False
 	IMAGE_RENDER = False
 	
-	COUNT = 1300
+	COUNT = 1400
 	
 	width, height = get_stage_width(), get_stage_height()
 	

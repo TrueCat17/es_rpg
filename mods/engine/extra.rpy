@@ -51,6 +51,29 @@ init -100000 python:
 	def get_dist(x1, y1, x2, y2):
 		return ((x1-x2)**2 + (y1-y2)**2) ** 0.5
 	
+	def get_mods():
+		# name : directory
+		res = {}
+		
+		mods_path = '../resources/mods/'
+		fs_and_ds = os.listdir(mods_path)
+		for path in fs_and_ds:
+			if path[-1] in ('/', '\\'):
+				path = path[:-1]
+			
+			if os.path.isdir(mods_path + path):
+				path_to_name = mods_path + path + '/name'
+				if os.path.exists(path_to_name) and os.path.getsize(path_to_name):
+					f = open(path_to_name)
+					
+					name = f.read()
+					f.close()
+					if name and name[-1] == '\n':
+						name = name[:-1]
+					
+					if name:
+						res[name] = path
+		return res
 	
 	def get_from_hard_config(param, ret_type):
 		res = _get_from_hard_config(str(param))

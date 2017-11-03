@@ -6,6 +6,8 @@ init -1 python:
 	
 	settings_resolutions = ((640, 360), (960, 540), (1200, 675), (1366, 768), (1920, 1080))
 	
+	settings_show_mods = False
+	
 	
 	def settings_add_text_cps(d):
 		show_all_text = config.text_cps > 100000
@@ -38,6 +40,8 @@ init -1 python:
 		settings_viewport_content_y = in_bounds(v, 0.01, 0.99)
 	
 	settings_scroll_hovered = False
+	settings_scrolling = False
+	settings_scroll_y = 0
 
 
 screen settings:
@@ -47,124 +51,137 @@ screen settings:
 	image settings_background:
 		size (1.0, 1.0)
 	
-	vbox:
-		ypos int(settings_viewport_y * get_stage_height() -
-		         settings_viewport_content_y * abs(get_stage_height() * (1 - settings_viewport_y) - settings_viewport_content_height) + 10)
-		spacing 50
+	$ y = int(settings_viewport_y * get_stage_height() -
+	          settings_viewport_content_y * abs(get_stage_height() * (1 - settings_viewport_y * 2) - settings_viewport_content_height) + 10)
+	if settings_show_mods:
+		$ mods = get_mods()
 		
 		vbox:
+			ypos y
 			xalign 0.5
-			xsize 1.0
+			spacing 10
 			
-			null:
+			for name in mods:
+				textbutton name:
+					action start_mod(mods[name])
+	else:
+		vbox:
+			ypos y
+			spacing 50
+			
+			vbox:
 				xalign 0.5
-				size (350, 25)
+				xsize 1.0
 				
-				$ is_fullscreen = get_from_hard_config('window_fullscreen', bool)
-				button:
-					ground (checkbox_yes if is_fullscreen else checkbox_no)
-					action set_fullscreen(not is_fullscreen)
-					size (25, 25)
-				text 'Развернуть на весь экран':
-					xpos 40
-					color 0
-					text_size 25
-			
-			null ysize 15
+				null:
+					xalign 0.5
+					size (350, 25)
+					
+					$ is_fullscreen = get_from_hard_config('window_fullscreen', bool)
+					button:
+						ground (checkbox_yes if is_fullscreen else checkbox_no)
+						action set_fullscreen(not is_fullscreen)
+						size (25, 25)
+					text 'Развернуть на весь экран':
+						xpos 40
+						color 0
+						text_size 25
+				
+				null ysize 15
+				
+				vbox:
+					xsize 1.0
+					spacing 5
+					
+					text 'Разрешение:':
+						xalign 0.5
+						color 0
+					hbox:
+						xalign 0.5
+						spacing 10
+						
+						$ sw, sh = get_stage_width(), get_stage_height()
+						for resolution in settings_resolutions:
+							textbutton (str(resolution[0]) + 'x' + str(resolution[1])):
+								xsize 100
+								ground (settings_selected_btn if resolution == (sw, sh) else settings_usual_btn)
+								action set_stage_size(resolution[0], resolution[1])
 			
 			vbox:
 				xsize 1.0
+				xalign 0.5
 				spacing 5
 				
-				text 'Разрешение:':
+				text 'Громкость':
 					xalign 0.5
 					color 0
-				hbox:
-					xalign 0.5
-					spacing 10
-					
-					$ sw, sh = get_stage_width(), get_stage_height()
-					for resolution in settings_resolutions:
-						textbutton (str(resolution[0]) + 'x' + str(resolution[1])):
+				
+				for i in xrange(len(std_mixers)):
+					$ mixer, mixer_name = std_mixers[i], std_mixer_names[i]
+					hbox:
+						xalign 0.5
+						spacing 5
+						
+						text (mixer_name + ':'):
+							color 0
+							yalign 0.5
 							xsize 100
-							ground (settings_selected_btn if resolution == (sw, sh) else settings_usual_btn)
-							action set_stage_size(resolution[0], resolution[1])
-		
-		vbox:
-			xsize 1.0
-			xalign 0.5
-			spacing 5
+						
+						textbutton '-':
+							size (25, 25)
+							action renpy.music.add_mixer_volume(-0.1, mixer)
+						image im.Bar(config[mixer + '_volume']):
+							size (300, 25)
+						textbutton '+':
+							size (25, 25)
+							action renpy.music.add_mixer_volume(+0.1, mixer)
 			
-			text 'Громкость':
-				xalign 0.5
-				color 0
-			
-			for i in xrange(len(std_mixers)):
-				$ mixer, mixer_name = std_mixers[i], std_mixer_names[i]
+			vbox:
+				xsize 1.0
+				
+				null:
+					xalign 0.5
+					size (350, 25)
+					
+					$ show_all_text = config.text_cps > 100000
+					button:
+						ground (checkbox_yes if show_all_text else checkbox_no)
+						action settings_set_text_cps_on(not show_all_text)
+						size (25, 25)
+					text 'Показывать весь текст сразу':
+						xpos 40
+						color 0
+						text_size 25
+				null ysize 10
+				
+				text 'Скорость показа текста:':
+					xalign 0.5
+					color 0
 				hbox:
 					xalign 0.5
 					spacing 5
 					
-					text (mixer_name + ':'):
-						color 0
-						yalign 0.5
-						xsize 100
-					
 					textbutton '-':
 						size (25, 25)
-						action renpy.music.add_mixer_volume(-0.1, mixer)
-					image im.Bar(config[mixer + '_volume']):
+						action settings_add_text_cps(-20)
+					image im.Bar(((config.text_cps % 100000) - 20) / 200.0):
 						size (300, 25)
 					textbutton '+':
 						size (25, 25)
-						action renpy.music.add_mixer_volume(+0.1, mixer)
-		
-		vbox:
-			xsize 1.0
+						action settings_add_text_cps(+20)
 			
 			null:
 				xalign 0.5
 				size (350, 25)
 				
-				$ show_all_text = config.text_cps > 100000
 				button:
-					ground (checkbox_yes if show_all_text else checkbox_no)
-					action settings_set_text_cps_on(not show_all_text)
+					ground (checkbox_yes if config.fps_meter else checkbox_no)
+					action SetDict(config, 'fps_meter', not config.fps_meter)
 					size (25, 25)
-				text 'Показывать весь текст сразу':
+				text 'Показывать FPS':
 					xpos 40
 					color 0
 					text_size 25
-			null ysize 10
-			
-			text 'Скорость показа текста:':
-				xalign 0.5
-				color 0
-			hbox:
-				xalign 0.5
-				spacing 5
-				
-				textbutton '-':
-					size (25, 25)
-					action settings_add_text_cps(-20)
-				image im.Bar(((config.text_cps % 100000) - 20) / 200.0):
-					size (300, 25)
-				textbutton '+':
-					size (25, 25)
-					action settings_add_text_cps(+20)
-		
-		null:
-			xalign 0.5
-			size (350, 25)
-			
-			button:
-				ground (checkbox_yes if config.fps_meter else checkbox_no)
-				action SetDict(config, 'fps_meter', not config.fps_meter)
-				size (25, 25)
-			text 'Показывать FPS':
-				xpos 40
-				color 0
-				text_size 25
 	
 	
 	image settings_background_up:
@@ -182,7 +199,7 @@ screen settings:
 	
 	
 	vbox:
-		align (0.95, 0.5)
+		align (0.97, 0.5)
 		xsize 35
 		
 		textbutton '/\\':
@@ -198,15 +215,24 @@ screen settings:
 			ground image
 			hover  image
 			xalign 0.5
-			size (35, 300)
+			size (35, 0.6)
 			unhovered SetVariable('settings_scroll_hovered', False)
 			action [SetVariable('settings_scroll_hovered', True),
 					settings_set_viewport_content_y(
-						(get_local_mouse()[1] / 300.0) * (1 + settings_viewport_scroll_part) - settings_viewport_scroll_part / 2)]
+						(get_local_mouse()[1] / (0.6 * get_stage_height())) * (1 + settings_viewport_scroll_part) - settings_viewport_scroll_part / 2)]
 		python:
-			if settings_scroll_hovered and get_mouse_down():
+			settings_scroll_local_y = get_local_mouse()[1]
+			
+			if not settings_scrolling and settings_scroll_hovered and get_mouse_down():
+				settings_scrolling = True
+				settings_scroll_y = get_mouse()[1] - settings_scroll_local_y
+			if not get_mouse_down():
+				settings_scrolling = False
+			
+			if settings_scrolling:
+				y = get_mouse()[1] - settings_scroll_y
 				settings_set_viewport_content_y(
-					(get_local_mouse()[1] / 300.0) * (1 + settings_viewport_scroll_part) - settings_viewport_scroll_part / 2)
+					(y / (0.6 * get_stage_height())) * (1 + settings_viewport_scroll_part) - settings_viewport_scroll_part / 2)
 		
 		textbutton '\\/':
 			color 0xFFFFFF
@@ -214,6 +240,9 @@ screen settings:
 			size (25, 25)
 			action settings_add_viewport_content_y(+0.25)
 	
+	textbutton ('Настройки' if settings_show_mods else 'Моды'):
+		align (0.05, 0.95)
+		action SetVariable('settings_show_mods', not settings_show_mods)
 	
 	textbutton 'Назад':
 		align (0.95, 0.95)

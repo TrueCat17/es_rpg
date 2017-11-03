@@ -1,7 +1,7 @@
 init python:
 	set_fps(60)
 	
-	m = im.matrix.brightness(1) * im.matrix.invert()
+	m = im.matrix.brightness(0.5) * im.matrix.invert()
 
 label start:
 	image bg bus_stop = im.MatrixColor('images/bg/bus_stop.jpg', m)
