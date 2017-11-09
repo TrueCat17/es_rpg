@@ -4,7 +4,8 @@ init -1 python:
 	settings_usual_btn = style.textbutton.ground
 	settings_selected_btn = im.MatrixColor(settings_usual_btn, im.matrix.contrast(2.0))
 	
-	settings_resolutions = ((640, 360), (960, 540), (1200, 675), (1366, 768), (1920, 1080))
+	k = get_from_hard_config("window_w_div_h", float)
+	settings_resolutions = tuple((i, int(i/k)) for i in (640, 960, 1200, 1366, 1920))
 	
 	settings_show_mods = False
 	

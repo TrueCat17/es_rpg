@@ -29,7 +29,7 @@ label day1_start:
 
 
 label day1__enter__bus_enter:
-	if "bus_out" not in was:
+	if "bus_out" not in was and False:
 		$ was.append("bus_out")
 		
 		$ control = False
@@ -71,7 +71,7 @@ label day1_try_escape:
 
 
 label day1__enter__enter:
-	if "enter_welcome" not in was:
+	if "enter_welcome" not in was and False:
 		$ was.append("enter_welcome")
 		
 		$ control = False
@@ -98,7 +98,7 @@ label day1__enter__enter:
 
 
 label day1__clubs__before_clubs:
-	if "clubs" not in was:
+	if "clubs" not in was and False:
 		$ was.append("clubs")
 		
 		$ control = False
@@ -147,7 +147,7 @@ label day1__clubs__before_clubs:
 
 
 label day1__square__clubs:
-	if "square" not in was:
+	if "square" not in was and False:
 		$ was.append("square")
 		
 		$ control = False

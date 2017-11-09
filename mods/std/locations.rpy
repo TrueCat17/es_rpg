@@ -46,21 +46,51 @@ init python:
 	register_place("clubs", "square", 1260, 1420, 20, 120)
 	register_place("clubs", "houses_2", 950, 1868, 110, 20)
 	register_exit("clubs", "enter", "clubs", 0, 1410, 20, 130)
-	register_exit("clubs", "square", "clubs", 1260, 1420, 20, 120)
+	register_exit("clubs", "admin", "clubs", 1260, 1420, 20, 120)
 	register_exit("clubs", "houses_2", "clubs", 950, 1868, 110, 20)
 	
 	# Домики-2
-	register_location("houses_2", "images/locations/houses_2/", False, 2080, 1088)
-	register_place("houses_2", "clubs", 670, 0, 120, 20)
-	register_place("houses_2", "square", 1980, 0, 100, 50)
-	register_exit("houses_2", "clubs", "houses_2", 670, 0, 120, 20)
-	register_exit("houses_2", "square", "houses_2", 1980, 0, 100, 50)
+	register_location("houses_2", "images/locations/houses_2/", False, 2112, 1920)
+	register_place("houses_2", "clubs", 530, 0, 120, 20)
+	register_place("houses_2", "square", 1930, 0, 120, 20)
+	register_place("houses_2", "board_station", 2092, 1070, 20, 170)
+	register_exit("houses_2", "clubs", "houses_2", 530, 0, 120, 20)
+	register_exit("houses_2", "square", "houses_2", 1930, 0, 120, 20)
+	register_exit("houses_2", "board_station", "houses_2", 2092, 1070, 20, 170)
+	
+	# Администрация
+	register_location("admin", "images/locations/admin/", False, 1376, 1344)
+	register_place("admin", "clubs", 0, 990, 20, 120)
+	register_place("admin", "square", 1356, 990, 20, 20)
+	register_exit("admin", "clubs", "admin", 0, 990, 20, 120)
+	register_exit("admin", "square", "admin", 1356, 990, 20, 120)
 	
 	# Площадь
-	register_location("square", "images/locations/camp_square/", False, 1824, 1408)
-	register_place("square", "houses_2", 30, 1388, 85, 20)
-	register_place("square", "clubs", 0, 1000, 20, 160)
-	# ...
-	register_exit("square", "houses_2", "square", 30, 1388, 85, 20)
-	register_exit("square", "clubs", "square", 0, 1000, 20, 160)
-
+	register_location("square", "images/locations/camp_square/", False, 1824, 1344)
+	register_place("square", "admin", 0, 940, 20, 120)
+	register_place("square", "houses_1", 200, 0, 500, 20)
+	register_place("square", "houses_2", 30, 1324, 85, 20)
+	register_place("square", "board_station", 315, 1324, 85, 20)
+	register_exit("square", "admin", "square", 0, 940, 20, 120)
+	register_exit("square", "houses_1", "square", 200, 0, 500, 20)
+	register_exit("square", "houses_2", "square", 30, 1324, 85, 20)
+	register_exit("square", "board_station", "square", 315, 1324, 85, 20)
+	
+	# Лодочная станция
+	register_location("board_station", "images/locations/board_station/", False, 1536, 1664)
+	register_place("board_station", "houses_2", 0, 550, 20, 300)
+	register_place("board_station", "square", 385, 0, 60, 20)
+	register_exit("board_station", "houses_2", "board_station", 0, 550, 20, 300)
+	register_exit("board_station", "square", "board_station", 385, 0, 60, 20)
+	
+	# Домики-1
+	register_location("houses_1", "images/locations/houses_1/", False, 1632, 1152)
+	register_place("houses_1", "square", 820, 1132, 520, 20)
+#	register_place("houses_1", "clubs", 530, 0, 120, 20)
+#	register_place("houses_1", "board_station", 2092, 1070, 20, 170)
+	register_exit("houses_1", "square", "houses_1", 820, 1132, 520, 20)
+#	register_exit("houses_1", "clubs", "houses_1", 530, 0, 120, 20)
+#	register_exit("houses_1", "board_station", "houses_1", 2092, 1070, 20, 170)
+	
+	
+	
