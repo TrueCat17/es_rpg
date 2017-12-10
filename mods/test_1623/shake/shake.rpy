@@ -178,11 +178,10 @@ screen test_1623_shake__screen:
 	key 's' action test_1623_shake__on_down_press
 	key 'p' action test_1623_shake__change_pause_state
 	
-	use test_1623__main_screen
-	
-	
 	if not test_1623_shake__pause:
 		$ test_1623_shake__update()
+	
+	use test_1623__main_screen
 	
 	hbox:
 		xalign 0.5

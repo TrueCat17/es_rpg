@@ -319,11 +319,10 @@ screen test_1623_tanks__screen:
 	key 'w' action test_1623_tanks__on_up_press
 	key 's' action test_1623_tanks__on_down_press
 	
-	use test_1623__main_screen
-	
-	
 	if not test_1623_tanks__pause:
 		$ test_1623_tanks__update()
+	
+	use test_1623__main_screen
 	
 	hbox:
 		align (0.5, 0.97)
