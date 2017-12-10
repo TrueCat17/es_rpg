@@ -204,13 +204,13 @@ screen test_1623_live__screen:
 	key 'p' action test_1623_live__change_pause_state
 	key 'c' action test_1623_live__clear
 	
-	use test_1623__main_screen
-	
 	python:
 		if not test_1623_live__pause:
 			test_1623_live__update()
 		else:
 			test_1623_live__render()
+	
+	use test_1623__main_screen
 	
 	vbox:
 		align (0.5, 0.98)
