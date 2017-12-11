@@ -188,7 +188,4 @@ screen sprites:
 				crop   tmp.crop
 				alpha  tmp.alpha
 				rotate tmp.rotate
-	
-	if renpy.config.fps_meter:
-		use fps_meter
 

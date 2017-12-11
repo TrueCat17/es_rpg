@@ -7,7 +7,7 @@ screen save:
 	modal  True
 	
 	python:
-		if random.random() < 10.0 / get_fps():
+		if random.random() < 4.0 / get_fps():
 			sl_update_table_saves()
 	
 	if not screenshotting:
@@ -56,14 +56,14 @@ screen save:
 							for j in xrange(x_count):
 								index = i * x_count + j
 								if index < len(sl_table_saves):
-									save_name = sl_table_saves[index]
-									save_exists = sl_table_saves_exists[save_name]
+									name = sl_table_saves[index]
+									save_exists = sl_table_saves_exists[name]
 									
 									button = Object()
 									button.pos   = (w, h)
 									button.size  = (xsize, ysize)
-									button.ground = sl_get_screenshot(sl_cur_table, save_name, save_exists)
-									button.action = [SetVariable('sl_cur_save', save_name), sl_update_table_saves]
+									button.ground = sl_get_screenshot(sl_cur_table, name, save_exists)
+									button.action = [SetVariable('sl_cur_save', name), sl_update_table_saves]
 									buttons.append(button)
 									
 									w += xsize + spacing

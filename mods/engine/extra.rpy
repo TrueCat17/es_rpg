@@ -34,6 +34,13 @@ init -1000000 python:
 
 
 init -100000 python:
+	def quick_load():
+		path = os.path.join(save_dir, config.quick_save_table, config.quick_save_name, 'py_globals')
+		if os.path.exists(path):
+			load(config.quick_save_table, config.quick_save_name)
+	def quick_save():
+		sl_save(config.quick_save_table, config.quick_save_name)
+	
 	def ceil(n):
 		res = int(n)
 		if res != n and n > 0:

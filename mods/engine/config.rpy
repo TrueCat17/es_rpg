@@ -1,9 +1,15 @@
 init -997 python:
 	
-	start_screens = 'location sprites dialogue_box'
+	start_screens = 'location sprites dialogue_box fps_meter'
 	
 	
 	config = renpy.config
+	
+	config.quick_save_table = 'quick'
+	config.quick_save_name  = '0'
+	config.quick_load_key = 'L'
+	config.quick_save_key = 'Q'
+	
 	
 	if config.fps_meter is None:
 		config.fps_meter = True

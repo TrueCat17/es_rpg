@@ -37,13 +37,13 @@ init python:
 	
 	# Локация с клубами
 	register_location("clubs", "images/locations/camp_clubs/", False, 1280, 1888)
-	register_place("clubs", "enter", 0, 1410, 20, 130)
 	register_place("clubs", "before_clubs", 700, 1420, 70, 120)
 	register_place("clubs", "door", 720, 1355, 0, 0)
 	register_place("clubs", "cluster", 515, 1390, 0, 0)
 	register_place("clubs", "porch_1", 720, 1440, 0, 0)
 	register_place("clubs", "porch_2", 680, 1440, 0, 0)
-	register_place("clubs", "square", 1260, 1420, 20, 120)
+	register_place("clubs", "enter", 0, 1410, 20, 130)
+	register_place("clubs", "admin", 1260, 1420, 20, 120)
 	register_place("clubs", "houses_2", 950, 1868, 110, 20)
 	register_exit("clubs", "enter", "clubs", 0, 1410, 20, 130)
 	register_exit("clubs", "admin", "clubs", 1260, 1420, 20, 120)

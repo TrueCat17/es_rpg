@@ -15,12 +15,9 @@ screen choose_menu:
 				null ysize 35
 	
 	
-	key 'Q' action [
-		SetVariable('save_table', 1),
-		SetVariable('save_num', 1),
-		SetVariable('need_save', True)]
-	
 	key 'ESCAPE' action show_pause
+	
+	key config.quick_save_key action quick_save
 	
 	
 	button:

@@ -1,10 +1,12 @@
 init python:
 	set_fps(60)
 	
-	start_screens = 'snow'
-	
 	draw_fps = not False
 	IMAGE_RENDER = False
+	
+	start_screens = 'snow'
+	if draw_fps:
+		start_screens += ' fps_meter'
 	
 	COUNT = 1400
 	
@@ -32,6 +34,8 @@ init python:
 
 screen snow:
 	zorder -2.5
+	
+	key 'ESCAPE' action show_pause
 	
 	image 'images/bg/bus_stop.jpg':
 		size (1.0, 1.0)
@@ -65,10 +69,8 @@ screen snow:
 				ypos int(obj['y'])
 				size obj['size']
 	
-	if draw_fps:
-		use fps_meter
-	else:
-		python:
+	python:
+		if not draw_fps:
 			dtime = (time.time() - prev_time) * 1000
 			prev_time = time.time()
 			

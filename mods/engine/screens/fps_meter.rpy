@@ -21,11 +21,12 @@ init -1000 python:
 
 
 screen fps_meter:
-	zorder 1000
+	zorder 1000000
 	
-	text get_last_fps():
-		font      fps_meter_font
-		text_size fps_meter_size
-		color     fps_meter_color
-		xalign    fps_meter_xalign
-		yalign    fps_meter_yalign
+	if config.fps_meter:
+		text get_last_fps():
+			font      fps_meter_font
+			text_size fps_meter_size
+			color     fps_meter_color
+			xalign    fps_meter_xalign
+			yalign    fps_meter_yalign

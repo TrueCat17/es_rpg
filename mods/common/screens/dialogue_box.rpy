@@ -204,7 +204,12 @@ screen dialogue_box:
 	
 	key 'RETURN' action db_on_enter
 	key 'SPACE'  action db_on_enter
+	
 	key 'ESCAPE' action show_pause
+	
+	key config.quick_load_key action quick_load
+	key config.quick_save_key action quick_save
+	
 	
 	$ db_update()
 	
