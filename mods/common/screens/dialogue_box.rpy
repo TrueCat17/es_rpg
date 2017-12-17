@@ -32,22 +32,24 @@ init -1000 python:
 	db_prev_btn = es2d_gui + 'dialogue/to_prev.png'
 	db_prev_btn_size = 30
 	
+	db_prev_texts = []
+	
+	
 	def show_text(name, name_prefix, name_postfix, name_color, text, text_prefix, text_postfix, text_color):
 		global db_name_text, db_name_color
 		global db_voice_text, db_voice_full_text, db_last_text_postfix, db_voice_color
 		global db_pause_after_text, db_voice_text_after_pause
-		global read, db_start_time
+		global read, db_start_time, db_prev_texts
 		
 		if '{w' in text:
 			db_pause_after_text = 1000000
 			
 			start = text.index('{w')
 			end = text.index('}', start)
-			pause_str = text[start + 3:end]
+			pause_str = text[start + 2:end]
 			if '=' in pause_str:
 				pause_str = pause_str[pause_str.rindex('=') + 1:]
-			while len(pause_str) and pause_str[0] == ' ':
-				pause_str = pause_str[1:]
+			pause_str = pause_str.strip()
 			
 			if pause_str:
 				db_pause_after_text = float(pause_str)
@@ -60,6 +62,7 @@ init -1000 python:
 			db_voice_text_after_pause = ''
 		
 		read = False
+		
 		
 		# Новый текст
 		if name is not None:
@@ -78,15 +81,21 @@ init -1000 python:
 		else:
 			db_start_time = time.time() - len_unicode(db_voice_text) / float(renpy.config.text_cps)
 			
-			db_voice_full_text = db_voice_full_text[0:len(db_voice_full_text)]
 			db_voice_full_text += text
 			if not db_voice_text_after_pause:
 				db_voice_full_text += db_last_text_postfix
+		
+		text_object = (db_name_text, db_name_color, text, text_color)
+		db_prev_texts.append(text_object)
+		db_prev_texts = db_prev_texts[-config.count_prev_texts:]
 		
 		db_voice_color = text_color
 	
 	
 	def db_update():
+		global db_text_size
+		db_text_size = max(14, get_stage_height() / 30)
+		
 		global db_voice_text, db_pause_after_text, db_pause_end
 		
 		if db_pause_after_text != 0:
@@ -213,9 +222,6 @@ screen dialogue_box:
 	
 	$ db_update()
 	
-	$ db_text_size = max(14, get_stage_height() / 30)
-	
-	
 	button:
 		ground 'images/bg/black.jpg'
 		hover  'images/bg/black.jpg'
@@ -251,7 +257,7 @@ screen dialogue_box:
 						yalign 0.5
 						ground db_prev_btn
 						size   (db_prev_btn_size, db_prev_btn_size)
-#						action db_on_enter
+						action ShowMenu('prev_text')
 					
 					image db_voice:
 						size (0.85, max(80, 0.2 * get_stage_height()))
@@ -276,32 +282,32 @@ screen dialogue_box:
 				vbox:
 					anchor 	(0.5, 0.0)
 					pos		(0.5, 0.05)
-				
-				
+					
+					
 					$ db_last_dialogue = db_dialogue + [(db_name_text, db_name_color, db_voice_text, db_voice_color)]
-				
+					
 					for db_name_text_i, db_name_color_i, db_voice_text_i, db_voice_color_i in db_last_dialogue:
 						python:
 							db_tmp_name = ('{color=' + str(db_name_color_i) + '}' + db_name_text_i + '{/color}: ') if db_name_text_i else ''
 							db_tmp_voice = db_voice_text_i if db_voice_text_i else ' '
-					
+						
 						text (db_tmp_name + db_tmp_voice):
 							text_size db_text_size
 							color     db_voice_color_i
 							xsize     0.75
-			
+				
 				hbox:
 					spacing 5
 					align (0.5, 0.99)
-				
+					
 					button:
 						yalign 0.5
 						ground db_prev_btn
 						size   (db_prev_btn_size, db_prev_btn_size)
-#						action db_on_enter
-				
+						action ShowMenu('prev_text')
+					
 					null size (0.9, 0.2)
-				
+					
 					button:
 						yalign 0.5
 						ground db_next_btn
@@ -311,7 +317,7 @@ screen dialogue_box:
 	
 	button:
 		ground 	db_menu_btn
-
+		
 		anchor (0.5, 0.5)
 		pos    (get_stage_width() - db_menu_btn_indent - db_menu_btn_size / 2, db_menu_btn_indent + db_menu_btn_size / 2)
 		size   (db_menu_btn_size, db_menu_btn_size)

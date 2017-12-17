@@ -10,6 +10,8 @@ init -997 python:
 	config.quick_load_key = 'L'
 	config.quick_save_key = 'Q'
 	
+	config.count_prev_texts = 25
+	
 	
 	if config.fps_meter is None:
 		config.fps_meter = True

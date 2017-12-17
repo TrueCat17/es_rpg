@@ -183,36 +183,18 @@ init -1001 python:
 	class Im:
 		matrix = ImMatrix()
 		
+		def Scale(self, image, w, h):
+			return 'Scale (' + image + ') ' + str(int(w)) + ' ' + str(int(h))
 		
-		def MatrixColor(self, image, matrix):
-			return 'MatrixColor (' + image + ') (' + str(matrix) + ')'
+		def FactorScale(self, image, k):
+			return 'FactorScale (' + image + ') ' + str(k)
 		
-		def Grayscale(self, image, desat=(0.2126, 0.7152, 0.0722)):
-			return self.MatrixColor(image, self.matrix.saturation(0.0, desat))
-		
-		def Sepia(self, image, tint=(1.0, 0.94, 0.76), desat=(0.2126, 0.7152, 0.0722)):
-			return self.MatrixColor(image, self.matrix.saturation(0.0, desat) * self.matrix.tint(tint[0], tint[1], tint[2]))
-		
-		
-		def ReColor(self, image, r, g, b, a):
-			return 'ReColor (' + image + ') (' + str(r) + ' ' + str(g) + ' ' + str(b) + ' ' + str(a) + ')'
-		
-		def Rotozoom(self, image, angle, zoom):
-			return 'Rotozoom (' + image + ') (' + str(int(angle)) + ') (' + str(zoom) + ')'
-		
-		def Color(self, image, color):
-			r, g, b, a = renpy.easy.color(color)
-			return self.ReColor(image, r, g, b, a)
-		
-		def Alpha(self, image, alpha):
-			return self.ReColor(image, 255, 255, 255, int(alpha * 255))
+		def Crop(self, image, rect):
+			rect = map(lambda f: int(f), rect)
+			rect = '(' + str(rect[0]) + ' ' + str(rect[1]) + ' ' + str(rect[2]) + ' ' + str(rect[3]) + ')'
+			return 'Crop (' + image + ') ' + rect
 		
 		
-		def Flip(self, image, horizontal = False, vertical = False):
-			return 'Flip (' + image + ') ' + str(bool(horizontal)) + ' ' + str(bool(vertical))
-		
-		
-				
 		def Composite(self, *args):
 			if (len(args) % 2) == 0:
 				out_msg('im.Composite', 'Ожидалось нечётное количество аргументов')
@@ -228,16 +210,40 @@ init -1001 python:
 				res += ' (' + pos + ') (' + img + ')'
 			return res
 		
-		def Scale(self, image, w, h):
-			return 'Scale (' + image + ') ' + str(int(w)) + ' ' + str(int(h))
 		
-		def FactorScale(self, image, k):
-			return 'FactorScale (' + image + ') ' + str(k)
+		def Flip(self, image, horizontal = False, vertical = False):
+			return 'Flip (' + image + ') ' + str(bool(horizontal)) + ' ' + str(bool(vertical))
 		
-		def Crop(self, image, rect):
-			rect = map(lambda f: int(f), rect)
-			rect = '(' + str(rect[0]) + ' ' + str(rect[1]) + ' ' + str(rect[2]) + ' ' + str(rect[3]) + ')'
-			return 'Crop (' + image + ') ' + rect
+		
+		def MatrixColor(self, image, matrix):
+			return 'MatrixColor (' + image + ') (' + str(matrix) + ')'
+		
+		def Grayscale(self, image, desat=(0.2126, 0.7152, 0.0722)):
+			return self.MatrixColor(image, self.matrix.saturation(0.0, desat))
+		
+		def Sepia(self, image, tint=(1.0, 0.94, 0.76), desat=(0.2126, 0.7152, 0.0722)):
+			return self.MatrixColor(image, self.matrix.saturation(0.0, desat) * self.matrix.tint(tint[0], tint[1], tint[2]))
+		
+		
+		def ReColor(self, image, r, g, b, a):
+			return 'ReColor (' + image + ') (' + str(r) + ' ' + str(g) + ' ' + str(b) + ' ' + str(a) + ')'
+		
+		def Color(self, image, color):
+			r, g, b, a = renpy.easy.color(color)
+			return self.ReColor(image, r, g, b, a)
+		
+		def Alpha(self, image, alpha):
+			return self.ReColor(image, 255, 255, 255, int(alpha * 255))
+		
+		
+		def Rotozoom(self, image, angle, zoom):
+			return 'Rotozoom (' + image + ') (' + str(int(angle)) + ') (' + str(zoom) + ')'
+		
+		
+		def Mask(self, image, mask, value, channel = 'r', cmp_func_name = 'le', alpha_channel = 'a', alpha_image = 1):
+			return 'Mask (' + image + ') (' + mask + ') (' + channel + ') (' + str(int(value)) + ') (' + cmp_func_name + ') (' + alpha_channel + ') (' + str(alpha_image) + ')'
+		def AlphaMask(self, image, mask):
+			return self.Mask(image, mask, 0, 'r', 'g', 'r', 2)
 		
 		
 		def Rect(self, color, width = 1, height = 1):
