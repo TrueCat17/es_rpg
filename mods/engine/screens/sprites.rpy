@@ -7,6 +7,7 @@ init -1000 python:
 	screen = Sprite([], [], [], None)
 	screen.new_data.xsize, screen.new_data.ysize = 1.0, 1.0
 	screen.new_data.real_xsize, screen.new_data.real_ysize = 1.0, 1.0
+	screen.call_str = 'screen'
 	
 	
 	
@@ -164,9 +165,10 @@ screen sprites:
 			
 			for spr_data in spr.data_list:
 				for data in spr_data.get_all_data():
-					if data.image:
+					tmp_image = data.res_image if data.res_image is not None else data.image
+					if tmp_image:
 						tmp = Object()
-						tmp.image  =  data.image
+						tmp.image  =  tmp_image
 						tmp.pos    = (data.real_xpos,    data.real_ypos)
 						tmp.anchor = (data.real_xanchor, data.real_yanchor)
 						tmp.size   = (data.real_xsize,   data.real_ysize)

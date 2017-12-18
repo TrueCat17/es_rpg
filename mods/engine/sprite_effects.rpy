@@ -124,7 +124,7 @@ init -9000 python:
 			if self.sprite:
 				self.sprite.new_data.alpha = alpha
 				self.sprite.old_data.alpha = anti_alpha
-			
+				
 				if alpha == 1:
 					self.sprite.remove_effect()
 			elif self.sprite is False:
@@ -140,7 +140,7 @@ init -9000 python:
 						else:
 							spr.remove_effect()
 							i += 1
-		
+	
 	
 	dspr = Dissolve(0.2)
 	dissolve = Dissolve(0.5)
@@ -194,5 +194,98 @@ init -9000 python:
 	
 	hpunch = Punch('xpos', 10, 0.1, 0.5)
 	vpunch = Punch('ypos',  7, 0.1, 0.5)
-
-
+	
+	
+	
+	class ImageDissolve(Object):
+		def __init__(self, mask, t = 1.0, ramp = 5, reverse = False, spr = None):
+			Object.__init__(self)
+			
+			if t <= 0:
+				t = 0.001
+			if ramp < 1:
+				ramp = 1
+			
+			self.mask, self.time, self.ramp, self.reverse = mask, t, ramp, reverse
+			self.start_time = time.time()
+			
+			self.sprite = spr
+			if spr:
+				self.set_data_list()
+		
+		def copy(self, spr):
+			res = ImageDissolve(self.mask, self.time, self.ramp, self.reverse, spr)
+			return res
+		
+		def set_data_list(self):
+			self.sprite.data_list = (self.sprite.old_data, self.sprite.new_data)
+		
+		def for_all_scene(self):
+			return False
+		
+		
+		def update(self):
+			global sprites_list
+			
+			now = time.time()
+			dtime = now - self.start_time
+			
+			def upd_spr_data(data, k_time, mask, ramp, reverse, hiding):
+				if not data.image:
+					data.res_image = data.image = None
+					return
+				
+				if hiding:
+					reverse = not reverse
+					mask = im.MatrixColor(mask, im.matrix.invert())
+				
+				sw, sh = get_stage_width(), get_stage_height()
+				w, h = get_texture_width(data.image), get_texture_height(data.image)
+				if w > sw or h > sh:
+					kw = float(sw) / w
+					kh = float(sh) / h
+					k = max(kw, kh)
+					w, h = int(w * k), int(h * k)
+					image = im.Scale(data.image, w, h)
+				else:
+					image = data.image
+				mask = im.Scale(mask, w, h)
+				
+				value = in_bounds(int(k_time * 255), 0, 255)
+				if reverse:
+					value = 255 - value
+				if value != 255:
+					value = int(value / ramp) * ramp
+				data.res_image = im.Mask(image, mask, value, 'r', 'le', 'a', 1)
+			
+			
+			scene = sprites_list[0] if sprites_list else None
+			
+			if self.sprite:
+				if self.sprite is scene:
+					scene.old_data.res_image = scene.old_data.image
+				else:
+					upd_spr_data(self.sprite.old_data, dtime / self.time, self.mask, self.ramp, self.reverse, True)
+				upd_spr_data(self.sprite.new_data, dtime / self.time, self.mask, self.ramp, self.reverse, False)
+				
+				if dtime >= self.time:
+					self.sprite.remove_effect()
+			elif self.sprite is False:
+				for spr in sprites_list:
+					if spr is not scene:
+						for data in spr.data_list:
+							upd_spr_data(data, dtime / self.time, self.mask, self.ramp, self.reverse, spr.hiding)
+				
+				if scene:
+					scene.old_data.res_image = scene.old_data.image
+					upd_spr_data(scene.new_data, dtime / self.time, self.mask, self.ramp, self.reverse, False)
+				
+				if dtime >= self.time:
+					i = 0
+					while i < len(sprites_list):
+						if sprites_list[i].hiding:
+							sprites_list = sprites_list[0:i] + sprites_list[i+1:]
+						else:
+							spr.remove_effect()
+							i += 1
+	

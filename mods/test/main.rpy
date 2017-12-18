@@ -1,12 +1,19 @@
 init python:
 	set_fps(60)
-	
-	m = im.matrix.brightness(0.5) * im.matrix.invert()
 
 label start:
-	image bg bus_stop = im.MatrixColor('images/bg/bus_stop.jpg', m)
-	
-	scene bg bus_stop:
-		size (1.0, 1.0)
-	me "qwe"
+	scene bg bus_stop
+	while True:
+		"back"
+		show bg ext_aidpost_day with ImageDissolve("images/masks/diamond_1.png")
+		"dv"
+		show dv normal pioneer at right with ImageDissolve("images/masks/teleport_1.png")
+		"us"
+		show us grin dress at left with ImageDissolve("images/masks/teleport_2.png")
+		"hide dv & us"
+		hide dv
+		hide us
+		with ImageDissolve("images/masks/drag.png")
+		"hide back"
+		scene bg bus_stop with ImageDissolve("images/masks/drag.png", ramp = 10)
 
