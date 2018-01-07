@@ -1,14 +1,20 @@
-init python:
+init -1000 python:
 	def day_time():
-		persistent.tint_sprite_time = im.matrix.tint(1, 1, 1)
+		persistent.st_r = 255
+		persistent.st_g = 255
+		persistent.st_b = 255
 		persistent.sprite_time = 'day'
 	
 	def sunset_time():
-		persistent.tint_sprite_time = im.matrix.tint(0.94, 0.82, 1)
+		persistent.st_r = 240
+		persistent.st_g = 210
+		persistent.st_b = 255
 		persistent.sprite_time = 'sunset'
 	
 	def night_time():
-		persistent.tint_sprite_time = im.matrix.tint(0.63, 0.78, 0.82)
+		persistent.st_r = 160
+		persistent.st_g = 200
+		persistent.st_b = 210
 		persistent.sprite_time = 'night'
 	
 	

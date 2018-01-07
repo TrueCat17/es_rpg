@@ -23,7 +23,7 @@ init -1001 python:
 		def set_volume(self, vol, channel, depth = 0):
 			_set_volume(in_bounds(vol, 0, 1), channel, get_filename(depth + 1), get_numline(depth + 1))
 		def set_mixer_volume(self, vol, mixer, depth = 0):
-			vol = in_bounds(vol, 0, 1)
+			vol = in_bounds(round(vol, 2), 0.0, 1.0)
 			config[mixer + '_volume'] = vol
 			_set_mixer_volume(vol, mixer, get_filename(depth + 1), get_numline(depth + 1))
 		def add_mixer_volume(self, d, mixer):

@@ -1,15 +1,14 @@
 # sl = save_load
 init -2 python:
-	res_dir = '../resources/'
+	res_dir = get_root_directory()
 	save_dir = res_dir + 'saves/'
 	
 	sl_cur_table = '0'
 	sl_cur_save  = '0'
 	
 	
-	sl_btn_idle     = get_back_with_color('images/gui/save_load/thumbnail_idle.png')
-	sl_btn_hover    = get_back_with_color('images/gui/save_load/thumbnail_hover.png')
-	sl_btn_selected = get_back_with_color('images/gui/save_load/thumbnail_selected.png')
+	sl_btn_hover    = get_back_with_color('images/gui/save_load/hover.png')
+	sl_btn_selected = get_back_with_color('images/gui/save_load/selected.png')
 	
 	
 	def sl_get_dirs(path):

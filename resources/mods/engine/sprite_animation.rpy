@@ -278,6 +278,9 @@ init -9000 python:
 		def set_prop(self, prop, value):
 			if isinstance(prop, str):
 				props = get_atl_props(prop)
+				if props is None:
+					out_msg('SpriteAnimation.set_prop', 'Неизвестное свойство <' + prop + '>')
+					return
 			else:
 				props = prop
 			

@@ -1,6 +1,8 @@
 # test_1623_
 
 init python:
+	day_time()
+	
 	test_1623__width = 1
 	test_1623__height = 1
 	test_1623__size = 16

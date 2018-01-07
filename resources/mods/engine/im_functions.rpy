@@ -74,10 +74,7 @@ init -1001 python:
 			self.t = t
 		
 		def __str__(self):
-			res = str(self.t[0])
-			for i in xrange(1, len(self.t)):
-				res += ' ' + str(self.t[i])
-			return res
+			return ' '.join(map(str, self.t))
 		
 		def __mul__(self, other):
 			a, b = self.t, other.t
@@ -184,15 +181,15 @@ init -1001 python:
 		matrix = ImMatrix()
 		
 		def Scale(self, image, w, h):
-			return 'Scale (' + image + ') ' + str(int(w)) + ' ' + str(int(h))
+			return 'Scale|(' + image + ')|' + str(int(w)) + '|' + str(int(h))
 		
 		def FactorScale(self, image, k):
-			return 'FactorScale (' + image + ') ' + str(k)
+			return 'FactorScale|(' + image + ')|' + str(k)
 		
 		def Crop(self, image, rect):
-			rect = map(lambda f: int(f), rect)
-			rect = '(' + str(rect[0]) + ' ' + str(rect[1]) + ' ' + str(rect[2]) + ' ' + str(rect[3]) + ')'
-			return 'Crop (' + image + ') ' + rect
+			rect = map(lambda f: str(int(f)), rect)
+			rect = ' '.join(rect)
+			return 'Crop|(' + image + ')|(' + rect + ')'
 		
 		
 		def Composite(self, *args):
@@ -201,22 +198,22 @@ init -1001 python:
 				return ''
 			
 			size = str(int(args[0][0])) + ' ' + str(int(args[0][1]))
-			res = 'Composite (' + size + ')'
+			res = 'Composite|(' + size + ')'
 			
 			for i in xrange(1, len(args) - 1, 2):
 				pos = str(int(args[i][0])) + ' ' + str(int(args[i][1]))
 				img = str(args[i + 1])
 				
-				res += ' (' + pos + ') (' + img + ')'
+				res += '|(' + pos + ')|(' + img + ')'
 			return res
 		
 		
 		def Flip(self, image, horizontal = False, vertical = False):
-			return 'Flip (' + image + ') ' + str(bool(horizontal)) + ' ' + str(bool(vertical))
+			return 'Flip|(' + image + ')|' + str(bool(horizontal)) + '|' + str(bool(vertical))
 		
 		
 		def MatrixColor(self, image, matrix):
-			return 'MatrixColor (' + image + ') (' + str(matrix) + ')'
+			return 'MatrixColor|(' + image + ')|(' + str(matrix) + ')'
 		
 		def Grayscale(self, image, desat=(0.2126, 0.7152, 0.0722)):
 			return self.MatrixColor(image, self.matrix.saturation(0.0, desat))
@@ -226,7 +223,9 @@ init -1001 python:
 		
 		
 		def ReColor(self, image, r, g, b, a):
-			return 'ReColor (' + image + ') (' + str(r) + ' ' + str(g) + ' ' + str(b) + ' ' + str(a) + ')'
+			colors = map(str, (r, g, b, a))
+			colors = ' '.join(colors)
+			return 'ReColor|(' + image + ')|(' + colors + ')'
 		
 		def Color(self, image, color):
 			r, g, b, a = renpy.easy.color(color)
@@ -237,11 +236,11 @@ init -1001 python:
 		
 		
 		def Rotozoom(self, image, angle, zoom):
-			return 'Rotozoom (' + image + ') (' + str(int(angle)) + ') (' + str(zoom) + ')'
+			return 'Rotozoom|(' + image + ')|(' + str(int(angle)) + ')|(' + str(zoom) + ')'
 		
 		
 		def Mask(self, image, mask, value, channel = 'r', cmp_func_name = 'le', alpha_channel = 'a', alpha_image = 1):
-			return 'Mask (' + image + ') (' + mask + ') (' + channel + ') (' + str(int(value)) + ') (' + cmp_func_name + ') (' + alpha_channel + ') (' + str(alpha_image) + ')'
+			return 'Mask|(' + image + ')|(' + mask + ')|(' + channel + ')|(' + str(int(value)) + ')|(' + cmp_func_name + ')|(' + alpha_channel + ')|(' + str(alpha_image) + ')'
 		def AlphaMask(self, image, mask):
 			return self.Mask(image, mask, 0, 'r', 'g', 'r', 2)
 		
@@ -251,7 +250,7 @@ init -1001 python:
 			matrix = im.matrix.invert() * im.matrix.tint(r / 255.0, g / 255.0, b / 255.0, a / 255.0)
 			return self.Scale(im.MatrixColor('images/bg/black.jpg', matrix), width, height)
 		def Circle(self, color, width = 64, height = None):
-			height = width if not height else height
+			height = width if height is None else height
 			r, g, b, a = renpy.easy.color(color)
 			matrix = im.matrix.invert() * im.matrix.tint(r / 255.0, g / 255.0, b / 255.0, a / 255.0)
 			return self.Scale(im.MatrixColor('images/bg/black_circle.png', matrix), width, height)
@@ -266,6 +265,15 @@ init -1001 python:
 			y = 0 if not vertical else progress_start * th
 			w = (1 if vertical else progress_end - progress_start) * tw
 			h = (1 if not vertical else progress_end - progress_start) * th
+			
+			w, h = in_bounds(int(w), 0, tw), in_bounds(int(h), 0, th)
+			x, y = in_bounds(int(x), 0,  w), in_bounds(int(y), 0,  h)
+			
+			if w <= 0 or h <= 0:
+				return ground
+			if (x, y, w, h) == (0, 0, tw, th):
+				return hover
+			
 			return self.Composite((tw, th),
 			                      (0, 0), ground,
 			                      (x, y), im.Scale(hover, w, h))
