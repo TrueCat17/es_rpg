@@ -79,7 +79,6 @@ init -1001 python:
 		global cur_location, cur_location_name, cur_to_place
 		global objects_on_location, location_start_time
 		
-		objects_on_location = []
 		location_start_time = time.time()
 		
 		cur_location = locations[location_name]

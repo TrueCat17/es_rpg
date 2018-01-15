@@ -12,6 +12,8 @@ init -1000 python:
 	db_visible = True
 	db_mode = 'adv'
 	
+	db_font = style.text.font
+	
 	db_name = es2d_gui + 'dialogue/name.png'
 	db_name_color = 0xFF0000
 	db_name_text = ''
@@ -244,6 +246,7 @@ screen dialogue_box:
 					size (max(250, get_stage_width() / 5), db_text_size * 1.5)
 					
 					text db_name_text:
+						font       db_font
 						text_align 'center'
 						text_size  db_text_size
 						color      db_name_color
@@ -263,6 +266,7 @@ screen dialogue_box:
 						size (0.85, max(80, 0.2 * get_stage_height()))
 		
 						text db_voice_text:
+							font      db_font
 							text_size db_text_size
 							color     db_voice_color
 							align     (0.5, 0.5)
@@ -279,6 +283,16 @@ screen dialogue_box:
 			image im.Alpha('images/bg/black.jpg', 0.3):
 				size (1.0, 1.0)
 				
+				button:
+					ground 'images/bg/black.jpg'
+					hover  'images/bg/black.jpg'
+					
+					size   (1.0, 1.0)
+					alpha  0.01
+					mouse  False
+					
+					action db_on_enter
+				
 				vbox:
 					anchor 	(0.5, 0.0)
 					pos		(0.5, 0.05)
@@ -292,6 +306,7 @@ screen dialogue_box:
 							db_tmp_voice = db_voice_text_i if db_voice_text_i else ' '
 						
 						text (db_tmp_name + db_tmp_voice):
+							font      db_font
 							text_size db_text_size
 							color     db_voice_color_i
 							xsize     0.75
