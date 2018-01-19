@@ -16,8 +16,7 @@ label prologue:
 	$ prolog_time()
 	
 	play music music_list["a_promise_from_distant_days_v2"] fadein 3
-	scene anim prolog_1
-	with fade3
+	scene anim prolog_1 with fade3
 	window show
 	"{i}Этот{/i} сон..."
 	"Каждую ночь одно и то же."
@@ -652,7 +651,7 @@ label day1_first_meet:
 	"Издалека она казалась совсем маленькой и, наверное, по возрасту была младше и той пионерки у ворот, и этой – на пороге «клубов»."
 	show un surprise pioneer far at left
 	with dspr
-	show us surp3 sport far at right :
+	show us surp3 sport far at right:
 		linear 1.0 xalign 0.28
 	with dspr
 	"Я собрался всё-таки подойти, как вдруг «СССР» (так я мысленно прозвал её) подскочила к первой девочке и начала что-то говорить, при этом яростно размахивая руками."
@@ -949,7 +948,7 @@ label day1_first_meet:
 	with dissolve
 	"С этими словами она вышла из домика."
 	"Нет, даже не вышла – выпорхнула."
-	show sl smile pioneer at right :
+	show sl smile pioneer at right:
 		linear 1.0 xalign 0.5
 	with dspr
 	"Я остался наедине со Славей."
@@ -3165,7 +3164,7 @@ label day2_pre_cards:
 	dv "Что, тоже планируешь участвовать в этой дурацкой игре?"
 	me "Ну... да, а что такого?"
 	dv "Нет, ничего."
-	show dv smile pioneer at center :
+	show dv smile pioneer at center:
 		linear 0.5 xalign 0.72
 	with dspr
 	"Она уже собиралась уходить, но вдруг обернулась и внимательно посмотрела на меня, улыбнувшись."
@@ -6320,7 +6319,7 @@ label day3_main4:
 	"Так и произошло."
 	mt "Кто, я спрашиваю, кто?!"
 	with None
-	show us surp3 sport at center :
+	show us surp3 sport at center:
 		linear 0.2 xalign 0.4
 		linear 0.2 xalign 0.5
 	with dspr
@@ -6352,7 +6351,7 @@ label day3_main4:
 	with dspr
 	"Она посмотрела на Ульяну таким взглядом, что мне стало жалко девочку."
 	with None
-	show us fear sport at center :
+	show us fear sport at center:
 		parallel:
 			linear 0.5 yalign -0.2
 		parallel:
@@ -10226,14 +10225,14 @@ label day4_main1:
 	"Но в то же время ничего подозрительного в этой ситуации я не видел."
 	mt "Ладно, не будем паниковать. Наверняка найдётся!"
 	with None
-	show us grin pioneer at right :
+	show us grin pioneer at right:
 		xpos 1.2
 		linear 0.5 xpos 0.65
 	with dissolve
 	us "Чтобы он пропустил завтрак…"
 	"Усмехнулась Ульянка."
 	with None
-	show dv normal pioneer at left :
+	show dv normal pioneer at left:
 		xpos -0.2
 		linear 0.5 xpos -0.1
 	with dissolve
@@ -10254,7 +10253,7 @@ label day4_main1:
 		mt "Семён, а ты постой-ка."
 		me "Да?"
 		with None
-		show mt angry pioneer at right :
+		show mt angry pioneer at right:
 			linear 1.0 xalign 0.5
 		with dspr
 		mt "Изволишь объясниться, где ты был ночью?"
@@ -10354,7 +10353,7 @@ label day4_main1:
 	with dissolve
 	"Она сказала это так, что я полностью уверился в том, что ничего хорошего сегодня на пляже меня не ждёт."
 	with None
-	show dv normal pioneer at cleft :
+	show dv normal pioneer at cleft:
 		linear 0.5 xalign 0.5
 	with dspr
 	"Мы остались наедине с Алисой."
@@ -17401,7 +17400,7 @@ label day5_main1:
 	hide us
 	with dissolve
 	with None
-	show dv rage pioneer2 far at cleft :
+	show dv rage pioneer2 far at cleft:
 		linear 1.0 xalign 0.5
 	with dspr
 	with None
@@ -17761,7 +17760,7 @@ label day5_clubs:
 	scene bg int_clubs_male_day
 	with dissolve
 	with None
-	show us laugh pioneer at center :
+	show us laugh pioneer at center:
 		linear 1.0 xalign 1.2
 	with dissolve
 	with None
@@ -17807,7 +17806,7 @@ label day5_clubs:
 	"Ульяна хитро посмотрела на меня."
 	us "А хочешь, я всем расскажу, что ты…"
 	with None
-	show us surp3 pioneer at cright :
+	show us surp3 pioneer at cright:
 		linear 1.0 xalign 1.5
 	with dspr
 	with None
@@ -19459,7 +19458,7 @@ label day5_main3:
 	hide mt
 	with dissolve
 	with None
-	show us sad pioneer at right :
+	show us sad pioneer at right:
 		linear 0.5 xalign 0.5
 	with dspr
 	"Направляясь к выходу, я подошёл к Ульянке, которая сидела на столе."
@@ -19476,7 +19475,7 @@ label day5_main3:
 	with dspr
 	us "Довольна!{w} А тебе удачно в поход сходить!"
 	with None
-	show us laugh pioneer at center :
+	show us laugh pioneer at center:
 		linear 1.5 xalign 1.5
 	with dspr
 	with None
@@ -19983,7 +19982,7 @@ label day5_dv:
 	un "Нет… Нет…"
 	"Начала бормотать Лена и через мгновение бросилась бежать."
 	with None
-	show un shocked pioneer at cright :
+	show un shocked pioneer at cright:
 		linear 1.0 xalign 1.5
 	with dspr
 	with None
@@ -19992,7 +19991,7 @@ label day5_dv:
 	me "Подожди, ты чего!"
 	"Крикнул я ей вслед."
 	with None
-	show dv smile pioneer at cleft :
+	show dv smile pioneer at cleft:
 		linear 1.0 xalign 0.5
 	with dspr
 	dv "Вот видишь – девочку расстроил!"
@@ -20049,7 +20048,7 @@ label day5_dv:
 	me "Возражения?"
 	"Вся спесь и надменность давно исчезли с лица Алисы."
 	with None
-	show dv guilty pioneer at center :
+	show dv guilty pioneer at center:
 		linear 0.05 xalign 0.495
 		linear 0.05 xalign 0.5
 		linear 0.05 xalign 0.515
@@ -20295,7 +20294,7 @@ label day5_dv:
 	dv "Я ещё раз повторяю…"
 	un "А нечего повторять!"
 	with None
-	show un cry pioneer at cleft :
+	show un cry pioneer at cleft:
 		linear 1.0 xalign -0.5
 	with dspr
 	with None
@@ -21333,7 +21332,7 @@ label day5_us:
 	scene bg ext_path2_night
 	with dissolve
 	with None
-	show us cry2 pioneer far at center :
+	show us cry2 pioneer far at center:
 		pass
 	with dissolve
 	pause 2
@@ -21690,7 +21689,7 @@ label day5_un:
 	hide dv
 	with dissolve
 	"Бросила она Лене, развернулась и направилась к костру."
-	show un sad pioneer at cright :
+	show un sad pioneer at cright:
 		linear 1.0 xalign 0.5
 	un "Правда?"
 	"Мне было неудобно, не по себе, я ощущал дискомфорт и острое желание побыстрее закончить с этим."
@@ -24628,7 +24627,7 @@ label day6_us:
 	th "Впрочем, плевать!"
 	me "Итак…"
 	with None
-	show dv surprise pioneer at cleft :
+	show dv surprise pioneer at cleft:
 		linear 1.0 xalign 0.5
 	with dspr
 	dv "Я не понимаю, о чём ты."
@@ -25964,7 +25963,7 @@ label day6_sl:
 	stop music fadeout 3
 	play ambience ambience_camp_center_day fadein 3
 	with None
-	show sl normal pioneer at cright :
+	show sl normal pioneer at cright:
 		linear 1.0 xalign 0.5
 	with dspr
 	"Я начал ждать оглушительных аплодисментов, как в американских фильмах, но толпа, посмотрев зрелище, начала быстро расходиться."
@@ -30326,7 +30325,7 @@ label day7_us:
 	me "Что? Какой отъезд?"
 	"Перебил я её."
 	with None
-	show mt surprise pioneer at right :
+	show mt surprise pioneer at right:
 		linear 1.0 xalign 0.5
 	with dspr
 	mt "Смена заканчивается. Сегодня последний день."
@@ -32401,7 +32400,7 @@ label day7_sl:
 	"Ульянка вскочила и убежала в другой конец столовой."
 	stop music fadeout 3
 	with None
-	show sl normal pioneer at right :
+	show sl normal pioneer at right:
 		linear 1.0 xalign 0.5
 	with dspr
 	sl "О чём разговаривали?"
@@ -34770,7 +34769,7 @@ label epilogue_mi:
 	hide mt
 	with dissolve
 	with None
-	show mi surprise pioneer at left :
+	show mi surprise pioneer at left:
 		linear 1.0 xalign 0.5
 	with dspr
 	"Я схватил Машу за руку и направился прочь с площади."

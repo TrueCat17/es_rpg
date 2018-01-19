@@ -50,6 +50,8 @@ init -100000 python:
 			return '<Object ' + str(type(self)) + '>'
 		def __repr__(self):
 			return str(self)
+		def __hash__(self):
+			return hash(object.__repr__(self))
 		
 		def get_props(self):
 			keys = self.__dict__.keys()

@@ -31,6 +31,17 @@ init -9000 python:
 				return props[0:-1]
 		return None
 	
+	def get_prop_names(prop):
+		props = get_atl_props(prop)
+		
+		if len(props) == 1:
+			if prop == 'xalign':
+				return ('xpos', 'xanchor')
+			if prop == 'yalign':
+				return ('ypos', 'yanchor')
+			return prop
+		
+		return props
 	
 	
 	class SpriteAnimation(Object):
@@ -62,10 +73,8 @@ init -9000 python:
 		
 		def update(self):
 			now = time.time()
-			
 			if now < self.end_pause_time:
 				return
-			
 			
 			if self.start_changing_time:
 				self.update_changing()
@@ -192,7 +201,7 @@ init -9000 python:
 						index = action[0].index(' ')
 						command = action[0][0:index]
 						extra_param = action[0][index+1:]
-						action = [command] + [extra_param] + [action[1:]]
+						action = [command, extra_param, action[1:]]
 					else:
 						command = action[0]
 						extra_param = str(self.sprite) + ': ' + command + '_' + str(self.action_num)
@@ -227,13 +236,17 @@ init -9000 python:
 			self.change_props = []
 			
 			for i in xrange(0, len(args), 2):
-				names = self.get_prop_names(args[i])
+				names = get_prop_names(args[i])
 				
 				if isinstance(names, list) or isinstance(names, tuple):
 					new_value = eval(args[i + 1])
 					if not isinstance(new_value, list) and not isinstance(new_value, tuple):
 						new_value = [new_value] * len(names)
-					old_value = [self.data[name] for name in names]
+					
+					old_props = names
+					if old_props == ('xalign', 'yalign'):
+						old_props = ('xpos', 'ypos')
+					old_value = [self.data[name] for name in old_props]
 				else:
 					new_value = eval(args[i + 1])
 					old_value = self.data[names]
@@ -256,6 +269,7 @@ init -9000 python:
 						new_v = new_value[i]
 						old_v = old_value[i]
 						type_v = type(new_v)
+						
 						v = type_v((new_v - old_v) * t + old_v)
 						value.append(v)
 				else:
@@ -263,17 +277,6 @@ init -9000 python:
 					value = type_v((new_value - old_value) * t + old_value)
 				self.set_prop(name, value)
 		
-		
-		def get_prop_names(self, prop):
-			props = get_atl_props(prop)
-			
-			if len(props) == 1:
-				if prop == 'xalign':
-					return ['xpos', 'xanchor']
-				if prop == 'yalign':
-					return ['ypos', 'yanchor']
-				return prop
-			return props
 		
 		def set_prop(self, prop, value):
 			if isinstance(prop, str):
@@ -295,6 +298,9 @@ init -9000 python:
 			
 			if len(props) == 1:
 				self.data[prop] = value
+				
+				if prop not in self.data.except_state_props:
+					self.data.state_num += 1
 			else:
 				if (not isinstance(value, list) and not isinstance(value, tuple)) or len(props) != len(value):
 					out_msg('SpriteAnimation.set_prop',

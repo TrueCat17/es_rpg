@@ -4,6 +4,9 @@ init -9000 python:
 		def __init__(self):
 			Object.__init__(self)
 			
+			self.state_num = 0
+			self.except_state_props = set()
+			
 			self.xpos, self.ypos = 0, 0
 			self.xanchor, self.yanchor = 0, 0
 			self.xsize, self.ysize = None, None
@@ -29,11 +32,11 @@ init -9000 python:
 			x = get_absolute(self.xpos, p_xsize) - p_xanchor
 			y = get_absolute(self.ypos, p_ysize) - p_yanchor
 			
-			sinA = _sin(p_rotate)
-			cosA = _cos(p_rotate)
+			sina = _sin(p_rotate)
+			cosa = _cos(p_rotate)
 			
-			self.real_xpos    = int(x * cosA - y * sinA)
-			self.real_ypos    = int(x * sinA + y * cosA)
+			self.real_xpos    = int(x * cosa - y * sina)
+			self.real_ypos    = int(x * sina + y * cosa)
 			
 			self.real_xanchor = get_absolute(self.xanchor, self.real_xsize)
 			self.real_yanchor = get_absolute(self.yanchor, self.real_ysize)

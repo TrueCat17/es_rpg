@@ -58,9 +58,9 @@ init -1001 python:
 
 
 init -1000 python:
-	persistent_path = '../resources/saves/persistent'
+	persistent_path = get_root_directory() + 'saves/persistent'
 	
-	persistent_updates = True
+	persistent_updates = False
 	
 	try:
 		if (not os.path.exists(persistent_path)) or os.path.getsize(persistent_path) == 0:

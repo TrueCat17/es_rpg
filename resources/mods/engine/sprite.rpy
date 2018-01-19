@@ -44,14 +44,7 @@ init -9000 python:
 				self.data_list = [self.new_data]
 		
 		
-		def update(self):
-			if not sprite_can_update and self is not screen:
-				return
-			
-			for animation in self.old_animations + self.new_animations:
-				animation.update()
-			
-			
+		def update_data_size(self):
 			for data in self.data_list:
 				xsize = ysize = 0
 				
@@ -72,10 +65,17 @@ init -9000 python:
 						ysize = self.new_data.ysize
 				
 				data.real_xsize, data.real_ysize = xsize, ysize
+		
+		def update(self):
+			if not sprite_can_update and self is not screen:
+				return
 			
+			for animation in self.old_animations + self.new_animations:
+				animation.update()
+			
+			self.update_data_size()
 			if self.effect:
 				self.effect.update()
-			
 			
 			for data in self.data_list:
 				for spr in data.contains:

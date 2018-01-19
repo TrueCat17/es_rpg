@@ -98,6 +98,11 @@ init -9000 python:
 			
 			self.sprite = spr
 			if spr:
+				spr.old_data.except_state_props.add('alpha')
+				spr.new_data.except_state_props.add('alpha')
+				
+				spr.data_list = [spr.old_data, spr.new_data]
+				spr.update()
 				self.set_data_list()
 		
 		def copy(self, spr):
@@ -105,7 +110,121 @@ init -9000 python:
 			return res
 		
 		def set_data_list(self):
-			self.sprite.data_list = (self.sprite.old_data, self.sprite.new_data)
+			def rotate_point(x, y, xcenter, ycenter, angle):
+				sina, cosa = _sin(angle), _cos(angle)
+				tx, ty = x - xcenter, y - ycenter
+				rx, ry = tx * cosa - ty * sina, tx * sina + ty * cosa
+				return rx + xcenter, ry + ycenter
+			def rotate_rect(xmin, ymin, xmax, ymax, xcenter, ycenter, angle):
+				points = (rotate_point(xmin, ymin, xcenter, ycenter, angle),
+				          rotate_point(xmin, ymax, xcenter, ycenter, angle),
+				          rotate_point(xmax, ymin, xcenter, ycenter, angle),
+				          rotate_point(xmax, ymax, xcenter, ycenter, angle)
+				)
+				xmin = min(points, key = lambda point: point[0])[0]
+				ymin = min(points, key = lambda point: point[1])[1]
+				xmax = max(points, key = lambda point: point[0])[0]
+				ymax = max(points, key = lambda point: point[1])[1]
+				return xmin, ymin, xmax, ymax
+			
+			cache = {}
+			def get_rect(data):
+				if cache.has_key(data):
+					return cache[data]
+				
+				xanchor, yanchor = data.real_xanchor, data.real_yanchor
+				x, y, xsize, ysize = data.real_xpos - xanchor, data.real_ypos - yanchor, data.real_xsize, data.real_ysize
+				xmin, ymin, xmax, ymax = x, y, x + xsize, y + ysize
+				
+				rotate = int(data.real_rotate) % 360
+				if rotate:
+					res = rotate_rect(xmin, ymin, xmax, ymax, x + xanchor, y + yanchor, rotate)
+				else:
+					res = xmin, ymin, xmax, ymax
+				
+				cache[data] = res
+				return res
+			
+			def intersection_rects(xmin1, ymin1, xmax1, ymax1, xmin2, ymin2, xmax2, ymax2):
+				return xmax1 > xmin2 and xmax2 > xmin1 and ymax1 > ymin2 and ymax2 > ymin1
+			
+			new_datas = self.sprite.new_data.get_all_data()
+			old_datas = self.sprite.old_data.get_all_data()
+			
+			make_common = False
+			if self.sprite is not screen:
+				for new_data in new_datas:
+					if not new_data.image:
+						continue
+					
+					xmin1, ymin1, xmax1, ymax1 = get_rect(new_data)
+					
+					for old_data in old_datas:
+						if not old_data.image:
+							continue
+						
+						xmin2, ymin2, xmax2, ymax2 = get_rect(old_data)
+						
+						if intersection_rects(xmin1, ymin1, xmax1, ymax1, xmin2, ymin2, xmax2, ymax2):
+							make_common = True
+							break
+					if make_common:
+						break
+			
+			if not make_common:
+				self.sprite.data_list = (self.sprite.old_data, self.sprite.new_data)
+			else:
+				all_rects = [get_rect(data) for data in new_datas + old_datas if data.image is not None]
+				
+				xmin = min(all_rects, key = lambda rect: rect[0])[0]
+				ymin = min(all_rects, key = lambda rect: rect[1])[1]
+				xmax = max(all_rects, key = lambda rect: rect[2])[2]
+				ymax = max(all_rects, key = lambda rect: rect[3])[3]
+				
+				width, height = xmax - xmin, ymax - ymin
+				if width <= 0 or height <= 0:
+					self.sprite.data_list = (self.sprite.old_data, self.sprite.new_data)
+				else:
+					new_image_args, old_image_args = [(width, height)], [(width, height)]
+					for args, datas in ((new_image_args, new_datas), (old_image_args, old_datas)):
+						for data in datas:
+							image = data.image
+							if not image:
+								continue
+							
+							image_xsize, image_ysize = get_texture_width(data.image), get_texture_height(data.image)
+							res_xsize, res_ysize = data.real_xsize, data.real_ysize
+							if (res_xsize, res_ysize) != (image_xsize, image_ysize):
+								image = im.Scale(image, res_xsize, res_ysize)
+							
+							crop = [data.xcrop, data.ycrop, data.xsizecrop, data.ysizecrop]
+							if crop != [0, 0, 1, 1] and crop != [0, 0, image_xsize, image_ysize]:
+								for i in xrange(4):
+									prop = crop[i]
+									if (prop > 0 and prop < 1) or (prop == 1.0 and type(prop) is float):
+										crop[i] = get_absolute(prop, image_ysize if i % 2 else image_xsize)
+								image = im.Crop(image, crop)
+							
+							if data.real_alpha == 10:
+								image = im.Alpha(image, data.real_alpha)
+							
+							rotate = int(data.real_rotate) % 360
+							if rotate:
+								image = im.Rotozoom(image, -rotate, 1)
+							
+							_xmin, _ymin, _xmax, _ymax = get_rect(data)
+							args.append((_xmin - xmin, _ymin - ymin))
+							args.append(image)
+					
+					new_image, old_image = im.Composite(*new_image_args), im.Composite(*old_image_args)
+					
+					common_data = SpriteAnimationData()
+					common_data.image = im.Mask(new_image, old_image, 128, 'a', 'ge', 'a', 1)
+					common_data.xpos, common_data.ypos = xmin, ymin
+					
+					self.sprite.data_list = (common_data, self.sprite.old_data, self.sprite.new_data)
+					
+					self.state_num = sum(data.state_num for data in new_datas + old_datas if data.image)
 		
 		def for_all_scene(self):
 			return False
@@ -114,12 +233,20 @@ init -9000 python:
 		def update(self):
 			global sprites_list
 			
+			if self.sprite and len(self.sprite.data_list) == 3:
+				new_datas = self.sprite.new_data.get_all_data()
+				old_datas = self.sprite.old_data.get_all_data()
+				
+				state_num = sum(data.state_num for data in new_datas + old_datas if data.image)
+				if self.state_num != state_num:
+					self.set_data_list()
+					self.sprite.update_data_size()
+			
 			now = time.time()
 			dtime = now - self.start_time
 			
-			k = 1.8
-			alpha = in_bounds(dtime / self.time * k, 0.0, 1.0)
-			anti_alpha = in_bounds((1 - dtime / self.time) * k, 0.0, 1.0)
+			alpha = in_bounds(dtime / self.time, 0.0, 1.0)
+			anti_alpha = in_bounds(1 - dtime / self.time, 0.0, 1.0)
 			
 			if self.sprite:
 				self.sprite.new_data.alpha = alpha
