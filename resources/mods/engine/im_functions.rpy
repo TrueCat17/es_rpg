@@ -266,8 +266,8 @@ init -1001 python:
 			w = (1 if vertical else progress_end - progress_start) * tw
 			h = (1 if not vertical else progress_end - progress_start) * th
 			
+			x, y = in_bounds(int(x), 0, tw), in_bounds(int(y), 0, th)
 			w, h = in_bounds(int(w), 0, tw), in_bounds(int(h), 0, th)
-			x, y = in_bounds(int(x), 0,  w), in_bounds(int(y), 0,  h)
 			
 			if w <= 0 or h <= 0:
 				return ground
