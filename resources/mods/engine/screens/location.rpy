@@ -38,9 +38,9 @@ init python:
 			dx /= 2 ** 0.5
 			dy /= 2 ** 0.5
 		
-		me.fps = 			 character_run_fps 	if loc__ctrl_is_down else  character_walk_fps
-		me.move_kind = 				'run'		if loc__ctrl_is_down else 		'walk'
-		character_speed = 	character_run_speed if loc__ctrl_is_down else character_walk_speed
+		me.fps =            character_run_fps if loc__ctrl_is_down else character_walk_fps
+		me.move_kind =                  'run' if loc__ctrl_is_down else 'walk'
+		character_speed = character_run_speed if loc__ctrl_is_down else character_walk_speed
 		
 		dtime = time.time() - loc__prev_time
 		loc__prev_time = time.time()
@@ -82,7 +82,6 @@ screen location:
 	
 	if draw_location_name:
 		python:
-			exec_action = False
 			loc__ctrl_is_down = False
 			
 			loc__prev_left, loc__prev_right, loc__prev_up, loc__prev_down = loc__left, loc__right, loc__up, loc__down
@@ -92,21 +91,21 @@ screen location:
 			loc__left = loc__right = loc__up = loc__down = False
 		
 		if draw_location_name == cur_location_name:
-			key 'E' action SetVariable('exec_action', True)
+			key 'e' action SetVariable('exec_action', True)
 			
-			key 'LEFT CTRL' 	action SetVariable('loc__ctrl_is_down', True) first_delay 0
-			key 'RIGHT CTRL' 	action SetVariable('loc__ctrl_is_down', True) first_delay 0
-			key 'LEFT SHIFT' 	action SetVariable('loc__ctrl_is_down', True) first_delay 0
-			key 'RIGHT SHIFT' 	action SetVariable('loc__ctrl_is_down', True) first_delay 0
+			key 'LEFT CTRL'   action SetVariable('loc__ctrl_is_down', True) first_delay 0
+			key 'RIGHT CTRL'  action SetVariable('loc__ctrl_is_down', True) first_delay 0
+			key 'LEFT SHIFT'  action SetVariable('loc__ctrl_is_down', True) first_delay 0
+			key 'RIGHT SHIFT' action SetVariable('loc__ctrl_is_down', True) first_delay 0
 			
-			key 'LEFT' 		action SetVariable('loc__left',  True) first_delay 0
-			key 'RIGHT' 	action SetVariable('loc__right', True) first_delay 0
-			key 'UP' 		action SetVariable('loc__up',    True) first_delay 0
-			key 'DOWN' 		action SetVariable('loc__down',  True) first_delay 0
-			key 'a' 		action SetVariable('loc__left',  True) first_delay 0
-			key 'd' 		action SetVariable('loc__right', True) first_delay 0
-			key 'w' 		action SetVariable('loc__up',    True) first_delay 0
-			key 's' 		action SetVariable('loc__down',  True) first_delay 0
+			key 'LEFT'  action SetVariable('loc__left',  True) first_delay 0
+			key 'RIGHT' action SetVariable('loc__right', True) first_delay 0
+			key 'UP'    action SetVariable('loc__up',    True) first_delay 0
+			key 'DOWN'  action SetVariable('loc__down',  True) first_delay 0
+			key 'a'     action SetVariable('loc__left',  True) first_delay 0
+			key 'd'     action SetVariable('loc__right', True) first_delay 0
+			key 'w'     action SetVariable('loc__up',    True) first_delay 0
+			key 's'     action SetVariable('loc__down',  True) first_delay 0
 		
 		python:
 			loc__character_dx = loc__character_dy = 0
@@ -132,9 +131,9 @@ screen location:
 					loc__down_time = time.time()
 				
 				min_index = loc__get_min(loc__left_time if loc__left else max_time,
-					                     loc__right_time if loc__right else max_time,
-					                     loc__up_time if loc__up else max_time,
-					                     loc__down_time if loc__down else max_time)
+				                         loc__right_time if loc__right else max_time,
+				                         loc__up_time if loc__up else max_time,
+				                         loc__down_time if loc__down else max_time)
 				if (loc__left, loc__right, loc__up, loc__down)[min_index]:
 					loc__direction = loc__directions[min_index]
 					me.set_direction(loc__direction)
@@ -179,6 +178,5 @@ screen location:
 		
 		image 'images/bg/black.jpg':
 			size (1.0, 1.0)
-			alpha loc__background_alpha 
-
+			alpha loc__background_alpha
 

@@ -5,6 +5,7 @@ init -1001 python:
 	
 	cur_location = None
 	cur_location_name = None
+	cur_place_name = None
 	cur_to_place = None
 	
 	
@@ -296,7 +297,8 @@ init -1001 python:
 		
 		for exit in cur_location.exits:
 			if exit.inside(me.x, me.y):
-				if was_out_exit and can_exit_to(exit.to_location_name, exit.to_place_name):
+				can_exit = (not globals().has_key('can_exit_to')) or can_exit_to(exit.to_location_name, exit.to_place_name)
+				if was_out_exit and can_exit:
 					was_out_exit = False
 					was_out_place = True
 					return exit
@@ -307,11 +309,13 @@ init -1001 python:
 		return None
 	
 	def get_location_place():
-		global was_out_place
+		global exec_action, was_out_place
 		
 		for place_name in cur_location.places.keys():
 			place = cur_location.places[place_name]
 			if place.inside(me.x, me.y):
+				if was_out_place:
+					exec_action = False
 				if exec_action or was_out_place:
 					was_out_place = False
 					return place_name
