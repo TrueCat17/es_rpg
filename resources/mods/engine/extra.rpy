@@ -62,7 +62,7 @@ init -100000 python:
 		# name : directory
 		res = {}
 		
-		mods_path = get_root_directory() + 'mods/'
+		mods_path = 'mods/'
 		fs_and_ds = os.listdir(mods_path)
 		for path in fs_and_ds:
 			if path[-1] in ('/', '\\'):

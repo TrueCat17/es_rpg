@@ -1,7 +1,6 @@
 # sl = save_load
 init -2 python:
-	res_dir = get_root_directory()
-	save_dir = res_dir + 'saves/'
+	save_dir = 'saves/'
 	
 	sl_cur_table = '0'
 	sl_cur_save  = '0'
@@ -40,7 +39,6 @@ init -2 python:
 		if save_exists:
 			screenshot = os.path.join(save_dir, table, save, 'screenshot.png')
 			screenshot += "?" + str(os.path.getmtime(screenshot))
-			screenshot = screenshot[len(res_dir):]
 			w, h = get_texture_width(screenshot), get_texture_height(screenshot)
 			return im.Composite((w, h), (0, 0), screenshot, (0, 0), im.Scale(over, w, h))
 		

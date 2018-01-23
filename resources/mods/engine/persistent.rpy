@@ -58,7 +58,7 @@ init -1001 python:
 
 
 init -1000 python:
-	persistent_path = get_root_directory() + 'saves/persistent'
+	persistent_path = 'saves/persistent'
 	
 	persistent_updates = False
 	
