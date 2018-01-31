@@ -1,8 +1,6 @@
 init -9000 python:
 	
 	class ImageDissolve(Object):
-		for_all_scene = False
-		
 		def __init__(self, mask, t = 1.0, ramp = 5, reverse = False, spr = None):
 			Object.__init__(self)
 			

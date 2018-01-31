@@ -1,8 +1,6 @@
 init -9000 python:
 	
 	class Dissolve(Object):
-		for_all_scene = False
-		
 		def __init__(self, t, spr = None):
 			Object.__init__(self)
 			

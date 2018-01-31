@@ -1,8 +1,6 @@
 init -9000 python:
 	
 	class Fade(Object):
-		for_all_scene = True
-		
 		def __init__(self, out_time, hold_time = 0, in_time = None, color = '000', spr = None):
 			Object.__init__(self)
 			
@@ -22,6 +20,8 @@ init -9000 python:
 		
 		def copy(self, spr = None):
 			screen.effect = Fade(self.out_time, self.hold_time, self.in_time, self.color, screen)
+			if spr is screen:
+				return screen.effect
 			
 			if spr:
 				spr.data_list = (spr.old_data,) if spr.old_data else ()

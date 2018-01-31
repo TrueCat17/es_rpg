@@ -1,8 +1,6 @@
 init -9000 python:
 	
 	class Punch(Object):
-		for_all_scene = True
-		
 		def __init__(self, prop, dist, time_one, time_all):
 			Object.__init__(self)
 			
@@ -11,7 +9,10 @@ init -9000 python:
 		
 		def copy(self, spr = None):
 			screen.effect = Punch(self.prop, self.dist, self.time_one, self.time_all)
-			return None
+			
+			if spr is screen:
+				return screen.effect
+			return None 
 		
 		
 		def update(self):
