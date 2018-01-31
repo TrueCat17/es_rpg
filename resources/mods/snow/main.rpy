@@ -1,40 +1,44 @@
 init python:
 	set_fps(60)
 	
-	draw_fps = not False
-	IMAGE_RENDER = False
+	image_render = False
 	
-	start_screens = 'snow'
-	if draw_fps:
-		start_screens += ' fps_meter'
+	start_screens = 'snow fps_meter'
 	
-	COUNT = 1400
-	
-	width, height = get_stage_width(), get_stage_height()
 	
 	objs = []
-	for i in xrange(COUNT):
-		size = random.randint(2, 10)
+	def set_count(count):
+		global objs
+		d = count - len(objs)
 		
-		obj = {}
-		obj['x'] = random.randint(0, width - size - 1)
-		obj['y'] = random.randint(0, height - size - 1)
-		obj['dx'] = (random.random() * 2 - 1) * size / 8
-		obj['dy'] = (random.random() * 7 + 5) * size / 30
-		
-		if IMAGE_RENDER:
-			obj['image'] = im.Scale('images/anim/snow.png', size, size)
+		if d < 0:
+			objs = objs[0:count]
 		else:
-			obj['size'] = (size, size)
-		objs.append(obj)
+			width, height = get_stage_width(), get_stage_height()
+			
+			rand_int = random.randint
+			def rand_float(min, max):
+				return random.random() * (max - min) + min
+			
+			for i in xrange(d):
+				size = rand_int(2, 10)
+				
+				obj = {}
+				obj['x']  = rand_int(0, width)
+				obj['y']  = rand_int(0, height)
+				obj['dx'] = rand_float(-0.12, 0.12) * size
+				obj['dy'] = rand_float( 0.15, 0.40) * size
+				
+				obj['image'] = im.Scale('images/anim/snow.png', size, size) # for image_render
+				obj['size']  = (size, size)                                 # for usual render
+				
+				objs.append(obj)
 	
-	prev_time = prev_time_update = time.time()
-	frame_times = []
+	set_count(1000)
+	prev_time_update = time.time()
 
 
 screen snow:
-	zorder -2.5
-	
 	key 'ESCAPE' action show_pause
 	
 	image 'images/bg/bus_stop.jpg':
@@ -46,7 +50,7 @@ screen snow:
 		
 		width, height = get_stage_width(), get_stage_height()
 		
-		if IMAGE_RENDER:
+		if image_render:
 			tmp_image_args = [(width, height)]
 			for obj in objs:
 				obj['x'] = (obj['x'] + obj['dx'] * k) % width
@@ -60,7 +64,7 @@ screen snow:
 				obj['x'] = (obj['x'] + obj['dx'] * k) % width
 				obj['y'] = (obj['y'] + obj['dy'] * k) % height
 	
-	if IMAGE_RENDER:
+	if image_render:
 		image tmp_image
 	else:
 		for obj in objs:
@@ -69,17 +73,50 @@ screen snow:
 				ypos int(obj['y'])
 				size obj['size']
 	
-	python:
-		if not draw_fps:
-			dtime = (time.time() - prev_time) * 1000
-			prev_time = time.time()
+	image im.Rect('#0004'):
+		size (300, 70)
+		align (0.5, 0.95)
+		
+		null:
+			align (0.5, 0.2)
+			xsize 250
 			
-			frame_times.append(dtime)
-			frame_times = frame_times[-300:]
+			textbutton '<':
+				xalign 0.0
+				text_size 20
+				size (25, 25)
+				action set_count(max(0, len(objs) - 100))
 			
-			mid_time = sum(frame_times) / len(frame_times)
-			fps = int(1000.0 / mid_time * 10) / 10.0
-			print fps
+			text len(objs):
+				xalign 0.5
+				text_size 20
+				size (100, 25)
+				text_align 'center'
+				text_valign 'center'
+				color 0x000000
+			
+			textbutton '>':
+				xalign 1.0
+				text_size 20
+				size (25, 25)
+				action set_count(min(len(objs) + 100, 10000))
+		
+		null:
+			align (0.5, 0.8)
+			xsize 250
+			
+			text ('Render: ' + ('to image' if image_render else 'usual')):
+				xalign 0.0
+				size (200, 25)
+				text_size 20
+				text_valign 'center'
+				color 0x000000
+			
+			textbutton '%':
+				xalign 1.0
+				size (25, 25)
+				text_size 20
+				action SetVariable('image_render', not image_render)
 
 
 label start:
