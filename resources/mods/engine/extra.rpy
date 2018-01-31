@@ -5,8 +5,14 @@ init -10000 python:
 	numbers = tuple(xrange(10)) # 0-9
 
 init -998 python:
-	checkbox_yes = get_back_with_color(es2d_gui + 'std/checkbox/yes.png')
-	checkbox_no  = get_back_with_color(es2d_gui + 'std/checkbox/no.png')
+	checkboxes_inited = False
+	def init_checkboxes():
+		global checkboxes_inited, checkbox_yes, checkbox_no
+		checkboxes_inited = True
+		
+		checkbox_yes = get_back_with_color(es2d_gui + 'std/checkbox/yes.png')
+		checkbox_no  = get_back_with_color(es2d_gui + 'std/checkbox/no.png')
+	
 	
 	bar_ground = es2d_gui + 'std/bar/ground.png'
 	bar_hover  = es2d_gui + 'std/bar/hover.png'

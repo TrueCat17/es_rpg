@@ -1,4 +1,4 @@
-init -1001 python:
+init -1002 python:
 	def load_object(path):
 		try:
 			if (not os.path.exists(path)) or os.path.getsize(path) == 0:
@@ -57,10 +57,8 @@ init -1001 python:
 
 
 
-init -1000 python:
+init -1001 python:
 	persistent_path = 'saves/persistent'
-	
-	persistent_updates = False
 	
 	try:
 		if (not os.path.exists(persistent_path)) or os.path.getsize(persistent_path) == 0:
@@ -72,9 +70,12 @@ init -1000 python:
 		raise
 
 
-init -999 python:
+init -1000 python:
 	persistent_updates = False
 	persistent.in_persistent = True
+	
+	if not persistent.has_attr('config'):
+		persistent.config = Object()
 	
 	persistent_need_save = False
 	def persistent_save():
@@ -86,6 +87,9 @@ init -999 python:
 
 
 init -999 python:
-	persistent.sprite_time = 'day'
-	persistent.tint_sprite_time = im.matrix.tint(1, 1, 1)
+	persistent.st_r = 255
+	persistent.st_g = 255
+	persistent.st_b = 255
 	
+	persistent.sprite_time = 'day'
+

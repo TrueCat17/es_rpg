@@ -45,7 +45,7 @@ init -9000 python:
 	
 	
 	class SpriteAnimation(Object):
-		def __init__(self, actions, spr = None):
+		def __init__(self, actions, data = None):
 			Object.__init__(self)
 			
 			self.ended = False
@@ -58,8 +58,7 @@ init -9000 python:
 			self.block = None
 			self.parallels = []
 			
-			self.sprite = spr
-			self.data = spr.new_data if spr else None
+			self.data = data
 			
 			self.end_pause_time = 0
 			
@@ -204,7 +203,7 @@ init -9000 python:
 						action = [command, extra_param, action[1:]]
 					else:
 						command = action[0]
-						extra_param = str(self.sprite) + ': ' + command + '_' + str(self.action_num)
+						extra_param = str(self.data.sprite) + ': ' + command + '_' + str(self.action_num)
 					
 					
 					if self.parallels and command != 'parallel':
@@ -219,12 +218,12 @@ init -9000 python:
 						spr.call_str = extra_param
 						self.data.contains.append(spr)
 					elif command == 'block':
-						self.block = SpriteAnimation(action[1:], self.sprite)
+						self.block = SpriteAnimation(action[1:], self.data)
 						return
 					elif command == 'parallel':
 						if self.last_command != command:
 							self.parallels = []
-						self.parallels.append(SpriteAnimation(action[1:], self.sprite))
+						self.parallels.append(SpriteAnimation(action[1:], self.data))
 					else:
 						out_msg('SpriteAnimation.update', 'Ожидались блоки <contains>, <block> или <parallel>, получен <' + str(action[0]) + '>')
 					
@@ -297,10 +296,11 @@ init -9000 python:
 				value = [value] * 2
 			
 			if len(props) == 1:
-				self.data[prop] = value
-				
-				if prop not in self.data.except_state_props:
-					self.data.state_num += 1
+				if self.data[prop] != value:
+					self.data[prop] = value
+					
+					if prop not in self.data.except_state_props:
+						self.data.state_num += 1
 			else:
 				if (not isinstance(value, list) and not isinstance(value, tuple)) or len(props) != len(value):
 					out_msg('SpriteAnimation.set_prop',

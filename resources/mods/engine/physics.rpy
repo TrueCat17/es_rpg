@@ -10,7 +10,7 @@ init python:
 		
 		# Вычитаем 253.9/255 из каждого (rgb) канала, чтобы все цвета, кроме чисто-белого, стали чёрными
 		matrix = im.matrix.identity()
-		matrix.t[4] = matrix.t[9] = matrix.t[14] = -253.9/255.0
+		matrix[4] = matrix[9] = matrix[14] = -253.9/255.0
 		
 		to_draw = [(cur_location.width, cur_location.height), (0, 0), cur_location.free]
 		for obj in objs:

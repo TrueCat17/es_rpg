@@ -65,134 +65,162 @@ init -1001 python:
 		                    (0, 0), image)
 	
 	
-	
-	
-	class ImMatrix:
-		def __init__(self, t = None):
-			if t is None:
-				t = [0] * 25
-			self.t = t
+	class Matrix(list):
+		def __new__(cls, *args):
+			size = len(args)
+			
+			if size == 1:
+				args = args[0]
+			else:
+				if size != 0 and size != 20 and size != 25:
+					out_msg('Matrix', 'Ожидалось 20 или 25 значений, получено ' + str(len(args)))
+				args = list(args) + [0] * (25 - size)
+			
+			return list.__new__(cls, args)
+		
+		def __init__(self, *args):
+			size = len(args)
+			
+			if size == 1:
+				args = args[0]
+			else:
+				if size != 0 and size != 20 and size != 25:
+					out_msg('Matrix', 'Ожидалось 20 или 25 значений, получено ' + str(len(args)))
+				args = list(args) + [0] * (25 - size)
+			
+			list.__init__(self, args)
 		
 		def __str__(self):
-			return ' '.join(map(str, self.t))
+			return ' '.join(map(str, self))
 		
 		def __mul__(self, other):
-			a, b = self.t, other.t
-		    t = [ 0 ] * 25
-		    for y in xrange(5):
-		        for x in xrange(5):
-		            for i in xrange(5):
-		                t[x + y * 5] += a[x + i * 5] * b[i + y * 5]
-		    res = ImMatrix(t)
-		    return res
+			res = Matrix()
+			
+			for y in xrange(5):
+			    for x in xrange(5):
+			        for i in xrange(5):
+			            res[y * 5 + x] += self[i * 5 + x] * other[y * 5 + i]
+			return res
 		
 		
-		def identity(self):
-			res = ImMatrix([
+		@staticmethod
+		def identity():
+			res = Matrix(
 				1, 0, 0, 0, 0,
 				0, 1, 0, 0, 0,
 				0, 0, 1, 0, 0,
 				0, 0, 0, 1, 0,
 				0, 0, 0, 0, 1
-			])
+			)
 			return res
 		
-		def tint(self, r, g, b, a = 1):
-			res = ImMatrix((
+		@staticmethod
+		def tint(r, g, b, a = 1):
+			res = Matrix(
 				r, 0, 0, 0, 0,
 				0, g, 0, 0, 0,
 				0, 0, b, 0, 0,
 				0, 0, 0, a, 0,
 				0, 0, 0, 0, 1
-			))
+			)
 			return res
 		
-		def saturation(self, level, desat=(0.2126, 0.7152, 0.0722)):
+		@staticmethod
+		def saturation(level, desat=(0.2126, 0.7152, 0.0722)):
 			r, g, b = desat
 			def I(a, b):
 				return a + (b - a) * level
 			
-			res = ImMatrix((
+			res = Matrix(
 				I(r, 1), 	I(g, 0), 	I(b, 0), 	0, 	0,
 				I(r, 0), 	I(g, 1), 	I(b, 0), 	0, 	0,
 				I(r, 0), 	I(g, 0), 	I(b, 1), 	0, 	0,
 				0, 			0, 			0, 			1, 	0,
 				0, 			0, 			0, 			0, 	1
-			))
+			)
 			return res
 		
-		def invert(self):
-			res = ImMatrix((
+		@staticmethod
+		def invert():
+			res = Matrix(
 				-1, 0, 0, 0, 1,
 				0, -1, 0, 0, 1,
 				0, 0, -1, 0, 1,
 				0, 0, 0,  1, 0,
 				0, 0, 0,  0, 1
-			))
+			)
 			return res
 		
-		def brightness(self, b):
-			res = ImMatrix((
+		@staticmethod
+		def brightness(b):
+			res = Matrix(
 				1, 0, 0, 0, b,
 				0, 1, 0, 0, b,
 				0, 0, 1, 0, b,
 				0, 0, 0, 1, 0,
 				0, 0, 0, 0, 1
-			))
+			)
 			return res
 		
-		def contrast(self, c):
-			return self.brightness(-0.5) * self.tint(c, c, c) * self.brightness(0.5)
+		@staticmethod
+		def contrast(c):
+			return Matrix.brightness(-0.5) * Matrix.tint(c, c, c) * Matrix.brightness(0.5)
 		
-		def opacity(self, o):
-			res = ImMatrix((
+		@staticmethod
+		def opacity(o):
+			res = Matrix(
 				1, 0, 0, 0, 0,
 				0, 1, 0, 0, 0,
 				0, 0, 1, 0, 0,
 				0, 0, 0, o, 0,
 				0, 0, 0, 0, 1
-			))
+			)
 			return res
 		
-		def colorize(self, black_color, white_color):
-		    r0, g0, b0, _a0 = renpy.easy.color(black_color)
-		    r1, g1, b1, _a1 = renpy.easy.color(white_color)
-		    
-		    r0 /= 255.0
-		    g0 /= 255.0
-		    b0 /= 255.0
-		    r1 /= 255.0
-		    g1 /= 255.0
-		    b1 /= 255.0
-		    
-			res = ImMatrix((
+		@staticmethod
+		def colorize(black_color, white_color):
+			r0, g0, b0, _a0 = renpy.easy.color(black_color)
+			r1, g1, b1, _a1 = renpy.easy.color(white_color)
+			
+			r0 /= 255.0
+			g0 /= 255.0
+			b0 /= 255.0
+			r1 /= 255.0
+			g1 /= 255.0
+			b1 /= 255.0
+			
+			res = Matrix(
 				(r1-r0), 0, 0, 0, r0,
 				0, (g1-g0), 0, 0, g0,
 				0, 0, (b1-b0), 0, b0,
 				0, 0, 0, 1, 0,
 				0, 0, 0, 0, 1
-			))
+			)
 			return res
 	
 	
 	
-	
-	class Im:
-		matrix = ImMatrix()
+	class Im():
+		matrix = Matrix
 		
-		def Scale(self, image, w, h):
+		
+		@staticmethod
+		def scale(image, w, h):
 			return 'Scale|(' + image + ')|' + str(int(w)) + '|' + str(int(h))
 		
-		def FactorScale(self, image, k):
+		@staticmethod
+		def factor_scale(image, k):
 			return 'FactorScale|(' + image + ')|' + str(k)
 		
-		def Crop(self, image, rect):
+		@staticmethod
+		def crop(image, rect):
 			rect = map(lambda f: str(int(f)), rect)
 			rect = ' '.join(rect)
 			return 'Crop|(' + image + ')|(' + rect + ')'
 		
 		
-		def Composite(self, *args):
+		@staticmethod
+		def composite(*args):
 			if (len(args) % 2) == 0:
 				out_msg('im.Composite', 'Ожидалось нечётное количество аргументов')
 				return ''
@@ -208,54 +236,67 @@ init -1001 python:
 			return res
 		
 		
-		def Flip(self, image, horizontal = False, vertical = False):
+		@staticmethod
+		def flip(image, horizontal = False, vertical = False):
 			return 'Flip|(' + image + ')|' + str(bool(horizontal)) + '|' + str(bool(vertical))
 		
 		
-		def MatrixColor(self, image, matrix):
+		@staticmethod
+		def matrix_color(image, matrix):
 			return 'MatrixColor|(' + image + ')|(' + str(matrix) + ')'
 		
-		def Grayscale(self, image, desat=(0.2126, 0.7152, 0.0722)):
-			return self.MatrixColor(image, self.matrix.saturation(0.0, desat))
+		@staticmethod
+		def grayscale(image, desat=(0.2126, 0.7152, 0.0722)):
+			return im.matrix_color(image, matrix.saturation(0.0, desat))
 		
-		def Sepia(self, image, tint=(1.0, 0.94, 0.76), desat=(0.2126, 0.7152, 0.0722)):
-			return self.MatrixColor(image, self.matrix.saturation(0.0, desat) * self.matrix.tint(tint[0], tint[1], tint[2]))
+		@staticmethod
+		def sepia(image, tint=(1.0, 0.94, 0.76), desat=(0.2126, 0.7152, 0.0722)):
+			return im.matrix_color(image, im.matrix.saturation(0.0, desat) * im.matrix.tint(tint[0], tint[1], tint[2]))
 		
 		
-		def ReColor(self, image, r, g, b, a):
-			colors = map(str, (r, g, b, a))
+		@staticmethod
+		def recolor(image, r, g, b, a = 255):
+			colors = map(str, (r + 1, g + 1, b + 1, a + 1))
 			colors = ' '.join(colors)
 			return 'ReColor|(' + image + ')|(' + colors + ')'
 		
-		def Color(self, image, color):
+		@staticmethod
+		def color(image, color):
 			r, g, b, a = renpy.easy.color(color)
-			return self.ReColor(image, r, g, b, a)
+			return im.recolor(image, r, g, b, a)
 		
-		def Alpha(self, image, alpha):
-			return self.ReColor(image, 255, 255, 255, int(alpha * 255))
+		@staticmethod
+		def alpha(image, alpha):
+			return im.recolor(image, 255, 255, 255, int(alpha * 255))
 		
 		
-		def Rotozoom(self, image, angle, zoom):
+		@staticmethod
+		def rotozoom(image, angle, zoom):
 			return 'Rotozoom|(' + image + ')|(' + str(int(angle)) + ')|(' + str(zoom) + ')'
 		
 		
-		def Mask(self, image, mask, value, channel = 'r', cmp_func_name = 'le', alpha_channel = 'a', alpha_image = 1):
+		@staticmethod
+		def mask(image, mask, value, channel = 'r', cmp_func_name = 'le', alpha_channel = 'a', alpha_image = 1):
 			return 'Mask|(' + image + ')|(' + mask + ')|(' + channel + ')|(' + str(int(value)) + ')|(' + cmp_func_name + ')|(' + alpha_channel + ')|(' + str(alpha_image) + ')'
-		def AlphaMask(self, image, mask):
-			return self.Mask(image, mask, 0, 'r', 'g', 'r', 2)
+		@staticmethod
+		def alpha_mask(image, mask):
+			return im.mask(image, mask, 0, 'r', 'g', 'r', 2)
 		
 		
-		def Rect(self, color, width = 1, height = 1):
+		@staticmethod
+		def rect(color, width = 1, height = 1):
 			r, g, b, a = renpy.easy.color(color)
-			matrix = im.matrix.invert() * im.matrix.tint(r / 255.0, g / 255.0, b / 255.0, a / 255.0)
-			return self.Scale(im.MatrixColor('images/bg/black.jpg', matrix), width, height)
-		def Circle(self, color, width = 64, height = None):
+			m = im.matrix.invert() * im.matrix.tint(r / 255.0, g / 255.0, b / 255.0, a / 255.0)
+			return im.scale(im.matrix_color('images/bg/black.jpg', m), width, height)
+		@staticmethod
+		def circle(color, width = 64, height = None):
 			height = width if height is None else height
 			r, g, b, a = renpy.easy.color(color)
-			matrix = im.matrix.invert() * im.matrix.tint(r / 255.0, g / 255.0, b / 255.0, a / 255.0)
-			return self.Scale(im.MatrixColor('images/bg/black_circle.png', matrix), width, height)
+			m = im.matrix.invert() * im.matrix.tint(r / 255.0, g / 255.0, b / 255.0, a / 255.0)
+			return im.scale(im.matrix_color('images/bg/black_circle.png', m), width, height)
 		
-		def Bar(self, progress_end, progress_start = 0, vertical = False, ground = None, hover = None):
+		@staticmethod
+		def bar(progress_end, progress_start = 0, vertical = False, ground = None, hover = None):
 			if ground is None:
 				ground = vbar_ground if vertical else bar_ground
 			if hover is None:
@@ -274,12 +315,36 @@ init -1001 python:
 			if (x, y, w, h) == (0, 0, tw, th):
 				return hover
 			
-			return self.Composite((tw, th),
-			                      (0, 0), ground,
-			                      (x, y), im.Scale(hover, w, h))
-	
-	
-
+			return im.composite((tw, th),
+			                    (0, 0), ground,
+			                    (x, y), im.scale(hover, w, h))
+		
+		
+		Scale = scale
+		FactorScale = factor_scale
+		Crop = crop
+		
+		Composite = composite
+		
+		Flip = flip
+		
+		MatrixColor = matrix_color
+		Grayscale = grayscale
+		Sepia = sepia
+		
+		ReColor = Recolor = recolor
+		Color = color
+		Alpha = alpha
+		
+		Rotozoom = RotoZoom = rotozoom
+		
+		Mask = mask
+		AlphaMask = alpha_mask
+		
+		Rect = rect
+		Circle = circle
+		Bar = bar
 
 init -1000 python:
-	im = Im()
+	im = Im
+

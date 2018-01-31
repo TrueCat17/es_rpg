@@ -52,8 +52,13 @@ screen settings:
 	image settings_background:
 		size (1.0, 1.0)
 	
-	$ y = int(settings_viewport_y * get_stage_height() -
-	          settings_viewport_content_y * abs(get_stage_height() * (1 - settings_viewport_y * 2) - settings_viewport_content_height) + 10)
+	python:
+		if not checkboxes_inited:
+			init_checkboxes()
+		
+		y = int(settings_viewport_y * get_stage_height() -
+		        settings_viewport_content_y * abs(get_stage_height() * (1 - settings_viewport_y * 2) - settings_viewport_content_height) + 10)
+	
 	if settings_show_mods:
 		$ mods = get_mods()
 		

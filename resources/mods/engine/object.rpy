@@ -12,6 +12,9 @@ init -100000 python:
 				self.__dict__[k] = kwords[k]
 		
 		
+		def has_attr(self, attr):
+			return self.__dict__.has_key(attr)
+		
 		def __getattr__(self, attr):
 			if self.__dict__.has_key(attr) or persistent_updates:
 				return self.__dict__[attr]
@@ -41,9 +44,6 @@ init -100000 python:
 			self.__delattr__(item)
 		
 		
-		def has_attr(self, attr):
-			return self.__dict__.has_key(attr)
-		
 		def __nonzero__(self):
 			return True
 		def __str__(self):
@@ -52,6 +52,9 @@ init -100000 python:
 			return str(self)
 		def __hash__(self):
 			return hash(object.__repr__(self))
+		
+		def __eq__(self, other):
+			return self is other
 		
 		def get_props(self):
 			keys = self.__dict__.keys()

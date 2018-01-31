@@ -5,9 +5,15 @@ init -2 python:
 	sl_cur_table = '0'
 	sl_cur_save  = '0'
 	
-	
-	sl_btn_hover    = get_back_with_color('images/gui/save_load/hover.png')
-	sl_btn_selected = get_back_with_color('images/gui/save_load/selected.png')
+	sl_inited = False
+	def init_sl():
+		global sl_inited
+		global sl_btn_hover, sl_btn_selected
+		
+		sl_inited = True
+		
+		sl_btn_hover    = get_back_with_color('images/gui/save_load/hover.png')
+		sl_btn_selected = get_back_with_color('images/gui/save_load/selected.png')
 	
 	
 	def sl_get_dirs(path):

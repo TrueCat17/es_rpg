@@ -21,24 +21,30 @@ init python:
 	pause_notes      = es2d_gui + 'menu/pause/notes.png'
 	
 	pause_close_size = 25
-	pause_close      = get_back_with_color(es2d_gui + 'menu/pause/close.png')
 	
-	
-	pause_button          = im.MatrixColor(es2d_gui + 'menu/pause/button.png', im.matrix.invert() * im.matrix.tint(  0, 0.5, 1))
-	pause_button_hover    = im.MatrixColor(es2d_gui + 'menu/pause/button.png', im.matrix.invert() * im.matrix.tint(0.4, 0.8, 1))
-	pause_button_selected = im.MatrixColor(es2d_gui + 'menu/pause/button.png', im.matrix.invert() * im.matrix.tint(  1, 0.5, 0))
-	
-	pause_button          = get_back_with_color(pause_button,          alpha = 0.5)
-	pause_button_hover    = get_back_with_color(pause_button_hover,    alpha = 0.2)
-	pause_button_selected = get_back_with_color(pause_button_selected, alpha = 0.5)
-	
-	
-	style.pause_button = Style(style.textbutton)
-	style.pause_button.ground = pause_button
-	style.pause_button.hover  = pause_button_hover
-	style.pause_button.xsize = 0.2
-	style.pause_button.ysize = 0.1
-	style.pause_button.text_size = 20
+	pause_inited = False
+	def init_pause():
+		global pause_inited, pause_close
+		global pause_button, pause_button_hover, pause_button_selected
+		
+		pause_inited = True
+		
+		pause_close           = get_back_with_color(es2d_gui + 'menu/pause/close.png')
+		
+		pause_button          = im.MatrixColor(es2d_gui + 'menu/pause/button.png', im.matrix.invert() * im.matrix.tint(  0, 0.5, 1))
+		pause_button_hover    = im.MatrixColor(es2d_gui + 'menu/pause/button.png', im.matrix.invert() * im.matrix.tint(0.4, 0.8, 1))
+		pause_button_selected = im.MatrixColor(es2d_gui + 'menu/pause/button.png', im.matrix.invert() * im.matrix.tint(  1, 0.5, 0))
+		
+		pause_button          = get_back_with_color(pause_button,          alpha = 0.5)
+		pause_button_hover    = get_back_with_color(pause_button_hover,    alpha = 0.2)
+		pause_button_selected = get_back_with_color(pause_button_selected, alpha = 0.5)
+		
+		style.pause_button = Style(style.textbutton)
+		style.pause_button.ground = pause_button
+		style.pause_button.hover  = pause_button_hover
+		style.pause_button.xsize = 0.2
+		style.pause_button.ysize = 0.1
+		style.pause_button.text_size = 20
 	
 	
 	def show_pause():
@@ -60,6 +66,9 @@ screen pause:
 	modal  True
 	
 	python:
+		if not pause_inited:
+			init_pause()
+		
 		if time.time() - pause_showed_time > pause_appearance_time:
 			pause_y = 0
 			if pause_start_hided_time:

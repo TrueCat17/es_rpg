@@ -2,13 +2,12 @@ init -1000 python:
 	
 	sprites_list = []
 	
-	sprite_can_update = True
-	
 	screen = Sprite([], [], [], None)
 	screen.new_data.xsize, screen.new_data.ysize = 1.0, 1.0
 	screen.new_data.real_xsize, screen.new_data.real_ysize = 1.0, 1.0
 	screen.call_str = 'screen'
 	
+	scene = None
 	
 	
 	def sprites_effects_ended():
@@ -20,32 +19,37 @@ init -1000 python:
 	def sprites_effects_to_end():
 		for spr in sprites_list + [screen]:
 			spr.remove_effect()
+		remove_hiding_sprites()
 	
+	def remove_hiding_sprites():
+		for spr in list(sprites_list):
+			if spr.hiding:
+				sprites_list.remove(spr)
+			else:
+				if spr.effect is not None:
+					spr.effect.for_not_hiding()
 	
 	
 	def set_scene(params, show_at):
-		global sprites_list
+		global sprites_list, scene
 		
 		if len(params):
-			scene = show_sprite(params, show_at, True)
+			show_sprite(params, show_at, True)
 			
 			if screen.effect or scene.effect:
-				if screen.effect:
-					screen.effect.sprite = False
-				else:
-					scene.effect.sprite = False
-				
-				for spr in sprites_list:
-					spr.hiding = True
+				for spr in sprites_list:	
+					if spr is not scene:
+						spr.old_data, spr.new_data = spr.new_data, None
+						spr.hiding = True
 			else:
-				sprites_list = []
-			sprites_list.insert(0, scene)
+				sprites_list = [scene]
 		else:
 			sprites_list = []
+			scene = None
 	
 	
-	def show_sprite(params, show_at, hide_all = False):
-		global sprites_list
+	def show_sprite(params, show_at, is_scene = False):
+		global scene
 		
 		if len(params) == 0:
 			out_msg('add_sprite_to_showlist', 'Список params пуст')
@@ -73,22 +77,22 @@ init -1000 python:
 		if d['as'] is None:
 			d['as'] = params[0]
 		
-		if d['behind'] is not None and hide_all:
-			d['behind'] = None
-		
 		
 		effect = eval(d['with']) if d['with'] else None
 		
 		old_sprite = None
-		index = 0
-		for i in sprites_list:
-			if i.as_name == d['as']:
-				if not hide_all or not effect:
-					sprites_list = sprites_list[0:index] + sprites_list[index+1:]
-				if effect:
-					old_sprite = i
-				break
-			index += 1
+		if is_scene:
+			index = len(sprites_list)
+		else:
+			index = 0
+			while index < len(sprites_list):
+				spr = sprites_list[index]
+				if spr.as_name == d['as']:
+					if effect:
+						old_sprite = spr
+					sprites_list.remove(spr)
+					break
+				index += 1
 		
 		
 		image_name = ' '.join(params)
@@ -97,31 +101,32 @@ init -1000 python:
 		if d['at'] is not None:
 			at = eval(d['at']).actions
 		else:
-			if old_sprite:
-				old_at_sprite_animation = old_sprite.new_animations[1] # [decl_at, --> at <--, show_at]
-				at = old_at_sprite_animation.actions
+			if old_sprite and (old_sprite.new_data or old_sprite.old_data):
+				at = (old_sprite.new_data or old_sprite.old_data).at.actions
 			else:
 				at = [] if show_at else center.actions
 		
-		spr = Sprite(decl_at, at, show_at, effect, old_sprite if not hide_all else False)
+		spr = Sprite(decl_at, at, show_at, old_sprite)
 		spr.as_name = d['as']
 		spr.call_str = params_str
+		if is_scene or old_sprite is scene:
+			scene = spr
+		spr.set_effect(effect)
 		
 		
-		if not hide_all:
-			if d['behind'] is None:
-				sprites_list.insert(index, spr)
+		if d['behind'] is not None:
+			index = 0
+			while index < len(sprites_list):
+				if sprites_list[index].as_name == d['behind']:
+					break
+				index += 1
 			else:
-				index = 0
-				for i in sprites_list:
-					if i.as_name == d['behind']:
-						break
-					index += 1
-				else:
-					out_msg('show_sprite', 'Спрайт с именем <' + d['behind'] + '> не найден')
-				sprites_list.insert(index, spr)
+				out_msg('show_sprite', 'Спрайт с именем <' + d['behind'] + '> не найден')
 		
-		return spr
+		if scene in sprites_list:
+			index = max(index, sprites_list.index(scene) + 1)
+		
+		sprites_list.insert(index, spr)
 	
 	def hide_sprite(params):
 		if len(params) == 0:
@@ -146,8 +151,10 @@ init -1000 python:
 			spr = sprites_list[i]
 			if spr.as_name == name:
 				if effect is not None:
-					sprites_list[i] = Sprite([], [], [], effect, spr)
-					sprites_list[i].hiding = True
+					spr.old_data, spr.new_data = spr.new_data, None
+					
+					spr.set_effect(effect)
+					spr.hiding = True
 				else:
 					sprites_list = sprites_list[0:i] + sprites_list[i+1:]
 				break

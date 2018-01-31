@@ -7,6 +7,8 @@ screen load:
 	modal  True
 	
 	python:
+		if not sl_inited:
+			init_sl()
 		if random.random() < 4.0 / get_fps():
 			sl_update_table_saves()
 	

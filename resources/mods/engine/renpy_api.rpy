@@ -1,4 +1,4 @@
-init -1001 python:
+init -999 python:
 	
 	pause_end = 0
 	def pause(sec):
@@ -7,31 +7,39 @@ init -1001 python:
 	
 	
 	class Music:
-		def register_channel(self, name, mixer, loop):
+		@staticmethod
+		def register_channel(name, mixer, loop):
 			_register_channel(name, mixer, loop, get_filename(1), get_numline(1))
-		def has_channel(self, name):
+		@staticmethod
+		def has_channel(name):
 			return _has_channel(name)
 		
-		def play(self, file_names, channel, depth = 0, **kwargs):
+		@staticmethod
+		def play(file_names, channel, depth = 0, **kwargs):
 			fadein = kwargs.get('fadein', 0)
 			file_name = file_names if isinstance(file_names, str) else file_names[0]
 			_play(channel + ' "' + file_name + '" fadein ' + str(float(fadein)), get_filename(depth + 1), get_numline(depth + 1))
-		def stop(self, channel, depth = 0, **kwargs):
+		@staticmethod
+		def stop(channel, depth = 0, **kwargs):
 			fadeout = kwargs.get('fadeout', 0)
 			_stop(channel + ' fadeout ' + str(float(fadeout)), get_filename(depth + 1), get_numline(depth + 1))
 		
-		def set_volume(self, vol, channel, depth = 0):
+		@staticmethod
+		def set_volume(vol, channel, depth = 0):
 			_set_volume(in_bounds(vol, 0, 1), channel, get_filename(depth + 1), get_numline(depth + 1))
-		def set_mixer_volume(self, vol, mixer, depth = 0):
+		@staticmethod
+		def set_mixer_volume(vol, mixer, depth = 0):
 			vol = in_bounds(round(vol, 2), 0.0, 1.0)
 			config[mixer + '_volume'] = vol
 			_set_mixer_volume(vol, mixer, get_filename(depth + 1), get_numline(depth + 1))
-		def add_mixer_volume(self, d, mixer):
-			self.set_mixer_volume(config[mixer + '_volume'] + d, mixer)
+		@staticmethod
+		def add_mixer_volume(d, mixer):
+			Music.set_mixer_volume(config[mixer + '_volume'] + d, mixer)
 	
 	
 	class Easy:
-		def color(self, c):
+		@staticmethod
+		def color(c):
 			if isinstance(c, tuple) or isinstance(c, list):
 				r, g, b = c[0], c[1], c[2]
 				if len(c) == 4:
@@ -78,22 +86,21 @@ init -1001 python:
 	
 	
 	class Renpy:
-		music = Music()
-		easy = Easy()
+		config = persistent.config
 		
-		def __init__(self):
-			self.random = random
-			
-			if persistent.has_attr('config'):
-				self.config = persistent.config
-			else:
-				self.config = Object()
-				persistent.config = self.config
+		music = Music
+		easy = Easy
 		
-		def pause(self, sec):
+		# prop = module
+		random = random
+		
+		
+		@staticmethod
+		def pause(sec):
 			pause(sec)
 		
-		def say(self, who, what):
+		@staticmethod
+		def say(who, what):
 			if who is None:
 				who = narrator
 			
@@ -106,24 +113,30 @@ init -1001 python:
 					return
 			who(what)
 		
-		def play(self, file_names, channel, **kwargs):
-			self.music.play(file_name, channel, 1, **kwargs)
-		def stop(self, channel, **kwargs):
-			self.music.stop(channel, 1, **kwargs)
+		@staticmethod
+		def play(file_names, channel, **kwargs):
+			Renpy.music.play(file_name, channel, 1, **kwargs)
+		@staticmethod
+		def stop(channel, **kwargs):
+			Renpy.music.stop(channel, 1, **kwargs)
 		
-		def has_label(self, label):
+		@staticmethod
+		def has_label(label):
 			return _has_label(label)
 		
-		def call_screen(self, screen_name, ret_name, **kwargs):
+		@staticmethod
+		def call_screen(screen_name, ret_name, **kwargs):
 			global call_screen_choosed, call_screen_name, call_ret_name
 			
 			call_screen_choosed = False
 			call_screen_name, call_ret_name = screen_name, ret_name
 			
 			show_screen(screen_name)
-
-init -999 python:
-	renpy = Renpy()
+	
+	
+	
+	renpy = Renpy
 	
 	def volume(vol, channel):
 		renpy.music.set_volume(vol, channel = channel, depth = 1)
+

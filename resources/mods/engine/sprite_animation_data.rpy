@@ -1,7 +1,7 @@
 init -9000 python:
 	
 	class SpriteAnimationData(Object):
-		def __init__(self):
+		def __init__(self, sprite, decl_at, at, show_at):
 			Object.__init__(self)
 			
 			self.state_num = 0
@@ -16,6 +16,16 @@ init -9000 python:
 			
 			self.contains = []
 			self.image = None
+			
+			self.sprite  = sprite
+			
+			self.decl_at = SpriteAnimation(decl_at, self)
+			self.at      = SpriteAnimation(at,      self)
+			self.show_at = SpriteAnimation(show_at, self)
+		
+		def update(self):
+			for at in (self.decl_at, self.at, self.show_at):
+				at.update()
 		
 		
 		def get_all_data(self, parent = None):

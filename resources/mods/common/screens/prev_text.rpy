@@ -32,6 +32,9 @@ screen prev_text:
 	image pt_background:
 		size (1.0, 1.0)
 	
+	python:
+		if not pause_inited:
+			init_pause()
 	button:
 		pos    (get_stage_width() - 30, 30)
 		anchor (0.5, 0.5)
