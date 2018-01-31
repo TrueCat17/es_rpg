@@ -3,36 +3,31 @@ init python:
 	start_screens = 'main_menu'
 	
 	hover_matrix = im.matrix.identity()
-	hover_matrix.t[19] += 0.01 # alpha += 0.01
+	hover_matrix[19] += 0.01 # alpha += 0.01
 	
 	back_path   =                es2d_gui + 'menu/main/back.png'
 	ground_path =                es2d_gui + 'menu/main/ground.png'
 	hover_path  = im.MatrixColor(es2d_gui + 'menu/main/hover.png', hover_matrix)
-
+	
+	tw, th = get_texture_width(ground_path), get_texture_height(ground_path)
 
 screen main_menu:
-	python:
-		sw, sh = get_stage_width(), get_stage_height()
-		tw, th = get_texture_width(ground_path), get_texture_height(ground_path)
-		
-		ix, iy = sw - 50, 30
-		
-		ground = im.Composite((sw, sh),
-		                      (0, 0), im.Scale(back_path, sw, sh),
-		                      (ix - tw, iy), ground_path)
-		hover  = im.Composite((sw, sh),
-		                      (ix - tw, iy), hover_path)
+	image back_path:
+		size (1.0, 1.0)
 	
 	imagemap:
-		ground  ground
-		hover   hover
+		pos (get_stage_width() - tw - 50, 30)
+		size (tw, th)
 		
-		hotspot (ix - tw, iy +   0, tw, 45) action Function(start_mod, "std")
-		hotspot (ix - tw, iy +  45, tw, 55) action ShowMenu('load')
-		hotspot (ix - tw, iy + 100, tw, 60) action ShowMenu('settings')
-		hotspot (ix - tw, iy + 160, tw, 50) action Function(out_msg, "Не реализовано")
-		hotspot (ix - tw, iy + 210, tw, 60) action Function(out_msg, "Не реализовано")
-		hotspot (ix - tw, iy + 270, tw, 50) action exit_from_game
+		ground  ground_path
+		hover   hover_path
+		
+		hotspot (0,   0, tw, 45) action Function(start_mod, "std")
+		hotspot (0,  45, tw, 55) action ShowMenu('load')
+		hotspot (0, 100, tw, 60) action ShowMenu('settings')
+		hotspot (0, 160, tw, 50) action Function(out_msg, "Не реализовано")
+		hotspot (0, 210, tw, 60) action Function(out_msg, "Не реализовано")
+		hotspot (0, 270, tw, 50) action exit_from_game
 
 
 label start:
