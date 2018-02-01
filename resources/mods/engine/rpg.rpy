@@ -36,6 +36,7 @@ label rpg_update:
 			$ renpy.call_screen('choose_menu', 'choose_menu_result')
 			while not call_screen_choosed:
 				pause 0.1
+			""
 			$ name, label = cur_quests_labels[choose_menu_result]
 			call expression label
 			

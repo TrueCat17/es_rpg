@@ -62,10 +62,6 @@ init -9000 python:
 			self.update_data_size()
 			if self.effect:
 				self.effect.update()
-			
-			for data in self.data_list:
-				for spr in data.contains:
-					spr.update()
 		
 		def __str__(self):
 			return str(self.call_str)

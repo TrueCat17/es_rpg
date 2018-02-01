@@ -26,6 +26,9 @@ init -9000 python:
 		def update(self):
 			for at in (self.decl_at, self.at, self.show_at):
 				at.update()
+			
+			for spr in self.contains:
+				spr.update()
 		
 		
 		def get_all_data(self, parent = None):
