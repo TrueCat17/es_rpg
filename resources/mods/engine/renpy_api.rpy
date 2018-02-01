@@ -123,6 +123,12 @@ init -999 python:
 		@staticmethod
 		def has_label(label):
 			return _has_label(label)
+		@staticmethod
+		def jump(label):
+			_jump_next(label, False)
+		@staticmethod
+		def call(label):
+			_jump_next(label, True)
 		
 		@staticmethod
 		def call_screen(screen_name, ret_name, **kwargs):
