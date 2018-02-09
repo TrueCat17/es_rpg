@@ -71,7 +71,7 @@ label day1_try_escape:
 
 
 label day1__enter__enter:
-	if "enter_welcome" not in was and False:
+	if "enter_welcome" not in was:
 		$ was.append("enter_welcome")
 		
 		$ control = False
@@ -83,14 +83,12 @@ label day1__enter__enter:
 		window hide
 		
 		$ show_character(sl, "clubs")
-		$ sl.set_direction(to_back)
 		$ sl.move_to_place("behind_enter", False)
 		
 		window show
 		sl "Привет, ля-ля-ля...вожатая...всё понял...я ушла..."
 		window hide
 		
-		$ sl.set_direction(to_forward)
 		$ sl.move_to_place("clubs", False)
 		$ hide_character(sl)
 		
@@ -130,14 +128,14 @@ label day1__clubs__before_clubs:
 		
 		"Первая убежала."
 		$ un.set_direction(to_right)
-		$ un.move_to_place("square", True, 0.5)
+		$ un.move_to_place("admin", True, 0.5)
 		
 		"Вторая посмотрела на меня"
 		$ us.set_direction(to_back)
 		extend ", а потом бросилась вслед за ней."
 		$ me.set_direction(to_right)
 		$ us.set_direction(to_right)
-		$ us.move_to_place("square", True)
+		$ us.move_to_place("admin", True)
 		$ hide_character(un)
 		$ hide_character(us)
 		

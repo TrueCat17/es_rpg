@@ -120,5 +120,5 @@ init -100000 python:
 		return res
 	
 	def can_exec_next_command():
-		return (read) and (call_screen_choosed) and (not character_moving) and (sprites_effects_ended())
+		return (read) and (call_screen_choosed) and (characters_moved()) and (sprites_effects_ended())
 	

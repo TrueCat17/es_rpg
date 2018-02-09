@@ -1,4 +1,4 @@
-init -1001 python:
+init -10000 python:
 	def exec_funcs(funcs):
 		if isinstance(funcs, list) or isinstance(funcs, tuple):
 			for func in funcs:

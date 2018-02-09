@@ -63,7 +63,12 @@ init -1001 python:
 	map_objects = dict()
 	
 	objects_on_location = []
-	
+	def characters_moved():
+		for obj in objects_on_location:
+			if isinstance(obj, Character):
+				if not obj.moved():
+					return False
+		return True
 	
 	def register_location(name, path_to_images, is_room, width, height):
 		location = Location(name, path_to_images, is_room, width, height)
@@ -78,9 +83,10 @@ init -1001 python:
 			return
 		
 		global cur_location, cur_location_name, cur_to_place
-		global objects_on_location, location_start_time
+		global location_start_time, objects_on_location
 		
 		location_start_time = time.time()
+		objects_on_location = []
 		
 		cur_location = locations[location_name]
 		cur_location_name = location_name
@@ -117,12 +123,8 @@ init -1001 python:
 			out_msg('hide_character', 'character == None')
 			return
 		
-		global objects_on_location
-		for i in xrange(len(objects_on_location)):
-			obj = objects_on_location[i]
-			if obj is character:
-				objects_on_location = objects_on_location[0:i] + objects_on_location[i + 1:]
-				break
+		if character in objects_on_location:
+			objects_on_location.remove(character)
 		else:
 			out_msg('hide_character', 'Персонаж <' + character.real_name + ', ' + character.unknow_name + '> не добавлен в список отображаемых')
 	
@@ -213,8 +215,8 @@ init -1001 python:
 			self.width, self.height = width, height
 			
 			self.main =  path_to_images + 'main.png'
-			self.over = (path_to_images + 'over.png') if os.path.exists('../resources/' + path_to_images + 'over.png') else None
-			self.free = (path_to_images + 'free.png') if os.path.exists('../resources/' + path_to_images + 'free.png') else None
+			self.over = (path_to_images + 'over.png') if os.path.exists(path_to_images + 'over.png') else None
+			self.free = (path_to_images + 'free.png') if os.path.exists(path_to_images + 'free.png') else None
 			
 			self.places = dict()
 			self.exits = []

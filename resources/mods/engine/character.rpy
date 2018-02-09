@@ -1,9 +1,9 @@
 init -1001 python:
-	character_walk_fps =            4
-	character_run_fps =            12
+	character_walk_fps          =   4
+	character_run_fps           =  12
 	character_acceleration_time = 0.5
-	character_walk_speed =         50
-	character_run_speed =         150
+	character_walk_speed        =  50
+	character_run_speed         = 150
 	
 	character_walk_acceleration = character_walk_speed / character_acceleration_time
 	character_run_acceleration = character_run_speed / character_acceleration_time
@@ -18,13 +18,20 @@ init -1001 python:
 	character_ysize = 96
 	
 	
+	# directions
 	to_forward = 3
 	to_back = 0
 	to_left = 1
 	to_right = 2
 	
+	character_skip_start_time = None
+	character_skip_acceleration = 5
+	def character_accelerate():
+		global character_skip_start_time
+		if character_skip_start_time is None:
+			character_skip_start_time = time.time()
+	character_unaccelerate = SetVariable('character_skip_start_time', None)
 	
-	character_moving = False
 	
 	characters = []
 	class Character(Object):
@@ -55,21 +62,25 @@ init -1001 python:
 			
 			self.frame = 0
 			self.direction = 0
+			self.run = False
 			self.pose = 'stance' 		# 'stance' | 'sit'
 			self.move_kind = 'stay' 	# 'stay'   | 'walk' | 'run'
 			
-			self.end_stop_time = 0
+			self.end_stop_time = None
+			self.end_moved = True
 			
 			self.crop = (0, 0, character_xsize, character_ysize)
 			
 			self.location = None
+			self.to_places = []
+			self.place_index = 0
 		
 		def __str__(self):
 			return str(self.name)
 		
 		def __call__(self, text):
-			show_text(	self.name, self.name_prefix, self.name_postfix, self.color,
-						text, self.text_prefix, self.text_postfix, self.text_color)
+			show_text(self.name, self.name_prefix, self.name_postfix, self.color,
+			          text, self.text_prefix, self.text_postfix, self.text_color)
 		
 		
 		#rpg-funcs:
@@ -110,35 +121,35 @@ init -1001 python:
 			
 			self.crop = (x, y, character_xsize, character_ysize)
 		
-		def move_to_place(self, place_name, run = False, exec_stop_time = -1):
-			if not cur_location_name:
-				out_msg('Character.move_to_place', 'Текущая локация не установлена, сначала следует вызвать set_location')
+		def to_next_place(self):
+			if not self.place_names:
 				return
+			
+			if not cur_location_name:
+				out_msg('Character.next_index', 'Текущая локация не установлена, сначала следует вызвать set_location')
+				return
+			
+			place_name = self.place_names[self.place_index]
 			place = cur_location.get_place(place_name)
 			if not place:
-				out_msg('Character.move_to_place', 'В локации <' + cur_location_name + '> нет места с именем <' + place_name + '>')
+				out_msg('Character.next_index', 'В локации <' + cur_location_name + '> нет места с именем <' + str(place_name) + '>')
 				return
 			
-			global character_moving
-			character_moving = True
-			
-			if exec_stop_time >= 0:
-				self.end_stop_time = time.time() + exec_stop_time
-			else:
-				self.end_stop_time = None
-			
+			character_unaccelerate()
 			
 			self.moving_start_time = time.time()
 			
-			self.pose = 'stance'
-			self.move_kind = 'run' if run else 'walk'
-			self.fps = character_run_fps if run else character_walk_fps
 			self.from_x, self.from_y = int(self.x), int(self.y)
 			self.to_x, self.to_y = int(place.x + place.width / 2), int(place.y + place.height / 2)
 			self.dx, self.dy = self.to_x - self.from_x, self.to_y - self.from_y
 			
-			self.speed = character_run_speed if run else character_walk_speed
-			self.acceleration = character_run_acceleration if run else character_walk_acceleration
+			def direction_from_d(dx, dy):
+				if abs(dx) > abs(dy):
+					return to_left if dx < 0 else to_right
+				return to_forward if dy < 0 else to_back
+			direction = direction_from_d(self.dx, self.dy)
+			self.set_direction(direction)
+			
 			acceleration_path = self.acceleration * (character_acceleration_time ** 2) / 2 # s = (at^2) / 2
 			
 			self.dist = get_dist(self.from_x, self.from_y, self.to_x, self.to_y)
@@ -151,40 +162,93 @@ init -1001 python:
 				no_acceleration_path = self.dist - acceleration_path * 2
 				self.no_acceleration_time = no_acceleration_path / float(self.speed) # t = s / v (if a == 0)
 				self.moving_full_time = self.no_acceleration_time + character_acceleration_time * 2
+			
+			size = len(self.place_names)
+			self.place_index = (self.place_index + 1) % size
+			
+			if self.place_index == 0:
+				self.place_names = None
+			elif self.place_index == size - 1:
+				place_name = self.place_names[self.place_index]
+				if type(place_name) is int:
+					if place_name < 0:
+						place_name -= 1
+					self.place_index = place_name
+		
+		def move_to_place(self, place_names, run = False, exec_stop_time = -1):
+			if type(place_names) not in (list, tuple):
+				place_names = [place_names]
+			self.place_index = 0
+			self.place_names = place_names
+			
+			self.end_moved = False
+			
+			if run:
+				self.move_kind =    'run'
+				self.fps =          character_run_fps
+				self.speed =        character_run_speed
+				self.acceleration = character_run_acceleration
+			else:
+				self.move_kind =    'walk'
+				self.fps =          character_walk_fps
+				self.speed =        character_walk_speed
+				self.acceleration = character_walk_acceleration
+			
+			self.to_next_place()
+			
+			if exec_stop_time >= 0:
+				self.end_stop_time = time.time() + exec_stop_time
+			else:
+				self.end_stop_time = None
+		
+		def moved(self):
+			if self.end_stop_time is None:
+				return self.end_moved
+			return self.end_stop_time < time.time()
 		
 		def update(self):
-			global character_moving
-			
-			if self.end_stop_time and self.end_stop_time < time.time():
-				self.end_stop_time = 0
-				character_moving = False
-			
 			self.update_crop()
 			if self.pose == 'sit' or self.move_kind == 'stay':
 				return
 			
-			moving_dtime = time.time() - self.moving_start_time
+			now = time.time()
+			if character_skip_start_time is not None and not control:
+				moving_dtime_before_accel = character_skip_start_time - self.moving_start_time
+				moving_dtime_after_accel = (now - character_skip_start_time) * character_skip_acceleration
+			else:
+				moving_dtime_before_accel = now - self.moving_start_time
+				moving_dtime_after_accel = 0
+			
+			moving_dtime = moving_dtime_before_accel + moving_dtime_after_accel
 			self.set_frame(int(moving_dtime * self.fps))
 			
 			if self.x == self.to_x and self.y == self.to_y:
 				return
 			
+			# save before self.to_next_place()
+			from_x, from_y = self.from_x, self.from_y
+			dx, dy = self.dx, self.dy
+			dist = self.dist
 			
-			if moving_dtime < self.acceleration_time:                               # Ещё не разогнались
+			if moving_dtime < self.acceleration_time:                               # Ещё не разогнались, s = a*(t^2)/2
 				cur_dist = self.acceleration * (moving_dtime ** 2) / 2
-			elif moving_dtime < self.acceleration_time + self.no_acceleration_time: # Ещё не тормозим
+			elif moving_dtime < self.acceleration_time + self.no_acceleration_time: # Ещё не тормозим,    s = a*(at^2)/2 + v*t
 				cur_dist = self.acceleration * (self.acceleration_time ** 2) / 2 + self.speed * (moving_dtime - self.acceleration_time)
-			elif moving_dtime < self.moving_full_time:                              # Ещё не пришли
-				cur_dist = self.dist - (self.acceleration * (self.moving_full_time - moving_dtime) ** 2) / 2
-			else:                                                                   # Всё, остановка
+			elif moving_dtime < self.moving_full_time:                              # Ещё не пришли,      s = full_s - a*((full_t-t)^2)/2
+				cur_dist = self.dist - self.acceleration * ((self.moving_full_time - moving_dtime) ** 2) / 2
+			else:                                                                   # Всё, остановка,     s = full_s
 				cur_dist = self.dist
 				
-				self.move_kind = 'stay'
-				if self.end_stop_time is None:
-					character_moving = False
+				next_cycle = self.place_names is not None
+				if not next_cycle:
+					self.move_kind = 'stay'
+					self.end_moved = True
+					character_unaccelerate()
+				else:
+					self.to_next_place()
 			
-			self.x = self.from_x + self.dx * cur_dist / self.dist
-			self.y = self.from_y + self.dy * cur_dist / self.dist
+			self.x = from_x + dx * cur_dist / dist
+			self.y = from_y + dy * cur_dist / dist
 	
 	
 	def set_name(who, name):

@@ -25,7 +25,7 @@ init python:
 	def loc__move_character(dx, dy):
 		global loc__prev_time
 		
-		if me.pose != 'stance' or character_moving or not control:
+		if me.pose != 'stance' or not control:
 			loc__prev_time = time.time()
 			return
 		
@@ -71,14 +71,16 @@ screen location:
 			
 			if draw_location_name != cur_location_name:
 				draw_location, draw_location_name = cur_location, cur_location_name
+				draw_objects_on_location = objects_on_location
 				
-				draw_objects_on_location = []
 				was_out_exit = False
 				show_character(me, cur_to_place)
 				cam_object = me
 		else:
 			loc__background_alpha = 0.0
 	
+	key 'SPACE'  action character_accelerate
+	key 'RETURN' action character_accelerate
 	
 	if draw_location_name:
 		python:
@@ -142,10 +144,10 @@ screen location:
 		python:
 			update_location_scale()
 			
-			for obj in objects_on_location:
+			for obj in draw_objects_on_location:
 				if obj.update:
 					obj.update()
-			objects_on_location.sort(key = lambda obj: obj.y)
+			draw_objects_on_location.sort(key = lambda obj: obj.y)
 			
 			draw_location.update_pos()
 		
@@ -153,7 +155,7 @@ screen location:
 			pos  (draw_location.x, draw_location.y)
 			size (draw_location.width * location_scale, draw_location.height * location_scale)
 			
-			for obj in objects_on_location:
+			for obj in draw_objects_on_location:
 				python:
 					obj_x, obj_y = obj.x * location_scale, obj.y * location_scale
 					obj_width, obj_height = obj.width * location_scale, obj.height * location_scale
