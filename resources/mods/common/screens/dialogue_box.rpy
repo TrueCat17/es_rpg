@@ -2,7 +2,7 @@ init -1000 python:
 	# db = dialogue box
 	
 	pause_end = 0
-	read = True
+	db_read = True
 	
 	db_pause_after_text = 0
 	db_pause_end = 0
@@ -41,7 +41,7 @@ init -1000 python:
 		global db_name_text, db_name_color
 		global db_voice_text, db_voice_full_text, db_last_text_postfix, db_voice_color
 		global db_pause_after_text, db_voice_text_after_pause
-		global read, db_start_time, db_prev_texts
+		global db_read, db_start_time, db_prev_texts
 		
 		if '{w' in text:
 			db_pause_after_text = 1000000
@@ -63,7 +63,7 @@ init -1000 python:
 			db_pause_end = 0
 			db_voice_text_after_pause = ''
 		
-		read = False
+		db_read = False
 		
 		
 		# Новый текст
@@ -175,7 +175,7 @@ init -1000 python:
 			sprites_effects_to_end()
 			return
 		
-		global pause_end, db_pause_end, db_dialogue, db_name_text, db_voice_text, db_voice_full_text, read
+		global pause_end, db_pause_end, db_dialogue, db_name_text, db_voice_text, db_voice_full_text, db_read
 		
 		if pause_end > time.time():
 			pause_end = time.time()
@@ -185,9 +185,9 @@ init -1000 python:
 			return
 		
 		if db_voice_text == db_voice_full_text:
-			if read:
+			if db_read:
 				return
-			read = True
+			db_read = True
 			
 			if db_mode == 'nvl':
 				db_dialogue += [(db_name_text, db_name_color, db_voice_text, db_voice_color)]

@@ -79,7 +79,7 @@ init -100000 python:
 				if os.path.exists(path_to_name) and os.path.getsize(path_to_name):
 					f = open(path_to_name)
 					
-					name = f.read()
+					name = f.db_read()
 					f.close()
 					if name and name[-1] == '\n':
 						name = name[:-1]
@@ -101,24 +101,14 @@ init -100000 python:
 		_out_msg(str(msg), str(err))
 	
 	def get_image(name):
-		code = get_image_code(name)
-		
-		empty_image = im.Rect('#000', 256, 256)
 		if image_was_registered(name):
-			try:
-				if code:
-					res = [code]
-				else:
-					res = []
-				res += get_image_decl_at(name)
-			except:
-				out_msg('get_image', 'Изображение <' + name + '> задано некорректно:\n' + '<' + code + '>')
-				res = [empty_image]
+			code = get_image_code(name)
+			res = ([code] if code else []) + get_image_decl_at(name)
 		else:
 			out_msg('get_image', 'Изображение <' + name + '> не зарегистрировано')
-			res = [empty_image]
+			res = [im.Rect('#000', 256, 256)]
 		return res
 	
 	def can_exec_next_command():
-		return (read) and (call_screen_choosed) and (characters_moved()) and (sprites_effects_ended())
+		return (db_read) and (call_screen_choosed) and (characters_moved()) and (sprites_effects_ended())
 	

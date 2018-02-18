@@ -79,8 +79,7 @@ screen location:
 		else:
 			loc__background_alpha = 0.0
 	
-	key 'SPACE'  action character_accelerate
-	key 'RETURN' action character_accelerate
+	key 'TAB' action character_accelerate
 	
 	if draw_location_name:
 		python:

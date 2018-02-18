@@ -27,10 +27,21 @@ init -1001 python:
 	character_skip_start_time = None
 	character_skip_acceleration = 5
 	def character_accelerate():
-		global character_skip_start_time
-		if character_skip_start_time is None:
-			character_skip_start_time = time.time()
-	character_unaccelerate = SetVariable('character_skip_start_time', None)
+		now = time.time()
+		for obj in objects_on_location:
+			if isinstance(obj, Character) and not obj.moved():
+				last_start = obj.start_skip_times[-1] if obj.start_skip_times else None
+				last_stop = obj.stop_skip_times[-1] if obj.stop_skip_times else None
+				if last_start is None or last_start < last_stop:
+					obj.start_skip_times.append(now)
+	def character_unaccelerate():
+		now = time.time()
+		for obj in objects_on_location:
+			if isinstance(obj, Character) and not obj.moved():
+				last_start = obj.start_skip_times[-1] if obj.start_skip_times else None
+				last_stop = obj.stop_skip_times[-1] if obj.stop_skip_times else None
+				if last_start is not None and last_start > last_stop:
+					obj.stop_skip_times.append(now)
 	
 	
 	characters = []
@@ -58,17 +69,20 @@ init -1001 python:
 			self.prefix_path_to_image = None
 			self.dress = None
 			
-			self.moving_start_time = time.time()
-			
 			self.frame = 0
 			self.direction = 0
 			self.run = False
-			self.pose = 'stance' 		# 'stance' | 'sit'
-			self.move_kind = 'stay' 	# 'stay'   | 'walk' | 'run'
+			self.pose = 'stance'       # 'stance' | 'sit'
+			self.move_kind = 'stay'    # 'stay'   | 'walk' | 'run'
+			
+			self.moving_start_time = time.time()
+			self.start_skip_times = []
+			self.stop_skip_times = []
 			
 			self.end_stop_time = None
 			self.end_moved = True
 			
+			self.x, self.y = 0, 0
 			self.crop = (0, 0, character_xsize, character_ysize)
 			
 			self.location = None
@@ -136,8 +150,9 @@ init -1001 python:
 				return
 			
 			character_unaccelerate()
-			
 			self.moving_start_time = time.time()
+			self.start_skip_times = []
+			self.stop_skip_times = []
 			
 			self.from_x, self.from_y = int(self.x), int(self.y)
 			self.to_x, self.to_y = int(place.x + place.width / 2), int(place.y + place.height / 2)
@@ -146,7 +161,7 @@ init -1001 python:
 			def direction_from_d(dx, dy):
 				if abs(dx) > abs(dy):
 					return to_left if dx < 0 else to_right
-				return to_forward if dy < 0 else to_back
+				return  to_forward if dy < 0 else to_back
 			direction = direction_from_d(self.dx, self.dy)
 			self.set_direction(direction)
 			
@@ -211,15 +226,21 @@ init -1001 python:
 			if self.pose == 'sit' or self.move_kind == 'stay':
 				return
 			
-			now = time.time()
-			if character_skip_start_time is not None and not control:
-				moving_dtime_before_accel = character_skip_start_time - self.moving_start_time
-				moving_dtime_after_accel = (now - character_skip_start_time) * character_skip_acceleration
-			else:
-				moving_dtime_before_accel = now - self.moving_start_time
-				moving_dtime_after_accel = 0
+			usual_time = 0
+			skip_time = 0
 			
-			moving_dtime = moving_dtime_before_accel + moving_dtime_after_accel
+			now = time.time()
+			
+			if self.start_skip_times and not control:
+				stop_skip_times  = [self.moving_start_time] + self.stop_skip_times + [now]
+				start_skip_times = self.start_skip_times + [now]
+				for i in xrange(len(stop_skip_times) - 1):
+					usual_time += start_skip_times[i] - stop_skip_times[i]
+					skip_time += stop_skip_times[i + 1] - start_skip_times[i]
+			else:
+				usual_time = now - self.moving_start_time
+			
+			moving_dtime = usual_time + skip_time * character_skip_acceleration
 			self.set_frame(int(moving_dtime * self.fps))
 			
 			if self.x == self.to_x and self.y == self.to_y:
