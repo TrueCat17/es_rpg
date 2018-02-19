@@ -29,7 +29,7 @@ init -1001 python:
 	def character_accelerate():
 		now = time.time()
 		for obj in objects_on_location:
-			if isinstance(obj, Character) and not obj.moved():
+			if isinstance(obj, Character):
 				last_start = obj.start_skip_times[-1] if obj.start_skip_times else None
 				last_stop = obj.stop_skip_times[-1] if obj.stop_skip_times else None
 				if last_start is None or last_start < last_stop:
@@ -37,10 +37,10 @@ init -1001 python:
 	def character_unaccelerate():
 		now = time.time()
 		for obj in objects_on_location:
-			if isinstance(obj, Character) and not obj.moved():
+			if isinstance(obj, Character):
 				last_start = obj.start_skip_times[-1] if obj.start_skip_times else None
 				last_stop = obj.stop_skip_times[-1] if obj.stop_skip_times else None
-				if last_start is not None and last_start > last_stop:
+				if last_start is not None and (last_stop is None or last_start > last_stop):
 					obj.stop_skip_times.append(now)
 	
 	
