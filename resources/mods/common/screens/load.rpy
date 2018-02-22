@@ -1,5 +1,5 @@
 init -1 python:
-	load_background = es2d_gui + 'menu/main/back.png'
+	load_background = gui + 'menu/main/back.png'
 
 
 screen load:

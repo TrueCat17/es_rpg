@@ -16,9 +16,9 @@ init python:
 	pause_show = 'inventory'
 	
 	
-	pause_back       = es2d_gui + 'menu/pause/back.png'
-	pause_inventory  = es2d_gui + 'menu/pause/inventory.png'
-	pause_notes      = es2d_gui + 'menu/pause/notes.png'
+	pause_back       = gui + 'menu/pause/back.png'
+	pause_inventory  = gui + 'menu/pause/inventory.png'
+	pause_notes      = gui + 'menu/pause/notes.png'
 	
 	pause_close_size = 25
 	
@@ -29,11 +29,11 @@ init python:
 		
 		pause_inited = True
 		
-		pause_close           = get_back_with_color(es2d_gui + 'menu/pause/close.png')
+		pause_close           = get_back_with_color(gui + 'menu/pause/close.png')
 		
-		pause_button          = im.MatrixColor(es2d_gui + 'menu/pause/button.png', im.matrix.invert() * im.matrix.tint(  0, 0.5, 1))
-		pause_button_hover    = im.MatrixColor(es2d_gui + 'menu/pause/button.png', im.matrix.invert() * im.matrix.tint(0.4, 0.8, 1))
-		pause_button_selected = im.MatrixColor(es2d_gui + 'menu/pause/button.png', im.matrix.invert() * im.matrix.tint(  1, 0.5, 0))
+		pause_button          = im.MatrixColor(gui + 'menu/pause/button.png', im.matrix.invert() * im.matrix.tint(  0, 0.5, 1))
+		pause_button_hover    = im.MatrixColor(gui + 'menu/pause/button.png', im.matrix.invert() * im.matrix.tint(0.4, 0.8, 1))
+		pause_button_selected = im.MatrixColor(gui + 'menu/pause/button.png', im.matrix.invert() * im.matrix.tint(  1, 0.5, 0))
 		
 		pause_button          = get_back_with_color(pause_button,          alpha = 0.5)
 		pause_button_hover    = get_back_with_color(pause_button_hover,    alpha = 0.2)

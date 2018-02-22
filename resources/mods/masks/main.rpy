@@ -4,7 +4,7 @@ init python:
 	
 	num_mask = 0
 	mask_dir = 'images/masks/'
-	mask_images = os.listdir('../resources/' + mask_dir)
+	mask_images = os.listdir(mask_dir)
 	mask_images.sort()
 	
 	mask_start_time = time.time()

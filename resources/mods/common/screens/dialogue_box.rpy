@@ -14,24 +14,24 @@ init -1000 python:
 	
 	db_font = style.text.font
 	
-	db_name = es2d_gui + 'dialogue/name.png'
+	db_name = gui + 'dialogue/name.png'
 	db_name_color = 0xFF0000
 	db_name_text = ''
 	
-	db_voice = es2d_gui + 'dialogue/voice.png'
+	db_voice = gui + 'dialogue/voice.png'
 	db_voice_color = 0xFFFF00
 	db_voice_text = ''
 	db_voice_full_text = ''
 	db_voice_text_after_pause = ''
 	
-	db_menu_btn = es2d_gui + 'dialogue/to_menu.png'
+	db_menu_btn = gui + 'dialogue/to_menu.png'
 	db_menu_btn_size = 50
 	db_menu_btn_indent = 20
 	
-	db_next_btn = es2d_gui + 'dialogue/to_next.png'
+	db_next_btn = gui + 'dialogue/to_next.png'
 	db_next_btn_size = 30
 	
-	db_prev_btn = es2d_gui + 'dialogue/to_prev.png'
+	db_prev_btn = gui + 'dialogue/to_prev.png'
 	db_prev_btn_size = 30
 	
 	db_prev_texts = []

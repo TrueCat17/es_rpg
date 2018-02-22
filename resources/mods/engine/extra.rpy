@@ -1,5 +1,5 @@
 init -10000 python:
-	es2d_gui = 'images/gui/'
+	gui = 'images/gui/'
 	
 	alphabet = tuple(map(chr, xrange(ord('a'), ord('z') + 1))) # a-z
 	numbers = tuple(xrange(10)) # 0-9
@@ -10,12 +10,12 @@ init -998 python:
 		global checkboxes_inited, checkbox_yes, checkbox_no
 		checkboxes_inited = True
 		
-		checkbox_yes = get_back_with_color(es2d_gui + 'std/checkbox/yes.png')
-		checkbox_no  = get_back_with_color(es2d_gui + 'std/checkbox/no.png')
+		checkbox_yes = get_back_with_color(gui + 'std/checkbox/yes.png')
+		checkbox_no  = get_back_with_color(gui + 'std/checkbox/no.png')
 	
 	
-	bar_ground = es2d_gui + 'std/bar/ground.png'
-	bar_hover  = es2d_gui + 'std/bar/hover.png'
+	bar_ground = gui + 'std/bar/ground.png'
+	bar_hover  = gui + 'std/bar/hover.png'
 	
 	vbar_ground = im.Rotozoom(bar_ground, 90, 1)
 	vbar_hover  = im.Rotozoom(bar_hover , 90, 1)
@@ -79,7 +79,7 @@ init -100000 python:
 				if os.path.exists(path_to_name) and os.path.getsize(path_to_name):
 					f = open(path_to_name)
 					
-					name = f.db_read()
+					name = f.read()
 					f.close()
 					if name and name[-1] == '\n':
 						name = name[:-1]

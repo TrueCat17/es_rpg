@@ -1,5 +1,5 @@
 init -1 python:
-	settings_background = es2d_gui + 'menu/main/back.png'
+	settings_background = gui + 'menu/main/back.png'
 	
 	settings_usual_btn = style.textbutton.ground
 	settings_selected_btn = im.MatrixColor(settings_usual_btn, im.matrix.contrast(2.0))

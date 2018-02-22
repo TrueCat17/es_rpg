@@ -1,5 +1,5 @@
 init -1 python:
-	save_background = es2d_gui + 'menu/main/back.png'
+	save_background = gui + 'menu/main/back.png'
 
 
 screen save:

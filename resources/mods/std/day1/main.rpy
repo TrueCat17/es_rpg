@@ -1,19 +1,18 @@
-
 label day1_start:
-	$ was = []
-	$ day_num = 1
-	
-	$ day1_bus = True
-	
-	$ me.set_dress('wn')
-	$ us.set_dress('sp')
-	
-	
-	$ control = False
-	
-	$ set_location("ikarus", "sit_place")
-	$ me.set_direction(to_right)
-	$ me.set_pose("sit")
+	python:
+		was = []
+		day_num = 1
+		
+		day1_bus = True
+		
+		me.set_dress('wn')
+		us.set_dress('sp')
+		
+		set_location("ikarus", "sit_place")
+		me.set_direction(to_right)
+		me.set_pose("sit")
+		
+		control = False
 	
 	window show
 	"Я очнулся фиг знает где, и тут теперь икарус."
@@ -29,7 +28,7 @@ label day1_start:
 
 
 label day1__enter__bus_enter:
-	if "bus_out" not in was and False:
+	if "bus_out" not in was:
 		$ was.append("bus_out")
 		
 		$ control = False
@@ -89,28 +88,27 @@ label day1__enter__enter:
 		sl "Привет, ля-ля-ля...вожатая...всё понял...я ушла..."
 		window hide
 		
-		$ sl.move_to_place("clubs", False)
+		$ sl.move_to_place("clubs")
 		$ hide_character(sl)
 		
 		$ control = True
 
 
 label day1__clubs__before_clubs:
-	if "clubs" not in was and False:
+	if "clubs" not in was:
 		$ was.append("clubs")
 		
 		$ control = False
 		$ me.move_kind = 'stay'
 		
 		window show
-		"Хотел идти дальше, но тут вышла {s}{color=" + un.color[1:] + "}Лена{/color}{/s} какая-то девушка."
+		"Хотел идти дальше, но тут вышла {s}{color=" + un.color + "}Лена{/color}{/s} какая-то девушка."
 		
 		$ me.set_direction(to_forward)
 		$ show_character(un, "door")
-		$ un.move_to_place("porch_1", False)
-		$ un.set_direction(to_back)
+		$ un.move_to_place("porch_1")
 		
-		"Хотел подойти, но тут появилась {s}{color=" + us.color[1:] + "}Ульяна{/color}{/s} ещё одна."
+		"Хотел подойти, но тут появилась {s}{color=" + us.color + "}Ульяна{/color}{/s} ещё одна."
 		
 		$ show_character(us, "cluster")
 		$ us.set_direction(to_right)
@@ -134,7 +132,6 @@ label day1__clubs__before_clubs:
 		$ us.set_direction(to_back)
 		extend ", а потом бросилась вслед за ней."
 		$ me.set_direction(to_right)
-		$ us.set_direction(to_right)
 		$ us.move_to_place("admin", True)
 		$ hide_character(un)
 		$ hide_character(us)
@@ -145,7 +142,7 @@ label day1__clubs__before_clubs:
 
 
 label day1__square__clubs:
-	if "square" not in was and False:
+	if "square" not in was:
 		$ was.append("square")
 		
 		$ control = False

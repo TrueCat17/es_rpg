@@ -60,7 +60,7 @@ init -1001 python:
 	
 	
 	locations = dict()
-	map_objects = dict()
+	location_objects = dict()
 	
 	objects_on_location = []
 	def characters_moved():
@@ -70,9 +70,46 @@ init -1001 python:
 					return False
 		return True
 	
+	
 	def register_location(name, path_to_images, is_room, width, height):
 		location = Location(name, path_to_images, is_room, width, height)
 		locations[name] = location
+	
+	def register_place(location_name, place_name, x, y, width, height):
+		if not locations.has_key(location_name):
+			out_msg('register_place', 'Локация <' + location_name + '> не зарегистрирована')
+			return
+		
+		location = locations[location_name]
+		if location.get_place(place_name):
+			out_msg('register_place', 'Место <' + place_name + '> в локации <' + self.name + '> уже существует')
+			return
+		
+		place = Place(x, y, width, height)
+		location.add_place(place, place_name)
+	
+	def register_location_object(obj_name, main, free = None, max_in_inventory_cell = 0, remove_to_location = True):
+		if location_objects.has_key(obj_name):
+			out_msg('register_location_object', 'Объект с именем <' + obj_name + '> уже существует')
+			return
+		
+		location_objects[obj_name] = {
+			'main': main,
+			'free': free,
+			'max_in_inventory_cell': max_in_inventory_cell,
+			'remove_to_location': remove_to_location
+		}
+	
+	def register_exit(location_name, to_location_name, to_place_name, x, y, width, height):
+		if not locations.has_key(location_name):
+			out_msg('register_exit', 'Локация <' + location_name + '> не зарегистрирована')
+			return
+		
+		location = locations[location_name]
+		exit = Exit(to_location_name, to_place_name, x, y, width, height)
+		location.add_exit(exit)
+	
+	
 	
 	def set_location(location_name, place_name):
 		if not locations.has_key(location_name):
@@ -85,12 +122,12 @@ init -1001 python:
 		global cur_location, cur_location_name, cur_to_place
 		global location_start_time, objects_on_location
 		
-		location_start_time = time.time()
-		objects_on_location = []
-		
 		cur_location = locations[location_name]
 		cur_location_name = location_name
 		cur_to_place = place_name
+		
+		location_start_time = time.time()
+		objects_on_location = list(cur_location.objects)
 		
 		main = cur_location.main
 		real_width, real_height = get_texture_width(main), get_texture_height(main)
@@ -135,75 +172,72 @@ init -1001 python:
 		cur_to_place = None
 	
 	
-	def set_map_object(obj_name, place_name):
-		if not cur_location_name:
-			out_msg('set_map_object', 'Текущая локация не установлена, сначала следует вызвать set_location')
-			return
-		place = cur_location.get_place(place_name)
-		if not place:
-			out_msg('set_map_object', 'В локации <' + cur_location_name + '> нет места с именем <' + place_name + '>')
-			return
-		if not map_objects.has_key(obj_name):
-			out_msg('set_map_object', 'Объект <' + obj_name + '> не найден')
-			return
-		
-		
-		images = map_objects[obj_name]
-		
-		map_object = Object()
-		map_object.image = images['main']
-		map_object.free = images['free']
-		map_object.x, map_object.y = place.x, place.y
-		map_object.xanchor, map_object.yanchor = 0, 1.0
-		map_object.width, map_object.height = get_texture_width(map_object.image), get_texture_height(map_object.image)
-		map_object.crop = (0, 0, 1.0, 1.0)
-		objects_on_location.append(map_object)
-	
-	def hide_map_object(obj_name):
-		if not map_objects.has_key(obj_name):
-			out_msg('hide_map_object', 'Объект <' + obj_name + '> не найден')
-			return
-		image = map_objects[obj_name]
-		
-		global objects_on_location
-		for i in xrange(len(objects_on_location)):
-			obj = objects_on_location[i]
-			if obj.image == image:
-				objects_on_location = objects_on_location[0:i] + objects_on_location[i + 1:]
-				break
-	
-	
-	def register_place(location_name, place_name, x, y, width, height):
+	def add_location_object(location_name, place, obj_name):
 		if not locations.has_key(location_name):
-			out_msg('register_place', 'Локация <' + location_name + '> не найдена')
+			out_msg('add_location_object', 'Локация <' + location_name + '> не зарегистрирована')
 			return
-		
 		location = locations[location_name]
-		if location.get_place(place_name):
-			out_msg('register_place', 'Место <' + place_name + '> в локации <' + self.name + '> уже существует')
+		
+		if type(place) is str:
+			place = location.get_place(place)
+			if not place:
+				out_msg('add_location_object', 'В локации <' + location_name + '> нет места с именем <' + place_name + '>')
+				return
+		px, py = place['x'], place['y']
+		
+		if not location_objects.has_key(obj_name):
+			out_msg('', 'Объект <' + obj_name + '> не зарегистрирован')
 			return
 		
-		place = Place(x, y, width, height)
-		location.add_place(place, place_name)
+		
+		obj = location_objects[obj_name]
+		
+		instance = Object()
+		instance.type = obj
+		instance.image = obj['main']
+		instance.free = obj['free']
+		instance.x, instance.y = px, py
+		instance.xanchor, instance.yanchor = 0, 1.0
+		instance.width, instance.height = get_texture_width(instance.image), get_texture_height(instance.image)
+		instance.crop = (0, 0, 1.0, 1.0)
+		location.objects.append(instance)
 	
-	def register_map_object(obj_name, main, free):
-		if map_objects.has_key(obj_name):
-			out_msg('register_map_object', 'Объект с именем <' + obj_name + '> уже существует')
-			return
-		map_object = {
-			'main': main,
-			'free': free
-		}
-		map_objects[obj_name] = map_object
-	
-	def register_exit(location_name, to_location_name, to_place_name, x, y, width, height):
+	def remove_location_object(location_name, place, obj_name, count):
 		if not locations.has_key(location_name):
-			out_msg('register_exit', 'Локация <' + location_name + '> не найдена')
+			out_msg('remove_location_object', 'Локация <' + location_name + '> не зарегистрирована')
 			return
-		
 		location = locations[location_name]
-		exit = Exit(to_location_name, to_place_name, x, y, width, height)
-		location.add_exit(exit)
+		
+		if type(place) is str:
+			place = location.get_place(place)
+			if not place:
+				out_msg('add_location_object', 'В локации <' + location_name + '> нет места с именем <' + place_name + '>')
+				return
+		if place:
+			px, py = place['x'], place['y']
+		else:
+			px = py = 0
+		
+		if not location_objects.has_key(obj_name):
+			out_msg('remove_location_object', 'Объект <' + obj_name + '> не зарегистрирован')
+			return
+		obj = location_objects[obj_name]
+		
+		to_remove = []
+		for i in location.objects:
+			if i.type is obj:
+				to_remove.append(i)
+		
+		def dist(o):
+			return ((o.x - px)**2 + (o.y - py)**2) ** 0.5
+		to_remove.sort(key = dist)
+		to_remove = to_remove[0:count]
+		
+		for i in to_remove:
+			if i in location.objects:
+				location.objects.remove(i)
+			if i in objects_on_location:
+				objects_on_location.remove(i)
 	
 	
 	class Location(Object):
@@ -220,6 +254,8 @@ init -1001 python:
 			
 			self.places = dict()
 			self.exits = []
+			
+			self.objects = []
 		
 		def preload(self):
 			load_image(self.main)

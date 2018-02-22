@@ -3,11 +3,11 @@ init python:
 	start_screens = 'main_menu'
 	
 	hover_matrix = im.matrix.identity()
-	hover_matrix[19] += 0.01 # alpha += 0.01
+	hover_matrix[19] = 0.01 # alpha += 0.01
 	
-	back_path   =                es2d_gui + 'menu/main/back.png'
-	ground_path =                es2d_gui + 'menu/main/ground.png'
-	hover_path  = im.MatrixColor(es2d_gui + 'menu/main/hover.png', hover_matrix)
+	back_path   =                gui + 'menu/main/back.png'
+	ground_path =                gui + 'menu/main/ground.png'
+	hover_path  = im.MatrixColor(gui + 'menu/main/hover.png', hover_matrix)
 	
 	tw, th = get_texture_width(ground_path), get_texture_height(ground_path)
 
