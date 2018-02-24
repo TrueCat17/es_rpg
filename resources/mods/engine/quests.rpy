@@ -22,7 +22,16 @@ init -1000 python:
 		
 		for quest, name in quests:
 			label = quest + '__on__' + location_name + '__' + place_name
-			
+			if renpy.has_label(label):
+				res.append((name, label))
+		
+		return res
+	
+	def quest_get_object_labels(action, obj_name):
+		res = []
+		
+		for quest, name in quests:
+			label = quest + '__on__' + action + '__' + obj_name
 			if renpy.has_label(label):
 				res.append((name, label))
 		

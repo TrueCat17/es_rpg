@@ -1,12 +1,53 @@
 label rpg_update:
-	$ exit = get_location_exit()
-	if exit:
-		$ set_location(exit.to_location_name, exit.to_place_name)
-		
-		if renpy.has_label('on__' + cur_location_name):
-			call expression 'on__' + cur_location_name
 	
-	$ cur_place_name = get_location_place()
+	if inventory_action is not None:
+		$ cur_quests_labels = quest_get_object_labels(inventory_action, inventory_action_object['name'])
+		
+		$ control = False
+		if len(cur_quests_labels) == 1:
+			call expression cur_quests_labels[0][1]
+		elif len(cur_quests_labels) > 1:
+			$ me.set_pose("stance")
+			window show
+			
+			$ action_name = {
+				'taking': 'взятие',
+				'using':  'использование',
+				'remove': 'выбрасывание',
+			}[inventory_action]
+			"При действии <" + action_name + "> на предмете пересекаются несколько активных квестов (" + str(len(cur_quests_labels)) + ")."
+			
+			$ choose_menu_variants = [name for name, label in cur_quests_labels]
+			$ renpy.call_screen('choose_menu', 'choose_menu_result')
+			
+			window hide
+			$ name, label = cur_quests_labels[choose_menu_result]
+			call expression label
+		$ control = True
+		
+		$ inventory_action = None
+	
+	python:
+		exit = get_location_exit()
+		if exit:
+			set_location(exit.to_location_name, exit.to_place_name)
+			
+			if renpy.has_label('on__' + cur_location_name):
+				renpy.call('on__' + cur_location_name)
+	
+	$ near_location_object = None
+	python:
+		if exec_action:
+			near_location_object = get_near_location_object()
+			if near_location_object is not None:
+				left = add_to_inventory(near_location_object.type, 1)
+				if left == 0:
+					remove_location_object(cur_location_name, me, near_location_object.type, 1)
+					inventory_do_action('taking', location_objects[near_location_object.type])
+				else:
+					near_location_object = None
+	
+	$ cur_place_name = get_location_place() if near_location_object is None else None
 	if cur_place_name:
 		$ cur_exec_label = cur_location_name + '__' + cur_place_name
 		if exec_action and renpy.has_label(cur_exec_label):
@@ -17,31 +58,23 @@ label rpg_update:
 				call expression cur_label
 		
 		$ cur_quests_labels = quest_get_labels(cur_location_name, cur_place_name)
+		$ control = False
 		if len(cur_quests_labels) == 1:
-			$ window_showed = db_visible
-			if not window_showed:
-				window show
-			$ control = False
 			call expression cur_quests_labels[0][1]
-			$ control = True
-			if not window_showed:
-				window hide
 		elif len(cur_quests_labels) > 1:
-			$ control = False
 			$ me.set_pose("stance")
 			window show
 			"В этом месте пересекаются несколько активных квестов (" + str(len(cur_quests_labels)) + ")."
 			
 			$ choose_menu_variants = [name for name, label in cur_quests_labels]
 			$ renpy.call_screen('choose_menu', 'choose_menu_result')
-			while not call_screen_choosed:
-				pause 0.1
+			
 			""
 			$ name, label = cur_quests_labels[choose_menu_result]
 			call expression label
 			
 			window hide
-			$ control = True
+		$ control = True
 	
 	$ exec_action = False
 

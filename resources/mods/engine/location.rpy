@@ -94,6 +94,7 @@ init -1001 python:
 			return
 		
 		location_objects[obj_name] = {
+			'name': obj_name,
 			'main': main,
 			'free': free,
 			'max_in_inventory_cell': max_in_inventory_cell,
@@ -183,7 +184,7 @@ init -1001 python:
 			if not place:
 				out_msg('add_location_object', 'В локации <' + location_name + '> нет места с именем <' + place_name + '>')
 				return
-		px, py = place['x'], place['y']
+		px, py = place['x'], place['y'] - 1
 		
 		if not location_objects.has_key(obj_name):
 			out_msg('', 'Объект <' + obj_name + '> не зарегистрирован')
@@ -193,7 +194,7 @@ init -1001 python:
 		obj = location_objects[obj_name]
 		
 		instance = Object()
-		instance.type = obj
+		instance.type = obj_name
 		instance.image = obj['main']
 		instance.free = obj['free']
 		instance.x, instance.y = px, py
@@ -201,8 +202,9 @@ init -1001 python:
 		instance.width, instance.height = get_texture_width(instance.image), get_texture_height(instance.image)
 		instance.crop = (0, 0, 1.0, 1.0)
 		location.objects.append(instance)
+		objects_on_location.append(instance)
 	
-	def remove_location_object(location_name, place, obj_name, count):
+	def remove_location_object(location_name, place, obj_name, count = 1):
 		if not locations.has_key(location_name):
 			out_msg('remove_location_object', 'Локация <' + location_name + '> не зарегистрирована')
 			return
@@ -218,14 +220,9 @@ init -1001 python:
 		else:
 			px = py = 0
 		
-		if not location_objects.has_key(obj_name):
-			out_msg('remove_location_object', 'Объект <' + obj_name + '> не зарегистрирован')
-			return
-		obj = location_objects[obj_name]
-		
 		to_remove = []
 		for i in location.objects:
-			if i.type is obj:
+			if i.type == obj_name:
 				to_remove.append(i)
 		
 		def dist(o):
@@ -362,4 +359,25 @@ init -1001 python:
 			was_out_place = True
 		
 		return None
+	
+	def get_near_location_object():
+		mx, my = me.x, me.y
+		min_dist = character_radius * 3
+		res = None
+		
+		for i in objects_on_location:
+			if isinstance(i, Character):
+				continue
+			
+			obj = location_objects[i.type]
+			if obj['max_in_inventory_cell'] <= 0:
+				continue
+			
+			dx, dy = i.x - mx, i.y - my
+			dist = math.sqrt(dx * dx + dy * dy)
+			if dist < min_dist:
+				min_dist = dist
+				res = i
+		return res
+		
 

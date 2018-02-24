@@ -1,6 +1,6 @@
 init -997 python:
 	
-	start_screens = 'location sprites dialogue_box fps_meter'
+	start_screens = 'location sprites dialogue_box inventory fps_meter'
 	
 	
 	config = renpy.config
