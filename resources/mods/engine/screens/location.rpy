@@ -73,7 +73,7 @@ screen location:
 				location_start_time -= location_fade_time
 			loc__background_alpha = 1.0 - (time.time() - location_start_time - location_fade_time) / location_fade_time
 			
-			if not location_changed:
+			if not location_changed and cur_location is not None:
 				location_changed = True
 				draw_location, draw_location_name = cur_location, cur_location_name
 				draw_objects_on_location = objects_on_location

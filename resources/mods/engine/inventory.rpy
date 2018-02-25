@@ -45,7 +45,7 @@ init -1000 python:
 		
 		t = 0
 		for element in inventory:
-			if element[0] == obj_name:
+			if element and element[0] == obj_name:
 				t += element[1]
 				if t >= count:
 					return True
@@ -56,11 +56,13 @@ init -1000 python:
 			out_msg('add_to_inventory', 'Объект с именем <' + obj_name + '> не зарегистрирован')
 			return count
 		
+		obj = location_objects[obj_name]
+		
 		while count > 0:
 			index = -1
 			for i in xrange(inventory_size):
 				element = inventory[i]
-				if element[0] == obj_name and element[1] < obj['max_in_inventory_cell']:
+				if element and element[0] == obj_name and element[1] < obj['max_in_inventory_cell']:
 					index = i
 					break
 			else:
