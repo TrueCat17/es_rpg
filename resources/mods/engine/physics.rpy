@@ -19,7 +19,7 @@ init python:
 			to_draw += [(0, 0), im.Rect('#000', cur_location.width, cur_location.height)]
 		
 		for obj in objs:
-			if near(obj.x, obj.y - obj.height, obj.width, obj.height):
+			if obj.free and near(obj.x, obj.y - obj.height, obj.width, obj.height):
 				to_draw += [(obj.x, obj.y - obj.height), im.MatrixColor(obj.free, im.matrix.invert() * matrix)]
 		
 		for character in characters:
