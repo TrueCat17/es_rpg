@@ -184,7 +184,9 @@ init -1001 python:
 			if not place:
 				out_msg('add_location_object', 'В локации <' + location_name + '> нет места с именем <' + place_name + '>')
 				return
-		px, py = place['x'], place['y'] - 1
+			px, py = place.x + place.width / 2, place.y + place.height / 2
+		else:
+			px, py = place['x'], place['y'] - 1
 		
 		if not location_objects.has_key(obj_name):
 			out_msg('', 'Объект <' + obj_name + '> не зарегистрирован')
@@ -198,7 +200,7 @@ init -1001 python:
 		instance.image = obj['main']
 		instance.free = obj['free']
 		instance.x, instance.y = px, py
-		instance.xanchor, instance.yanchor = 0, 1.0
+		instance.xanchor, instance.yanchor = 0.5, 1.0
 		instance.width, instance.height = get_texture_width(instance.image), get_texture_height(instance.image)
 		instance.crop = (0, 0, 1.0, 1.0)
 		location.objects.append(instance)

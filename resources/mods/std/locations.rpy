@@ -26,7 +26,7 @@ init python:
 	
 	# Вход в лагерь, ворота
 	register_location("enter", "images/locations/camp_enter/", False, 960, 992)
-	register_place("enter", "bus_pos", 120, 540, 0, 0)
+	register_place("enter", "bus_pos", 290, 540, 0, 0)
 	register_place("enter", "bus_enter", 400, 530, 35, 25)
 	register_place("enter", "out", 480, 980, 0, 0)
 	register_place("enter", "behind_enter", 490, 240, 0, 0)
