@@ -17,6 +17,11 @@ init -1000 python:
 		if renpy.has_label(quest + '__end'):
 			renpy.call(quest + '__end')
 	
+	def quest_started(quest):
+		name = globals().get(quest + "__name", quest)
+		return (quest, name) in quests
+	
+	
 	def quest_get_labels(location_name, place_name):
 		res = []
 		
