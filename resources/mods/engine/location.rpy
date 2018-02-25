@@ -120,8 +120,10 @@ init -1001 python:
 			out_msg('set_location', 'Локация <' + location_name + '> не содержит места <' + place_name + '>')
 			return
 		
-		global cur_location, cur_location_name, cur_to_place
 		global location_start_time, objects_on_location
+		global cur_location, cur_location_name, cur_to_place
+		global location_changed, draw_location, draw_location_name, draw_objects_on_location
+		global was_out_exit, cam_object
 		
 		cur_location = locations[location_name]
 		cur_location_name = location_name
@@ -133,6 +135,18 @@ init -1001 python:
 		main = cur_location.main
 		real_width, real_height = get_texture_width(main), get_texture_height(main)
 		reg_width, reg_height = cur_location.width, cur_location.height
+		
+		if draw_location is None:
+			location_start_time -= location_fade_time * 2
+			
+			location_changed = True
+			draw_location, draw_location_name = cur_location, cur_location_name
+			draw_objects_on_location = objects_on_location
+			
+			was_out_exit = False
+			show_character(me, cur_to_place)
+			cam_object = me
+		
 		if reg_width != real_width or reg_height != real_height:
 			reg_size = str(reg_width) + 'x' + str(reg_height)
 			real_size = str(real_width) + 'x' + str(real_height)
