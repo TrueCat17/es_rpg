@@ -16,6 +16,8 @@ init python:
 	loc__direction = to_back
 	loc__left_time = loc__right_time = loc__up_time = loc__down_time = max_time
 	
+	location_changed = False
+	
 	
 	def loc__get_min(a, b, c, d):
 		return [a, b, c, d].index(min(a, b, c, d))
@@ -64,12 +66,15 @@ screen location:
 		if time.time() - location_start_time < location_fade_time and cur_location_name:
 			loc__background_alpha = (time.time() - location_start_time) / location_fade_time
 			cur_location.preload()
+			
+			location_changed = False
 		elif time.time() - location_start_time < location_fade_time * 2:
 			if not cur_location_name:
 				location_start_time -= location_fade_time
 			loc__background_alpha = 1.0 - (time.time() - location_start_time - location_fade_time) / location_fade_time
 			
-			if draw_location_name != cur_location_name:
+			if not location_changed:
+				location_changed = True
 				draw_location, draw_location_name = cur_location, cur_location_name
 				draw_objects_on_location = objects_on_location
 				

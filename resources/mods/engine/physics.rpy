@@ -12,19 +12,24 @@ init python:
 		matrix = im.matrix.identity()
 		matrix[4] = matrix[9] = matrix[14] = -253.9/255.0
 		
-		to_draw = [(cur_location.width, cur_location.height), (0, 0), cur_location.free]
+		to_draw = [(cur_location.width, cur_location.height)]
+		if cur_location.free:
+			to_draw += [(0, 0), cur_location.free]
+		else:
+			to_draw += [(0, 0), im.Rect('#000', cur_location.width, cur_location.height)]
+		
 		for obj in objs:
 			if near(obj.x, obj.y - obj.height, obj.width, obj.height):
 				to_draw += [(obj.x, obj.y - obj.height), im.MatrixColor(obj.free, im.matrix.invert() * matrix)]
 		
 		for character in characters:
 			if near(character.x, character.y, 0, 0):
-				to_draw += [(character.x - cs / 2, character.y - cs / 2), im.Rect('#FFFFFF', cs, cs)]
+				to_draw += [(character.x - cs / 2, character.y - cs / 2), im.Rect('#FFF', cs, cs)]
 		
-		if len(to_draw) != 3:
-			res = im.Composite(*to_draw)
-		else:
+		if len(to_draw) == 3:
 			res = cur_location.free
+		else:
+			res = im.Composite(*to_draw)
 		return res
 	
 	
