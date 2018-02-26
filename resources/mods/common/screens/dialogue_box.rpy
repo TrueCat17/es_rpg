@@ -29,10 +29,10 @@ init -1000 python:
 	db_menu_btn_indent = 20
 	
 	db_next_btn = gui + 'dialogue/to_next.png'
-	db_next_btn_size = 30
+	db_next_btn_size = 50
 	
 	db_prev_btn = gui + 'dialogue/to_prev.png'
-	db_prev_btn_size = 30
+	db_prev_btn_size = 50
 	
 	db_prev_texts = []
 	
