@@ -47,6 +47,12 @@ init -100000 python:
 	def quick_save():
 		sl_save(config.quick_save_table, config.quick_save_name)
 	
+	def make_screenshot():
+		global need_screenshot, screenshot_width, screenshot_height
+		need_screenshot = True
+		screenshot_width, screenshot_height = get_stage_width(), get_stage_height()
+	
+	
 	def ceil(n):
 		res = int(n)
 		if res != n and n > 0:
@@ -110,5 +116,5 @@ init -100000 python:
 		return res
 	
 	def can_exec_next_command():
-		return (db_read) and (call_screen_choosed) and (characters_moved()) and (sprites_effects_ended())
+		return pause_end < time.time() and db_read and call_screen_choosed and characters_moved() and sprites_effects_ended()
 	

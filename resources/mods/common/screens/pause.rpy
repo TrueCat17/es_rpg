@@ -97,7 +97,7 @@ screen pause:
 	key 'ESCAPE' action pause_close_func
 	
 	
-	if not screenshotting:
+	if not save_screenshotting:
 		image 'images/bg/black.jpg':
 			alpha 0.4
 			pos  (0, 0)

@@ -218,6 +218,8 @@ screen dialogue_box:
 	
 	key 'ESCAPE' action show_pause
 	
+	key 'p' action make_screenshot
+	
 	key config.quick_load_key action quick_load
 	key config.quick_save_key action quick_save
 	

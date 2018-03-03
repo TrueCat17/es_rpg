@@ -50,7 +50,7 @@ screen masks:
 			textbutton '<-':
 				size (30, 30)
 				color '#FFFFFF'
-				action [SetVariable('duration', max(0, duration - 0.5)), restart_mask]
+				action [SetVariable('duration', max(0.5, duration - 0.5)), restart_mask]
 			
 			text duration:
 				size (50, 30)

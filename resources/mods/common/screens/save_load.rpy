@@ -51,9 +51,11 @@ init -2 python:
 		return over
 	
 	def sl_save(table, save):
-		global save_table, save_name, need_save
-		save_table, save_name = table, save
+		global need_save, save_table, save_name, screenshot_width, screenshot_height
 		need_save = True
+		save_table, save_name = table, save
+		screenshot_width = config.save_screenshot_width
+		screenshot_height = int(screenshot_width / get_from_hard_config("window_w_div_h", float))
 		
 	
 	def sl_delete_save(table, save):

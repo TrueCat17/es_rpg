@@ -12,6 +12,9 @@ init -997 python:
 	
 	config.count_prev_texts = 25
 	
+	# height calculate: width / get_from_hard_config("window_w_div_h", float)
+	config.save_screenshot_width = 640*2
+	
 	
 	if config.fps_meter is None:
 		config.fps_meter = True

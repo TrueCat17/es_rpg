@@ -12,7 +12,7 @@ screen save:
 		if random.random() < 4.0 / get_fps():
 			sl_update_table_saves()
 	
-	if not screenshotting:
+	if not save_screenshotting:
 		image save_background:
 			size (1.0, 1.0)
 			

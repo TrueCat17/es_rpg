@@ -3,6 +3,7 @@ label rpg_update:
 	if inventory_action is not None:
 		$ cur_quests_labels = quest_get_object_labels(inventory_action, inventory_action_object['name'])
 		
+		$ me.move_kind = 'stay'
 		$ control = False
 		if len(cur_quests_labels) == 1:
 			call expression cur_quests_labels[0][1]
