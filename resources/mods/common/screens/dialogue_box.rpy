@@ -10,6 +10,7 @@ init -1000 python:
 	db_dialogue = []
 	
 	db_visible = True
+	db_hide_interdace = False
 	db_mode = 'adv'
 	
 	db_font = style.text.font
@@ -213,132 +214,146 @@ init -1000 python:
 screen dialogue_box:
 	zorder -2
 	
-	key 'RETURN' action db_on_enter
-	key 'SPACE'  action db_on_enter
+	key 'h' action SetVariable('db_hide_interdace', not db_hide_interdace)
 	
-	key 'ESCAPE' action show_pause
+	key 'RETURN' action If(db_hide_interdace, SetVariable('db_hide_interdace', False), db_on_enter)
+	key 'SPACE'  action If(db_hide_interdace, SetVariable('db_hide_interdace', False), db_on_enter)
 	
-	key 'p' action make_screenshot
-	
-	key config.quick_load_key action quick_load
-	key config.quick_save_key action quick_save
+	key 'ESCAPE' action If(db_hide_interdace, SetVariable('db_hide_interdace', False), show_pause)
 	
 	
-	$ db_update()
-	
-	button:
-		ground 'images/bg/black.jpg'
-		hover  'images/bg/black.jpg'
+	if not db_hide_interdace:
+		key 'p' action make_screenshot
 		
-		size   (1.0, 1.0)
-		alpha  0.01
-		mouse  False
-		
-		action db_on_enter
-	
-	
-	if db_visible:
-		
-		if db_mode == 'adv':
-			vbox:
-				align (0.5, 0.99)
-				
-				image db_name:
-					xpos max(get_stage_width() / 10, db_prev_btn_size * 2)
-					size (max(250, get_stage_width() / 5), db_text_size * 1.5)
-					
-					text db_name_text:
-						font       db_font
-						text_align 'center'
-						text_size  db_text_size
-						color      db_name_color
-						align      (0.5, 0.8)
-				
-				hbox:
-					spacing 5
-					xalign 0.5
-					
-					button:
-						yalign 0.5
-						ground db_prev_btn
-						size   (db_prev_btn_size, db_prev_btn_size)
-						action ShowMenu('prev_text')
-					
-					image db_voice:
-						size (0.85, max(80, 0.2 * get_stage_height()))
-		
-						text db_voice_text:
-							font      db_font
-							text_size db_text_size
-							color     db_voice_color
-							align     (0.5, 0.5)
-							size      (0.825, max(70, 0.18 * get_stage_height()))
-					
-					button:
-						yalign 0.5
-						ground db_next_btn
-						size   (db_next_btn_size, db_next_btn_size)
-						action db_on_enter
+		key config.quick_load_key action quick_load
+		key config.quick_save_key action quick_save
 		
 		
-		elif db_mode == 'nvl':
-			image im.Alpha('images/bg/black.jpg', 0.3):
-				size (1.0, 1.0)
-				
-				button:
-					ground 'images/bg/black.jpg'
-					hover  'images/bg/black.jpg'
-					
-					size   (1.0, 1.0)
-					alpha  0.01
-					mouse  False
-					
-					action db_on_enter
-				
+		$ db_update()
+		
+		button:
+			ground 'images/bg/black.jpg'
+			hover  'images/bg/black.jpg'
+			
+			size   (1.0, 1.0)
+			alpha  0.01
+			mouse  False
+			
+			action db_on_enter
+		
+		
+		if db_visible:
+			
+			if db_mode == 'adv':
 				vbox:
-					anchor 	(0.5, 0.0)
-					pos		(0.5, 0.05)
-					
-					
-					$ db_last_dialogue = db_dialogue + [(db_name_text, db_name_color, db_voice_text, db_voice_color)]
-					
-					for db_name_text_i, db_name_color_i, db_voice_text_i, db_voice_color_i in db_last_dialogue:
-						python:
-							db_tmp_name = ('{color=' + str(db_name_color_i) + '}' + db_name_text_i + '{/color}: ') if db_name_text_i else ''
-							db_tmp_voice = db_voice_text_i if db_voice_text_i else ' '
-						
-						text (db_tmp_name + db_tmp_voice):
-							font      db_font
-							text_size db_text_size
-							color     db_voice_color_i
-							xsize     0.75
-				
-				hbox:
-					spacing 5
 					align (0.5, 0.99)
 					
-					button:
-						yalign 0.5
-						ground db_prev_btn
-						size   (db_prev_btn_size, db_prev_btn_size)
-						action ShowMenu('prev_text')
+					image db_name:
+						xpos max(get_stage_width() / 10, db_prev_btn_size * 2)
+						size (max(250, get_stage_width() / 5), db_text_size * 1.5)
+						
+						text db_name_text:
+							font       db_font
+							text_align 'center'
+							text_size  db_text_size
+							color      db_name_color
+							align      (0.5, 0.8)
 					
-					null size (0.9, 0.2)
+					hbox:
+						spacing 5
+						xalign 0.5
+						
+						button:
+							yalign 0.5
+							ground db_prev_btn
+							size   (db_prev_btn_size, db_prev_btn_size)
+							action ShowMenu('prev_text')
+						
+						image db_voice:
+							size (0.85, max(80, 0.2 * get_stage_height()))
+			
+							text db_voice_text:
+								font      db_font
+								text_size db_text_size
+								color     db_voice_color
+								align     (0.5, 0.5)
+								size      (0.825, max(70, 0.18 * get_stage_height()))
+						
+						button:
+							yalign 0.5
+							ground db_next_btn
+							size   (db_next_btn_size, db_next_btn_size)
+							action db_on_enter
+			
+			
+			elif db_mode == 'nvl':
+				image im.Alpha('images/bg/black.jpg', 0.3):
+					size (1.0, 1.0)
 					
 					button:
-						yalign 0.5
-						ground db_next_btn
-						size   (db_next_btn_size, db_next_btn_size)
+						ground 'images/bg/black.jpg'
+						hover  'images/bg/black.jpg'
+						
+						size   (1.0, 1.0)
+						alpha  0.01
+						mouse  False
+						
 						action db_on_enter
-	
-	
-	button:
-		ground 	db_menu_btn
+					
+					vbox:
+						anchor 	(0.5, 0.0)
+						pos		(0.5, 0.05)
+						
+						
+						$ db_last_dialogue = db_dialogue + [(db_name_text, db_name_color, db_voice_text, db_voice_color)]
+						
+						for db_name_text_i, db_name_color_i, db_voice_text_i, db_voice_color_i in db_last_dialogue:
+							python:
+								db_tmp_name = ('{color=' + str(db_name_color_i) + '}' + db_name_text_i + '{/color}: ') if db_name_text_i else ''
+								db_tmp_voice = db_voice_text_i if db_voice_text_i else ' '
+							
+							text (db_tmp_name + db_tmp_voice):
+								font      db_font
+								text_size db_text_size
+								color     db_voice_color_i
+								xsize     0.75
+					
+					hbox:
+						spacing 5
+						align (0.5, 0.99)
+						
+						button:
+							yalign 0.5
+							ground db_prev_btn
+							size   (db_prev_btn_size, db_prev_btn_size)
+							action ShowMenu('prev_text')
+						
+						null size (0.9, 0.2)
+						
+						button:
+							yalign 0.5
+							ground db_next_btn
+							size   (db_next_btn_size, db_next_btn_size)
+							action db_on_enter
 		
-		anchor (0.5, 0.5)
-		pos    (get_stage_width() - db_menu_btn_indent - db_menu_btn_size / 2, db_menu_btn_indent + db_menu_btn_size / 2)
-		size   (db_menu_btn_size, db_menu_btn_size)
-		action show_pause
 		
-		rotate (int(time.time() * 10) % 360)
-	
+		button:
+			ground 	db_menu_btn
+			
+			anchor (0.5, 0.5)
+			pos    (get_stage_width() - db_menu_btn_indent - db_menu_btn_size / 2, db_menu_btn_indent + db_menu_btn_size / 2)
+			size   (db_menu_btn_size, db_menu_btn_size)
+			action show_pause
+			
+			rotate (int(time.time() * 10) % 360)
+	else:
+		button:
+			ground 'images/bg/black.jpg'
+			hover  'images/bg/black.jpg'
+			
+			size   (1.0, 1.0)
+			alpha  0.01
+			mouse  False
+			
+			action SetVariable('db_hide_interdace', False)
+

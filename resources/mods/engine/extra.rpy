@@ -47,10 +47,10 @@ init -100000 python:
 	def quick_save():
 		sl_save(config.quick_save_table, config.quick_save_name)
 	
-	def make_screenshot():
+	def make_screenshot(width = None, height = None):
 		global need_screenshot, screenshot_width, screenshot_height
 		need_screenshot = True
-		screenshot_width, screenshot_height = get_stage_width(), get_stage_height()
+		screenshot_width, screenshot_height = width or get_stage_width(), height or get_stage_height()
 	
 	
 	def ceil(n):
