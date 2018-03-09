@@ -319,6 +319,10 @@ init -1001 python:
 			                    (0, 0), ground,
 			                    (x, y), im.scale(hover, w, h))
 		
+		@staticmethod
+		def save(image, path, width = None, height = None):
+			save_image(image, path, str(width), str(height))
+		
 		
 		Scale = scale
 		FactorScale = factor_scale
@@ -344,6 +348,8 @@ init -1001 python:
 		Rect = rect
 		Circle = circle
 		Bar = bar
+		
+		Save = save
 
 init -1000 python:
 	im = Im
