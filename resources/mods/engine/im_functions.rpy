@@ -321,7 +321,7 @@ init -1001 python:
 		
 		@staticmethod
 		def save(image, path, width = None, height = None):
-			save_image(image, path, str(width), str(height))
+			save_image(image, path, str(int(width)), str(int(height)))
 		
 		
 		Scale = scale

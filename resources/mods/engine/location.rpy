@@ -261,9 +261,12 @@ init -1001 python:
 			self.is_room = is_room
 			self.width, self.height = width, height
 			
-			self.main =  path_to_images + 'main.png'
-			self.over = (path_to_images + 'over.png') if os.path.exists(path_to_images + 'over.png') else None
-			self.free = (path_to_images + 'free.png') if os.path.exists(path_to_images + 'free.png') else None
+			over_path = os.path.join(path_to_images, 'over.png')
+			free_path = os.path.join(path_to_images, 'free.png')
+			
+			self.main = os.path.join(path_to_images, 'main.png')
+			self.over = over_path if os.path.exists(over_path) else None
+			self.free = free_path if os.path.exists(free_path) else None
 			
 			self.places = dict()
 			self.exits = []
