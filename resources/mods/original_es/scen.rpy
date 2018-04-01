@@ -16,6 +16,7 @@ label prologue:
 	$ prolog_time()
 	
 	play music music_list["a_promise_from_distant_days_v2"] fadein 3
+	window hide
 	scene anim prolog_1 with fade3
 	window show
 	"{i}Этот{/i} сон..."

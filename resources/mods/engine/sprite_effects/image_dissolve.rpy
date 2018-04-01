@@ -32,16 +32,11 @@ init -9000 python:
 					mask = im.MatrixColor(mask, im.matrix.invert())
 				
 				sw, sh = get_stage_width(), get_stage_height()
-				w, h = get_texture_width(data.image), get_texture_height(data.image)
-				if w > sw or h > sh:
-					kw = float(sw) / w
-					kh = float(sh) / h
-					k = max(kw, kh)
-					w, h = int(w * k), int(h * k)
-					image = im.Scale(data.image, w, h)
-				else:
-					image = data.image
-				mask = im.Scale(mask, w, h)
+				w = min(get_absolute(data.xsize, sw), get_texture_width(data.image))
+				h = min(get_absolute(data.ysize, sh), get_texture_height(data.image))
+				
+				image = im.RendererScale(data.image, w, h)
+				mask = im.RendererScale(mask, w, h)
 				
 				value = in_bounds(int(k_time * 255), 0, 255)
 				if reverse:

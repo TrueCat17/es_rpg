@@ -22,12 +22,6 @@ init -998 python:
 
 
 
-init -1100000000 python:
-	def get_traceback(tb):
-		import traceback
-		l = traceback.format_tb(tb)
-		return ''.join(l)
-
 init -1000000 python:
 	def get_numline(depth):
 		s = inspect.stack()

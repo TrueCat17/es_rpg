@@ -213,6 +213,10 @@ init -1001 python:
 			return 'FactorScale|(' + image + ')|' + str(k)
 		
 		@staticmethod
+		def renderer_scale(image, w, h):
+			return 'RendererScale|(' + image + ')|' + str(int(w)) + '|' + str(int(h))
+		
+		@staticmethod
 		def crop(image, rect):
 			rect = map(lambda f: str(int(f)), rect)
 			rect = ' '.join(rect)
@@ -290,10 +294,9 @@ init -1001 python:
 			return im.scale(im.matrix_color('images/bg/black.jpg', m), width, height)
 		@staticmethod
 		def circle(color, width = 64, height = None):
-			height = width if height is None else height
 			r, g, b, a = renpy.easy.color(color)
 			m = im.matrix.invert() * im.matrix.tint(r / 255.0, g / 255.0, b / 255.0, a / 255.0)
-			return im.scale(im.matrix_color('images/bg/black_circle.png', m), width, height)
+			return im.scale(im.matrix_color('images/bg/black_circle.png', m), width, height or width)
 		
 		@staticmethod
 		def bar(progress_end, progress_start = 0, vertical = False, ground = None, hover = None):
@@ -302,10 +305,13 @@ init -1001 python:
 			if hover is None:
 				hover  = vbar_hover if vertical else bar_hover
 			tw, th = get_texture_width(ground), get_texture_height(ground)
-			x = 0 if vertical else progress_start * tw
-			y = 0 if not vertical else progress_start * th
-			w = (1 if vertical else progress_end - progress_start) * tw
-			h = (1 if not vertical else progress_end - progress_start) * th
+			
+			if vertical:
+				x, y = 0, progress_start * th
+				w, h = tw, (progress_end - progress_start) * th
+			else:
+				x, y = progress_start * tw, 0
+				w, h = (progress_end - progress_start) * tw, th
 			
 			x, y = in_bounds(int(x), 0, tw), in_bounds(int(y), 0, th)
 			w, h = in_bounds(int(w), 0, tw), in_bounds(int(h), 0, th)
@@ -317,15 +323,16 @@ init -1001 python:
 			
 			return im.composite((tw, th),
 			                    (0, 0), ground,
-			                    (x, y), im.scale(hover, w, h))
+			                    (x, y), im.crop(hover, (x, y, w, h)))
 		
 		@staticmethod
 		def save(image, path, width = None, height = None):
-			save_image(image, path, str(int(width)), str(int(height)))
+			save_image(image, path, str(width and int(width)), str(height and int(height)))
 		
 		
 		Scale = scale
 		FactorScale = factor_scale
+		RendererScale = renderer_scale
 		Crop = crop
 		
 		Composite = composite
