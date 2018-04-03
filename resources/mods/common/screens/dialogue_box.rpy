@@ -9,7 +9,7 @@ init -1000 python:
 	
 	db_dialogue = []
 	
-	db_visible = True
+	db_visible = False
 	db_hide_interdace = False
 	db_mode = 'adv'
 	
@@ -93,6 +93,8 @@ init -1000 python:
 		db_prev_texts = db_prev_texts[-config.count_prev_texts:]
 		
 		db_voice_color = text_color
+		
+		window_show()
 	
 	
 	def db_update():
