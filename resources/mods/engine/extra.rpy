@@ -57,36 +57,13 @@ init -100000 python:
 		return vmin if v < vmin else vmax if v > vmax else v
 	
 	def get_absolute(value, max_value):
-		if (value > 0 and value < 1) or (value == 1.0 and type(value) is float):
-			return int(value * max_value)
+		if type(value) is float and value > 0 and value <= 1.0:
+			value *= max_value
 		return int(value)
 	
 	def get_dist(x1, y1, x2, y2):
-		return ((x1-x2)**2 + (y1-y2)**2) ** 0.5
-	
-	def get_mods():
-		# name : directory
-		res = {}
-		
-		mods_path = 'mods/'
-		fs_and_ds = os.listdir(mods_path)
-		for path in fs_and_ds:
-			if path[-1] in ('/', '\\'):
-				path = path[:-1]
-			
-			if os.path.isdir(mods_path + path):
-				path_to_name = mods_path + path + '/name'
-				if os.path.exists(path_to_name) and os.path.getsize(path_to_name):
-					f = open(path_to_name)
-					
-					name = f.read()
-					f.close()
-					if name and name[-1] == '\n':
-						name = name[:-1]
-					
-					if name:
-						res[name] = path
-		return res
+		dx, dy = x1 - x2, y1 - y2
+		return math.sqrt(dx*dx + dy*dy)
 	
 	def get_from_hard_config(param, ret_type):
 		res = _get_from_hard_config(str(param))

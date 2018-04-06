@@ -1,7 +1,7 @@
 label day0_start:
 	$ make_names_unknown()
 	
-	$ me.set_dress('wn')
+	$ me.set_dress('winter')
 	
 	scene anim prolog_1
 	play music music_list["a_promise_from_distant_days_v2"] fadein 3

@@ -5,8 +5,8 @@ label day1_start:
 		
 		day1_bus = True
 		
-		me.set_dress('wn')
-		us.set_dress('sp')
+		me.set_dress('winter')
+		us.set_dress('sport')
 		
 		set_location("ikarus", "sit_place")
 		me.set_direction(to_right)

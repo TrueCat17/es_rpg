@@ -32,7 +32,7 @@ init -1000 python:
 	sh = Character('Шурик',            unknown_name = 'Пионер',           color = '#F3F301')
 	uv = Character('Юля',              unknown_name = 'Странная девочка', color = '#FFFF00')
 	
-	pm = Character('Пионер', color = '#FFFFFF')
+	pm = Character('Пионер',   color = '#FFFFFF')
 	pf = Character('Пионерка', color = '#FFFFFF')
 	
 	
@@ -44,7 +44,7 @@ init -1000 python:
 	
 	g = globals()
 	for name in rpg_characters:
-		g[name].make_rpg('images/characters/' + name + '_', 'pi')
+		g[name].make_rpg('images/characters/' + name + '_', 'pioneer')
 		g['lp_' + name] = 0
 	
 	

@@ -10,6 +10,20 @@ init python:
 	hover_path  = im.MatrixColor(gui + 'menu/main/hover.png', hover_matrix)
 	
 	tw, th = get_texture_width(ground_path), get_texture_height(ground_path)
+	
+	if 0:
+		bus = 'images/bg/bus_stop.jpg'
+		get_texture_height(bus)
+		
+		N = 15
+		st = time.time()
+		for i in xrange(N):
+			args = [(1920 + N, 1080)]
+			for j in xrange(300):
+				args += [(i, j), bus]
+			get_texture_height(im.composite(*args))
+		print (time.time() - st) / N
+	
 
 
 screen main_menu:
@@ -23,7 +37,7 @@ screen main_menu:
 		ground  ground_path
 		hover   hover_path
 		
-		hotspot (0,   0, tw, 45) action Function(start_mod, "rpg_editor"*0+"test")
+		hotspot (0,   0, tw, 45) action Function(start_mod, "rpg_editor")
 		hotspot (0,  45, tw, 55) action ShowMenu('load')
 		hotspot (0, 100, tw, 60) action ShowMenu('settings')
 		hotspot (0, 160, tw, 50) action Function(out_msg, "Не реализовано")
