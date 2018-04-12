@@ -26,6 +26,8 @@ label day1_start:
 	window hide
 	$ control = True
 
+# Используется только day1__enter__gates:
+
 
 label day1__enter__bus_enter:
 	if "bus_out" not in was:
@@ -51,7 +53,6 @@ label day1__enter__bus_enter:
 #		$ me.move_to_place("out", True)
 
 
-# Пока не используется
 label day1_try_escape:
 	if "try_escape" not in was:
 		$ was.append("try_escape")
@@ -69,7 +70,7 @@ label day1_try_escape:
 		window hide
 
 
-label day1__enter__enter:
+label day1__enter__gates:
 	if "enter_welcome" not in was:
 		$ was.append("enter_welcome")
 		
@@ -82,7 +83,7 @@ label day1__enter__enter:
 		window hide
 		
 		$ show_character(sl, "clubs")
-		$ sl.move_to_place("behind_enter", False)
+		$ sl.move_to_place("behind_gates", False)
 		
 		window show
 		sl "Привет, ля-ля-ля...вожатая...всё понял...я ушла..."
