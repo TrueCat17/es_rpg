@@ -37,7 +37,7 @@ screen main_menu:
 		ground  ground_path
 		hover   hover_path
 		
-		hotspot (0,   0, tw, 45) action Function(start_mod, "rpg_editor")
+		hotspot (0,   0, tw, 45) action Function(start_mod, "std")
 		hotspot (0,  45, tw, 55) action ShowMenu('load')
 		hotspot (0, 100, tw, 60) action ShowMenu('settings')
 		hotspot (0, 160, tw, 50) action Function(out_msg, "Не реализовано")

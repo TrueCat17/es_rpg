@@ -12,6 +12,8 @@ init -100000 python:
 				self.__dict__[k] = kwords[k]
 		
 		
+		def has_key(self, attr):
+			return self.__dict__.has_key(attr)
 		def has_attr(self, attr):
 			return self.__dict__.has_key(attr)
 		
