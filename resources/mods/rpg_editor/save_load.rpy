@@ -3,6 +3,8 @@ init -1000 python:
 	location_objects_path = 'images/location_objects/'
 
 	preview_path = 'mods/rpg_editor/cache/'
+	if not os.path.exists(preview_path):
+		os.mkdir(preview_path)
 	
 	locations_file_path = 'mods/rpg_editor/results/locations.rpy'
 	location_objects_file_path = 'mods/rpg_editor/results/location_objects.rpy'
@@ -26,6 +28,11 @@ init python:
 		locations_dirs = [i for i in os.listdir(locations_path) if not i.startswith('_') and os.path.exists(locations_path + i + '/main.png')]
 		
 		for name in locations_dirs:
+			preview_created = False
+			if not os.path.exists(preview_path + name + '.png'):
+				preview_created = True
+				make_preview(name)
+			
 			path = locations_path + name
 			if locations_times.has_key(name):
 				files_time, preview_time = locations_times[name]
@@ -33,9 +40,11 @@ init python:
 					continue
 				del locations[name]
 			
+			if not preview_created:
+				make_preview(name)
+			
 			main = path + '/main.png'
 			register_location(name, path, False, get_texture_width(main), get_texture_height(main))
-			make_preview(name)
 			
 			set_save_locations()
 	
