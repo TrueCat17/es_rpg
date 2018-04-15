@@ -137,7 +137,7 @@ init -1001 python:
 		reg_width, reg_height = cur_location.width, cur_location.height
 		
 		if draw_location is None:
-			location_start_time -= location_fade_time * 2
+			location_start_time -= location_fade_time
 			
 			location_changed = True
 			draw_location, draw_location_name = cur_location, cur_location_name

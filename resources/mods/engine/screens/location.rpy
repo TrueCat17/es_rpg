@@ -78,9 +78,14 @@ screen location:
 				draw_location, draw_location_name = cur_location, cur_location_name
 				draw_objects_on_location = objects_on_location
 				
-				was_out_exit = False
 				show_character(me, cur_to_place)
 				cam_object = me
+				
+				was_out_exit = True
+				for exit in cur_location.exits:
+					if exit.inside(me.x, me.y):
+						was_out_exit = False
+						break
 		else:
 			loc__background_alpha = 0.0
 	
@@ -96,7 +101,7 @@ screen location:
 				loc__prev_time = time.time() - 0.1
 			loc__left = loc__right = loc__up = loc__down = False
 		
-		if draw_location_name == cur_location_name:
+		if time.time() - location_start_time > location_fade_time:
 			key 'e' action SetVariable('exec_action', True)
 			
 			key 'LEFT CTRL'   action SetVariable('loc__ctrl_is_down', True) first_delay 0
