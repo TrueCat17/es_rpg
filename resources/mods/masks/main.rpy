@@ -111,6 +111,3 @@ screen masks:
 	use fps_meter
 	key 'ESCAPE' action show_pause
 
-label start:
-	while True:
-		pause 1

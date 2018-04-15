@@ -118,7 +118,3 @@ screen snow:
 				text_size 20
 				action SetVariable('image_render', not image_render)
 
-
-label start:
-	while True:
-		pause 0.1
