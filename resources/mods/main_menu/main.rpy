@@ -1,5 +1,6 @@
 init python:
 	set_fps(20)
+	set_can_mouse_hide(False)
 	start_screens = 'main_menu'
 	
 	hover_matrix = im.matrix.identity()
