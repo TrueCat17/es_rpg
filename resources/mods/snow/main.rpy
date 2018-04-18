@@ -41,7 +41,6 @@ init python:
 		x, y, dx, dy, sizes, image = 0, 1, 2, 3, 4, 5
 		
 		if image_render:
-			st = time.time()
 			tmp_image_args = [(width, height)]
 			for obj in objs:
 				obj[x] = (obj[x] + obj[dx] * k) % width
@@ -50,13 +49,10 @@ init python:
 				tmp_image_args.append((obj[x], obj[y]))
 				tmp_image_args.append(obj[image])
 			tmp_image = im.Composite(*tmp_image_args)
-			print time.time() - st
 		else:
-			st = time.time()
 			for obj in objs:
 				obj[x] = (obj[x] + obj[dx] * k) % width
 				obj[y] = (obj[y] + obj[dy] * k) % height
-			print time.time() - st
 	
 	
 	set_count(1000)
