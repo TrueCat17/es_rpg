@@ -43,7 +43,7 @@ init -2 python:
 		over = sl_btn_selected if selected else sl_btn_hover
 		
 		if save_exists:
-			screenshot = os.path.join(save_dir, table, save, 'screenshot.png')
+			screenshot = os.path.join(save_dir, table, save, 'screenshot.jpg')
 			screenshot += "?" + str(os.path.getmtime(screenshot))
 			w, h = get_texture_width(screenshot), get_texture_height(screenshot)
 			return im.Composite((w, h), (0, 0), screenshot, (0, 0), im.Scale(over, w, h))
@@ -70,7 +70,7 @@ init -2 python:
 		
 		sl_table_saves_exists = {}
 		for save_name in sl_table_saves:
-			sl_table_saves_exists[save_name] = os.path.exists(os.path.join(save_dir, sl_cur_table, save_name, 'screenshot.png'))
+			sl_table_saves_exists[save_name] = os.path.exists(os.path.join(save_dir, sl_cur_table, save_name, 'screenshot.jpg'))
 	sl_update_table_saves()
 	
 

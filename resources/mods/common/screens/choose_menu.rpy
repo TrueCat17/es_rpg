@@ -2,6 +2,16 @@ screen choose_menu:
 	modal True
 	zorder 100
 	
+	if not has_screen('prev_text'):
+		key 'ESCAPE' action show_pause
+	
+	key config.quick_load_key action quick_load
+	key config.quick_save_key action quick_save
+	
+	image 'images/bg/black.jpg':
+		size (1.0, 1.0)
+		alpha 0.05
+	
 	vbox:
 		align (0.5, 0.5)
 		spacing 10
@@ -15,9 +25,23 @@ screen choose_menu:
 				null ysize 35
 	
 	
-	key 'ESCAPE' action show_pause
-	
-	key config.quick_save_key action quick_save
+	vbox:
+		align (0.5, 0.99)
+		
+		null ysize (db_text_size * 1.5) # name
+		
+		hbox:
+			spacing 5
+			xalign 0.5
+			
+			button:
+				yalign 0.5
+				ground db_prev_btn
+				size   (db_prev_btn_size, db_prev_btn_size)
+				action ShowMenu('prev_text')
+			
+			null size db_voice_size # text
+			null size (db_next_btn_size, db_next_btn_size) # next
 	
 	
 	button:

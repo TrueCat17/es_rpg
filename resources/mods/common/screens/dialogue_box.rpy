@@ -101,6 +101,9 @@ init -1000 python:
 		global db_text_size
 		db_text_size = max(14, get_stage_height() / 30)
 		
+		global db_voice_size
+		db_voice_size = get_stage_width() - (db_prev_btn_size + db_next_btn_size + 20), max(80, 0.2 * get_stage_height())
+		
 		global db_voice_text, db_pause_after_text, db_pause_end
 		
 		if db_pause_after_text != 0:
@@ -272,14 +275,14 @@ screen dialogue_box:
 							action ShowMenu('prev_text')
 						
 						image db_voice:
-							size (0.85, max(80, 0.2 * get_stage_height()))
-			
+							size db_voice_size
+							
 							text db_voice_text:
 								font      db_font
 								text_size db_text_size
 								color     db_voice_color
 								align     (0.5, 0.5)
-								size      (0.825, max(70, 0.18 * get_stage_height()))
+								size      (db_voice_size[0] - 30, db_voice_size[1] - 15)
 						
 						button:
 							yalign 0.5
@@ -320,23 +323,28 @@ screen dialogue_box:
 								color     db_voice_color_i
 								xsize     0.75
 					
-					hbox:
-						spacing 5
+					vbox:
 						align (0.5, 0.99)
 						
-						button:
-							yalign 0.5
-							ground db_prev_btn
-							size   (db_prev_btn_size, db_prev_btn_size)
-							action ShowMenu('prev_text')
+						null ysize (db_text_size * 1.5)
 						
-						null size (0.9, 0.2)
-						
-						button:
-							yalign 0.5
-							ground db_next_btn
-							size   (db_next_btn_size, db_next_btn_size)
-							action db_on_enter
+						hbox:
+							spacing 5
+							xalign 0.5
+							
+							button:
+								yalign 0.5
+								ground db_prev_btn
+								size   (db_prev_btn_size, db_prev_btn_size)
+								action ShowMenu('prev_text')
+							
+							null size db_voice_size
+							
+							button:
+								yalign 0.5
+								ground db_next_btn
+								size   (db_next_btn_size, db_next_btn_size)
+								action db_on_enter
 		
 		
 		button:
