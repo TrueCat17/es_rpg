@@ -1,7 +1,6 @@
 # test_1623_live__
 
 init python:
-	test_1623_live__pause = False
 	test_1623_live__exit = False
 	
 	test_1623_live__rect_x = 0
@@ -12,14 +11,16 @@ init python:
 	
 	def test_1623_live__init():
 		global test_1623__width, test_1623__height
-		global test_1623_live__pause, test_1623_live__exit
+		global test_1623__pause, test_1623_live__exit
 		global test_1623_live__alives, test_1623__color_field
 		global test_1623_live__nears
+		
+		set_fps(test_1623_live__fps)
 		
 		test_1623__width = 50
 		test_1623__height = 30
 		
-		test_1623_live__pause = False
+		test_1623__pause = False
 		test_1623_live__exit = False
 		
 		test_1623_live__alives = set()
@@ -73,8 +74,6 @@ init python:
 		test_1623_live__render()
 	
 	def test_1623_live__render():
-		set_fps(test_1623_live__fps)
-		
 		for i in xrange(test_1623__width * test_1623__height):
 			test_1623__color_field[i] = 'white'
 		
@@ -100,11 +99,6 @@ init python:
 	def test_1623_live__clear():
 		global test_1623_live__alives
 		test_1623_live__alives = set()
-	
-	
-	def test_1623_live__change_pause_state():
-		global test_1623_live__pause
-		test_1623_live__pause = not test_1623_live__pause
 	
 	
 	def test_1623_live__to_exit():
@@ -201,11 +195,10 @@ screen test_1623_live__screen:
 	key 'K_SPACE' action test_1623_live__change_cell_state
 	key 'K_RETURN' action test_1623_live__change_cell_state
 	
-	key 'p' action test_1623_live__change_pause_state
 	key 'c' action test_1623_live__clear
 	
 	python:
-		if not test_1623_live__pause:
+		if not test_1623__pause:
 			test_1623_live__update()
 		else:
 			test_1623_live__render()
@@ -222,8 +215,8 @@ screen test_1623_live__screen:
 			textbutton 'ReStart (Init Random)' action test_1623_live__init
 			textbutton 'Clear' action test_1623_live__clear
 			
-			textbutton ('Continue' if test_1623_live__pause else 'Pause'):
-				action test_1623_live__change_pause_state
+			textbutton ('Continue' if test_1623__pause else 'Pause'):
+				action test_1623__change_pause_state
 			
 			textbutton 'Exit' action test_1623_live__to_exit
 		

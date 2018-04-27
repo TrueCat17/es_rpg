@@ -3,13 +3,23 @@
 init python:
 	day_time()
 	
+	test_1623__pause = False
+	
 	test_1623__width = 1
 	test_1623__height = 1
 	test_1623__size = 16
 	
 	test_1623__color_field = ['green']
+	
+	def test_1623__change_pause_state():
+		global test_1623__pause
+		test_1623__pause = not test_1623__pause
+
 
 screen test_1623__main_screen:
+	key 'ESCAPE' action SetVariable('test_1623__pause', True)
+	
+	
 	image 'mods/test_1623/images/px/white.png':
 		align (0.5, 0.4)
 		size (test_1623__width * test_1623__size, test_1623__height * test_1623__size)

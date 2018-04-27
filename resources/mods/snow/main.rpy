@@ -1,10 +1,9 @@
 init python:
 	set_fps(60)
+	show_screen('snow')
+	
 	
 	image_render = False
-	
-	start_screens = 'snow fps_meter'
-	
 	
 	objs = []
 	def set_count(count):
@@ -60,8 +59,6 @@ init python:
 
 
 screen snow:
-	key 'ESCAPE' action show_pause
-	
 	image 'images/bg/bus_stop.jpg':
 		size (1.0, 1.0)
 	

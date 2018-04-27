@@ -4,6 +4,9 @@ init python:
 	pause_start_hided_time = 0
 	pause_hided_time = 0
 	
+	pause_before_fps = None
+	pause_fps = 60
+	
 	
 	pause_x, pause_y = 0, 0
 	pause_rotate = 0
@@ -48,10 +51,12 @@ init python:
 	
 	
 	def show_pause():
-		global pause_showed_time, pause_start_hided_time
+		global pause_showed_time, pause_start_hided_time, pause_before_fps
 		if not has_screen('pause') and time.time() - pause_hided_time > pause_rotate_time + pause_disappearance_time:
 			pause_showed_time = time.time()
 			pause_start_hided_time = 0
+			pause_before_fps = get_fps()
+			set_fps(pause_fps)
 			show_screen('pause')
 	def pause_close_func():
 		global pause_start_hided_time
@@ -85,6 +90,8 @@ screen pause:
 						
 						pause_start_hided_time = 0
 						pause_hided_time = time.time()
+						
+						set_fps(pause_before_fps)
 						hide_screen('pause')
 		else:
 			pause_y = (time.time() - pause_showed_time) * (get_stage_height() / pause_appearance_time) - get_stage_height()

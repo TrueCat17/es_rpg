@@ -1,6 +1,6 @@
 init python:
 	set_fps(60)
-	start_screens = 'masks'
+	show_screen('masks')
 	
 	num_mask = 0
 	mask_dir = 'images/masks/'
@@ -107,7 +107,4 @@ screen masks:
 			textbutton (mask_cmp_name + ' (' + mask_cmp_desk + ')'):
 				xsize 50
 				action [SetVariable('mask_cmp', mask_cmp_name), restart_mask]
-	
-	use fps_meter
-	key 'ESCAPE' action show_pause
 

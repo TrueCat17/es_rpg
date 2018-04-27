@@ -4,7 +4,6 @@ init python:
 	test_1623_tanks__frame_for_bullets = False
 	test_1623_tanks__direction_changed = False
 	test_1623_tanks__simpled = False
-	test_1623_tanks__pause = False
 	test_1623_tanks__exit = False
 	
 	test_1623_tanks__walls = []
@@ -42,13 +41,13 @@ init python:
 	
 	
 	def test_1623_tanks__init():
-		global test_1623_tanks__direction_changed, test_1623_tanks__pause, test_1623_tanks__exit, test_1623_tanks__level
-		global test_1623_tanks__fps, test_1623_tanks__frame_for_bullets, test_1623_tanks__player
+		global test_1623_tanks__direction_changed, test_1623__pause, test_1623_tanks__exit, test_1623_tanks__level
+		global test_1623_tanks__frame_for_bullets, test_1623_tanks__player
 		global test_1623_tanks__limit_bullets, test_1623_tanks__limit_moves
 		
 		test_1623_tanks__frame_for_bullets = False
 		test_1623_tanks__direction_changed = False
-		test_1623_tanks__pause = False
+		test_1623__pause = False
 		test_1623_tanks__exit = False
 		
 		test_1623_tanks__limit_bullets = True
@@ -181,8 +180,6 @@ init python:
 	
 	
 	def test_1623_tanks__render():
-		set_fps(test_1623_tanks__fps)
-		
 		for y in xrange(test_1623__height):
 			for x in xrange(test_1623__width):
 				index = y * test_1623__width + x
@@ -250,10 +247,6 @@ init python:
 		test_1623_tanks__player.start_time = time.time()
 		test_1623_tanks__players.append(test_1623_tanks__player)
 	
-	def test_1623_tanks__change_pause_state():
-		global test_1623_tanks__pause
-		test_1623_tanks__pause = not test_1623_tanks__pause
-	
 	
 	def test_1623_tanks__to_exit():
 		global test_1623_tanks__exit
@@ -307,7 +300,6 @@ init python:
 
 
 screen test_1623_tanks__screen:
-	key 'p' action test_1623_tanks__change_pause_state
 	key 'K_LEFT' action test_1623_tanks__on_left_press
 	key 'K_RIGHT' action test_1623_tanks__on_right_press
 	key 'K_UP' action test_1623_tanks__on_up_press
@@ -319,7 +311,7 @@ screen test_1623_tanks__screen:
 	key 'w' action test_1623_tanks__on_up_press
 	key 's' action test_1623_tanks__on_down_press
 	
-	if not test_1623_tanks__pause:
+	if not test_1623__pause:
 		$ test_1623_tanks__update()
 	
 	use test_1623__main_screen
@@ -327,8 +319,8 @@ screen test_1623_tanks__screen:
 	hbox:
 		align (0.5, 0.97)
 		
-		textbutton ('Continue' if test_1623_tanks__pause else 'Pause'):
-			action test_1623_tanks__change_pause_state
+		textbutton ('Continue' if test_1623__pause else 'Pause'):
+			action test_1623__change_pause_state
 		
 		textbutton 'Exit' action test_1623_tanks__to_exit
 	if not test_1623_tanks__simpled:

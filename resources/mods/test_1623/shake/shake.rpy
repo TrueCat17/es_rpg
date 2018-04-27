@@ -3,7 +3,6 @@
 init python:
 	test_1623_shake__direction_changed = False
 	
-	test_1623_shake__pause = False
 	test_1623_shake__exit = False
 	test_1623_shake__fail = False
 	
@@ -18,9 +17,11 @@ init python:
 	
 	
 	def test_1623_shake__init():
-		global test_1623_shake__pause, test_1623_shake__exit, test_1623_shake__level
+		global test_1623__pause, test_1623_shake__exit, test_1623_shake__level
 		
-		test_1623_shake__pause = False
+		set_fps(test_1623_shake__fps)
+		
+		test_1623__pause = False
 		test_1623_shake__exit = False
 		
 		test_1623_shake__set_level(0)
@@ -87,8 +88,6 @@ init python:
 	
 	
 	def test_1623_shake__render():
-		set_fps(test_1623_shake__fps)
-		
 		for y in xrange(test_1623__height):
 			for x in xrange(test_1623__width):
 				index = y * test_1623__width + x
@@ -122,11 +121,6 @@ init python:
 		
 		test_1623_shake__food_x = to_x
 		test_1623_shake__food_y = to_y
-	
-	
-	def test_1623_shake__change_pause_state():
-		global test_1623_shake__pause
-		test_1623_shake__pause = not test_1623_shake__pause
 	
 	
 	def test_1623_shake__to_exit():
@@ -176,9 +170,8 @@ screen test_1623_shake__screen:
 	key 'd' action test_1623_shake__on_right_press
 	key 'w' action test_1623_shake__on_up_press
 	key 's' action test_1623_shake__on_down_press
-	key 'p' action test_1623_shake__change_pause_state
 	
-	if not test_1623_shake__pause:
+	if not test_1623__pause:
 		$ test_1623_shake__update()
 	
 	use test_1623__main_screen
@@ -189,8 +182,8 @@ screen test_1623_shake__screen:
 		
 		textbutton 'ReStart' action test_1623_shake__init
 		
-		textbutton ("Continue" if test_1623_shake__pause else "Pause"):
-			action test_1623_shake__change_pause_state
+		textbutton ("Continue" if test_1623__pause else "Pause"):
+			action test_1623__change_pause_state
 		
 		textbutton 'Exit' action test_1623_shake__to_exit
 	
