@@ -331,4 +331,6 @@ init -9000 python:
 	fright = get_sprite_place(0.84,  1.0, 0.5, 1.0)
 	
 	true_center = get_sprite_place(0.5, 0.5, 0.5, 0.5)
+	left_center  = get_sprite_place(0.28, 0.5, 0.5, 0.5)
+	right_center = get_sprite_place(0.72, 0.5, 0.5, 0.5)
 	

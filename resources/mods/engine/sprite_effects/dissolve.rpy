@@ -140,6 +140,7 @@ init -9000 python:
 					common_data = SpriteAnimationData(self.sprite, [], [], [])
 					common_data.image = im.Mask(new_image, old_image, 128, 'a', 'ge', 'a', 1)
 					common_data.xpos, common_data.ypos = xmin, ymin
+					common_data.xsize, common_data.ysize = width, height
 					
 					self.sprite.data_list = (common_data, self.sprite.old_data, self.sprite.new_data)
 					
@@ -164,15 +165,10 @@ init -9000 python:
 			alpha = in_bounds(dtime / self.time, 0.0, 1.0)
 			anti_alpha = 1 - alpha
 			
-			
-			if self.sprite is scene:
-				if new_data:
-					new_data.alpha = alpha
-			else:
-				if old_data:
-					old_data.alpha = anti_alpha
-				if new_data:
-					new_data.alpha = alpha
+			if new_data:
+				new_data.alpha = alpha
+			if old_data:
+				old_data.alpha = anti_alpha
 			
 			if alpha == 1:
 				self.sprite.remove_effect()

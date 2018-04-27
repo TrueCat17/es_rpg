@@ -91,8 +91,7 @@ init -1000 python:
 			while index < len(sprites_list):
 				spr = sprites_list[index]
 				if spr.as_name == d['as']:
-					if effect:
-						old_sprite = spr
+					old_sprite = spr
 					sprites_list.remove(spr)
 					break
 				index += 1
@@ -105,11 +104,11 @@ init -1000 python:
 			at = eval(d['at']).actions
 		else:
 			if old_sprite and (old_sprite.new_data or old_sprite.old_data):
-				at = (old_sprite.new_data or old_sprite.old_data).at.actions
+				at = (old_sprite.new_data or old_sprite.old_data).at.actions or center.actions
 			else:
 				at = [] if show_at else center.actions
 		
-		spr = Sprite(decl_at, at, show_at, old_sprite)
+		spr = Sprite(decl_at, at, show_at, old_sprite if effect else None)
 		spr.as_name = d['as']
 		spr.call_str = params_str
 		if is_scene or old_sprite is scene:
