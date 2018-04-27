@@ -219,20 +219,19 @@ init -1000 python:
 screen dialogue_box:
 	zorder -2
 	
+	use engine
+	
 	key 'h' action SetVariable('db_hide_interdace', not db_hide_interdace)
 	
 	key 'RETURN' action If(db_hide_interdace, SetVariable('db_hide_interdace', False), db_on_enter)
 	key 'SPACE'  action If(db_hide_interdace, SetVariable('db_hide_interdace', False), db_on_enter)
 	
-	key 'ESCAPE' action If(db_hide_interdace, SetVariable('db_hide_interdace', False), show_pause)
+	key 'ESCAPE' action If(db_hide_interdace, SetVariable('db_hide_interdace', False), None)
 	
 	
 	if not db_hide_interdace:
-		key 'p' action make_screenshot
-		
 		key config.quick_load_key action quick_load
 		key config.quick_save_key action quick_save
-		
 		
 		$ db_update()
 		

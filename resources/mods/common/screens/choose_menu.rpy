@@ -2,11 +2,7 @@ screen choose_menu:
 	modal True
 	zorder 100
 	
-	if not has_screen('prev_text'):
-		key 'ESCAPE' action show_pause
-	
-	key config.quick_load_key action quick_load
-	key config.quick_save_key action quick_save
+	use engine
 	
 	image 'images/bg/black.jpg':
 		size (1.0, 1.0)

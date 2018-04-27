@@ -26,7 +26,8 @@ screen prev_text:
 	modal True
 	zorder 10000
 	
-	key 'ESCAPE' action [HideMenu('prev_text'), SetVariable('pause_hided_time', time.time())]
+	if not has_screen('console'):
+		key 'ESCAPE' action [HideMenu('prev_text'), SetVariable('pause_hided_time', time.time())]
 	
 	
 	image pt_background:

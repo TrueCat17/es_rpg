@@ -1,8 +1,8 @@
 init -10000 python:
 	gui = 'images/gui/'
 	
-	alphabet = tuple(map(chr, xrange(ord('a'), ord('z') + 1))) # a-z
-	numbers = tuple(xrange(10)) # 0-9
+	alphabet = list(map(chr, xrange(ord('a'), ord('z') + 1))) # a-z
+	numbers = range(10) # 0-9
 
 init -998 python:
 	checkboxes_inited = False
@@ -83,7 +83,7 @@ init -100000 python:
 			res = ([code] if code else []) + get_image_decl_at(name)
 		else:
 			out_msg('get_image', 'Изображение <' + name + '> не зарегистрировано')
-			res = [im.Rect('#000', 256, 256)]
+			res = ["im.Rect('#000', 256, 256)"]
 		return res
 	
 	def can_exec_next_command():

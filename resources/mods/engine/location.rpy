@@ -120,6 +120,9 @@ init -1001 python:
 			out_msg('set_location', 'Локация <' + location_name + '> не содержит места <' + place_name + '>')
 			return
 		
+		if not has_screen('location'):
+			show_screen('location')
+		
 		global location_start_time, objects_on_location
 		global cur_location, cur_location_name, cur_to_place
 		global location_changed, draw_location, draw_location_name, draw_objects_on_location

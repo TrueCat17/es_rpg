@@ -9,7 +9,7 @@ init python:
 	ask_str_tf_bg_size = (246, 20)
 	
 	ask_max_len = 25
-	ask_keys = alphabet + tuple(str(i) for i in xrange(10)) + ('-',)
+	ask_keys = alphabet + list(str(i) for i in xrange(10)) + ('-',)
 	
 	ask_cursor = 0
 	ask_shift = False

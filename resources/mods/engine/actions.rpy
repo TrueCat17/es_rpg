@@ -17,7 +17,7 @@ init -10000 python:
 			Object.__init__(self)
 			self.func, self.args, self.kwargs = func, args, kwargs
 		def __call__(self):
-			apply(self.func, self.args, self.kwargs)
+			return apply(self.func, self.args, self.kwargs)
 	
 	class AddDict(Object):
 		def __init__(self, obj, var_name, value):

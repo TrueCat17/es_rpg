@@ -51,6 +51,9 @@ init -1000 python:
 	def show_sprite(params, show_at, is_scene = False):
 		global scene
 		
+		if not has_screen('sprites'):
+			show_screen('sprites')
+		
 		if len(params) == 0:
 			out_msg('add_sprite_to_showlist', 'Список params пуст')
 			return
