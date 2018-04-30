@@ -11,7 +11,6 @@ init -1000:
 	image cg d1_sl_dinner_0 = "images/cg/d1_sl_dinner_0.jpg"
 	image cg d1_uv = "images/cg/d1_uv.jpg"
 	image cg d1_uv_2 = "images/cg/d1_uv_2.jpg"
-	image cg d2_2ch_beach = "images/cg/d2_2ch_beach.jpg"
 	image cg d2_lineup = "images/cg/d2_lineup.jpg"
 	image cg d2_micu_lib = "images/cg/d2_micu_lib.jpg"
 	image cg d2_miku_piano = "images/cg/d2_miku_piano.jpg"
@@ -219,4 +218,6 @@ init -1000:
 	
 	
 	$ default_decl_at = []
+	
+	image cg d2_2ch_beach = "images/cg/d2_2ch_beach.jpg"
 	

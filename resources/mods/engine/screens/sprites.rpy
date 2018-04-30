@@ -104,7 +104,9 @@ init -1000 python:
 			at = eval(d['at']).actions
 		else:
 			if old_sprite and (old_sprite.new_data or old_sprite.old_data):
-				at = (old_sprite.new_data or old_sprite.old_data).at.actions or center.actions
+				at = (old_sprite.new_data or old_sprite.old_data).at.actions
+				if not at and not show_at:
+					at = center.actions
 			else:
 				at = [] if show_at else center.actions
 		
