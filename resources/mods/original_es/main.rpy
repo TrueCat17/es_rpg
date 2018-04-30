@@ -3,6 +3,6 @@ init python:
 
 label start:
 #	jump day1
-	jump day2_main1
+#	jump day2_main1
 	jump prologue
 

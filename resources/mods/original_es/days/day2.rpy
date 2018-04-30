@@ -11,7 +11,7 @@ label day2_main1:
 	$ day_time()
 	
 #	jump day2_first_map
-	jump demo_play
+#	jump demo_play
 	
 	scene bg black
 	pause 2
