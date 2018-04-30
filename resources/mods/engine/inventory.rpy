@@ -53,7 +53,7 @@ init -1000 python:
 	
 	def remove_from_inventory(obj_name, count):
 		if not location_objects.has_key(obj_name):
-			out_msg('add_to_inventory', 'Объект с именем <' + obj_name + '> не зарегистрирован')
+			out_msg('remove_from_inventory', 'Объект с именем <' + obj_name + '> не зарегистрирован')
 			return count
 		
 		obj = location_objects[obj_name]
@@ -62,7 +62,7 @@ init -1000 python:
 			index = -1
 			for i in xrange(inventory_size):
 				element = inventory[i]
-				if element and element[0] == obj_name and element[1] < obj['max_in_inventory_cell']:
+				if element and element[0] == obj_name:
 					index = i
 					break
 			else:

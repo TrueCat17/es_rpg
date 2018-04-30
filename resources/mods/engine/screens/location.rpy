@@ -190,6 +190,4 @@ screen location:
 		image 'images/bg/black.jpg':
 			size (1.0, 1.0)
 			alpha loc__background_alpha
-		
-		use inventory
 

@@ -122,6 +122,7 @@ init -1001 python:
 		
 		if not has_screen('location'):
 			show_screen('location')
+			show_screen('inventory')
 		
 		global location_start_time, objects_on_location
 		global cur_location, cur_location_name, cur_to_place

@@ -91,7 +91,7 @@ init python:
 screen inventory:
 	key 'I' action SetVariable('inventory_visible', not(inventory_visible))
 	
-	if inventory_visible:
+	if inventory_visible and draw_location_name:
 		image inventory_background:
 			size (inventory_xsize, inventory_ysize)
 			align (0.5, 0.5)
