@@ -19,6 +19,10 @@ init -1002 python:
 		try:
 			persistent_updates = True
 			
+			dirname = os.path.dirname(path)
+			if dirname and not os.path.isdir(dirname):
+				os.mkdir(dirname)
+			
 			tmp_file = open(path, 'wb')
 			pickle.dump(obj, tmp_file)
 			tmp_file.close()

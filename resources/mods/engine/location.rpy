@@ -198,10 +198,11 @@ init -1001 python:
 		location = locations[location_name]
 		
 		if type(place) is str:
-			place = location.get_place(place)
-			if not place:
+			tmp_place = location.get_place(place)
+			if not tmp_place:
 				out_msg('add_location_object', 'В локации <' + location_name + '> нет места с именем <' + place + '>')
 				return
+			place = tmp_place
 			px, py = place.x + place.width / 2, place.y + place.height / 2
 		else:
 			px, py = place['x'], place['y'] - 1
