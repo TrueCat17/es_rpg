@@ -35,7 +35,7 @@ init python:
 		global console_cursor_x, console_cursor_y
 		input_slice = console_input[0:index]
 		console_cursor_y = input_slice.count('\n')
-		console_cursor_x = (index - input_slice.rindex('\n')) if '\n' in input_slice else index
+		console_cursor_x = (index - input_slice.rindex('\n') - 1) if console_cursor_y else index
 	
 	def console_clear():
 		persistent.console_commands = []
@@ -93,10 +93,12 @@ init python:
 		symbol = console_input[index]
 		check = console_get_check(symbol)
 		if console_ctrl:
-			while index and console_input[index - 1] == ' ':
-				index -= 1
-			while index and check(console_input[index - 1]):
-				index -= 1
+			if symbol == ' ' and index and console_input[index - 1] == ' ':
+				while index and console_input[index - 1] == ' ':
+					index -= 1
+			else:
+				while index and check(console_input[index - 1]):
+					index -= 1
 		console_set_cursor_index(index)
 	def console_cursor_right():
 		index = console_get_cursor_index()
@@ -185,7 +187,8 @@ init python:
 			console_num_command = 0
 			console_exec(to_exec)
 		else:
-			console_input += '\n' + ' ' * cur_indent
+			index = console_get_cursor_index()
+			console_input = console_input[0:index] + '\n' + ' ' * cur_indent + console_input[index:]
 			console_cursor_y += 1
 			console_cursor_x = cur_indent
 	
