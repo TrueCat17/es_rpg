@@ -61,6 +61,11 @@ init -100000 python:
 			value *= max_value
 		return int(value)
 	
+	def get_texture_size(texture):
+		return get_texture_width(texture), get_texture_height(texture)
+	def get_stage_size():
+		return get_stage_width(), get_stage_height()
+	
 	def get_dist(x1, y1, x2, y2):
 		dx, dy = x1 - x2, y1 - y2
 		return math.sqrt(dx*dx + dy*dy)
