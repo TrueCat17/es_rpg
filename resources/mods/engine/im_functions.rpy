@@ -288,6 +288,11 @@ init -1001 python:
 		
 		
 		@staticmethod
+		def motion_blur(image, cX = 0.5, cY = 0.5, dist = 5):
+			return 'MotionBlur|(' + image + ')|' + str(cX) + '|' + str(cY) + '|' + str(int(dist))
+		
+		
+		@staticmethod
 		def rect(color, width = 1, height = 1):
 			r, g, b, a = renpy.easy.color(color)
 			m = im.matrix.invert() * im.matrix.tint(r / 255.0, g / 255.0, b / 255.0, a / 255.0)
@@ -351,6 +356,8 @@ init -1001 python:
 		
 		Mask = mask
 		AlphaMask = alpha_mask
+		
+		MotionBlur = motion_blur
 		
 		Rect = rect
 		Circle = circle
