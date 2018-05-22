@@ -288,8 +288,8 @@ init -1001 python:
 		
 		
 		@staticmethod
-		def motion_blur(image, cX = 0.5, cY = 0.5, dist = 5):
-			return 'MotionBlur|(' + image + ')|' + str(cX) + '|' + str(cY) + '|' + str(int(dist))
+		def motion_blur(image, cx = 0.5, cy = 0.5, dist = 5):
+			return 'MotionBlur|(' + image + ')|' + str(cx) + '|' + str(cy) + '|' + str(int(dist))
 		
 		
 		@staticmethod
