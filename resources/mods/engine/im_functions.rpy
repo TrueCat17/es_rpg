@@ -288,6 +288,16 @@ init -1001 python:
 		
 		
 		@staticmethod
+		def blur_h(image, dist = 5):
+			return 'BlurH|(' + image + ')|' + str(dist)
+		@staticmethod
+		def blur_v(image, dist = 5):
+			return 'BlurV|(' + image + ')|' + str(dist)
+		@staticmethod
+		def blur(image, dist_h = 5, dist_v = 5):
+			return im.blur_h(im.blur_v(image, dist_v), dist_h)
+		
+		@staticmethod
 		def motion_blur(image, cx = 0.5, cy = 0.5, dist = 5):
 			return 'MotionBlur|(' + image + ')|' + str(cx) + '|' + str(cy) + '|' + str(int(dist))
 		
@@ -357,6 +367,9 @@ init -1001 python:
 		Mask = mask
 		AlphaMask = alpha_mask
 		
+		BlurH = blur_h
+		BlurV = blur_v
+		Blur = blur
 		MotionBlur = motion_blur
 		
 		Rect = rect
