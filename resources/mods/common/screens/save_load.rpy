@@ -9,12 +9,12 @@ init -2 python:
 	sl_saves_in_table = 12
 	
 	
-	sl_last_auto_save = time.time()
+	sl_last_autosave = time.time()
 	def sl_check_autosave():
-		global sl_last_auto_save
-		if get_can_auto_save() and not has_screen('pause') and config.auto_save > 0:
-			if time.time() - max(sl_last_auto_save, get_mod_start_time()) > config.auto_save:
-				sl_last_auto_save = time.time()
+		global sl_last_autosave
+		if get_can_autosave() and not has_screen('pause') and config.auto_save > 0:
+			if time.time() - max(sl_last_autosave, get_mod_start_time()) > config.auto_save:
+				sl_last_autosave = time.time()
 				sl_save('auto', '0')
 	
 	
