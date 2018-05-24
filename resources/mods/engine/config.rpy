@@ -16,11 +16,14 @@ init -997 python:
 	config.save_screenshot_width = 480
 	
 	
+	if config.autosave is None:
+		config.autosave = 60 # time, in sec.
+	
 	if config.fps_meter is None:
 		config.fps_meter = True
 	
 	if config.text_cps is None:
-		config.text_cps = 60
+		config.text_cps = 60 # cps - chars per second, for dialogue_box
 	
 	for std_mixer in std_mixers:
 		if config[std_mixer + '_volume'] is None:

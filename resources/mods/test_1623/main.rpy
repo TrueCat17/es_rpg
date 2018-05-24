@@ -19,7 +19,6 @@ init python:
 screen test_1623__main_screen:
 	key 'ESCAPE' action SetVariable('test_1623__pause', True)
 	
-	
 	image 'mods/test_1623/images/px/white.png':
 		align (0.5, 0.4)
 		size (test_1623__width * test_1623__size, test_1623__height * test_1623__size)

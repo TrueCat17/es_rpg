@@ -1,0 +1,34 @@
+init -1 python:
+    def test_im():
+        import inspect
+        is_renpy = inspect.ismodule(renpy)
+        
+        print ("Ren'Py" if is_renpy else "Ren-Engine"), 'Test'
+        
+        def load_image(image):
+            if is_renpy:
+                Image(image).load()
+            else:
+                get_texture_width(image)
+        
+        image = 'images/bg/bus_stop.jpg'
+        load_image(image)
+        
+        N = 20
+        
+        st = time.time()
+        for i in xrange(N):
+            load_image(im.Scale(image, 1900 + i, 1000 + i))
+        print 'Scale:'.ljust(15), (time.time() - st) / N
+        
+        st = time.time()
+        for i in xrange(N):
+            r, g, b, a = [renpy.random.randint(0, 255) for i in xrange(4)]
+            load_image(im.Recolor(image, r, g, b, a))
+        print 'Recolor:'.ljust(15), (time.time() - st) / N
+        
+        st = time.time()
+        for i in xrange(N):
+            load_image(im.MatrixColor(image, im.matrix(random.random() for i in xrange(25))))
+        print 'MatrixColor:'.ljust(15), (time.time() - st) / N
+    test_im()

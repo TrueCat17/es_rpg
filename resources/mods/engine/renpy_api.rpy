@@ -131,6 +131,16 @@ init -999 python:
 			_jump_next(label, True)
 		
 		@staticmethod
+		def show_screen(name):
+			show_screen(name)
+		@staticmethod
+		def hide_screen(name):
+			hide_screen(name)
+		@staticmethod
+		def has_screen(name):
+			has_screen(name)
+		
+		@staticmethod
 		def call_screen(screen_name, ret_name, **kwargs):
 			global call_screen_choosed, call_screen_name, call_ret_name
 			

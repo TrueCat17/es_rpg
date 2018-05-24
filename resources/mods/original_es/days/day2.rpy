@@ -1521,8 +1521,7 @@ label demo_play:
 		}
 		INVISIBLE = False
 		VISIBLE = False
-		generate_cards(dialogs)
-		rival = CardGameRivalUn(un_avatar_set, "Пробная игра")
+		generate_cards(dialogs, 'un', 'Пробная игра')
 	jump cards_gameloop
 label demo_play_intro:
 	show el normal pioneer at center with dissolve
@@ -1656,8 +1655,7 @@ label un_play:
 			(0, "fail", "jump"): "un_play_fail",
 			(0, "draw", "jump"): "un_play_draw",
 		}
-		generate_cards(dialogs)
-		rival = CardGameRivalUn(un_avatar_set, "Лена")
+		generate_cards(dialogs, 'un', 'Лена')
 	jump cards_gameloop
 label un_play_fail:
 	$ persistent.CardsFail = True
@@ -1743,8 +1741,7 @@ label us_play:
 			(0, "fail", "jump"): "us_play_fail",
 			(0, "draw", "jump"): "us_play_draw",
 		}
-		generate_cards(dialogs)
-		rival = CardGameRivalUs(us_avatar_set, "Ульяна")
+		generate_cards(dialogs, 'us', 'Ульяна')
 	jump cards_gameloop
 label us_play_me_defend_2:
 	$ show_cards()
@@ -1805,8 +1802,7 @@ label us2_play:
 			(0, "fail", "jump"): "us2_play_fail",
 			(0, "draw", "jump"): "us2_play_draw",
 		}
-		generate_cards(dialogs)
-		rival = CardGameRivalUs(us_avatar_set, "Ульяна II")
+		generate_cards(dialogs, 'us', 'Ульяна II')
 	jump cards_gameloop
 label us2_play_fail:
 	$ persistent.CardsWon1 = True
@@ -1858,8 +1854,7 @@ label dv_play:
 			(0, "fail", "jump"): "dv_play_fail",
 			(0, "draw", "jump"): "dv_play_draw",
 		}
-		generate_cards(dialogs)
-		rival = CardGameRivalDv(dv_avatar_set, "Алиса")
+		generate_cards(dialogs, 'dv', 'Алиса')
 	jump cards_gameloop
 label dv_play_draw:
 	$ show_cards()

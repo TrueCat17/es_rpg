@@ -10,6 +10,25 @@ init -1 python:
 	settings_show_mods = False
 	
 	
+	settings_autosave_times = (0.5, 1, 2, 3, 5, 7, 10, 15, 0)
+	def settings_prev_autosave_time():
+		autosave = config.autosave / 60.0
+		if autosave <= 0:
+			config.autosave = int(settings_autosave_times[-2] * 60)
+		else:
+			i = 0
+			while i < len(settings_autosave_times) - 1 and autosave > settings_autosave_times[i]:
+				i += 1
+			config.autosave = int(settings_autosave_times[max(i - 1, 0)] * 60)
+	def settings_next_autosave_time():
+		autosave = config.autosave / 60.0
+		if autosave > 0:
+			i = 0
+			while i < len(settings_autosave_times) - 1 and autosave > settings_autosave_times[i]:
+				i += 1
+			config.autosave = int(settings_autosave_times[i + 1] * 60)
+	
+	
 	def settings_add_text_cps(d):
 		show_all_text = config.text_cps > 100000
 		text_cps = in_bounds((config.text_cps % 100000) + d, 20, 220)
@@ -22,7 +41,7 @@ init -1 python:
 	settings_viewport_y = 0.15
 	settings_viewport_ysize = 1 - settings_viewport_y * 2
 	settings_viewport_content_y = 0.01
-	settings_viewport_content_height = 500
+	settings_viewport_content_height = 600
 	
 	settings_viewport_scroll_height = int(settings_viewport_content_height * 0.8)
 	settings_viewport_scroll_part = 1.0 / 3
@@ -188,6 +207,31 @@ screen settings:
 					xpos 40
 					color 0
 					text_size 25
+			
+			vbox:
+				xsize 1.0
+				spacing 5
+				
+				text 'Авто-Сохранение':
+					xalign 0.5
+					color 0
+					text_size 15
+				
+				hbox:
+					xalign 0.5
+					spacing 5
+					
+					textbutton '<-':
+						size (25, 25)
+						action settings_prev_autosave_time
+					text ((str(config.autosave / 60.0) + ' мин.') if config.autosave > 0 else 'Отключено'):
+						xsize 300
+						text_align 'center'
+						color 0
+						text_size 25
+					textbutton '->':
+						size (25, 25)
+						action settings_next_autosave_time
 	
 	
 	image settings_background_up:

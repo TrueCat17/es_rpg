@@ -1,17 +1,20 @@
+init -2000000 python:
+#	start_mod('original_es')
+
 init python:
 	set_fps(20)
 	set_can_mouse_hide(False)
+	set_can_auto_save(False)
 	start_screens = 'main_menu'
 	
 	hover_matrix = im.matrix.identity()
 	hover_matrix[19] = 0.01 # alpha += 0.01
 	
-	back_path   =				gui + 'menu/main/back.png'
-	ground_path =				gui + 'menu/main/ground.png'
+	back_path   =                gui + 'menu/main/back.png'
+	ground_path =                gui + 'menu/main/ground.png'
 	hover_path  = im.MatrixColor(gui + 'menu/main/hover.png', hover_matrix)
 	
-	tw, th = get_texture_width(ground_path), get_texture_height(ground_path)
-
+	tw, th = get_texture_size(ground_path)
 
 screen main_menu:
 	image back_path:

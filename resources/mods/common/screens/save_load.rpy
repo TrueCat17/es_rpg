@@ -5,6 +5,19 @@ init -2 python:
 	sl_cur_table = '0'
 	sl_cur_save  = '0'
 	
+	sl_count_tables = 10
+	sl_saves_in_table = 12
+	
+	
+	sl_last_auto_save = time.time()
+	def sl_check_autosave():
+		global sl_last_auto_save
+		if get_can_auto_save() and not has_screen('pause') and config.auto_save > 0:
+			if time.time() - max(sl_last_auto_save, get_mod_start_time()) > config.auto_save:
+				sl_last_auto_save = time.time()
+				sl_save('auto', '0')
+	
+	
 	sl_inited = False
 	def init_sl():
 		global sl_inited
@@ -24,14 +37,14 @@ init -2 python:
 		return dirs
 	
 	def sl_get_tables():
-		res = list(str(i) for i in xrange(12)) + ['auto']
+		res = [str(i) for i in xrange(sl_count_tables)] + ['auto', 'quick']
 		dirs = sl_get_dirs(save_dir)
 		for i in dirs:
 			if i not in res:
 				res.append(i)
 		return res
 	def sl_get_table_saves(table):
-		res = list(str(i) for i in xrange(12))
+		res = [str(i) for i in xrange(sl_saves_in_table)]
 		dirs = sl_get_dirs(os.path.join(save_dir, table))
 		for i in dirs:
 			if i not in res:
@@ -82,12 +95,15 @@ init -2 python:
 		if not os.path.exists(table_path):
 			return
 		
+		def is_digit(name):
+			return name.isdigit() and int(name) >= 0 and int(name) < sl_saves_in_table
+		
 		dir_contains = os.listdir(table_path)
 		saves = []
 		for name in dir_contains:
 			path = os.path.join(table_path, name)
 			
-			if os.path.isdir(path) and os.path.exists(os.path.join(path, 'screenshot.png')) and name.isdigit() and int(name) >= 0 and int(name) <= 12:
+			if os.path.isdir(path) and os.path.exists(os.path.join(path, 'screenshot.png')) and is_digit(name):
 				saves.append(name)
 			else:
 				shutil.rmtree(path)
@@ -104,6 +120,10 @@ init -2 python:
 			need_name = str(len(saves))
 			saves = saves[0:-1]
 			
+			if need_name == str(sl_saves_in_table):
+				shutil.rmtree(os.path.join(table_path, name))
+				continue
+			
 			if name == need_name:
 				continue
 			
@@ -114,4 +134,6 @@ init -2 python:
 				os.rename(os.path.join(table_path, need_name), os.path.join(table_path, tmp_name))
 			
 			os.rename(os.path.join(table_path, name), os.path.join(table_path, need_name))
+		
+		sl_update_table_saves()
 
