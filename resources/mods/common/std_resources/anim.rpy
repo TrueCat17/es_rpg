@@ -40,20 +40,20 @@ init -1000:
 	image anim prologue_2 = "images/anim/prologue_2.png"
 	image anim prologue_3 = "images/anim/prologue_3.png"
 	
-	image anim prologue_keyboard_1 = "images/anim/prologue_keyboard_1.jpg"
-	image anim prologue_keyboard_2 = "images/anim/prologue_keyboard_2.jpg"
-	image anim prologue_keyboard_3 = "images/anim/prologue_keyboard_3.jpg"
-	image anim prologue_keyboard_4 = "images/anim/prologue_keyboard_4.jpg"
+	image anim prologue_keyboard_1 = im.BlurH(im.Scale("images/anim/prologue_keyboard.jpg", get_stage_width(), get_stage_height()), 75)
+	image anim prologue_keyboard_2 = im.BlurH(im.Scale("images/anim/prologue_keyboard.jpg", get_stage_width(), get_stage_height()), 50)
+	image anim prologue_keyboard_3 = im.BlurH(im.Scale("images/anim/prologue_keyboard.jpg", get_stage_width(), get_stage_height()), 25)
+	image anim prologue_keyboard_4 = im.Scale("images/anim/prologue_keyboard.jpg", get_stage_width(), get_stage_height())
 	
 	image anim prologue_keyboard_monitor_1 = "images/anim/prologue_keyboard_monitor_1.jpg"
 	image anim prologue_keyboard_monitor_2 = "images/anim/prologue_keyboard_monitor_2.jpg"
 	image anim prologue_keyboard_monitor_3 = "images/anim/prologue_keyboard_monitor_3.jpg"
 	image anim prologue_keyboard_monitor_4 = "images/anim/prologue_keyboard_monitor_4.jpg"
 	
-	image anim prologue_monitor_1 = "images/anim/prologue_monitor_1.jpg"
-	image anim prologue_monitor_2 = "images/anim/prologue_monitor_2.jpg"
-	image anim prologue_monitor_3 = "images/anim/prologue_monitor_3.jpg"
-	image anim prologue_monitor_4 = "images/anim/prologue_monitor_4.jpg"
+	image anim prologue_monitor_1 = im.BlurH(im.Scale("images/anim/prologue_monitor.jpg", get_stage_width(), get_stage_height()), 75)
+	image anim prologue_monitor_2 = im.BlurH(im.Scale("images/anim/prologue_monitor.jpg", get_stage_width(), get_stage_height()), 50)
+	image anim prologue_monitor_3 = im.BlurH(im.Scale("images/anim/prologue_monitor.jpg", get_stage_width(), get_stage_height()), 25)
+	image anim prologue_monitor_4 = im.Scale("images/anim/prologue_monitor.jpg", get_stage_width(), get_stage_height())
 	
 	image anim stars_1 = "images/anim/stars_1.jpg"
 	image anim stars_3 = "images/anim/stars_3.jpg"

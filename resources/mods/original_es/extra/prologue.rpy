@@ -9,9 +9,7 @@ label prologue:
 	$ prolog_time()
 	
 	play music music_list["a_promise_from_distant_days_v2"] fadein 3
-	window hide
 	scene anim prolog_1 with fade3
-	window show
 	"{i}Этот{/i} сон..."
 	"Каждую ночь одно и то же."
 	"Но наутро, как обычно, всё забудется."
@@ -19,14 +17,16 @@ label prologue:
 	"Останутся только туманные воспоминания о приоткрытых, словно приглашающих куда-то воротах, рядом с которыми в камне застыли два пионера."
 	"А ещё странная девочка...{w} которая постоянно спрашивает:"
 	window hide
-	scene black with fade3
+	scene black
+	with fade3
 	scene bg ext_camp_entrance_night
 	show owl:
 		pos  (get_stage_width() * 931 / 1920, get_stage_height() * 88 / 1080)
 		size (get_stage_width() *  60 / 1920, get_stage_height() * 77 / 1080)
 		pause 0.1
 		repeat
-	show prologue_dream with fade3
+	show prologue_dream
+	with fade3
 	window show
 	dreamgirl "Ты пойдёшь со мной?"
 	"Пойду?.."
