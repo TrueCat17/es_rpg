@@ -46,11 +46,17 @@ init -1 python:
 	settings_viewport_scroll_height = int(settings_viewport_content_height * 0.8)
 	settings_viewport_scroll_part = 1.0 / 3
 	
-	w, h = get_texture_width(settings_background), get_texture_height(settings_background)
-	settings_background_up   = im.Crop(settings_background,
-	                                   (0, 0, w, h * settings_viewport_y))
-	settings_background_down = im.Crop(settings_background,
-	                                   (0, (1 - settings_viewport_y) * h, w, settings_viewport_y * h))
+	
+	settings_inited = False
+	def init_settings():
+		global settings_inited, settings_background_up, settings_background_down
+		settings_inited = True
+		
+		w, h = get_texture_size(settings_background)
+		settings_background_up   = im.Crop(settings_background,
+			                               (0, 0, w, h * settings_viewport_y))
+		settings_background_down = im.Crop(settings_background,
+			                               (0, (1 - settings_viewport_y) * h, w, settings_viewport_y * h))
 	
 	def settings_add_viewport_content_y(v):
 		global settings_viewport_content_y
@@ -74,6 +80,8 @@ screen settings:
 	python:
 		if not checkboxes_inited:
 			init_checkboxes()
+		if not settings_inited:
+			init_settings()
 		
 		y = int(settings_viewport_y * get_stage_height() -
 		        settings_viewport_content_y * abs(get_stage_height() * (1 - settings_viewport_y * 2) - settings_viewport_content_height) + 10)

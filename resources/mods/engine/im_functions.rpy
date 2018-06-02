@@ -275,8 +275,8 @@ init -1001 python:
 		
 		
 		@staticmethod
-		def rotozoom(image, angle, zoom):
-			return 'Rotozoom|(' + image + ')|(' + str(int(angle)) + ')|(' + str(zoom) + ')'
+		def rotozoom(image, angle, zoom = 1.0):
+			return 'Rotozoom|(' + image + ')|(' + str(int(angle) % 360) + ')|(' + str(zoom) + ')'
 		
 		
 		@staticmethod

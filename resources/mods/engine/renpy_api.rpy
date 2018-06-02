@@ -9,29 +9,34 @@ init -999 python:
 	class Music:
 		@staticmethod
 		def register_channel(name, mixer, loop):
-			_register_channel(name, mixer, loop, get_filename(1), get_numline(1))
+			file_name, num_line = get_file_and_line(1)
+			_register_channel(name, mixer, loop, file_name, num_line)
 		@staticmethod
 		def has_channel(name):
 			return _has_channel(name)
 		
 		@staticmethod
-		def play(file_names, channel, depth = 0, **kwargs):
+		def play(music_urls, channel, depth = 0, **kwargs):
 			fadein = kwargs.get('fadein', 0)
-			file_name = file_names if isinstance(file_names, str) else file_names[0]
-			_play(channel + ' "' + file_name + '" fadein ' + str(float(fadein)), get_filename(depth + 1), get_numline(depth + 1))
+			music_url = music_urls if isinstance(music_urls, str) else music_urls[0]
+			file_name, num_line = get_file_and_line(depth + 1)
+			_play(channel + ' "' + file_name + '" fadein ' + str(float(fadein)), file_name, num_line)
 		@staticmethod
 		def stop(channel, depth = 0, **kwargs):
 			fadeout = kwargs.get('fadeout', 0)
-			_stop(channel + ' fadeout ' + str(float(fadeout)), get_filename(depth + 1), get_numline(depth + 1))
+			file_name, num_line = get_file_and_line(depth + 1)
+			_stop(channel + ' fadeout ' + str(float(fadeout)), file_name, num_line)
 		
 		@staticmethod
 		def set_volume(vol, channel, depth = 0):
-			_set_volume(in_bounds(vol, 0, 1), channel, get_filename(depth + 1), get_numline(depth + 1))
+			file_name, num_line = get_file_and_line(depth + 1)
+			_set_volume(in_bounds(vol, 0, 1), channel, file_name, num_line)
 		@staticmethod
 		def set_mixer_volume(vol, mixer, depth = 0):
 			vol = in_bounds(round(vol, 2), 0.0, 1.0)
 			config[mixer + '_volume'] = vol
-			_set_mixer_volume(vol, mixer, get_filename(depth + 1), get_numline(depth + 1))
+			file_name, num_line = get_file_and_line(depth + 1)
+			_set_mixer_volume(vol, mixer, file_name, num_line)
 		@staticmethod
 		def add_mixer_volume(d, mixer):
 			Music.set_mixer_volume(config[mixer + '_volume'] + d, mixer)

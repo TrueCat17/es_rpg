@@ -21,16 +21,25 @@ init -998 python:
 	vbar_hover  = im.Rotozoom(bar_hover , 90, 1)
 
 
-
 init -1000000 python:
 	def get_numline(depth):
-		s = inspect.stack()
-		frame = s[1 + depth]
-		return frame[2]
+		frame = inspect.currentframe().f_back
+		while depth:
+			depth -= 1
+			frame = frame.f_back
+		return inspect.getlineno(frame)
 	def get_filename(depth):
-		s = inspect.stack()
-		frame = s[1 + depth]
-		return frame[1]
+		frame = inspect.currentframe().f_back
+		while depth:
+			depth -= 1
+			frame = frame.f_back
+		return inspect.getfile(frame)
+	def get_file_and_line(depth):
+		frame = inspect.currentframe().f_back
+		while depth:
+			depth -= 1
+			frame = frame.f_back
+		return inspect.getfile(frame), inspect.getlineno(frame)
 
 
 init -100000 python:
