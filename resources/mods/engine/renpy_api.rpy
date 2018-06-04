@@ -20,7 +20,7 @@ init -999 python:
 			fadein = kwargs.get('fadein', 0)
 			music_url = music_urls if isinstance(music_urls, str) else music_urls[0]
 			file_name, num_line = get_file_and_line(depth + 1)
-			_play(channel + ' "' + file_name + '" fadein ' + str(float(fadein)), file_name, num_line)
+			_play(channel + ' "' + music_url + '" fadein ' + str(float(fadein)), file_name, num_line)
 		@staticmethod
 		def stop(channel, depth = 0, **kwargs):
 			fadeout = kwargs.get('fadeout', 0)
