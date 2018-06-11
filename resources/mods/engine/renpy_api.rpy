@@ -119,7 +119,7 @@ init -999 python:
 			who(what)
 		
 		@staticmethod
-		def play(file_names, channel, **kwargs):
+		def play(file_name, channel, **kwargs):
 			Renpy.music.play(file_name, channel, 1, **kwargs)
 		@staticmethod
 		def stop(channel, **kwargs):
