@@ -66,7 +66,7 @@ init -1001 python:
 			self.text_color = kwargs.get('text_color', 0xFFFF00)
 			
 			# rpg-props:
-			self.prefix_path_to_image = None
+			self.path_to_images = None
 			self.dress = None
 			
 			self.frame = 0
@@ -99,13 +99,13 @@ init -1001 python:
 		
 		#rpg-funcs:
 		
-		def make_rpg(self, prefix_path_to_image, default_dress):
-			self.prefix_path_to_image = prefix_path_to_image
+		def make_rpg(self, path_to_images, prefix_image, default_dress):
+			self.path_to_images = path_to_images + ('/' if not path_to_images.endswith('/') else '')
+			self.prefix_image = prefix_image
 			self.set_dress(default_dress)
 		
 		def set_dress(self, dress):
-			self.dress = dress
-			self.image = self.prefix_path_to_image + self.dress + '.png'
+			self.image = dress + '.png'
 		
 		
 		def set_frame(self, frame):
@@ -286,4 +286,32 @@ init -1001 python:
     def make_names_known():
     	for character in characters:
     		character.name = character.real_name
+    
+    
+    
+    def show_character(character, place_name):
+		if not character:
+			out_msg('show_character', 'character == None')
+			return
+		if not cur_location_name:
+			out_msg('show_character', 'Текущая локация не установлена, сначала следует вызвать set_location')
+			return
+		place = cur_location.get_place(place_name)
+		if not place:
+			out_msg('show_character', 'В локации <' + cur_location_name + '> нет места с именем <' + str(place_name) + '>')
+			return
+		
+		character.x, character.y = place.x + place.width / 2, place.y + place.height / 2
+		objects_on_location.append(character)
+	
+	def hide_character(character):
+		if not character:
+			out_msg('hide_character', 'character == None')
+			return
+		
+		if character in objects_on_location:
+			objects_on_location.remove(character)
+		else:
+			out_msg('hide_character', 'Персонаж <' + character.real_name + ', ' + character.unknow_name + '> не добавлен в список отображаемых')
+	
     

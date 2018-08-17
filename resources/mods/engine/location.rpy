@@ -1,4 +1,4 @@
-init -1001 python:
+init -1002 python:
 	
 	location_start_time = time.time()
 	location_fade_time = 0.5
@@ -60,7 +60,6 @@ init -1001 python:
 	
 	
 	locations = dict()
-	location_objects = dict()
 	
 	objects_on_location = []
 	def characters_moved():
@@ -87,19 +86,6 @@ init -1001 python:
 		
 		place = Place(x, y, width, height)
 		location.add_place(place, place_name)
-	
-	def register_location_object(obj_name, main, free = None, max_in_inventory_cell = 0, remove_to_location = True):
-		if location_objects.has_key(obj_name):
-			out_msg('register_location_object', 'Объект с именем <' + obj_name + '> уже существует')
-			return
-		
-		location_objects[obj_name] = {
-			'name': obj_name,
-			'main': main,
-			'free': free,
-			'max_in_inventory_cell': max_in_inventory_cell,
-			'remove_to_location': remove_to_location
-		}
 	
 	def register_exit(location_name, to_location_name, to_place_name, x, y, width, height):
 		if not locations.has_key(location_name):
@@ -136,8 +122,8 @@ init -1001 python:
 		location_start_time = time.time()
 		objects_on_location = list(cur_location.objects)
 		
-		main = cur_location.main
-		real_width, real_height = get_texture_width(main), get_texture_height(main)
+		main = cur_location.main()
+		real_width, real_height = get_texture_size(main)
 		reg_width, reg_height = cur_location.width, cur_location.height
 		
 		if draw_location is None:
@@ -159,31 +145,6 @@ init -1001 python:
 					'Локация: <' + cur_location_name + '>\n' + 
 					'Основное изображение: <' + main + '>')
 	
-	def show_character(character, place_name):
-		if not character:
-			out_msg('show_character', 'character == None')
-			return
-		if not cur_location_name:
-			out_msg('show_character', 'Текущая локация не установлена, сначала следует вызвать set_location')
-			return
-		place = cur_location.get_place(place_name)
-		if not place:
-			out_msg('show_character', 'В локации <' + cur_location_name + '> нет места с именем <' + str(place_name) + '>')
-			return
-		
-		character.x, character.y = place.x + place.width / 2, place.y + place.height / 2
-		objects_on_location.append(character)
-	
-	def hide_character(character):
-		if not character:
-			out_msg('hide_character', 'character == None')
-			return
-		
-		if character in objects_on_location:
-			objects_on_location.remove(character)
-		else:
-			out_msg('hide_character', 'Персонаж <' + character.real_name + ', ' + character.unknow_name + '> не добавлен в список отображаемых')
-	
 	def hide_location():
 		global cur_location_name, cur_to_place
 		
@@ -191,107 +152,65 @@ init -1001 python:
 		cur_to_place = None
 	
 	
-	def add_location_object(location_name, place, obj_name):
-		if not locations.has_key(location_name):
-			out_msg('add_location_object', 'Локация <' + location_name + '> не зарегистрирована')
-			return
-		location = locations[location_name]
-		
-		if type(place) is str:
-			tmp_place = location.get_place(place)
-			if not tmp_place:
-				out_msg('add_location_object', 'В локации <' + location_name + '> нет места с именем <' + place + '>')
-				return
-			place = tmp_place
-			px, py = place.x + place.width / 2, place.y + place.height / 2
-		else:
-			px, py = place['x'], place['y'] - 1
-		
-		if not location_objects.has_key(obj_name):
-			out_msg('', 'Объект <' + obj_name + '> не зарегистрирован')
-			return
-		
-		
-		obj = location_objects[obj_name]
-		
-		instance = Object()
-		instance.type = obj_name
-		instance.image = obj['main']
-		instance.free = obj['free']
-		instance.x, instance.y = px, py
-		instance.xanchor, instance.yanchor = 0.5, 1.0
-		instance.width, instance.height = get_texture_width(instance.image), get_texture_height(instance.image)
-		instance.crop = (0, 0, 1.0, 1.0)
-		location.objects.append(instance)
-		objects_on_location.append(instance)
 	
-	def remove_location_object(location_name, place, obj_name, count = 1):
-		if not locations.has_key(location_name):
-			out_msg('remove_location_object', 'Локация <' + location_name + '> не зарегистрирована')
-			return
-		location = locations[location_name]
+	def get_location_image(obj, directory, name, name_postfix, ext):
+		if obj.cache is None:
+			obj.cache = dict()
+		cache = obj.cache
 		
-		if type(place) is str:
-			place = location.get_place(place)
-			if not place:
-				out_msg('add_location_object', 'В локации <' + location_name + '> нет места с именем <' + place_name + '>')
-				return
-		if place:
-			px, py = place['x'], place['y']
-		else:
-			px = py = 0
+		mode = persistent.sprite_time
+		key = name, name_postfix, mode
+		if cache.has_key(key):
+			return cache[key]
 		
-		to_remove = []
-		for i in location.objects:
-			if i.type == obj_name:
-				to_remove.append(i)
+		path = directory + name + name_postfix + '_' + mode + ext
+		if not os.path.exists(path):
+			path = path_to_images + image_type + ext
+			if os.path.exists(path):
+				if image_type != 'free':
+					r, g, b = persistent.lt_r, persistent.lt_g, persistent.lt_b
+					path = im.recolor(path, r, g, b)
+			else:
+				path = None
 		
-		def dist(o):
-			return ((o.x - px)**2 + (o.y - py)**2) ** 0.5
-		to_remove.sort(key = dist)
-		to_remove = to_remove[0:count]
-		
-		for i in to_remove:
-			if i in location.objects:
-				location.objects.remove(i)
-			if i in objects_on_location:
-				objects_on_location.remove(i)
+		cache[key] = path
+		return path
 	
 	
 	class Location(Object):
 		def __init__(self, name, path_to_images, is_room, width, height):
 			Object.__init__(self)
+			
 			self.name = name
+			self.path_to_images = path_to_images + ('/' if not path_to_images.endswith('/') else '')
 			
 			self.is_room = is_room
 			self.width, self.height = width, height
-			
-			over_path = os.path.join(path_to_images, 'over.png')
-			free_path = os.path.join(path_to_images, 'free.png')
-			
-			self.main = os.path.join(path_to_images, 'main.png')
-			self.over = over_path if os.path.exists(over_path) else None
-			self.free = free_path if os.path.exists(free_path) else None
 			
 			self.places = dict()
 			self.exits = []
 			
 			self.objects = []
 		
+		def main(self):
+			return get_location_image(self, 'main')
+		def over(self):
+			return get_location_image(self, 'over')
+		def free(self):
+			return get_location_image(self, 'free')
+		
 		def preload(self):
-			load_image(self.main)
-			if self.over:
-				load_image(self.over)
-			if self.free:
-				load_image(self.free)
+			load_image(self.main())
+			if self.over():
+				load_image(self.over())
+			if self.free():
+				load_image(self.free())
 		
 		def add_place(self, place, place_name):
 			self.places[place_name] = place
 		
 		def get_place(self, place_name):
-			if self.places.has_key(place_name):
-				return self.places[place_name]
-			return None
+			return self.places.get(place_name, None)
 		
 		def add_exit(self, exit):
 			self.exits.append(exit)

@@ -130,7 +130,6 @@ screen location:
 				loc__character_dy += 1
 			loc__move_character(loc__character_dx, loc__character_dy)
 			
-			
 			if control:
 				if loc__left and not loc__prev_left:
 					loc__left_time = time.time()
@@ -141,16 +140,15 @@ screen location:
 				if loc__down and not loc__prev_down:
 					loc__down_time = time.time()
 				
-				min_index = loc__get_min(loc__left_time if loc__left else max_time,
+				min_index = loc__get_min(loc__left_time  if loc__left  else max_time,
 				                         loc__right_time if loc__right else max_time,
-				                         loc__up_time if loc__up else max_time,
-				                         loc__down_time if loc__down else max_time)
+				                         loc__up_time    if loc__up    else max_time,
+				                         loc__down_time  if loc__down  else max_time)
 				if (loc__left, loc__right, loc__up, loc__down)[min_index]:
 					loc__direction = loc__directions[min_index]
 					me.set_direction(loc__direction)
-		
-		
-		python:
+			
+			
 			update_location_scale()
 			
 			for obj in draw_objects_on_location:
@@ -160,7 +158,7 @@ screen location:
 			
 			draw_location.update_pos()
 		
-		image draw_location.main:
+		image draw_location.main():
 			pos  (draw_location.x, draw_location.y)
 			size (draw_location.width * location_scale, draw_location.height * location_scale)
 			
@@ -175,14 +173,15 @@ screen location:
 					if type(obj_yanchor) is int:
 						obj_yanchor *= location_scale
 				
-				image obj.image:
+				$ print get_location_image(obj, obj.prefix_image + obj.image, ''), obj.image
+				image get_location_image(obj, obj.prefix_image + obj.image, ''):
 					pos    (int(obj_x), int(obj_y))
 					anchor (obj_xanchor, obj_yanchor)
 					size   (obj_width, obj_height)
 					crop    obj.crop
 		
-		if draw_location.over:
-			image draw_location.over:
+		if draw_location.over():
+			image draw_location.over():
 				pos  (draw_location.x, draw_location.y)
 				size (draw_location.width * location_scale, draw_location.height * location_scale)
 		
