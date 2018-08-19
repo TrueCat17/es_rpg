@@ -84,16 +84,15 @@ init -1000 python:
 	persistent_need_save = False
 	def persistent_save():
 		global persistent_need_save
-		
 		if persistent_need_save:
 			persistent_need_save = False
 			save_object(persistent_path, persistent)
 
 
 init -999 python:
-	persistent.st_r = 255
-	persistent.st_g = 255
-	persistent.st_b = 255
-	
-	persistent.sprite_time = 'day'
+	persistent.cur_rgb = (255, 255, 255)
+	persistent.cur_r = 255
+	persistent.cur_g = 255
+	persistent.cur_b = 255
+	persistent.cur_time = 'day'
 

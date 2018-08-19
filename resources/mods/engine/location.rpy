@@ -1,5 +1,8 @@
 init -1002 python:
 	
+	location_ext = 'png'
+	
+	
 	location_start_time = time.time()
 	location_fade_time = 0.5
 	
@@ -68,6 +71,7 @@ init -1002 python:
 				if not obj.moved():
 					return False
 		return True
+	can_exec_next_funcs.append(characters_moved)
 	
 	
 	def register_location(name, path_to_images, is_room, width, height):
@@ -147,42 +151,46 @@ init -1002 python:
 	
 	def hide_location():
 		global cur_location_name, cur_to_place
-		
 		cur_location_name = None
 		cur_to_place = None
 	
 	
 	
-	def get_location_image(obj, directory, name, name_postfix, ext):
+	def get_location_image(obj, directory, name, name_postfix, ext, is_free, need = True):
 		if obj.cache is None:
 			obj.cache = dict()
-		cache = obj.cache
 		
-		mode = persistent.sprite_time
+		mode = persistent.cur_time
 		key = name, name_postfix, mode
-		if cache.has_key(key):
-			return cache[key]
+		if obj.cache.has_key(key):
+			return obj.cache[key]
 		
-		path = directory + name + name_postfix + '_' + mode + ext
+		if name_postfix:
+			name_postfix = '_' + name_postfix
+		file_name = name + name_postfix
+		
+		path = directory + file_name + '_' + mode + '.' + ext
 		if not os.path.exists(path):
-			path = path_to_images + image_type + ext
+			path = directory + file_name + '.' + ext
 			if os.path.exists(path):
-				if image_type != 'free':
-					r, g, b = persistent.lt_r, persistent.lt_g, persistent.lt_b
+				if not is_free:
+					r, g, b = persistent.cur_rgb
 					path = im.recolor(path, r, g, b)
 			else:
+				if need:
+					out_msg('get_location_image', 'Файл <' + path + '> не найден')
 				path = None
 		
-		cache[key] = path
+		obj.cache[key] = path
 		return path
 	
 	
 	class Location(Object):
-		def __init__(self, name, path_to_images, is_room, width, height):
+		def __init__(self, name, directory, is_room, width, height):
 			Object.__init__(self)
 			
 			self.name = name
-			self.path_to_images = path_to_images + ('/' if not path_to_images.endswith('/') else '')
+			self.directory = directory + ('' if directory.endswith('/') else '/')
 			
 			self.is_room = is_room
 			self.width, self.height = width, height
@@ -193,18 +201,16 @@ init -1002 python:
 			self.objects = []
 		
 		def main(self):
-			return get_location_image(self, 'main')
+			return get_location_image(self, self.directory, 'main', '', location_ext, False)
 		def over(self):
-			return get_location_image(self, 'over')
+			return get_location_image(self, self.directory, 'over', '', location_ext, False, False)
 		def free(self):
-			return get_location_image(self, 'free')
+			return get_location_image(self, self.directory, 'free', '', location_ext, True, False)
 		
 		def preload(self):
-			load_image(self.main())
-			if self.over():
-				load_image(self.over())
-			if self.free():
-				load_image(self.free())
+			for image in self.main(), self.over(), self.free():
+				if image:
+					load_image(image)
 		
 		def add_place(self, place, place_name):
 			self.places[place_name] = place

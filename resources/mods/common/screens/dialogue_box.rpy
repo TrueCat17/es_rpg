@@ -2,7 +2,13 @@ init -1000 python:
 	# db = dialogue box
 	
 	pause_end = 0
+	def pause_ended():
+		return pause_end < time.time()
+	can_exec_next_funcs.append(pause_ended)
+	
 	db_read = True
+	can_exec_next_vars.append((None, 'db_read'))
+	
 	
 	db_pause_after_text = 0
 	db_pause_end = 0

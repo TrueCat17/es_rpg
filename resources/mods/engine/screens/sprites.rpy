@@ -11,10 +11,11 @@ init -1000 python:
 	
 	
 	def sprites_effects_ended():
-		for spr in sprites_list + [screen]:
+		for spr in sprites_list:
 			if spr.effect is not None:
 				return False
-		return True
+		return screen.effect is None
+	can_exec_next_funcs.append(sprites_effects_ended)
 	
 	def sprites_effects_to_end():
 		for spr in sprites_list + [screen]:

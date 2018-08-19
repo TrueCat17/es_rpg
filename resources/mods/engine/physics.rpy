@@ -11,29 +11,33 @@ init python:
 		# Вычитаем 253.9/255 из каждого (rgb) канала, чтобы все цвета, кроме чисто-белого, стали чёрными
 		matrix = im.matrix.identity()
 		matrix[4] = matrix[9] = matrix[14] = -253.9/255.0
+		matrix = im.matrix.invert() * matrix # перед этим инвертируем цвета
+		
+		location_free = cur_location.free()
 		
 		to_draw = [(cur_location.width, cur_location.height)]
-		if cur_location.free:
-			to_draw += [(0, 0), cur_location.free]
+		if location_free:
+			to_draw += [(0, 0), location_free]
 		else:
-			to_draw += [(0, 0), im.Rect('#000', cur_location.width, cur_location.height)]
+			to_draw += [(0, 0), im.rect('#000', cur_location.width, cur_location.height)]
 		
 		for obj in objs:
-			w, h = obj.width, obj.height
-			x, y = obj.x - w / 2, obj.y - h # anchor (0.5, 1.0)
+			w, h = obj.xsize, obj.ysize
+			x, y = obj.x - obj.xanchor * w, obj.y - obj.yanchor * h
 			
-			if obj.free and near(x, y, w, h):
-				to_draw += [(x, y), im.MatrixColor(obj.free, im.matrix.invert() * matrix)]
+			obj_free = obj.free()
+			if obj_free and near(x, y, w, h):
+				if obj.frames > 1:
+					obj_free = im.crop(obj_free, obj.crop)
+				to_draw += [(x, y), im.matrix_color(obj_free, matrix)]
 		
 		for character in characters:
 			if near(character.x, character.y, 0, 0):
-				to_draw += [(character.x - cs / 2, character.y - cs / 2), im.Rect('#FFF', cs, cs)]
+				to_draw += [(character.x - cs / 2, character.y - cs / 2), im.rect('#FFF', cs, cs)]
 		
-		if len(to_draw) == 3:
-			res = cur_location.free
-		else:
-			res = im.Composite(*to_draw)
-		return res
+		if len(to_draw) == 3: # 3 - [size, pos0, image0]
+			return location_free
+		return im.composite(*to_draw)
 	
 	
 	def get_end_point(from_x, from_y, dx, dy):
@@ -49,7 +53,7 @@ init python:
 			return to_x, to_y
 		
 		black_color = 255 # r, g, b, a = 0, 0, 0, 255
-		map_width, map_height = get_texture_width(free), get_texture_height(free)
+		map_width, map_height = get_texture_size(free)
 		
 		def is_black(x, y):
 			x, y = int(x), int(y)

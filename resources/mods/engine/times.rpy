@@ -2,11 +2,13 @@ init -1000 python:
 	
 	def make_time(name, r, g, b):
 		def func():
-			persistent.st_r, persistent.st_g, persistent.st_b = r, g, b # st -> sprite_time
-			persistent.sprite_time = name
+			persistent.next_rgb = r, g, b
+			persistent.next_r, persistent.next_g, persistent.next_b = persistent.next_rgb
+			persistent.next_time = name
 			if not has_screen('locations'):
-				persistent.lt_r, persistent.lt_g, persistent.lt_b = r, g, b # lt -> location_time
-				persistent.location_time = name
+				persistent.cur_rgb = r, g, b
+				persistent.cur_r, persistent.cur_g, persistent.cur_b = persistent.cur_rgb
+				persistent.cur_time = name
 		
 		globals()[name + '_time'] = func
 	

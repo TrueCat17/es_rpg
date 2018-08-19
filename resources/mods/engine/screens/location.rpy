@@ -162,23 +162,30 @@ screen location:
 			pos  (draw_location.x, draw_location.y)
 			size (draw_location.width * location_scale, draw_location.height * location_scale)
 			
-			for obj in draw_objects_on_location:
-				python:
-					obj_x, obj_y = obj.x * location_scale, obj.y * location_scale
-					obj_width, obj_height = obj.width * location_scale, obj.height * location_scale
-					
+			python:
+				list_to_draw = []
+				
+				for obj in draw_objects_on_location:
 					obj_xanchor, obj_yanchor = obj.xanchor, obj.yanchor
 					if type(obj_xanchor) is int:
 						obj_xanchor *= location_scale
 					if type(obj_yanchor) is int:
 						obj_yanchor *= location_scale
-				
-				$ print get_location_image(obj, obj.prefix_image + obj.image, ''), obj.image
-				image get_location_image(obj, obj.prefix_image + obj.image, ''):
-					pos    (int(obj_x), int(obj_y))
-					anchor (obj_xanchor, obj_yanchor)
-					size   (obj_width, obj_height)
-					crop    obj.crop
+					
+					list_to_draw.append({
+						'image':   obj.main(),
+						'size':   (obj.xsize * location_scale, obj.ysize * location_scale),
+						'pos':    (int(obj.x * location_scale), int(obj.y * location_scale)),
+						'anchor': (obj_xanchor, obj_yanchor),
+						'crop':    obj.crop
+					})
+			
+			for obj in list_to_draw:
+				image obj['image']:
+					pos    obj['pos']
+					anchor obj['anchor']
+					size   obj['size']
+					crop   obj['crop']
 		
 		if draw_location.over():
 			image draw_location.over():

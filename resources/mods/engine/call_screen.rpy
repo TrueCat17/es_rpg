@@ -1,5 +1,7 @@
 init -1000 python:
 	call_screen_choosed = True
+	can_exec_next_vars.append((None, 'call_screen_choosed'))
+	
 	call_screen_name, call_ret_name = None, None
 	
 	

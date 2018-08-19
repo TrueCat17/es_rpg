@@ -1,4 +1,4 @@
-init -100000 python:
+init -100001 python:
 	import os
 	sys = os.sys
 	

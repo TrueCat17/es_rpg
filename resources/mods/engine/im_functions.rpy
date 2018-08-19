@@ -319,7 +319,7 @@ init -1001 python:
 				ground = vbar_ground if vertical else bar_ground
 			if hover is None:
 				hover  = vbar_hover if vertical else bar_hover
-			tw, th = get_texture_width(ground), get_texture_height(ground)
+			tw, th = get_texture_size(ground)
 			
 			if vertical:
 				x, y = 0, progress_start * th

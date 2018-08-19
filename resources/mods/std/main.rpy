@@ -13,7 +13,7 @@ init python:
 
 
 label start:
-	call day1_start
+	call day0_start
 	
 	while True:
 		call rpg_update

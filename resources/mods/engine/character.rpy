@@ -1,9 +1,13 @@
 init -1001 python:
+	
+	character_ext = 'png'
+	
+	
 	character_walk_fps          =   4
 	character_run_fps           =  12
 	character_acceleration_time = 0.5
 	character_walk_speed        =  50
-	character_run_speed         = 150
+	character_run_speed         = 150*5
 	
 	character_walk_acceleration = character_walk_speed / character_acceleration_time
 	character_run_acceleration = character_run_speed / character_acceleration_time
@@ -51,7 +55,7 @@ init -1001 python:
 			characters.append(self)
 			
 			self.xanchor, self.yanchor = 0.5, 0.8
-			self.width, self.height = character_xsize, character_ysize
+			self.xsize, self.ysize = character_xsize, character_ysize
 			
 			self.real_name = name
 			self.unknown_name = kwargs.get('unknown_name', name)
@@ -66,14 +70,14 @@ init -1001 python:
 			self.text_color = kwargs.get('text_color', 0xFFFF00)
 			
 			# rpg-props:
-			self.path_to_images = None
+			self.directory = None
 			self.dress = None
 			
 			self.frame = 0
 			self.direction = 0
 			self.run = False
 			self.pose = 'stance'       # 'stance' | 'sit'
-			self.move_kind = 'stay'    # 'stay'   | 'walk' | 'run'
+			self.move_kind = 'stay'    #  'stay'  | 'walk' | 'run'
 			
 			self.moving_start_time = time.time()
 			self.start_skip_times = []
@@ -99,20 +103,20 @@ init -1001 python:
 		
 		#rpg-funcs:
 		
-		def make_rpg(self, path_to_images, prefix_image, default_dress):
-			self.path_to_images = path_to_images + ('/' if not path_to_images.endswith('/') else '')
-			self.prefix_image = prefix_image
-			self.set_dress(default_dress)
+		def make_rpg(self, directory, rpg_name, start_dress):
+			self.directory = directory + ('' if directory.endswith('/') else '/')
+			self.rpg_name = rpg_name
+			self.set_dress(start_dress)
 		
 		def set_dress(self, dress):
-			self.image = dress + '.png'
-		
-		
+			self.dress = dress
 		def set_frame(self, frame):
 			self.frame = frame % character_max_frame
-		
 		def set_direction(self, direction):
 			self.direction = direction % character_max_direction
+		
+		def main(self):
+			return get_location_image(self, self.directory, self.rpg_name, self.dress, character_ext, False)
 		
 		def set_pose(self, pose):
 			if pose == 'sit' or pose == 'stance':
@@ -198,16 +202,10 @@ init -1001 python:
 			
 			self.end_moved = False
 			
-			if run:
-				self.move_kind =    'run'
-				self.fps =          character_run_fps
-				self.speed =        character_run_speed
-				self.acceleration = character_run_acceleration
-			else:
-				self.move_kind =    'walk'
-				self.fps =          character_walk_fps
-				self.speed =        character_walk_speed
-				self.acceleration = character_walk_acceleration
+			self.move_kind = 'run' if run else 'walk'
+			g = globals()
+			for prop in ('fps', 'speed', 'acceleration'):
+				self[prop] = g['character_' + self.move_kind + '_' + prop] # for example: self.fps = character_run_fps
 			
 			self.to_next_place()
 			
@@ -283,13 +281,13 @@ init -1001 python:
 	def make_names_unknown():
 		for character in characters:
 			character.name = character.unknown_name
-    def make_names_known():
-    	for character in characters:
-    		character.name = character.real_name
-    
-    
-    
-    def show_character(character, place_name):
+	def make_names_known():
+		for character in characters:
+			character.name = character.real_name
+	
+	
+	
+	def show_character(character, place_name):
 		if not character:
 			out_msg('show_character', 'character == None')
 			return
@@ -313,5 +311,4 @@ init -1001 python:
 			objects_on_location.remove(character)
 		else:
 			out_msg('hide_character', 'Персонаж <' + character.real_name + ', ' + character.unknow_name + '> не добавлен в список отображаемых')
-	
-    
+
