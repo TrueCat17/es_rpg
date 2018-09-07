@@ -48,7 +48,7 @@ init python:
 	def console_print(text):
 		persistent.console_text += '\n' + str(text)
 	def console_print_help():
-		to_print = 'commands: clear, watch <expr>, unwatch <expr>, unwatch_all or python-expr'
+		to_print = 'commands: clear, scene, show, hide, watch <expr>, unwatch <expr>, unwatchall or python-expr'
 		console_print(to_print)
 	
 	
@@ -314,7 +314,7 @@ screen console_watching:
 					res = str(eval(cmpl))
 				except:
 					res = 'Eval Failed'
-				console_watching_text += code + ': ' + res
+				console_watching_text += code + ': ' + res + '\n'
 		
 		text console_watching_text:
 			align (0.5, 0.5)
