@@ -81,6 +81,9 @@ screen location:
 				show_character(me, cur_to_place)
 				cam_object = me
 				
+				if times['next_name']:
+					set_time_direct()
+				
 				was_out_exit = True
 				for exit in cur_location.exits:
 					if exit.inside(me.x, me.y):

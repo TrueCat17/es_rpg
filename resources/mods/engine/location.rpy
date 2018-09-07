@@ -102,13 +102,15 @@ init -1002 python:
 	
 	
 	
-	def set_location(location_name, place_name):
+	def set_location(location_name, place):
 		if not locations.has_key(location_name):
 			out_msg('set_location', 'Локация <' + location_name + '> не найдена')
 			return
-		if not locations[location_name].get_place(place_name):
-			out_msg('set_location', 'Локация <' + location_name + '> не содержит места <' + place_name + '>')
-			return
+		
+		if type(place) is not dict:
+			if not locations[location_name].get_place(place):
+				out_msg('set_location', 'Локация <' + location_name + '> не содержит места <' + str(place) + '>')
+				return
 		
 		if not has_screen('location'):
 			show_screen('location')
@@ -121,7 +123,7 @@ init -1002 python:
 		
 		cur_location = locations[location_name]
 		cur_location_name = location_name
-		cur_to_place = place_name
+		cur_to_place = place
 		
 		location_start_time = time.time()
 		objects_on_location = list(cur_location.objects)
@@ -160,7 +162,7 @@ init -1002 python:
 		if obj.cache is None:
 			obj.cache = dict()
 		
-		mode = persistent.cur_time
+		mode = times['current_name']
 		key = name, name_postfix, mode
 		if obj.cache.has_key(key):
 			return obj.cache[key]
@@ -174,7 +176,7 @@ init -1002 python:
 			path = directory + file_name + '.' + ext
 			if os.path.exists(path):
 				if not is_free:
-					r, g, b = persistent.cur_rgb
+					r, g, b = location_time_rgb
 					path = im.recolor(path, r, g, b)
 			else:
 				if need:

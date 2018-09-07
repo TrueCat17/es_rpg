@@ -287,19 +287,20 @@ init -1001 python:
 	
 	
 	
-	def show_character(character, place_name):
+	def show_character(character, place):
 		if not character:
 			out_msg('show_character', 'character == None')
 			return
 		if not cur_location_name:
 			out_msg('show_character', 'Текущая локация не установлена, сначала следует вызвать set_location')
 			return
-		place = cur_location.get_place(place_name)
+		if type(place) is not dict:
+			place = cur_location.get_place(place)
 		if not place:
-			out_msg('show_character', 'В локации <' + cur_location_name + '> нет места с именем <' + str(place_name) + '>')
+			out_msg('show_character', 'В локации <' + cur_location_name + '> нет места с именем <' + str(place) + '>')
 			return
 		
-		character.x, character.y = place.x + place.width / 2, place.y + place.height / 2
+		character.x, character.y = place['x'] + place['width'] / 2, place['y'] + place['height'] / 2
 		objects_on_location.append(character)
 	
 	def hide_character(character):

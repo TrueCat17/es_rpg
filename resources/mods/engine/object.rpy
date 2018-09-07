@@ -23,14 +23,15 @@ init -100000 python:
 			return None
 		
 		def __setattr__(self, attr, value):
-			self.__dict__[attr] = value
-			
-			if self.in_persistent:
-				if isinstance(value, Object):
-					value.in_persistent = True
-					
-				global persistent_need_save
-				persistent_need_save = True
+			if not self.__dict__.has_key(attr) or self.__dict__[attr] is not value:
+				self.__dict__[attr] = value
+				
+				if self.in_persistent:
+					if isinstance(value, Object):
+						value.in_persistent = True
+						
+					global persistent_need_save
+					persistent_need_save = True
 		
 		def __delattr__(self, attr):
 			del self.__dict__[attr]

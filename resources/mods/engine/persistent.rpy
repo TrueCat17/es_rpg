@@ -43,19 +43,34 @@ init -1002 python:
 		g = globals()
 		obj = dict()
 		
+		persistent_values = [persistent[prop] for prop in persistent.get_props()]
+		
 		class TmpClass: pass
 		tmp_instance = TmpClass()
 		
-		safe_types = [bool, int, float, long, str, list, tuple, set, dict, type(None), type(TmpClass), type(tmp_instance)]
+		safe_types = (bool, int, float, long, str, list, tuple, set, dict, type(None), type(TmpClass), type(tmp_instance))
 		
 		for k in g.keys():
 			o = g[k]
 			
+			# don't save persistent
+			if o is persistent:
+				continue
+			in_persistent = False
+			for persistent_value in persistent_values:
+				if o is persistent_value:
+					in_persistent = True
+					break
+			if in_persistent:
+				continue
+			
 			# renpy contains module <random>, modules can't saves
 			# reference to globals() too
-			if o is not renpy and o is not g:
-				if type(o) in safe_types:
-					obj[k] = o
+			if o is renpy or o is g:
+				continue
+			
+			if type(o) in safe_types:
+				obj[k] = o
 		
 		save_object(path, obj)
 
@@ -87,12 +102,4 @@ init -1000 python:
 		if persistent_need_save:
 			persistent_need_save = False
 			save_object(persistent_path, persistent)
-
-
-init -999 python:
-	persistent.cur_rgb = (255, 255, 255)
-	persistent.cur_r = 255
-	persistent.cur_g = 255
-	persistent.cur_b = 255
-	persistent.cur_time = 'day'
 

@@ -18,8 +18,9 @@ init -1000 python:
 	can_exec_next_funcs.append(sprites_effects_ended)
 	
 	def sprites_effects_to_end():
-		for spr in sprites_list + [screen]:
+		for spr in sprites_list:
 			spr.remove_effect()
+		screen.remove_effect()
 		remove_hiding_sprites()
 	
 	def remove_hiding_sprites():

@@ -213,12 +213,18 @@ init -1000 python:
 	window_show = SetVariable('db_visible', True)
 	window_hide = SetVariable('db_visible', False)
 	
-	set_mode_adv = SetVariable('db_mode', 'adv')
-	set_mode_nvl = SetVariable('db_mode', 'nvl')
-	
 	def nvl_clear():
 		global db_dialogue
 		db_dialogue = []
+	
+	def set_mode_adv():
+		global db_mode
+		db_mode = 'adv'
+		nvl_clear()
+	def set_mode_nvl():
+		global db_mode
+		db_mode = 'nvl'
+		nvl_clear()
 
 
 
