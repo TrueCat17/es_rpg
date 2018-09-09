@@ -199,4 +199,10 @@ screen location:
 		image 'images/bg/black.jpg':
 			size (1.0, 1.0)
 			alpha loc__background_alpha
+		
+		if times['next_name'] is not None:
+			text times[times['next_name']]['text']:
+				text_size 50
+				color 0xFFFFFF
+				align (0.5, 0.5)
 

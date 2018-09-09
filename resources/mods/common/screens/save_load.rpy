@@ -12,8 +12,8 @@ init -2 python:
 	sl_last_autosave = time.time()
 	def sl_check_autosave():
 		global sl_last_autosave
-		if get_can_autosave() and not has_screen('pause') and config.auto_save > 0:
-			if time.time() - max(sl_last_autosave, get_mod_start_time()) > config.auto_save:
+		if get_can_autosave() and not has_screen('pause') and config.autosave > 0:
+			if time.time() - max(sl_last_autosave, get_mod_start_time()) > config.autosave:
 				sl_last_autosave = time.time()
 				sl_save('auto', '0')
 	
