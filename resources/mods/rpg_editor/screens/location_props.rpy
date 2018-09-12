@@ -215,8 +215,9 @@ screen location_props:
 						size (props_width - 50, objects_btn_height)
 						
 						python:
-							image = location_objects[name]['main']
-							w, h = get_texture_width(image), get_texture_height(image)
+							obj = location_objects[name]
+							image = obj['directory'] + obj['main_image'] + '.' + location_object_ext
+							w, h = get_texture_size(image)
 							k = 64.0 / max(w, h)
 							w, h = int(w * k), int(h * k)
 							image = im.Scale(image, w, h)
@@ -265,7 +266,7 @@ screen location_props:
 								yalign 0.5
 								text_size 14
 						
-						if selected_location.over:
+						if selected_location.over():
 							hbox:
 								button:
 									size (16, 16)
@@ -278,7 +279,7 @@ screen location_props:
 									yalign 0.5
 									text_size 14
 						
-						if selected_location.free:
+						if selected_location.free():
 							hbox:
 								button:
 									size (16, 16)

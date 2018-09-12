@@ -45,13 +45,13 @@ screen selected_location:
 		pos (x, y)
 		
 		if not selected_location.hide_main:
-			image selected_location.main:
+			image selected_location.main():
 				size (w, h)
-		if not selected_location.hide_over and selected_location.over:
-			image selected_location.over:
+		if not selected_location.hide_over and selected_location.over():
+			image selected_location.over():
 				size (w, h)
-		if selected_location.show_free and selected_location.free:
-			image selected_location.free:
+		if selected_location.show_free and selected_location.free():
+			image selected_location.free():
 				size (w, h)
 		
 		if not selected_location.hide_places:
@@ -61,8 +61,9 @@ screen selected_location:
 					if '_pos' in place_name:
 						obj_name = place_name[0:place_name.index('_pos')]
 						if location_objects.has_key(obj_name):
-							obj_image = location_objects[obj_name]['main']
-							obj_width, obj_height = get_texture_width(obj_image), get_texture_height(obj_image)
+							obj = location_objects[obj_name]
+							obj_image = obj['directory'] + obj['main_image'] + '.' + location_object_ext
+							obj_width, obj_height = get_texture_size(obj_image)
 					
 					place = selected_location.places[place_name]
 					if place.side_exit is None:

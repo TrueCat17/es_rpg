@@ -9,7 +9,6 @@ init -1000 python:
 	locations_file_path = 'mods/rpg_editor/results/locations.rpy'
 	location_objects_file_path = 'mods/rpg_editor/results/location_objects.rpy'
 	
-	object_default_free, object_default_max_in_inventory_cell, object_default_remove_to_location = register_location_object.func_defaults
 	
 	def clear():
 		global locations, locations_times
@@ -25,11 +24,13 @@ init -1000 python:
 
 init python:
 	def register_new_locations():
-		locations_dirs = [i for i in os.listdir(locations_path) if not i.startswith('_') and os.path.exists(locations_path + i + '/main.png')]
+		ext = location_object_ext
+		
+		locations_dirs = [i for i in os.listdir(locations_path) if not i.startswith('_') and os.path.exists(locations_path + i + '/main.' + ext)]
 		
 		for name in locations_dirs:
 			preview_created = False
-			if not os.path.exists(preview_path + name + '.png'):
+			if not os.path.exists(preview_path + name + '.' + ext):
 				preview_created = True
 				make_preview(name)
 			
@@ -43,7 +44,7 @@ init python:
 			if not preview_created:
 				make_preview(name)
 			
-			main = path + '/main.png'
+			main = path + '/main.' + ext
 			register_location(name, path, False, get_texture_width(main), get_texture_height(main))
 			
 			set_save_locations()
@@ -57,9 +58,9 @@ init python:
 		w, h = location.width, location.height
 		
 		if location.over:
-			image = im.Composite((w, h), (0, 0), location.main, (0, 0), location.over)
+			image = im.Composite((w, h), (0, 0), location.main(), (0, 0), location.over())
 		else:
-			image = location.main
+			image = location.main()
 		
 		to_save = preview_path + name + '.png'
 		im.save(image, to_save, 128 * w / max(w, h), 128 * h / max(w, h))
@@ -80,7 +81,7 @@ init python:
 			location = locations[location_name]
 			
 			location_name = '"' + location_name + '"'
-			path = '"' + location.main[:-len('main.png')] + '"'
+			path = '"' + location.directory + '"'
 			is_room = str(location.is_room)
 			w, h = str(location.width), str(location.height)
 			
