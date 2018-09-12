@@ -1093,13 +1093,7 @@ label epilogue_mi:
 	"..."
 	window hide
 	play music music_list["i_dont_blame_you"] fadein 3
-	if persistent.hentai:
-		if persistent.cg_set == "new":
-			scene cg epilogue_mi_hentai_1_new with dissolve
-		else:
-			scene cg miku_h_1_cenz with dissolve
-	else:
-		scene black with dissolve
+	scene black with dissolve
 	play music music_list["i_dont_blame_you"] fadein 3
 	if persistent.scenario_set == "new":
 		window show
@@ -1110,41 +1104,15 @@ label epilogue_mi:
 		mi "Да черт с ней – меня эта форма всегда бесила!"
 		"Она впилась поцелуем мне в губы, страстным, почти животным."
 		"Я не ожидал от нее такого напора, но решил не отставать и спустился рукой ниже."
-		window hide
-	else:
-		pause 5
-	if persistent.hentai:
-		if persistent.cg_set == "new":
-			scene cg epilogue_mi_hentai_2_new with dissolve
-		else:
-			scene cg miku_h_2_cenz with dissolve
-	else:
-		scene black
-	if persistent.scenario_set == "new":
-		window show
 		"Там уже было так мокро, как никогда."
 		"Возможно, у нас просто давно не было секса, а может быть, свою роль сыграло что-то другое, но мой член стоял как римский легионер перед решающий атакой варваров."
 		"Я с силой вошел в нее, отчего Маша тихо вскрикнула, обвила мою спину руками и начала больно ее царапать."
 		"Что от меня хотят было понятно – и я начал в бешеном темпе совершать движения внутри нее."
 		"Наверное, я стонал что-то про любовь, наверное, она – тоже..."
 		"Сейчас это было не столь важно, куда важнее – слиться воедино, стать как будто одним целым, достичь апогея соития!"
-		window hide
-	else:
-		pause 5
-	if persistent.hentai:
-		if persistent.cg_set == "new":
-			scene cg epilogue_mi_hentai_3_new with dissolve
-		else:
-			scene cg miku_h_1_cenz with dissolve
-	else:
-		scene black
-	if persistent.scenario_set == "new":
-		window show
 		"И этот апогей не заставил себя долго ждать – я почувствовал, как все ее тело сначала выгнулось, а потом забилось мелкой дрожью, мой член сдавило внутри, и я еле успел вынуть, оросив ее мощной струей спермы."
 		"Я уж думал, что она, как обычно, обидится, но Маша улыбнулась, подцепила немного пальцем, и облизала его."
-		window hide
-	else:
-		pause 5
+	window hide
 	with fade
 	window show
 	"..."
@@ -7682,18 +7650,6 @@ label epilogue_uv_ulya:
 	"Дальше всё случилось само собой."
 	"Даже если то, что я собирался сделать, и было попросту опасно, я же живой человек, в конце-то концов!"
 	window hide
-	if persistent.hentai:
-		if persistent.cg_set == "new":
-			scene cg epilogue_uv_hentai_1 with dissolve
-			pause 5
-			scene cg epilogue_uv_hentai_2 with dissolve
-			pause 5
-			scene cg epilogue_uv_hentai_3 with dissolve
-			pause 5
-			scene cg uvao_h_cenz with dissolve
-		else:
-			scene cg uvao_h_cenz with dissolve
-	pause 5
 	scene black with dissolve
 	window show
 	"Тогда Юля не была для меня всемогущим существом, в своих объятиях я сжимал обычную девочку."

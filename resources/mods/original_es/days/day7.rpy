@@ -1170,10 +1170,7 @@ label day7_un:
 	"Тихо прошептал я."
 	window hide
 	play music music_list["i_dont_blame_you"] fadein 3
-	if persistent.hentai:
-		scene cg d7_un_hentai_3 with dissolve
-	else:
-		scene black with dissolve
+	scene black with dissolve
 	play music music_list["i_dont_blame_you"] fadein 3
 	if persistent.scenario_set == "new":
 		window show
@@ -1231,10 +1228,7 @@ label day7_un:
 		window hide
 	else:
 	   pause 5
-	if persistent.hentai:
-		scene cg d7_un_hentai with dissolve
-	else:
-		scene black with dissolve
+	scene black with dissolve
 	if persistent.scenario_set == "new":
 		window show
 		"Через секунду я почувствовал, как она села на меня и начала медленно двигаться вверх-вниз."
@@ -1317,25 +1311,16 @@ label day7_un_bad:
 	"Время приближалось к десяти."
 	th "Что же, пора уже и вставать, наверное."
 	"Я легонько потряс Лену за плечо."
-	if persistent.hentai:
-		show un normal body close at center with dissolve
-	else:
-		show un normal pioneer close at center with dissolve
+	show un normal pioneer close at center with dissolve
 	"Она открыла глаза."
 	me "Доброе утро. Точнее, вечер."
-	if persistent.hentai:
-		show un smile2 body close at center with dspr
-	else:
-		show un smile2 pioneer close at center with dspr
+	show un smile2 pioneer close at center with dspr
 	un "Доброе."
 	"Она нежно улыбнулась."
 	me "Пора вставать, соня."
 	un "Ты спешишь куда-то?"
 	me "Ну, нет…{w} Просто мы тут с тобой совершенно одни в этом лагере…"
-	if persistent.hentai:
-		show un normal body close at center with dspr
-	else:
-		show un normal pioneer close at center with dspr
+	show un normal pioneer close at center with dspr
 	un "И что?"
 	"Она внимательно посмотрела на меня."
 	me "Ничего, просто…{w} А когда Ольга Дмитриевна вернётся?"
@@ -1343,10 +1328,7 @@ label day7_un_bad:
 	"Её лицо приняло серьёзное выражение."
 	me "Ну, без еды мы здесь умрём."
 	"Рассмеялся я."
-	if persistent.hentai:
-		show un angry body close at center with dspr
-	else:
-		show un angry pioneer close at center with dspr
+	show un angry pioneer close at center with dspr
 	un "Можешь уезжать тогда."
 	"Она отвернулась к стене."
 	me "Как же я уеду-то?"
@@ -1354,10 +1336,7 @@ label day7_un_bad:
 	me "Так они тут не ходят."
 	un "А зачем тогда, по-твоему, здесь остановка 410-го маршрута?"
 	me "Не знаю, если честно."
-	if persistent.hentai:
-		show un normal body close at center with dspr
-	else:
-		show un normal pioneer close at center with dspr
+	show un normal pioneer close at center with dspr
 	un "Я сказала Ольге Дмитриевне, что у нас с тобой остались здесь срочные дела, и мы приедем попозже."
 	me "Что?"
 	"Меня словно ударила молния."
@@ -1372,10 +1351,7 @@ label day7_un_bad:
 	me "Ладно, не дуйся…{w} Ну мы же с тобой не будем вечно здесь сидеть, ведь так?{w} Если есть возможность уехать…"
 	"Лена ничего не ответила."
 	"Я смотрел на её спину и пытался понять, о чём она думает."
-	if persistent.hentai:
-		show un smile2 body close at center with dspr
-	else:
-		show un smile2 pioneer close at center with dspr
+	show un smile2 pioneer close at center with dspr
 	un "Хорошо!"
 	hide un with dissolve
 	"Через некоторое время весело воскликнула она, вскочила с постели и начала быстро одеваться."
@@ -1575,10 +1551,7 @@ label day7_un_good:
 	window show
 	"Не знаю, сколько я так сидел, просто наблюдая за тем, как Лена спит.{w} Может, пару минут, а может, и несколько часов."
 	"Наконец она проснулась."
-	if persistent.hentai:
-		show un smile2 body close at center with dissolve
-	else:
-		show un smile2 pioneer close at center with dissolve
+	show un smile2 pioneer close at center with dissolve
 	un "Доброе утро."
 	"Лена нежно улыбнулась."
 	un "Иди сюда."
@@ -1595,10 +1568,7 @@ label day7_un_good:
 	me "Понимаешь, для меня это всё непросто.{w} Когда мы с тобой познакомились, ты мне казалась одним человеком, потом – другим, а сегодня…"
 	me "Сегодня я вообще не могу понять, кто ты на самом деле!"
 	me "Да ещё и то, как ты с Алисой…"
-	if persistent.hentai:
-		show un angry body close at center with dspr
-	else:
-		show un angry pioneer close at center with dspr
+	show un angry pioneer close at center with dspr
 	un "Опять она…"
 	"Лена прикрылась одеялом и отвернулась от меня."
 	un "Тебе что, не понравилось? Хочешь ещё и с ней? Так я не держу! Давай, сравни! Я тебе её адрес оставлю. Потом скажешь, кто лучше! Или можно сразу втроём…"
@@ -1607,31 +1577,19 @@ label day7_un_good:
 	me "Ты опять за своё."
 	"Вздохнул я."
 	me "Уж за сегодня, наверное, должна была понять, что последний человек, о котором я буду думать сейчас, – это Алиса."
-	if persistent.hentai:
-		show un smile3 body close at center with dspr
-	else:
-		show un smile3 pioneer close at center with dspr
+	show un smile3 pioneer close at center with dspr
 	un "Ну ладно, ты прав."
 	"Она повернулась ко мне, улыбнулась и крепко обняла."
 	me "Подожди…{w} Мне всё же нужно понять..."
-	if persistent.hentai:
-		show un normal body close at center with dspr
-	else:
-		show un normal pioneer close at center with dspr
+	show un normal pioneer close at center with dspr
 	un "Зачем?"
 	me "Я не могу так просто…{w} И – нет, мне не всё равно! Именно поэтому я хочу точно знать, кто ты на самом деле."
-	if persistent.hentai:
-		show un grin body close at center with dspr
-	else:
-		show un grin pioneer close at center with dspr
+	show un grin pioneer close at center with dspr
 	un "Я – это я."
 	"Ответила она всё тем же томным голосом."
 	"Кажется, у меня уже начали отказывать тормоза от всего этого."
 	th "Надо как-то успокоиться."
-	if persistent.hentai:
-		show un normal body at center with dissolve
-	else:
-		show un normal pioneer at center with dissolve
+	show un normal pioneer at center with dissolve
 	"Я резко вскочил и сел на кровать напротив."
 	un "Ну и ладно…"
 	hide un with dissolve
@@ -2788,48 +2746,29 @@ label day7_dv:
 	"Это оказалась мирно посапывающая Алиса."
 	play ambience ambience_int_cabin_night fadein 2
 	play music music_list["eternal_longing"] fadein 3
-	if persistent.hentai:
-		"Голая…"
 	"Всё, что произошло накануне, моментально всплыло в памяти."
 	"Страх быстро сменился чувством эйфории."
 	"Я вальяжно раскинулся на кровати, наслаждаясь прекрасным похмельным утром."
 	"Через некоторое время Алиса проснулась."
-	if persistent.hentai:
-		show dv shy body close at center with dissolve
-	else:
-		show dv shy pioneer2 close at center with dissolve
+	show dv shy pioneer2 close at center with dissolve
 	"Я нежно поцеловал её и сказал:"
 	me "Доброе утро!"
 	"Она пару секунд смотрела на меня отсутствующим взглядом, а потом вскочила и заорала:"
-	if persistent.hentai:
-		show dv shocked body close at center with dspr
-	else:
-		show dv shocked pioneer2 close at center with dspr
+	show dv shocked pioneer2 close at center with dspr
 	dv "Ты! Ты!"
 	me "Что я?"
-	if persistent.hentai:
-		"Поняв, что она слегка раздета, Алиса сорвала с меня одеяло и закуталась в него."
-	if persistent.hentai:
-		show dv rage body close at center with dspr
-	else:
-		show dv rage pioneer2 close at center with dspr
+	show dv rage pioneer2 close at center with dspr
 	dv "Ты меня вчера…"
 	"Шипела она."
 	me "Но ты вроде как была не против…"
 	dv "Я была пьяная!"
 	me "Как и я, что же поделать…"
 	"Алиса смотрела на меня бешеным взглядом, но потом успокоилась и села рядом."
-	if persistent.hentai:
-		show dv normal body close at center with dspr
-	else:
-		show dv normal pioneer2 close at center with dspr
+	show dv normal pioneer2 close at center with dspr
 	dv "Ладно, что было, то было…"
 	me "Ты уверена?"
 	"Я привстал и обнял её."
-	if persistent.hentai:
-		show dv shy body close at center with dspr
-	else:
-		show dv shy pioneer2 close at center with dspr
+	show dv shy pioneer2 close at center with dspr
 	dv "Не надо…"
 	"Стыдливо прошептала она."
 	me "Почему?"
@@ -2841,26 +2780,17 @@ label day7_dv:
 	play ambience ambience_int_cabin_day fadein 2
 	dv "Все уедут без нас!"
 	me "Куда?"
-	if persistent.hentai:
-		show dv surprise body close at center with dspr
-	else:
-		show dv surprise pioneer2 close at center with dspr
+	show dv surprise pioneer2 close at center with dspr
 	dv "Сегодня же последний день!"
 	me "Последний день чего?"
 	"Спросил я непонимающе."
 	stop ambience fadeout 2
 	play music music_list["into_the_unknown"] fadein 3
-	if persistent.hentai:
-		show dv normal body close at center with dspr
-	else:
-		show dv normal pioneer2 close at center with dspr
+	show dv normal pioneer2 close at center with dspr
 	dv "Последний день смены!"
 	me "Что?!"
 	"Похмелье, отступившее на некоторое время, с новой силой накрыло меня."
-	if persistent.hentai:
-		show dv surprise body close at center with dspr
-	else:
-		show dv surprise pioneer2 close at center with dspr
+	show dv surprise pioneer2 close at center with dspr
 	dv "А ты не знал?"
 	"Удивлённо спросила Алиса."
 	me "Получается, ты знала?"
@@ -2868,10 +2798,7 @@ label day7_dv:
 	me "И что нам теперь делать?"
 	"На самом деле, это меня интересовало далеко не в первую очередь."
 	th "Если сегодня последний день, значит, все уедут куда-то.{w} Значит, как-то всё-таки можно выбраться из этого лагеря!"
-	if persistent.hentai:
-		show dv normal body close at center with dspr
-	else:
-		show dv normal pioneer2 close at center with dspr
+	show dv normal pioneer2 close at center with dspr
 	dv "Ну, я не знаю."
 	me "Может, ещё успеем!"
 	hide dv with dissolve
@@ -3506,10 +3433,7 @@ label day7_sl:
 	$ new_chapter(7, "День седьмой")
 	scene black
 	pause 2
-	if persistent.hentai:
-		scene cg d7_sl_morning with dissolve
-	else:
-		scene bg ext_polyana_day with dissolve
+	scene bg ext_polyana_day with dissolve
 	play music music_list["forest_maiden"] fadein 3
 	window show
 	"Я проснулся от холода с первыми лучами солнца."
@@ -3525,10 +3449,7 @@ label day7_sl:
 	"Каменные джунгли мегаполиса – вот единственные леса, которые я знал."
 	"И если бы мне кто-нибудь сказал, что я вот так буду сидеть и наслаждаться всем этим несмотря на ночную прохладу, надоедливых комаров, отсутствие компьютера и интернета, я бы точно не поверил."
 	window hide
-	if persistent.hentai:
-		scene cg d7_sl_morning_2 with dissolve
-	else:
-		scene bg ext_polyana_day with dissolve
+	scene bg ext_polyana_day with dissolve
 	window show
 	sl "Доброе утро!"
 	"Я посмотрел на Славю."

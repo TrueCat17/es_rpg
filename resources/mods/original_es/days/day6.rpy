@@ -3273,8 +3273,6 @@ label day6_sl:
 	"Славя весело засмеялась и побежала к озеру, по дороге расстёгивая рубашку."
 	me "Ну… эээ…"
 	"Я встал со спальника и медленно направился за ней."
-	if persistent.hentai:
-		scene cg d6_sl_swim with dissolve
 	play sound_loop sfx_swimming
 	"Когда я подошёл, Славя уже весело плескалась в озере, а вокруг валялась раскиданная одежда."
 	sl "Давай сюда!"
@@ -3362,10 +3360,7 @@ label day6_sl:
 	stop sound_loop2 fadeout 2
 	pause 2
 	play music music_list["i_dont_blame_you"] fadein 1
-	if persistent.hentai:
-		scene cg d6_sl_hentai_2 with dissolve
-	else:
-		scene black with dissolve
+	scene black with dissolve
 	window show
 	if persistent.scenario_set == "new":
 		"Я резко развернулся и рывком прижал ее к земле."
@@ -3394,10 +3389,7 @@ label day6_sl:
 		window hide
 	else:
 		pause 5
-	if persistent.hentai:
-		scene cg d6_sl_hentai_1 with dissolve
-	else:
-		scene black with dissolve
+	scene black with dissolve
 	window show
 	if persistent.scenario_set == "new":
 		"Я быстро освободился от шорт и трусов и приставил член к ее входу."
@@ -4551,10 +4543,7 @@ label day6_dv:
 	"Слова словно застыли в горле.{w} Да и нужны ли были они в подобной ситуации?"
 	window hide
 	play music music_list["i_dont_blame_you"] fadein 3
-	if persistent.hentai:
-		scene cg d6_dv_hentai_2 with dissolve
-	else:
-		scene black with dissolve
+	scene black with dissolve
 	window show
 	"Еще секунда, и мы уже лежим на кровати."
 	dv "Подожди-подожди, гонщик! А как же Лена?"
@@ -4583,10 +4572,7 @@ label day6_dv:
 	else:
 		pause 5
 	window hide
-	if persistent.hentai:
-		scene cg d6_dv_hentai with dissolve
-	else:
-		scene black with dissolve
+	scene black with dissolve
 	window show
 	if persistent.scenario_set == "new":
 		"Вскоре я уже лежал на ней и пытался войти."

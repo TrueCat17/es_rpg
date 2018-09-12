@@ -151,10 +151,7 @@ label day5_main1:
 	"Я присмотрелся и заметил, что они обе все перепачканы красной краской."
 	th "Вот так номер…{w} И откуда?"
 	window hide
-	if persistent.hentai:
-		scene cg d5_dv_us_wash with dissolve
-	else:
-		scene black with dissolve
+	scene black with dissolve
 	window show
 	"Алиса включила воду и начала растирать спину Ульяны."
 	dv "Сними лифчик!"
@@ -163,10 +160,7 @@ label day5_main1:
 	"Усмехнулась она."
 	us "Ладно… Только ты побыстрее!"
 	window hide
-	if persistent.hentai:
-		scene cg d5_dv_us_wash_2 with dissolve
-	else:
-		scene black with dissolve
+	scene black with dissolve
 	window show
 	"Смотреть и правда было особо не на что, но даже при этом я пристально уставился на девочек."
 	"Жаль, что они обе стояли ко мне спиной."
@@ -188,10 +182,7 @@ label day5_main1:
 	stop music fadeout 3
 	"Вот теперь, надо признаться, было на что посмотреть!"
 	window hide
-	if persistent.hentai:
-		scene cg d5_dv_us_wash_3 with dissolve
-	else:
-		scene black with dissolve
+	scene black with dissolve
 	play music music_list["glimmering_coals"] fadein 3
 	window show
 	"Я, затаив дыхание, наблюдал, как две девочки гоняются друг за другом вокруг умывальников."
@@ -220,10 +211,7 @@ label day5_main1:
 	show dv rage pioneer2 at center with dissolve
 	"Алиса бросилась на меня."
 	window hide
-	if persistent.hentai:
-		scene cg d5_dv_us_wash_4 with dissolve
-	else:
-		scene black with dissolve
+	scene black with dissolve
 	window show
 	"Я же, прикрывая одной рукой зад, а другой держа свою одежду, бросился в лес."
 	stop ambience fadeout 2
