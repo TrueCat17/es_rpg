@@ -133,11 +133,10 @@ screen settings:
 						xalign 0.5
 						spacing 10
 						
-						$ sw, sh = get_stage_width(), get_stage_height()
 						for resolution in settings_resolutions:
 							textbutton (str(resolution[0]) + 'x' + str(resolution[1])):
 								xsize 100
-								ground (settings_selected_btn if resolution == (sw, sh) else settings_usual_btn)
+								ground (settings_selected_btn if resolution == get_stage_size() else settings_usual_btn)
 								action set_stage_size(resolution[0], resolution[1])
 			
 			vbox:

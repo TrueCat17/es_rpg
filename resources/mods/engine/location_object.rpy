@@ -6,8 +6,8 @@ init -1001 python:
 	location_objects = dict()
 	
 	def register_location_object(obj_name, directory, main_image, free_image,
-	                               max_in_inventory_cell = 0, remove_to_location = True,
-	                               frames = 1, animation_time = 1.0, main_frame = 0):
+	                             max_in_inventory_cell = 0, remove_to_location = True,
+	                             frames = 1, animation_time = 1.0, main_frame = 0):
 		if location_objects.has_key(obj_name):
 			out_msg('register_location_object', 'Объект с именем <' + obj_name + '> уже существует')
 			return

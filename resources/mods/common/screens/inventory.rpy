@@ -37,7 +37,7 @@ init python:
 		
 		obj_name = element[0]
 		obj = location_objects[obj_name]
-		image = obj['main']
+		image = obj['directory'] + obj['main_image'] + '.' + location_object_ext
 		
 		w, h = get_texture_width(image), get_texture_height(image)
 		k = 1.5 * max(w, h) / inventory_cell_size
