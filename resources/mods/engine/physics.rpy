@@ -23,7 +23,7 @@ init python:
 		
 		for obj in objs:
 			w, h = obj.xsize, obj.ysize
-			x, y = obj.x - obj.xanchor * w, obj.y - obj.yanchor * h
+			x, y = obj.x - get_absolute(obj.xanchor, w), obj.y - get_absolute(obj.yanchor, h)
 			
 			obj_free = obj.free()
 			if obj_free and near(x, y, w, h):

@@ -6,10 +6,10 @@ init -100000 python:
 			self.in_persistent = False
 			
 			if obj is not None:
-				for k in obj.__dict__.keys():
-					self.__dict__[k] = obj.__dict__[k]
-			for k in kwords.keys():
-				self.__dict__[k] = kwords[k]
+				for k, v in obj.__dict__.iteritems():
+					self.__dict__[k] = v
+			for k, v in kwords.iteritems():
+				self.__dict__[k] = v
 		
 		
 		def has_key(self, attr):

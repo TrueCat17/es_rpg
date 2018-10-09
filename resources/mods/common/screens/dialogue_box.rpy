@@ -242,18 +242,18 @@ screen dialogue_box:
 	if not db_hide_interdace:
 		$ db_update()
 		
-		button:
-			ground 'images/bg/black.jpg'
-			hover  'images/bg/black.jpg'
-			
-			size   (1.0, 1.0)
-			alpha  0.01
-			mouse  False
-			
-			action db_on_enter
-		
-		
 		if db_visible:
+			
+			button:
+				ground 'images/bg/black.jpg'
+				hover  'images/bg/black.jpg'
+				
+				size  (1.0, 1.0)
+				alpha (0.01 if db_mode == 'adv' else 0.30)
+				mouse False
+				
+				action db_on_enter
+			
 			
 			if db_mode == 'adv':
 				vbox:
@@ -298,59 +298,46 @@ screen dialogue_box:
 			
 			
 			elif db_mode == 'nvl':
-				image im.Alpha('images/bg/black.jpg', 0.3):
-					size (1.0, 1.0)
+				vbox:
+					anchor 	(0.5, 0.0)
+					pos		(0.5, 0.05)
 					
-					button:
-						ground 'images/bg/black.jpg'
-						hover  'images/bg/black.jpg'
-						
-						size   (1.0, 1.0)
-						alpha  0.01
-						mouse  False
-						
-						action db_on_enter
 					
-					vbox:
-						anchor 	(0.5, 0.0)
-						pos		(0.5, 0.05)
-						
-						
-						$ db_last_dialogue = db_dialogue + [(db_name_text, db_name_color, db_voice_text, db_voice_color)]
-						
-						for db_name_text_i, db_name_color_i, db_voice_text_i, db_voice_color_i in db_last_dialogue:
-							python:
-								db_tmp_name = ('{color=' + str(db_name_color_i) + '}' + db_name_text_i + '{/color}: ') if db_name_text_i else ''
-								db_tmp_voice = db_voice_text_i if db_voice_text_i else ' '
-							
-							text (db_tmp_name + db_tmp_voice):
-								font      db_font
-								text_size db_text_size
-								color     db_voice_color_i
-								xsize     0.75
+					$ db_last_dialogue = db_dialogue + [(db_name_text, db_name_color, db_voice_text, db_voice_color)]
 					
-					vbox:
-						align (0.5, 0.99)
+					for db_name_text_i, db_name_color_i, db_voice_text_i, db_voice_color_i in db_last_dialogue:
+						python:
+							db_tmp_name = ('{color=' + str(db_name_color_i) + '}' + db_name_text_i + '{/color}: ') if db_name_text_i else ''
+							db_tmp_voice = db_voice_text_i if db_voice_text_i else ' '
 						
-						null ysize (db_text_size * 1.5)
+						text (db_tmp_name + db_tmp_voice):
+							font      db_font
+							text_size db_text_size
+							color     db_voice_color_i
+							xsize     0.75
+				
+				vbox:
+					align (0.5, 0.99)
+					
+					null ysize (db_text_size * 1.5)
+					
+					hbox:
+						spacing 5
+						xalign 0.5
 						
-						hbox:
-							spacing 5
-							xalign 0.5
-							
-							button:
-								yalign 0.5
-								ground db_prev_btn
-								size   (db_prev_btn_size, db_prev_btn_size)
-								action ShowMenu('prev_text')
-							
-							null size db_voice_size
-							
-							button:
-								yalign 0.5
-								ground db_next_btn
-								size   (db_next_btn_size, db_next_btn_size)
-								action db_on_enter
+						button:
+							yalign 0.5
+							ground db_prev_btn
+							size   (db_prev_btn_size, db_prev_btn_size)
+							action ShowMenu('prev_text')
+						
+						null size db_voice_size
+						
+						button:
+							yalign 0.5
+							ground db_next_btn
+							size   (db_next_btn_size, db_next_btn_size)
+							action db_on_enter
 		
 		
 		button:

@@ -94,13 +94,46 @@ init -1001 python:
 			return ' '.join(map(str, self))
 		
 		def __mul__(self, other):
-			res = Matrix()
-			
-			for y in xrange(5):
-			    for x in xrange(5):
-			        for i in xrange(5):
-			            res[y * 5 + x] += self[i * 5 + x] * other[y * 5 + i]
-			return res
+			s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19, s20, s21, s22, s23, s24 = self
+			o0, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15, o16, o17, o18, o19, o20, o21, o22, o23, o24 = other
+			return Matrix(
+				s0 * o0 + s5 * o1 + s10 * o2 + s15 * o3 + s20 * o4,
+				s1 * o0 + s6 * o1 + s11 * o2 + s16 * o3 + s21 * o4,
+				s2 * o0 + s7 * o1 + s12 * o2 + s17 * o3 + s22 * o4,
+				s3 * o0 + s8 * o1 + s13 * o2 + s18 * o3 + s23 * o4,
+				s4 * o0 + s9 * o1 + s14 * o2 + s19 * o3 + s24 * o4,
+				
+				s0 * o5 + s5 * o6 + s10 * o7 + s15 * o8 + s20 * o9,
+				s1 * o5 + s6 * o6 + s11 * o7 + s16 * o8 + s21 * o9,
+				s2 * o5 + s7 * o6 + s12 * o7 + s17 * o8 + s22 * o9,
+				s3 * o5 + s8 * o6 + s13 * o7 + s18 * o8 + s23 * o9,
+				s4 * o5 + s9 * o6 + s14 * o7 + s19 * o8 + s24 * o9,
+				
+				s0 * o10 + s5 * o11 + s10 * o12 + s15 * o13 + s20 * o14,
+				s1 * o10 + s6 * o11 + s11 * o12 + s16 * o13 + s21 * o14,
+				s2 * o10 + s7 * o11 + s12 * o12 + s17 * o13 + s22 * o14,
+				s3 * o10 + s8 * o11 + s13 * o12 + s18 * o13 + s23 * o14,
+				s4 * o10 + s9 * o11 + s14 * o12 + s19 * o13 + s24 * o14,
+				
+				s0 * o15 + s5 * o16 + s10 * o17 + s15 * o18 + s20 * o19,
+				s1 * o15 + s6 * o16 + s11 * o17 + s16 * o18 + s21 * o19,
+				s2 * o15 + s7 * o16 + s12 * o17 + s17 * o18 + s22 * o19,
+				s3 * o15 + s8 * o16 + s13 * o17 + s18 * o18 + s23 * o19,
+				s4 * o15 + s9 * o16 + s14 * o17 + s19 * o18 + s24 * o19,
+				
+				s0 * o20 + s5 * o21 + s10 * o22 + s15 * o23 + s20 * o24,
+				s1 * o20 + s6 * o21 + s11 * o22 + s16 * o23 + s21 * o24,
+				s2 * o20 + s7 * o21 + s12 * o22 + s17 * o23 + s22 * o24,
+				s3 * o20 + s8 * o21 + s13 * o22 + s18 * o23 + s23 * o24,
+				s4 * o20 + s9 * o21 + s14 * o22 + s19 * o23 + s24 * o24
+			)
+			# slow, but simple:
+#			res = Matrix()
+#			for y in xrange(5):
+#				for x in xrange(5):
+#					for i in xrange(5):
+#						res[y * 5 + x] += self[i * 5 + x] * other[y * 5 + i]
+#			return res
 		
 		
 		@staticmethod

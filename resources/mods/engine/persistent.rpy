@@ -65,8 +65,9 @@ init -1002 python:
 				continue
 			
 			# renpy contains module <random>, modules can't saves
-			# reference to globals() too
-			if o is renpy or o is g:
+			# console_to_watch contains code-objects, that can't saves and
+			# reference to globals() can't saves too
+			if o is renpy or o is console_to_watch or o is g:
 				continue
 			
 			if type(o) in safe_types:

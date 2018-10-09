@@ -6,75 +6,149 @@ init -1001 python:
 	location_objects = dict()
 	
 	def register_location_object(obj_name, directory, main_image, free_image,
-	                             max_in_inventory_cell = 0, remove_to_location = True,
-	                             frames = 1, animation_time = 1.0, main_frame = 0):
+	                             max_in_inventory_cell = 0, remove_to_location = True):
 		if location_objects.has_key(obj_name):
 			out_msg('register_location_object', 'Объект с именем <' + obj_name + '> уже существует')
 			return
 		
-		if main_frame >= frames:
-			out_msg('register_location_object',
-				'Объект <' + obj_name + '> содержит кадров: ' + str(frames) + ', но основным кадром ставится ' + str(main_frame))
-			main_frame = frames - 1
-		
 		location_objects[obj_name] = {
 			'name': obj_name,
-			'directory': directory,
-			'main_image': main_image,
-			'free_image': free_image,
 			'max_in_inventory_cell': max_in_inventory_cell,
 			'remove_to_location': remove_to_location,
-			'frames': frames,
-			'animation_time': animation_time,
-			'main_frame': main_frame
+			'animations': Object()
 		}
+		register_location_object_animation(obj_name, None, 0, 0, directory, main_image, free_image, 1, 0, 0)
 	
-	def register_location_object_animation(obj_name, img_path, frames, animation_time = 1.0):
-		pass
+	def register_location_object_animation(obj_name, anim_name, xalign, yalign,
+	                                       directory, main_image, free_image,
+	                                       count_frames, start_frame, end_frame, time = 1.0):
+		if xalign < 0 or xalign > 1:
+			out_msg('register_location_object_animation',
+			        'При регистрации анимации <' + str(anim_name) + '> объекта <' + str(obj_name) + '>\n' +
+			        'Указан некорректный xalign: ' + str(xalign) + '\n' +
+			        'Ожидалось значение от 0.0 до 1.0')
+			return
+		if yalign < 0 or yalign > 1:
+			out_msg('register_location_object_animation',
+			        'При регистрации анимации <' + str(anim_name) + '> объекта <' + str(obj_name) + '>\n' +
+			        'Указан некорректный yalign: ' + str(yalign) + '\n' +
+			        'Ожидалось значение от 0.0 до 1.0')
+			return
+		
+		if count_frames <= 0 or not (0 <= start_frame < count_frames) or not (0 <= end_frame < count_frames):
+			out_msg('register_location_object_animation',
+			        'При регистрации анимации <' + str(anim_name) + '> объекта <' + str(obj_name) + '>\n' +
+			        'Указаны некорректные кадры:\n' +
+			        'count, start, end = ' + str(count_frames) + ', ' + str(start_frame) + ', ' + str(end_frame))
+			return
+		
+		if not location_objects.has_key(obj_name):
+			out_msg('register_location_object_animation', 'Объект <' + str(obj_name) + '> не существует')
+			return
+		
+		obj = location_objects[obj_name]
+		
+		animations = obj['animations']
+		if animations.has_key(anim_name):
+			out_msg('register_location_object_animation', 'Анимация <' + str(anim_name) + '> объекта <' + str(obj_name) + '> уже существует')
+			return
+		
+		animation = animations[anim_name] = Object(
+			directory    = directory,
+			main_image   = main_image,
+			free_image   = free_image,
+			
+			count_frames = count_frames,
+			start_frame  = start_frame,
+			end_frame    = end_frame,
+			time         = float(time),
+		
+			xalign = xalign,
+			yalign = yalign,
+			xsize = 0,
+			ysize = 0,
+			loaded = False
+		)
 	
 	
 	class LocationObject(Object):
-		def __init__(self, name):
+		def __init__(self, name, x, y):
 			Object.__init__(self)
 			
 			self.type = name
-			self.animation_start_time = None
-			
 			for key, value in location_objects[name].iteritems():
 				self[key] = value
 			
+			self.x, self.y = x, y
+			self.orig_x, self.orig_y = x, y
+			
 			self.xanchor, self.yanchor = 0.5, 1.0
 			self.xsize, self.ysize = 0, 0
-			self.loaded = False
+			
+			self.stop_animation()
 		
 		def set_frame(self, frame):
 			self.crop = (int(frame) * self.xsize, 0, self.xsize, self.ysize)
-		def set_main_frame(self):
-			self.set_frame(self.main_frame)
+		
+		def set_animation(self, anim_name):
+			if not self.animations.has_key(anim_name):
+				out_msg('start_animation', 'Объект <' + str(self.type) + '> не содержит анимации <' + str(anim_name) + '>')
+				return False
+			
+			self.anim_name = anim_name
+			self.animation = self.animations[anim_name]
+			self.animation.first_update = True
+			return True
+		
+		def set_animation_frame(self, anim_name, frame):
+			self.set_animation(anim_name)
+			self.set_frame(frame)
 		
 		def main(self):
-			res = get_location_image(self, self.directory, self.main_image, '', location_object_ext, False)
-			if not self.loaded:
-				self.loaded = True
-				self.xsize, self.ysize = get_texture_size(res)
-				self.xsize = math.ceil(self.xsize / self.frames)
-				self.set_frame(self.main_frame)
-			return res
-		def free(self):
-			if self.free_image is None:
-				return None
-			return get_location_image(self, self.directory, self.free_image, '', location_object_ext, True, False)
+			return get_location_image(self.animation, self.animation.directory, self.animation.main_image, '', location_object_ext, False)
 		
-		def start_animation(self):
+		def free(self):
+			if self.animation.free_image is None:
+				return None
+			res = get_location_image(self.animation, self.animation.directory, self.animation.free_image, '', location_object_ext, True, False)
+			if self.animation.count_frames != 1:
+				res = im.crop(res, self.crop)
+			return res
+		
+		def start_animation(self, anim_name, then_reverse = False, repeat = 0):
+			if not self.set_animation(anim_name):
+				return
+			
 			self.animation_start_time = time.time()
+			self.then_reverse = then_reverse
+			self.repeat = int(repeat)
+		
 		def stop_animation(self):
-			self.animation_start_time = None
+			self.start_animation(None)
 		
 		def update(self):
-			if self.frames > 1 and self.animation_start_time is not None:
-				dtime = time.time() - self.animation_start_time
-				frame = min(self.frames * dtime / self.animation_time, self.frames - 1)
-				self.set_frame(frame)
+			animation = self.animation
+			if animation.first_update:
+				animation.first_update = False
+				
+				if not animation.loaded:
+					animation.loaded = True
+					animation.xsize, animation.ysize = get_texture_size(self.main())
+					animation.xsize = int(math.ceil(animation.xsize / animation.count_frames))
+				
+				self.xsize, self.ysize = animation.xsize, animation.ysize
+			
+				main_frame = self.animations[None]
+				self.x = self.orig_x + (1 - animation.xalign) * (animation.xsize - main_frame.xsize)
+				self.y = self.orig_y + (1 - animation.yalign) * (animation.ysize - main_frame.ysize)
+			
+			dtime = time.time() - self.animation_start_time
+			if self.then_reverse and dtime > animation.time:
+				dtime = 2 * animation.time - dtime
+			
+			frame = (animation.end_frame + 1 - animation.start_frame) * dtime / animation.time
+			frame = in_bounds(frame, 0, animation.count_frames - 1)
+			self.set_frame(frame + animation.start_frame)
 	
 	
 	def add_location_object(location_name, place, obj_name):
@@ -97,8 +171,7 @@ init -1001 python:
 			out_msg('', 'Объект <' + obj_name + '> не зарегистрирован')
 			return
 		
-		instance = LocationObject(obj_name)
-		instance.x, instance.y = px, py
+		instance = LocationObject(obj_name, px, py)
 		
 		location.objects.append(instance)
 		objects_on_location.append(instance)
@@ -133,6 +206,6 @@ init -1001 python:
 		for i in to_remove:
 			if i in location.objects:
 				location.objects.remove(i)
-			if i in objects_on_location: # ???
-				objects_on_location.remove(i) # ???
+			if i in objects_on_location:
+				objects_on_location.remove(i)
 
