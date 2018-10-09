@@ -6,19 +6,19 @@ init -51 python:
 	}
 	
 	map_zones = {
-		"me_mt_house":   { "position":( 825,  47, 1005, 230) },
-		"estrade":       { "position":(1039,  47, 1288, 230) },
-		"music_club":    { "position":( 541, 231,  711, 356) },
-		"square":        { "position":( 825, 357, 1005, 665) },
-		"dining_hall":   { "position":(1006, 457, 1159, 665) },
-		"sport_area":    { "position":(1160, 457, 1578, 665) },
-		"beach":         { "position":(1160, 666, 1578, 871) },
-		"boat_station":  { "position":( 825, 666, 1005, 871) },
-		"clubs":         { "position":( 418, 357,  711, 665) },
-		"library":       { "position":(1160, 231, 1288, 456) },
-		"medic_house":   { "position":(1039, 231, 1159, 456) },
-		"camp_entrance": { "position":( 278, 357,  417, 665) },
-		"forest":        { "position":( 541,  47,  711, 230) }
+		"me_mt_house":   { "position": ( 825,  47, 1005, 230) },
+		"estrade":       { "position": (1039,  47, 1288, 230) },
+		"music_club":    { "position": ( 541, 231,  711, 356) },
+		"square":        { "position": ( 825, 357, 1005, 665) },
+		"dining_hall":   { "position": (1006, 457, 1159, 665) },
+		"sport_area":    { "position": (1160, 457, 1578, 665) },
+		"beach":         { "position": (1160, 666, 1578, 871) },
+		"boat_station":  { "position": ( 825, 666, 1005, 871) },
+		"clubs":         { "position": ( 418, 357,  711, 665) },
+		"library":       { "position": (1160, 231, 1288, 456) },
+		"medic_house":   { "position": (1039, 231, 1159, 456) },
+		"camp_entrance": { "position": ( 278, 357,  417, 665) },
+		"forest":        { "position": ( 541,  47,  711, 230) }
 	}
 
 init -50 python:
@@ -63,7 +63,7 @@ screen map:
 			map_alpha = 1
 		
 		bg = map_pics['bg']
-		bgw, bgh = get_texture_width(bg), get_texture_height(bg)
+		bgw, bgh = get_texture_size(bg)
 		
 		map_ground_args = [(bgw, bgh), (0, 0), bg]
 		map_hover_args  = [(bgw, bgh)]
@@ -72,7 +72,9 @@ screen map:
 			if zone["available"]:
 				pos = zone["position"]
 				x, y, w, h = pos[0], pos[1], pos[2]-pos[0], pos[3]-pos[1]
-				map_hotspots.append([name, x, y, w, h])
+				
+				if map_hide_time < map_show_time:
+					map_hotspots.append([name, x, y, w, h])
 				
 				ground = im.Crop(map_pics["available"], (x, y, w, h))
 				hover  = im.Crop(map_pics["selected"],  (x, y, w, h))
@@ -81,9 +83,6 @@ screen map:
 				map_hover_args  += [(x, y), get_back_with_color(hover, color = '#888', alpha = 1.0/255)]
 		map_ground = im.Composite(*map_ground_args)
 		map_hover  = im.Composite(*map_hover_args)
-		
-		if map_hide_time > map_show_time:
-			map_hotspots = []
 	
 	imagemap:
 		ground map_ground
@@ -96,7 +95,7 @@ screen map:
 			hotspot (x, y, w, h) action zone_click(name)
 
 
-init python:
+init -50 python:
 	map_show_time = 0
 	map_hide_time = 0
 	map_fade_time = 0.5

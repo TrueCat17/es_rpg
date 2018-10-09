@@ -15,34 +15,33 @@ init python:
 			return True
 		
 		def what_to_xchange(self):
-			i = random.randrange(0, n_cards)
-			j = random.randrange(0, n_cards)
+			i = random.randrange(n_cards)
+			j = random.randrange(n_cards)
 			while i == j:
-				j = random.randrange(0, n_cards)
+				j = random.randrange(n_cards)
 			return (i, j)
 		
 		def give_away_card(self):
-			return random.randrange(0, n_cards)
+			return random.randrange(n_cards)
 
 	class CardGameRivalUn(CardGameRival):
 		def pick_my_card(self):
 			while True:
-				x = random.randrange(0, n_cards)
+				x = random.randrange(n_cards)
 				card = cards_my[x]
-				if card.name is not None and not card.interesting:
+				if card.name != card_none and not card.interesting:
 					return x
 		def pick_my_card_last(self):
 			return self.pick_my_card()
 
 	class CardGameRivalUs(CardGameRival):
 		def pick_my_card(self):
-			type, index = cards_interact()
-			return index
+			return None
 		def allow_to_take(self):
 			for i in xrange(n_cards):
 				cards_rival[i].allow = False
 			while True:
-				i = random.randrange(0, n_cards)
+				i = random.randrange(n_cards)
 				if not cards_rival[i].hot:
 					break
 			cards_rival[i].allow = True
@@ -55,23 +54,23 @@ init python:
 	class CardGameRivalDv(CardGameRival):
 		def what_to_xchange(self):
 			while True:
-				i = random.randrange(0, n_cards)
+				i = random.randrange(n_cards)
 				if not cards_rival[i].interesting:
 					break
-			j = random.randrange(0, n_cards)
+			j = random.randrange(n_cards)
 			while i == j:
-				j = random.randrange(0, n_cards)
+				j = random.randrange(n_cards)
 			return (i, j)
 		def pick_my_card(self):
 			x_set = []
 			for i in xrange(n_cards):
-				if cards_my[i].hot and cards_my[i].name is not None:
+				if cards_my[i].hot and cards_my[i].name != card_none:
 					x_set.append(i)
 			if x_set:
 				return random.choice(x_set)
 			while True:
-				x = random.randrange(0, n_cards)
-				if cards_my[x].name is not None:
+				x = random.randrange(n_cards)
+				if cards_my[x].name != card_none:
 					return x
 		def pick_my_card_last(self):
 			return self.pick_my_card()
@@ -80,14 +79,14 @@ init python:
 	def get_rival(rival_name):
 		global rival_avatar
 		rival_avatar = im.Composite((210, 210),
-			(0, 0), im.Rect('#CCC'),
+			(0, 0), im.Rect('#CCC', 210, 210),
 			(5, 5), 'images/avatars/' + rival_name + '.png'
 		)
 		
 		rivals = {
 			'un': CardGameRivalUn,
-			'us', CardGameRivalUs,
-			'dv', CardGameRivalDv
+			'us': CardGameRivalUs,
+			'dv': CardGameRivalDv
 		}
 		return rivals[rival_name]()
 

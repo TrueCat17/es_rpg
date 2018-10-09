@@ -4,14 +4,14 @@ init python:
 	day2_dv_bet = 0
 	day2_un = 0
 	d2_gave_keys = False
-	d2_cardgame_block_rollback = False
+
 label day2_main1:
 	$ backdrop = "days"
 	$ new_chapter(2, "День второй")
 	$ day_time()
 	
 #	jump day2_first_map
-#	jump demo_play
+#	jump day2_cardgame
 	
 	scene bg black
 	pause 2
@@ -1495,7 +1495,6 @@ label day2_cards:
 	un "Да."
 	jump day2_cardgame
 label day2_cardgame:
-	$ d2_cardgame_block_rollback = True
 	"Наконец Электроник начал объяснять правила."
 	if persistent.CardsDemo:
 		menu:
@@ -1514,101 +1513,61 @@ label demo_play:
 			(3, "rival_defend", "call"): "demo_play_rival_defend",
 			(2, "rival_select", "jump"): "demo_play_after_loop",
 		}
-		INVISIBLE = False
-		VISIBLE = False
 		generate_cards(dialogs, 'un', 'Пробная игра')
+		my_cards_hide()
 	jump cards_gameloop
 label demo_play_intro:
 	show el normal pioneer at center with dissolve
-	$ show_cards()
 	el "Посмотрите на карты внимательно."
-	$ show_cards()
 	el "Перед вами их ровно шесть!"
-	$ show_cards()
 	th "Надеюсь, считать здесь все умеют."
-	$ show_cards()
 	el "Теперь можете их открыть."
-	$ VISIBLE = True
-	$ show_cards()
+	$ my_cards_show()
 	"Когда все посмотрели свои карты, Электроник продолжил."
-	$ show_cards()
 	el "Правила такие же, как в покере."
-	$ show_cards()
 	el "Думаю, все играть умеют?"
-	$ show_cards()
 	"Я-то умел, но вот в остальных не был уверен."
-	$ show_cards()
 	el "Сначала идёт самая старшая карта, потом пара, потом две пары, потом тройка…{w} Ну и так далее."
-	$ show_cards()
 	el "Первым ходом вы выбираете карту, которую хотите забрать у противника."
-	$ show_cards()
 	el "У него же в свою очередь есть возможность поменять карты местами два раза."
-	$ show_cards()
 	el "Но можно и не менять, если собираются забрать ненужную карту."
-	$ show_cards()
 	el "Но учтите – противник видит, какие карты вы меняете местами."
-	$ show_cards()
 	el "Далее соперник забирает у вас одну карту."
-	$ show_cards()
 	el "Ну, и так далее – думаю, всё понятно."
-	$ show_cards()
 	"Мне было совершенно ничего не понятно."
-	$ show_cards()
 	us "Эй, ты, Эйнштейн недоделанный!"
-	$ show_cards()
 	"Послышался издалека голос Ульянки."
-	$ show_cards()
 	us "Ничегошеньки не понятно!"
-	$ show_cards()
 	el "По ходу разберёшься."
 	hide el with dissolve
-	$ show_cards()
 	"Электроник отошёл к столу со схемой, оставив Ульяну злиться в одиночестве."
-	$ show_cards()
 	me "Ходи первая."
-	$ show_cards()
 	"Я надеялся, что быстро смогу вникнуть в игру."
-	$ show_cards()
 	"И Лена, смутившись ещё больше, чем обычно, потянулась к моим картам."
 	window hide
 label demo_play_me_defend_1:
-	$ show_cards()
 	window show
 	"Но на середине стола её рука застыла."
-	$ show_cards()
 	un "Ты будешь…"
-	$ show_cards()
 	th "Точно! Я же должен защищать свою карту!"
-	$ show_cards()
 	th "И что там говорил Электроник…"
-	$ show_cards()
 	"Чтобы попытаться запутать соперника, можно поменять карты местами.{w} И так два раза."
-	$ show_cards()
 	"А можно и не менять."
-	$ show_cards()
 	"Защищать мне эту карту или нет?"
-	$ show_cards()
 	"К тому же я могу сразу согласиться и отдать ей карту, которую она выбрала."
-	$ show_cards()
 	"А Лена может изменить свой выбор, взяв другую карту.{w} А может и не менять."
 	window hide
 label demo_play_me_select_1:
-	window show
 	"Понемногу всё становилось понятно!{w} Или хотя бы понятнее…"
-	$ show_cards()
 	me "Теперь моя очередь."
-	$ show_cards()
 	"Я могу вернуть карту, которую она забрала, или выбрать любую другую."
 	window hide
 label demo_play_rival_defend:
-	$ show_cards()
 	window show
 	"Лена может попробовать защитить свою карту."
-	$ show_cards()
 	"Но если я буду внимателен, то всё равно возьму ту, что выбрал с самого начала."
 	window hide
 label demo_play_after_loop:
-	$ show_cards()
 	window show
 	"Получилось!"
 	window hide
@@ -1657,7 +1616,6 @@ label un_play_fail:
 	$ day2_card_result = 0
 	jump day2_main3
 label un_play_draw:
-	$ show_cards()
 	window show
 	el "Ничья! Играйте ещё раз."
 	window hide
@@ -1729,29 +1687,16 @@ label un_play_win:
 label us_play:
 	python:
 		dialogs = {
-			(3, "me_defend_2", "call"): "us_play_me_defend_2",
-			(2, "me_defend_2", "call"): "us_play_me_defend_2",
-			(1, "me_defend_2", "call"): "us_play_me_defend_2",
 			(0, "win",  "jump"): "us_play_win",
 			(0, "fail", "jump"): "us_play_fail",
 			(0, "draw", "jump"): "us_play_draw",
 		}
 		generate_cards(dialogs, 'us', 'Ульяна')
 	jump cards_gameloop
-label us_play_me_defend_2:
-	$ show_cards()
-	window show
-	us "Эй, не мешай карты – это меня путает!"
-	window hide
-	$ show_cards()
-	window show
-	"Ммм…"
-	window hide
 label us_play_fail:
 	$ day2_card_result = 1
 	jump day2_main3
 label us_play_draw:
-	$ show_cards()
 	window show
 	el "Ничья! Играйте ещё раз."
 	window hide
@@ -1790,6 +1735,7 @@ label us_play_win:
 	"Итак, матч-реванш начался."
 	hide us with dissolve
 	window hide
+	jump us2_play
 label us2_play:
 	python:
 		dialogs = {
@@ -1804,7 +1750,6 @@ label us2_play_fail:
 	$ day2_card_result = 1
 	jump day2_main3
 label us2_play_draw:
-	$ show_cards()
 	window show
 	el "Ничья! Играйте ещё раз."
 	window hide
@@ -2556,5 +2501,4 @@ label day2_main4:
 	stop music fadeout 3
 	scene bg black with fade3
 	pause 3
-	$ d2_cardgame_block_rollback = False
 	jump day3_main1
