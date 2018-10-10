@@ -11,4 +11,5 @@ init -100001 python:
 	import shutil
 	import pickle
 	import inspect
+	import itertools
 

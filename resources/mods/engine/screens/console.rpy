@@ -48,7 +48,7 @@ init python:
 	def console_print(text):
 		persistent.console_text += '\n' + str(text)
 	def console_print_help():
-		to_print = 'commands: clear, scene, show, hide, watch <expr>, unwatch <expr>, unwatchall or python-expr'
+		to_print = 'commands: clear, jump, call, scene, show, hide, watch <expr>, unwatch <expr>, unwatchall or python-expr'
 		console_print(to_print)
 	
 	
@@ -180,11 +180,11 @@ init python:
 		elif console_cursor_y == len(lines) - 1 and (not cur_indent or cur.isspace()):
 			console_cursor_x = 0
 			console_cursor_y = 0
-			if not persistent.console_commands or persistent.console_commands[-1] != console_input:
-				persistent.console_commands += [console_input]
+			console_num_command = 0
 			to_exec = console_input
 			console_input = console_input_tmp = ''
-			console_num_command = 0
+			if not persistent.console_commands or persistent.console_commands[-1] != to_exec:
+				persistent.console_commands += [to_exec]
 			console_exec(to_exec)
 		else:
 			index = console_get_cursor_index()
@@ -200,10 +200,10 @@ init python:
 			if len(e.args) > 1:
 				file_name, line_num, symbol_num, error_line = e.args[1]
 				console_print('File <' + file_name + '>, line ' + str(line_num) + ': ' + desc + '\n' +
-					          '\t' + error_line + '\n' +
-					          '\t' + ' ' * (symbol_num - 1) + '^')
+					          '  ' + error_line + '\n' +
+					          '  ' + ' ' * (symbol_num - 1) + '^')
 			else:
-				console_print(desc)
+				console_print("KeyError: " + str(desc))
 			res = None
 		return res
 	
@@ -237,6 +237,11 @@ init python:
 			console_watch_del(params)
 		elif command == 'unwatchall':
 			console_watch_clear()
+		
+		elif command == 'jump':
+			renpy.jump(params)
+		elif command == 'call':
+			renpy.call(params)
 		
 		elif command in ('scene', 'show', 'hide'):
 			args = get_args(params)

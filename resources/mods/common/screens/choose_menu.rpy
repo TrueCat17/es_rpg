@@ -47,6 +47,4 @@ screen choose_menu:
 		pos    (get_stage_width() - db_menu_btn_indent - db_menu_btn_size / 2, db_menu_btn_indent + db_menu_btn_size / 2)
 		size   (db_menu_btn_size, db_menu_btn_size)
 		action show_pause
-		
-		rotate (int(time.time() * 10) % 360)
-	
+

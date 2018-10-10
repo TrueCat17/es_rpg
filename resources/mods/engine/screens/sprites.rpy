@@ -173,7 +173,7 @@ screen sprites:
 	python:
 		sprites_images = []
 		
-		for spr in sprites_list + [screen]:
+		for spr in itertools.chain(sprites_list, [screen]):
 			spr.update()
 			
 			for spr_data in spr.data_list:
