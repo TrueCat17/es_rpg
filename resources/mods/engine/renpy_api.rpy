@@ -119,7 +119,8 @@ init -999 python:
 					who = g[who]
 				else:
 					out_msg('renpy.say', 'Персонаж <' + who + '> не существует')
-					return
+					tmp_character.name = who
+					who = tmp_character
 			who(what)
 		
 		@staticmethod
@@ -161,7 +162,4 @@ init -999 python:
 	
 	
 	renpy = Renpy
-	
-	def volume(vol, channel):
-		renpy.music.set_volume(vol, channel = channel, depth = 1)
 

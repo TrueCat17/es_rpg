@@ -1,8 +1,4 @@
 init -1000 python:
-	narrator = Character('')
-	th = Character('', text_prefix='~', text_postfix='~')
-	extend = Character(None)
-	
 	odn     = Character('Одногруппник',      color = '#FFFFFF')
 	lk      = Character('Луркмор-кун',       color = '#FFFFFF')
 	message = Character('Сообщение',         color = '#FFFFFF')

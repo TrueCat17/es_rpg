@@ -312,4 +312,11 @@ init -1001 python:
 			objects_on_location.remove(character)
 		else:
 			out_msg('hide_character', 'Персонаж <' + character.real_name + ', ' + character.unknow_name + '> не добавлен в список отображаемых')
+	
+	
+	tmp_character = Character('TMP', color = '#FFFFFF')
+	
+	narrator = Character('')
+	th = Character('', text_prefix='~', text_postfix='~')
+	extend = Character(None)
 
