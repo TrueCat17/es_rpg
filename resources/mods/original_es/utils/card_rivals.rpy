@@ -7,8 +7,8 @@ init python:
 			return x
 		
 		def allow_to_take(self):
-			for i in xrange(n_cards):
-				cards_rival[i].allow = True
+			for card in cards_rival:
+				card.allow = True
 		def allow_to_defend(self):
 			return True
 		def want_to_defend(self):
@@ -23,44 +23,37 @@ init python:
 		
 		def give_away_card(self):
 			return random.randrange(n_cards)
-
+	
+	
 	class CardGameRivalUn(CardGameRival):
 		def pick_my_card(self):
 			while True:
-				x = random.randrange(n_cards)
-				card = cards_my[x]
+				card = random.choice(cards_my)
 				if card.name != card_none and not card.interesting:
-					return x
+					return card.index
 		def pick_my_card_last(self):
 			return self.pick_my_card()
 
 	class CardGameRivalUs(CardGameRival):
 		def pick_my_card(self):
 			return None
+		
 		def allow_to_take(self):
-			for i in xrange(n_cards):
-				cards_rival[i].allow = False
+			for card in cards_rival:
+				card.allow = False
 			while True:
-				i = random.randrange(n_cards)
-				if not cards_rival[i].hot:
+				card = random.choice(cards_rival)
+				if not card.hot:
+					card.allow = True
+					card.interesting = True
 					break
-			cards_rival[i].allow = True
-			cards_rival[i].interesting = True
-		def want_to_defend(self):
-			return False
+		
 		def allow_to_defend(self):
+			return False
+		def want_to_defend(self):
 			return False
 
 	class CardGameRivalDv(CardGameRival):
-		def what_to_xchange(self):
-			while True:
-				i = random.randrange(n_cards)
-				if not cards_rival[i].interesting:
-					break
-			j = random.randrange(n_cards)
-			while i == j:
-				j = random.randrange(n_cards)
-			return (i, j)
 		def pick_my_card(self):
 			x_set = []
 			for i in xrange(n_cards):
@@ -74,6 +67,15 @@ init python:
 					return x
 		def pick_my_card_last(self):
 			return self.pick_my_card()
+		def what_to_xchange(self):
+			while True:
+				i = random.randrange(n_cards)
+				if not cards_rival[i].interesting:
+					break
+			j = random.randrange(n_cards)
+			while i == j:
+				j = random.randrange(n_cards)
+			return (i, j)
 	
 	
 	def get_rival(rival_name):

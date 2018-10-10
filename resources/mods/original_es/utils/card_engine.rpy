@@ -43,8 +43,8 @@ init 2 python:
 	def generate_cards(dialogs, rival_name, name):
 		update_card_sizes()
 		
-		global game_interuptions, rival, cards_game_name
-		game_interuptions = dialogs
+		global card_dialogs, rival, cards_game_name
+		card_dialogs = dialogs
 		rival = get_rival(rival_name)
 		cards_game_name = name
 		
@@ -89,6 +89,9 @@ init 2 python:
 		for card in cards_my:
 			card.visible = False
 			card.update_view()
+	
+	def remove_cards():
+		hide_screen('cards')
 
 
 screen cards:
@@ -98,6 +101,10 @@ screen cards:
 		size (1.0, 1.0)
 	
 	$ update_card_sizes()
+	python:
+		for card in cards_rival:
+			if card.visible or card.interesting:
+				print card.is_my, card.index, card.visible, card.interesting
 	
 	for card in itertools.chain(cards_rival, cards_my):
 		$ card.update_pos()
@@ -178,23 +185,23 @@ screen cards:
 		null ysize small_text_size
 		
 		image card_text_bg size (card_width, small_text_size + 5):
-			text "Кругов оставалось:" text_size small_text_size align (0.5, 0.5)
+			text "Кругов осталось:" text_size small_text_size align (0.5, 0.5)
 		image card_text_bg size (card_width, big_text_size + 5):
 			text cycles_left text_size big_text_size align (0.5, 0.5)
 		
 		null ysize small_text_size
 		
 		image card_text_bg size (card_width, small_text_size + 5):
-			text "Обменов оставалось:" text_size small_text_size align (0.5, 0.5)
+			text "Обменов осталось:" text_size small_text_size align (0.5, 0.5)
 		image card_text_bg size (card_width, big_text_size + 5):
 			text (changes_left if changes_left else "---") text_size big_text_size align (0.5, 0.5)
 	
 	if result_status != 'in_progress':
 		textbutton cards_result:
 			align (0.5, 0.5)
-			size (300, 40)
-			text_size 72
-			action [HideScreen('cards'), check_dialogues]
+			size (300, 60)
+			text_size 50
+			action [remove_cards, check_dialogues]
 
 
 init python:
@@ -234,12 +241,12 @@ init python:
 	
 	def check_dialogues():
 		position = (cycles_left, cards_state, "call")
-		if position in game_interuptions:
-			renpy.call(game_interuptions[position])
-			del game_interuptions[position]
+		if position in card_dialogs:
+			renpy.call(card_dialogs[position])
+			del card_dialogs[position]
 		position = (cycles_left, cards_state, "jump")
-		if position in game_interuptions:
-			renpy.jump(game_interuptions[position])
+		if position in card_dialogs:
+			renpy.jump(card_dialogs[position])
 	
 	def what_category(cardset):
 		ans = []

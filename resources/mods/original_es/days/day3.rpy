@@ -14,7 +14,6 @@ init python:
 	day3_dv_evening = 0
 	day3_dv_dumped = False
 	day3_un_dumped = False
-	d3_volume = 0
 label day3_main1:
 	$ backdrop = "days"
 	$ new_chapter(3, "День третий")
@@ -453,7 +452,6 @@ label day3_helpreject:
 	hide un
 	with dissolve
 	"Я развернулся и быстро направился прочь от медпункта."
-	stop music fadeout 3
 	"Хотя мне безумно хотелось перейти на бег, здравый смысл подсказывал, что стоит идти обычным шагом."
 	window hide
 	scene bg ext_square_day with dissolve
@@ -465,9 +463,7 @@ label day3_main3:
 	"Я решил зайти ненадолго «домой», чтобы забрать мобильник."
 	th "Неизвестно, куда меня ещё сегодня занесёт, а время знать нужно всегда!"
 	th "Хотя не проще ли завести часы?"
-	python:
-		d3_volume = _preferences.volumes['music']
-		volume(0.15, "music")
+	$ volume(0.15, "music")
 	play music music_list["kostry"] fadein 3
 	"В обычный фоновый шум пионерлагеря закралась какая-то новая мелодия."
 	"Я прислушался.{w} Похоже на электрогитару."
@@ -492,7 +488,7 @@ label day3_main3:
 			jump day3_house_of_mt
 label day3_house_of_mt:
 	scene bg int_house_of_mt_day with dissolve
-	$ volume(d3_volume, "music")
+	$ volume(1.0, "music")
 	play music music_list["get_to_know_me_better"] fadein 5
 	window show
 	"Я вернулся в домик вожатой."
@@ -670,6 +666,7 @@ label day3_square:
 	play sound sfx_dinner_jingle_normal
 	"Вскоре по лагерю заиграла музыка, призывающая на обед, и я, с облегчением и чувством выполненного долга отложив метлу в сторону, направился в столовую."
 	window hide
+	stop ambience fadeout 2
 	jump day3_main4
 label day3_clubs:
 	$ day_time()
@@ -879,7 +876,6 @@ label day3_playground_us:
 	show us laugh2 pioneer at center with dissolve
 	us "Ладно, ещё отыграюсь!"
 	hide us with dissolve
-	stop music fadeout 3
 	"Она рассмеялась, помахала мне рукой и побежала в сторону столовой."
 	"Почеканив немного мяч, я направился за ней."
 	window hide
@@ -887,7 +883,7 @@ label day3_playground_us:
 label day3_stage_dv:
 	$ day_time()
 	scene bg ext_stage_normal_day with dissolve
-	$ volume(d3_volume, "music")
+	$ volume(1.0, "music")
 	play music music_list["that_s_our_madhouse"] fadein 5
 	window show
 	"Выйдя к концертной площадке, я увидел на сцене Алису."
@@ -1033,7 +1029,6 @@ label day3_main4:
 	scene bg black with dissolve
 	window show
 	"..."
-	stop ambience fadeout 2
 	"«Кто шагает дружно в ряд? Пионерский наш отряд!»"
 	"{i}Дружно{/i} в лагере «Совёнок» пионеры шагали в основном в столовую."
 	"А ведь так хотелось занять место, где бы меня никто не побеспокоил, как в прошлые разы."
@@ -1424,7 +1419,6 @@ label day3_library_sl:
 	"Я хотел встать, но не мог."
 	"Славя же просто лежала молча и смотрела мне в глаза."
 	"И вдруг краем уха я услышал музыку."
-	$ volume(0.6, "music")
 	$ volume(0.7, "sound")
 	play sound sfx_dinner_jingle_speaker
 	sl "Ужин."
@@ -1441,7 +1435,6 @@ label day3_library_sl:
 	"Славя, похоже, поняла это и аккуратно выползла из-под меня."
 	window hide
 	scene bg int_library_day with dissolve
-	stop sound fadeout 2
 	window show
 	sl "Так и будешь лежать?"
 	"Она рассмеялась."
@@ -1461,7 +1454,6 @@ label day3_library_sl:
 	window hide
 	scene bg ext_dining_hall_near_day with dissolve
 	$ volume(1.0, "sound")
-	$ volume(1.0, "music")
 	play music music_list["revenga"] fadein 2
 	show mt rage pioneer at cleft
 	show sl normal pioneer at cright

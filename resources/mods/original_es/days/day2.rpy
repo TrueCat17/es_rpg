@@ -11,7 +11,8 @@ label day2_main1:
 	$ day_time()
 	
 #	jump day2_first_map
-#	jump day2_cardgame
+	jump un_play
+	jump day2_cardgame
 	
 	scene bg black
 	pause 2
@@ -1616,6 +1617,7 @@ label un_play_fail:
 	$ day2_card_result = 0
 	jump day2_main3
 label un_play_draw:
+	scene bg int_dining_hall_sunset with dissolve
 	window show
 	el "Ничья! Играйте ещё раз."
 	window hide
@@ -1697,6 +1699,7 @@ label us_play_fail:
 	$ day2_card_result = 1
 	jump day2_main3
 label us_play_draw:
+	scene bg int_dining_hall_sunset with dissolve
 	window show
 	el "Ничья! Играйте ещё раз."
 	window hide
@@ -1746,10 +1749,10 @@ label us2_play:
 		generate_cards(dialogs, 'us', 'Ульяна II')
 	jump cards_gameloop
 label us2_play_fail:
-	$ persistent.CardsWon1 = True
 	$ day2_card_result = 1
 	jump day2_main3
 label us2_play_draw:
+	scene bg int_dining_hall_sunset with dissolve
 	window show
 	el "Ничья! Играйте ещё раз."
 	window hide
@@ -1797,6 +1800,7 @@ label dv_play:
 		generate_cards(dialogs, 'dv', 'Алиса')
 	jump cards_gameloop
 label dv_play_draw:
+	scene bg int_dining_hall_sunset with dissolve
 	$ show_cards()
 	window show
 	el "Ничья! Играйте ещё раз."

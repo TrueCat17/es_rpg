@@ -1,5 +1,5 @@
 init python:
-	card_time_koef = 1.0 / 7
+	card_time_koef = 1.0 / 7 * 7
 	
 	class Card(Object):
 		def __init__(self, name, is_my):
@@ -27,7 +27,7 @@ init python:
 			sw, sh = get_stage_size()
 			
 			self.to_x = float(card_width / 4 + card_width * self.index + card_indent * (self.index - 1)) / sw
-			self.to_y = (0.9 if self.is_my else 0.1) * (1 - float(card_height) / sh)
+			self.to_y = (0.93 if self.is_my else 0.07) * (1 - float(card_height) / sh)
 			
 			dist = get_dist(self.to_x * sw, self.to_y * sh, self.from_x * sw, self.from_y * sh)
 			
@@ -41,7 +41,7 @@ init python:
 				self.ground = card_img["cover"]
 			
 			if self.is_my:
-				is_button = cards_state in ("me_select", "me_defend_1", "me_defend_2", "rival_select")
+				is_button = cards_state in ("me_defend_1", "me_defend_2", "rival_select")
 			else:
 				is_button = cards_state == "me_select" and self.allow
 			
