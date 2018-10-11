@@ -1,5 +1,5 @@
 init python:
-	card_time_koef = 1.0 / 7 * 7
+	card_time_koef = 1.0 / 7
 	
 	class Card(Object):
 		def __init__(self, name, is_my):

@@ -11,8 +11,8 @@ label day2_main1:
 	$ day_time()
 	
 #	jump day2_first_map
-	jump un_play
-	jump day2_cardgame
+#	jump un_play
+#	jump day2_cardgame
 	
 	scene bg black
 	pause 2
