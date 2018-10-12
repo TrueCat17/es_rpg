@@ -1,17 +1,17 @@
 init python:
-	day3_breakfast_with_un = 0
-	day3_un_help_accept = 0
-	day3_house_of_mt = 0
-	day3_sl_cleaned = 0
-	day3_us_football = 0
-	day3_sl_library = 0
-	day3_us_cleaned = 0
-	day3_dv_accept = 0
-	day3_got_fail = 0
-	day3_sl_evening = 0
-	day3_un_evening = 0
-	day3_us_evening = 0
-	day3_dv_evening = 0
+	day3_breakfast_with_un = False
+	day3_un_help_accept = False
+	day3_house_of_mt = False
+	day3_sl_cleaned = False
+	day3_us_football = False
+	day3_sl_library = False
+	day3_us_cleaned = False
+	day3_dv_accept = False
+	day3_got_fail = False
+	day3_sl_evening = False
+	day3_un_evening = False
+	day3_us_evening = False
+	day3_dv_evening = False
 	day3_dv_dumped = False
 	day3_un_dumped = False
 label day3_main1:
@@ -162,7 +162,7 @@ label day3_main1:
 	window hide
 	menu:
 		"Извини, но я уже с Леной договорился":
-			$ day3_breakfast_with_un = 1
+			$ day3_breakfast_with_un = True
 			$ lp_un += 1
 			jump day3_breakfast_un
 		"Ладно, подожди минутку":
@@ -334,7 +334,7 @@ label day3_main2:
 	stop music fadeout 3
 	th "Хотя куда уж вежливее…"
 	show un normal pioneer at left with dissolve
-	if day3_breakfast_with_un == 1:
+	if day3_breakfast_with_un:
 		un "Привет ещё раз…"
 	else:
 		un "Привет…"
@@ -354,7 +354,7 @@ label day3_main2:
 	"Действительно, её навыкам маскировки позавидовал бы и опытный спецназовец."
 	show un shy pioneer at left with dspr
 	un "Я и одна могла бы справиться."
-	if day3_breakfast_with_un == 1:
+	if day3_breakfast_with_un:
 		"Странно, на обеде она казалась куда смелее."
 	show cs normal at center with dspr
 	cs "Там много – несколько коробок, ты что!"
@@ -368,7 +368,7 @@ label day3_main2:
 	window hide
 	menu:
 		"Хорошо, я приду...":
-			$ day3_un_help_accept = 1
+			$ day3_un_help_accept = True
 			$ lp_un += 1
 			jump day3_helpaccept
 		"Знаете, меня Ольга Дмитриевна попросила вечером ей помочь...":
@@ -480,7 +480,7 @@ label day3_main3:
 			stop music fadeout 2
 			jump day3_stage_dv
 		"Какая разница? Надо продолжить искать ответы":
-			$ day3_house_of_mt = 1
+			$ day3_house_of_mt = True
 			window show
 			th "И пусть себе играет, мне сейчас не до этого."
 			window hide
@@ -542,13 +542,13 @@ label day3_house_of_mt:
 	scene bg ext_house_of_mt_day with dissolve
 	menu:
 		"Пожалуй, я помогу Славе":
-			$ day3_sl_cleaned = 1
+			$ day3_sl_cleaned = True
 			$ lp_sl += 1
 			jump day3_square
 		"Думаю, помогу ребятам в постройке гигантских роботов":
 			jump day3_clubs
 		"Ладно, я помогу спортивному клубу":
-			$ day3_us_football = 1
+			$ day3_us_football = True
 			$ lp_us += 1
 			jump day3_playground_us
 label day3_square:
@@ -999,7 +999,7 @@ label day3_stage_dv:
 	window hide
 	menu:
 		"Ладно, я приду":
-			$ day3_dv_accept = 1
+			$ day3_dv_accept = True
 			$ lp_dv += 1
 			$ lp_un -= 1
 			window show
@@ -1070,7 +1070,7 @@ label day3_main4:
 	show sl normal pioneer at right with dspr
 	sl "Пойдёшь сегодня на танцы?"
 	me "Не знаю."
-	if day3_dv_accept == 1:
+	if day3_dv_accept:
 		th "Хотя я же договорился с Алисой..."
 	show us laugh2 sport at center with dspr
 	us "Пойдёт, пойдёт! Куда он денется!"
@@ -1203,10 +1203,7 @@ label day3_main4:
 	show mt rage pioneer at right with dspr
 	"Она посмотрела на Ульяну таким взглядом, что мне стало жалко девочку."
 	show us fear sport at center:
-		parallel:
-			linear 0.5 yalign -0.2
-		parallel:
-			linear 0.5 xalign 0.4
+		linear 0.5 xalign 0.4
 	mt "Ты!!!{w} Немедленно начинай собирать разбитую посуду!"
 	"Ольга Дмитриевна отдышалась немного и продолжила:"
 	show mt angry pioneer at right with dspr
@@ -1224,11 +1221,11 @@ label day3_main4:
 	window hide
 	menu:
 		"Сбежать":
-			$ day3_sl_library = 1
+			$ day3_sl_library = True
 			$ lp_sl += 1
 			jump day3_library_sl
 		"Остаться и помочь Ульяне убраться":
-			$ day3_us_cleaned = 1
+			$ day3_us_cleaned = True
 			$ lp_us += 1
 			jump day3_cleaning_us
 label day3_library_sl:
@@ -1510,9 +1507,6 @@ label day3_cleaning_us:
 	th "Конечно, всё затеяла Ульянка!"
 	"Но если бы я не реагировал, погрома можно было бы избежать."
 	th "Наверное…"
-	hide mt
-	hide us
-	with dissolve
 	window hide
 	play sound sfx_open_cupboard
 	pause 1
@@ -1872,10 +1866,10 @@ label day3_main5:
 	"Такое со мной случалось редко."
 	"Впрочем, чувствовал я себя помятым."
 	th "Наверное, всё же не стоило спать днём."
-	if day3_dv_accept == 1:
+	if day3_dv_accept:
 		"К Алисе – вместо дискотеки."
 		"А значит, уже пора."
-		if day3_un_help_accept == 1:
+		if day3_un_help_accept:
 			"Но я же согласился помочь Лене..."
 			th "И что прикажете теперь делать?"
 			window hide
@@ -1993,17 +1987,17 @@ label day3_main5:
 	"Она улыбнулась."
 	me "Попозже, может быть."
 	th "Чёрт! Что я вообще здесь делаю?!"
-	if day3_un_help_accept == 1:
+	if day3_un_help_accept:
 		jump day3_evening_un
-	elif day3_sl_library == 1 and day3_sl_cleaned == 1:
+	elif day3_sl_library and day3_sl_cleaned:
 		jump day3_evening_sl
-	elif day3_us_cleaned == 1 and day3_us_football == 1:
+	elif day3_us_cleaned and day3_us_football:
 		jump day3_evening_us
 	else:
-		$ day3_got_fail = 1
+		$ day3_got_fail = True
 		jump day3_fail
 label day3_evening_sl:
-	$ day3_sl_evening = 1
+	$ day3_sl_evening = True
 	th "Зачем тогда приходить на танцы, если планируешь всё время сидеть в углу?"
 	me "Ладно, может, чуть-чуть…"
 	sl "Вот и правильно!"
@@ -2400,7 +2394,7 @@ label day3_evening_sl:
 	pause 3
 	jump day4_std_morning
 label day3_evening_un:
-	$ day3_un_evening = 1
+	$ day3_un_evening = True
 	hide sl with dissolve
 	"Ещё одно приглашение на танец окончательно поставило бы крест на моём самолюбии."
 	"Я начал придумывать удобный предлог, чтобы уйти, и выбирать для этого подходящий момент, как вдруг увидел Лену.{w} Она медленно шла в мою сторону."
@@ -2618,7 +2612,7 @@ label day3_evening_un:
 	if d1_keys and not d2_gave_keys:
 		"Конечно, у меня были ключи Слави, но упоминать о них не хотелось – вдруг ещё подумают, что украл..."
 	"В эту секунду я сильно пожалел о том, что так и не забрал мобильник из домика вожатой."
-	if day3_house_of_mt == 1:
+	if day3_house_of_mt:
 		"Ольга Дмитриевна тогда меня совсем заговорила, и я забыл."
 	"Но в любом случае надо было что-то сказать, как-то сменить неудобную тему разговора."
 	me "А какая музыка тебе нравится?"
@@ -2681,7 +2675,7 @@ label day3_evening_un:
 	show un normal dress at center with dissolve
 	un "Пойдём по дорожке?"
 	me "Зачем? Через лес же быстрее, там есть хорошая тропинка."
-	if day2_un == 1:
+	if day2_un:
 		un "Ну, там может быть…"
 		me "Кто? Совёнок?"
 		"Я рассмеялся."
@@ -2887,7 +2881,7 @@ label day3_evening_un:
 	pause 3
 	jump day4_std_morning
 label day3_evening_us:
-	$ day3_us_evening = 1
+	$ day3_us_evening = True
 	hide sl with dissolve
 	"Славя ушла."
 	"Может быть, и не стоило отказывать после всего, что она для меня сделала, но на такие подвиги я попросту не решался."
@@ -3234,7 +3228,7 @@ label day3_evening_us:
 	pause 3
 	jump day4_us_morning
 label day3_evening_dv:
-	$ day3_dv_evening = 1
+	$ day3_dv_evening = True
 	$ night_time()
 	scene bg ext_stage_big_night with dissolve
 	play ambience ambience_camp_center_evening fadein 2
@@ -3683,57 +3677,7 @@ label day3_fail:
 	"Я отвернулся и увидел под колесом автобуса маленький клочок бумаги."
 	"Там было написано несколько слов:"
 	window hide
-	scene white with dissolve
-	show urhere1 "Ты здесь не просто так":
-		xpos -0.5
-		ypos 0.3
-		linear 4.0 xpos 1.5
-		repeat
-	show urhere2 "Ты здесь не просто так":
-		xpos -0.5
-		ypos 0.1
-		linear 3.0 xpos 1.5
-		repeat
-	show urhere3 "Ты здесь не просто так":
-		xpos -0.5
-		ypos 0.7
-		linear 5.0 xpos 1.5
-		repeat
-	show urhere4 "Ты здесь не просто так":
-		xpos -0.5
-		ypos 0.5
-		linear 4.0 xpos 1.5
-		repeat
-	show urhere5 "Ты здесь не просто так":
-		xpos -0.5
-		ypos 0.8
-		linear 3.0 xpos 1.5
-		repeat
-	show urhere6 "Ты здесь не просто так":
-		ypos 0.1
-		xpos 1.0
-		linear 4.0 xpos -1.0
-		repeat
-	show urhere7 "Ты здесь не просто так":
-		ypos 0.3
-		xpos 1.0
-		linear 3.0 xpos -1.0
-		repeat
-	show urhere8 "Ты здесь не просто так":
-		ypos 0.8
-		xpos 1.0
-		linear 5.0 xpos -1.0
-		repeat
-	show urhere9 "Ты здесь не просто так":
-		ypos 0.6
-		xpos 1.0
-		linear 4.0 xpos -1.0
-		repeat
-	show urhere10 "Ты здесь не просто так":
-		ypos 0.4
-		xpos 1.0
-		linear 3.5 xpos -1.0
-		repeat
+	show screen urhere
 	pause 5.0
 	window show
 	"{i}Ты здесь не просто так{/i}."
@@ -3748,6 +3692,7 @@ label day3_fail:
 	"Но как бы там ни было, почерк явно мой."
 	"Конечно, подделать его – не большая проблема, но я был полностью уверен, что эту записку написал сам."
 	window hide
+	hide screen urhere
 	scene bg ext_bus_night with dissolve
 	window show
 	"Покрутив листок в руках, я решил ещё раз попробовать зайти в автобус."

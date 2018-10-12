@@ -4443,7 +4443,7 @@ label epilogue_us:
 	"Конечно, она не всегда адекватна, гиперактивна и не имеет ни малейшего понятия о нормах приличия, но…"
 	"Не каждый день видишь человека настолько искреннего, беззаботно весёлого и энергичного."
 	"Возможно, часть этой энергии она передала мне…"
-	if epilogue_us_bad == 1:
+	if epilogue_us_bad:
 		"И тем грустнее, что она не уехала вместе со всеми."
 		"Конечно, всё это лишь сон, плод моего воображения."
 		"Но ведь переживают же люди за героев книг и фильмов.{w} Смеются вместе с ними, плачут, пропускают их боль через себя."
@@ -4478,7 +4478,7 @@ label epilogue_us:
 		if not persistent.endings["us_bad"]:
 			$ persistent.endings["us_bad"] = True
 			$ show_achievement("us_bad")
-	if epilogue_us_good == 1:
+	if epilogue_us_good:
 		window hide
 		scene cg epilogue_us_alone with dissolve
 		window show
@@ -4822,7 +4822,7 @@ label epilogue_dv:
 	with fade
 	window show
 	"Клуб пуст, инструменты упакованы, дождаться остальных – и домой!"
-	if epilogue_dv_bad == 1:
+	if epilogue_dv_bad:
 		play music music_list["everlasting_summer"] fadein 3
 		"Я ещё раз взглянул на сцену, на которой стоял буквально час назад."
 		"Радость и приятное волнение вновь накатили на меня."
@@ -4845,7 +4845,7 @@ label epilogue_dv:
 		if not persistent.endings["dv_bad"]:
 			$ persistent.endings["dv_bad"] = True
 			$ show_achievement("dv_bad")
-	if epilogue_dv_good == 1:
+	if epilogue_dv_good:
 		scene cg epilogue_dv_3 with dissolve
 		play music music_list["everlasting_summer"] fadein 3
 		$ meet('dv', 'Девушка')
@@ -5083,7 +5083,7 @@ label epilogue_sl:
 	with fade
 	window show
 	"Снег пошёл сильнее, началась настоящая метель.{w} На часах была почти полночь."
-	if epilogue_sl_bad == 1:
+	if epilogue_sl_bad:
 		"Ещё чуть-чуть – и моя карета превратится в тыкву?"
 		"Может быть, возвращение из «Совёнка» – это и есть конец моего варианта сказки «Золушка»?"
 		"Ну а даже если и так, неужели это плохой конец?"
@@ -5101,7 +5101,7 @@ label epilogue_sl:
 		if not persistent.endings["sl_bad"]:
 			$ persistent.endings["sl_bad"] = True
 			$ show_achievement("sl_bad")
-	if epilogue_sl_good == 1:
+	if epilogue_sl_good:
 		"Я уже собирался уходить, как вдруг из-за сплошной белой завесы кто-то вынырнул и забежал под козырёк остановки."
 		window hide
 		scene cg epilogue_sl with dissolve
@@ -5744,7 +5744,6 @@ label epilogue_uv:
 	stop music fadeout 3
 	pause 2
 	$ night_time()
-	$ persistent.sprite_time = "night"
 	scene bg ext_house_of_mt_night with fade
 	play ambience ambience_camp_center_night fadein 3
 	window show
@@ -5753,7 +5752,6 @@ label epilogue_uv:
 	"Ужин прошёл без меня, несколько раз около шезлонга останавливалась вожатая, пытаясь что-то мне сказать."
 	"Однако я уже был в другом мире – мире своей камеры с ключом, привязанным гордиевым узлом к нити Ариадны."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg ext_house_of_mt_night_without_light with dissolve2
 	window show
 	"Вот уже и свет в домике погас, а вокруг жалобно заныли сверчки."
@@ -5766,34 +5764,24 @@ label epilogue_uv:
 	"Ведь, если подумать, я просидел в этом шезлонге почти весь день.{w} Даже заснул ненадолго…"
 	"Лагерь устал, он спал."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg ext_square_night with dissolve
 	pause 1
-	$ persistent.sprite_time = "night"
 	scene bg ext_aidpost_night with dissolve
 	pause 1
-	$ persistent.sprite_time = "night"
 	scene bg ext_dining_hall_away_night with dissolve
 	pause 1
-	$ persistent.sprite_time = "night"
 	scene bg ext_playground_night with dissolve
 	pause 1
-	$ persistent.sprite_time = "night"
 	scene bg ext_clubs_night with dissolve
 	pause 1
-	$ persistent.sprite_time = "night"
 	scene bg ext_camp_entrance_night with dissolve
 	pause 1
-	$ persistent.sprite_time = "night"
 	scene bg ext_no_bus_night with dissolve
 	pause 1
-	$ persistent.sprite_time = "night"
 	scene bg ext_path_night with dissolve
 	pause 1
-	$ persistent.sprite_time = "night"
 	scene bg ext_path2_night with dissolve
 	pause 1
-	$ persistent.sprite_time = "night"
 	scene bg ext_polyana_night with dissolve
 	pause 1
 	window show
@@ -5815,7 +5803,6 @@ label epilogue_uv:
 	pause 1.5
 	scene black with fade
 	pause 1
-	$ persistent.sprite_time = "night"
 	scene bg ext_polyana_night
 	show uv normal at center
 	show unblink
@@ -5918,7 +5905,6 @@ label epilogue_uv:
 	me "Восстанавливается, не восстанавливается…{w} Мне плевать! Я хочу понять, как и почему я здесь! Хочу вернуться назад!"
 	uv "Мне это не интересно."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg ext_polyana_night with dissolve
 	show uv normal at center with dissolve
 	window show
@@ -5942,7 +5928,6 @@ label epilogue_uv:
 	"Девочка показала мне жестом следовать за ней и направилась в чащу."
 	"…"
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg ext_path2_night with dissolve
 	window show
 	"Через некоторое время мне начало казаться, что мы ходим кругами."
@@ -6034,7 +6019,6 @@ label epilogue_uv:
 	stop ambience fadeout 2
 	"Наверное, я просто устал…{w} Смертельно устал."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg ext_house_of_mt_night
 	show mt angry pioneer at center
 	with dissolve
@@ -6074,7 +6058,6 @@ label epilogue_uv:
 	pause 5
 	play sound sfx_hell_alarm_clock fadein 2
 	$ day_time()
-	$ persistent.sprite_time = "day"
 	scene bg int_house_of_mt_day with dissolve
 	play ambience ambience_int_cabin_day fadein 3
 	window show
@@ -6087,13 +6070,11 @@ label epilogue_uv:
 	stop ambience fadeout 3
 	"Если бы ещё неделю назад мне показали фотографии всех местных обитателей и меня в их числе, я бы никогда в этом отражении не узнал себя."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg ext_house_of_mt_day with dissolve
 	play ambience ambience_camp_center_day fadein 2
 	window show
 	"На улице ярко светило солнце – казалось, что природа специально издевается надо мной."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg ext_houses_day with dissolve
 	window show
 	"Я медленно направился в сторону умывальников."
@@ -6117,8 +6098,7 @@ label epilogue_uv:
 	"Кусты рядом тихо зашуршали, и над ними показались знакомые уши."
 	me "Я тебя вижу."
 	show uv normal:
-		xalign 0.5
-		yalign 0.0
+		align (0.5, 0.0)
 		ypos 670
 		linear 1.0 ypos 0
 	"Юля нехотя вылезла из своего укрытия."
@@ -6159,7 +6139,6 @@ label epilogue_uv:
 	stop ambience fadeout 2
 	"Вот мы проходим последний поворот, я окидываю взглядом толпу пионеров – все смотрят куда-то в сторону Генды, а там…"
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg ext_square_day_city with flash
 	play music music_list["afterword"] fadein 3
 	window show
@@ -6328,7 +6307,7 @@ label epilogue_uv_part2:
 	show dv smile pioneer with dspr
 	dv "В любом случае надо идти!"
 	"Бодро сказала Алиса."
-	hide mt un us dv sl
+	hide mt
 	hide un
 	hide us
 	hide dv

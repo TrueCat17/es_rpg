@@ -1,4 +1,13 @@
 init python:
+	day4_map_necessary_done = 0
+	day4_mi_accept = False
+	day4_un_compl = False
+	day4_us_compl = False
+	day4_sl_compl = False
+	day4_dv_compl = False
+	day4_uv_apple = False
+	day4_uv_mine = False
+	
 	mine_map = {
 		"1":{
 			"1":["3", "2"],
@@ -115,14 +124,7 @@ init python:
 		else:
 			back_to_start = True
 			renpy.jump("mine_crossroad")
-	day4_map_necessary_done = 0
-	day4_mi_accept = 0
-	day4_un_compl = 0
-	day4_us_compl = 0
-	day4_sl_compl = 0
-	day4_dv_compl = 0
-	day4_uv_apple = False
-	day4_uv_mine = 0
+
 label day4_std_morning:
 	$ backdrop = "days"
 	$ new_chapter(4, "День четвёртый")
@@ -221,7 +223,7 @@ label day4_std_morning:
 	"Судя по всему, жить ему оставалось не более суток."
 	th "Конечно, здесь он мне особо не поможет, но всё же…"
 	"А найти в восьмидесятых годах зарядку от сотового телефона – почти то же самое, что изобрести его."
-	if day3_sl_evening == 1:
+	if day3_sl_evening:
 		"Я уже собирался идти на завтрак, как в дверь постучали."
 		play sound sfx_knock_door7_polite
 		show sl normal pioneer at center with dissolve
@@ -240,7 +242,7 @@ label day4_std_morning:
 		sl "Ладно, я ещё в одно место заскочить должна, так что увидимся на завтраке."
 		hide sl with dissolve
 		"Славя улыбнулась, помахала мне рукой и убежала."
-	if day3_un_evening == 1:
+	if day3_un_evening:
 		"Я уже собирался идти на завтрак, как в дверь постучали."
 		play sound sfx_knock_door7_polite
 		show un normal pioneer at center with dissolve
@@ -508,7 +510,7 @@ label day4_main1:
 	stop ambience fadeout 2
 	play music music_list["silhouette_in_sunset"] fadein 3
 	mt "О, Семён!"
-	if day3_us_evening == 1:
+	if day3_us_evening:
 		show mt angry pioneer at right with dspr
 		mt "И где же ты был?!{w} Я тебя всю ночь ждала! И ищу с самого раннего утра!{w} Ульяна сказала, что вы вчера вечером вместе уходили из библиотеки."
 		show us surp1 pioneer at center with dissolve
@@ -543,22 +545,22 @@ label day4_main1:
 	"Но в то же время ничего подозрительного в этой ситуации я не видел."
 	mt "Ладно, не будем паниковать. Наверняка найдётся!"
 	show us grin pioneer at right:
-		xpos 1.2
+		xpos 1.2 * get_stage_width()
 		linear 0.5 xpos 0.65
 	us "Чтобы он пропустил завтрак…"
 	"Усмехнулась Ульянка."
 	show dv normal pioneer at left:
-		xpos -0.2
+		xpos -0.2 * get_stage_width()
 		linear 0.5 xpos -0.1
 	dv "Точно! Пора уже и есть идти."
 	hide us
 	hide dv
 	hide sl
 	hide el
-	if day3_us_evening != 1:
+	if not day3_us_evening:
 		hide mt with dissolve
 	"Пионеры зашли в столовую."
-	if day3_us_evening == 1:
+	if day3_us_evening:
 		show mt normal pioneer at right with dspr
 		"А меня остановила Ольга Дмитриевна."
 		mt "Семён, а ты постой-ка."
@@ -623,7 +625,7 @@ label day4_main1:
 	dv "Наверняка!"
 	"Ухмыльнулась Алиса."
 	dv "Она такая!"
-	if day3_dv_evening == 1:
+	if day3_dv_evening:
 		"Я внимательно посмотрел на Алису и тут же вспомнил вчерашний вечер."
 		"Её странное поведение, нашу ссору."
 		"Но сейчас она казалась такой же, как и всегда."
@@ -864,6 +866,7 @@ label day4_main1:
 	window show
 	"И вот спустя десять минут я стоял на пороге домика Ольги Дмитриевны и думал, куда пойти."
 	window hide
+	stop ambience fadeout 2
 	$ disable_all_zones()
 	$ set_zone("camp_entrance", "day4_busstop")
 	$ set_zone("boat_station", "day4_boathouse")
@@ -923,7 +926,7 @@ label day4_busstop:
 	window hide
 	menu:
 		"Согласиться":
-			$ day4_mi_accept = 1
+			$ day4_mi_accept = True
 			window show
 			th "С другой стороны, я же ничего не теряю!"
 			"Хотя..."
@@ -1300,7 +1303,6 @@ label day4_boathouse:
 	window show
 	th "Может, Шурику захотелось пособирать камни у воды."
 	th "В крайнем случае я найду там его хладный труп…"
-	stop ambience fadeout 2
 	th "Впрочем, до такого дойти не должно!"
 	window hide
 	scene bg ext_square_day with dissolve
@@ -1423,7 +1425,7 @@ label day4_boathouse:
 	th "Как хорошо, что я закрыл окно после того, как вылез!"
 	dv "Да нет…{w} Тут, понимаете…"
 	mt "Я всё понимаю, Двачевская!"
-	mt "Что ты, что соседка твоя – постоянно одно и то же, одно и тоже! Сколько можно уже?!"
+	mt "Что ты, что соседка твоя – постоянно одно и то же, одно и то же! Сколько можно уже?!"
 	dv "Но ведь правда!.."
 	mt "Что правда, что? У тебя один рассказ лучше другого. Про Семёна в твоём домике, про приставания. Что ты придумываешь постоянно? Вообще ужас."
 	"Алиса казалась действительно расстроенной и, что ещё удивительнее, не пыталась огрызаться."
@@ -1447,14 +1449,7 @@ label day4_boathouse:
 	me "А что я?"
 	play ambience ambience_camp_center_day fadein 3
 	"Она немного смягчилась."
-	if day2_dv_bet == 1:
-		if day2_card_result < 3:
-			show dv smile pioneer at center with dspr
-			dv "Хотела тебе вернуть должок."
-			"Она ухмыльнулась."
-			me "Какой это?"
-			dv "Ты же мне проспорил.{w} Вот я и хотела показать вожатой, как ты меня домогаешься."
-			th "Интересно, что такого криминального могла бы найти Ольга Дмитриевна в данной ситуации, но речь не о том…"
+	if day2_dv_bet:
 		if day2_card_result == 3:
 			show dv angry pioneer at center with dspr
 			dv "Хотела тебе отомстить!"
@@ -1462,6 +1457,13 @@ label day4_boathouse:
 			th "Действительно, что я такого сделал этой девочке, чтобы мне ещё и мстить?"
 			dv "За то, что обыграл меня в карты!"
 			th "Важный повод!{w} Без сомнения…"
+		else:
+			show dv smile pioneer at center with dspr
+			dv "Хотела тебе вернуть должок."
+			"Она ухмыльнулась."
+			me "Какой это?"
+			dv "Ты же мне проспорил.{w} Вот я и хотела показать вожатой, как ты меня домогаешься."
+			th "Интересно, что такого криминального могла бы найти Ольга Дмитриевна в данной ситуации, но речь не о том…"
 		me "Ясно…"
 	else:
 		dv "Потому что ты слабак!"
@@ -1685,7 +1687,7 @@ label day4_main2:
 	window hide
 	menu:
 		"Мне кажется, на тебе это бы смотрелось прекрасно":
-			$ day4_un_compl = 1
+			$ day4_un_compl = True
 			$ lp_un += 1
 			window show
 			un "Спасибо…"
@@ -1762,7 +1764,7 @@ label day4_main2:
 			"Ульянка убежала, хлопнув дверью."
 			"Наверное, не стоило этого говорить."
 		"В столовой отравилась?":
-			$ day4_us_compl = 1
+			$ day4_us_compl = True
 			$ lp_us += 1
 			window show
 			me "Учитывая местную стряпню, это неудивительно."
@@ -1860,7 +1862,7 @@ label day4_main2:
 			stop music fadeout 3
 			th "Кажется, не стоило спрашивать…"
 		"Не спрашивать":
-			$ day4_sl_compl = 1
+			$ day4_sl_compl = True
 			$ lp_sl += 1
 			show sl normal pioneer far at center with dissolve
 			window show
@@ -1916,7 +1918,7 @@ label day4_main2:
 	window hide
 	menu:
 		"Дать Алисе уголь":
-			$ day4_dv_compl = 1
+			$ day4_dv_compl = True
 			$ lp_dv += 1
 			window show
 			th "Но мало ли…{w} Вдруг правда что-то болит."
@@ -2201,10 +2203,10 @@ label day4_main2:
 	"Юная террористка, кажется, раздумывала, сознаваться или нет, но потом гордо выпалила:"
 	show dv smile pioneer at left with dspr
 	dv "Активированный уголь, селитра и сера!"
-	if day4_dv_compl == 0:
+	if not day4_dv_compl:
 		th "Стоп!{w} Уголь!{w} Уголь, который она украла из медпункта."
 	mt "И почему именно памятник?{w} Чем тебе помешал уважаемый, заслуженный человек? Борец за права…"
-	if day4_dv_compl == 1:
+	if day4_dv_compl:
 		show dv normal pioneer at left with dspr
 		dv "Уголь, кстати, он мне дал."
 		"Она показала пальцем в мою сторону, и тут же вся толпа уставилась на меня."
@@ -2277,7 +2279,7 @@ label day4_main2:
 	window hide
 	menu:
 		"Пошёл с Алисой":
-			if day4_dv_compl == 1:
+			if day4_dv_compl:
 				window show
 				jump day4_dv
 			else:
@@ -2285,7 +2287,7 @@ label day4_main2:
 				"Но кого я обманываю?{w} С чего вдруг ей идти со мной?.."
 				jump day4_fail
 		"Пошёл со Славей":
-			if day4_sl_compl == 1:
+			if day4_sl_compl:
 				window show
 				jump day4_sl
 			else:
@@ -2296,7 +2298,7 @@ label day4_main2:
 				th "Похоже, не судьба..."
 				jump day4_fail
 		"Пошёл с Ульяной":
-			if day4_us_compl == 1:
+			if day4_us_compl:
 				window show
 				jump day4_us
 			else:
@@ -2304,7 +2306,7 @@ label day4_main2:
 				th "Хотя, наверное, и её жажда приключений имеет свои пределы."
 				jump day4_fail
 		"Пошёл с Леной":
-			if day4_un_compl == 1:
+			if day4_un_compl:
 				window show
 				jump day4_un
 			else:
@@ -2565,9 +2567,9 @@ label day4_fail:
 	th "Что же..."
 	window hide
 label labyrinth:
-	if prologue == 0 and d1_keys and day2_cards_with_sl == 0 and day4_mi_accept == 1 and not day4_uv_apple and True in persistent.endings.values():
+	if not prologue and d1_keys and not day2_cards_with_sl and day4_mi_accept and not day4_uv_apple and (True in persistent.endings.values()):
 		jump fail_mine_miku
-	if prologue == 1 and not d1_keys and day3_got_fail == 1 and day4_uv_apple and persistent.endings["main_good"] and persistent.endings["sl_good"] and persistent.endings["dv_good"] and persistent.endings["un_good"] and persistent.endings["us_good"] and persistent.endings["mi"]:
+	if prologue and not d1_keys and day3_got_fail and day4_uv_apple and persistent.endings["main_good"] and persistent.endings["sl_good"] and persistent.endings["dv_good"] and persistent.endings["un_good"] and persistent.endings["us_good"] and persistent.endings["mi"]:
 		jump day4_uv
 	$ mine_route = "fail"
 	jump mine
@@ -2841,7 +2843,7 @@ label fail_mine_exit:
 	mt "Ладно уж..."
 	"Меня несколько удивило то, что она так легко согласилась, но предоставленной возможностью я решил воспользоваться побыстрее – выключил свет и шмыгнул под одеяло."
 	stop music fadeout 3
-	if day4_uv_mine == 1:
+	if day4_uv_mine:
 		window hide
 		scene bg int_house_of_mt_night2 with dissolve
 		window show
@@ -2860,11 +2862,11 @@ label fail_mine_exit:
 	scene black with fade3
 	stop ambience fadeout 3
 	pause 3
-	if day4_uv_mine == 1:
+	if day4_uv_mine:
 		jump epilogue_uv
 	jump day5_main1
 label day4_uv:
-	$ day4_uv_mine = 1
+	$ day4_uv_mine = True
 	stop music fadeout 1
 	$ night_time()
 	scene bg int_mine with fade
@@ -6001,12 +6003,10 @@ label un_mine_exit:
 		"Сказать, что ходил с Леной":
 			window show
 			me "Нет, с Леной."
-			pass
 		"Сказать, что ходил один":
 			$ lp_un += 1
 			window show
 			me "Да, один."
-			pass
 	mt "И Шурик...{w} Что с ним?"
 	"Казалось, что Ольга Дмитриевна действительно переживала за судьбу пропавшего пионера."
 	th "Впрочем, что в этом странного?"

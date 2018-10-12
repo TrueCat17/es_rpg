@@ -1,8 +1,8 @@
 init python:
 	day2_map_necessary_done = 0
-	day2_cards_with_sl = 0
-	day2_dv_bet = 0
-	day2_un = 0
+	day2_cards_with_sl = False
+	day2_dv_bet = False
+	day2_un = False
 	d2_gave_keys = False
 
 label day2_main1:
@@ -969,7 +969,7 @@ label day2_main2:
 	window hide
 	menu:
 		"Пойти за картами со Славей":
-			$ day2_cards_with_sl = 1
+			$ day2_cards_with_sl = True
 			$ lp_sl += 1
 			jump day2_cards_with_sl
 		"Пойти одному":
@@ -1243,16 +1243,16 @@ label day2_pre_cards:
 	window hide
 	menu:
 		"Поспорить с Алисой":
-			$ day2_dv_bet = 1
+			$ day2_dv_bet = True
 			$ lp_dv += 2
 			$ lp_un -= 1
 			window show
 		"Не спорить с Алисой":
-			$ day2_dv_bet = 0
+			$ day2_dv_bet = False
 			$ lp_dv -= 2
 			$ lp_un += 1
 			window show
-	if day2_dv_bet == 1:
+	if day2_dv_bet:
 		th "Возможно, я ещё сто раз пожалею об этом…"
 		me "Ладно, идёт!"
 		show dv smile pioneer at center with dspr
@@ -1300,7 +1300,7 @@ label day2_cards:
 	"Он отвесил мне поклон, от чего меня аж передёрнуло."
 	me "Ну, и зачем меня сюда включили?"
 	"Спросил я разочарованно."
-	if day2_dv_bet == 1:
+	if day2_dv_bet:
 		"Ещё пару секунд назад оставалась хоть какая-то надежда, что не придётся участвовать в этом турнире, и благодаря этому появится возможность легально улизнуть от спора с Алисой."
 	else:
 		"Ещё пару секунд назад оставалась хоть какая-то надежда, что не придётся участвовать в этом турнире, и благодаря этому у Алисы не будет повода отомстить мне за то, что не стал с ней спорить."
@@ -1633,7 +1633,7 @@ label un_play_win:
 	"Она и без того была не особо уверена в себе."
 	th "Теперь мне даже неудобно смотреть на неё."
 	"Возможно, следовало всё-таки проиграть, чтобы повысить её самооценку."
-	if day2_dv_bet == 1:
+	if day2_dv_bet:
 		th "Но я же поспорил с Алисой…"
 	"Электроник тем временем с гордостью объявил, что первый тур окончен."
 	window hide
@@ -1777,7 +1777,7 @@ label us2_play_win:
 	"Я глупо и неестественно улыбнулся."
 	th "Как будто боюсь её!"
 	me "Поздравляю с победой."
-	if day2_dv_bet == 0:
+	if not day2_dv_bet:
 		show dv angry pioneer at center with dspr
 		dv "Ты ещё пожалеешь, что струсил."
 		th "Да я уже жалею…"
@@ -1835,7 +1835,7 @@ label day2_main3:
 		"Я даже не знал точно почему, но был в этом уверен на 100%."
 		window hide
 	elif day2_card_result == 3:
-		if day2_dv_bet == 1:
+		if day2_dv_bet:
 			$ lp_dv += 2
 			jump day2_dv
 		else:
@@ -1934,7 +1934,7 @@ label day2_busstop_eve:
 	"Конечно, я бы смог найти Большую Медведицу."
 	"Но потеряйся я в тайге, и единственным моим спасением стало бы лишь знание того, что мох растёт с северной стороны дерева."
 	"Впрочем, не уверен, что и это бы мне помогло…"
-	if day2_cards_with_sl == 1:
+	if day2_cards_with_sl:
 		$ lp_sl += 1
 		jump day2_sl
 	stop ambience fadeout 2
@@ -1967,7 +1967,7 @@ label day2_stage_eve:
 	window hide
 	jump day2_main4
 label day2_football_eve:
-	if day2_card_result == 0 and day2_dv_bet == 0:
+	if day2_card_result == 0 and not day2_dv_bet:
 		$ lp_un += 1
 		jump day2_un
 	scene bg ext_playground_night with dissolve
@@ -1982,7 +1982,7 @@ label day2_dv:
 	play music music_list["always_ready"] fadein 5
 	window show
 	"Ура! Я выиграл! Пусть теперь Алиса знает, что со мной лучше не связываться!"
-	if day2_dv_bet == 1:
+	if day2_dv_bet:
 		th "Значит, не зря я всё же с ней поспорил!"
 	"Теперь оставалось надеяться, что она не станет распускать ложные слухи от обиды на поражение."
 	window hide
@@ -2254,7 +2254,7 @@ label day2_sl:
 	window hide
 	jump day2_main4
 label day2_un:
-	$ day2_un = 1
+	$ day2_un = True
 	scene bg ext_playground_night with dissolve
 	play ambience ambience_camp_center_night fadein 3
 	window show

@@ -1,5 +1,5 @@
 init:
-	$ prologue = 0
+	$ prologue = False
 
 label prologue:
 	$ make_names_unknown()
@@ -83,7 +83,7 @@ label prologue:
 	window hide
 	menu:
 		"Да, я пойду с тобой":
-			$ prologue = 1
+			$ prologue = True
 		"Нет, я останусь здесь":
 			pass
 	window show
