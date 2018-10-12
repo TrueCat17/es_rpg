@@ -130,6 +130,14 @@ init -1000:
 		pause 0.5
 		repeat
 	
+	image stars = "anim stars_1":
+		size (1.0, 1.0)
+		
+		contains "anim stars_3":
+			linear 1.5 alpha 1.0
+			linear 1.5 alpha 0.0
+			repeat
+	
 	
 	
 	image blink:
