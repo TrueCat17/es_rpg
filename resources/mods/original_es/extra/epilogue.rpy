@@ -15,7 +15,7 @@ label postscriptum:
 label epilogue_main:
 	$ backdrop = "epilogue"
 	$ new_chapter(-1, "Эпилог")
-	$ prolog_time()
+	$ night_time()
 	scene black
 	pause 2
 	"Резкая боль сковала всё моё тело."
@@ -45,7 +45,6 @@ label epilogue_main:
 	"Неважно, насколько реален был этот автобус и эта девочка – они для меня представлялись всего лишь навязчивой мошкой."
 	"И вот я уже вишу в абсолютной пустоте и проваливаюсь в сон…"
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg semen_room
 	show prologue_dream
 	with fade3
@@ -66,7 +65,6 @@ label epilogue_main:
 	"Удивление, смятение, страх, даже ужас охватили меня."
 	"Но как?!"
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg semen_room with dissolve2
 	window show
 	"Я сел на кровать и закрыл лицо руками, пытаясь вспомнить события вчерашнего дня."
@@ -176,7 +174,6 @@ label epilogue_main:
 	nvl clear
 	"А если это всё было галлюцинацией, то стоит надеяться, что она больше не повторится."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg semen_room with dissolve2
 	nvl clear
 	window show
@@ -249,7 +246,6 @@ label epilogue_main:
 	window hide
 	pause 2
 	$ set_mode_adv()
-	$ persistent.sprite_time = "night"
 	scene bg semen_room with fade2
 	window show
 	me "Хм... что-то залип."
@@ -282,7 +278,6 @@ label epilogue_mi:
 	"Пусть и в нескольких частях."
 	window hide
 	pause 2
-	$ persistent.sprite_time = "day"
 	scene bg int_bus with fade2
 	play music music_list["my_daily_life"] fadein 5
 	window show
@@ -354,17 +349,15 @@ label epilogue_mi:
 	show mt rage pioneer at center with dspr
 	mt "Без тебя знаю, дурень! За камерой лучше следи!"
 	show sh normal pioneer at right:
-		linear 1.0 xalign 1.5
+		linear 1.0 xpos 1.0 xanchor 0.0
 	hide sh with dissolve
 	"Шурик спокойно увернулся от запущенной в него панамки и вернулся на операторское место."
 	"Он вообще всегда такой – спокойный, рассудительный и…{w} скучный, однообразный и предсказуемый."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg ext_bus with dissolve
 	window show
 	"Я вышел из автобуса и направился в столовую, чтобы немного перекусить."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg ext_dining_hall_near_day with dissolve
 	show mi normal pioneer at center with dissolve
 	window show
@@ -380,7 +373,6 @@ label epilogue_mi:
 	"Странно, вроде бы Маша уже была в столовой – что, не успела пообедать?"
 	"Я внимательно оглядел её сзади – две длиннющие косы болтались из стороны в сторону, задевая всё, что встречали на своём пути."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg int_dining_hall_day with dissolve
 	window show
 	me "Тебе вообще удобно с такими волосами?"
@@ -568,7 +560,6 @@ label epilogue_mi:
 	stop music fadeout 3
 	"..."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg int_bus with dissolve
 	play music music_list["smooth_machine"] fadein 3
 	window show
@@ -603,7 +594,6 @@ label epilogue_mi:
 	"Надо мной нависла камера Шурика."
 	"Я делал вид, что отчаянно не понимаю, где нахожусь, метался по автобусу, выскочил наружу, обошёл его со всех сторон, обессиленно рухнул на бордюр…"
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg ext_bus with dissolve
 	show mt smile panama pioneer at cleft with dissolve
 	window show
@@ -670,7 +660,6 @@ label epilogue_mi:
 	stop ambience fadeout 2
 	"..."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg int_dining_hall_day with dissolve
 	play music music_list["two_glasses_of_melancholy"] fadein 3
 	show mi normal pioneer at left
@@ -874,7 +863,6 @@ label epilogue_mi:
 	"..."
 	window hide
 	$ night_time()
-	$ persistent.sprite_time = "night"
 	scene bg ext_polyana_night with dissolve
 	play ambience ambience_forest_night fadein 3
 	window show
@@ -924,7 +912,6 @@ label epilogue_mi:
 	"Получалось у неё действительно здорово."
 	"Уверен, что она бы стала прекрасной актрисой немого кино."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg ext_polyana_night with dissolve
 	window show
 	"Вскоре Саша скрылась в лесу, а я некоторое время постоял на берегу и направился за ней."
@@ -961,7 +948,6 @@ label epilogue_mi:
 	stop ambience fadeout 2
 	"..."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg ext_square_night with dissolve
 	play ambience ambience_camp_center_day fadein 3
 	window show
@@ -990,7 +976,6 @@ label epilogue_mi:
 	stop ambience fadeout 2
 	"..."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg ext_beach_night with dissolve
 	play ambience ambience_lake_shore_night fadein 3
 	show mi smile pioneer at center with dissolve
@@ -1093,31 +1078,10 @@ label epilogue_mi:
 	"..."
 	window hide
 	play music music_list["i_dont_blame_you"] fadein 3
-	scene black with dissolve
-	play music music_list["i_dont_blame_you"] fadein 3
-	if persistent.scenario_set == "new":
-		window show
-		"Сияющий лунный свет, отражающийся в капельках воды на ее коже, липкий песок, прохлада летней ночи и жар тела, тяжелое дыхание и вздохи наслаждения – все слилось в один короткий миг…"
-		"Я быстро водил руками по ее телу, стараясь не пропустить ни сантиметра."
-		"Маша, тяжело дыша, срывала с меня одежду."
-		me "Подожди-подожди..."
-		mi "Да черт с ней – меня эта форма всегда бесила!"
-		"Она впилась поцелуем мне в губы, страстным, почти животным."
-		"Я не ожидал от нее такого напора, но решил не отставать и спустился рукой ниже."
-		"Там уже было так мокро, как никогда."
-		"Возможно, у нас просто давно не было секса, а может быть, свою роль сыграло что-то другое, но мой член стоял как римский легионер перед решающий атакой варваров."
-		"Я с силой вошел в нее, отчего Маша тихо вскрикнула, обвила мою спину руками и начала больно ее царапать."
-		"Что от меня хотят было понятно – и я начал в бешеном темпе совершать движения внутри нее."
-		"Наверное, я стонал что-то про любовь, наверное, она – тоже..."
-		"Сейчас это было не столь важно, куда важнее – слиться воедино, стать как будто одним целым, достичь апогея соития!"
-		"И этот апогей не заставил себя долго ждать – я почувствовал, как все ее тело сначала выгнулось, а потом забилось мелкой дрожью, мой член сдавило внутри, и я еле успел вынуть, оросив ее мощной струей спермы."
-		"Я уж думал, что она, как обычно, обидится, но Маша улыбнулась, подцепила немного пальцем, и облизала его."
-	window hide
 	with fade
 	window show
 	"..."
 	stop music fadeout 3
-	$ persistent.sprite_time = "night"
 	scene bg ext_beach_night with dissolve
 	play ambience ambience_lake_shore_night fadein 3
 	me "Ладно, пора спать.{w} Завтра тяжёлый день – Ольга Дмитриевна точно нас загоняет."
@@ -1148,7 +1112,6 @@ label epilogue_mi:
 	scene black with fade3
 	pause 2
 	$ day_time()
-	$ persistent.sprite_time = "day"
 	scene bg int_house_of_un_day with fade
 	play ambience ambience_int_cabin_day fadein 3
 	window show
@@ -1165,7 +1128,6 @@ label epilogue_mi:
 	stop ambience fadeout 2
 	"Не найдя сигарет в шортах, я решил, что оставил их у себя в домике и, кое-как одевшись, вышел на улицу."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg ext_houses_day with dissolve
 	play music music_list["everyday_theme"] fadein 3
 	window show
@@ -1179,13 +1141,11 @@ label epilogue_mi:
 	hide el with dissolve
 	"Бросил я ему вслед."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg ext_house_of_mt_day with dissolve
 	window show
 	"Наконец добравшись до домика, я открыл дверь и зашёл."
 	window hide
 	play sound sfx_open_door_1
-	$ persistent.sprite_time = "day"
 	scene bg int_house_of_mt_day with dissolve
 	show mt normal pioneer at center with dissolve
 	window show
@@ -1233,13 +1193,11 @@ label epilogue_mi:
 	me "Так точно!"
 	"Я отдал честь и вышел из домика."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg ext_house_of_mt_day with dissolve
 	window show
 	"Надо пойти рассказать Маше – пусть посмеётся."
 	window hide
 	play sound sfx_open_door_kick
-	$ persistent.sprite_time = "day"
 	scene bg int_house_of_un_day with dissolve
 	pause 1
 	window show
@@ -1288,7 +1246,6 @@ label epilogue_mi:
 	stop music fadeout 3
 	mi "Пойдём…"
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg ext_house_of_un_day with dissolve
 	play ambience ambience_camp_center_day fadein 3
 	window show
@@ -1300,7 +1257,6 @@ label epilogue_mi:
 	"Я не стал смотреть в её сторону, потому что и так знал, какое у неё выражение лица, и просто направился в сторону площади."
 	"..."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg ext_square_day with dissolve
 	window show
 	"На линейке (если так можно было назвать людей, толпящихся вокруг памятника) было многолюдно."
@@ -1340,7 +1296,6 @@ label epilogue_mi:
 	"Вслед нам доносились крики Ольги Дмитриевны, но я не обращал на них внимания."
 	"..."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg ext_clubs_day with dissolve
 	show mi normal pioneer at center with dissolve
 	window show
@@ -1352,7 +1307,6 @@ label epilogue_mi:
 	play sound sfx_open_door_strong
 	"Я резким движением открыл дверь и вошёл внутрь."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg int_clubs_male_day with dissolve
 	play ambience ambience_clubs_inside_day fadein 3
 	window show
@@ -1393,12 +1347,10 @@ label epilogue_mi:
 	stop ambience fadeout 2
 	"Я не слушал…"
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg ext_clubs_day with dissolve
 	window show
 	"Я схватил Машу за руку и выбежал на улицу."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg ext_camp_entrance_day with dissolve
 	play ambience ambience_camp_entrance_day fadein 3
 	window show
@@ -1430,7 +1382,6 @@ label epilogue_mi:
 	stop ambience fadeout 2
 	"..."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg int_dining_hall_people_day with dissolve
 	play ambience ambience_dining_hall_full fadein 3
 	window show
@@ -1482,7 +1433,6 @@ label epilogue_mi:
 	stop ambience fadeout 2
 	"Казалось, что возражать не стоит, я встал, кивнул Маше, и мы направились за Ольгой Дмитриевной."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg ext_dining_hall_near_day with dissolve
 	play ambience ambience_camp_center_day fadein 3
 	show mt angry pioneer at cright
@@ -1513,7 +1463,6 @@ label epilogue_mi:
 	stop ambience fadeout 2
 	"Я попытался улыбнуться, но и без зеркала было понятно, что улыбка была настолько наигранной, что мне самому стало тошно."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg ext_polyana_day with dissolve
 	window show
 	"Вскоре мы вышли на небольшую полянку."
@@ -1533,7 +1482,6 @@ label epilogue_mi:
 	"Там лежали куски тела: рука, нога, разорванная в нескольких местах, ошмёток мяса с груди, голова со слипшимися от крови волосами и остекленевшими, глубоко запавшими глазами."
 	"К горлу подступила тошнота, и я инстинктивно отвернулся."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg ext_polyana_day with dissolve
 	show mt scared pioneer at cright
 	show mi cry pioneer at cleft
@@ -1566,7 +1514,6 @@ label epilogue_mi:
 	"..."
 	window hide
 	$ sunset_time()
-	$ persistent.sprite_time = "sunset"
 	scene bg ext_square_sunset with dissolve
 	play ambience ambience_camp_center_evening fadein 3
 	window show
@@ -1653,7 +1600,6 @@ label epilogue_mi:
 	"..."
 	window hide
 	$ night_time()
-	$ persistent.sprite_time = "night"
 	scene bg int_house_of_mt_night2 with dissolve
 	play ambience ambience_int_cabin_night fadein 3
 	window show
@@ -1756,7 +1702,6 @@ label epilogue_mi:
 	me "Пойдём поговорим снаружи. Не хочу будить Ма… Мику…"
 	window hide
 	stop ambience fadeout 2
-	$ persistent.sprite_time = "night"
 	scene bg ext_house_of_mt_night_without_light with dissolve
 	play ambience ambience_camp_center_night fadein 3
 	show dv sad pioneer at center with dissolve
@@ -1896,7 +1841,6 @@ label epilogue_mi:
 	"Вот болван! В другой ситуации я бы ему эту улыбочку…"
 	"..."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg ext_square_night with dissolve
 	window show
 	"..."
@@ -1949,7 +1893,6 @@ label epilogue_mi:
 	dv "Да…"
 	"..."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg ext_house_of_mt_night_without_light with dissolve
 	show dv scared pioneer at center with dissolve
 	window show
@@ -2018,7 +1961,6 @@ label epilogue_mi:
 	"Никто не стал больше возражать, и мы все тихо зашли в домик."
 	window hide
 	$ sunset_time()
-	$ persistent.sprite_time = "sunset"
 	scene bg int_house_of_mt_night with dissolve
 	play ambience ambience_int_cabin_night fadein 3
 	window show
@@ -2063,7 +2005,6 @@ label epilogue_mi:
 	window show
 	"..."
 	window hide
-	$ persistent.sprite_time = "sunset"
 	scene bg int_house_of_mt_night with dissolve2
 	play ambience ambience_int_cabin_night fadein 3
 	window show
@@ -2125,7 +2066,6 @@ label epilogue_mi:
 	"…"
 	window hide
 	$ day_time()
-	$ persistent.sprite_time = "day"
 	scene bg int_house_of_mt_day with fade2
 	play ambience ambience_int_cabin_day fadein 3
 	window show
@@ -2167,7 +2107,6 @@ label epilogue_mi:
 	stop ambience fadeout 2
 	"..."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg int_dining_hall_day with dissolve
 	play music music_list["just_think"] fadein 3
 	window show
@@ -2232,7 +2171,6 @@ label epilogue_mi:
 	"Я показал взглядом, что хочу поговорить с ней наедине."
 	me "Мы на секундочку…"
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg ext_dining_hall_near_day with dissolve
 	play ambience ambience_camp_center_day fadein 3
 	show mi normal pioneer at center with dissolve
@@ -2308,7 +2246,6 @@ label epilogue_mi:
 	"Ещё секунда и…"
 	mi "Эй!"
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg ext_dining_hall_near_day with dissolve
 	window show
 	"Я рефлекторно обернулся, краем глаза успел разглядеть Машу, стоявшую на крыльце, и тут же снова посмотрел в сторону, где была «Ульяна»."
@@ -2344,7 +2281,6 @@ label epilogue_mi:
 	stop ambience fadeout 2
 	"..."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg int_dining_hall_day with dissolve
 	play music music_list["into_the_unknown"] fadein 3
 	window show
@@ -2422,7 +2358,6 @@ label epilogue_mi:
 	stop music fadeout 3
 	"..."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg ext_no_bus with dissolve
 	play ambience ambience_camp_entrance_day fadein 3
 	window show
@@ -2441,7 +2376,6 @@ label epilogue_mi:
 	"Мы некоторое время стояли молча, затем медленно двинулись в путь."
 	"..."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg ext_road_day with dissolve
 	play ambience ambience_day_countryside_ambience fadein 3
 	window show
@@ -2541,7 +2475,6 @@ label epilogue_mi:
 	el "Ну, если поворот… Мы всё время прямо шли, а теперь…"
 	me "Ладно, пойдём посмотрим."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg ext_camp_entrance_day with dissolve
 	play music music_list["no_tresspassing"] fadein 3
 	window show
@@ -2558,7 +2491,6 @@ label epilogue_mi:
 	"Я не стал дожидаться его и медленно поплёлся в обратном направлении."
 	"..."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg ext_road_day with dissolve
 	show mi normal pioneer at cright
 	show dv sad pioneer at cleft
@@ -2641,7 +2573,6 @@ label epilogue_mi:
 	stop ambience fadeout 2
 	"Это тоже черта моего характера, наряду с чёрствостью, невнимательностью к окружающим – даже близким – людям и прочими не лучшими качествами."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg ext_camp_entrance_day with dissolve
 	play ambience ambience_camp_center_day fadein 3
 	window show
@@ -2659,7 +2590,6 @@ label epilogue_mi:
 	stop ambience fadeout 2
 	"..."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg int_house_of_mt_day with dissolve
 	play ambience ambience_int_cabin_day fadein 3
 	window show
@@ -2727,7 +2657,6 @@ label epilogue_mi:
 	play sound sfx_alisa_masha_enter
 	"Не знаю точно, сколько пролежал так, трясясь от каждого шороха, но вскоре дверь открылась, и в комнате послышались шаги."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg int_house_of_mt_day with dissolve
 	show mi normal pioneer at cright
 	show dv sad pioneer at cleft
@@ -2790,7 +2719,6 @@ label epilogue_mi:
 	window hide
 	stop music fadeout 2
 	$ sunset_time()
-	$ persistent.sprite_time = "sunset"
 	scene bg int_house_of_mt_night with fade2
 	play ambience ambience_int_cabin_night fadein 3
 	window show
@@ -2854,7 +2782,6 @@ label epilogue_mi:
 	"Я набрался сил, дёрнул за ручку и вышел наружу."
 	window hide
 	$ night_time()
-	$ persistent.sprite_time = "night"
 	scene bg ext_house_of_mt_night with dissolve
 	window show
 	"Некоторое время я озирался по сторонам, а потом…"
@@ -2868,7 +2795,6 @@ label epilogue_mi:
 	"На ощупь я кое-как заполз назад в домик и закрыл дверь."
 	window hide
 	$ sunset_time()
-	$ persistent.sprite_time = "sunset"
 	scene bg int_house_of_mt_night with dissolve
 	show mi shocked pioneer at center with dissolve
 	window show
@@ -2972,7 +2898,6 @@ label epilogue_mi:
 	me "Осторожно, ступеньки!"
 	window hide
 	$ night_time()
-	$ persistent.sprite_time = "night"
 	scene bg ext_house_of_mt_night with dissolve
 	pause 1
 	play music music_list["orchid"] fadein 3
@@ -2988,7 +2913,6 @@ label epilogue_mi:
 	"Я быстро направился прочь от этой дьявольской картины, таща за собой остальных."
 	"..."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg ext_square_night with dissolve
 	play ambience ambience_camp_center_night fadein 3
 	window show
@@ -3032,7 +2956,6 @@ label epilogue_mi:
 	"Неужели и они понимают, что здесь происходит?.."
 	"Конечно, если предположить, что в аду тоже есть кузнечики…"
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg ext_no_bus_night with dissolve
 	play ambience ambience_camp_entrance_night fadein 3
 	show mi scared pioneer at center
@@ -3072,7 +2995,6 @@ label epilogue_mi:
 	me "Да вашу мать!"
 	"Я схватил Машу и Лену за руки и бросился назад в лагерь."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg ext_square_night with dissolve
 	show mi scared pioneer at cright
 	show un scared pioneer at cleft
@@ -3093,7 +3015,6 @@ label epilogue_mi:
 	"Возвращаться в домик Ольги Дмитриевны было нельзя."
 	"Также нельзя было находиться на открытом пространстве – это мне подсказывал инстинкт самосохранения."
 	"Мы метнулись по направлению к лесу."
-	$ persistent.sprite_time = "night"
 	scene bg ext_path2_night:
 		pos (0,0)
 		linear 0.1 pos (-5,-5)
@@ -3110,7 +3031,6 @@ label epilogue_mi:
 	"Сердце тяжело колотилось, из груди вырывался хриплый свист при каждом выдохе, а кровь в голове стучала так сильно, что, казалось, черепная коробка была готова разорваться от давления в любую секунду."
 	"Я перестал чувствовать своё тело – ноги сами несли меня вперёд."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg ext_polyana_night with dissolve
 	window show
 	"Наконец мы выбежали на поляну и остановились."
@@ -3198,7 +3118,6 @@ label epilogue_mi:
 	hide un with dissolve
 	"Я схватил девочек за руки и бросился куда глаза глядят, главное – подальше от «них»."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg ext_path2_night:
 		pos (0,0)
 		linear 0.1 pos (-5,-5)
@@ -3213,7 +3132,6 @@ label epilogue_mi:
 	stop ambience fadeout 2
 	"..."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg ext_old_building_night with dissolve
 	play ambience ambience_old_camp_outside fadein 3
 	window show
@@ -3251,7 +3169,6 @@ label epilogue_mi:
 	us "Привет, Семён! Как твои дела?"
 	"Её голос словно прострелил мне голову насквозь, я заорал и дёрнулся по направлению к старому лагерю, таща девочек за собой."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg ext_old_building_night with dissolve
 	window show
 	"Тогда я совсем забыл о Маше и тем более о Лене."
@@ -3259,7 +3176,6 @@ label epilogue_mi:
 	"Главное сейчас – убежать как можно дальше отсюда, от этих исчадий ада."
 	window hide
 	stop sound_loop fadeout 2
-	$ persistent.sprite_time = "night"
 	scene bg int_old_building_night with dissolve
 	window show
 	"Мы влетели в здание, и тут же почва ушла из-под ног, и я провалился во мрак…"
@@ -3282,7 +3198,6 @@ label epilogue_mi:
 	me "Похоже на то…"
 	"Я помог Маше подняться."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg int_catacombs_entrance with dissolve
 	window show
 	"Внезапно в паре метров от меня загорелся яркий свет."
@@ -3314,7 +3229,6 @@ label epilogue_mi:
 	me "Ладно, обопрись о меня."
 	"Я подошёл к Лене и подставил ей плечо."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg int_mine with dissolve
 	show mi scared pioneer at cright
 	show un scared pioneer at cleft
@@ -3340,7 +3254,6 @@ label epilogue_mi:
 	window show
 	"Внезапно фонарь моргнул и погас."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg int_mine with fade
 	show mi scared pioneer at cright with dissolve
 	window show
@@ -3360,7 +3273,6 @@ label epilogue_mi:
 	"Фонарь потихоньку угасал, а вместе с ним – и наши шансы на спасение."
 	me "Вставай, пора идти, скоро батарейка закончится."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg int_mine_crossroad with fade
 	show mi scared pioneer at center with dissolve
 	window show
@@ -3381,7 +3293,6 @@ label epilogue_mi:
 	mi "А теперь куда?"
 	me "Давай уж следовать выбранному направлению..."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg int_mine with fade
 	show mi scared pioneer at center with dissolve
 	window show
@@ -3432,7 +3343,6 @@ label epilogue_mi:
 	"Я кое-как поднялся и разбудил Машу."
 	"В конце концов, мы же собрались выжить..."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg int_mine with fade
 	window show
 	"Сколько же я уже в этой шахте?.."
@@ -3441,7 +3351,6 @@ label epilogue_mi:
 	"«Налево»… «Направо»… «Налево»… «Направо»…"
 	"Казалось, что ещё один поворот, и я не выдержу..."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg int_mine_coalface with fade
 	window show
 	"Но неожиданно луч фонаря выхватил из темноты узкий проход, и вскоре мы оказались в шахтёрском забое."
@@ -3454,7 +3363,6 @@ label epilogue_mi:
 	stop ambience fadeout 2
 	"Нет! Пойдём!"
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg int_mine_room with fade
 	play music music_list["sunny_day"] fadein 3
 	show mi scared pioneer at center with dissolve
@@ -3481,7 +3389,6 @@ label epilogue_mi:
 	me "Я далеко уходить не буду!"
 	"Она подняла на меня взгляд, полный надежды, и еле заметно кивнула."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg int_catacombs_door with fade
 	window show
 	"Я огляделся и в углу заметил массивную железную дверь."
@@ -3495,7 +3402,6 @@ label epilogue_mi:
 	"Задыхаясь, крикнул я в сторону, где сидела Маша."
 	me "Надо найти какую-нибудь палку."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg int_mine_room with fade
 	show mi scared pioneer at center with dissolve
 	window show
@@ -3505,7 +3411,6 @@ label epilogue_mi:
 	mi "Угу…"
 	"Она устало посмотрела на меня."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg int_mine with fade
 	play ambience ambience_catacombs_stones fadein 3
 	window show
@@ -3521,7 +3426,6 @@ label epilogue_mi:
 	"Я орал в надежде, что она меня услышит."
 	window hide
 	stop ambience fadeout 2
-	$ persistent.sprite_time = "night"
 	scene bg int_mine with fade
 	window show
 	"Вдруг сзади донёсся какой-то звук, загорелся свет, и на земле появилась моя тень, уносящаяся вдаль, в темноту."
@@ -3583,14 +3487,12 @@ label epilogue_mi:
 	me "Спокойно… Спокойно…"
 	"Забубнил я себе под нос."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg int_mine with fade
 	play sound sfx_match_candle
 	window show
 	"Наконец с пятой попытки шахта осветилась тусклым светом."
 	"Я быстро сориентировался и понял, в какую сторону бежать."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg int_mine_room with fade
 	window show
 	"Мне показалось, что прошло всего несколько секунд, прежде чем я оказался в комнате, где оставил Машу."
@@ -3613,7 +3515,6 @@ label epilogue_mi:
 	mi "Нет…"
 	"Я начал шарить руками в темноте и вскоре нашёл факел и зажигалку."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg int_mine_room with fade
 	play sound sfx_ignite_torch
 	window show
@@ -3630,7 +3531,6 @@ label epilogue_mi:
 	"Но, посмотрев на Машу, я понял, что не смогу… просто не смогу…"
 	"Я поднял с пола тесак, покрутил его в руках и прикинул, что он вполне может послужить в качестве лома."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg int_catacombs_door with fade
 	play sound sfx_insert_crowbar_door
 	window show
@@ -3643,7 +3543,6 @@ label epilogue_mi:
 	me "Спасены…"
 	"Я вернулся к Маше, помог ей подняться, и мы вышли из комнаты, оставив Лену лежать без сознания."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg int_mine_exit_night_torch with fade
 	window show
 	"За дверью оказался небольшой коридор, в конце которого была лестница, заканчивающаяся решёткой."
@@ -3652,7 +3551,6 @@ label epilogue_mi:
 	"Решётка с грохотом упала вниз, и мы выбрались наружу…"
 	window hide
 	$ sunset_time()
-	$ persistent.sprite_time = "sunset"
 	scene bg ext_square_sunset with fade
 	play ambience ambience_camp_center_night fadein 3
 	window show
@@ -3702,7 +3600,6 @@ label epilogue_mi:
 	play music music_list["everlasting_summer"] fadein 5
 	pause 5
 	$ night_time()
-	$ persistent.sprite_time = "night"
 	scene bg ext_beach_night with fade3
 	pause 2
 	window show
@@ -3743,7 +3640,6 @@ label epilogue_mi:
 	"В конце концов, ведь это просто сон?"
 	"На обратном пути Маша держала меня под руку и без умолку болтала обо всём подряд."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg ext_square_night with dissolve
 	show mi normal pioneer at center with dissolve
 	window show
@@ -3775,7 +3671,7 @@ label epilogue_mi:
 label epilogue_un_bad:
 	$ backdrop = "epilogue"
 	$ new_chapter(-1, "Эпилог")
-	$ prolog_time()
+	$ night_time()
 	scene black
 	pause 5
 	window show
@@ -3784,7 +3680,6 @@ label epilogue_un_bad:
 	"И пусть хоть наступит конец света – ты не заметишь.{w} Проткни тебя ножом – ты не заметишь.{w} Даже долгая варка в котлах ада покажется лишь мелким неудобством."
 	"Ведь есть проблемы поважнее…"
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg semen_room
 	show prologue_dream
 	with fade3
@@ -3793,7 +3688,6 @@ label epilogue_un_bad:
 	"Когда я открыл глаза, то понял – что-то не так."
 	"Ясность мысли вернулась не сразу."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg semen_room with fade2
 	window show
 	"Наконец я осознал, что нахожусь не в автобусе, а…{w} в своей старой квартире."
@@ -3934,8 +3828,6 @@ label epilogue_un_bad:
 label epilogue_un_good:
 	$ backdrop = "epilogue"
 	$ new_chapter(-1, "Эпилог")
-	$ prolog_time()
-	$ make_names_known()
 	scene black
 	pause 2
 	window show
@@ -4041,7 +3933,6 @@ label epilogue_un_good:
 	un "А мне вот есть чего!{w} Значит, до встречи у автобуса!"
 	me "Может, я помогу?"
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg ext_square_night with dissolve
 	show un smile2 pioneer at center with dissolve
 	window show
@@ -4123,13 +4014,6 @@ label epilogue_un_good:
 	"«Уровень-то у вас средненький, молодой человек… Средненький, да. Однако мысль сама в себе интересная… интересная, да. Пожалуй, вам практики бы побольше. И это… Читать побольше… Да.»"
 	nvl clear
 	"Эти слова я запомнил на всю жизнь. Авторские экземпляры, причитающиеся в качестве гонорара, я раздал друзьям и коллегам. Лена же, которая впервые мой роман прочитала только после выхода, сказала, что ей очень понравилось. Думаю, скорее чтобы не расстраивать меня."
-	if persistent.cg_set == "new":
-		stop music fadeout 3
-		window hide
-		pause 3
-		$ set_mode_adv()
-		scene cg epilogue_un_good_2_new with fade
-		window show
 	"Время шло… Дата на календаре неумолимо приближалась к тому дню, когда я был вырван из своего привычного мира и брошен в эту реальность, начавшуюся с таинственного пионерлагеря и заканчивающуюся здесь. Теперь я успешный писатель (хотя бы судя по тиражам моих книг), у меня прекрасная жена и двое детей. Жизнь совершила полный оборот."
 	"Сегодня в полночь начнётся что-то новое – {i}завтра{/i}, которого я ждал столько лет…"
 	window hide
@@ -4140,104 +4024,47 @@ label epilogue_un_good:
 	window show
 	un "О чём думаешь?"
 	window hide
-	if persistent.scenario_set == "new":
-		window hide
-		$ sunset_time ()
-		$ persistent.sprite_time = "sunset"
-		scene bg int_kitchen_day
-		show un_old smile plat2 with dspr
-		show unblink
-		window show
-		play music music_list["everlasting_summer"] fadein 3
-		"Я открыл глаза и увидел Лену."
-		"Она поставила кружку с чаем на столик рядом с креслом."
-		"В камине тихо потрескивали дрова, а за окном бушевала метель."
-		"Я укутался в плед и посмотрел на Лену."
-		me "Знаешь, какой сегодня день?"
-		show un_old surp plat2 with dspr
-		un "Нет, а какой?"
-		me "Помнишь, что я тебе рассказывал тогда, в лагере?"
-		un "Нет."
-		"Неудивительно, за столько лет я больше ни разу не поднимал вопрос моего таинственного попадания в этот мир."
-		me "Помнишь, я рассказывал, что не из этого мира?"
-		show un_old grin plat2 with dspr
-		un "Ну, что-то такое… да…"
-		me "Так вот, сегодня как раз тот день, когда я много лет назад сел в 410-ый автобус и проснулся в том пионерлагере."
-		show un_old smile plat2 with dspr
-		un "Получается, годовщина?"
-		me "Да, своего рода…"
-		un "Для тебя это грустный праздник?"
-		me "Нет-нет, ты что!"
-		un "А я вот почти не помню, что тогда было."
-		me "Может, оно и к лучшему…"
-		"Я подбросил дров в камин и взял со стола кружку."
-		me "Напишу, наверное, роман!{w} Прочитаешь – вспомнишь."
-		show un_old grin plat2 with dspr
-		un "Думаешь, стоит?"
-		"И ведь действительно, когда-то я давал себе обещание не писать об этом."
-		me "Может, и не стоит.{w} В конце концов, то, что было, оно только для нас."
-		un "Вот и я так думаю."
-		"Я вздохнул и посмотрел на огонь."
-		me "Знаешь, а ведь жизнь – она как свеча, у кого-то короткая, у кого-то длинная… и может погаснуть в любой момент."
-		un "Ну, тогда наша жизнь – как этот камин."
-		me "Да, наверное."
-		"Я посмотрел на неё и улыбнулся."
-		me "Я ещё посплю немного."
-		"Лена поцеловала меня и мечтательно уставилась на огонь."
-		window hide
-		show blink
-		pause 1
-		window show
-		scene black
-		"Глаза закрылись, и вся моя действительность свелась к тихому потрескиванию дров в камине."
-		"Я начал медленно проваливаться куда-то далеко-далеко."
-		"Нет, это был не сон – скорее тёплый эфир, нежно обволакивающий всё моё естество…"
-		"…"
-	else:
-		if persistent.cg_set == "new":
-			scene cg epilogue_un_good_new
-		else:
-			scene cg epilogue_un_good with fade2
-		play music music_list["everlasting_summer"] fadein 3
-		window show
-		"Я открыл глаза и увидел Лену."
-		"Она поставила кружку с чаем на столик рядом с креслом."
-		"В камине тихо потрескивали дрова, а за окном бушевала метель."
-		"Я укутался в плед и посмотрел на Лену."
-		me "Знаешь, какой сегодня день?"
-		un "Нет, а какой?"
-		me "Помнишь, что я тебе рассказывал тогда, в лагере?"
-		un "Нет."
-		"Неудивительно, за столько лет я больше ни разу не поднимал вопрос моего таинственного попадания в этот мир."
-		me "Помнишь, я рассказывал, что не из этого мира?"
-		"Лена задумалась."
-		un "Ну, что-то такое… да…"
-		me "Так вот, сегодня как раз тот день, когда я много лет назад сел в 410-ый автобус и проснулся в том пионерлагере."
-		un "Получается, годовщина?"
-		"Лена улыбнулась."
-		me "Да, своего рода…"
-		un "Для тебя это грустный праздник?"
-		me "Нет-нет, ты что!"
-		un "А я вот почти не помню, что тогда было."
-		me "Может, оно и к лучшему…"
-		"Я подбросил дров в камин и взял со стола кружку."
-		me "Напишу, наверное, роман!{w} Прочитаешь – вспомнишь."
-		un "Думаешь, стоит?"
-		"Лена сделала серьёзное лицо."
-		"И ведь действительно, когда-то я давал себе обещание не писать об этом."
-		me "Может, и не стоит.{w} В конце концов, то, что было, оно только для нас."
-		un "Вот и я так думаю."
-		"Я вздохнул и посмотрел на огонь."
-		me "Знаешь, а ведь жизнь – она как свеча, у кого-то короткая, у кого-то длинная… и может погаснуть в любой момент."
-		un "Ну, тогда наша жизнь – как этот камин."
-		me "Да, наверное."
-		"Я посмотрел на неё и улыбнулся."
-		me "Я ещё посплю немного."
-		"Лена поцеловала меня и мечтательно уставилась на огонь."
-		"Глаза закрылись, и вся моя действительность свелась к тихому потрескиванию дров в камине."
-		"Я начал медленно проваливаться куда-то далеко-далеко."
-		"Нет, это был не сон – скорее тёплый эфир, нежно обволакивающий всё моё естество…"
-		"…"
+	scene cg epilogue_un_good with fade2
+	play music music_list["everlasting_summer"] fadein 3
+	window show
+	"Я открыл глаза и увидел Лену."
+	"Она поставила кружку с чаем на столик рядом с креслом."
+	"В камине тихо потрескивали дрова, а за окном бушевала метель."
+	"Я укутался в плед и посмотрел на Лену."
+	me "Знаешь, какой сегодня день?"
+	un "Нет, а какой?"
+	me "Помнишь, что я тебе рассказывал тогда, в лагере?"
+	un "Нет."
+	"Неудивительно, за столько лет я больше ни разу не поднимал вопрос моего таинственного попадания в этот мир."
+	me "Помнишь, я рассказывал, что не из этого мира?"
+	"Лена задумалась."
+	un "Ну, что-то такое… да…"
+	me "Так вот, сегодня как раз тот день, когда я много лет назад сел в 410-ый автобус и проснулся в том пионерлагере."
+	un "Получается, годовщина?"
+	"Лена улыбнулась."
+	me "Да, своего рода…"
+	un "Для тебя это грустный праздник?"
+	me "Нет-нет, ты что!"
+	un "А я вот почти не помню, что тогда было."
+	me "Может, оно и к лучшему…"
+	"Я подбросил дров в камин и взял со стола кружку."
+	me "Напишу, наверное, роман!{w} Прочитаешь – вспомнишь."
+	un "Думаешь, стоит?"
+	"Лена сделала серьёзное лицо."
+	"И ведь действительно, когда-то я давал себе обещание не писать об этом."
+	me "Может, и не стоит.{w} В конце концов, то, что было, оно только для нас."
+	un "Вот и я так думаю."
+	"Я вздохнул и посмотрел на огонь."
+	me "Знаешь, а ведь жизнь – она как свеча, у кого-то короткая, у кого-то длинная… и может погаснуть в любой момент."
+	un "Ну, тогда наша жизнь – как этот камин."
+	me "Да, наверное."
+	"Я посмотрел на неё и улыбнулся."
+	me "Я ещё посплю немного."
+	"Лена поцеловала меня и мечтательно уставилась на огонь."
+	"Глаза закрылись, и вся моя действительность свелась к тихому потрескиванию дров в камине."
+	"Я начал медленно проваливаться куда-то далеко-далеко."
+	"Нет, это был не сон – скорее тёплый эфир, нежно обволакивающий всё моё естество…"
+	"…"
 	window hide
 	scene black with fade3
 	stop music fadeout 5
@@ -4249,14 +4076,13 @@ label epilogue_un_good:
 label epilogue_us:
 	$ backdrop = "epilogue"
 	$ new_chapter(-1, "Эпилог")
-	$ prolog_time()
+	$ night_time()
 	scene black
 	pause 2
 	window show
 	"Кажется, я совсем и не спал."
 	"Такое часто бывает – только закрыл глаза и отключился, как стрелки часов сами собой делают несколько оборотов, и вот уже утро, сознание возвращается, а ощущение такое, что только и успел, что моргнуть."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg semen_room
 	show prologue_dream
 	with fade
@@ -4265,7 +4091,6 @@ label epilogue_us:
 	"Что-то было не так…"
 	"Да почему «что-то» – всё было не так!"
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg semen_room with fade
 	play music music_list["two_glasses_of_melancholy"] fadein 3
 	window show
@@ -4306,7 +4131,6 @@ label epilogue_us:
 	play sound sfx_open_drapes
 	"Наконец я смог кое-как взять себя в руки, отдёрнул занавески и выглянул в окно."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg semen_room_window with dissolve
 	window show
 	"Ночной город выглядел точно так же, как и неделю назад."
@@ -4495,10 +4319,7 @@ label epilogue_us:
 		me "Да."
 		"Наконец я закрыл сумку и, собираясь вставать, поднял голову."
 		window hide
-		if persistent.cg_set == "new":
-			scene cg epilogue_us_3_a_new at Move((0.5, 0.2), (0.5, 0.8), 6.0, xanchor="center", yanchor="center")
-		else:
-			scene cg epilogue_us_3_a with dissolve
+		scene cg epilogue_us_3_a with dissolve
 		play music music_list["everlasting_summer"] fadein 3
 		window show
 		"Девушка показалась безумно знакомой."
@@ -4576,7 +4397,7 @@ label epilogue_us:
 label epilogue_dv:
 	$ backdrop = "epilogue"
 	$ new_chapter(-1, "Эпилог")
-	$ prolog_time()
+	$ night_time()
 	scene black
 	pause 2
 	window show
@@ -4589,7 +4410,6 @@ label epilogue_dv:
 	"Я испытал резкий приступ тошноты."
 	"Чёрт возьми, ведь вчера к вечеру вроде отпустило!"
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg semen_room
 	show prologue_dream
 	with fade
@@ -4599,7 +4419,6 @@ label epilogue_dv:
 	"Спустя некоторое время, завершив свои грязные дела, я вернулся в комнату."
 	"И тут пришло осознание…"
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg semen_room with fade2
 	window show
 	"Я вновь в своей старой квартире!"
@@ -4727,7 +4546,6 @@ label epilogue_dv:
 	"…"
 	window hide
 	$ set_mode_adv()
-	$ persistent.sprite_time = "night"
 	scene bg semen_room with fade
 	window show
 	"Я сидел перед монитором, мучая гитару."
@@ -4746,7 +4564,6 @@ label epilogue_dv:
 	"Конечно, ничего страшного со мной вроде бы тогда не происходило, но моральный шок можно сравнить со смертельной опасностью."
 	"Я ещё раз повторил все свои партии, убрал гитару в чехол, собрал все примочки и направился к выходу."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg bus_stop
 	show snow
 	with dissolve
@@ -4757,7 +4574,6 @@ label epilogue_dv:
 	"С замиранием сердца я отсчитывал секунды."
 	"Вскоре автобус подъехал, лениво распахнул двери и поглотил в себя немногочисленных пассажиров."
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg intro_xx with dissolve
 	window show
 	"Такая же зимняя ночь, как и {i}тогда{/i}.{w} За окном пролетали машины, своими огнями поджигая засыпающий город."
@@ -4830,7 +4646,6 @@ label epilogue_dv:
 		"А возможно, меня ждут в будущем и более серьёзные площадки – концертные залы, олимпийские стадионы, кто знает?{w} Теперь всё возможно!"
 		"Попрощавшись с товарищами, я побежал на остановку и чудесным образом успел на 410-ый автобус."
 		window hide
-		$ persistent.sprite_time = "night"
 		scene bg intro_xx with dissolve2
 		window show
 		"В салоне никого не было, я, как и тогда, сидел на кресле за водителем, а в радиоприёмнике играла какая-то знакомая мелодия."
@@ -4916,7 +4731,7 @@ label epilogue_dv:
 label epilogue_sl:
 	$ backdrop = "epilogue"
 	$ new_chapter(-1, "Эпилог")
-	$ prolog_time()
+	$ night_time()
 	scene black
 	pause 2
 	window show
@@ -4929,7 +4744,6 @@ label epilogue_sl:
 	"Но в сумме едва ли наберётся на целый день."
 	"Никто из нас не задумывается, как прожить каждую конкретную секунду, так столь ли уж важно, чем занимается одна капля в бурной реке, уносящейся за горизонт бытия?"
 	window hide
-	$ persistent.sprite_time = "night"
 	scene bg semen_room with fade2
 	play music music_list["sparkles"] fadein 3
 	window show
@@ -5053,7 +4867,7 @@ label epilogue_sl:
 	"…"
 	window hide
 	$ set_mode_adv()
-	$ persistent.sprite_time = "day"
+	$ day_time()
 	scene bg bus_stop
 	show snow
 	with fade2
@@ -5288,7 +5102,6 @@ label epilogue_uv:
 	stop music fadeout 3
 	"А тут…"
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg int_house_of_mt_day
 	show unblink
 	with fade2
@@ -5306,7 +5119,6 @@ label epilogue_uv:
 	stop ambience fadeout 2
 	play sound sfx_open_water_sink
 	play sound_loop sfx_water_sink_stream fadein 1
-	$ persistent.sprite_time = "day"
 	scene bg ext_washstand2_day with dissolve
 	window show
 	"Вода в умывальниках была, как всегда, ледяная."
@@ -5315,7 +5127,6 @@ label epilogue_uv:
 	window hide
 	stop sound_loop fadeout 1
 	play sound sfx_close_water_sink
-	$ persistent.sprite_time = "day"
 	scene bg ext_washstand_day with dissolve
 	play ambience ambience_camp_center_day fadein 3
 	window show
@@ -5336,7 +5147,6 @@ label epilogue_uv:
 	pi "К чему сарказм?"
 	me "Сарказм?"
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg ext_washstand_day with fade
 	window show
 	"Я удивился и посмотрел вверх, однако передо мной никого не оказалось."
@@ -5460,7 +5270,6 @@ label epilogue_uv:
 	play sound sfx_dinner_jingle_speaker
 	"Если бы не сигнал к обеду, возможно, я бы побежал в библиотеку в поисках медицинской книжки с рецептами лоботомии."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg int_dining_hall_people_day with dissolve
 	stop sound fadeout 2
 	play ambience ambience_dining_hall_full fadein 3
@@ -5515,7 +5324,6 @@ label epilogue_uv:
 	stop ambience fadeout 2
 	"Я встал из-за стола и отправился на поиски вожатой."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg ext_house_of_mt_day with dissolve
 	window show
 	"Наверняка после сытного обеда она решит вздремнуть часок-другой."
@@ -5523,7 +5331,6 @@ label epilogue_uv:
 	window hide
 	play sound sfx_open_door_1
 	pause 1
-	$ persistent.sprite_time = "day"
 	scene bg int_house_of_mt_day with dissolve
 	window show
 	"Я распахнул дверь и уверенно вошёл в домик."
@@ -5579,7 +5386,6 @@ label epilogue_uv:
 	stop music fadeout 3
 	"Я лишь вздохнул и вышел из домика."
 	window hide
-	$ persistent.sprite_time = "day"
 	scene bg ext_house_of_mt_day with dissolve
 	play music music_list["silhouette_in_sunset"] fadein 3
 	window show
@@ -5628,7 +5434,6 @@ label epilogue_uv:
 	window hide
 	stop music fadeout 5
 	pause 2
-	$ persistent.sprite_time = "day"
 	scene bg ext_house_of_mt_day with flash
 	play ambience ambience_camp_center_day fadein 3
 	window show
@@ -6093,14 +5898,16 @@ label epilogue_uv:
 	play sound sfx_bush_leaves
 	show uv normal:
 		xalign 0.5
-		yalign 0.0
-		ypos 670
+		ypos (970 * get_stage_height() / 1080)
+		pause 0.1
+		repeat
 	"Кусты рядом тихо зашуршали, и над ними показались знакомые уши."
 	me "Я тебя вижу."
 	show uv normal:
-		align (0.5, 0.0)
-		ypos 670
-		linear 1.0 ypos 0
+		xalign 0.5
+		ypos (970 * get_stage_height() / 1080)
+		linear 1.0 ypos get_stage_height() yanchor 1.0
+		yalign 1.0
 	"Юля нехотя вылезла из своего укрытия."
 	show uv upset at center with dspr
 	uv "Ну вот…"
@@ -6535,7 +6342,7 @@ label epilogue_uv_part2:
 	uv "Это всё не так! Неправильно! Вы не должны себя так вести! Вы не для этого тут!"
 	show dv scared pioneer2 behind uv
 	show sl scared pioneer behind dv:
-		linear 0.3 xalign -0.1
+		linear 0.3 xpos 0.16 xanchor 0.5
 	show us fear pioneer behind uv
 	show un scared pioneer behind us
 	with hpunch
@@ -6602,7 +6409,6 @@ label epilogue_uv_part2:
 	"Меня никто не преследовал…"
 	window hide
 	$ sunset_time()
-	$ persistent.sprite_time = "sunset"
 	scene bg ext_road_sunset with dissolve2
 	play music music_list["silhouette_in_sunset"] fadein 3
 	window show
@@ -6713,7 +6519,6 @@ label epilogue_uv_part2:
 	"Рывком я встал с земли и направился вперёд, туда, где вдалеке в алых лучах заката расплывался далёкий город."
 	window hide
 	$ night_time()
-	$ persistent.sprite_time = "night"
 	scene bg ext_road_night with dissolve
 	play ambience ambience_ext_road_night fadein 2
 	window show
@@ -6848,7 +6653,6 @@ label epilogue_uv_city:
 	scene black with fade3
 	stop sound_loop fadeout 5
 	pause 5
-	$ prolog_time()
 	scene black with fade3
 	play music music_list["drown"] fadein 3
 	window show
@@ -7861,7 +7665,6 @@ label epilogue_uv_ulya:
 	stop ambience fadeout 3
 	pause 3
 	$ day_time()
-	$ persistent.sprite_time = "day"
 	scene black with dissolve
 	play music music_list["drown"] fadein 3
 	window show
@@ -8159,7 +7962,6 @@ label epilogue_uv_ulya:
 	"Она что-то нежно нашёптывала мне на ухо…{w} Настолько нежно, что…"
 	window hide
 	$ night_time()
-	$ persistent.sprite_time = "night"
 	scene bg int_bus_night with dissolve
 	play sound_loop sfx_bus_interior_moving fadein 2
 	play sound sfx_punch_medium

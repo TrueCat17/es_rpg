@@ -545,13 +545,14 @@ label day4_main1:
 	"Но в то же время ничего подозрительного в этой ситуации я не видел."
 	mt "Ладно, не будем паниковать. Наверняка найдётся!"
 	show us grin pioneer at right:
-		xpos 1.2 * get_stage_width()
-		linear 0.5 xpos 0.65
+		xpos (1.2 * get_stage_width())
+		linear 0.5 xpos (0.65 * get_stage_width())
 	us "Чтобы он пропустил завтрак…"
 	"Усмехнулась Ульянка."
 	show dv normal pioneer at left:
-		xpos -0.2 * get_stage_width()
-		linear 0.5 xpos -0.1
+		xpos (-0.2 * get_stage_width())
+		linear 0.5 xpos (0.16 * get_stage_width())
+		xpos 0.16
 	dv "Точно! Пора уже и есть идти."
 	hide us
 	hide dv
@@ -887,7 +888,6 @@ label day4_busstop:
 	"Хотя вероятность этого крайне мала."
 	th "Но чем чёрт не шутит!"
 	th "Тем более вдруг автобус и правда приедет…"
-	stop ambience fadeout 2
 	"Впрочем, в это верилось с трудом."
 	window hide
 	scene bg ext_camp_entrance_day with dissolve
@@ -1035,7 +1035,6 @@ label day4_forest:
 	"Естественно, далеко заходить в мои планы не входило, иначе пришлось бы искать и меня."
 	"Вообще, я в своей жизни не так уж часто бывал на природе."
 	"Разве что в детстве и юношестве ездил на дачу каждое лето.{w} Которая к тому же была рядом с городом."
-	stop ambience fadeout 2
 	"А в этом лагере, в этом мире, можно найти всё, чего я так давно не видел: кромешная зелень, пение птиц и свежий воздух."
 	window hide
 	scene bg ext_path_day with dissolve
@@ -1141,7 +1140,6 @@ label day4_house_of_mt:
 	window show
 	th "Но всё же это глупая затея."
 	"Если бы Шурик прятался где-то в лагере, его бы давно нашли (если, конечно, он сам бы того захотел)."
-	stop ambience fadeout 2
 	th "Так что вряд ли мне удастся чем-то им помочь."
 	window hide
 	scene bg int_house_of_mt_day with dissolve
@@ -1291,9 +1289,7 @@ label day4_house_of_mt:
 	"..."
 	if day4_map_necessary_done < 2:
 		"Однако активность Слави меня так вдохновила, что я решил поискать ещё где-нибудь."
-		window hide
-	else:
-		window hide
+	window hide
 	$ disable_current_zone()
 	$ day4_map_necessary_done += 1
 	jump day4_map
