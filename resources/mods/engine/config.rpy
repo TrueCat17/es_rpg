@@ -1,6 +1,6 @@
 init -997 python:
 	
-	start_screens = 'engine dialogue_box fps_meter'
+	start_screens = ['engine', 'dialogue_box', 'fps_meter']
 	
 	
 	config = renpy.config

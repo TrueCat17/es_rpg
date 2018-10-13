@@ -2,7 +2,7 @@ init 1 python:
 	set_fps(60)
 	set_can_mouse_hide(False)
 	set_can_autosave(False)
-	start_screens = 'all_locations'
+	start_screens = ['all_locations']
 	
 	need_save_locations = False
 	save_counter = 0

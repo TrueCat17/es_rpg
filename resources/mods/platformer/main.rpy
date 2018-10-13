@@ -5,7 +5,7 @@ init -100 python:
 	cell_size = 32 # pow of 2: 8, 16, 32...
 
 init python:
-	start_screens += ' platformer'
+	start_screens += ['platformer']
 	set_level(0)
 	
 	prev_update_time = 0
