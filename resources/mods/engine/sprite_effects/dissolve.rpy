@@ -26,7 +26,7 @@ init -9000 python:
 				sina, cosa = _sin(angle), _cos(angle)
 				tx, ty = x - xcenter, y - ycenter
 				rx, ry = tx * cosa - ty * sina, tx * sina + ty * cosa
-				return rx + xcenter, ry + ycenter
+				return int(round(rx + xcenter)), int(round(ry + ycenter))
 			def rotate_rect(xmin, ymin, xmax, ymax, xcenter, ycenter, angle):
 				points = (rotate_point(xmin, ymin, xcenter, ycenter, angle),
 				          rotate_point(xmin, ymax, xcenter, ycenter, angle),
@@ -38,8 +38,8 @@ init -9000 python:
 				for point in points[1:]:
 					xmin = min(xmin, point[0])
 					ymin = min(ymin, point[1])
-					xmax = max(xmax, point[2])
-					ymax = max(ymax, point[3])
+					xmax = max(xmax, point[0])
+					ymax = max(ymax, point[1])
 				return xmin, ymin, xmax, ymax
 			
 			cache = {}
@@ -104,17 +104,17 @@ init -9000 python:
 				if width <= 0 or height <= 0:
 					self.sprite.data_list = (self.sprite.old_data, self.sprite.new_data)
 				else:
-					new_image_args, old_image_args = [(width, height)], [(width, height)]
-					for args, datas in ((new_image_args, new_datas), (old_image_args, old_datas)):
+					new_args = [(width, height)]
+					old_args = [(width, height)]
+					
+					for args, datas in ((new_args, new_datas), (old_args, old_datas)):
 						for data in datas:
 							image = data.image
-							if not image:
+							if not image or data.real_alpha <= 0:
 								continue
 							
-							image_xsize, image_ysize = get_texture_width(data.image), get_texture_height(data.image)
+							image_xsize, image_ysize = get_texture_size(data.image)
 							res_xsize, res_ysize = data.real_xsize, data.real_ysize
-							if (res_xsize, res_ysize) != (image_xsize, image_ysize):
-								image = im.Scale(image, res_xsize, res_ysize)
 							
 							crop = [data.xcrop, data.ycrop, data.xsizecrop, data.ysizecrop]
 							if crop != [0, 0, 1, 1] and crop != [0, 0, image_xsize, image_ysize]:
@@ -123,8 +123,12 @@ init -9000 python:
 									if (prop > 0 and prop < 1) or (prop == 1.0 and type(prop) is float):
 										crop[i] = get_absolute(prop, image_ysize if i % 2 else image_xsize)
 								image = im.Crop(image, crop)
+								image_xsize, image_ysize = crop[2] - crop[0], crop[3] - crop[1]
 							
-							if data.real_alpha != 1:
+							if (res_xsize, res_ysize) != (image_xsize, image_ysize):
+								image = im.Scale(image, res_xsize, res_ysize)
+							
+							if data.real_alpha < 1:
 								image = im.Alpha(image, data.real_alpha)
 							
 							rotate = int(data.real_rotate) % 360
@@ -135,10 +139,11 @@ init -9000 python:
 							args.append((_xmin - xmin, _ymin - ymin))
 							args.append(image)
 					
-					new_image, old_image = im.Composite(*new_image_args), im.Composite(*old_image_args)
+					new_image = im.Composite(*new_args)
+					old_image = im.Composite(*old_args)
 					
 					common_data = SpriteAnimationData(self.sprite, [], [], [])
-					common_data.image = im.Mask(new_image, old_image, 128, 'a', 'ge', 'a', 1)
+					common_data.image = im.Mask(new_image, old_image, 1, 'a', 'ge', 'a', 1)
 					common_data.xpos, common_data.ypos = xmin, ymin
 					common_data.xsize, common_data.ysize = width, height
 					
@@ -150,7 +155,7 @@ init -9000 python:
 		def update(self):
 			new_data, old_data = self.sprite.new_data, self.sprite.old_data
 			
-			if self.sprite and len(self.sprite.data_list) == 3:
+			if len(self.sprite.data_list) == 3:
 				new_datas = new_data.get_all_data()
 				old_datas = old_data.get_all_data()
 				

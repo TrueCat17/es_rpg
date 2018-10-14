@@ -31,12 +31,12 @@ init -9000 python:
 					reverse = not reverse
 					mask = im.MatrixColor(mask, im.matrix.invert())
 				
-				sw, sh = get_stage_width(), get_stage_height()
+				sw, sh = get_stage_size()
 				w = min(get_absolute(data.xsize, sw), get_texture_width(data.image))
 				h = min(get_absolute(data.ysize, sh), get_texture_height(data.image))
 				
 				image = im.RendererScale(data.image, w, h)
-				mask = im.RendererScale(mask, w, h)
+				mask = im.Scale(mask, w, h)
 				
 				value = in_bounds(int(k_time * 255), 0, 255)
 				if reverse:
