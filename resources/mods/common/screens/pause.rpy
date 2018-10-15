@@ -78,13 +78,12 @@ screen pause:
 			pause_y = 0
 			if pause_start_hided_time:
 				if time.time() - pause_start_hided_time < pause_rotate_time:
-					pause_rotate = pause_hide_rotate * (time.time() - pause_start_hided_time) / pause_rotate_time
+					pause_rotate = pause_hide_rotate * float(time.time() - pause_start_hided_time) / pause_rotate_time
 				else:
 					pause_rotate = pause_hide_rotate
-					pause_x = (time.time() - pause_start_hided_time - pause_rotate_time) * (get_stage_width() / pause_disappearance_time)
-					pause_y = (time.time() - pause_start_hided_time - pause_rotate_time) * (get_stage_height() / pause_disappearance_time)
+					pause_x = pause_y = float(time.time() - pause_start_hided_time - pause_rotate_time) / pause_disappearance_time
 					
-					if pause_x > get_stage_width():
+					if pause_x >= 1:
 						pause_x, pause_y = 0, 0
 						pause_rotate = 0
 						
@@ -94,7 +93,7 @@ screen pause:
 						set_fps(pause_before_fps)
 						hide_screen('pause')
 		else:
-			pause_y = (time.time() - pause_showed_time) * (get_stage_height() / pause_appearance_time) - get_stage_height()
+			pause_y = float(time.time() - pause_showed_time - pause_appearance_time) / pause_appearance_time
 	
 	xpos   pause_x
 	ypos   pause_y
@@ -103,11 +102,9 @@ screen pause:
 	
 	key 'ESCAPE' action pause_close_func
 	
-	
 	if not save_screenshotting:
 		image 'images/bg/black.jpg':
 			alpha 0.4
-			pos  (0, 0)
 			size (1.0, 1.0)
 		
 		hbox:
@@ -131,12 +128,10 @@ screen pause:
 					
 					textbutton 'Инвентарь':
 						style pause_button
-						xsize  0.2
 						ground (pause_button if pause_show != 'inventory' else pause_button_selected)
 						action SetVariable('pause_show', 'inventory')
 					textbutton 'Записи':
 						style pause_button
-						xsize  0.2
 						ground (pause_button if pause_show != 'notes'     else pause_button_selected)
 						action SetVariable('pause_show', 'notes')
 					
@@ -148,7 +143,7 @@ screen pause:
 						size  (0.3, 0.25)
 					
 					button:
-						pos    (get_stage_width() * 0.4 + 10 + pause_close_size / 2, -10 - pause_close_size / 2)
+						pos    (int(get_stage_width() * 0.4 + 10 + pause_close_size / 2), -10 - pause_close_size / 2)
 						anchor (0.5, 0.5)
 						size   (pause_close_size, pause_close_size)
 						ground pause_close

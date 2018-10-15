@@ -1,4 +1,4 @@
-init -20 python:
+init -21 python:
 	
 	class Pltf_Empty:
 		can_vertical = False

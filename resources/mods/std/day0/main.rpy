@@ -10,7 +10,7 @@ label day0_start:
 	$ me.set_direction(to_forward)
 	
 	$ control = True
-	$ me.set_dress('home' * 0 + 'form')
+	$ me.set_dress('home' * 0 + 'pioneer')
 	return
 	"Мне опять снился сон."
 	"Этот сон…"

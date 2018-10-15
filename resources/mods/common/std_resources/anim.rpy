@@ -130,8 +130,10 @@ init -1000:
 		pause 0.5
 		repeat
 	
-	image stars = "anim stars_1":
+	image stars:
 		size (1.0, 1.0)
+		
+		contains "anim stars_1"
 		
 		contains "anim stars_3":
 			linear 1.5 alpha 1.0

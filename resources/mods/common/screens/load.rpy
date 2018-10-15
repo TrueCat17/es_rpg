@@ -45,8 +45,8 @@ screen load:
 						x_count = 4
 						y_count = int(math.ceil(len(sl_table_saves) / 4))
 						
-						xsize = 0.15 * get_stage_width()
-						ysize = 0.15 * get_stage_height()
+						xsize = int(0.15 * get_stage_width())
+						ysize = int(0.15 * get_stage_height())
 						
 						spacing = 7
 						

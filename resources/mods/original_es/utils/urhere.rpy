@@ -31,7 +31,7 @@ screen urhere:
 	
 	for xpos_from, xpos_to, ypos, x_time, color, size, italic in urhere:
 		text ("{i}"*italic + "Ты здесь не просто так"):
-			xpos int(((xpos_to - xpos_from) * ((urhere_last_time - urhere_start_time) % x_time) / x_time + xpos_from) * get_stage_width())
+			xpos (xpos_to - xpos_from) * ((urhere_last_time - urhere_start_time) % x_time) / x_time + xpos_from
 			ypos ypos
 			color color
 			text_size size

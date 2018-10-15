@@ -6,7 +6,7 @@ label day1:
 	$ day_time()
 	$ make_names_unknown()
 	scene bg black
-	play music music_list["no_tresspassing"] fadein 0
+	play music music_list["no_tresspassing"]
 	pause 2
 	scene bg int_bus with flash
 	window show
@@ -116,7 +116,7 @@ label day1:
 	"В голове за долю секунды проносились тысячи теорий: от похищения инопланетянами до летаргического сна, от галлюцинаций до сдвига пространства и времени…"
 	"Ни одна из них не была хуже другой, но остановиться на какой-то одной было попросту невозможно."
 	"Тут меня осенило – попробую позвонить!"
-	play sound sfx_cellular_phone_error fadein 0
+	play sound sfx_cellular_phone_error
 	"Я достал мобильник и набрал первый попавшийся номер из телефонной книги."
 	window hide
 	pause 3
@@ -265,7 +265,7 @@ label day1_first_meet:
 	window show
 	"Буквально через 50 метров слева словно из-под земли выросло небольшое одноэтажное здание.{w} Вывеска рядом с дверью гласила «Клубы»."
 	"Я уже было собирался подойти поближе..."
-	play sound sfx_open_door_clubs fadein 0
+	play sound sfx_open_door_clubs
 	show un normal pioneer far at left with dissolve
 	"Как вдруг открылась дверь, и оттуда вышла невысокая девочка в пионерской форме."
 	"На её красивом лице, как мне показалось, муки за судьбы всего человечества смешались с прямо-таки вселенской грустью."
@@ -278,7 +278,7 @@ label day1_first_meet:
 	"А вот как раз эти способности (или некое их жалкое подобие) подсказывали, что эту девочку бояться не стоит."
 	play music music_list["i_want_to_play"] fadein 5
 	show us grin sport far at right with dissolve
-	play sound sfx_bush_leaves fadein 0
+	play sound sfx_bush_leaves
 	"Неожиданно из соседних кустов выскочил кто-то."
 	"Девочка в ярко-красной футболке с надписью «СССР»."
 	th "Как точно соблюдён антураж эпохи."
@@ -458,7 +458,7 @@ label day1_first_meet:
 	with dissolve
 	window show
 	th "Кажется, в домике кто-то есть."
-	play sound sfx_open_dooor_campus_1 fadein 0
+	play sound sfx_open_dooor_campus_1
 	show us grin sport far at left behind sl with dissolve
 	"И точно, через мгновение дверь распахнулась, оттуда выбежала Ульяна и пронеслась мимо, всё так же хитро улыбаясь."
 	hide us with dissolve
@@ -773,7 +773,7 @@ label day1_first_meet:
 	show us grin pioneer at center with dspr
 	us "А, ну тогда ладно, ешь."
 	hide us with dissolve
-	play music music_list["i_want_to_play"] fadein 0
+	play music music_list["i_want_to_play"]
 	"Однако есть было особо нечего – с тарелки пропала котлета!"
 	th "Это могла сделать только она."
 	th "Нет, точнее, это не мог сделать никто другой, кроме Ульяны!"
@@ -807,7 +807,7 @@ label day1_first_meet:
 	"Все подозрения вмиг развеялись – так мне хотелось есть.{w} Я подцепил вилкой котлету и…"
 	window hide
 	scene cg d1_food_skolop with vpunch
-	play music music_list["doomed_to_be_defeated"] fadein 0
+	play music music_list["doomed_to_be_defeated"]
 	window show
 	th "Что это?!{w} Какой-то жук!{w} Нет, не жук!{w} Насекомое!{w} С ножками, шевелится!"
 	window hide
@@ -1143,7 +1143,6 @@ label day1_first_meet:
 			un "Спасибо."
 		"Ничего не говорить":
 			window show
-			pass
 	th "Правда, я не читал, но ей, кажется, такая литература вполне подходит."
 	"Лена, похоже, не собиралась продолжать разговор."
 	me "Ну, если я тебе мешаю..."

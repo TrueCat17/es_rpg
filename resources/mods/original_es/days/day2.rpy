@@ -10,10 +10,6 @@ label day2_main1:
 	$ new_chapter(2, "День второй")
 	$ day_time()
 	
-#	jump day2_first_map
-#	jump un_play
-#	jump day2_cardgame
-	
 	scene bg black
 	pause 2
 	window show
@@ -219,7 +215,7 @@ label day2_main1:
 	"Я распахнул дверь домика вожатой и вбежал внутрь так, как будто запрыгивал в последний вагон уходящего поезда."
 	window hide
 	scene black with dissolve
-	play music music_list["awakening_power"] fadein 0
+	play music music_list["awakening_power"]
 	window show
 	"Но, кажется, это было не лучшим решением – посреди комнаты стояла Ольга Дмитриевна…"
 	"И переодевалась!"
@@ -363,7 +359,7 @@ label day2_map:
 		jump day2_main2
 	if day2_map_necessary_done == 2:
 		$ reset_zone("dining_hall")
-		$ day2_map_necessary_done +=1
+		$ day2_map_necessary_done += 1
 	$ show_map()
 label day2_musclub:
 	play ambience ambience_camp_center_day fadein 3
@@ -782,7 +778,7 @@ label day2_dinner:
 		linear 0.1 pos (5,0)
 		linear 0.1 pos (0,0)
 		repeat 10
-	stop music fadeout 0
+	stop music
 	show us fear pioneer at center with dspr
 	play sound sfx_angry_ulyana
 	with flash_red
@@ -1613,7 +1609,6 @@ label un_play:
 		generate_cards(dialogs, 'un', 'Лена')
 	jump cards_gameloop
 label un_play_fail:
-	$ persistent.CardsFail = True
 	$ day2_card_result = 0
 	jump day2_main3
 label un_play_draw:
@@ -2053,11 +2048,11 @@ label day2_dv:
 	"Съязвил я."
 	dv "Знаешь, а ты не такой уж и неудачник…"
 	window hide
-	scene cg d2_2ch_beach:
-		size (1.0, 3400 * get_stage_height() / 1080)
-		pos (0, -1920 * get_stage_height() / 1080)
-		linear 10.0 pos (0, 0)
-		linear 2.0 pos (0, -250 * get_stage_height() / 1080)
+	scene cg d2_2ch_beach with dissolve:
+		size (1.0, 3400 / 1080.0)
+		ypos (-1920 / 1080.0)
+		linear 10.0 ypos 0.0
+		linear 2.0 ypos (-250 / 1080.0)
 	window show
 	"Алиса была одета в купальник, который хорошо подчёркивал все прелести её фигуры."
 	"Да, при всех минусах характера Двачевской этот плюс у неё не отнимешь."
@@ -2093,7 +2088,7 @@ label day2_dv:
 	th "Ведь если подумать, свет от далёких звезд долетает до нас за миллионы лет…"
 	th "Вот сейчас я вижу звезду, потому что она светила тогда, а для неё это {i}тогда{/i} – далёкое прошлое."
 	th "И сейчас она, возможно, уже взорвалась…"
-	stop ambience fadeout 0
+	stop ambience
 	play music music_list["that_s_our_madhouse"] fadein 1
 	th "Стоп!{w} Она же и мою одежду забрала!"
 	window hide
@@ -2391,7 +2386,7 @@ label day2_us:
 	play music music_list["glimmering_coals"] fadein 5
 	us "Ого!"
 	"Послышалось откуда-то сверху."
-	show us laugh pioneer:
+	show us laugh pioneer with dissolve:
 		xalign 0.5
 		yanchor 1.0
 		rotate 180
@@ -2401,13 +2396,13 @@ label day2_us:
 	"Оправдываться явно бесполезно."
 	me "Сама всё видела."
 	"Расстроенно сказал я и отвернулся."
-	show us laugh2 pioneer:
+	show us laugh2 pioneer with dspr:
 		xalign 0.5
 		yanchor 1.0
 		rotate 180
 	us "В тебе, я погляжу, умирает талант великого гитариста."
 	"Я ничего не ответил."
-	show us smile pioneer:
+	show us smile pioneer with dspr:
 		xalign 0.5
 		yanchor 1.0
 		rotate 180
@@ -2417,7 +2412,7 @@ label day2_us:
 	"Фыркнул я."
 	us "Да."
 	"Спокойно ответила Ульяна."
-	show us grin pioneer:
+	show us grin pioneer with dspr:
 		xalign 0.5
 		yanchor 1.0
 		rotate 180
@@ -2431,7 +2426,7 @@ label day2_us:
 	"Когда я оказался точно под Ульянкой, она крикнула:"
 	us "Лови!"
 	window hide
-	scene cg d2_ussr_falling with dissolve
+	scene cg d2_ussr_falling with dspr
 	window show
 	"И прыгнула…"
 	"За мгновение у меня в голове пронеслись тысячи мыслей."

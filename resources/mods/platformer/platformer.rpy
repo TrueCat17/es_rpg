@@ -47,7 +47,7 @@ screen platformer:
 		
 		image me.main():
 			pos  (int(me.x + 0.1 * cell_size), int(me.y - 0.33 * cell_size))
-			size (cell_size * 0.8, cell_size * 1.6)
+			size (int(cell_size * 0.8), int(cell_size * 1.6))
 			crop  me.crop
 	
 	if time.time() < main_text_end_time:

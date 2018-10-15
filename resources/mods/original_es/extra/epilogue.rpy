@@ -3152,7 +3152,7 @@ label epilogue_mi:
 	"Шорох становился всё громче, и вдруг послышалось дьявольское стрекотание."
 	window hide
 	scene cg epilogue_mi_5 with dissolve
-	play music music_list["scarytale"] fadein 0
+	play music music_list["scarytale"]
 	window show
 	"Я сделал над собой нечеловеческое усилие и повернулся."
 	"Сзади стояла толпа…{w} Толпа маленьких девочек."

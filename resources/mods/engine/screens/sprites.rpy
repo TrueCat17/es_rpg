@@ -166,20 +166,16 @@ init -1000 python:
 				break
 		else:
 			out_msg('hide_sprite', 'Спрайт с именем <' + name + '> не найден')
-
-screen sprites:
-	zorder -3
 	
-	python:
-		sprites_images = []
-		
+	def get_sprites_datas():
+		res = []
 		for spr in sprites_list + [screen]: # new list, because in update something can be removed from sprites_list
 			spr.update()
 			
 			for spr_data in spr.data_list:
 				for data in spr_data.get_all_data():
 					tmp_image = data.res_image if data.res_image is not None else data.image
-					if tmp_image:
+					if tmp_image and data.real_alpha > 0:
 						tmp = Object()
 						tmp.image  =  tmp_image
 						tmp.pos    = (data.real_xpos,    data.real_ypos)
@@ -188,7 +184,13 @@ screen sprites:
 						tmp.crop   = (data.xcrop, data.ycrop, data.xsizecrop, data.ysizecrop)
 						tmp.alpha  =  data.real_alpha
 						tmp.rotate =  data.real_rotate
-						sprites_images.append(tmp)
+						res.append(tmp)
+		return res
+
+screen sprites:
+	zorder -3
+	
+	$ sprites_images = get_sprites_datas()
 	
 	null:
 		pos    (screen.new_data.xpos,       screen.new_data.ypos)

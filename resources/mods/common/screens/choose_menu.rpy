@@ -24,7 +24,7 @@ screen choose_menu:
 	vbox:
 		align (0.5, 0.99)
 		
-		null ysize (db_text_size * 1.5) # name
+		null ysize int(db_text_size * 1.5) # name
 		
 		hbox:
 			spacing 5

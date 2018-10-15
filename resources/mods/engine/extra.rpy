@@ -60,7 +60,7 @@ init -100000 python:
 	def in_bounds(v, vmin, vmax):
 		return vmin if v < vmin else vmax if v > vmax else v
 	def get_absolute(value, max_value):
-		if type(value) is float and value > 0 and value <= 1.0:
+		if type(value) is float:
 			value *= max_value
 		return int(value)
 	def get_dist(x1, y1, x2, y2):

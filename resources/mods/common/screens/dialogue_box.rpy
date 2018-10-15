@@ -108,7 +108,7 @@ init -1000 python:
 		db_text_size = max(14, get_stage_height() / 30)
 		
 		global db_voice_size
-		db_voice_size = get_stage_width() - (db_prev_btn_size + db_next_btn_size + 20), max(80, 0.2 * get_stage_height())
+		db_voice_size = get_stage_width() - (db_prev_btn_size + db_next_btn_size + 20), int(max(80, 0.2 * get_stage_height()))
 		
 		global db_voice_text, db_pause_after_text, db_pause_end
 		
@@ -261,7 +261,7 @@ screen dialogue_box:
 					
 					image db_name:
 						xpos max(get_stage_width() / 10, db_prev_btn_size * 2)
-						size (max(250, get_stage_width() / 5), db_text_size * 1.5)
+						size (max(250, get_stage_width() / 5), int(db_text_size * 1.5))
 						
 						text db_name_text:
 							font       db_font

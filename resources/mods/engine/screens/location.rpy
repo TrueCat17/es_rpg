@@ -162,8 +162,8 @@ screen location:
 			draw_location.update_pos()
 		
 		image draw_location.main():
-			pos  (draw_location.x, draw_location.y)
-			size (draw_location.width * location_scale, draw_location.height * location_scale)
+			pos  (int(draw_location.x), int(draw_location.y))
+			size (int(draw_location.width * location_scale), int(draw_location.height * location_scale))
 			
 			python:
 				list_to_draw = []
@@ -177,7 +177,7 @@ screen location:
 					
 					list_to_draw.append({
 						'image':   obj.main(),
-						'size':   (obj.xsize * location_scale, obj.ysize * location_scale),
+						'size':   (int(obj.xsize * location_scale), int(obj.ysize * location_scale)),
 						'pos':    (int(obj.x * location_scale), int(obj.y * location_scale)),
 						'anchor': (obj_xanchor, obj_yanchor),
 						'crop':    obj.crop
@@ -192,8 +192,8 @@ screen location:
 		
 		if draw_location.over():
 			image draw_location.over():
-				pos  (draw_location.x, draw_location.y)
-				size (draw_location.width * location_scale, draw_location.height * location_scale)
+				pos  (int(draw_location.x), int(draw_location.y))
+				size (int(draw_location.width * location_scale), int(draw_location.height * location_scale))
 		
 		
 		image 'images/bg/black.jpg':
