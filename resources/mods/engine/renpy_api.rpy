@@ -121,7 +121,12 @@ init -999 python:
 					out_msg('renpy.say', 'Персонаж <' + who + '> не существует')
 					tmp_character.name = who
 					who = tmp_character
-			who(what)
+			
+			if callable(who):
+				who(what)
+			else:
+				out_msg('renpy.say', str(who) + ' is not callable')
+				narrator(what)
 		
 		@staticmethod
 		def play(file_name, channel, **kwargs):
