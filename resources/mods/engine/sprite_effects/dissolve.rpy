@@ -126,7 +126,7 @@ init -9000 python:
 								image_xsize, image_ysize = crop[2] - crop[0], crop[3] - crop[1]
 							
 							if (res_xsize, res_ysize) != (image_xsize, image_ysize):
-								image = im.Scale(image, res_xsize, res_ysize)
+								image = im.RendererScale(image, res_xsize, res_ysize)
 							
 							if data.real_alpha < 1:
 								image = im.Alpha(image, data.real_alpha)
