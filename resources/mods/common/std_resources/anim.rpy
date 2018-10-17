@@ -147,12 +147,12 @@ init -1000:
 		
 		contains:
 			"anim blink_up"
-			ypos -get_stage_height()
-			ease 1.5 ypos 0
+			ypos -1.0
+			ease 1.5 ypos 0.0
 		contains:
 			"anim blink_down"
-			ypos get_stage_height()
-			ease 1.5 ypos 0
+			ypos 1.0
+			ease 1.5 ypos 0.0
 	
 	
 	image unblink:
@@ -161,11 +161,11 @@ init -1000:
 		contains:
 			"anim blink_up"
 			ypos 0
-			ease 1.5 ypos -get_stage_height()
+			ease 1.5 ypos -1.0
 		contains:
 			"anim blink_down"
 			ypos 0
-			ease 1.5 ypos get_stage_height()
+			ease 1.5 ypos 1.0
 	
 	
 	image blinking:
@@ -173,11 +173,11 @@ init -1000:
 		
 		contains:
 			"anim blink_up"
-			ypos -get_stage_height()
+			ypos -1.0
 			ease 1.5 ypos 0
 		contains:
 			"anim blink_down"
-			ypos get_stage_height()
+			ypos 1.0
 			ease 1.5 ypos 0
 		
 		pause 2.0
@@ -185,8 +185,8 @@ init -1000:
 		contains:
 			"anim blink_up"
 			ypos 0
-			ease 1.5 ypos -get_stage_height()
+			ease 1.5 ypos -1.0
 		contains:
 			"anim blink_down"
 			ypos 0
-			ease 1.5 ypos get_stage_height()
+			ease 1.5 ypos 1.0

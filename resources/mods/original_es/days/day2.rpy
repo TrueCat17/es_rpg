@@ -2016,7 +2016,6 @@ label day2_dv:
 	window hide
 	scene cg d2_water_dan
 	show unblink
-	with dissolve
 	play sound sfx_water_emerge
 	pause 1
 	window show

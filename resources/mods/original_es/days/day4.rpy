@@ -13,114 +13,88 @@ init python:
 			"1":["3", "2"],
 			"2":["3", "2"],
 			"3":["3", "2"]
-			},
+		},
 		"2":{
 			"1":["4", "13"],
 			"4":["13", "1"],
 			"13":["1", "4"]
-			},
+		},
 		"3":{
 			"1":["halt", "5"],
 			"5":["1", "halt"],
 			"halt":["5", "1"]
-			},
+		},
 		"4":{
 			"2":["5", "6"],
 			"5":["6", "2"],
 			"6":["2", "5"]
-			},
+		},
 		"5":{
 			"3":["7", "4"],
 			"4":["3", "7"],
 			"7":["4", "3"]
-			},
+		},
 		"6":{
 			"4":["9", "12"],
 			"9":["12", "4"],
 			"12":["4", "9"]
-			},
+		},
 		"7":{
 			"5":["10", "8"],
 			"8":["5", "10"],
 			"10":["8", "5"]
-			},
+		},
 		"8":{
 			"7":["10", "9"],
 			"9":["7", "10"],
 			"10":["9", "7"]
-			},
+		},
 		"9":{
 			"8":["11", "6"],
 			"6":["8", "11"],
 			"11":["6", "8"]
-			},
+		},
 		"10":{
 			"7":["halt", "8"],
 			"8":["7", "halt"],
 			"halt":["8", "7"]
-			},
+		},
 		"11":{
 			"9":["exit", "12"],
 			"12":["9", "exit"]
-			},
+		},
 		"12":{
 			"13":["6", "11"],
 			"6":["11", "13"],
 			"11":["13", "6"]
-			},
+		},
 		"13":{
 			"2":["12", "coalface"],
 			"12":["coalface", "2"],
 			"coalface":["2", "12"]
-			}
+		}
 	}
 	
 	def mine_eval(direction):
-		global point
-		global previous_point
-		global halt_visited
-		global coalface_visited
+		global point, previous_point
 		global back_to_start
-		global mine_route
-		global first_turn
 		
-		if direction == "left":
-			old_point = point
-			
-			point = mine_map[point][previous_point][0]
-			previous_point = old_point
-		elif direction == "right":
-			old_point = point
-			
-			point = mine_map[point][previous_point][1]
-			previous_point = old_point
-			
+		prefix = "fail" if mine_route == "fail" else "girls"
+		
+		previous_point, point = point, mine_map[point][previous_point][0 if direction == "left" else 1]
+		
 		if point == "exit":
-			renpy.jump(mine_route+"_mine_exit")
+			renpy.jump(mine_route + "_mine_exit")
 		elif point == "coalface":
 			point = "13"
 			previous_point = "coalface"
-			renpy.jump(mine_route+"_mine_coalface")
+			renpy.jump(mine_route + "_mine_coalface")
 		elif point == "halt":
-			if previous_point == "10":
-				point = "3"
-				previous_point = "halt"
-				if mine_route == "fail":
-					renpy.jump("fail_mine_halt")
-				else:
-					renpy.jump("girls_mine_halt")
-			elif previous_point == "3":
-				point = "10"
-				previous_point = "halt"
-				if mine_route == "fail":
-					renpy.jump("fail_mine_halt")
-				else:
-					renpy.jump("girls_mine_halt")
+			point = "3" if previous_point == "10" else "10"
+			previous_point = "halt"
+			renpy.jump(prefix + "_mine_halt")
 		elif back_to_start and point == "1":
-			if mine_route == "fail":
-				renpy.jump("fail_mine_return_to_start")
-			else:
-				renpy.jump("girls_mine_return_to_start")
+			renpy.jump(prefix + "_mine_return_to_start")
 		else:
 			back_to_start = True
 			renpy.jump("mine_crossroad")
@@ -545,13 +519,13 @@ label day4_main1:
 	"Но в то же время ничего подозрительного в этой ситуации я не видел."
 	mt "Ладно, не будем паниковать. Наверняка найдётся!"
 	show us grin pioneer at right:
-		xpos (1.2 * get_stage_width())
-		linear 0.5 xpos (0.65 * get_stage_width())
+		xpos 1.2
+		linear 0.5 xpos 0.65
 	us "Чтобы он пропустил завтрак…"
 	"Усмехнулась Ульянка."
 	show dv normal pioneer at left:
-		xpos (-0.2 * get_stage_width())
-		linear 0.5 xpos (0.16 * get_stage_width())
+		xpos -0.2
+		linear 0.5 xpos 0.16
 		xpos 0.16
 	dv "Точно! Пора уже и есть идти."
 	hide us
@@ -2582,12 +2556,11 @@ label mine_crossroad:
 	scene bg int_mine_crossroad with fade
 	if not first_turn:
 		"Похоже, ещё одна равилка."
+	$ first_turn = False
 	menu:
 		"Налево":
-			$ first_turn = False
 			$ mine_eval("left")
 		"Направо":
-			$ first_turn = False
 			$ mine_eval("right")
 label fail_mine_return_to_start:
 	$ night_time()
@@ -2691,7 +2664,6 @@ label fail_mine_miku:
 	stop music fadeout 3
 	stop ambience fadeout 2
 	pause 3
-	$ backdrop = "epilogue"
 	jump epilogue_mi
 label fail_mine_exit:
 	$ night_time()
@@ -3753,12 +3725,12 @@ label day4_dv:
 	window hide
 	scene bg int_catacombs_entrance
 	show unblink
-	with dissolve
 	play ambience ambience_catacombs fadein 3
 	play music music_list["sunny_day"] fadein 5
 	pause 1
 	window show
 	"Я с трудом открыл один глаз, в который тут же ударил яркий свет фонаря."
+	hide unblink
 	show dv scared pioneer at center with dissolve
 	me "Убери…"
 	"Алиса сидела рядом и взволнованно смотрела на меня."
@@ -4415,7 +4387,6 @@ label dv_mine_exit:
 	"Алиса топнула ногой и быстро направилась прочь от домика вожатой."
 	"Я тяжело вздохнул и встал."
 	"Голова от усталости кружилась ужасно."
-	stop ambience fadeout 2
 	th "Хорошо хоть Ольга Дмитриевна уже спит, значит, не придётся перед ней объясняться…"
 	window hide
 	scene bg int_house_of_mt_night2 with dissolve

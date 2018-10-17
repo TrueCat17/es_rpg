@@ -330,6 +330,7 @@ label epilogue_mi:
 	"Я не смог сдержаться и громко расхохотался."
 	mt "Стоп! Стоп!"
 	"Кричала режиссёр."
+	hide unblink
 	show mt angry panama pioneer at center with dissolve
 	mt "Это уже ни в какие ворота не лезет! Неделю снимаем, а материала с гулькин нос!"
 	"Она подскочила ко мне."
@@ -349,7 +350,7 @@ label epilogue_mi:
 	show mt rage pioneer at center with dspr
 	mt "Без тебя знаю, дурень! За камерой лучше следи!"
 	show sh normal pioneer at right:
-		linear 1.0 xpos 1.0 xanchor 0.0
+		linear 1.0 xalign 1.5
 	hide sh with dissolve
 	"Шурик спокойно увернулся от запущенной в него панамки и вернулся на операторское место."
 	"Он вообще всегда такой – спокойный, рассудительный и…{w} скучный, однообразный и предсказуемый."
@@ -5104,7 +5105,6 @@ label epilogue_uv:
 	window hide
 	scene bg int_house_of_mt_day
 	show unblink
-	with fade2
 	play ambience ambience_int_cabin_day fadein 3
 	window show
 	"Голова была готова разорваться от мыслей, поэтому я открыл глаза и рывком встал с кровати."
@@ -5611,7 +5611,6 @@ label epilogue_uv:
 	scene bg ext_polyana_night
 	show uv normal at center
 	show unblink
-	with fade
 	pause 1
 	window show
 	"Я резко открыл глаза и увидел перед собой её."

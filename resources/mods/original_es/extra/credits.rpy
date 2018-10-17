@@ -16,11 +16,7 @@ label final_credits:
 	scene bg black with dissolve2
 	pause 1
 	play music music_list["opening"] fadein 3
-	show credits credits_text:
-		xalign 0.5
-		ypos 1.3
-		linear 87.0 ypos -1.0
-	pause 87
+	$ show_credits()
 	scene black with dissolve2
 	stop music fadeout 3
 	pause 4

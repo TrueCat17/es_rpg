@@ -26,7 +26,6 @@ label day3_main1:
 	window hide
 	scene bg int_house_of_mt_day
 	show unblink
-	with fade
 	play music music_list["everyday_theme"] fadein 5
 	window show
 	"Часы показывали 7 утра."
@@ -1858,7 +1857,6 @@ label day3_main5:
 	window hide
 	scene bg int_house_of_mt_night
 	show unblink
-	with fade
 	pause 1
 	window show
 	"Как ни странно, я проснулся вовремя даже без будильника."

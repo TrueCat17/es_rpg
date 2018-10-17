@@ -931,7 +931,7 @@ init -1000:
 		size (0.3333, 0.6139)
 	image un normal pioneer = im.ReColor(im.Composite((444,974), (0,0), "images/sprites/normal/un/un_1_body.png", (4,327), "images/sprites/normal/un/un_1_pioneer.png", (171,193), "images/sprites/normal/un/un_1_normal.png"), *sprite_time_rgb):
 		size (0.2313, 0.9019)
-	image un normal pioneer red = im.ReColor(image un normal pioneer red = im.MatrixColor( im.Composite((444,974), (0,0), "images/sprites/normal/un/un_1_body.png", (4,327), "images/sprites/normal/un/un_1_pioneer.png", (171,193), "images/sprites/normal/un/un_1_normal.png"), im.matrix.tint(1, 0.1, 0.1), *sprite_time_rgb):
+	image un normal pioneer red = im.ReColor(im.Composite((444,974), (0,0), "images/sprites/normal/un/un_1_body.png", (4,327), "images/sprites/normal/un/un_1_pioneer.png", (171,193), "images/sprites/normal/un/un_1_normal.png"), 255, 25, 25):
 		size (0.2313, 0.9019)
 	image us cry pioneer = im.ReColor(im.Composite((590,660), (0,0), "images/sprites/normal/us/us_3_body.png", (124,261), "images/sprites/normal/us/us_3_pioneer.png", (217,112), "images/sprites/normal/us/us_3_cry.png"), *sprite_time_rgb):
 		size (0.3073, 0.6111)
@@ -1251,7 +1251,7 @@ init -1000:
 		size (0.3073, 0.6111)
 	image un surprise pioneer = im.ReColor(im.Composite((472,950), (0,0), "images/sprites/normal/un/un_2_body.png", (43,313), "images/sprites/normal/un/un_2_pioneer.png", (157,162), "images/sprites/normal/un/un_2_surprise.png"), *sprite_time_rgb):
 		size (0.2458, 0.8796)
-	image un surprise pioneer red = im.ReColor(image un surprise pioneer red = im.MatrixColor( im.Composite((472,950), (0,0), "images/sprites/normal/un/un_2_body.png", (43,313), "images/sprites/normal/un/un_2_pioneer.png", (157,162), "images/sprites/normal/un/un_2_surprise.png"), im.matrix.tint(1, 0.1, 0.1), *sprite_time_rgb):
+	image un surprise pioneer red = im.ReColor(im.Composite((472,950), (0,0), "images/sprites/normal/un/un_2_body.png", (43,313), "images/sprites/normal/un/un_2_pioneer.png", (157,162), "images/sprites/normal/un/un_2_surprise.png"), 255, 25, 25):
 		size (0.2458, 0.8796)
 	image us cry sport = im.ReColor(im.Composite((590,660), (0,0), "images/sprites/normal/us/us_3_body.png", (130,269), "images/sprites/normal/us/us_3_sport.png", (217,112), "images/sprites/normal/us/us_3_cry.png"), *sprite_time_rgb):
 		size (0.3073, 0.6111)

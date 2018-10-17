@@ -46,7 +46,7 @@ label day7_main:
 	"Скорее мне просто не хотелось верить, что всё настолько плохо, как рассказывал тот парень."
 	window hide
 	scene bg ext_washstand_day with dissolve
-	show pi at center with dissolve
+	show pi normal at center with dissolve
 	window show
 	pi "Доброе утро…"
 	"Услышал я робкий голос, доносившийся со стороны леса."
@@ -206,7 +206,7 @@ label day7_main:
 	stop ambience fadeout 2
 	scene bg int_house_of_mt_day with fade
 	play music music_list["orchid"] fadein 3
-	show pi at center with dissolve
+	show pi normal at center with dissolve
 	window show
 	"Напротив спиной ко мне сидел уже знакомый пионер."
 	"За прошедший день я уже успел несколько привыкнуть к нему, и, кажется, даже перестал бояться."
@@ -225,7 +225,7 @@ label day7_main:
 	"Пионер расхохотался."
 	pi "Да, я тоже когда-то в это верил."
 	me "А сейчас?"
-	show pi at center with dspr
+	show pi normal at center with dspr
 	pi "А что такое {i}сейчас{/i}?{w} Для меня есть прошлое, моя жизнь тогда…"
 	"Он надолго замолчал."
 	pi "Да и то это всё было так давно, что я уже и не помню."
@@ -237,7 +237,7 @@ label day7_main:
 	me "Я только одного не понимаю – какой смысл приходить ко мне? Чего ты хочешь добиться?"
 	pi "Я? Да ничего."
 	me "И зачем тогда?"
-	show pi at center with dspr
+	show pi normal at center with dspr
 	pi "Просто ты, он и другие, такие же, как мы, – единственные настоящие люди здесь."
 	"При всём при том, что он мне уже рассказал, я всё равно не был готов до конца поверить, что все местные обитатели всего лишь куклы в какой-то дьявольской пьесе."
 	me "А ты уверен, что прав?"
@@ -335,7 +335,7 @@ label day7_main:
 	"Она выбежала, громко хлопнув дверью."
 	stop ambience fadeout 2
 	play music music_list["orchid"] fadein 3
-	show pi at center with dissolve
+	show pi normal at center with dissolve
 	pi "Что, не ожидал от неё такого?"
 	me "А ты?"
 	pi "Я тут ни при чём, говорил же."
@@ -354,7 +354,7 @@ label day7_main:
 	"Он громко расхохотался."
 	pi "Чувство юмора, одобряю! Правда, шутки у тебя неудачные.{w} Над кем смеёшься? Над собой смеёшься!"
 	me "Слушай, если тебе нечего делать в своём мире, иди пообщайся с тем {i}вторым{/i}."
-	show pi at center with dspr
+	show pi normal at center with dspr
 	pi "А тебе есть что делать в своём?"
 	"Резко парировал пионер."
 	me "Знаешь, я найду… Вещи соберу, из лагеря уеду…"
@@ -452,7 +452,6 @@ label day7_main:
 	window hide
 	scene bg int_house_of_mt_day
 	show unblink
-	with dissolve
 	pause 1
 	window show
 	"Комната была пуста."
@@ -460,6 +459,7 @@ label day7_main:
 	"Только и успел сказать я."
 	stop ambience fadeout 2
 	play music music_list["orchid"] fadein 3
+	hide unblink
 	show pi smile at center with dissolve
 	pi "Ну как, мачо-мен?"
 	"С того места, где только что сидела Лена, послышался злорадный смешок."
@@ -578,7 +578,7 @@ label day7_main:
 	"Последней моей реплики Алиса, конечно же, не слышала."
 	stop ambience fadeout 2
 	play music music_list["orchid"] fadein 3
-	show pi at center with dissolve
+	show pi normal at center with dissolve
 	pi "Своенравная какая, да?"
 	me "Не хуже тебя."
 	pi "И тебя, тогда уж."
@@ -591,7 +591,7 @@ label day7_main:
 	"Его смех – или скорее конское ржание – выводил меня из себя."
 	me "Слушай, тебе в кино надо сниматься, я тебе уже говорил? Ганнибал Лектер из тебя бы прекрасный вышел!"
 	me "Как раз, ты же себя психиатром считаешь."
-	show pi at center with dspr
+	show pi normal at center with dspr
 	pi "Я учту.{w} А теперь мне пора! Может быть, ещё увидимся."
 	me "Вали!"
 	hide pi with dissolve
@@ -705,8 +705,6 @@ label day7_main:
 			window show
 			"В глазах начало темнеть, сознание покидало меня…"
 			window hide
-			scene bg black with fade3
-			pause 3
 			if not persistent.endings["main_bad"]:
 				$ persistent.endings["main_bad"] = True
 				$ show_achievement("main_bad")

@@ -1266,7 +1266,6 @@ label day5_clubs_2:
 	"Казалось, что за сегодня мне пришлось пережить столько же, сколько за все предыдущие дни."
 	"Так что, подходя к зданию кружков, я и думать забыл о том, что искать здесь сахар, вообще говоря, несколько странновато."
 	window hide
-	stop ambience fadeout 2
 	play sound sfx_open_door_clubs
 	pause 1
 	scene cg d5_clubs_robot with dissolve
@@ -1581,7 +1580,6 @@ label day5_main3:
 	play sound sfx_wind_gust
 	scene bg ext_square_day
 	show unblink
-	with dissolve
 	pause 1
 	window show
 	"Внезапно налетел ветер, я инстинктивно схватился за тележку и открыл глаза."
@@ -1603,11 +1601,12 @@ label day5_main3:
 	pause 1
 	window show
 	"Глаза закрывались сами собой – наверное, за весь день меня слишком сильно разморило, – поэтому я и не заметил, как кто-то подошёл и легонько стукнул меня по плечу."
-	show unblink
 	hide blink
+	show unblink
 	window hide
 	pause 1
 	play music music_list["so_good_to_be_careless"] fadein 3
+	hide unblink
 	show mi smile pioneer at center with dissolve
 	window show
 	mi "Привет!"
@@ -1712,12 +1711,12 @@ label day5_main3:
 	show sl normal pioneer at cright
 	show un normal pioneer at cleft
 	show unblink
-	with dissolve
 	pause 1
 	window show
 	me "Чего? Куда?"
 	"Я моментально открыл глаза и поднял голову."
 	"Рядом со Славей стояла Лена."
+	hide unblink
 	show sl surprise pioneer at cright with dspr
 	sl "Поход…"
 	"Она удивилась."
@@ -2105,7 +2104,6 @@ label day5_main3:
 	mt "Ладно, пожалуй, хватит на сегодня! Уже поздно, пора возвращаться!"
 	"Я с облегчением вздохнул."
 	stop sound_loop fadeout 2
-	stop ambience fadeout 2
 	stop music fadeout 3
 	"Назад мы шли уже не парами, а как придётся."
 	window hide
