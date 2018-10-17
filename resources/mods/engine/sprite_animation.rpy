@@ -158,11 +158,14 @@ init -9000 python:
 					else:
 						is_prop = get_atl_props(command) is not None
 						if is_prop:
-							if len(args) % 2:
-								out_msg('SpriteAnimation.update', 'Ожидалось чётное количество аргументов: [параметр значение]+\n' + action)
+							name = args[0]
+							expr = ' '.join(args[1:])
+							try:
+								value = eval(expr)
+							except Exception as e:
+								out_msg('SpriteAnimation.update', 'On Eval: ' + str(expr) + ', exception: ' + str(e))
 							else:
-								for i in xrange(0, len(args), 2):
-									self.set_prop(args[i], eval(args[i + 1]))
+								self.set_prop(name, value)
 						else:
 							try:
 								evaled = eval(action)
@@ -289,20 +292,23 @@ init -9000 python:
 			if props == ['xalign']:
 				self.data.xalign = value
 				props = ['xpos', 'xanchor']
-				value = [value] * 2
+				value = [value, value]
 			elif props == ['yalign']:
 				self.data.yalign = value
 				props = ['ypos', 'yanchor']
-				value = [value] * 2
+				value = [value, value]
 			
 			if len(props) == 1:
-				if self.data[prop] != value:
+				if isinstance(value, (list, tuple)):
+					out_msg('SpriteAnimation.set_prop',
+							'Значением ожидался одиночный объект, получен список: <' + str(value) + '>')
+				elif self.data[prop] != value:
 					self.data[prop] = value
 					
 					if prop not in self.data.except_state_props:
 						self.data.state_num += 1
 			else:
-				if (not isinstance(value, list) and not isinstance(value, tuple)) or len(props) != len(value):
+				if not isinstance(value, (list, tuple)) or len(props) != len(value):
 					out_msg('SpriteAnimation.set_prop',
 							'Значением ожидался список из ' + str(len(props)) + ' элементов, получено: <' +str(value)+ '>')
 				else:
