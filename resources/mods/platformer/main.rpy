@@ -21,7 +21,10 @@ init python:
 		
 		global prev_update_time, update_dtime
 		if prev_update_time:
-			update_dtime += time.time() - prev_update_time
+			if time.time() - prev_update_time < 0.5:
+				update_dtime += time.time() - prev_update_time
+			else:
+				update_dtime = 0
 		prev_update_time = time.time()
 		
 		while update_dtime > physics_step:

@@ -52,7 +52,10 @@ init python:
 			return
 		
 		if td_last_update_time:
-			td_to_update_time += time.time() - td_last_update_time
+			if time.time() - td_last_update_time < 0.5:
+				td_to_update_time += time.time() - td_last_update_time
+			else:
+				td_to_update_time = 0
 		td_last_update_time = time.time()
 		
 		while td_to_update_time > td_frame_time:
