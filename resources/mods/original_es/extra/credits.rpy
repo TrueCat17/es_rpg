@@ -1,5 +1,5 @@
 init python:
-	credits_text = '\n\n'.join([
+	credits_text = [
 		"Команда Soviet Games (IIchan Eroge Team) благодарит вас за время, уделённое игре!",
 		"Благодарности:",
 		"PyTom'у за движок Ren'Py.",
@@ -7,10 +7,10 @@ init python:
 		"Сайтам iichan.hk и 2ch.hk.",
 		"Всем, кто помогал работать над игрой.",
 		"Всем, кто нас поддерживал все эти годы, ждал и верил!",
-		"",
-		"",
-		"КОНЕЦ.\n"
-	])
+		" ",
+		" ",
+		"КОНЕЦ."
+	]
 
 label final_credits:
 	scene bg black with dissolve2

@@ -310,7 +310,7 @@ init -9000 python:
 			else:
 				if not isinstance(value, (list, tuple)) or len(props) != len(value):
 					out_msg('SpriteAnimation.set_prop',
-							'Значением ожидался список из ' + str(len(props)) + ' элементов, получено: <' +str(value)+ '>')
+							'Значением ожидался список из ' + str(len(props)) + ' элементов, получено: <' + str(value)+ '>')
 				else:
 					for i in xrange(len(props)):
 						self.set_prop(props[i], value[i])

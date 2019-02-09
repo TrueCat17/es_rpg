@@ -187,14 +187,14 @@ screen cards:
 		image card_text_bg size (card_width, small_text_size + 5):
 			text "Кругов осталось:" text_size small_text_size align (0.5, 0.5)
 		image card_text_bg size (card_width, big_text_size + 5):
-			text cycles_left text_size big_text_size align (0.5, 0.5)
+			text str(cycles_left) text_size big_text_size align (0.5, 0.5)
 		
 		null ysize small_text_size
 		
 		image card_text_bg size (card_width, small_text_size + 5):
 			text "Обменов осталось:" text_size small_text_size align (0.5, 0.5)
 		image card_text_bg size (card_width, big_text_size + 5):
-			text (changes_left if changes_left else "---") text_size big_text_size align (0.5, 0.5)
+			text (str(changes_left) if changes_left else "---") text_size big_text_size align (0.5, 0.5)
 	
 	if result_status != 'in_progress':
 		textbutton cards_result:

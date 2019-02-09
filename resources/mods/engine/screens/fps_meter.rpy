@@ -17,7 +17,7 @@ init -1000 python:
 		for t in fps_time_array:
 			if cur_time - t < 1:
 				count += 1
-		return min(count, get_fps())
+		return str(min(count, get_fps()))
 
 
 screen fps_meter:

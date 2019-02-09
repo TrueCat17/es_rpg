@@ -1,6 +1,8 @@
 init python:
 	set_fps(60)
 	
+	dissolve_fast = Dissolve(0.5)
+	
 	if persistent.endings is None:
 		persistent.endings = Object()
 	
@@ -10,7 +12,8 @@ init python:
 label start:
 #	jump day1
 #	jump day2_main1
+#	jump day2_cardgame
 #	jump day3_main4
-	jump day4_us
+#	jump main_good_ending
 	jump prologue
 

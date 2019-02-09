@@ -30,13 +30,13 @@ init python:
 	
 	test_1623_tanks__colors = ('green', 'orange', 'purple', 'yellow', 'blue', 'cyan', 'black')
 	test_1623_tanks__hex_colors = {
-		'green'  : '#00AA00',
-		'orange' : '#FF8000',
-		'purple' : '#7F007F',
-		'yellow' : '#DDDD00',
-		'blue'   : '#0000FF',
-		'cyan'   : '#00FFFF',
-		'black'  : '#808080'
+		'green'  : 0x00AA00,
+		'orange' : 0xFF8000,
+		'purple' : 0x7F007F,
+		'yellow' : 0xDDDD00,
+		'blue'   : 0x0000FF,
+		'cyan'   : 0x00FFFF,
+		'black'  : 0x808080
 	}
 	
 	
@@ -345,7 +345,7 @@ screen test_1623_tanks__screen:
 					if not test_1623_tanks__was_friends:
 						$ test_1623_tanks__was_friends = True
 						text 'Друзья: ':
-							color	 '#00AA00'
+							color     0x00AA00
 							text_size 25
 					
 					if test_1623_tanks__limit_bullets:

@@ -1,5 +1,18 @@
 init -1000:
 	
+	$ default_decl_at = []
+	
+	image anim owl_1 = "images/anim/owl_1.png"
+	image anim owl_2 = "images/anim/owl_2.png"
+	
+	image owl:
+		"anim owl_1"
+		pause 5
+		"anim owl_2"
+		pause 0.5
+		repeat
+	
+	
 	$ default_decl_at = ["size (1.0, 1.0)"]
 	
 	
@@ -58,15 +71,14 @@ init -1000:
 	image anim stars_1 = "images/anim/stars_1.jpg"
 	image anim stars_3 = "images/anim/stars_3.jpg"
 	
-	
-	$ default_decl_at = []
-	
-	
-	
-	image anim snow = "images/anim/snow.png"
-	
-	image anim owl_1 = "images/anim/owl_1.png"
-	image anim owl_2 = "images/anim/owl_2.png"
+	image stars:
+		size (1.0, 1.0)
+		
+		contains "anim stars_1"
+		contains "anim stars_3":
+			linear 1.5 alpha 1.0
+			linear 1.5 alpha 0.0
+			repeat
 	
 	
 	image prologue_dream:
@@ -123,24 +135,6 @@ init -1000:
 		"anim prologue_monitor_4"
 	
 	
-	image owl:
-		"anim owl_1"
-		pause 5
-		"anim owl_2"
-		pause 0.5
-		repeat
-	
-	image stars:
-		size (1.0, 1.0)
-		
-		contains "anim stars_1"
-		
-		contains "anim stars_3":
-			linear 1.5 alpha 1.0
-			linear 1.5 alpha 0.0
-			repeat
-	
-	
 	
 	image blink:
 		size (1.0, 1.0)
@@ -190,3 +184,37 @@ init -1000:
 			"anim blink_down"
 			ypos 0
 			ease 1.5 ypos 1.0
+	
+	
+	image bg ext_camp_entrance_day_sepia = im.Sepia("images/bg/ext_camp_entrance_day.jpg")
+	
+	image black_long:
+		contains "bg ext_camp_entrance_day_sepia"
+		contains "bg black":
+			alpha 0.0
+			linear 50 alpha 1.0
+	
+	
+	image op_back = "images/misc/op/back.jpg"
+	image op_sl = "images/misc/op/sl.png"
+	image op_un = "images/misc/op/un.png"
+	image op_us = "images/misc/op/us.png"
+	image op_dv = "images/misc/op/dv.png"
+	image op_mi = "images/misc/op/mi.png"
+	image op_uv1 = "images/misc/op/uv1.png"
+	image op_uv2 = "images/misc/op/uv2.png"
+	image op_uv3 = "images/misc/op/uv3.png"
+	
+	image op_uv:
+		"op_uv1"
+		pause 0.5
+		"op_uv2"
+		pause 0.5
+		"op_uv3"
+		pause 0.5
+		"op_uv2"
+		pause 0.5
+		"op_uv1"
+	
+	$ default_decl_at = []
+

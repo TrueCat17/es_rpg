@@ -44,7 +44,7 @@ init -1001 python:
 	style.text.xsize = -1
 	style.text.ysize = -1
 	style.text.text_size = 20
-	style.text.color = '#FFFFFF'
+	style.text.color = 0xFFFFFF
 	style.text.font = 'Calibri'
 	style.text.text_align = 'left' 				# left | center | right
 	style.text.text_valign = 'top' 				# top  | center |  down

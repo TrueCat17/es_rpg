@@ -64,10 +64,16 @@ init -1001 python:
 			self.name_prefix = kwargs.get('name_prefix', '')
 			self.name_postfix = kwargs.get('name_postfix', '')
 			self.color = kwargs.get('color', 0)
+			if type(self.color) is not int:
+				out_msg('Character <' + name + '> must have color with type <int>, not <' + str(type(self.color)) + '>')
+				self.color = 0
 			
 			self.text_prefix = kwargs.get('text_prefix', '')
 			self.text_postfix = kwargs.get('text_postfix', '')
 			self.text_color = kwargs.get('text_color', 0xFFFF00)
+			if type(self.text_color) is not int:
+				out_msg('Character <' + name + '> must have text_color with type <int>, not <' + str(type(self.text_color)) + '>')
+				self.text_color = 0
 			
 			# rpg-props:
 			self.directory = None
@@ -314,7 +320,7 @@ init -1001 python:
 			out_msg('hide_character', 'Персонаж <' + character.real_name + ', ' + character.unknow_name + '> не добавлен в список отображаемых')
 	
 	
-	tmp_character = Character('TMP', color = '#FFFFFF')
+	tmp_character = Character('TMP', color = 0xFFFFFF)
 	
 	narrator = Character('')
 	th = Character('', text_prefix='~', text_postfix='~')

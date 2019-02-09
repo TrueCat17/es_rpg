@@ -9,7 +9,7 @@ init -100001 python:
 	import random
 	import math
 	import shutil
-	import pickle
+	import cPickle as pickle
 	import inspect
 	import itertools
 

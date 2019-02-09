@@ -20,7 +20,7 @@ init python:
 				return random.random() * (max - min) + min
 			
 			for i in xrange(d):
-				size = rand_int(2, 10)
+				size = rand_int(3, 10)
 				
 				x = rand_int(0, width)
 				y = rand_int(0, height)
@@ -28,16 +28,15 @@ init python:
 				dy = rand_float( 0.15, 0.40) * size
 				
 				sizes = (size, size)
-				image = im.Scale('images/anim/snow.png', size, size)
 				
-				obj = [x, y, dx, dy, sizes, image]
+				obj = [x, y, dx, dy, sizes]
 				objs.append(obj)
 	
 	def update_snow(k):
 		global tmp_image
 		
 		width, height = get_stage_width(), get_stage_height()
-		x, y, dx, dy, sizes, image = 0, 1, 2, 3, 4, 5
+		x, y, dx, dy, sizes = 0, 1, 2, 3, 4
 		
 		if image_render:
 			tmp_image_args = [(width, height)]
@@ -46,15 +45,14 @@ init python:
 				obj[y] = (obj[y] + obj[dy] * k) % height
 				
 				tmp_image_args.append((obj[x], obj[y]))
-				tmp_image_args.append(obj[image])
+				tmp_image_args.append(im.Scale('images/anim/snow.png', *obj[sizes]))
 			tmp_image = im.Composite(*tmp_image_args)
 		else:
 			for obj in objs:
 				obj[x] = (obj[x] + obj[dx] * k) % width
 				obj[y] = (obj[y] + obj[dy] * k) % height
 	
-	
-	set_count(1000)
+	set_count(5000)
 	prev_time_update = time.time()
 
 
@@ -71,12 +69,11 @@ screen snow:
 	if image_render:
 		image tmp_image
 	else:
-		$ x, y, dx, dy, sizes, image = 0, 1, 2, 3, 4, 5
-		for obj in objs:
+		for x, y, dx, dy, sizes in objs:
 			image 'images/anim/snow.png':
-				xpos int(obj[x])
-				ypos int(obj[y])
-				size obj[sizes]
+				xpos ftoi(x)
+				ypos ftoi(y)
+				size sizes
 	
 	image im.Rect('#0004'):
 		size (300, 70)
@@ -92,7 +89,7 @@ screen snow:
 				size (25, 25)
 				action set_count(max(0, len(objs) - 100))
 			
-			text len(objs):
+			text str(len(objs)):
 				xalign 0.5
 				text_size 20
 				size (100, 25)

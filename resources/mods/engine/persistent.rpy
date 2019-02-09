@@ -6,10 +6,15 @@ init -1002 python:
 				out_msg('Файл <' + path + '> не существует или пуст')
 			else:
 				tmp_file = open(path, 'rb')
+				
+				persistent_updates = True
 				res = pickle.load(tmp_file)
+				persistent_updates = False
+				
 				tmp_file.close()
 			return res
 		except:
+			persistent_updates = False
 			out_msg('Ошибка при загрузке объекта из файла <' + path + '>')
 			raise
 	
@@ -17,17 +22,17 @@ init -1002 python:
 		global persistent_updates
 		
 		try:
-			persistent_updates = True
-			
 			dirname = os.path.dirname(path)
 			if dirname and not os.path.isdir(dirname):
 				os.mkdir(dirname)
 			
 			tmp_file = open(path, 'wb')
-			pickle.dump(obj, tmp_file)
-			tmp_file.close()
 			
+			persistent_updates = True
+			pickle.dump(obj, tmp_file)
 			persistent_updates = False
+			
+			tmp_file.close()
 		except:
 			persistent_updates = False
 			out_msg('Ошибка при сохранении объекта в файл <' + path + '>')
@@ -43,12 +48,17 @@ init -1002 python:
 		g = globals()
 		obj = dict()
 		
-		persistent_values = [persistent[prop] for prop in persistent.get_props()]
-		
 		class TmpClass: pass
 		tmp_instance = TmpClass()
 		
-		safe_types = (bool, int, float, long, str, list, tuple, set, dict, type(None), type(TmpClass), type(tmp_instance))
+		simple_types = (type(None), bool, int, float, long, str, tuple)
+		safe_types = (list, set, dict, type(TmpClass), type(tmp_instance))
+		
+		persistent_values = []
+		for prop in persistent.get_props():
+			o = persistent[prop]
+			if type(o) not in simple_types:
+				persistent_values.append(o)
 		
 		for k in g.keys():
 			o = g[k]
@@ -70,7 +80,8 @@ init -1002 python:
 			if o is renpy or o is console_to_watch or o is g:
 				continue
 			
-			if type(o) in safe_types:
+			t = type(o)
+			if t in simple_types or t in safe_types:
 				obj[k] = o
 		
 		save_object(path, obj)
@@ -84,8 +95,11 @@ init -1001 python:
 		if (not os.path.exists(persistent_path)) or os.path.getsize(persistent_path) == 0:
 			persistent = Object()
 		else:
+			persistent_updates = True
 			persistent = load_object(persistent_path)
+			persistent_updates = False
 	except:
+		persistent_updates = False
 		persistent = Object()
 		raise
 

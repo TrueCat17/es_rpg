@@ -11,15 +11,16 @@ init -100000 python:
 			for k, v in kwords.iteritems():
 				self.__dict__[k] = v
 		
-		
 		def has_key(self, attr):
 			return self.__dict__.has_key(attr)
 		def has_attr(self, attr):
 			return self.__dict__.has_key(attr)
 		
 		def __getattr__(self, attr):
-			if self.__dict__.has_key(attr) or persistent_updates:
+			if self.__dict__.has_key(attr):
 				return self.__dict__[attr]
+			if persistent_updates:
+				raise AttributeError(attr)
 			return None
 		
 		def __setattr__(self, attr, value):
@@ -29,7 +30,7 @@ init -100000 python:
 				if self.in_persistent:
 					if isinstance(value, Object):
 						value.in_persistent = True
-						
+					
 					global persistent_need_save
 					persistent_need_save = True
 		

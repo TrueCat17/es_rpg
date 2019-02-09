@@ -189,17 +189,17 @@ screen test_1623_shake__screen:
 	
 	
 	text ('Score: ' + str(test_1623_shake__score) + ' / 5' + '\n' + 'Level: ' + str(test_1623_shake__level)):
-		xalign	0.05
-		yalign	0.5
+		xalign    0.05
+		yalign    0.5
 		text_size 30
-		color	 '#00AA00'
+		color     0x00AA00
 	
 	if test_1623_shake__fail:
 		text 'DIED':
-			xalign	0.5
-			yalign	0.1
+			xalign    0.5
+			yalign    0.1
 			text_size 30
-			color	 '#FF0000'
+			color     0xFF0000
 
 
 label test_1623_shake__start:

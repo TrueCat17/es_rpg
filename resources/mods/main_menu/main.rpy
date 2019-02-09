@@ -1,8 +1,8 @@
 init -2000000 python:
-	start_mod('original_es')
+	start_mod('snow')
 
 init python:
-	set_fps(60)
+	set_fps(20)
 	set_can_mouse_hide(False)
 	set_can_autosave(False)
 	start_screens = ['main_menu']

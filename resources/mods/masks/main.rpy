@@ -49,17 +49,17 @@ screen masks:
 			
 			textbutton '<-':
 				size (30, 30)
-				color '#FFFFFF'
+				color 0xFFFFFF
 				action [SetVariable('duration', max(0.5, duration - 0.5)), restart_mask]
 			
-			text duration:
+			text str(duration):
 				size (50, 30)
-				color '#FF0000'
+				color 0xFF0000
 				text_align 'center'
 				text_valign 'center'
 			
 			textbutton '->':
-				color '#FFFFFF'
+				color 0xFFFFFF
 				size (30, 30)
 				action [SetVariable('duration', min(duration + 0.5, 10)), restart_mask]
 		hbox:
@@ -67,17 +67,17 @@ screen masks:
 			
 			textbutton '<-':
 				size (30, 30)
-				color '#FFFFFF'
+				color 0xFFFFFF
 				action [SetVariable('step', max(1, step - 1)), restart_mask]
 			
-			text step:
+			text str(step):
 				size (50, 30)
-				color '#FF0000'
+				color 0xFF0000
 				text_align 'center'
 				text_valign 'center'
 			
 			textbutton '->':
-				color '#FFFFFF'
+				color 0xFFFFFF
 				size (30, 30)
 				action [SetVariable('step', min(step + 1, 20)), restart_mask]
 	
@@ -87,7 +87,7 @@ screen masks:
 		
 		textbutton '<-':
 			xsize 30
-			color '#FFFFFF'
+			color 0xFFFFFF
 			action [SetVariable('num_mask', max(0, num_mask - 1)), restart_mask]
 		
 		textbutton mask_images[num_mask]:
@@ -96,7 +96,7 @@ screen masks:
 		
 		textbutton '->':
 			xsize 30
-			color '#FFFFFF'
+			color 0xFFFFFF
 			action [SetVariable('num_mask', min(num_mask + 1, len(mask_images) - 1)), restart_mask]
 	
 	hbox:
