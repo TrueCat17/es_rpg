@@ -1,5 +1,5 @@
 init -2000000 python:
-	start_mod('snow')
+#	start_mod('snow')
 
 init python:
 	set_fps(20)

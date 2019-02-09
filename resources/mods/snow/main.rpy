@@ -1,5 +1,4 @@
 init python:
-	set_fps(60)
 	show_screen('snow')
 	
 	

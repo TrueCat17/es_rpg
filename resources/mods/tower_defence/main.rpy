@@ -1,7 +1,6 @@
 init python:
 	show_screen('tower_defence')
 	
-	set_fps(60)
 	td_frame_time = 1.0 / 60
 	
 	td_zoom = 1

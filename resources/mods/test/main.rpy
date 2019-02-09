@@ -1,6 +1,3 @@
-init python:
-	set_fps(60)
-
 label start:
 	scene bg bus_stop
 	while True:

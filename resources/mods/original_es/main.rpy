@@ -1,6 +1,4 @@
 init python:
-	set_fps(60)
-	
 	dissolve_fast = Dissolve(0.5)
 	
 	if persistent.endings is None:

@@ -1,5 +1,4 @@
 init python:
-	set_fps(60)
 	db_font = 'FixEx3'
 	
 	day_num = 0
