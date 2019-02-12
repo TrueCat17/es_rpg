@@ -217,7 +217,7 @@ screen location_props:
 						python:
 							obj = location_objects[name]
 							image = obj['directory'] + obj['main_image'] + '.' + location_object_ext
-							w, h = get_texture_size(image)
+							w, h = get_image_size(image)
 							k = 64.0 / max(w, h)
 							w, h = int(w * k), int(h * k)
 							image = im.Scale(image, w, h)

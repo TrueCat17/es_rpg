@@ -45,7 +45,7 @@ init python:
 				make_preview(name)
 			
 			main = path + '/main.' + ext
-			register_location(name, path, False, get_texture_width(main), get_texture_height(main))
+			register_location(name, path, False, get_image_width(main), get_image_height(main))
 			
 			set_save_locations()
 	

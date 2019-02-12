@@ -67,8 +67,8 @@ init -100000 python:
 		dx, dy = x1 - x2, y1 - y2
 		return math.sqrt(dx*dx + dy*dy)
 	
-	def get_texture_size(texture):
-		return get_texture_width(texture), get_texture_height(texture)
+	def get_image_size(image):
+		return get_image_width(image), get_image_height(image)
 	def get_stage_size():
 		return get_stage_width(), get_stage_height()
 	
@@ -82,15 +82,6 @@ init -100000 python:
 		_load(str(table), str(num))
 	def out_msg(msg, err = ''):
 		_out_msg(str(msg), str(err))
-	
-	def get_image(name):
-		if image_was_registered(name):
-			code = get_image_code(name)
-			res = ([code] if code else []) + get_image_decl_at(name)
-		else:
-			out_msg('get_image', 'Изображение <' + name + '> не зарегистрировано')
-			res = ["im.Rect('#000', 256, 256)"]
-		return res
 
 
 init -1000000 python:

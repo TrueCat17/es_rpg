@@ -58,7 +58,7 @@ screen locations_list:
 					image preview:
 						anchor (0.5, 0.5)
 						pos (locations_btn_height / 2, locations_btn_height / 2)
-						size (get_texture_width(preview) / 2, get_texture_height(preview) / 2)
+						size (get_image_width(preview) / 2, get_image_height(preview) / 2)
 					
 					text (name + size):
 						color 0x404040

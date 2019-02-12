@@ -41,7 +41,7 @@ init -9000 python:
 					xsize = get_absolute(data.xsize, get_stage_width())
 				else:
 					if main_data.xsize is None and data.image:
-						xsize = get_texture_width(data.image)
+						xsize = get_image_width(data.image)
 					else:
 						xsize = main_data.xsize or 0
 			
@@ -49,7 +49,7 @@ init -9000 python:
 					ysize = get_absolute(data.ysize, get_stage_height())
 				else:
 					if main_data.ysize is None and data.image:
-						ysize = get_texture_height(data.image)
+						ysize = get_image_height(data.image)
 					else:
 						ysize = main_data.ysize or 0
 				

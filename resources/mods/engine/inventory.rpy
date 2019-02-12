@@ -1,8 +1,11 @@
 init -1000 python:
 	
-	inventory_size = 30
+	def set_inventory_size(count):
+		global inventory_size, inventory
+		inventory_size = count
+		inventory = [None] * inventory_size
 	
-	inventory = [None] * inventory_size
+	set_inventory_size(30)
 	
 	
 	def add_to_inventory(obj_name, count):

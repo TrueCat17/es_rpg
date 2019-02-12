@@ -52,7 +52,7 @@ init -1 python:
 		global settings_inited, settings_background_up, settings_background_down
 		settings_inited = True
 		
-		w, h = get_texture_size(settings_background)
+		w, h = get_image_size(settings_background)
 		settings_background_up   = im.Crop(settings_background,
 			                               (0, 0, w, h * settings_viewport_y))
 		settings_background_down = im.Crop(settings_background,

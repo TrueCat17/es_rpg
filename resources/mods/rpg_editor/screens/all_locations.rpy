@@ -63,7 +63,7 @@ screen all_locations:
 		if location.using:
 			button:
 				pos (int(location.x * k), int(location.y * k))
-				size (int(get_texture_width(preview) * k), int(get_texture_height(preview) * k))
+				size (int(get_image_width(preview) * k), int(get_image_height(preview) * k))
 				
 				ground preview
 				hover preview

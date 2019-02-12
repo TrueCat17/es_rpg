@@ -63,7 +63,7 @@ screen selected_location:
 						if location_objects.has_key(obj_name):
 							obj = location_objects[obj_name]
 							obj_image = obj['directory'] + obj['main_image'] + '.' + location_object_ext
-							obj_width, obj_height = get_texture_size(obj_image)
+							obj_width, obj_height = get_image_size(obj_image)
 					
 					place = selected_location.places[place_name]
 					if place.side_exit is None:

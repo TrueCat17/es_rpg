@@ -129,7 +129,7 @@ init -1002 python:
 		objects_on_location = list(cur_location.objects)
 		
 		main = cur_location.main()
-		real_width, real_height = get_texture_size(main)
+		real_width, real_height = get_image_size(main)
 		reg_width, reg_height = cur_location.width, cur_location.height
 		
 		if draw_location is None:
@@ -330,5 +330,5 @@ init -1002 python:
 				min_dist = dist
 				res = i
 		return res
-		
+	
 

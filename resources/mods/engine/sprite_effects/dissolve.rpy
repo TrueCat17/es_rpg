@@ -113,7 +113,7 @@ init -9000 python:
 							if not image or data.real_alpha <= 0:
 								continue
 							
-							image_xsize, image_ysize = get_texture_size(data.image)
+							image_xsize, image_ysize = get_image_size(data.image)
 							res_xsize, res_ysize = data.real_xsize, data.real_ysize
 							
 							crop = [data.xcrop, data.ycrop, data.xsizecrop, data.ysizecrop]

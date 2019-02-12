@@ -32,8 +32,8 @@ init -9000 python:
 					mask = im.MatrixColor(mask, im.matrix.invert())
 				
 				sw, sh = get_stage_size()
-				w = min(get_absolute(data.xsize, sw), get_texture_width(data.image))
-				h = min(get_absolute(data.ysize, sh), get_texture_height(data.image))
+				w = min(get_absolute(data.xsize, sw), get_image_width(data.image))
+				h = min(get_absolute(data.ysize, sh), get_image_height(data.image))
 				
 				image = im.RendererScale(data.image, w, h)
 				mask = im.Scale(mask, w, h)

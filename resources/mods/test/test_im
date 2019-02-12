@@ -9,7 +9,7 @@ init -1 python:
             if is_renpy:
                 Image(image).load()
             else:
-                get_texture_width(image)
+                get_image_width(image)
         
         image = 'images/bg/bus_stop.jpg'
         load_image(image)

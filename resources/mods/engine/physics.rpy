@@ -53,13 +53,13 @@ init python:
 			return to_x, to_y
 		
 		black_color = 255 # r, g, b, a = 0, 0, 0, 255
-		map_width, map_height = get_texture_size(free)
+		map_width, map_height = get_image_size(free)
 		
 		def is_black(x, y):
 			x, y = int(x), int(y)
 			if x < 0 or x >= map_width or y < 0 or y >= map_height:
 				return False
-			return get_pixel(free, x, y) == black_color
+			return get_image_pixel(free, x, y) == black_color
 		
 		s2 = 1 / (2 ** 0.5)
 		rotations = (

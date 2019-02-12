@@ -63,7 +63,7 @@ screen map:
 			map_alpha = 1
 		
 		bg = map_pics['bg']
-		bgw, bgh = get_texture_size(bg)
+		bgw, bgh = get_image_size(bg)
 		
 		map_ground_args = [(bgw, bgh), (0, 0), bg]
 		map_hover_args  = [(bgw, bgh)]

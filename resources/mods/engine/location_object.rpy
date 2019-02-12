@@ -92,7 +92,7 @@ init -1001 python:
 		
 		def set_animation(self, anim_name):
 			if not self.animations.has_key(anim_name):
-				out_msg('start_animation', 'Объект <' + str(self.type) + '> не содержит анимации <' + str(anim_name) + '>')
+				out_msg('set_animation', 'Объект <' + str(self.type) + '> не содержит анимации <' + str(anim_name) + '>')
 				return False
 			
 			self.anim_name = anim_name
@@ -123,7 +123,7 @@ init -1001 python:
 			self.then_reverse = then_reverse
 			self.repeat = int(repeat)
 		
-		def stop_animation(self):
+		def remove_animation(self):
 			self.start_animation(None)
 		
 		def update(self):
@@ -133,7 +133,7 @@ init -1001 python:
 				
 				if not animation.loaded:
 					animation.loaded = True
-					animation.xsize, animation.ysize = get_texture_size(self.main())
+					animation.xsize, animation.ysize = get_image_size(self.main())
 					animation.xsize = int(math.ceil(animation.xsize / animation.count_frames))
 				
 				self.xsize, self.ysize = animation.xsize, animation.ysize

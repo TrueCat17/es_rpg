@@ -14,11 +14,10 @@ init python:
 	ground_path =                gui + 'menu/main/ground.png'
 	hover_path  = im.MatrixColor(gui + 'menu/main/hover.png', hover_matrix)
 	
-	tw, th = get_texture_size(ground_path)
+	tw, th = get_image_size(ground_path)
 	
 	anims_path = 'images/characters/anim/'
 	anims_frames = [34, 5, 4, 6, 34, 4, 6, 4, 3]
-
 
 screen main_menu:
 	image back_path:
