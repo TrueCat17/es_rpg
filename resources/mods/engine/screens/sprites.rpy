@@ -57,7 +57,7 @@ init -1000 python:
 			show_screen('sprites')
 		
 		if len(params) == 0:
-			out_msg('add_sprite_to_showlist', 'Список params пуст')
+			out_msg('show_sprite', 'List params is empty')
 			return
 		
 		params_str = ' '.join(params)
@@ -69,11 +69,11 @@ init -1000 python:
 			pname, pvalue = params[-2], params[-1]
 			params = params[0:-2]
 			if d.has_key(pname):
-				out_msg('show_sprite', 'Параметр <' + pname + '> указан несколько раз')
+				out_msg('show_sprite', 'Param <' + pname + '> specified several times')
 			else:
 				d[pname] = pvalue
 		if len(params) == 0:
-			out_msg('show_sprite', 'Список params не содержит имени спрайта' + '\n' + params_str)
+			out_msg('show_sprite', 'List params does not contain name of sprite\n' + params_str)
 			return
 		
 		for pname in pnames:
@@ -127,7 +127,7 @@ init -1000 python:
 					break
 				index += 1
 			else:
-				out_msg('show_sprite', 'Спрайт с именем <' + d['behind'] + '> не найден')
+				out_msg('show_sprite', 'Sprite <' + d['behind'] + '> not found')
 		
 		if scene in sprites_list:
 			index = max(index, sprites_list.index(scene) + 1)
@@ -136,7 +136,7 @@ init -1000 python:
 	
 	def hide_sprite(params):
 		if len(params) == 0:
-			out_msg('hide_sprite', 'Список params пуст')
+			out_msg('hide_sprite', 'List params is empty')
 			return
 		
 		global sprites_list
@@ -146,11 +146,11 @@ init -1000 python:
 		effect = None
 		if len(params) == 3:
 			if params[1] != 'with':
-				out_msg('hide_sprite', 'Вторым параметром ожидалось with')
+				out_msg('hide_sprite', '2 param must be <with>, got <' + params[1] + '>')
 				return
 			effect = eval(params[2])
 		elif len(params) != 1:
-			out_msg('hide_sprite', 'Ожидалось 1 или 3 параметра: name ["with" effect]\n' + 'Получено: <' + str(params) + '>')
+			out_msg('hide_sprite', 'Expected 1 or 3 params: name ["with" effect]\n' + 'Got: <' + str(params) + '>')
 			return
 		
 		for i in xrange(len(sprites_list)):
@@ -165,7 +165,7 @@ init -1000 python:
 					sprites_list = sprites_list[0:i] + sprites_list[i+1:]
 				break
 		else:
-			out_msg('hide_sprite', 'Спрайт с именем <' + name + '> не найден')
+			out_msg('hide_sprite', 'Sprite <' + name + '> not found')
 	
 	def get_sprites_datas():
 		res = []

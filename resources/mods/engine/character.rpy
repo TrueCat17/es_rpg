@@ -131,7 +131,7 @@ init -1001 python:
 					self.move_kind = 'stay'
 			else:
 				self.pose, self.move_kind = 'stance', 'stay'
-				out_msg('Character.set_pose', 'Неожидаемое значение параметра pose <' + str(pose) + '>\n' + 'Ожидалось "sit" или "stance"')
+				out_msg('Character.set_pose', 'Unexpected pose <' + str(pose) + '>\n' + 'Expected "sit" or "stance"')
 		
 		def update_crop(self):
 			frame = self.frame
@@ -150,13 +150,13 @@ init -1001 python:
 				return
 			
 			if not cur_location_name:
-				out_msg('Character.next_index', 'Текущая локация не установлена, сначала следует вызвать set_location')
+				out_msg('Character.next_index', 'Current location is not defined, need to call set_location')
 				return
 			
 			place_name = self.place_names[self.place_index]
 			place = cur_location.get_place(place_name)
 			if not place:
-				out_msg('Character.next_index', 'В локации <' + cur_location_name + '> нет места с именем <' + str(place_name) + '>')
+				out_msg('Character.next_index', 'Place <' + str(place_name) + '> not found in location <' + cur_location_name + '>')
 				return
 			
 			character_unaccelerate()
@@ -255,13 +255,13 @@ init -1001 python:
 			dx, dy = self.dx, self.dy
 			dist = self.dist
 			
-			if moving_dtime < self.acceleration_time:                               # Ещё не разогнались, s = a*(t^2)/2
+			if moving_dtime < self.acceleration_time:                               # acceleration, s = a*(t^2)/2
 				cur_dist = self.acceleration * (moving_dtime ** 2) / 2
-			elif moving_dtime < self.acceleration_time + self.no_acceleration_time: # Ещё не тормозим,    s = a*(at^2)/2 + v*t
+			elif moving_dtime < self.acceleration_time + self.no_acceleration_time: # usual moving, s = a*(at^2)/2 + v*t
 				cur_dist = self.acceleration * (self.acceleration_time ** 2) / 2 + self.speed * (moving_dtime - self.acceleration_time)
-			elif moving_dtime < self.moving_full_time:                              # Ещё не пришли,      s = full_s - a*((full_t-t)^2)/2
+			elif moving_dtime < self.moving_full_time:                              # deceleration, s = full_s - a*((full_t-t)^2)/2
 				cur_dist = self.dist - self.acceleration * ((self.moving_full_time - moving_dtime) ** 2) / 2
-			else:                                                                   # Всё, остановка,     s = full_s
+			else:                                                                   # end, stop,    s = full_s
 				cur_dist = self.dist
 				
 				next_cycle = self.place_names is not None
@@ -281,7 +281,7 @@ init -1001 python:
 		if g.has_key(who):
 			g[who].name = name
 		else:
-			out_msg('set_name', 'Персонаж <' + who + '> не найден')
+			out_msg('set_name', 'Character <' + who + '> not found')
 	meet = set_name
 	
 	def make_names_unknown():
@@ -298,12 +298,12 @@ init -1001 python:
 			out_msg('show_character', 'character == None')
 			return
 		if not cur_location_name:
-			out_msg('show_character', 'Текущая локация не установлена, сначала следует вызвать set_location')
+			out_msg('show_character', 'Current location is not defined, need to call set_location')
 			return
 		if type(place) is not dict:
 			place = cur_location.get_place(place)
 		if not place:
-			out_msg('show_character', 'В локации <' + cur_location_name + '> нет места с именем <' + str(place) + '>')
+			out_msg('show_character', 'Place <' + str(place_name) + '> not found in location <' + cur_location_name + '>')
 			return
 		
 		character.x, character.y = place['x'] + place['width'] / 2, place['y'] + place['height'] / 2
@@ -317,7 +317,7 @@ init -1001 python:
 		if character in objects_on_location:
 			objects_on_location.remove(character)
 		else:
-			out_msg('hide_character', 'Персонаж <' + character.real_name + ', ' + character.unknow_name + '> не добавлен в список отображаемых')
+			out_msg('hide_character', 'Character <' + character.real_name + ', ' + character.unknow_name + '> not shown')
 	
 	
 	tmp_character = Character('TMP', color = 0xFFFFFF)

@@ -54,7 +54,7 @@ init -999 python:
 						r, g, b = c
 					else:
 						r = g = b = 0
-						out_msg('Неожиданный размер списка (ожидалось: 3 или 4; получено: ' + str(len(c)) + ', c = ' + str(c) + ')')
+						out_msg('Unexpected size of list (expected: 3 or 4, got: ' + str(len(c)) + ', c = ' + str(c) + ')')
 			
 			elif isinstance(c, basestring):
 				if c[0] == '#':
@@ -85,11 +85,11 @@ init -999 python:
 				else:
 					r = g = b = 0
 					a = 255
-					out_msg('renpy.ease.color', 'Неожидаемый размер строки (ожидалось: 3, 4, 6 или 8; получено: ' + str(len(c)) + ', c = "' + c + '")')
+					out_msg('renpy.ease.color', 'Unexpected size of str (expected: 3, 4, 6 or 8, got: ' + str(len(c)) + ', c = "' + c + '")')
 			else:
 				r = g = b = 0
 				a = 255
-				out_msg('renpy.ease.color', 'Неожидаемый тип аргумента (ожидалось: list, tuple или basestring; получено: ' + str(type(c)) + ')')
+				out_msg('renpy.ease.color', 'Unexpected argument type (expected: list, tuple or basestring, got: ' + str(type(c)) + ')')
 			
 			return r, g, b, a
 	
@@ -118,7 +118,7 @@ init -999 python:
 				if g.has_key(who):
 					who = g[who]
 				else:
-					out_msg('renpy.say', 'Персонаж <' + who + '> не существует')
+					out_msg('renpy.say', 'Character <' + who + '> not found')
 					tmp_character.name = who
 					who = tmp_character
 			

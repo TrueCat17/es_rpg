@@ -136,11 +136,11 @@ init -9000 python:
 						if len(args) == 2:
 							self.end_pause_time = time.time() + float(args[1])
 						else:
-							out_msg('SpriteAnimation.update', 'pause ожидает 1 аргумент: время\n' + action)
+							out_msg('SpriteAnimation.update', 'pause expected 1 argument: time\n' + action)
 						return
 					elif command == 'repeat':
 						if len(args) > 2:
-							out_msg('SpriteAnimation.update', 'repeat ожидает 1 необязательный аргумент: количество повторов\n' + action)
+							out_msg('SpriteAnimation.update', 'repeat expected 1 optional argument: count of repeats\n' + action)
 						
 						count = int(10e9) if len(args) == 1 else int(args[1])
 						num = self.action_num - 1
@@ -186,7 +186,7 @@ init -9000 python:
 									evaled = eval(command)
 									if str(type(evaled)) == "<type 'function'>":
 										if len(args) % 2:
-											desc = command + ' ожидает нечётное количество аргументов: время, [параметр значение]+\n' + action
+											desc = command + ' expected odd count of arguments: time, [param value]+\n' + action
 											out_msg('SpriteAnimation.update', desc)
 										else:
 											self.change_func = evaled
@@ -228,7 +228,7 @@ init -9000 python:
 							self.parallels = []
 						self.parallels.append(SpriteAnimation(action[1:], self.data))
 					else:
-						out_msg('SpriteAnimation.update', 'Ожидались блоки <contains>, <block> или <parallel>, получен <' + str(action[0]) + '>')
+						out_msg('SpriteAnimation.update', 'Expected blocks <contains>, <block> or <parallel>, got <' + str(action[0]) + '>')
 					
 					self.last_command = command
 				else:
@@ -284,7 +284,7 @@ init -9000 python:
 			if isinstance(prop, str):
 				props = get_atl_props(prop)
 				if props is None:
-					out_msg('SpriteAnimation.set_prop', 'Неизвестное свойство <' + prop + '>')
+					out_msg('SpriteAnimation.set_prop', 'Unknown property <' + prop + '>')
 					return
 			else:
 				props = prop
@@ -301,7 +301,7 @@ init -9000 python:
 			if len(props) == 1:
 				if isinstance(value, (list, tuple)):
 					out_msg('SpriteAnimation.set_prop',
-							'Значением ожидался одиночный объект, получен список: <' + str(value) + '>')
+							'Value expected single, got list: ' + str(value))
 				elif self.data[prop] != value:
 					self.data[prop] = value
 					
@@ -310,7 +310,7 @@ init -9000 python:
 			else:
 				if not isinstance(value, (list, tuple)) or len(props) != len(value):
 					out_msg('SpriteAnimation.set_prop',
-							'Значением ожидался список из ' + str(len(props)) + ' элементов, получено: <' + str(value)+ '>')
+							'Value expected list with ' + str(len(props)) + ' items, got: ' + str(value))
 				else:
 					for i in xrange(len(props)):
 						self.set_prop(props[i], value[i])

@@ -10,7 +10,7 @@ init -1000 python:
 	
 	def add_to_inventory(obj_name, count):
 		if not location_objects.has_key(obj_name):
-			out_msg('add_to_inventory', 'Объект с именем <' + obj_name + '> не зарегистрирован')
+			out_msg('add_to_inventory', 'Object <' + obj_name + '> not registered')
 			return count
 		obj = location_objects[obj_name]
 		
@@ -43,7 +43,7 @@ init -1000 python:
 	
 	def has_in_inventory(obj_name, count):
 		if not location_objects.has_key(obj_name):
-			out_msg('add_to_inventory', 'Объект с именем <' + obj_name + '> не зарегистрирован')
+			out_msg('has_in_inventory', 'Object <' + obj_name + '> not registered')
 			return False
 		
 		t = 0
@@ -56,7 +56,7 @@ init -1000 python:
 	
 	def remove_from_inventory(obj_name, count):
 		if not location_objects.has_key(obj_name):
-			out_msg('remove_from_inventory', 'Объект с именем <' + obj_name + '> не зарегистрирован')
+			out_msg('remove_from_inventory', 'Object <' + obj_name + '> not registered')
 			return count
 		
 		obj = location_objects[obj_name]

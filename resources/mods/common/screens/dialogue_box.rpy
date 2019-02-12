@@ -73,7 +73,7 @@ init -1000 python:
 		db_read = False
 		
 		
-		# Новый текст
+		# new text
 		if name is not None:
 			db_start_time = time.time()
 			
@@ -86,7 +86,7 @@ init -1000 python:
 				db_voice_full_text += text_postfix
 			db_last_text_postfix = text_postfix
 		
-		# Продолжение предыдущего
+		# continuation of prev text
 		else:
 			db_start_time = time.time() - len_unicode(db_voice_text) / float(renpy.config.text_cps)
 			
@@ -133,14 +133,13 @@ init -1000 python:
 				while n < l and db_voice_full_text[n] == ' ':
 					n += 1
 				
-				# Добираемся до следующего символа
-				#   [] - доступ к байту строки, а не к символу
-				#   И т. к. многие символы в Unicode занимают больше 1 байта,
-				#     номер байта может не совпадать с номером символа
+				# going to the next symbol
+				#   [] - access to byte, not to symbol
+				#   In UTF-8 many symbols take more 1 bytes
 				while n < l and not is_first_byte(db_voice_full_text[n]):
 					n += 1
 				
-				# Все теги, что начали открываться/закрываться, должны быть открыты/закрыты нормально
+				# All tags, that started to open/close, must be opened/closed fully
 				while n < l and db_voice_full_text[0:n].count('{') != db_voice_full_text[0:n].count('}'):
 					n += 1
 				
@@ -149,20 +148,20 @@ init -1000 python:
 			
 			next_text = db_voice_full_text[0:n]
 			
-			# Закрываем открытые теги, чтобы при дополнении строки "пробелами"
-			#   эти пробелы не были подчёркнуты или зачёркнуты
+			# Close opened tags to on addition of string with spaces
+			#   it spaces was not underlines or strikes
 			tags_close_str = ''
 			for tag in ('u', 's'):
 				count = next_text.count('{' + tag + '}') - next_text.count('{/' + tag + '}')
 				tags_close_str += ('{/' + tag + '}') * count
 			
-			# Определяем кол-во символов до конца последнего слова,
-			# Чтобы заполнить их неразрывными пробелами, чтобы не было переноса текста внутри недопечатанного слова
+			# Get count symbols before end last word,
+			# to fill it nbsp (non-breaking space) to there is no wordwrap inside unprinted word
 			t = 0
 			while n + t < l and db_voice_full_text[n + t] != ' ':
 				t += 1
 			
-			# Находим последнее слово и удаляем из него все тэги
+			# find last word and remove in it all tags
 			last_word = db_voice_full_text[n:n+t]
 			while '{' in last_word:
 				start_tag = last_word.index('{')
@@ -178,7 +177,7 @@ init -1000 python:
 				if is_first_byte(c):
 					extra += 1
 			
-			nbsp = chr(0xC2) + chr(0xA0) # 0xC2, 0xA0 - код неразрывного пробела в utf-8
+			nbsp = chr(0xC2) + chr(0xA0) # 0xC2, 0xA0 - code non-breaking space in UTF-8
 			db_voice_text = next_text + tags_close_str + nbsp * extra
 	
 	

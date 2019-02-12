@@ -8,10 +8,10 @@ init python:
 		objs = [obj for obj in objects_on_location if not isinstance(obj, Character)]
 		characters = [obj for obj in objects_on_location if isinstance(obj, Character) and obj is not me]
 		
-		# Вычитаем 253.9/255 из каждого (rgb) канала, чтобы все цвета, кроме чисто-белого, стали чёрными
+		# subtract 253.9/255 from each (rgb) channel, to all colors, exceptly clear-white, become black
 		matrix = im.matrix.identity()
 		matrix[4] = matrix[9] = matrix[14] = -253.9/255.0
-		matrix = im.matrix.invert() * matrix # перед этим инвертируем цвета
+		matrix = im.matrix.invert() * matrix # invert colors before it
 		
 		location_free = cur_location.free()
 		

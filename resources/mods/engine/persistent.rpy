@@ -3,7 +3,7 @@ init -1002 python:
 		try:
 			if (not os.path.exists(path)) or os.path.getsize(path) == 0:
 				res = dict()
-				out_msg('Файл <' + path + '> не существует или пуст')
+				out_msg('Persistent, load_object', 'File <' + path + '> is not exists or empty')
 			else:
 				tmp_file = open(path, 'rb')
 				
@@ -15,7 +15,7 @@ init -1002 python:
 			return res
 		except:
 			persistent_updates = False
-			out_msg('Ошибка при загрузке объекта из файла <' + path + '>')
+			out_msg('Persistent, load_object', 'Error on loading object from file <' + path + '>')
 			raise
 	
 	def save_object(path, obj):
@@ -35,7 +35,7 @@ init -1002 python:
 			tmp_file.close()
 		except:
 			persistent_updates = False
-			out_msg('Ошибка при сохранении объекта в файл <' + path + '>')
+			out_msg('Persistent, save_object', 'Error on saving object to file <' + path + '>')
 			raise
 	
 	def load_global_vars(path):

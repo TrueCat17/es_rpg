@@ -2,10 +2,10 @@ init -1001 python:
 	Style = Object # class
 	
 	
-	# Важно!
-	# В style.* обязательно:
-	# 	использовать отдельно x- и y- свойства,
-	# 	не использовать *align
+	# Important!
+	# In style.* necessarily:
+	#   use x- and y- property separately
+	#   do not use *align
 	
 	style = Object()
 	
@@ -48,7 +48,7 @@ init -1001 python:
 	style.text.font = 'Calibri'
 	style.text.text_align = 'left' 				# left | center | right
 	style.text.text_valign = 'top' 				# top  | center |  down
-# Пока без поддержки:
+# Not supported:
 #	style.text.bold = False
 #	style.text.italic = False
 #	style.text.underline = False

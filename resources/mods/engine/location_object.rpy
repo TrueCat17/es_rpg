@@ -8,7 +8,7 @@ init -1001 python:
 	def register_location_object(obj_name, directory, main_image, free_image,
 	                             max_in_inventory_cell = 0, remove_to_location = True):
 		if location_objects.has_key(obj_name):
-			out_msg('register_location_object', 'Объект с именем <' + obj_name + '> уже существует')
+			out_msg('register_location_object', 'Object <' + obj_name + '> already exists')
 			return
 		
 		location_objects[obj_name] = {
@@ -24,33 +24,33 @@ init -1001 python:
 	                                       count_frames, start_frame, end_frame, time = 1.0):
 		if xalign < 0 or xalign > 1:
 			out_msg('register_location_object_animation',
-			        'При регистрации анимации <' + str(anim_name) + '> объекта <' + str(obj_name) + '>\n' +
-			        'Указан некорректный xalign: ' + str(xalign) + '\n' +
-			        'Ожидалось значение от 0.0 до 1.0')
+			        'On registration of animation <' + str(anim_name) + '> of object <' + str(obj_name) + '>\n' +
+			        'set invalid xalign: ' + str(xalign) + '\n' +
+			        'Expected from 0.0 to 1.0')
 			return
 		if yalign < 0 or yalign > 1:
 			out_msg('register_location_object_animation',
-			        'При регистрации анимации <' + str(anim_name) + '> объекта <' + str(obj_name) + '>\n' +
-			        'Указан некорректный yalign: ' + str(yalign) + '\n' +
-			        'Ожидалось значение от 0.0 до 1.0')
+			        'On registration of animation <' + str(anim_name) + '> of object <' + str(obj_name) + '>\n' +
+			        'set invalid yalign: ' + str(yalign) + '\n' +
+			        'Expected from 0.0 to 1.0')
 			return
 		
 		if count_frames <= 0 or not (0 <= start_frame < count_frames) or not (0 <= end_frame < count_frames):
 			out_msg('register_location_object_animation',
-			        'При регистрации анимации <' + str(anim_name) + '> объекта <' + str(obj_name) + '>\n' +
-			        'Указаны некорректные кадры:\n' +
+			        'On registration of animation <' + str(anim_name) + '> of object <' + str(obj_name) + '>\n' +
+			        'set invalid frames:\n' +
 			        'count, start, end = ' + str(count_frames) + ', ' + str(start_frame) + ', ' + str(end_frame))
 			return
 		
 		if not location_objects.has_key(obj_name):
-			out_msg('register_location_object_animation', 'Объект <' + str(obj_name) + '> не существует')
+			out_msg('register_location_object_animation', 'Object <' + str(obj_name) + '> not registered')
 			return
 		
 		obj = location_objects[obj_name]
 		
 		animations = obj['animations']
 		if animations.has_key(anim_name):
-			out_msg('register_location_object_animation', 'Анимация <' + str(anim_name) + '> объекта <' + str(obj_name) + '> уже существует')
+			out_msg('register_location_object_animation', 'Animation <' + str(anim_name) + '> of object <' + str(obj_name) + '> already exists')
 			return
 		
 		animation = animations[anim_name] = Object(
@@ -92,7 +92,7 @@ init -1001 python:
 		
 		def set_animation(self, anim_name):
 			if not self.animations.has_key(anim_name):
-				out_msg('set_animation', 'Объект <' + str(self.type) + '> не содержит анимации <' + str(anim_name) + '>')
+				out_msg('set_animation', 'Animation <' + str(anim_name) + '> not found in object <' + str(self.type) + '>')
 				return False
 			
 			self.anim_name = anim_name
@@ -153,14 +153,14 @@ init -1001 python:
 	
 	def add_location_object(location_name, place, obj_name):
 		if not locations.has_key(location_name):
-			out_msg('add_location_object', 'Локация <' + location_name + '> не зарегистрирована')
+			out_msg('add_location_object', 'Location <' + location_name + '> not registered')
 			return
 		location = locations[location_name]
 		
 		if type(place) is str:
 			tmp_place = location.get_place(place)
 			if not tmp_place:
-				out_msg('add_location_object', 'В локации <' + location_name + '> нет места с именем <' + place + '>')
+				out_msg('add_location_object', 'Place <' + place + '> not found in location <' + location_name + '>')
 				return
 			place = tmp_place
 			px, py = place.x + place.width / 2, place.y + place.height / 2
@@ -168,7 +168,7 @@ init -1001 python:
 			px, py = place['x'], place['y'] - 1
 		
 		if not location_objects.has_key(obj_name):
-			out_msg('', 'Объект <' + obj_name + '> не зарегистрирован')
+			out_msg('', 'Object <' + obj_name + '> not registered')
 			return
 		
 		instance = LocationObject(obj_name, px, py)
@@ -178,14 +178,14 @@ init -1001 python:
 	
 	def remove_location_object(location_name, place, obj_name, count = 1):
 		if not locations.has_key(location_name):
-			out_msg('remove_location_object', 'Локация <' + location_name + '> не зарегистрирована')
+			out_msg('remove_location_object', 'Location <' + location_name + '> not registered')
 			return
 		location = locations[location_name]
 		
 		if type(place) is str:
 			tmp_place = location.get_place(place)
 			if tmp_place is None:
-				out_msg('remove_location_object', 'В локации <' + location_name + '> нет места с именем <' + place + '>')
+				out_msg('remove_location_object', 'Place <' + place + '> in location <' + location_name + '> not found')
 				return
 			place = tmp_place
 		

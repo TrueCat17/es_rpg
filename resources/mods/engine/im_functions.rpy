@@ -1,49 +1,12 @@
 init -1001 python:
 	
-	# Особенности реализации:
-	
-	# Все функции возвращают в качестве результата строку (принимают тоже строки)
-	# При обновлении экрана (рендере) обновляются все image
-	# Сначала выполняются все im-функции
-	
-	# По сути - это просто манипуляции со строками
-	# Т. е. довольно дёшево относительно манипуляций с реальными изображениями
-	
-	# Потом, когда получена окончательная строка, по ней составляется изображение
-	# Т. к. используется кэш, то как бы сложны не были манипуляции, выполняются они только один раз для каждой окончательной строки
-	# Разумеется, при превышении определённого размера, часть кэша (наиболее редко используемая) удаляется
-	# Если запрашиваемая часть была когда-то удалена - она создаётся заново (Ваш К.О.)
-	#   Если часть используемых промежуточных изображений сохранилась в кэше, то она тоже используется
-	
-	# Так как тут нет всяких ограничений типа "im-функции принимают на вход только путь до изображения или image и возвращают image", то
-	# в качестве аргумента любой функции может быть использована любая строка
-	# (В отличие от Ren'Py, где результат ConditionSwitch не может быть подан на вход im.Scale, например)
-	#                                                                       (См. 9-й слайд 4-го урока лолбота)
-	
-	# + из-за автообновления такая чушь из оригинала:
-	# image cs normal stethoscope far = ConditionSwitch(
-	# 	"persistent.sprite_time=='sunset'",im.MatrixColor( im.Composite((630,1080), (0,0), "images/sprites/far/cs/cs_1_body.png",(0,0), "images/sprites/far/cs/cs_1_stethoscope.png",(0,0), "images/sprites/far/cs/cs_1_normal.png"), im.matrix.tint(0.94, 0.82, 1.0) ),
-	# 	"persistent.sprite_time=='night'",im.MatrixColor( im.Composite((630,1080), (0,0), "images/sprites/far/cs/cs_1_body.png",(0,0), "images/sprites/far/cs/cs_1_stethoscope.png",(0,0), "images/sprites/far/cs/cs_1_normal.png"), im.matrix.tint(0.63, 0.78, 0.82) ),
-	# 	True,im.Composite((630,1080), (0,0), "images/sprites/far/cs/cs_1_body.png",(0,0), "images/sprites/far/cs/cs_1_stethoscope.png",(0,0), "images/sprites/far/cs/cs_1_normal.png") )
-	
-	# заменяется на лаконичное
-	# image cs normal stethoscope far = im.MatrixColor(
-	# 	im.Composite((630,1080),
-	# 		(0,0), "images/sprites/far/cs/cs_1_body.png",
-	# 		(0,0), "images/sprites/far/cs/cs_1_stethoscope.png",
-	# 		(0,0), "images/sprites/far/cs/cs_1_normal.png"
-	# 	),
-	# 	persistent.tint_sprite_time
-	# )
-	
-	# Где persistent.tint_sprite_time меняется вместе с persistent.sprite_time
-	# Но оригинальный вариант тоже работает, разумеется
-	
+	# All im-funcs works (takes and returns) with str
+	# Engine use inside image-cache for execution im-func, including in-between images
 	
 	
 	def ConditionSwitch(*args):
 		if len(args) % 2:
-			out_msg('ConditionSwitch', 'Ожидалось чётное количество аргументов')
+			out_msg('ConditionSwitch', 'Expected even count of arguments')
 			return ''
 		
 		for i in xrange(0, len(args), 2):
@@ -55,7 +18,7 @@ init -1001 python:
 			if cond_res:
 				return args[i + 1]
 		
-		out_msg('ConditionSwitch', 'Ни одно условие не выполнено')
+		out_msg('ConditionSwitch', 'All conditions are failed')
 		return args[1]
 	
 	def get_back_with_color(image, color = '#000', alpha = 0.05):
@@ -73,7 +36,7 @@ init -1001 python:
 				args = args[0]
 			else:
 				if size != 0 and size != 20 and size != 25:
-					out_msg('Matrix', 'Ожидалось 20 или 25 значений, получено ' + str(len(args)))
+					out_msg('Matrix', 'Expected 20 or 25 values, got ' + str(len(args)))
 				args = list(args) + [0] * (25 - size)
 			
 			return list.__new__(cls, args)
@@ -85,7 +48,7 @@ init -1001 python:
 				args = args[0]
 			else:
 				if size != 0 and size != 20 and size != 25:
-					out_msg('Matrix', 'Ожидалось 20 или 25 значений, получено ' + str(len(args)))
+					out_msg('Matrix', 'Expected 20 or 25 values, got ' + str(len(args)))
 				args = list(args) + [0] * (25 - size)
 			
 			list.__init__(self, args)
@@ -259,7 +222,7 @@ init -1001 python:
 		@staticmethod
 		def composite(*args):
 			if (len(args) % 2) == 0:
-				out_msg('im.Composite', 'Ожидалось нечётное количество аргументов')
+				out_msg('im.Composite', 'Expected odd count of arguments')
 				return ''
 			
 			size = str(int(args[0][0])) + ' ' + str(int(args[0][1]))

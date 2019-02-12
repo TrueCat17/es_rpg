@@ -18,11 +18,11 @@ init -1002 python:
 		
 		if isinstance(obj, str):
 			if not cur_location_name:
-				out_msg('cam_to("place_name")', 'Текущая локация не установлена, сначала следует вызвать set_location')
+				out_msg('cam_to("place_name")', 'Current location is not defined, need to call set_location')
 				return
 			place = cur_location.get_place(obj)
 			if not place:
-				out_msg('cam_to("place_name")', 'В локации <' + cur_location_name + '> нет места с именем <' + obj + '>')
+				out_msg('cam_to("place_name")', 'Place <' + obj + '> not found in location <' + cur_location_name + '>')
 				return
 			cam_object = place
 		else:
@@ -48,12 +48,12 @@ init -1002 python:
 		
 		for location_name in locations.keys():
 			location = locations[location_name]
-			if location.is_room:  # Помещение (комната, автобус...)?
-				scale = min(stage_width / location.width, stage_height / location.height) # Увеличение до одной из сторон экрана
-				scale = spec_floor(scale) # Округление в меньшую сторону
+			if location.is_room:
+				scale = min(stage_width / location.width, stage_height / location.height) # increase to width OR height
+				scale = spec_floor(scale) # round to down
 			else:
-				scale = max(stage_width / location.width, stage_height / location.height) # Увеличение до обоих сторон экрана
-				scale = spec_ceil(scale)  # Округление в большую сторону
+				scale = max(stage_width / location.width, stage_height / location.height) # increase to width AND height
+				scale = spec_ceil(scale)  # round to up
 			
 			location_scale = max(location_scale, scale)
 		
@@ -80,12 +80,12 @@ init -1002 python:
 	
 	def register_place(location_name, place_name, x, y, width, height):
 		if not locations.has_key(location_name):
-			out_msg('register_place', 'Локация <' + location_name + '> не зарегистрирована')
+			out_msg('register_place', 'Location <' + location_name + '> not registered')
 			return
 		
 		location = locations[location_name]
 		if location.get_place(place_name):
-			out_msg('register_place', 'Место <' + place_name + '> в локации <' + self.name + '> уже существует')
+			out_msg('register_place', 'Place <' + place_name + '> in location <' + self.name + '> already exists')
 			return
 		
 		place = Place(x, y, width, height)
@@ -93,7 +93,7 @@ init -1002 python:
 	
 	def register_exit(location_name, to_location_name, to_place_name, x, y, width, height):
 		if not locations.has_key(location_name):
-			out_msg('register_exit', 'Локация <' + location_name + '> не зарегистрирована')
+			out_msg('register_exit', 'Location <' + location_name + '> not registered')
 			return
 		
 		location = locations[location_name]
@@ -104,12 +104,12 @@ init -1002 python:
 	
 	def set_location(location_name, place):
 		if not locations.has_key(location_name):
-			out_msg('set_location', 'Локация <' + location_name + '> не найдена')
+			out_msg('set_location', 'Location <' + location_name + '> not registered')
 			return
 		
 		if type(place) is not dict:
 			if not locations[location_name].get_place(place):
-				out_msg('set_location', 'Локация <' + location_name + '> не содержит места <' + str(place) + '>')
+				out_msg('set_location', 'Place <' + str(place) + '> in location <' + location_name + '> not found')
 				return
 		
 		if not has_screen('location'):
@@ -147,9 +147,9 @@ init -1002 python:
 			reg_size = str(reg_width) + 'x' + str(reg_height)
 			real_size = str(real_width) + 'x' + str(real_height)
 			out_msg('set_location', 
-					'Размер локации при регистрации (' + reg_size + ') не соответствует реальному размеру (' + real_size + ')\n' + 
-					'Локация: <' + cur_location_name + '>\n' + 
-					'Основное изображение: <' + main + '>')
+					'Location sizes on registration (' + reg_size + ') not equal to real sizes (' + real_size + ')\n' + 
+					'Location: <' + cur_location_name + '>\n' + 
+					'Main image: <' + main + '>')
 	
 	def hide_location():
 		global cur_location_name, cur_to_place
@@ -180,7 +180,7 @@ init -1002 python:
 					path = im.recolor(path, r, g, b)
 			else:
 				if need:
-					out_msg('get_location_image', 'Файл <' + path + '> не найден')
+					out_msg('get_location_image', 'File <' + path + '> not found')
 				path = None
 		
 		obj.cache[key] = path

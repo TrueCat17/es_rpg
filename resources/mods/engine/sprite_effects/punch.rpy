@@ -25,13 +25,7 @@ init -9000 python:
 			else:
 				t = (dtime % self.time_one) / self.time_one # 0.0 -> 1.0
 				
-				if True:                      # Дёргано, резко
-					t = 1 if t > 0.5 else -1
-				else:                         # Плавно
-					if t > 0.5:
-						t = 1 - t
-					t *= 2
-				
+				t = 1 if t > 0.5 else -1
 				m = 1 if int(dtime / self.time_one) % 2 else -1
 				
 				screen.new_data[self.prop] = round(t * m * self.dist)
