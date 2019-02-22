@@ -277,7 +277,7 @@ screen dialogue_box:
 							yalign 0.5
 							ground db_prev_btn
 							size   (db_prev_btn_size, db_prev_btn_size)
-							action ShowMenu('prev_text')
+							action prev_text_show
 						
 						image db_voice:
 							size db_voice_size
@@ -328,7 +328,7 @@ screen dialogue_box:
 							yalign 0.5
 							ground db_prev_btn
 							size   (db_prev_btn_size, db_prev_btn_size)
-							action ShowMenu('prev_text')
+							action prev_text_show
 						
 						null size db_voice_size
 						

@@ -24,6 +24,7 @@ init -1001 python:
 	style.default.crop = (0.0, 0.0, 1.0, 1.0)
 	style.default.rotate = 0
 	style.default.alpha = 1
+	style.default.clipping = False
 	
 	style.screen = Style(style.default)
 	style.screen.modal = False

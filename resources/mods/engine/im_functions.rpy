@@ -314,7 +314,7 @@ init -1001 python:
 			if ground is None:
 				ground = vbar_ground if vertical else bar_ground
 			if hover is None:
-				hover  = vbar_hover if vertical else bar_hover
+				hover  =  vbar_hover if vertical else bar_hover
 			tw, th = get_image_size(ground)
 			
 			if vertical:

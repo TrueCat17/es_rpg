@@ -65,15 +65,15 @@ init -1001 python:
 			self.name_postfix = kwargs.get('name_postfix', '')
 			self.color = kwargs.get('color', 0)
 			if type(self.color) is not int:
-				out_msg('Character <' + name + '> must have color with type <int>, not <' + str(type(self.color)) + '>')
-				self.color = 0
+				r, g, b, a = renpy.easy.color(self.color)
+				self.color = (r << 16) + (g << 8) + b
 			
 			self.text_prefix = kwargs.get('text_prefix', '')
 			self.text_postfix = kwargs.get('text_postfix', '')
 			self.text_color = kwargs.get('text_color', 0xFFFF00)
 			if type(self.text_color) is not int:
-				out_msg('Character <' + name + '> must have text_color with type <int>, not <' + str(type(self.text_color)) + '>')
-				self.text_color = 0
+				r, g, b, a = renpy.easy.color(self.text_color)
+				self.text_color = (r << 16) + (g << 8) + b
 			
 			# rpg-props:
 			self.directory = None

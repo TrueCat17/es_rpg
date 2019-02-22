@@ -1,110 +1,91 @@
 init python:
-	pt_background = im.Rect('#181818')
+	pt_background = im.Rect('#181818BB')
 	
+	pt_spacing = 5
 	pt_x_indent = 20
+	pt_xsize = 0.75
+	pt_ysize = 0.95
 	
-	pt_viewport_y = 0.05
-	pt_viewport_ysize = 1 - pt_viewport_y * 2
-	pt_viewport_content_y = 0.01
-	
-	pt_viewport_scroll_part = 1.0 / 2
+	slider_v_init('prev_text', 0, pt_ysize)
 	
 	
-	def pt_add_viewport_content_y(v):
-		global pt_viewport_content_y
-		pt_viewport_content_y = in_bounds(pt_viewport_content_y + v, 0.01, 0.99)
-	def pt_set_viewport_content_y(v):
-		global pt_viewport_content_y
-		pt_viewport_content_y = in_bounds(v, 0.01, 0.99)
+	pt_showed_time = 0
+	pt_hided_time = 0
+	pt_appearance_time = 0.4
+	pt_disappearance_time = 0.4
 	
-	pt_scroll_hovered = False
-	pt_scrolling = False
-	pt_scroll_y = 0
+	def prev_text_show():
+		global pt_showed_time, pt_hided_time
+		pt_showed_time = time.time()
+		pt_hided_time = 0
+		show_screen('prev_text')
+	
+	def prev_text_close():
+		global pt_hided_time
+		pt_hided_time = time.time()
 
 
 screen prev_text:
 	modal True
 	zorder 10000
 	
-	if not has_screen('console'):
-		key 'ESCAPE' action [HideMenu('prev_text'), SetVariable('pause_hided_time', time.time())]
+	key 'ESCAPE' action prev_text_close
 	
+	button:
+		ground 'images/bg/black.jpg'
+		size (1.0, 1.0)
+		alpha 0.01
+		mouse False
+		action prev_text_close
+	
+	
+	python:
+		dtime = time.time() - pt_showed_time
+		x = int(-pt_xsize * get_stage_width() * (pt_appearance_time - dtime) / pt_appearance_time)
+		if x > 0:
+			x = 0
+		
+		pt_viewport_content_height = len(db_prev_texts) * (db_text_size + pt_spacing) * 2 # 2 - extra space for wordwraps
+		slider_v_change('prev_text', length = pt_viewport_content_height, button_size = db_text_size)
+		y = int(-slider_v_get_value('prev_text') * (pt_viewport_content_height - pt_ysize * get_stage_height()))
+		
+		if pt_hided_time:
+			dtime = time.time() - pt_hided_time
+			alpha = (pt_disappearance_time - dtime) / pt_disappearance_time
+			if alpha <= 0:
+				renpy.hide_screen('prev_text')
+		else:
+			alpha = 1
 	
 	image pt_background:
-		size (1.0, 1.0)
-	
-	python:
-		if not pause_inited:
-			init_pause()
-	button:
-		pos    (get_stage_width() - 30, 30)
-		anchor (0.5, 0.5)
-		size   (pause_close_size, pause_close_size)
-		ground pause_close
-		action HideMenu('prev_text')
-	
-	python:
-		pt_viewport_content_height = len(db_prev_texts) * db_text_size * 2
-		pt_viewport_scroll_height = int(pt_viewport_content_height * 0.8)
-		y = int(pt_viewport_y * get_stage_height() -
-		          pt_viewport_content_y * abs(get_stage_height() * (1 - pt_viewport_y * 2) - pt_viewport_content_height) + 10)
-	
-	vbox:
-		size (1.0, 1.0)
-		ypos y
-		spacing 5
+		clipping True
+		alpha alpha
+		xpos x
+		yalign 0.5
+		size (pt_xsize, pt_ysize)
 		
-		for name_text, name_color, text, text_color in db_prev_texts:
-			$ tmp_name = ('{color=' + str(name_color) + '}' + name_text + '{/color}: ') if name_text else ''
-					
-			text (tmp_name + text):
-				text_size db_text_size
-				color text_color
-				xsize get_stage_width() - pt_x_indent * 3
-				xpos pt_x_indent
-	
-	if pt_viewport_content_height > get_stage_height() * 0.95:
 		vbox:
-			xpos get_stage_width() - pt_x_indent
-			xanchor 0.5
-			xsize 35
-			yalign 0.5
+			ypos y
+			spacing pt_spacing
 			
-			textbutton '/\\':
-				color 0xFFFFFF
-				xalign 0.5
-				size (25, 25)
-				action pt_add_viewport_content_y(-0.25)
-			
-			$ image = im.Bar(pt_viewport_content_y * (1 - pt_viewport_scroll_part) + pt_viewport_scroll_part,
-					         pt_viewport_content_y * (1 - pt_viewport_scroll_part),
-					         vertical = True)
-			button:
-				ground image
-				hover  image
-				xalign 0.5
-				size (35, 0.6)
-				unhovered SetVariable('pt_scroll_hovered', False)
-				action [SetVariable('pt_scroll_hovered', True),
-						pt_set_viewport_content_y(
-							(get_local_mouse()[1] / (0.6 * get_stage_height())) * (1 + pt_viewport_scroll_part) - pt_viewport_scroll_part / 2)]
-			python:
-				pt_scroll_local_y = get_local_mouse()[1]
+			for name_text, name_color, text, text_color in db_prev_texts:
+				python:
+					if name_text:
+						tmp_color = hex(name_color)[2:]
+						tmp_color = '0' * (6 - len(tmp_color)) + tmp_color
+						tmp_name = '{color=' + tmp_color + '}' + name_text + '{/color}: '
+					else:
+						tmp_name = ''
 				
-				if not pt_scrolling and pt_scroll_hovered and get_mouse_down():
-					pt_scrolling = True
-					pt_scroll_y = get_mouse()[1] - pt_scroll_local_y
-				if not get_mouse_down():
-					pt_scrolling = False
-				
-				if pt_scrolling:
-					y = get_mouse()[1] - pt_scroll_y
-					pt_set_viewport_content_y(
-						(y / (0.6 * get_stage_height())) * (1 + pt_viewport_scroll_part) - pt_viewport_scroll_part / 2)
+				text (tmp_name + text):
+					text_size db_text_size
+					color text_color
+					xsize int(pt_xsize * get_stage_width()) - pt_x_indent * 2 - db_text_size
+					xpos pt_x_indent
+		
+		null:
+			align (0.99, 0.5)
 			
-			textbutton '\\/':
-				color 0xFFFFFF
-				xalign 0.5
-				size (25, 25)
-				action pt_add_viewport_content_y(+0.25)
+			$ slider_v_set('prev_text')
+			use slider_v
 

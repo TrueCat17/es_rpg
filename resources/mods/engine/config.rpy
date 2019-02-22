@@ -10,7 +10,7 @@ init -997 python:
 	config.quick_load_key = 'L'
 	config.quick_save_key = 'Q'
 	
-	config.count_prev_texts = 25
+	config.count_prev_texts = 50
 	
 	# height calculate: width / get_from_hard_config("window_w_div_h", float)
 	config.save_screenshot_width = 480

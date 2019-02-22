@@ -64,7 +64,7 @@ init python:
 		
 		test_1623_shake__direction_changed = False
 		
-		if test_1623_shake__fail:
+		if test_1623_shake__fail or save_screenshotting:
 			return
 		
 		to_x, to_y = test_1623_shake__list[-1]
@@ -177,8 +177,7 @@ screen test_1623_shake__screen:
 	use test_1623__main_screen
 	
 	hbox:
-		xalign 0.5
-		yalign 0.97
+		align (0.5, 0.97)
 		
 		textbutton 'ReStart' action test_1623_shake__init
 		
@@ -189,15 +188,13 @@ screen test_1623_shake__screen:
 	
 	
 	text ('Score: ' + str(test_1623_shake__score) + ' / 5' + '\n' + 'Level: ' + str(test_1623_shake__level)):
-		xalign    0.05
-		yalign    0.5
+		align    (0.05, 0.5)
 		text_size 30
 		color     0x00AA00
 	
 	if test_1623_shake__fail:
 		text 'DIED':
-			xalign    0.5
-			yalign    0.1
+			align    (0.5, 0.1)
 			text_size 30
 			color     0xFF0000
 

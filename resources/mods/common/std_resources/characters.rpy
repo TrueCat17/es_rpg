@@ -1,4 +1,4 @@
-init -1000 python:
+init -990 python:
 	odn     = Character('Одногруппник',      color = 0xFFFFFF)
 	lk      = Character('Луркмор-кун',       color = 0xFFFFFF)
 	message = Character('Сообщение',         color = 0xFFFFFF)
@@ -42,5 +42,4 @@ init -1000 python:
 	for name in rpg_characters:
 		g[name].make_rpg('images/characters/', name, 'pioneer')
 		g['lp_' + name] = 0
-	
-	
+
