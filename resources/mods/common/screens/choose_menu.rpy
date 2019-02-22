@@ -34,7 +34,7 @@ screen choose_menu:
 				yalign 0.5
 				ground db_prev_btn
 				size   (db_prev_btn_size, db_prev_btn_size)
-				action ShowMenu('prev_text')
+				action prev_text_show
 			
 			null size db_voice_size # text
 			null size (db_next_btn_size, db_next_btn_size) # next
