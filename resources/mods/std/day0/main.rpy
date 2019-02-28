@@ -11,6 +11,12 @@ label day0_start:
 	
 	$ control = True
 	$ me.set_dress('home' * 0 + 'pioneer')
+	
+	$ t = get_location_objects(cur_location_name, me, 'gate_right')[0]
+	"1"
+	$ t.start_animation("opening", 10)
+	"2"
+	window hide
 	return
 	"Мне опять снился сон."
 	"Этот сон…"

@@ -185,6 +185,9 @@ init -1000 python:
 		if not sprites_effects_ended():
 			sprites_effects_to_end()
 			return
+		if not location_objects_animations_ended():
+			location_objects_animations_to_end()
+			return
 		
 		global pause_end, db_pause_end, db_dialogue, db_name_text, db_voice_text, db_voice_full_text, db_read
 		

@@ -5,6 +5,30 @@ init -1001 python:
 	
 	location_objects = dict()
 	
+	
+	def location_objects_animations_ended():
+		for obj in objects_on_location:
+			if not isinstance(obj, LocationObject):
+				continue
+			
+			animation = obj.animation
+			if animation.start_frame != animation.end_frame and obj.repeat >= 0:
+				if animation.time > 0 and time.time() - obj.animation_start_time < animation.time:
+					return False
+		return True
+	can_exec_next_funcs.append(location_objects_animations_ended)
+	
+	def location_objects_animations_to_end():
+		for obj in objects_on_location:
+			if not isinstance(obj, LocationObject):
+				continue
+			
+			animation = obj.animation
+			if animation.start_frame != animation.end_frame and obj.repeat >= 0 and animation.time > 0:
+				obj.animation_start_time = time.time() - obj.animation.time
+				obj.repeat = 0
+	
+	
 	def register_location_object(obj_name, directory, main_image, free_image,
 	                             max_in_inventory_cell = 0, remove_to_location = True):
 		if location_objects.has_key(obj_name):
@@ -17,22 +41,20 @@ init -1001 python:
 			'remove_to_location': remove_to_location,
 			'animations': Object()
 		}
-		register_location_object_animation(obj_name, None, 0, 0, directory, main_image, free_image, 1, 0, 0)
+		register_location_object_animation(obj_name, None, directory, main_image, free_image, 0, 0, 1, 0, 0)
 	
-	def register_location_object_animation(obj_name, anim_name, xalign, yalign,
+	def register_location_object_animation(obj_name, anim_name,
 	                                       directory, main_image, free_image,
+	                                       xpos, ypos,
 	                                       count_frames, start_frame, end_frame, time = 1.0):
-		if xalign < 0 or xalign > 1:
-			out_msg('register_location_object_animation',
-			        'On registration of animation <' + str(anim_name) + '> of object <' + str(obj_name) + '>\n' +
-			        'set invalid xalign: ' + str(xalign) + '\n' +
-			        'Expected from 0.0 to 1.0')
+		if not location_objects.has_key(obj_name):
+			out_msg('register_location_object_animation', 'Object <' + str(obj_name) + '> not registered')
 			return
-		if yalign < 0 or yalign > 1:
+		
+		if type(xpos) is not int or type(ypos) is not int:
 			out_msg('register_location_object_animation',
 			        'On registration of animation <' + str(anim_name) + '> of object <' + str(obj_name) + '>\n' +
-			        'set invalid yalign: ' + str(yalign) + '\n' +
-			        'Expected from 0.0 to 1.0')
+			        'set invalid pos: <' + str(xpos) + ', ' + str(ypos) + '>, expected ints')
 			return
 		
 		if count_frames <= 0 or not (0 <= start_frame < count_frames) or not (0 <= end_frame < count_frames):
@@ -40,10 +62,6 @@ init -1001 python:
 			        'On registration of animation <' + str(anim_name) + '> of object <' + str(obj_name) + '>\n' +
 			        'set invalid frames:\n' +
 			        'count, start, end = ' + str(count_frames) + ', ' + str(start_frame) + ', ' + str(end_frame))
-			return
-		
-		if not location_objects.has_key(obj_name):
-			out_msg('register_location_object_animation', 'Object <' + str(obj_name) + '> not registered')
 			return
 		
 		obj = location_objects[obj_name]
@@ -63,8 +81,8 @@ init -1001 python:
 			end_frame    = end_frame,
 			time         = float(time),
 		
-			xalign = xalign,
-			yalign = yalign,
+			xpos = xpos,
+			ypos = ypos,
 			xsize = 0,
 			ysize = 0,
 			loaded = False
@@ -85,7 +103,8 @@ init -1001 python:
 			self.xanchor, self.yanchor = 0.5, 1.0
 			self.xsize, self.ysize = 0, 0
 			
-			self.stop_animation()
+			self.remove_animation()
+			self.update()
 		
 		def set_frame(self, frame):
 			self.crop = (int(frame) * self.xsize, 0, self.xsize, self.ysize)
@@ -100,10 +119,6 @@ init -1001 python:
 			self.animation.first_update = True
 			return True
 		
-		def set_animation_frame(self, anim_name, frame):
-			self.set_animation(anim_name)
-			self.set_frame(frame)
-		
 		def main(self):
 			return get_location_image(self.animation, self.animation.directory, self.animation.main_image, '', location_object_ext, False)
 		
@@ -115,12 +130,11 @@ init -1001 python:
 				res = im.crop(res, self.crop)
 			return res
 		
-		def start_animation(self, anim_name, then_reverse = False, repeat = 0):
+		def start_animation(self, anim_name, repeat = 0):
 			if not self.set_animation(anim_name):
 				return
 			
 			self.animation_start_time = time.time()
-			self.then_reverse = then_reverse
 			self.repeat = int(repeat)
 		
 		def remove_animation(self):
@@ -128,6 +142,19 @@ init -1001 python:
 		
 		def update(self):
 			animation = self.animation
+			
+			dtime = time.time() - self.animation_start_time
+			time_k = 1
+			if animation.time > 0:
+				if dtime > animation.time:
+					if self.repeat:
+						self.animation_start_time = time.time()
+						time_k = 0
+					if self.repeat > 0:
+						self.repeat -= 1
+				else:
+					time_k = dtime / animation.time
+			
 			if animation.first_update:
 				animation.first_update = False
 				
@@ -139,16 +166,19 @@ init -1001 python:
 				self.xsize, self.ysize = animation.xsize, animation.ysize
 			
 				main_frame = self.animations[None]
-				self.x = self.orig_x + (1 - animation.xalign) * (animation.xsize - main_frame.xsize)
-				self.y = self.orig_y + (1 - animation.yalign) * (animation.ysize - main_frame.ysize)
+				self.x = self.orig_x - main_frame.xsize * self.xanchor + animation.xpos + self.xsize * self.xanchor
+				self.y = self.orig_y - main_frame.ysize * self.yanchor + animation.ypos + self.ysize * self.yanchor
 			
-			dtime = time.time() - self.animation_start_time
-			if self.then_reverse and dtime > animation.time:
-				dtime = 2 * animation.time - dtime
+			start_frame = animation.start_frame
+			end_frame = animation.end_frame
+			if end_frame < start_frame:
+				frame = start_frame - int((start_frame - end_frame + 1) * time_k)
+				frame = in_bounds(frame, end_frame, start_frame)
+			else:
+				frame = start_frame + int((end_frame - start_frame + 1) * time_k)
+				frame = in_bounds(frame, start_frame, end_frame)
 			
-			frame = (animation.end_frame + 1 - animation.start_frame) * dtime / animation.time
-			frame = in_bounds(frame, 0, animation.count_frames - 1)
-			self.set_frame(frame + animation.start_frame)
+			self.set_frame(frame)
 	
 	
 	def add_location_object(location_name, place, obj_name):
@@ -175,6 +205,61 @@ init -1001 python:
 		
 		location.objects.append(instance)
 		objects_on_location.append(instance)
+	
+	
+	def get_location_objects(location_name, place, obj_type, count = -1):
+		if not locations.has_key(location_name):
+			out_msg('get_location_objects', 'Location <' + location_name + '> not registered')
+			return
+		location = locations[location_name]
+		
+		if type(place) is str:
+			tmp_place = location.get_place(place)
+			if not tmp_place:
+				out_msg('get_location_objects', 'Place <' + place + '> not found in location <' + location_name + '>')
+				return
+			place = tmp_place
+			px, py = place.x + place.width / 2, place.y + place.height / 2
+		else:
+			px, py = place['x'], place['y']
+		
+		res = []
+		for obj in objects_on_location:
+			if not isinstance(obj, LocationObject):
+				continue
+			
+			if obj_type is not None and obj_type != obj.type:
+				continue
+			
+			dx, dy = obj.x - px, obj.y - py
+			dist = math.sqrt(dx * dx + dy * dy)
+			res.append((dist, obj))
+		
+		res.sort(key = lambda (dist, obj): dist)
+		if count >= 0:
+			res = res[:count]
+		return [obj for dist, obj in res]
+	
+	def get_near_location_object():
+		mx, my = me.x, me.y
+		min_dist = character_radius * 3
+		res = None
+		
+		for i in objects_on_location:
+			if not isinstance(i, LocationObject):
+				continue
+			
+			obj = location_objects[i.type]
+			if obj['max_in_inventory_cell'] <= 0:
+				continue
+			
+			dx, dy = i.x - mx, i.y - my
+			dist = math.sqrt(dx * dx + dy * dy)
+			if dist < min_dist:
+				min_dist = dist
+				res = i
+		return res
+	
 	
 	def remove_location_object(location_name, place, obj_name, count = 1):
 		if not locations.has_key(location_name):

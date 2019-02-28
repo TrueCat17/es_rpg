@@ -311,24 +311,4 @@ init -1002 python:
 		
 		return None
 	
-	def get_near_location_object():
-		mx, my = me.x, me.y
-		min_dist = character_radius * 3
-		res = None
-		
-		for i in objects_on_location:
-			if isinstance(i, Character):
-				continue
-			
-			obj = location_objects[i.type]
-			if obj['max_in_inventory_cell'] <= 0:
-				continue
-			
-			dx, dy = i.x - mx, i.y - my
-			dist = math.sqrt(dx * dx + dy * dy)
-			if dist < min_dist:
-				min_dist = dist
-				res = i
-		return res
-	
 

@@ -5,13 +5,22 @@ init 1 python:
 	register_location_object('gate_right', 'images/location_objects/', 'gate_right_main', 'gate_free')
 	
 	register_location_object_animation(
-		'gate_right', 'open', 0.5, 0,
+		'gate_right', 'open',
 		'images/location_objects/anim/', 'gate_right_main', 'gate_right_free',
+		0, 0,
+		3, 2, 2,
+		-1
+	)
+	register_location_object_animation(
+		'gate_right', 'opening',
+		'images/location_objects/anim/', 'gate_right_main', 'gate_right_free',
+		0, 0,
 		3, 0, 2
 	)
 	register_location_object_animation(
-		'gate_right', 'close', 0.5, 0,
+		'gate_right', 'closing',
 		'images/location_objects/anim/', 'gate_right_main', 'gate_right_free',
+		0, 0,
 		3, 2, 0
 	)
 	
