@@ -78,10 +78,10 @@ screen pause:
 			pause_y = 0
 			if pause_start_hided_time:
 				if time.time() - pause_start_hided_time < pause_rotate_time:
-					pause_rotate = pause_hide_rotate * float(time.time() - pause_start_hided_time) / pause_rotate_time
+					pause_rotate = pause_hide_rotate * (time.time() - pause_start_hided_time) / pause_rotate_time
 				else:
 					pause_rotate = pause_hide_rotate
-					pause_x = pause_y = float(time.time() - pause_start_hided_time - pause_rotate_time) / pause_disappearance_time
+					pause_x = pause_y = (time.time() - pause_start_hided_time - pause_rotate_time) / pause_disappearance_time
 					
 					if pause_x >= 1:
 						pause_x, pause_y = 0, 0
@@ -93,7 +93,7 @@ screen pause:
 						set_fps(pause_before_fps)
 						hide_screen('pause')
 		else:
-			pause_y = float(time.time() - pause_showed_time - pause_appearance_time) / pause_appearance_time
+			pause_y = (time.time() - pause_showed_time - pause_appearance_time) / pause_appearance_time
 	
 	xpos   pause_x
 	ypos   pause_y

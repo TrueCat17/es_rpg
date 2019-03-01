@@ -309,7 +309,7 @@ screen dialogue_box:
 					
 					for db_name_text_i, db_name_color_i, db_voice_text_i, db_voice_color_i in db_last_dialogue:
 						python:
-							db_tmp_name = ('{color=' + str(db_name_color_i) + '}' + db_name_text_i + '{/color}: ') if db_name_text_i else ''
+							db_tmp_name = ('{color=' + hex(db_name_color_i)[2:] + '}' + db_name_text_i + '{/color}: ') if db_name_text_i else ''
 							db_tmp_voice = db_voice_text_i if db_voice_text_i else ' '
 						
 						text (db_tmp_name + db_tmp_voice):

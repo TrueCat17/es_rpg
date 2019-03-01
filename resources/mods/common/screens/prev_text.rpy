@@ -71,9 +71,7 @@ screen prev_text:
 			for name_text, name_color, text, text_color in db_prev_texts:
 				python:
 					if name_text:
-						tmp_color = hex(name_color)[2:]
-						tmp_color = '0' * (6 - len(tmp_color)) + tmp_color
-						tmp_name = '{color=' + tmp_color + '}' + name_text + '{/color}: '
+						tmp_name = '{color=' + hex(name_color)[2:] + '}' + name_text + '{/color}: '
 					else:
 						tmp_name = ''
 				

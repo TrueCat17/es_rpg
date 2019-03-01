@@ -28,7 +28,7 @@ init -9000 python:
 				t = 1 if t > 0.5 else -1
 				m = 1 if int(dtime / self.time_one) % 2 else -1
 				
-				screen.new_data[self.prop] = round(t * m * self.dist)
+				screen.new_data[self.prop] = int(round(t * m * self.dist))
 		
 		def remove(self):
 			screen.new_data[self.prop] = 0

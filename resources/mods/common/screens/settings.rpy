@@ -69,7 +69,7 @@ screen settings:
 		
 		ypos settings_viewport_y
 		ysize settings_viewport_ysize
-	
+		
 		if settings_show_mods:
 			vbox:
 				ypos y
