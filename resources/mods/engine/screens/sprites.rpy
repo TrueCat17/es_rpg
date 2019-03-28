@@ -133,6 +133,7 @@ init -1000 python:
 			index = max(index, sprites_list.index(scene) + 1)
 		
 		sprites_list.insert(index, spr)
+		persistent._seen_images[image_name] = True
 	
 	def hide_sprite(params):
 		if len(params) == 0:

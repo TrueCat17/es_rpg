@@ -163,6 +163,21 @@ init -999 python:
 			call_screen_name, call_ret_name = screen_name, ret_name
 			
 			show_screen(screen_name)
+		
+		@staticmethod
+		def seen_image(image):
+			return persistent._seen_images.has_key(image)
+		
+		@staticmethod
+		def seen_audio(file_name):
+			return persistent._seen_audio.has_key(file_name)
+		
+		@staticmethod
+		def seen_label(label):
+			return persistent._seen_labels[get_current_mod()].has_key(label)
+		@staticmethod
+		def get_all_labels():
+			return _get_all_labels()
 	
 	
 	

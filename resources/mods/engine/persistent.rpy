@@ -111,6 +111,13 @@ init -1000 python:
 	if not persistent.has_attr('config'):
 		persistent.config = Object()
 	
+	for prop in ('_seen_labels', '_seen_images', '_seen_audio'):
+		if not persistent.has_attr(prop):
+			persistent[prop] = Object()
+	
+	if not persistent._seen_labels.has_key(get_current_mod()):
+		persistent._seen_labels[get_current_mod()] = Object()
+	
 	persistent_need_save = False
 	def persistent_save():
 		global persistent_need_save
