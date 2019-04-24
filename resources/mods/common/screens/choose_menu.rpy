@@ -4,6 +4,8 @@ screen choose_menu:
 	
 	use engine
 	
+	$ db_skip_tab = False
+	
 	image 'images/bg/black.jpg':
 		size (1.0, 1.0)
 		alpha 0.05

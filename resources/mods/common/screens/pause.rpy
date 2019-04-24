@@ -71,6 +71,8 @@ screen pause:
 	modal  True
 	
 	python:
+		db_skip_tab = False
+		
 		if not pause_inited:
 			init_pause()
 		

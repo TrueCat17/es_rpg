@@ -28,24 +28,18 @@ init -1001 python:
 	to_left = 1
 	to_right = 2
 	
-	character_skip_start_time = None
-	character_skip_acceleration = 5
-	def character_accelerate():
-		now = time.time()
+	
+	def characters_to_end():
 		for obj in objects_on_location:
 			if isinstance(obj, Character):
-				last_start = obj.start_skip_times[-1] if obj.start_skip_times else None
-				last_stop = obj.stop_skip_times[-1] if obj.stop_skip_times else None
-				if last_start is None or last_start < last_stop:
-					obj.start_skip_times.append(now)
-	def character_unaccelerate():
-		now = time.time()
+				obj.move_to_end()
+	
+	def characters_moved():
 		for obj in objects_on_location:
-			if isinstance(obj, Character):
-				last_start = obj.start_skip_times[-1] if obj.start_skip_times else None
-				last_stop = obj.stop_skip_times[-1] if obj.stop_skip_times else None
-				if last_start is not None and (last_stop is None or last_start > last_stop):
-					obj.stop_skip_times.append(now)
+			if isinstance(obj, Character) and not obj.ended_move_waiting():
+				return False
+		return True
+	can_exec_next_funcs.append(characters_moved)
 	
 	
 	characters = []
@@ -86,11 +80,9 @@ init -1001 python:
 			self.move_kind = 'stay'    #  'stay'  | 'walk' | 'run'
 			
 			self.moving_start_time = time.time()
-			self.start_skip_times = []
-			self.stop_skip_times = []
 			
 			self.end_stop_time = None
-			self.end_moved = True
+			self.moving_ended = True
 			
 			self.x, self.y = 0, 0
 			self.crop = (0, 0, character_xsize, character_ysize)
@@ -149,24 +141,23 @@ init -1001 python:
 			if not self.place_names:
 				return
 			
-			if not cur_location_name:
-				out_msg('Character.next_index', 'Current location is not defined, need to call set_location')
-				return
-			
 			place_name = self.place_names[self.place_index]
-			place = cur_location.get_place(place_name)
+			place = self.place = self.location.get_place(place_name)
 			if not place:
-				out_msg('Character.next_index', 'Place <' + str(place_name) + '> not found in location <' + cur_location_name + '>')
+				out_msg('Character.to_next_place', 'Place <' + str(place_name) + '> not found in location <' + self.location.name + '>')
 				return
 			
-			character_unaccelerate()
 			self.moving_start_time = time.time()
-			self.start_skip_times = []
-			self.stop_skip_times = []
 			
 			self.from_x, self.from_y = int(self.x), int(self.y)
 			self.to_x, self.to_y = int(place.x + place.width / 2), int(place.y + place.height / 2)
 			self.dx, self.dy = self.to_x - self.from_x, self.to_y - self.from_y
+			
+			if self.dx == 0 and self.dy == 0:
+				self.place_index += 1
+				if self.place_index < len(self.place_names):
+					self.to_next_place()
+				return
 			
 			def direction_from_d(dx, dy):
 				if abs(dx) > abs(dy):
@@ -201,12 +192,17 @@ init -1001 python:
 					self.place_index = place_name
 		
 		def move_to_place(self, place_names, run = False, exec_stop_time = -1):
+			if not cur_location:
+				out_msg('Character.to_next_place', 'Current location is not defined, need to call set_location')
+				return
+			self.location = cur_location
+			
 			if type(place_names) not in (list, tuple):
 				place_names = [place_names]
 			self.place_index = 0
 			self.place_names = place_names
 			
-			self.end_moved = False
+			self.moving_ended = False
 			
 			self.move_kind = 'run' if run else 'walk'
 			g = globals()
@@ -220,31 +216,26 @@ init -1001 python:
 			else:
 				self.end_stop_time = None
 		
-		def moved(self):
-			if self.end_stop_time is None:
-				return self.end_moved
-			return self.end_stop_time < time.time()
+		def move_to_end(self):
+			if self.end_stop_time:
+				self.moving_start_time -= self.end_stop_time - self.moving_start_time
+				self.end_stop_time = time.time()
+			elif not (self.place_names and type(self.place_names[-1]) is int): # not cycled path
+				self.moving_start_time = 0
+		
+		def ended_move_waiting(self):
+			if self.end_stop_time:
+				return self.end_stop_time < time.time()
+			if self.place_names and type(self.place_names[-1]) is int: # cycled path
+				return True
+			return self.moving_ended
 		
 		def update(self):
 			self.update_crop()
 			if self.pose == 'sit' or self.move_kind == 'stay':
 				return
 			
-			usual_time = 0
-			skip_time = 0
-			
-			now = time.time()
-			
-			if self.start_skip_times and not control:
-				stop_skip_times  = [self.moving_start_time] + self.stop_skip_times + [now]
-				start_skip_times = self.start_skip_times + [now]
-				for i in xrange(len(stop_skip_times) - 1):
-					usual_time += start_skip_times[i] - stop_skip_times[i]
-					skip_time += stop_skip_times[i + 1] - start_skip_times[i]
-			else:
-				usual_time = now - self.moving_start_time
-			
-			moving_dtime = usual_time + skip_time * character_skip_acceleration
+			moving_dtime = time.time() - self.moving_start_time
 			self.set_frame(int(moving_dtime * self.fps))
 			
 			if self.x == self.to_x and self.y == self.to_y:
@@ -267,8 +258,7 @@ init -1001 python:
 				next_cycle = self.place_names is not None
 				if not next_cycle:
 					self.move_kind = 'stay'
-					self.end_moved = True
-					character_unaccelerate()
+					self.moving_ended = True
 				else:
 					self.to_next_place()
 			
@@ -303,10 +293,11 @@ init -1001 python:
 		if type(place) is not dict:
 			place = cur_location.get_place(place)
 		if not place:
-			out_msg('show_character', 'Place <' + str(place_name) + '> not found in location <' + cur_location_name + '>')
+			out_msg('show_character', 'Place <' + str(place_name) + '> not found in location <' + str(cur_location_name) + '>')
 			return
 		
 		character.x, character.y = place['x'] + place['width'] / 2, place['y'] + place['height'] / 2
+		character.place_names = None
 		objects_on_location.append(character)
 	
 	def hide_character(character):

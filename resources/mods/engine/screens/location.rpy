@@ -5,7 +5,7 @@ init python:
 	draw_location = draw_location_name = None
 	draw_objects_on_location = []
 	
-	max_time = time.time() * 2
+	loc__max_time = time.time() * 2
 	
 	
 	control = False
@@ -14,7 +14,7 @@ init python:
 	
 	loc__directions = [to_left, to_right, to_forward, to_back]
 	loc__direction = to_back
-	loc__left_time = loc__right_time = loc__up_time = loc__down_time = max_time
+	loc__left_time = loc__right_time = loc__up_time = loc__down_time = loc__max_time
 	
 	location_changed = False
 	
@@ -40,9 +40,9 @@ init python:
 			dx /= 2 ** 0.5
 			dy /= 2 ** 0.5
 		
-		me.fps =            character_run_fps if loc__ctrl_is_down else character_walk_fps
-		me.move_kind =                  'run' if loc__ctrl_is_down else 'walk'
-		character_speed = character_run_speed if loc__ctrl_is_down else character_walk_speed
+		me.fps =            character_run_fps if loc__shift_is_down else character_walk_fps
+		me.move_kind =                  'run' if loc__shift_is_down else 'walk'
+		character_speed = character_run_speed if loc__shift_is_down else character_walk_speed
 		
 		dtime = time.time() - loc__prev_time
 		loc__prev_time = time.time()
@@ -92,11 +92,9 @@ screen location:
 		else:
 			loc__background_alpha = 0.0
 	
-	key 'TAB' action character_accelerate
-	
 	if draw_location_name:
 		python:
-			loc__ctrl_is_down = False
+			loc__shift_is_down = False
 			
 			loc__prev_left, loc__prev_right, loc__prev_up, loc__prev_down = loc__left, loc__right, loc__up, loc__down
 			loc__start_moving = not(loc__left or loc__right or loc__up or loc__down)
@@ -107,10 +105,8 @@ screen location:
 		if time.time() - location_start_time > location_fade_time:
 			key 'e' action SetVariable('exec_action', True)
 			
-			key 'LEFT CTRL'   action SetVariable('loc__ctrl_is_down', True) first_delay 0
-			key 'RIGHT CTRL'  action SetVariable('loc__ctrl_is_down', True) first_delay 0
-			key 'LEFT SHIFT'  action SetVariable('loc__ctrl_is_down', True) first_delay 0
-			key 'RIGHT SHIFT' action SetVariable('loc__ctrl_is_down', True) first_delay 0
+			key 'LEFT SHIFT'  action SetVariable('loc__shift_is_down', True) first_delay 0
+			key 'RIGHT SHIFT' action SetVariable('loc__shift_is_down', True) first_delay 0
 			
 			key 'LEFT'  action SetVariable('loc__left',  True) first_delay 0
 			key 'RIGHT' action SetVariable('loc__right', True) first_delay 0
@@ -143,10 +139,10 @@ screen location:
 				if loc__down and not loc__prev_down:
 					loc__down_time = time.time()
 				
-				min_index = loc__get_min(loc__left_time  if loc__left  else max_time,
-				                         loc__right_time if loc__right else max_time,
-				                         loc__up_time    if loc__up    else max_time,
-				                         loc__down_time  if loc__down  else max_time)
+				min_index = loc__get_min(loc__left_time  if loc__left  else loc__max_time,
+				                         loc__right_time if loc__right else loc__max_time,
+				                         loc__up_time    if loc__up    else loc__max_time,
+				                         loc__down_time  if loc__down  else loc__max_time)
 				if (loc__left, loc__right, loc__up, loc__down)[min_index]:
 					loc__direction = loc__directions[min_index]
 					me.set_direction(loc__direction)

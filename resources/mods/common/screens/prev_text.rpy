@@ -40,6 +40,8 @@ screen prev_text:
 	
 	
 	python:
+		db_skip_tab = False
+		
 		dtime = time.time() - pt_showed_time
 		x = int(-pt_xsize * get_stage_width() * (pt_appearance_time - dtime) / pt_appearance_time)
 		if x > 0:

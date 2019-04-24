@@ -308,6 +308,8 @@ init python:
 
 
 screen console_watching:
+	zorder 10001
+	
 	image im.Alpha('images/bg/black.jpg', 0.3):
 		align (1.0, 0.0)
 		size  (0.4, 0.3)
@@ -329,7 +331,9 @@ screen console_watching:
 
 screen console:
 	modal True
-	zorder 10001
+	zorder 10002
+	
+	$ db_skip_tab = False
 	
 	key 'ESCAPE' action [Hide('console'), SetVariable('pause_hided_time', time.time())]
 	

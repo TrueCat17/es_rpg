@@ -16,7 +16,8 @@ init -1000 python:
 	db_dialogue = []
 	
 	db_visible = False
-	db_hide_interdace = False
+	db_hide_interface = False
+	db_skip_tab = False
 	db_mode = 'adv'
 	
 	db_font = style.text.font
@@ -170,15 +171,9 @@ init -1000 python:
 				else:
 					end_tag = len(last_word)
 				last_word = last_word[:start_tag] + last_word[end_tag + 1:]
-				
-			
-			extra = 0
-			for c in last_word:
-				if is_first_byte(c):
-					extra += 1
 			
 			nbsp = chr(0xC2) + chr(0xA0) # 0xC2, 0xA0 - code non-breaking space in UTF-8
-			db_voice_text = next_text + tags_close_str + nbsp * extra
+			db_voice_text = next_text + tags_close_str + nbsp * len_unicode(last_word)
 	
 	
 	def db_on_enter():
@@ -187,6 +182,9 @@ init -1000 python:
 			return
 		if not location_objects_animations_ended():
 			location_objects_animations_to_end()
+			return
+		if not characters_moved():
+			characters_to_end()
 			return
 		
 		global pause_end, db_pause_end, db_dialogue, db_name_text, db_voice_text, db_voice_full_text, db_read
@@ -230,18 +228,44 @@ init -1000 python:
 
 
 
+screen dialogue_box_skip:
+	zorder 10000
+	
+	if db_skip_ctrl or db_skip_tab:
+		text 'Skip Mode':
+			color 0xFFFFFF
+			text_size 30
+			pos (20, 20)
+
+
 screen dialogue_box:
 	zorder -2
 	
-	key 'h' action SetVariable('db_hide_interdace', not db_hide_interdace)
+	key 'h' action SetVariable('db_hide_interface', not db_hide_interface)
 	
-	key 'RETURN' action If(db_hide_interdace, SetVariable('db_hide_interdace', False), db_on_enter)
-	key 'SPACE'  action If(db_hide_interdace, SetVariable('db_hide_interdace', False), db_on_enter)
+	$ db_to_next = False
+	key 'RETURN' action If(db_hide_interface, SetVariable('db_hide_interface', False), SetVariable('db_to_next', True))
+	key 'SPACE'  action If(db_hide_interface, SetVariable('db_hide_interface', False), SetVariable('db_to_next', True))
+	if db_to_next:
+		$ db_skip_tab = False
 	
-	key 'ESCAPE' action If(db_hide_interdace, SetVariable('db_hide_interdace', False), None)
+	$ db_skip_ctrl = False
+	key 'LEFT CTRL'  action SetVariable('db_skip_ctrl', True) first_delay 0
+	key 'RIGHT CTRL' action SetVariable('db_skip_ctrl', True)
+	key 'TAB' action SetVariable('db_skip_tab', not db_skip_tab)
+	python:
+		if (db_skip_ctrl or db_skip_tab):
+			db_hide_interface = False
+			db_to_next = True
+			show_screen('dialogue_box_skip')
+		
+		if db_to_next:
+			db_on_enter()
+	
+	key 'ESCAPE' action SetVariable('db_hide_interface', False)
 	
 	
-	if not db_hide_interdace:
+	if not db_hide_interface:
 		$ db_update()
 		
 		if db_visible:
@@ -255,7 +279,6 @@ screen dialogue_box:
 				mouse False
 				
 				action db_on_enter
-			
 			
 			if db_mode == 'adv':
 				vbox:
@@ -358,5 +381,5 @@ screen dialogue_box:
 			alpha  0.01
 			mouse  False
 			
-			action SetVariable('db_hide_interdace', False)
+			action SetVariable('db_hide_interface', False)
 

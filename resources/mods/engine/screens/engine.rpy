@@ -8,8 +8,8 @@ screen engine:
 		if engine_shift:
 			key 'o' action show_console
 		
-		if not has_screen('prev_text'):
-			key 'ESCAPE' action If(not db_hide_interdace, show_pause, None)
+		if not has_screen('prev_text') and not db_hide_interface:
+			key 'ESCAPE' action show_pause
 		
 		key config.quick_load_key action quick_load
 		key config.quick_save_key action quick_save

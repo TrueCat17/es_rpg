@@ -63,16 +63,7 @@ init -1002 python:
 	
 	
 	locations = dict()
-	
-	objects_on_location = []
-	def characters_moved():
-		for obj in objects_on_location:
-			if isinstance(obj, Character):
-				if not obj.moved():
-					return False
-		return True
-	can_exec_next_funcs.append(characters_moved)
-	
+	objects_on_location = []	
 	
 	def register_location(name, path_to_images, is_room, width, height):
 		location = Location(name, path_to_images, is_room, width, height)

@@ -20,7 +20,7 @@ init -997 python:
 		config.autosave = 60 # time, in sec.
 	
 	if config.fps_meter is None:
-		config.fps_meter = True
+		config.fps_meter = False
 	
 	if config.text_cps is None:
 		config.text_cps = 60 # cps - chars per second, for dialogue_box
