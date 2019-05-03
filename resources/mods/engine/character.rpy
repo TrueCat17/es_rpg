@@ -42,14 +42,61 @@ init -1001 python:
 	can_exec_next_funcs.append(characters_moved)
 	
 	
+	def register_character_animation(character, anim_name, path, xoffset, yoffset,
+	                                 count_frames, start_frame, end_frame, time = 1.0):
+		if type(xoffset) is not int or type(yoffset) is not int:
+			out_msg('register_character_animation',
+			        'On registration of animation <' + str(anim_name) + '> of character <' + str(character) + '>\n' +
+			        'set invalid offset: <' + str(xoffset) + ', ' + str(yoffset) + '>, expected ints')
+			return
+		
+		if count_frames <= 0 or not (0 <= start_frame < count_frames) or not (0 <= end_frame < count_frames):
+			out_msg('register_character_animation',
+			        'On registration of animation <' + str(anim_name) + '> of character <' + str(character) + '>\n' +
+			        'set invalid frames:\n' +
+			        'count, start, end = ' + str(count_frames) + ', ' + str(start_frame) + ', ' + str(end_frame))
+			return
+		
+		animations = character.animations
+		if animations.has_key(anim_name):
+			out_msg('register_character_animation', 'Animation <' + str(anim_name) + '> of character <' + str(character) + '> already exists')
+			return
+		
+		animations[anim_name] = Object(
+			name = anim_name,
+			path = path,
+			
+			count_frames = count_frames,
+			start_frame  = start_frame,
+			end_frame    = end_frame,
+			time         = float(time),
+		
+			xoffset = xoffset,
+			yoffset = yoffset,
+			xsize = 0,
+			ysize = 0,
+			loaded = False
+		)
+	
+	def characters_anim_to_end():
+		for obj in objects_on_location:
+			if isinstance(obj, Character):
+				obj.anim_to_end()
+	
+	def characters_anim_ended():
+		for obj in objects_on_location:
+			if isinstance(obj, Character) and not obj.ended_anim_waiting():
+				return False
+		return True
+	can_exec_next_funcs.append(characters_anim_ended)
+	
+	
+	
 	characters = []
 	class Character(Object):
 		def __init__(self, name, **kwargs):
 			Object.__init__(self)
 			characters.append(self)
-			
-			self.xanchor, self.yanchor = 0.5, 0.8
-			self.xsize, self.ysize = character_xsize, character_ysize
 			
 			self.real_name = name
 			self.unknown_name = kwargs.get('unknown_name', name)
@@ -78,6 +125,7 @@ init -1001 python:
 			self.run = False
 			self.pose = 'stance'       # 'stance' | 'sit'
 			self.move_kind = 'stay'    #  'stay'  | 'walk' | 'run'
+			self.fps = character_walk_fps
 			
 			self.moving_start_time = time.time()
 			
@@ -85,11 +133,17 @@ init -1001 python:
 			self.moving_ended = True
 			
 			self.x, self.y = 0, 0
-			self.crop = (0, 0, character_xsize, character_ysize)
+			self.xanchor, self.yanchor = 0.5, 0.8
+			self.xoffset, self.yoffset = 0, 0
+			self.xsize, self.ysize = character_xsize, character_ysize
+			self.crop = (0, 0, self.xsize, self.ysize)
 			
 			self.location = None
 			self.to_places = []
 			self.place_index = 0
+			
+			self.animations = Object()
+			self.animation = None
 		
 		def __str__(self):
 			return str(self.name)
@@ -109,11 +163,13 @@ init -1001 python:
 		def set_dress(self, dress):
 			self.dress = dress
 		def set_frame(self, frame):
-			self.frame = frame % character_max_frame
+			self.frame = frame
 		def set_direction(self, direction):
 			self.direction = direction % character_max_direction
 		
 		def main(self):
+			if self.animation_start_time is not None:
+				return get_location_image(self.animation, self.animation.path, '', '', character_ext, False)
 			return get_location_image(self, self.directory, self.rpg_name, self.dress, character_ext, False)
 		
 		def set_pose(self, pose):
@@ -127,15 +183,20 @@ init -1001 python:
 		
 		def update_crop(self):
 			frame = self.frame
-			if self.pose == 'sit':
-				frame = character_max_frame
-			elif self.move_kind == 'stay':
-				frame = character_max_frame - 1
+			if self.animation_start_time is None:
+				if self.pose == 'sit':
+					frame = character_max_frame
+				elif self.move_kind == 'stay':
+					frame = character_max_frame - 1
+				else:
+					 frame %= character_max_frame
+				
+				y = self.direction * self.ysize
+			else:
+				y = 0
+			x = frame * self.xsize
 			
-			x = frame * character_xsize
-			y = self.direction * character_ysize
-			
-			self.crop = (x, y, character_xsize, character_ysize)
+			self.crop = (x, y, self.xsize, self.ysize)
 		
 		def to_next_place(self):
 			if not self.place_names:
@@ -230,14 +291,79 @@ init -1001 python:
 				return True
 			return self.moving_ended
 		
-		def update(self):
-			self.update_crop()
-			if self.pose == 'sit' or self.move_kind == 'stay':
+		def start_animation(self, anim_name, repeat = 0):
+			if not self.animations.has_key(anim_name):
+				out_msg('start_animation', 'Animation <' + str(anim_name) + '> not found in character <' + str(self) + '>')
 				return
 			
-			moving_dtime = time.time() - self.moving_start_time
-			self.set_frame(int(moving_dtime * self.fps))
+			animation = self.animation = self.animations[anim_name]
+			animation.first_update = True
 			
+			self.xoffset, self.yoffset = animation.xoffset, animation.yoffset
+			
+			self.animation_start_time = time.time()
+			self.repeat = int(repeat)
+		
+		def remove_animation(self):
+			self.animation_start_time = None
+			self.xoffset, self.yoffset = 0, 0
+			self.xsize, self.ysize = character_xsize, character_ysize
+		
+		def anim_to_end(self):
+			self.remove_animation()
+		
+		def ended_anim_waiting(self):
+			if self.repeat < 0 or self.animation_start_time is None:
+				return True
+			if self.repeat > 0:
+				return False
+			return time.time() - self.animation_start_time > self.animation.time
+		
+		def update(self):
+			moving_dtime = time.time() - self.moving_start_time
+			
+			if self.animation_start_time is None:
+				self.set_frame(int(moving_dtime * self.fps))
+			else:
+				animation = self.animation
+				dtime = time.time() - self.animation_start_time
+				
+				time_k = 1
+				if animation.time > 0:
+					if dtime > animation.time:
+						if self.repeat:
+							self.animation_start_time = time.time()
+							time_k = 0
+						if self.repeat > 0:
+							self.repeat -= 1
+					else:
+						time_k = dtime / animation.time
+				
+				if animation.first_update:
+					animation.first_update = False
+					
+					if not animation.loaded:
+						animation.loaded = True
+						animation.xsize, animation.ysize = get_image_size(self.main())
+						animation.xsize = int(math.ceil(animation.xsize / animation.count_frames))
+					
+					self.xsize, self.ysize = animation.xsize, animation.ysize
+				
+				start_frame = animation.start_frame
+				end_frame = animation.end_frame
+				if end_frame < start_frame:
+					frame = start_frame - int((start_frame - end_frame + 1) * time_k)
+					frame = in_bounds(frame, end_frame, start_frame)
+				else:
+					frame = start_frame + int((end_frame - start_frame + 1) * time_k)
+					frame = in_bounds(frame, start_frame, end_frame)
+				
+				self.set_frame(frame)
+			
+			self.update_crop()
+			
+			if self.pose == 'sit' or self.move_kind == 'stay':
+				return
 			if self.x == self.to_x and self.y == self.to_y:
 				return
 			

@@ -43,3 +43,15 @@ init -990 python:
 		g[name].make_rpg('images/characters/', name, 'pioneer')
 		g['lp_' + name] = 0
 
+init -980 python:
+	register_character_animation(dv, 'node',         'images/characters/anim/dv_node',         0, 0, 34, 0, 33, 8.5)
+	register_character_animation(dv, 'punch',        'images/characters/anim/dv_punch',        0, 0,  5, 0,  4, 1.25)
+	register_character_animation(sl, 'hello',        'images/characters/anim/sl_hello',        0, 0,  4, 0,  3, 1.0)
+	register_character_animation(un, 'book_full',    'images/characters/anim/un_book_full',    0, 0,  6, 0,  5, 1.5)
+	register_character_animation(un, 'ruffle',       'images/characters/anim/un_ruffle',       0, 0, 34, 0, 33, 8.5)
+	register_character_animation(un, 'trample',      'images/characters/anim/un_trample',      0, 0,  4, 0,  3, 1.0)
+	register_character_animation(us, 'salute',       'images/characters/anim/us_salute',       0, 0,  4, 0,  3, 1.0)
+	register_character_animation(us, 'cricket',      'images/characters/anim/us_cricket',      0, 0,  6, 0,  5, 1.5)
+	register_character_animation(us, 'sport_salute', 'images/characters/anim/us_sport_salute', 0, 0,  4, 0,  3, 1.0)
+	register_character_animation(us, 'waves',        'images/characters/anim/us_waves',        0, 0,  3, 0,  2, 0.75)
+

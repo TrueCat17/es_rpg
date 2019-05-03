@@ -186,6 +186,9 @@ init -1000 python:
 		if not characters_moved():
 			characters_to_end()
 			return
+		if not characters_anim_ended():
+			characters_anim_to_end()
+			return
 		
 		global pause_end, db_pause_end, db_dialogue, db_name_text, db_voice_text, db_voice_full_text, db_read
 		

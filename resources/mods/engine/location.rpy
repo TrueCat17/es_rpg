@@ -13,16 +13,24 @@ init -1002 python:
 	
 	
 	cam_object = None
-	def cam_to(obj):
-		global cam_object
+	cam_object_old = None
+	cam_object_start_moving = 0
+	cam_object_end_moving = 0
+	
+	def cam_to(obj, moving_time = 1.0):
+		global cam_object, cam_object_old, cam_object_start_moving, cam_object_end_moving
+		if cam_object is not None:
+			cam_object_old = cam_object
+			cam_object_start_moving = time.time()
+			cam_object_end_moving = time.time() + moving_time
 		
 		if isinstance(obj, str):
 			if not cur_location_name:
-				out_msg('cam_to("place_name")', 'Current location is not defined, need to call set_location')
+				out_msg('cam_to', 'Current location is not defined, need to call set_location')
 				return
 			place = cur_location.get_place(obj)
 			if not place:
-				out_msg('cam_to("place_name")', 'Place <' + obj + '> not found in location <' + cur_location_name + '>')
+				out_msg('cam_to', 'Place <' + obj + '> not found in location <' + cur_location_name + '>')
 				return
 			cam_object = place
 		else:
@@ -219,8 +227,19 @@ init -1002 python:
 			main_width, main_height = self.width * location_scale, self.height * location_scale
 			stage_width, stage_height = get_stage_width(), get_stage_height()
 			
-			cam_object_x = 0 if cam_object is None else cam_object.x * location_scale
-			cam_object_y = 0 if cam_object is None else cam_object.y * location_scale
+			if cam_object_old is None or cam_object is None or cam_object_end_moving < time.time():
+				cam_object_x = 0 if cam_object is None else cam_object['x']
+				cam_object_y = 0 if cam_object is None else cam_object['y']
+			else:
+				from_x, from_y = cam_object_old['x'], cam_object_old['y']
+				to_x, to_y = cam_object['x'], cam_object['y']
+				
+				time_k = (time.time() - cam_object_start_moving) / (cam_object_end_moving - cam_object_start_moving)
+				cam_object_x = from_x + (to_x - from_x) * time_k
+				cam_object_y = from_y + (to_y - from_y) * time_k
+			
+			cam_object_x *= location_scale
+			cam_object_y *= location_scale
 			
 			if main_width < stage_width or cam_object is None:
 				self.x = (stage_width - main_width) / 2
