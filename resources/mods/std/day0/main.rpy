@@ -5,17 +5,26 @@ init python:
 label day0_start:
 	$ make_names_unknown()
 	
-	$ night_time()
-	$ set_location("enter", "before_gates" * 0 + "behind_gates")
+#	$ night_time()
+#	$ set_location("enter", "behind_gates")
+	$ set_location("board_station", "square")
 	$ me.set_direction(to_forward)
 	
 	$ control = True
 	$ me.set_dress('home' * 0 + 'pioneer')
+	return
+#	"Я подошёл к воротам"
+#	$ gate_right = get_location_objects(cur_location_name, me, "gate_right", 1)[0]
+#	$ gate_right.start_animation("opening")
+#	extend " и открыл их."
 	
-	$ t = get_location_objects(cur_location_name, me, 'gate_right')[0]
+	$ show_character(us, 'before_gates')
 	"1"
-	$ t.start_animation("opening", 10)
+	$ us.start_animation('cricket', 0)
 	"2"
+	$ us.remove_animation()
+	$ us.move_to_place(['behind_gates', 'clubs', ])
+	"3"
 	window hide
 	return
 	"Мне опять снился сон."

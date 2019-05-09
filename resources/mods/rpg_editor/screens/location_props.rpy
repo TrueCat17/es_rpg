@@ -87,7 +87,7 @@ init python:
 	
 	def del_exit():
 		global selected_exit_num
-		selected_location.exits = selected_location.exits[0:selected_exit_num] + selected_location.exits[selected_location.exits:]
+		selected_location.exits = selected_location.exits[0:selected_exit_num] + selected_location.exits[selected_exit_num+1:]
 		selected_exit_num = None
 		
 		set_save_locations()
@@ -436,17 +436,4 @@ screen location_props:
 								text_size 16
 								color 0
 								action [SetDict(place, 'side_exit', 'down'), set_save_locations]
-							
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -22,7 +22,7 @@ label day1_start:
 	$ me.move_to_place("before_sit_place")
 	$ me.set_direction(to_back)
 	
-	"Управление WASD/стрелки + Ctrl/Shift (бег)."
+	"Управление WASD/стрелки + Shift (бег)."
 	window hide
 	$ control = True
 

@@ -1,6 +1,5 @@
 init -1000 python:
 	locations_path = 'images/locations/'
-	location_objects_path = 'images/location_objects/'
 
 	preview_path = 'mods/rpg_editor/cache/'
 	if not os.path.exists(preview_path):
@@ -12,14 +11,22 @@ init -1000 python:
 	
 	def clear():
 		global locations, locations_times
-		
 		locations = dict()
 		locations_times = persistent.locations_times = Object()
+	
 	
 	if persistent.locations_times is None:
 		persistent.locations_times = Object()
 	
 	locations_times = persistent.locations_times
+	
+	for name in os.listdir(preview_path):
+		name = name[:name.rfind('.')]
+		if not locations_times.has_key(name):
+			files_time = os.path.getmtime(locations_path + name + '/main.' + location_object_ext)
+			preview_time = os.path.getmtime(preview_path + name + '.png')
+			
+			locations_times[name] = files_time, preview_time
 
 
 init python:
@@ -27,25 +34,27 @@ init python:
 		ext = location_object_ext
 		
 		locations_dirs = [i for i in os.listdir(locations_path) if not i.startswith('_') and os.path.exists(locations_path + i + '/main.' + ext)]
+		locations_dirs.sort()
 		
 		for name in locations_dirs:
-			preview_created = False
+			path = locations_path + name
+			main = path + '/main.' + ext
+			if name not in locations:
+				register_location(name, path, False, get_image_width(main), get_image_height(main))
+			
 			if not os.path.exists(preview_path + name + '.' + ext):
-				preview_created = True
 				make_preview(name)
 			
-			path = locations_path + name
 			if locations_times.has_key(name):
 				files_time, preview_time = locations_times[name]
-				if files_time >= os.path.getmtime(path):
-					continue
-				del locations[name]
-			
-			if not preview_created:
-				make_preview(name)
-			
-			main = path + '/main.' + ext
-			register_location(name, path, False, get_image_width(main), get_image_height(main))
+				
+				if files_time < os.path.getmtime(path):
+					w, h = get_image_size(main)
+					if name not in locations:
+						register_location(name, path, False, w, h)
+					else:
+						locations[name].width, locations[name].height = w, h
+					make_preview(name)
 			
 			set_save_locations()
 	
@@ -57,7 +66,7 @@ init python:
 		
 		w, h = location.width, location.height
 		
-		if location.over:
+		if location.over():
 			image = im.Composite((w, h), (0, 0), location.main(), (0, 0), location.over())
 		else:
 			image = location.main()
@@ -129,7 +138,7 @@ init python:
 		
 		tmp += ['\t', '\t']
 		
-		for location_name in locations:
+		for location_name in location_names:
 			location = locations[location_name]
 			if not location.using:
 				x = y = "None"

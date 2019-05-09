@@ -30,18 +30,20 @@ init 1 python:
 					elif ey + eh == py:
 						place.side_exit = 'up'
 						place.y -= eh
-					place.height += eh
-					location.exits.remove(exit)
-					break
-				elif py == ey and ph == eh:
+					if place.side_exit:
+						place.height += eh
+						location.exits.remove(exit)
+						break
+				if py == ey and ph == eh:
 					if px + pw == ex:
 						place.side_exit = 'right'
 					elif ex + ew == px:
 						place.side_exit = 'left'
 						place.x -= ew
-					place.width += ew
-					location.exits.remove(exit)
-					break
+					if place.side_exit:
+						place.width += ew
+						location.exits.remove(exit)
+						break
 
 
 label start:

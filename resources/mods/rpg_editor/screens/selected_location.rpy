@@ -11,7 +11,7 @@ screen selected_location:
 	key 'd' action AddVariable('cam_x', +speed)
 	
 	key '9' action SetVariable('selected_k', max(selected_k - 0.25, 0.25))
-	key '0' action SetVariable('selected_k', min(selected_k + 0.25, 2.00))
+	key '0' action SetVariable('selected_k', min(selected_k + 0.25, 4.00))
 	
 	python:
 		selected_location = locations[selected_location_name]
@@ -62,7 +62,8 @@ screen selected_location:
 						obj_name = place_name[0:place_name.index('_pos')]
 						if location_objects.has_key(obj_name):
 							obj = location_objects[obj_name]
-							obj_image = obj['directory'] + obj['main_image'] + '.' + location_object_ext
+							main_frame = obj['animations'][None]
+							obj_image = main_frame['directory'] + main_frame['main_image'] + '.' + location_object_ext
 							obj_width, obj_height = get_image_size(obj_image)
 					
 					place = selected_location.places[place_name]

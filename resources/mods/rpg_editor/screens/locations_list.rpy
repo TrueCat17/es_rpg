@@ -8,19 +8,11 @@ init python:
 	locations_start_btn = 0
 	
 	def change_using_location(location):
-		location_name = location.name
 		location.using = not location.using
-		
 		if location.using:
 			location.x = location.x or k * get_stage_width() / 3
 			location.y = location.y or k * get_stage_height() / 2
-			persistent.locations_positions += [(location_name, location.x, location.y)]
-		else:
-			for i in xrange(len(persistent.locations_positions)):
-				name, x, y = persistent.locations_positions[i]
-				if name == location_name:
-					persistent.locations_positions = persistent.locations_positions[0:i] + persistent.locations_positions[i+1:]
-					break
+		
 		set_save_locations()
 
 screen locations_list:
