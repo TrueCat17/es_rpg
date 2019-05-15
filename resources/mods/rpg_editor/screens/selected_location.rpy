@@ -11,7 +11,7 @@ screen selected_location:
 	key 'd' action AddVariable('cam_x', +speed)
 	
 	key '9' action SetVariable('selected_k', max(selected_k - 0.25, 0.25))
-	key '0' action SetVariable('selected_k', min(selected_k + 0.25, 4.00))
+	key '0' action SetVariable('selected_k', min(selected_k + 0.25, 8.00))
 	
 	python:
 		selected_location = locations[selected_location_name]
@@ -55,35 +55,46 @@ screen selected_location:
 				size (w, h)
 		
 		if not selected_location.hide_places:
-			for place_name in selected_location.places:
-				python:
-					obj_image = None
+			python:
+				objs = []
+				places = []
+				
+				for place_name in selected_location.places:
+					place = selected_location.places[place_name]
+					
 					if '_pos' in place_name:
 						obj_name = place_name[0:place_name.index('_pos')]
 						if location_objects.has_key(obj_name):
 							obj = location_objects[obj_name]
 							main_frame = obj['animations'][None]
 							obj_image = main_frame['directory'] + main_frame['main_image'] + '.' + location_object_ext
-							obj_width, obj_height = get_image_size(obj_image)
+							
+							x = place.x + place.width / 2
+							y = place.y + place.height / 2
+							objs.append((obj_image, x, y))
 					
-					place = selected_location.places[place_name]
 					if place.side_exit is None:
 						image = im.Rect('#0B0')
 					else:
 						x, y, w, h, exit_x, exit_y, exit_w, exit_h = get_place_coords(place)
 						image = im.Composite((place.width, place.height),
-							                 (   x  ,    y  ), im.Rect('#0B0', w, h),
-							                 (exit_x, exit_y), im.Rect('#B00', exit_w, exit_h))
+								             (   x  ,    y  ), im.Rect('#0B0', w, h),
+								             (exit_x, exit_y), im.Rect('#B00', exit_w, exit_h))
+					
+					places.append((place, image))
 				
-				if obj_image:
-					image obj_image:
-						pos (int(place.x * selected_k), int(place.y * selected_k))
-						size (int(obj_width * selected_k), int(obj_height * selected_k))
-						anchor (0.5, 1.0)
-				
+				objs.sort(key = lambda (obj_image, x, y): y)
+			
+			for obj_image, x, y in objs:
+				image obj_image:
+					pos (int(x * selected_k), int(y * selected_k))
+					size (int(get_image_width(obj_image) * selected_k), int(get_image_height(obj_image) * selected_k))
+					anchor (0.5, 1.0)
+			
+			for place, image in places:
 				button:
 					ground image
-					action [SetVariable('selected_place_name', place_name), SetVariable('selected_exit_num', None)]
+					action [SetVariable('selected_place_name', place.name), SetVariable('selected_exit_num', None)]
 					
 					pos  (int(place.x * selected_k),     int(place.y * selected_k))
 					size (int(place.width * selected_k), int(place.height * selected_k))

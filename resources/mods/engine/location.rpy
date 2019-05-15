@@ -87,7 +87,7 @@ init -1002 python:
 			out_msg('register_place', 'Place <' + place_name + '> in location <' + self.name + '> already exists')
 			return
 		
-		place = Place(x, y, width, height)
+		place = Place(place_name, x, y, width, height)
 		location.add_place(place, place_name)
 	
 	def register_exit(location_name, to_location_name, to_place_name, x, y, width, height):
@@ -263,8 +263,9 @@ init -1002 python:
 	
 	
 	class Place(Object):
-		def __init__(self, x, y, width, height):
+		def __init__(self, name, x, y, width, height):
 			Object.__init__(self)
+			self.name = name
 			self.x, self.y = x, y
 			self.width, self.height = width, height
 		

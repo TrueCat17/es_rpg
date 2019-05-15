@@ -1,12 +1,20 @@
 init python:
 	
 	register_location("admin", "images/locations/admin/", False, 1376, 1344)
+	register_place(   "admin", "bench_left_pos", 870, 455, 2, 2)
+	register_place(   "admin", "lamp_pos-1", 977, 372, 2, 2)
+	register_place(   "admin", "lamp_pos-2", 977, 540, 2, 2)
+	register_place(   "admin", "lamp_pos-3", 978, 987, 2, 2)
+	register_place(   "admin", "lamp_pos-4", 611, 987, 2, 2)
+	register_place(   "admin", "lamp_pos-5", 348, 987, 2, 2)
 	register_place(   "admin", "clubs"         , 20, 990, 20, 120)
 	register_exit(    "admin", "clubs", "admin", 0, 990, 20, 120)
 	register_place(   "admin", "square"         , 1336, 990, 20, 120)
 	register_exit(    "admin", "square", "admin", 1356, 990, 20, 120)
 	
 	register_location("bath", "images/locations/bath/", False, 647, 1000)
+	register_place(   "bath", "bath_rails_left_pos", 304, 587, 2, 2)
+	register_place(   "bath", "bath_rails_right_pos", 432, 587, 2, 2)
 	register_place(   "bath", "forest_path-6"        , 180, 960, 190, 20)
 	register_exit(    "bath", "forest_path-6", "bath", 180, 980, 190, 20)
 	
@@ -22,12 +30,58 @@ init python:
 	register_place(   "board_station", "square"                 , 370, 20, 90, 20)
 	register_exit(    "board_station", "square", "board_station", 370, 0, 90, 20)
 	
-	register_location("canteen", "images/locations/canteen/", False, 1152, 832)
-	register_place(   "canteen", "square"           , 750, 792, 100, 20)
-	register_exit(    "canteen", "square", "canteen", 750, 812, 100, 20)
+	register_location("bunker", "images/locations/bunker/", True, 276, 253)
+	register_place(   "bunker", "bunker_enter"          , 60, 223, 70, 15)
+	register_exit(    "bunker", "bunker_enter", "bunker", 60, 238, 70, 15)
+	register_place(   "bunker", "old_camp"          , 160, 223, 40, 15)
+	register_exit(    "bunker", "old_camp", "bunker", 160, 238, 40, 15)
+	
+	register_location("bunker_enter", "images/locations/bunker_enter/", True, 130, 258)
+	register_place(   "bunker_enter", "bunker"                , 30, 111, 70, 15)
+	register_exit(    "bunker_enter", "bunker", "bunker_enter", 30, 96, 70, 15)
+	
+	register_location("canteen", "images/locations/canteen/", True, 1152, 832)
+	register_place(   "canteen", "canteen_column_back_pos-1", 143, 319, 2, 2)
+	register_place(   "canteen", "canteen_column_back_pos-2", 431, 319, 2, 2)
+	register_place(   "canteen", "canteen_column_back_pos-3", 655, 319, 2, 2)
+	register_place(   "canteen", "canteen_column_pos-1", 143, 607, 2, 2)
+	register_place(   "canteen", "canteen_column_pos-2", 431, 607, 2, 2)
+	register_place(   "canteen", "canteen_column_pos-3", 655, 607, 2, 2)
+	register_place(   "canteen", "chair_backward_pos-01", 660, 689, 2, 2)
+	register_place(   "canteen", "chair_backward_pos-02", 694, 689, 2, 2)
+	register_place(   "canteen", "chair_backward_pos-03", 742, 689, 2, 2)
+	register_place(   "canteen", "chair_backward_pos-04", 776, 689, 2, 2)
+	register_place(   "canteen", "chair_backward_pos-05", 824, 689, 2, 2)
+	register_place(   "canteen", "chair_backward_pos-06", 858, 689, 2, 2)
+	register_place(   "canteen", "chair_backward_pos-07", 660, 513, 2, 2)
+	register_place(   "canteen", "chair_backward_pos-08", 694, 513, 2, 2)
+	register_place(   "canteen", "chair_backward_pos-09", 742, 513, 2, 2)
+	register_place(   "canteen", "chair_backward_pos-10", 776, 513, 2, 2)
+	register_place(   "canteen", "chair_backward_pos-11", 824, 513, 2, 2)
+	register_place(   "canteen", "chair_backward_pos-12", 858, 513, 2, 2)
+	register_place(   "canteen", "chair_forward_pos-01", 660, 722, 2, 2)
+	register_place(   "canteen", "chair_forward_pos-02", 694, 722, 2, 2)
+	register_place(   "canteen", "chair_forward_pos-03", 742, 722, 2, 2)
+	register_place(   "canteen", "chair_forward_pos-04", 776, 722, 2, 2)
+	register_place(   "canteen", "chair_forward_pos-05", 824, 722, 2, 2)
+	register_place(   "canteen", "chair_forward_pos-06", 858, 722, 2, 2)
+	register_place(   "canteen", "chair_forward_pos-07", 660, 546, 2, 2)
+	register_place(   "canteen", "chair_forward_pos-08", 694, 546, 2, 2)
+	register_place(   "canteen", "chair_forward_pos-09", 742, 546, 2, 2)
+	register_place(   "canteen", "chair_forward_pos-10", 776, 546, 2, 2)
+	register_place(   "canteen", "chair_forward_pos-11", 824, 546, 2, 2)
+	register_place(   "canteen", "chair_forward_pos-12", 858, 546, 2, 2)
+	register_place(   "canteen", "table_h_pos-1", 677, 705, 2, 2)
+	register_place(   "canteen", "table_h_pos-2", 759, 705, 2, 2)
+	register_place(   "canteen", "table_h_pos-3", 841, 705, 2, 2)
+	register_place(   "canteen", "table_h_pos-4", 677, 529, 2, 2)
+	register_place(   "canteen", "table_h_pos-5", 759, 529, 2, 2)
+	register_place(   "canteen", "table_h_pos-6", 841, 529, 2, 2)
+	register_place(   "canteen", "square"           , 640, 802, 55, 15)
+	register_exit(    "canteen", "square", "canteen", 640, 817, 55, 15)
 	
 	register_location("clubs", "images/locations/clubs/", False, 1152, 1664)
-	register_place(   "clubs", "musclub_column_pos-1", 774, 400, 2, 2)
+	register_place(   "clubs", "musclub_column_pos-1", 773, 400, 2, 2)
 	register_place(   "clubs", "musclub_column_pos-2", 836, 400, 2, 2)
 	register_place(   "clubs", "musclub_column_pos-3", 899, 400, 2, 2)
 	register_place(   "clubs", "musclub_column_pos-4", 962, 400, 2, 2)
@@ -65,7 +119,9 @@ init python:
 	register_exit(    "enter", "ikarus", "enter", 400, 585, 40, 15)
 	
 	register_location("flat", "images/locations/flat/", True, 192, 272)
-	register_place(   "flat", "flat_out", 20, 252, 40, 20)
+	register_place(   "flat", "armchair_pos", 80, 143, 2, 2)
+	register_place(   "flat", "station"        , 23, 252, 30, 10)
+	register_exit(    "flat", "station", "flat", 23, 262, 30, 10)
 	
 	register_location("forest_path-1", "images/locations/forest_path-1/", False, 1088, 832)
 	register_place(   "forest_path-1", "left_exit", 20, 690, 20, 90)
@@ -140,24 +196,24 @@ init python:
 	register_exit(    "forest_path-9", "forest_path-4", "forest_path-9", 120, 0, 180, 20)
 	
 	register_location("hospital", "images/locations/hospital/", True, 224, 256)
-	register_place(   "hospital", "library_and_hospital"            , 90, 216, 100, 20)
-	register_exit(    "hospital", "library_and_hospital", "hospital", 90, 236, 100, 20)
+	register_place(   "hospital", "library_and_hospital"            , 120, 226, 34, 15)
+	register_exit(    "hospital", "library_and_hospital", "hospital", 120, 241, 34, 15)
 	
-	register_location("house_dv", "images/locations/house_dv/", False, 512, 512)
-	register_place(   "house_dv", "houses_2"            , 250, 385, 50, 15)
-	register_exit(    "house_dv", "houses_2", "house_dv", 250, 400, 50, 15)
+	register_location("house_dv", "images/locations/house_dv/", True, 512, 512)
+	register_place(   "house_dv", "houses_2"            , 250, 386, 55, 15)
+	register_exit(    "house_dv", "houses_2", "house_dv", 250, 401, 55, 15)
 	
-	register_location("house_mt", "images/locations/house_mt/", True, 544, 416)
-	register_place(   "house_mt", "houses_1"            , 230, 320, 50, 15)
-	register_exit(    "house_mt", "houses_1", "house_mt", 230, 335, 50, 15)
+	register_location("house_mt", "images/locations/house_mt/", True, 512, 512)
+	register_place(   "house_mt", "houses_1"            , 209, 400, 54, 15)
+	register_exit(    "house_mt", "houses_1", "house_mt", 209, 415, 54, 15)
 	
-	register_location("house_sl", "images/locations/house_sl/", False, 512, 512)
-	register_place(   "house_sl", "houses_1"            , 235, 378, 50, 15)
-	register_exit(    "house_sl", "houses_1", "house_sl", 235, 393, 50, 15)
+	register_location("house_sl", "images/locations/house_sl/", True, 512, 512)
+	register_place(   "house_sl", "houses_1"            , 229, 378, 54, 15)
+	register_exit(    "house_sl", "houses_1", "house_sl", 229, 393, 54, 15)
 	
-	register_location("house_un", "images/locations/house_un/", False, 512, 512)
-	register_place(   "house_un", "houses_1"            , 235, 378, 50, 15)
-	register_exit(    "house_un", "houses_1", "house_un", 235, 393, 50, 15)
+	register_location("house_un", "images/locations/house_un/", True, 512, 512)
+	register_place(   "house_un", "houses_1"            , 229, 378, 54, 15)
+	register_exit(    "house_un", "houses_1", "house_un", 229, 393, 54, 15)
 	
 	register_location("houses_1", "images/locations/houses_1/", False, 1632, 1152)
 	register_place(   "houses_1", "lib_and_hosp-up", 1592, 700, 20, 70)
@@ -187,17 +243,21 @@ init python:
 	
 	register_location("ikarus", "images/locations/ikarus/", True, 478, 154)
 	register_place(   "ikarus", "before_sit_place", 409, 76, 2, 2)
+	register_place(   "ikarus", "before_sit_place-2", 410, 100, 10, 10)
 	register_place(   "ikarus", "sit_place", 397, 71, 2, 2)
 	register_place(   "ikarus", "enter"          , 407, 124, 30, 15)
 	register_exit(    "ikarus", "enter", "ikarus", 407, 139, 30, 15)
 	
 	register_location("liaz", "images/locations/liaz/", True, 432, 216)
-	register_place(   "liaz", "lias_enter", 320, 196, 70, 20)
+	register_place(   "liaz", "liaz_enter", 320, 196, 70, 20)
 	register_place(   "liaz", "sit_place", 325, 85, 2, 2)
 	
-	register_location("library", "images/locations/library/", True, 382, 510)
-	register_place(   "library", "library_and_hospital"           , 215, 470, 100, 20)
-	register_exit(    "library", "library_and_hospital", "library", 215, 490, 100, 20)
+	register_location("library", "images/locations/library/", True, 384, 512)
+	register_place(   "library", "cupboard_1_pos", 214, 389, 2, 2)
+	register_place(   "library", "cupboard_2_pos", 214, 317, 2, 2)
+	register_place(   "library", "cupboard_3_pos", 215, 248, 2, 2)
+	register_place(   "library", "library_and_hospital"           , 240, 470, 55, 20)
+	register_exit(    "library", "library_and_hospital", "library", 240, 490, 55, 20)
 	
 	register_location("library_and_hospital", "images/locations/library_and_hospital/", False, 1408, 1312)
 	register_place(   "library_and_hospital", "houses_1-up", 20, 725, 20, 80)
@@ -211,35 +271,61 @@ init python:
 	register_exit(    "library_and_hospital", "scene", "library_and_hospital", 510, 0, 70, 20)
 	register_exit("library_and_hospital", "houses_1", "lib_and_hosp-up", 0, 725, 20, 80)
 	
-	register_location("musclub", "images/locations/musclub/", False, 224, 272)
-	register_place(   "musclub", "clubs"           , 140, 242, 50, 15)
-	register_exit(    "musclub", "clubs", "musclub", 140, 257, 50, 15)
+	register_location("musclub", "images/locations/musclub/", True, 224, 272)
+	register_place(   "musclub", "musclub_microphone_pos", 60, 220, 2, 2)
+	register_place(   "musclub", "stand_pos", 110, 230, 2, 2)
+	register_place(   "musclub", "clubs"           , 130, 242, 55, 15)
+	register_exit(    "musclub", "clubs", "musclub", 130, 257, 55, 15)
 	
 	register_location("old_camp", "images/locations/old_camp/", False, 2070, 1740)
+	register_place(   "old_camp", "bunker"            , 820, 665, 40, 20)
+	register_exit(    "old_camp", "bunker", "old_camp", 820, 645, 40, 20)
 	register_place(   "old_camp", "forest_path-1"            , 1160, 1700, 150, 20)
 	register_exit(    "old_camp", "forest_path-1", "old_camp", 1160, 1720, 150, 20)
 	
 	register_location("radio_club", "images/locations/radio_club/", True, 310, 247)
-	register_place(   "radio_club", "clubs"              , 215, 217, 60, 15)
-	register_exit(    "radio_club", "clubs", "radio_club", 215, 232, 60, 15)
-	register_place(   "radio_club", "radio_storeroom"              , 280, 185, 15, 30)
-	register_exit(    "radio_club", "radio_storeroom", "radio_club", 295, 185, 15, 30)
+	register_place(   "radio_club", "clubs"              , 218, 217, 55, 15)
+	register_exit(    "radio_club", "clubs", "radio_club", 218, 232, 55, 15)
+	register_place(   "radio_club", "radio_storeroom"              , 270, 185, 20, 30)
+	register_exit(    "radio_club", "radio_storeroom", "radio_club", 290, 185, 20, 30)
 	
-	register_location("radio_storeroom", "images/locations/radio_storeroom/", False, 162, 247)
-	register_place(   "radio_storeroom", "radio_club"                   , 80, 217, 50, 15)
-	register_exit(    "radio_storeroom", "radio_club", "radio_storeroom", 80, 232, 50, 15)
+	register_location("radio_storeroom", "images/locations/radio_storeroom/", True, 162, 247)
+	register_place(   "radio_storeroom", "radio_club"                   , 99, 217, 30, 15)
+	register_exit(    "radio_storeroom", "radio_club", "radio_storeroom", 99, 232, 30, 15)
 	
 	register_location("scene", "images/locations/scene/", False, 960, 992)
 	register_place(   "scene", "library_and_hospital"         , 400, 952, 150, 20)
 	register_exit(    "scene", "library_and_hospital", "scene", 400, 972, 150, 20)
 	
 	register_location("square", "images/locations/square/", False, 1824, 1344)
+	register_place(   "square", "bench_left_pos-1", 204, 319, 2, 2)
+	register_place(   "square", "bench_left_pos-2", 204, 542, 2, 2)
+	register_place(   "square", "bench_left_pos-3", 204, 767, 2, 2)
+	register_place(   "square", "bench_right_pos-1", 685, 319, 2, 2)
+	register_place(   "square", "bench_right_pos-2", 685, 542, 2, 2)
+	register_place(   "square", "bench_right_pos-3", 685, 767, 2, 2)
+	register_place(   "square", "car_pos", 1223, 846, 2, 2)
+	register_place(   "square", "lamp_pos-1", 206, 274, 2, 2)
+	register_place(   "square", "lamp_pos-10", 976, 737, 2, 2)
+	register_place(   "square", "lamp_pos-11", 1705, 937, 2, 2)
+	register_place(   "square", "lamp_pos-2", 206, 497, 2, 2)
+	register_place(   "square", "lamp_pos-3", 206, 722, 2, 2)
+	register_place(   "square", "lamp_pos-4", 206, 950, 2, 2)
+	register_place(   "square", "lamp_pos-5", 680, 274, 2, 2)
+	register_place(   "square", "lamp_pos-6", 680, 497, 2, 2)
+	register_place(   "square", "lamp_pos-7", 680, 722, 2, 2)
+	register_place(   "square", "lamp_pos-8", 680, 950, 2, 2)
+	register_place(   "square", "lamp_pos-9", 312, 1292, 2, 2)
+	register_place(   "square", "washbasin_left_pos-1", 204, 432, 2, 2)
+	register_place(   "square", "washbasin_left_pos-2", 204, 671, 2, 2)
+	register_place(   "square", "washbasin_right_pos-1", 687, 432, 2, 2)
+	register_place(   "square", "washbasin_right_pos-2", 688, 671, 2, 2)
 	register_place(   "square", "admin"          , 20, 940, 20, 120)
 	register_exit(    "square", "admin", "square", 0, 940, 20, 120)
 	register_place(   "square", "board_station"          , 310, 1304, 100, 20)
 	register_exit(    "square", "board_station", "square", 310, 1324, 100, 20)
-	register_place(   "square", "canteen"          , 1187, 655, 80, 10)
-	register_exit(    "square", "canteen", "square", 1187, 665, 80, 10)
+	register_place(   "square", "canteen"          , 1187, 665, 80, 10)
+	register_exit(    "square", "canteen", "square", 1187, 655, 80, 10)
 	register_place(   "square", "houses_1"          , 190, 20, 510, 20)
 	register_exit(    "square", "houses_1", "square", 190, 0, 510, 20)
 	register_place(   "square", "houses_2"          , 20, 1304, 100, 20)
@@ -248,34 +334,45 @@ init python:
 	register_exit(    "square", "stadium", "square", 1804, 940, 20, 120)
 	
 	register_location("stadium", "images/locations/stadium/", False, 2080, 1536)
+	register_place(   "stadium", "stadium_rails_pos", 671, 831, 2, 2)
+	register_place(   "stadium", "tennis-2", 2040, 1340, 20, 110)
 	register_place(   "stadium", "beach"           , 530, 1496, 330, 20)
 	register_exit(    "stadium", "beach", "stadium", 530, 1516, 330, 20)
 	register_place(   "stadium", "square"           , 20, 1340, 20, 100)
 	register_exit(    "stadium", "square", "stadium", 0, 1340, 20, 100)
 	register_place(   "stadium", "tennis"           , 1000, 20, 100, 20)
 	register_exit(    "stadium", "tennis", "stadium", 1000, 0, 100, 20)
+	register_exit("stadium", "tennis", "stadium-2", 2060, 1340, 20, 110)
 	
 	register_location("station", "images/locations/station/", False, 736, 992)
+	register_place(   "station", "before_stop", 270, 390, 70, 50)
+	register_place(   "station", "liaz_enter", 400, 390, 30, 50)
+	register_place(   "station", "liaz_place", 430, 520, 100, 20)
 	register_place(   "station", "station_enter", 270, 0, 70, 20)
 	
 	register_location("tennis", "images/locations/tennis/", False, 992, 670)
+	register_place(   "tennis", "separator_pos", 708, 373, 2, 2)
+	register_place(   "tennis", "stadium-2", 952, 490, 20, 120)
 	register_place(   "tennis", "beach"          , 430, 20, 100, 20)
 	register_exit(    "tennis", "beach", "tennis", 430, 0, 100, 20)
 	register_place(   "tennis", "forest_path-8"          , 20, 330, 20, 80)
 	register_exit(    "tennis", "forest_path-8", "tennis", 0, 330, 20, 80)
 	register_place(   "tennis", "stadium"          , 270, 630, 100, 20)
 	register_exit(    "tennis", "stadium", "tennis", 270, 650, 100, 20)
+	register_exit("tennis", "stadium", "tennis-2", 972, 490, 20, 120)
 	
 	
 	
 	locations["admin"].x, locations["admin"].y = 732, 356
-	locations["bath"].x, locations["bath"].y = 526, 2
+	locations["bath"].x, locations["bath"].y = 525, 1
 	locations["beach"].x, locations["beach"].y = 1234, 498
 	locations["board_station"].x, locations["board_station"].y = 868, 490
-	locations["canteen"].x, locations["canteen"].y = 986, 344
+	locations["bunker"].x, locations["bunker"].y = 472, 922
+	locations["bunker_enter"].x, locations["bunker_enter"].y = 482, 1048
+	locations["canteen"].x, locations["canteen"].y = 984, 344
 	locations["clubs"].x, locations["clubs"].y = 481, 352
 	locations["enter"].x, locations["enter"].y = 344, 416
-	locations["flat"].x, locations["flat"].y = None, None
+	locations["flat"].x, locations["flat"].y = 56, 828
 	locations["forest_path-1"].x, locations["forest_path-1"].y = 336, 750
 	locations["forest_path-2"].x, locations["forest_path-2"].y = 400, 650
 	locations["forest_path-3"].x, locations["forest_path-3"].y = 532, 628
@@ -286,23 +383,23 @@ init python:
 	locations["forest_path-8"].x, locations["forest_path-8"].y = 618, 126
 	locations["forest_path-9"].x, locations["forest_path-9"].y = 68, 428
 	locations["hospital"].x, locations["hospital"].y = 1140, 276
-	locations["house_dv"].x, locations["house_dv"].y = 690, 682
+	locations["house_dv"].x, locations["house_dv"].y = 689, 676
 	locations["house_mt"].x, locations["house_mt"].y = 886, 16
 	locations["house_sl"].x, locations["house_sl"].y = 870, 128
 	locations["house_un"].x, locations["house_un"].y = 750, -2
 	locations["houses_1"].x, locations["houses_1"].y = 818, 278
-	locations["houses_2"].x, locations["houses_2"].y = 626, 504
+	locations["houses_2"].x, locations["houses_2"].y = 625, 504
 	locations["ikarus"].x, locations["ikarus"].y = 264, 568
-	locations["liaz"].x, locations["liaz"].y = None, None
-	locations["library"].x, locations["library"].y = 1158, 136
+	locations["liaz"].x, locations["liaz"].y = 42, 1132
+	locations["library"].x, locations["library"].y = 1156, 136
 	locations["library_and_hospital"].x, locations["library_and_hospital"].y = 1034, 236
 	locations["musclub"].x, locations["musclub"].y = 606, 274
-	locations["old_camp"].x, locations["old_camp"].y = 300, 858
+	locations["old_camp"].x, locations["old_camp"].y = 334, 860
 	locations["radio_club"].x, locations["radio_club"].y = 332, 294
 	locations["radio_storeroom"].x, locations["radio_storeroom"].y = 244, 300
 	locations["scene"].x, locations["scene"].y = 1022, 96
 	locations["square"].x, locations["square"].y = 870, 384
 	locations["stadium"].x, locations["stadium"].y = 1258, 374
-	locations["station"].x, locations["station"].y = None, None
+	locations["station"].x, locations["station"].y = 54, 980
 	locations["tennis"].x, locations["tennis"].y = 1278, 276
 

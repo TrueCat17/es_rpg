@@ -8,7 +8,7 @@ init python:
 		objs = [obj for obj in objects_on_location if not isinstance(obj, Character)]
 		characters = [obj for obj in objects_on_location if isinstance(obj, Character) and obj is not me]
 		
-		# subtract 253.9/255 from each (rgb) channel, to all colors, exceptly clear-white, become black
+		# subtract 253.9/255 from each (rgb) channel: all colors, exceptly clear-white, become black
 		matrix = im.matrix.identity()
 		matrix[4] = matrix[9] = matrix[14] = -253.9/255.0
 		matrix = im.matrix.invert() * matrix # invert colors before it
@@ -22,13 +22,15 @@ init python:
 			to_draw += [(0, 0), im.rect('#000', cur_location.width, cur_location.height)]
 		
 		for obj in objs:
-			w, h = obj.xsize, obj.ysize
-			x, y = obj.x - get_absolute(obj.xanchor, w), obj.y - get_absolute(obj.yanchor, h)
-			
 			obj_free = obj.free()
-			if obj_free and near(x, y, w, h):
-				if obj.frames > 1:
-					obj_free = im.crop(obj_free, obj.crop)
+			if obj_free is None:
+				continue
+			if obj.frames > 1:
+				obj_free = im.crop(obj_free, obj.crop)
+			
+			w, h = get_image_size(obj_free)
+			x, y = obj.x - get_absolute(obj.xanchor, w), obj.y - get_absolute(obj.yanchor, h)
+			if near(x, y, w, h):
 				to_draw += [(x, y), im.matrix_color(obj_free, matrix)]
 		
 		for character in characters:

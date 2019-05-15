@@ -60,7 +60,7 @@ screen all_locations:
 			location = locations[name]
 			preview = get_preview(name)
 		
-		if location.using and os.path.exists(preview[:preview.find('?')]):
+		if location.using:
 			button:
 				pos (int(location.x * k), int(location.y * k))
 				size (int(get_image_width(preview) * k), int(get_image_height(preview) * k))

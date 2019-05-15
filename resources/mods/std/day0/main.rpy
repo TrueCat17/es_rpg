@@ -7,7 +7,7 @@ label day0_start:
 	
 #	$ night_time()
 #	$ set_location("enter", "behind_gates")
-	$ set_location("board_station", "square")
+	$ set_location("scene", "library_and_hospital")
 	$ me.set_direction(to_forward)
 	
 	$ control = True

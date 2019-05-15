@@ -57,7 +57,7 @@ init python:
 		place = selected_location.places[name] = selected_location.places[selected_place_name]
 		
 		del selected_location.places[selected_place_name]
-		selected_place_name = name
+		selected_place_name = place.name = name
 		
 		if locations.has_key(name):
 			set_exit_side()
@@ -200,7 +200,7 @@ screen location_props:
 				names = location_objects.keys()
 				names.sort()
 				
-				objects_count_btns = (get_stage_height() - objects_indent - 100) / (objects_btn_height + objects_indent)
+				objects_count_btns = (get_stage_height() - objects_indent - 150) / (objects_btn_height + objects_indent)
 				objects_start_btn = in_bounds(objects_start_btn, 0, max(0, len(names) - objects_count_btns))
 				
 				names = names[objects_start_btn:objects_start_btn + objects_count_btns]
@@ -216,13 +216,15 @@ screen location_props:
 						
 						python:
 							obj = location_objects[name]
-							image = obj['directory'] + obj['main_image'] + '.' + location_object_ext
-							w, h = get_image_size(image)
+							main_frame = obj['animations'][None]
+							obj_image = main_frame['directory'] + main_frame['main_image'] + '.' + location_object_ext
+							
+							w, h = get_image_size(obj_image)
 							k = 64.0 / max(w, h)
 							w, h = int(w * k), int(h * k)
 							image = im.Scale(image, w, h)
 						
-						image image:
+						image obj_image:
 							anchor (0.5, 0.5)
 							pos (objects_btn_height / 2, objects_btn_height / 2)
 							size (w, h)
