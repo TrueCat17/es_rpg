@@ -104,7 +104,9 @@ init python:
 	register_exit(    "clubs", "radio_club", "clubs", 390, 1120, 120, 15)
 	
 	register_location("enter", "images/locations/enter/", False, 960, 992)
-	register_place(   "enter", "before_gates", 415, 290, 130, 50)
+	register_place(   "enter", "before_gates", 415, 300, 130, 40)
+	register_place(   "enter", "before_gates_close", 415, 280, 130, 10)
+	register_place(   "enter", "before_gates_far", 415, 360, 130, 40)
 	register_place(   "enter", "behind_gates", 415, 250, 130, 10)
 	register_place(   "enter", "gate_left_pos", 449, 279, 2, 2)
 	register_place(   "enter", "gate_right_pos", 509, 279, 2, 2)
@@ -120,8 +122,14 @@ init python:
 	
 	register_location("flat", "images/locations/flat/", True, 192, 272)
 	register_place(   "flat", "armchair_pos", 80, 143, 2, 2)
-	register_place(   "flat", "station"        , 23, 252, 30, 10)
-	register_exit(    "flat", "station", "flat", 23, 262, 30, 10)
+	register_place(   "flat", "bed", 120, 155, 30, 70)
+	register_place(   "flat", "center", 70, 170, 40, 40)
+	register_place(   "flat", "computer", 60, 140, 80, 20)
+	register_place(   "flat", "exit", 23, 252, 30, 20)
+	register_place(   "flat", "flat_keys_pos", 20, 205, 2, 2)
+	register_place(   "flat", "lighter_pos", 121, 112, 2, 2)
+	register_place(   "flat", "notepad_pos", 20, 190, 2, 2)
+	register_place(   "flat", "phone_pos", 155, 160, 2, 2)
 	
 	register_location("forest_path-1", "images/locations/forest_path-1/", False, 1088, 832)
 	register_place(   "forest_path-1", "left_exit", 20, 690, 20, 90)
@@ -250,7 +258,7 @@ init python:
 	
 	register_location("liaz", "images/locations/liaz/", True, 432, 216)
 	register_place(   "liaz", "liaz_enter", 320, 196, 70, 20)
-	register_place(   "liaz", "sit_place", 325, 85, 2, 2)
+	register_place(   "liaz", "sit_place", 325, 95, 2, 2)
 	
 	register_location("library", "images/locations/library/", True, 384, 512)
 	register_place(   "library", "cupboard_1_pos", 214, 389, 2, 2)

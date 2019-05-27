@@ -1,4 +1,6 @@
 label day1_start:
+	hide bg with dissolve
+	
 	python:
 		was = []
 		day_num = 1
@@ -8,13 +10,13 @@ label day1_start:
 		me.set_dress('winter')
 		us.set_dress('sport')
 		
+		day_time()
 		set_location("ikarus", "sit_place")
 		me.set_direction(to_right)
 		me.set_pose("sit")
 		
 		control = False
 	
-	window show
 	"Я очнулся фиг знает где, и тут теперь икарус."
 	
 	$ me.set_pose("stance")
@@ -22,11 +24,13 @@ label day1_start:
 	$ me.move_to_place("before_sit_place")
 	$ me.set_direction(to_back)
 	
-	"Управление WASD/стрелки + Shift (бег)."
+	"Что же теперь делать?"
 	window hide
+	
+	$ me.move_to_place("enter")
+	$ set_location("enter", "ikarus")
+	
 	$ control = True
-
-# Используется только day1__enter__gates:
 
 
 label day1__enter__bus_enter:

@@ -1,10 +1,16 @@
 init 1 python:
 	
-	register_location_object('armchair', 'images/locations/flat/objects/', 'armchair', None)
+	register_location_object('armchair',  'images/locations/flat/objects/', 'armchair', None)
+	register_location_object('flat_keys', 'images/locations/objects/', 'flat_keys', None, 1)
+	register_location_object('lighter',   'images/locations/objects/', 'lighter',   None, 1)
+	register_location_object('notepad',   'images/locations/objects/', 'notepad',   None, 1)
+	register_location_object('phone',     'images/locations/objects/', 'phone',     None, 1)
 	
 	
 	register_location_object('liaz', 'images/locations/station/objects/', 'liaz', None)
 	
+	
+	register_location_object('uv_night_prologue', 'images/locations/objects/', 'uv_night_prologue', None)
 	
 	register_location_object('ikarus', 'images/locations/enter/objects/', 'ikarus_main', 'ikarus_free')
 	
@@ -136,6 +142,10 @@ init 1 python:
 	add_location_object("enter", "ikarus_pos", "ikarus")
 	
 	add_location_object("flat", "armchair_pos", "armchair")
+	add_location_object("flat", "flat_keys_pos", "flat_keys")
+	add_location_object("flat", "lighter_pos", "lighter")
+	add_location_object("flat", "notepad_pos", "notepad")
+	add_location_object("flat", "phone_pos", "phone")
 	
 	add_location_object("library", "cupboard_1_pos", "cupboard_1")
 	add_location_object("library", "cupboard_2_pos", "cupboard_2")

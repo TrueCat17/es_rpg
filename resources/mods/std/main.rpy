@@ -16,5 +16,5 @@ label start:
 	
 	while True:
 		call rpg_update
-		pause 0.2
+		pause 0.05
 
