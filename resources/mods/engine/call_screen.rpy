@@ -1,6 +1,8 @@
 init -1000 python:
 	call_screen_choosed = True
-	can_exec_next_vars.append((None, 'call_screen_choosed'))
+	def call_screen_choosed_func():
+		return call_screen_choosed
+	can_exec_next_check_funcs.append(call_screen_choosed_func)
 	
 	call_screen_name, call_ret_name = None, None
 	

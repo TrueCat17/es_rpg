@@ -12,7 +12,7 @@ init -990 python:
 	mt_voice = Character('Голос',  color = 0x00EE33)
 	pi       = Character('Пионер', color = 0xFF0000)
 	
-	me        = Character('Семён', color = 0xEEEEAA)
+	sm        = Character('Семён', color = 0xEEEEAA)
 	dreamgirl = Character('...',   color = 0xFFFFFF)
 	
 	dv = Character('Алиса',            unknown_name = 'Пионерка',         color = 0xDD9900)
@@ -33,7 +33,7 @@ init -990 python:
 	
 	
 	
-	rpg_characters = ('me ' +
+	rpg_characters = ('sm ' +
 					  'dv un sl mi us ' +
 					  'cs mz mt sh el uv ' +
 					  'pm pf').split(' ')
@@ -42,6 +42,9 @@ init -990 python:
 	for name in rpg_characters:
 		g[name].make_rpg('images/characters/', name, 'pioneer')
 		g['lp_' + name] = 0
+	
+	me = sm
+
 
 init -980 python:
 	register_character_animation(dv, 'node',         'images/characters/anim/dv_node',         0, 0, 34, 0, 33, 8.5)

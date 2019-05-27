@@ -30,3 +30,5 @@ init -997 python:
 			config[std_mixer + '_volume'] = 1
 		renpy.music.set_mixer_volume(config[std_mixer + '_volume'], std_mixer)
 	
+	config.shift_is_run = False # If True, usual moving is walking, with shift - running
+	

@@ -5,8 +5,8 @@ init python:
 		def near(x, y, width, height):
 			return x - cs < me.x and me.x < x + width + cs and y - cs < me.y and me.y < y + height + cs
 		
-		objs = [obj for obj in objects_on_location if not isinstance(obj, Character)]
-		characters = [obj for obj in objects_on_location if isinstance(obj, Character) and obj is not me]
+		objs = [obj for obj in cur_location.objects if not isinstance(obj, Character)]
+		characters = [obj for obj in cur_location.objects if isinstance(obj, Character) and obj is not me]
 		
 		# subtract 253.9/255 from each (rgb) channel: all colors, exceptly clear-white, become black
 		matrix = im.matrix.identity()
@@ -15,11 +15,11 @@ init python:
 		
 		location_free = cur_location.free()
 		
-		to_draw = [(cur_location.width, cur_location.height)]
+		to_draw = [(cur_location.xsize, cur_location.ysize)]
 		if location_free:
 			to_draw += [(0, 0), location_free]
 		else:
-			to_draw += [(0, 0), im.rect('#000', cur_location.width, cur_location.height)]
+			to_draw += [(0, 0), im.rect('#000', cur_location.xsize, cur_location.ysize)]
 		
 		for obj in objs:
 			obj_free = obj.free()
@@ -44,10 +44,10 @@ init python:
 	
 	def get_end_point(from_x, from_y, dx, dy):
 		to_x, to_y = from_x + dx, from_y + dy
-		if to_x >= cur_location.width:  to_x = cur_location.width - 1
-		if to_x < 0:                    to_x = 0
-		if to_y >= cur_location.height: to_y = cur_location.height - 1
-		if to_y < 0:                    to_y = 0
+		if to_x >= cur_location.xsize: to_x = cur_location.xsize - 1
+		if to_x < 0:                   to_x = 0
+		if to_y >= cur_location.ysize: to_y = cur_location.ysize - 1
+		if to_y < 0:                   to_y = 0
 		dx, dy = to_x - from_x, to_y - from_y
 		
 		free = get_map_free()

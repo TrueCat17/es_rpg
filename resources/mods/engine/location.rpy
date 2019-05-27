@@ -3,8 +3,19 @@ init -1002 python:
 	location_ext = 'png'
 	
 	
-	location_start_time = time.time()
+	location_start_time = 0
 	location_fade_time = 0.5
+	
+	
+	def location_showed():
+		return time.time() - location_start_time > location_fade_time * 2
+	can_exec_next_check_funcs.append(location_showed)
+	
+	def location_show():
+		global location_start_time
+		location_start_time = time.time() - location_fade_time * 2
+	can_exec_next_skip_funcs.append(location_show)
+	
 	
 	cur_location = None
 	cur_location_name = None
@@ -25,12 +36,12 @@ init -1002 python:
 			cam_object_end_moving = time.time() + moving_time
 		
 		if isinstance(obj, str):
-			if not cur_location_name:
+			if cur_location is None:
 				out_msg('cam_to', 'Current location is not defined, need to call set_location')
 				return
 			place = cur_location.get_place(obj)
 			if not place:
-				out_msg('cam_to', 'Place <' + obj + '> not found in location <' + cur_location_name + '>')
+				out_msg('cam_to', 'Place <' + obj + '> not found in location <' + cur_location.name + '>')
 				return
 			cam_object = place
 		else:
@@ -57,10 +68,10 @@ init -1002 python:
 		for location_name in locations.keys():
 			location = locations[location_name]
 			if location.is_room:
-				scale = min(stage_width / location.width, stage_height / location.height) # increase to width OR height
+				scale = min(stage_width / location.xsize, stage_height / location.ysize) # increase to width OR height
 				scale = spec_floor(scale) # round to down
 			else:
-				scale = max(stage_width / location.width, stage_height / location.height) # increase to width AND height
+				scale = max(stage_width / location.xsize, stage_height / location.ysize) # increase to width AND height
 				scale = spec_ceil(scale)  # round to up
 			
 			location_scale = max(location_scale, scale)
@@ -71,11 +82,13 @@ init -1002 python:
 	
 	
 	locations = dict()
-	objects_on_location = []	
 	
 	def register_location(name, path_to_images, is_room, width, height):
-		location = Location(name, path_to_images, is_room, width, height)
-		locations[name] = location
+		if locations.has_key(name):
+			out_msg('register_location', 'Location <' + name + '> already registered')
+		else:
+			location = Location(name, path_to_images, is_room, width, height)
+			locations[name] = location
 	
 	def register_place(location_name, place_name, x, y, width, height):
 		if not locations.has_key(location_name):
@@ -106,54 +119,58 @@ init -1002 python:
 			out_msg('set_location', 'Location <' + location_name + '> not registered')
 			return
 		
-		if type(place) is not dict:
+		if type(place) is str:
 			if not locations[location_name].get_place(place):
-				out_msg('set_location', 'Place <' + str(place) + '> in location <' + location_name + '> not found')
+				out_msg('set_location', 'Place <' + place + '> in location <' + location_name + '> not found')
 				return
 		
 		if not has_screen('location'):
 			show_screen('location')
 			show_screen('inventory')
 		
-		global location_start_time, objects_on_location
+		global location_start_time
+		location_start_time = time.time()
+		
 		global cur_location, cur_location_name, cur_to_place
-		global location_changed, draw_location, draw_location_name, draw_objects_on_location
+		global location_changed, draw_location
 		global was_out_exit, cam_object
 		
 		cur_location = locations[location_name]
 		cur_location_name = location_name
 		cur_to_place = place
 		
-		location_start_time = time.time()
-		objects_on_location = list(cur_location.objects)
-		
 		main = cur_location.main()
 		real_width, real_height = get_image_size(main)
-		reg_width, reg_height = cur_location.width, cur_location.height
+		reg_width, reg_height = cur_location.xsize, cur_location.ysize
 		
 		if draw_location is None:
 			location_start_time -= location_fade_time
 			
 			location_changed = True
-			draw_location, draw_location_name = cur_location, cur_location_name
-			draw_objects_on_location = objects_on_location
+			draw_location = cur_location
 			
 			was_out_exit = False
-			show_character(me, cur_to_place)
 			cam_object = me
+		else:
+			cam_object = {'x': me.x, 'y': me.y}
+		
+		show_character(me, cur_to_place)
 		
 		if reg_width != real_width or reg_height != real_height:
 			reg_size = str(reg_width) + 'x' + str(reg_height)
 			real_size = str(real_width) + 'x' + str(real_height)
 			out_msg('set_location', 
 					'Location sizes on registration (' + reg_size + ') not equal to real sizes (' + real_size + ')\n' + 
-					'Location: <' + cur_location_name + '>\n' + 
+					'Location: <' + cur_location.name + '>\n' + 
 					'Main image: <' + main + '>')
 	
 	def hide_location():
-		global cur_location_name, cur_to_place
-		cur_location_name = None
+		global cur_location, cur_location_name, cur_to_place
+		cur_location = cur_location_name = None
 		cur_to_place = None
+		
+		global draw_location
+		draw_location = None
 	
 	
 	
@@ -187,14 +204,14 @@ init -1002 python:
 	
 	
 	class Location(Object):
-		def __init__(self, name, directory, is_room, width, height):
+		def __init__(self, name, directory, is_room, xsize, ysize):
 			Object.__init__(self)
 			
 			self.name = name
 			self.directory = directory + ('' if directory.endswith('/') else '/')
 			
 			self.is_room = is_room
-			self.width, self.height = width, height
+			self.xsize, self.ysize = xsize, ysize
 			
 			self.places = dict()
 			self.exits = []
@@ -224,15 +241,17 @@ init -1002 python:
 		
 		
 		def update_pos(self):
-			main_width, main_height = self.width * location_scale, self.height * location_scale
+			main_width, main_height = self.xsize * location_scale, self.ysize * location_scale
 			stage_width, stage_height = get_stage_width(), get_stage_height()
 			
 			if cam_object_old is None or cam_object is None or cam_object_end_moving < time.time():
-				cam_object_x = 0 if cam_object is None else cam_object['x']
-				cam_object_y = 0 if cam_object is None else cam_object['y']
+				if cam_object is None:
+					cam_object_x, cam_object_y = 0, 0
+				else:
+					cam_object_x, cam_object_y = get_place_center(cam_object)
 			else:
-				from_x, from_y = cam_object_old['x'], cam_object_old['y']
-				to_x, to_y = cam_object['x'], cam_object['y']
+				from_x, from_y = get_place_center(cam_object_old)
+				to_x, to_y = get_place_center(cam_object)
 				
 				time_k = (time.time() - cam_object_start_moving) / (cam_object_end_moving - cam_object_start_moving)
 				cam_object_x = from_x + (to_x - from_x) * time_k
@@ -263,26 +282,37 @@ init -1002 python:
 	
 	
 	class Place(Object):
-		def __init__(self, name, x, y, width, height):
+		def __init__(self, name, x, y, xsize, ysize):
 			Object.__init__(self)
 			self.name = name
 			self.x, self.y = x, y
-			self.width, self.height = width, height
+			self.xsize, self.ysize = xsize, ysize
 		
 		def inside(self, x, y):
-			return self.x <= x and x <= self.x + self.width and self.y <= y and y <= self.y + self.height
+			return self.x <= x and x <= self.x + self.xsize and self.y <= y and y <= self.y + self.ysize
 	
 	class Exit(Object):
-		def __init__(self, to_location_name, to_place_name, x, y, width, height):
+		def __init__(self, to_location_name, to_place_name, x, y, xsize, ysize):
 			Object.__init__(self)
 			self.to_location_name = to_location_name
 			self.to_place_name = to_place_name
 			self.x, self.y = x, y
-			self.width, self.height = width, height
+			self.xsize, self.ysize = xsize, ysize
 		
 		def inside(self, x, y):
-			return self.x <= x and x <= self.x + self.width and self.y <= y and y <= self.y + self.height
+			return self.x <= x and x <= self.x + self.xsize and self.y <= y and y <= self.y + self.ysize
 	
+	
+	def get_place_center(place):
+		x, y = place['x'], place['y']
+		
+		if isinstance(place, (Character, LocationObject)):
+			w = h = 0
+		else:
+			w = place['xsize'] if place.has_key('xsize') else 0
+			h = place['ysize'] if place.has_key('ysize') else 0
+		
+		return x + w / 2, y + h / 2
 	
 	
 	exec_action = False
@@ -294,8 +324,11 @@ init -1002 python:
 		
 		for exit in cur_location.exits:
 			if exit.inside(me.x, me.y):
-				can_exit = (not globals().has_key('can_exit_to')) or can_exit_to(exit.to_location_name, exit.to_place_name)
-				if was_out_exit and can_exit:
+				if not was_out_exit:
+					continue
+				
+				can_exit = not globals().has_key('can_exit_to') or can_exit_to(exit.to_location_name, exit.to_place_name)
+				if can_exit:
 					was_out_exit = False
 					was_out_place = True
 					return exit

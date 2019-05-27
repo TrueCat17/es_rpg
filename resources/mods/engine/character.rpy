@@ -7,7 +7,7 @@ init -1001 python:
 	character_run_fps           =  12
 	character_acceleration_time = 0.5
 	character_walk_speed        =  50
-	character_run_speed         = 150*5
+	character_run_speed         = 150*1
 	
 	character_walk_acceleration = character_walk_speed / character_acceleration_time
 	character_run_acceleration = character_run_speed / character_acceleration_time
@@ -28,18 +28,21 @@ init -1001 python:
 	to_left = 1
 	to_right = 2
 	
+	def characters_moved():
+		if cur_location:
+			for obj in cur_location.objects:
+				if isinstance(obj, Character) and not obj.ended_move_waiting():
+					return False
+		return True
+	can_exec_next_check_funcs.append(characters_moved)
 	
 	def characters_to_end():
-		for obj in objects_on_location:
-			if isinstance(obj, Character):
-				obj.move_to_end()
+		if cur_location:
+			for obj in cur_location.objects:
+				if isinstance(obj, Character):
+					obj.move_to_end()
+	can_exec_next_skip_funcs.append(characters_to_end)
 	
-	def characters_moved():
-		for obj in objects_on_location:
-			if isinstance(obj, Character) and not obj.ended_move_waiting():
-				return False
-		return True
-	can_exec_next_funcs.append(characters_moved)
 	
 	
 	def register_character_animation(character, anim_name, path, xoffset, yoffset,
@@ -78,17 +81,20 @@ init -1001 python:
 			loaded = False
 		)
 	
-	def characters_anim_to_end():
-		for obj in objects_on_location:
-			if isinstance(obj, Character):
-				obj.anim_to_end()
-	
 	def characters_anim_ended():
-		for obj in objects_on_location:
-			if isinstance(obj, Character) and not obj.ended_anim_waiting():
-				return False
+		if cur_location:
+			for obj in cur_location.objects:
+				if isinstance(obj, Character) and not obj.ended_anim_waiting():
+					return False
 		return True
-	can_exec_next_funcs.append(characters_anim_ended)
+	can_exec_next_check_funcs.append(characters_anim_ended)
+	
+	def characters_anim_to_end():
+		if cur_location:
+			for obj in cur_location.objects:
+				if isinstance(obj, Character):
+					obj.anim_to_end()
+	can_exec_next_skip_funcs.append(characters_anim_to_end)
 	
 	
 	
@@ -211,7 +217,7 @@ init -1001 python:
 			self.moving_start_time = time.time()
 			
 			self.from_x, self.from_y = int(self.x), int(self.y)
-			self.to_x, self.to_y = int(place.x + place.width / 2), int(place.y + place.height / 2)
+			self.to_x, self.to_y = get_place_center(place)
 			self.dx, self.dy = self.to_x - self.from_x, self.to_y - self.from_y
 			
 			if self.dx == 0 and self.dy == 0:
@@ -253,10 +259,9 @@ init -1001 python:
 					self.place_index = place_name
 		
 		def move_to_place(self, place_names, run = False, exec_stop_time = -1):
-			if not cur_location:
-				out_msg('Character.to_next_place', 'Current location is not defined, need to call set_location')
+			if not self.location:
+				out_msg('Character.to_next_place', 'Character there is not in some location')
 				return
-			self.location = cur_location
 			
 			if type(place_names) not in (list, tuple):
 				place_names = [place_names]
@@ -283,6 +288,7 @@ init -1001 python:
 				self.end_stop_time = time.time()
 			elif not (self.place_names and type(self.place_names[-1]) is int): # not cycled path
 				self.moving_start_time = 0
+				self.update()
 		
 		def ended_move_waiting(self):
 			if self.end_stop_time:
@@ -361,6 +367,8 @@ init -1001 python:
 				self.set_frame(frame)
 			
 			self.update_crop()
+		#	print self.pose == 'sit', self.move_kind
+		#	print self.x == self.to_x, self.y == self.to_y
 			
 			if self.pose == 'sit' or self.move_kind == 'stay':
 				return
@@ -374,7 +382,7 @@ init -1001 python:
 			
 			if moving_dtime < self.acceleration_time:                               # acceleration, s = a*(t^2)/2
 				cur_dist = self.acceleration * (moving_dtime ** 2) / 2
-			elif moving_dtime < self.acceleration_time + self.no_acceleration_time: # usual moving, s = a*(at^2)/2 + v*t
+			elif moving_dtime < self.acceleration_time + self.no_acceleration_time: # usual moving, s = a*(t^2)/2 + v*t
 				cur_dist = self.acceleration * (self.acceleration_time ** 2) / 2 + self.speed * (moving_dtime - self.acceleration_time)
 			elif moving_dtime < self.moving_full_time:                              # deceleration, s = full_s - a*((full_t-t)^2)/2
 				cur_dist = self.dist - self.acceleration * ((self.moving_full_time - moving_dtime) ** 2) / 2
@@ -409,30 +417,39 @@ init -1001 python:
 	
 	
 	
-	def show_character(character, place):
-		if not character:
-			out_msg('show_character', 'character == None')
-			return
-		if not cur_location_name:
+	def show_character(character, place, location = None):
+		if cur_location is None:
 			out_msg('show_character', 'Current location is not defined, need to call set_location')
 			return
-		if type(place) is not dict:
-			place = cur_location.get_place(place)
-		if not place:
-			out_msg('show_character', 'Place <' + str(place_name) + '> not found in location <' + str(cur_location_name) + '>')
-			return
 		
-		character.x, character.y = place['x'] + place['width'] / 2, place['y'] + place['height'] / 2
+		if location is None:
+			location = cur_location
+		elif type(location) is str:
+			if not locations.has_key(location):
+				out_msg('show_character', 'Location <' + location + '> not registered')
+				return
+			location = locations[location]
+		
+		if type(place) is str:
+			place_name = place
+			place = location.get_place(place)
+			if not place:
+				out_msg('show_character', 'Place <' + place_name + '> not found in location <' + str(location.name) + '>')
+				return
+		
+		if character.location:
+			character.location.objects.remove(character)
+		
+		character.location = location
+		location.objects.append(character)
+		
+		character.x, character.y = get_place_center(place)
 		character.place_names = None
-		objects_on_location.append(character)
 	
 	def hide_character(character):
-		if not character:
-			out_msg('hide_character', 'character == None')
-			return
-		
-		if character in objects_on_location:
-			objects_on_location.remove(character)
+		if character.location:
+			character.location.objects.remove(character)
+			character.location = None
 		else:
 			out_msg('hide_character', 'Character <' + character.real_name + ', ' + character.unknow_name + '> not shown')
 	

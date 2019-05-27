@@ -270,12 +270,12 @@ init -9000 python:
 					for i in xrange(len(old_value)):
 						new_v = new_value[i]
 						old_v = old_value[i]
-						type_v = type(new_v)
+						type_v = type(new_v) if type(old_v) is not float else float
 						
 						v = type_v((new_v - old_v) * t + old_v)
 						value.append(v)
 				else:
-					type_v = type(new_value)
+					type_v = type(new_value) if type(old_value) is not float else float
 					value = type_v((new_value - old_value) * t + old_value)
 				self.set_prop(name, value)
 		

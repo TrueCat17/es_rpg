@@ -1,13 +1,10 @@
 init -1000 python:
 	# db = dialogue box
 	
-	pause_end = 0
-	def pause_ended():
-		return pause_end < time.time()
-	can_exec_next_funcs.append(pause_ended)
-	
 	db_read = True
-	can_exec_next_vars.append((None, 'db_read'))
+	def db_read_func():
+		return db_read
+	can_exec_next_check_funcs.append(db_read_func)
 	
 	
 	db_pause_after_text = 0
@@ -177,23 +174,9 @@ init -1000 python:
 	
 	
 	def db_on_enter():
-		if not sprites_effects_ended():
-			sprites_effects_to_end()
-			return
-		if not location_objects_animations_ended():
-			location_objects_animations_to_end()
-			return
-		if not characters_moved():
-			characters_to_end()
-			return
-		if not characters_anim_ended():
-			characters_anim_to_end()
-			return
+		skip_exec_current_command()
 		
-		global pause_end, db_pause_end, db_dialogue, db_name_text, db_voice_text, db_voice_full_text, db_read
-		
-		if pause_end > time.time():
-			pause_end = time.time()
+		global db_pause_end, db_dialogue, db_name_text, db_voice_text, db_voice_full_text, db_read
 		
 		if db_pause_end > time.time():
 			db_pause_end = time.time() - 1

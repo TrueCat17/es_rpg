@@ -85,19 +85,16 @@ init -100000 python:
 
 
 init -1000000 python:
-	can_exec_next_vars = []
-	can_exec_next_funcs = []
+	can_exec_next_check_funcs = []
+	can_exec_next_skip_funcs = []
 	
 	def can_exec_next_command():
-		for obj, var in can_exec_next_vars:
-			if obj is None:
-				obj = globals()
-			if not obj[var]:
-				return False
-		
-		for func in can_exec_next_funcs:
+		for func in can_exec_next_check_funcs:
 			if not func():
 				return False
-		
 		return True
+	
+	def skip_exec_current_command():
+		for func in can_exec_next_skip_funcs:
+			func()
 

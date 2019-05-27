@@ -37,7 +37,8 @@ init python:
 		
 		obj_name = element[0]
 		obj = location_objects[obj_name]
-		image = obj['directory'] + obj['main_image'] + '.' + location_object_ext
+		main_frame = obj['animations'][None]
+		image = main_frame['directory'] + main_frame['main_image'] + '.' + location_object_ext
 		
 		w, h = get_image_size(image)
 		k = 1.5 * max(w, h) / inventory_cell_size
@@ -81,7 +82,7 @@ init python:
 		obj_name = element[0]
 		obj = location_objects[obj_name]
 		if obj['remove_to_location']:
-			add_location_object(cur_location_name, me, obj_name)
+			add_location_object(cur_location.name, me, obj_name)
 		
 		element[1] -= 1
 		if element[1] == 0:
@@ -91,7 +92,7 @@ init python:
 screen inventory:
 	key 'I' action SetVariable('inventory_visible', not(inventory_visible))
 	
-	if inventory_visible and draw_location_name:
+	if inventory_visible and draw_location:
 		image inventory_background:
 			size (inventory_xsize, inventory_ysize)
 			align (0.5, 0.5)
@@ -130,12 +131,12 @@ screen inventory:
 						textbutton 'Использовать':
 							action inventory_do_action('using')
 							
-							color '#00FF00'
+							color 0x00FF00
 							text_size 20
 						textbutton ('Выложить' if inventory_selected_object['remove_to_location'] else 'Выбросить'):
 							action inventory_remove_selected
 							
-							color '#FF0000'
+							color 0xFF0000
 							text_size 20
 			
 			if not inventory_inited:

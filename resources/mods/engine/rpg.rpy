@@ -36,8 +36,8 @@ label rpg_update:
 			if renpy.has_label('on__' + cur_location_name):
 				renpy.call('on__' + cur_location_name)
 	
-	$ near_location_object = None
 	python:
+		near_location_object = None
 		if exec_action:
 			near_location_object = get_near_location_object()
 			if near_location_object is not None:

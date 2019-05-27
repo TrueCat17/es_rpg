@@ -2,8 +2,7 @@ init python:
 	
 	loc__background_alpha = 0.0
 	
-	draw_location = draw_location_name = None
-	draw_objects_on_location = []
+	draw_location = None
 	
 	loc__max_time = time.time() * 2
 	
@@ -63,36 +62,35 @@ screen location:
 	zorder -4
 	
 	python:
-		if time.time() - location_start_time < location_fade_time and cur_location_name:
-			loc__background_alpha = (time.time() - location_start_time) / location_fade_time
-			cur_location.preload()
-			
+		dtime = time.time() - location_start_time
+		
+		# fade, back.alpha: 0 -> 1
+		if dtime < location_fade_time:
+			loc__background_alpha = dtime / location_fade_time
 			location_changed = False
-		elif time.time() - location_start_time < location_fade_time * 2:
-			if not cur_location_name:
-				location_start_time -= location_fade_time
-			loc__background_alpha = 1.0 - (time.time() - location_start_time - location_fade_time) / location_fade_time
 			
-			if not location_changed and cur_location is not None:
+			if cur_location:
+				cur_location.preload()
+		
+		# fade, back.alpha: 1 -> 0
+		else:
+			if dtime < location_fade_time * 2:
+				loc__background_alpha = 1.0 - (dtime - location_fade_time) / location_fade_time
+			else:
+				loc__background_alpha = 0.0
+			
+			if not location_changed:
 				location_changed = True
-				draw_location, draw_location_name = cur_location, cur_location_name
-				draw_objects_on_location = objects_on_location
+				draw_location = cur_location
 				
 				show_character(me, cur_to_place)
 				cam_object = me
+				was_out_exit = False
 				
 				if times['next_name']:
 					set_time_direct()
-				
-				was_out_exit = True
-				for exit in cur_location.exits:
-					if exit.inside(me.x, me.y):
-						was_out_exit = False
-						break
-		else:
-			loc__background_alpha = 0.0
 	
-	if draw_location_name:
+	if draw_location:
 		python:
 			loc__shift_is_down = False
 			
@@ -118,6 +116,9 @@ screen location:
 			key 's'     action SetVariable('loc__down',  True) first_delay 0
 		
 		python:
+			if not config.shift_is_run:
+				loc__shift_is_down = not loc__shift_is_down
+			
 			loc__character_dx = loc__character_dy = 0
 			if loc__left:
 				loc__character_dx -= 1
@@ -150,21 +151,21 @@ screen location:
 			
 			update_location_scale()
 			
-			for obj in draw_objects_on_location:
+			for obj in draw_location.objects:
 				if obj.update:
 					obj.update()
-			draw_objects_on_location.sort(key = lambda obj: obj.y)
+			draw_location.objects.sort(key = lambda obj: obj.y)
 			
 			draw_location.update_pos()
 		
 		image draw_location.main():
 			pos  (int(draw_location.x), int(draw_location.y))
-			size (int(draw_location.width * location_scale), int(draw_location.height * location_scale))
+			size (int(draw_location.xsize * location_scale), int(draw_location.ysize * location_scale))
 			
 			python:
 				list_to_draw = []
 				
-				for obj in draw_objects_on_location:
+				for obj in draw_location.objects:
 					obj_xanchor, obj_yanchor = obj.xanchor, obj.yanchor
 					if type(obj_xanchor) is int:
 						obj_xanchor *= location_scale
@@ -189,7 +190,7 @@ screen location:
 		if draw_location.over():
 			image draw_location.over():
 				pos  (int(draw_location.x), int(draw_location.y))
-				size (int(draw_location.width * location_scale), int(draw_location.height * location_scale))
+				size (int(draw_location.xsize * location_scale), int(draw_location.ysize * location_scale))
 		
 		
 		image 'images/bg/black.jpg':

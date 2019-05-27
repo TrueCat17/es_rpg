@@ -5,6 +5,13 @@ init -999 python:
 		global pause_end
 		pause_end = time.time() + sec
 	
+	def pause_ended():
+		return pause_end < time.time()
+	can_exec_next_check_funcs.append(pause_ended)
+	
+	def pause_to_end():
+		pause(0)
+	can_exec_next_skip_funcs.append(pause_to_end)
 	
 	class Music:
 		@staticmethod

@@ -7,26 +7,29 @@ init -1001 python:
 	
 	
 	def location_objects_animations_ended():
-		for obj in objects_on_location:
-			if not isinstance(obj, LocationObject):
-				continue
-			
-			animation = obj.animation
-			if animation.start_frame != animation.end_frame and obj.repeat >= 0:
-				if animation.time > 0 and time.time() - obj.animation_start_time < animation.time:
-					return False
+		if cur_location:
+			for obj in cur_location.objects:
+				if not isinstance(obj, LocationObject):
+					continue
+				
+				animation = obj.animation
+				if animation.start_frame != animation.end_frame and obj.repeat >= 0:
+					if animation.time > 0 and time.time() - obj.animation_start_time < animation.time:
+						return False
 		return True
-	can_exec_next_funcs.append(location_objects_animations_ended)
+	can_exec_next_check_funcs.append(location_objects_animations_ended)
 	
 	def location_objects_animations_to_end():
-		for obj in objects_on_location:
-			if not isinstance(obj, LocationObject):
-				continue
-			
-			animation = obj.animation
-			if animation.start_frame != animation.end_frame and obj.repeat >= 0 and animation.time > 0:
-				obj.animation_start_time = time.time() - obj.animation.time
-				obj.repeat = 0
+		if cur_location:
+			for obj in cur_location.objects:
+				if not isinstance(obj, LocationObject):
+					continue
+				
+				animation = obj.animation
+				if animation.start_frame != animation.end_frame and obj.repeat >= 0 and animation.time > 0:
+					obj.animation_start_time = time.time() - obj.animation.time
+					obj.repeat = 0
+	can_exec_next_skip_funcs.append(location_objects_animations_to_end)
 	
 	
 	def register_location_object(obj_name, directory, main_image, free_image,
@@ -193,7 +196,7 @@ init -1001 python:
 				out_msg('add_location_object', 'Place <' + place + '> not found in location <' + location_name + '>')
 				return
 			place = tmp_place
-			px, py = place.x + place.width / 2, place.y + place.height / 2
+			px, py = place.x + place.xsize / 2, place.y + place.ysize / 2
 		else:
 			px, py = place['x'], place['y'] - 1
 		
@@ -202,9 +205,7 @@ init -1001 python:
 			return
 		
 		instance = LocationObject(obj_name, px, py)
-		
 		location.objects.append(instance)
-		objects_on_location.append(instance)
 	
 	
 	def get_location_objects(location_name, place, obj_type, count = -1):
@@ -219,12 +220,12 @@ init -1001 python:
 				out_msg('get_location_objects', 'Place <' + place + '> not found in location <' + location_name + '>')
 				return
 			place = tmp_place
-			px, py = place.x + place.width / 2, place.y + place.height / 2
+			px, py = place.x + place.xsize / 2, place.y + place.ysize / 2
 		else:
 			px, py = place['x'], place['y']
 		
 		res = []
-		for obj in objects_on_location:
+		for obj in location.objects:
 			if not isinstance(obj, LocationObject):
 				continue
 			
@@ -242,10 +243,10 @@ init -1001 python:
 	
 	def get_near_location_object():
 		mx, my = me.x, me.y
-		min_dist = character_radius * 3
+		min_dist = character_radius * 5
 		res = None
 		
-		for i in objects_on_location:
+		for i in cur_location.objects:
 			if not isinstance(i, LocationObject):
 				continue
 			
@@ -291,6 +292,4 @@ init -1001 python:
 		for i in to_remove:
 			if i in location.objects:
 				location.objects.remove(i)
-			if i in objects_on_location:
-				objects_on_location.remove(i)
-
+	

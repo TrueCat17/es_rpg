@@ -15,13 +15,14 @@ init -1000 python:
 			if spr.effect is not None:
 				return False
 		return screen.effect is None
-	can_exec_next_funcs.append(sprites_effects_ended)
+	can_exec_next_check_funcs.append(sprites_effects_ended)
 	
 	def sprites_effects_to_end():
 		for spr in sprites_list:
 			spr.remove_effect()
 		screen.remove_effect()
 		remove_hiding_sprites()
+	can_exec_next_skip_funcs.append(sprites_effects_to_end)
 	
 	def remove_hiding_sprites():
 		for spr in list(sprites_list):
