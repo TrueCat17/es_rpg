@@ -1,3 +1,8 @@
+label rpg_loop:
+	while True:
+		call rpg_update
+		pause 1.0 / get_fps()
+
 label rpg_update:
 	
 	if inventory_action is not None:

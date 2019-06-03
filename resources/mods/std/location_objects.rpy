@@ -57,6 +57,7 @@ init 1 python:
 	register_location_object('table_v', 'images/locations/canteen/objects/', 'table_v', 'table_v_free')
 	register_location_object('canteen_column',      'images/locations/canteen/objects/', 'column', 'column_free')
 	register_location_object('canteen_column_back', 'images/locations/canteen/objects/', 'column_back', 'column_free')
+	register_location_object('canteen_door', 'images/locations/canteen/objects/', 'door', None)
 	
 	
 	register_location_object('musclub_microphone', 'images/locations/musclub/objects/', 'microphone', 'microphone_free')
@@ -96,6 +97,7 @@ init 1 python:
 	add_location_object("canteen", "canteen_column_pos-1", "canteen_column")
 	add_location_object("canteen", "canteen_column_pos-2", "canteen_column")
 	add_location_object("canteen", "canteen_column_pos-3", "canteen_column")
+	add_location_object("canteen", "canteen_door_pos", "canteen_door")
 	add_location_object("canteen", "chair_backward_pos-01", "chair_backward")
 	add_location_object("canteen", "chair_backward_pos-02", "chair_backward")
 	add_location_object("canteen", "chair_backward_pos-03", "chair_backward")
@@ -153,6 +155,8 @@ init 1 python:
 	
 	add_location_object("musclub", "musclub_microphone_pos", "musclub_microphone")
 	add_location_object("musclub", "stand_pos", "stand")
+	
+	add_location_object("scene", "scene_microphone_pos", "scene_microphone")
 	
 	add_location_object("square", "bench_left_pos-1", "bench_left")
 	add_location_object("square", "bench_left_pos-2", "bench_left")

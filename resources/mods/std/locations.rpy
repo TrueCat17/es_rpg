@@ -15,16 +15,20 @@ init python:
 	register_location("bath", "images/locations/bath/", False, 647, 1000)
 	register_place(   "bath", "bath_rails_left_pos", 304, 587, 2, 2)
 	register_place(   "bath", "bath_rails_right_pos", 432, 587, 2, 2)
-	register_place(   "bath", "forest_path-6"        , 180, 960, 190, 20)
-	register_exit(    "bath", "forest_path-6", "bath", 180, 980, 190, 20)
+	register_place(   "bath", "forest_path-6"        , 180, 960, 180, 20)
+	register_exit(    "bath", "forest_path-6", "bath", 180, 980, 180, 20)
 	
 	register_location("beach", "images/locations/beach/", False, 1792, 1408)
-	register_place(   "beach", "stadium"         , 800, 20, 350, 20)
-	register_exit(    "beach", "stadium", "beach", 800, 0, 350, 20)
+	register_place(   "beach", "board_station"         , 20, 320, 20, 160)
+	register_exit(    "beach", "board_station", "beach", 0, 320, 20, 160)
+	register_place(   "beach", "stadium"         , 820, 20, 280, 20)
+	register_exit(    "beach", "stadium", "beach", 820, 0, 280, 20)
 	register_place(   "beach", "tennis"         , 1752, 320, 20, 400)
 	register_exit(    "beach", "tennis", "beach", 1772, 320, 20, 400)
 	
 	register_location("board_station", "images/locations/board_station/", False, 1536, 1664)
+	register_place(   "board_station", "beach"                 , 1496, 350, 20, 260)
+	register_exit(    "board_station", "beach", "board_station", 1516, 350, 20, 260)
 	register_place(   "board_station", "houses_2"                 , 20, 540, 20, 320)
 	register_exit(    "board_station", "houses_2", "board_station", 0, 540, 20, 320)
 	register_place(   "board_station", "square"                 , 370, 20, 90, 20)
@@ -47,6 +51,7 @@ init python:
 	register_place(   "canteen", "canteen_column_pos-1", 143, 607, 2, 2)
 	register_place(   "canteen", "canteen_column_pos-2", 431, 607, 2, 2)
 	register_place(   "canteen", "canteen_column_pos-3", 655, 607, 2, 2)
+	register_place(   "canteen", "canteen_door_pos", 949, 734, 2, 2)
 	register_place(   "canteen", "chair_backward_pos-01", 660, 689, 2, 2)
 	register_place(   "canteen", "chair_backward_pos-02", 694, 689, 2, 2)
 	register_place(   "canteen", "chair_backward_pos-03", 742, 689, 2, 2)
@@ -94,8 +99,8 @@ init python:
 	register_exit(    "clubs", "admin", "clubs", 1132, 1190, 20, 130)
 	register_place(   "clubs", "enter"         , 20, 1190, 20, 130)
 	register_exit(    "clubs", "enter", "clubs", 0, 1190, 20, 130)
-	register_place(   "clubs", "forest_path-7"         , 620, 20, 130, 20)
-	register_exit(    "clubs", "forest_path-7", "clubs", 620, 0, 130, 20)
+	register_place(   "clubs", "forest_path-7"         , 620, 20, 140, 20)
+	register_exit(    "clubs", "forest_path-7", "clubs", 620, 0, 140, 20)
 	register_place(   "clubs", "houses_2"         , 780, 1624, 100, 20)
 	register_exit(    "clubs", "houses_2", "clubs", 780, 1644, 100, 20)
 	register_place(   "clubs", "musclub"         , 970, 355, 50, 15)
@@ -111,14 +116,14 @@ init python:
 	register_place(   "enter", "gate_left_pos", 449, 279, 2, 2)
 	register_place(   "enter", "gate_right_pos", 509, 279, 2, 2)
 	register_place(   "enter", "ikarus_pos", 293, 590, 2, 2)
-	register_place(   "enter", "clubs"         , 410, 20, 140, 20)
-	register_exit(    "enter", "clubs", "enter", 410, 0, 140, 20)
-	register_place(   "enter", "forest_path-5"         , 920, 565, 20, 160)
-	register_exit(    "enter", "forest_path-5", "enter", 940, 565, 20, 160)
-	register_place(   "enter", "forest_path-9"         , 20, 555, 20, 160)
-	register_exit(    "enter", "forest_path-9", "enter", 0, 555, 20, 160)
-	register_place(   "enter", "ikarus"         , 400, 600, 40, 15)
-	register_exit(    "enter", "ikarus", "enter", 400, 585, 40, 15)
+	register_place(   "enter", "clubs"         , 420, 20, 120, 20)
+	register_exit(    "enter", "clubs", "enter", 420, 0, 120, 20)
+	register_place(   "enter", "forest_path-4"         , 20, 570, 20, 135)
+	register_exit(    "enter", "forest_path-4", "enter", 0, 570, 20, 135)
+	register_place(   "enter", "forest_path-9"         , 920, 565, 20, 145)
+	register_exit(    "enter", "forest_path-9", "enter", 940, 565, 20, 145)
+	register_place(   "enter", "ikarus"         , 400, 600, 45, 15)
+	register_exit(    "enter", "ikarus", "enter", 400, 585, 45, 15)
 	
 	register_location("flat", "images/locations/flat/", True, 192, 272)
 	register_place(   "flat", "armchair_pos", 80, 143, 2, 2)
@@ -134,8 +139,8 @@ init python:
 	register_location("forest_path-1", "images/locations/forest_path-1/", False, 1088, 832)
 	register_place(   "forest_path-1", "left_exit", 20, 690, 20, 90)
 	register_place(   "forest_path-1", "right_exit", 1048, 120, 20, 60)
-	register_place(   "forest_path-1", "forest_path-2"                 , 720, 20, 120, 20)
-	register_exit(    "forest_path-1", "forest_path-2", "forest_path-1", 720, 0, 120, 20)
+	register_place(   "forest_path-1", "forest_path-2"                 , 730, 20, 110, 20)
+	register_exit(    "forest_path-1", "forest_path-2", "forest_path-1", 730, 0, 110, 20)
 	register_place(   "forest_path-1", "old_camp"                 , 605, 792, 110, 20)
 	register_exit(    "forest_path-1", "old_camp", "forest_path-1", 605, 812, 110, 20)
 	register_exit("forest_path-1", "forest_path-1", "left_exit", 1068, 120, 20, 60)
@@ -150,22 +155,22 @@ init python:
 	register_location("forest_path-3", "images/locations/forest_path-3/", False, 640, 416)
 	register_place(   "forest_path-3", "forest_path-2"                 , 20, 310, 20, 60)
 	register_exit(    "forest_path-3", "forest_path-2", "forest_path-3", 0, 310, 20, 60)
-	register_place(   "forest_path-3", "houses_2"                 , 500, 20, 90, 20)
-	register_exit(    "forest_path-3", "houses_2", "forest_path-3", 500, 0, 90, 20)
+	register_place(   "forest_path-3", "houses_2"                 , 500, 20, 80, 20)
+	register_exit(    "forest_path-3", "houses_2", "forest_path-3", 500, 0, 80, 20)
 	
 	register_location("forest_path-4", "images/locations/forest_path-4/", False, 544, 416)
+	register_place(   "forest_path-4", "enter"                 , 120, 376, 180, 20)
+	register_exit(    "forest_path-4", "enter", "forest_path-4", 120, 396, 180, 20)
 	register_place(   "forest_path-4", "forest_path-5"                 , 120, 20, 180, 20)
 	register_exit(    "forest_path-4", "forest_path-5", "forest_path-4", 120, 0, 180, 20)
-	register_place(   "forest_path-4", "forest_path-9"                 , 120, 376, 180, 20)
-	register_exit(    "forest_path-4", "forest_path-9", "forest_path-4", 120, 396, 180, 20)
 	
 	register_location("forest_path-5", "images/locations/forest_path-5/", False, 544, 416)
-	register_place(   "forest_path-5", "enter"                 , 120, 20, 180, 20)
-	register_exit(    "forest_path-5", "enter", "forest_path-5", 120, 0, 180, 20)
 	register_place(   "forest_path-5", "forest_path-4"                 , 120, 376, 180, 20)
 	register_exit(    "forest_path-5", "forest_path-4", "forest_path-5", 120, 396, 180, 20)
 	register_place(   "forest_path-5", "forest_path-7"                 , 504, 215, 20, 145)
 	register_exit(    "forest_path-5", "forest_path-7", "forest_path-5", 524, 215, 20, 145)
+	register_place(   "forest_path-5", "forest_path-9"                 , 120, 20, 180, 20)
+	register_exit(    "forest_path-5", "forest_path-9", "forest_path-5", 120, 0, 180, 20)
 	
 	register_location("forest_path-6", "images/locations/forest_path-6/", False, 544, 416)
 	register_place(   "forest_path-6", "forest_path-8-2", 20, 120, 20, 80)
@@ -198,10 +203,10 @@ init python:
 	register_exit("forest_path-8", "forest_path-6", "forest_path-8-2", 400, 0, 100, 20)
 	
 	register_location("forest_path-9", "images/locations/forest_path-9/", False, 544, 416)
-	register_place(   "forest_path-9", "enter"                 , 120, 376, 180, 20)
-	register_exit(    "forest_path-9", "enter", "forest_path-9", 120, 396, 180, 20)
-	register_place(   "forest_path-9", "forest_path-4"                 , 120, 20, 180, 20)
-	register_exit(    "forest_path-9", "forest_path-4", "forest_path-9", 120, 0, 180, 20)
+	register_place(   "forest_path-9", "enter"                 , 120, 20, 180, 20)
+	register_exit(    "forest_path-9", "enter", "forest_path-9", 120, 0, 180, 20)
+	register_place(   "forest_path-9", "forest_path-5"                 , 120, 376, 180, 20)
+	register_exit(    "forest_path-9", "forest_path-5", "forest_path-9", 120, 396, 180, 20)
 	
 	register_location("hospital", "images/locations/hospital/", True, 224, 256)
 	register_place(   "hospital", "library_and_hospital"            , 120, 226, 34, 15)
@@ -264,8 +269,8 @@ init python:
 	register_place(   "library", "cupboard_1_pos", 214, 389, 2, 2)
 	register_place(   "library", "cupboard_2_pos", 214, 317, 2, 2)
 	register_place(   "library", "cupboard_3_pos", 215, 248, 2, 2)
-	register_place(   "library", "library_and_hospital"           , 240, 470, 55, 20)
-	register_exit(    "library", "library_and_hospital", "library", 240, 490, 55, 20)
+	register_place(   "library", "library_and_hospital"           , 240, 482, 60, 15)
+	register_exit(    "library", "library_and_hospital", "library", 240, 497, 60, 15)
 	
 	register_location("library_and_hospital", "images/locations/library_and_hospital/", False, 1408, 1312)
 	register_place(   "library_and_hospital", "houses_1-up", 20, 725, 20, 80)
@@ -288,8 +293,8 @@ init python:
 	register_location("old_camp", "images/locations/old_camp/", False, 2070, 1740)
 	register_place(   "old_camp", "bunker"            , 820, 665, 40, 20)
 	register_exit(    "old_camp", "bunker", "old_camp", 820, 645, 40, 20)
-	register_place(   "old_camp", "forest_path-1"            , 1160, 1700, 150, 20)
-	register_exit(    "old_camp", "forest_path-1", "old_camp", 1160, 1720, 150, 20)
+	register_place(   "old_camp", "forest_path-1"            , 1150, 1700, 190, 20)
+	register_exit(    "old_camp", "forest_path-1", "old_camp", 1150, 1720, 190, 20)
 	
 	register_location("radio_club", "images/locations/radio_club/", True, 310, 247)
 	register_place(   "radio_club", "clubs"              , 218, 217, 55, 15)
@@ -302,6 +307,7 @@ init python:
 	register_exit(    "radio_storeroom", "radio_club", "radio_storeroom", 99, 232, 30, 15)
 	
 	register_location("scene", "images/locations/scene/", False, 960, 992)
+	register_place(   "scene", "scene_microphone_pos", 452, 353, 2, 2)
 	register_place(   "scene", "library_and_hospital"         , 400, 952, 150, 20)
 	register_exit(    "scene", "library_and_hospital", "scene", 400, 972, 150, 20)
 	
@@ -346,8 +352,8 @@ init python:
 	register_place(   "stadium", "tennis-2", 2040, 1340, 20, 110)
 	register_place(   "stadium", "beach"           , 530, 1496, 330, 20)
 	register_exit(    "stadium", "beach", "stadium", 530, 1516, 330, 20)
-	register_place(   "stadium", "square"           , 20, 1340, 20, 100)
-	register_exit(    "stadium", "square", "stadium", 0, 1340, 20, 100)
+	register_place(   "stadium", "square"           , 20, 1340, 20, 105)
+	register_exit(    "stadium", "square", "stadium", 0, 1340, 20, 105)
 	register_place(   "stadium", "tennis"           , 1000, 20, 100, 20)
 	register_exit(    "stadium", "tennis", "stadium", 1000, 0, 100, 20)
 	register_exit("stadium", "tennis", "stadium-2", 2060, 1340, 20, 110)
@@ -363,16 +369,16 @@ init python:
 	register_place(   "tennis", "stadium-2", 952, 490, 20, 120)
 	register_place(   "tennis", "beach"          , 430, 20, 100, 20)
 	register_exit(    "tennis", "beach", "tennis", 430, 0, 100, 20)
-	register_place(   "tennis", "forest_path-8"          , 20, 330, 20, 80)
-	register_exit(    "tennis", "forest_path-8", "tennis", 0, 330, 20, 80)
-	register_place(   "tennis", "stadium"          , 270, 630, 100, 20)
-	register_exit(    "tennis", "stadium", "tennis", 270, 650, 100, 20)
+	register_place(   "tennis", "forest_path-8"          , 20, 335, 20, 50)
+	register_exit(    "tennis", "forest_path-8", "tennis", 0, 335, 20, 50)
+	register_place(   "tennis", "stadium"          , 280, 630, 90, 20)
+	register_exit(    "tennis", "stadium", "tennis", 280, 650, 90, 20)
 	register_exit("tennis", "stadium", "tennis-2", 972, 490, 20, 120)
 	
 	
 	
-	locations["admin"].x, locations["admin"].y = 732, 356
-	locations["bath"].x, locations["bath"].y = 525, 1
+	locations["admin"].x, locations["admin"].y = 722, 360
+	locations["bath"].x, locations["bath"].y = 524, 0
 	locations["beach"].x, locations["beach"].y = 1234, 498
 	locations["board_station"].x, locations["board_station"].y = 868, 490
 	locations["bunker"].x, locations["bunker"].y = 472, 922
@@ -384,12 +390,12 @@ init python:
 	locations["forest_path-1"].x, locations["forest_path-1"].y = 336, 750
 	locations["forest_path-2"].x, locations["forest_path-2"].y = 400, 650
 	locations["forest_path-3"].x, locations["forest_path-3"].y = 532, 628
-	locations["forest_path-4"].x, locations["forest_path-4"].y = 68, 326
-	locations["forest_path-5"].x, locations["forest_path-5"].y = 68, 227
+	locations["forest_path-4"].x, locations["forest_path-4"].y = 80, 390
+	locations["forest_path-5"].x, locations["forest_path-5"].y = 68, 254
 	locations["forest_path-6"].x, locations["forest_path-6"].y = 482, 136
 	locations["forest_path-7"].x, locations["forest_path-7"].y = 470, 244
 	locations["forest_path-8"].x, locations["forest_path-8"].y = 618, 126
-	locations["forest_path-9"].x, locations["forest_path-9"].y = 68, 428
+	locations["forest_path-9"].x, locations["forest_path-9"].y = 88, 138
 	locations["hospital"].x, locations["hospital"].y = 1140, 276
 	locations["house_dv"].x, locations["house_dv"].y = 689, 676
 	locations["house_mt"].x, locations["house_mt"].y = 886, 16
@@ -405,7 +411,7 @@ init python:
 	locations["old_camp"].x, locations["old_camp"].y = 334, 860
 	locations["radio_club"].x, locations["radio_club"].y = 332, 294
 	locations["radio_storeroom"].x, locations["radio_storeroom"].y = 244, 300
-	locations["scene"].x, locations["scene"].y = 1022, 96
+	locations["scene"].x, locations["scene"].y = 1024, 96
 	locations["square"].x, locations["square"].y = 870, 384
 	locations["stadium"].x, locations["stadium"].y = 1258, 374
 	locations["station"].x, locations["station"].y = 54, 980
