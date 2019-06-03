@@ -1,10 +1,16 @@
 init 1 python:
 	
-	register_location_object('armchair', 'images/locations/flat/objects/', 'armchair', None)
+	register_location_object('armchair',  'images/locations/flat/objects/', 'armchair', None)
+	register_location_object('flat_keys', 'images/locations/objects/', 'flat_keys', None, 1)
+	register_location_object('lighter',   'images/locations/objects/', 'lighter',   None, 1)
+	register_location_object('notepad',   'images/locations/objects/', 'notepad',   None, 1)
+	register_location_object('phone',     'images/locations/objects/', 'phone',     None, 1)
 	
 	
 	register_location_object('liaz', 'images/locations/station/objects/', 'liaz', None)
 	
+	
+	register_location_object('uv_night_prologue', 'images/locations/objects/', 'uv_night_prologue', None)
 	
 	register_location_object('ikarus', 'images/locations/enter/objects/', 'ikarus_main', 'ikarus_free')
 	
@@ -51,6 +57,7 @@ init 1 python:
 	register_location_object('table_v', 'images/locations/canteen/objects/', 'table_v', 'table_v_free')
 	register_location_object('canteen_column',      'images/locations/canteen/objects/', 'column', 'column_free')
 	register_location_object('canteen_column_back', 'images/locations/canteen/objects/', 'column_back', 'column_free')
+	register_location_object('canteen_door', 'images/locations/canteen/objects/', 'door', None)
 	
 	
 	register_location_object('musclub_microphone', 'images/locations/musclub/objects/', 'microphone', 'microphone_free')
@@ -90,6 +97,7 @@ init 1 python:
 	add_location_object("canteen", "canteen_column_pos-1", "canteen_column")
 	add_location_object("canteen", "canteen_column_pos-2", "canteen_column")
 	add_location_object("canteen", "canteen_column_pos-3", "canteen_column")
+	add_location_object("canteen", "canteen_door_pos", "canteen_door")
 	add_location_object("canteen", "chair_backward_pos-01", "chair_backward")
 	add_location_object("canteen", "chair_backward_pos-02", "chair_backward")
 	add_location_object("canteen", "chair_backward_pos-03", "chair_backward")
@@ -136,6 +144,10 @@ init 1 python:
 	add_location_object("enter", "ikarus_pos", "ikarus")
 	
 	add_location_object("flat", "armchair_pos", "armchair")
+	add_location_object("flat", "flat_keys_pos", "flat_keys")
+	add_location_object("flat", "lighter_pos", "lighter")
+	add_location_object("flat", "notepad_pos", "notepad")
+	add_location_object("flat", "phone_pos", "phone")
 	
 	add_location_object("library", "cupboard_1_pos", "cupboard_1")
 	add_location_object("library", "cupboard_2_pos", "cupboard_2")
@@ -143,6 +155,8 @@ init 1 python:
 	
 	add_location_object("musclub", "musclub_microphone_pos", "musclub_microphone")
 	add_location_object("musclub", "stand_pos", "stand")
+	
+	add_location_object("scene", "scene_microphone_pos", "scene_microphone")
 	
 	add_location_object("square", "bench_left_pos-1", "bench_left")
 	add_location_object("square", "bench_left_pos-2", "bench_left")

@@ -7,7 +7,11 @@ init python:
 	start_mouse_pos = None
 	mouse_moved = True
 	
-	k = 1.0
+	common_cam_x, common_cam_y = 0, 0
+	common_k = 1.0
+	common_speed = 25
+	
+	start_x, start_y = common_cam_x, common_cam_y
 	
 	def start_drag_location(name):
         global drag_location_name
@@ -17,6 +21,9 @@ init python:
 		local_mouse_pos = get_local_mouse()
         start_mouse_pos = get_mouse()
         mouse_moved = False
+        
+        global start_x, start_y
+        start_x, start_y = x, y
 	
 	def select_location(name):
 		global selected_location_name
@@ -27,10 +34,17 @@ init python:
 
 
 screen all_locations:
-	key '9' action SetVariable('k', max(k - 0.25, 0.25))
-	key '0' action SetVariable('k', min(k + 0.25, 2.00))
+	key 'w' action [AddVariable('common_cam_y', -common_speed), AddVariable('start_y', -common_speed)]
+	key 'a' action [AddVariable('common_cam_x', -common_speed), AddVariable('start_x', -common_speed)]
+	key 's' action [AddVariable('common_cam_y', +common_speed), AddVariable('start_y', +common_speed)]
+	key 'd' action [AddVariable('common_cam_x', +common_speed), AddVariable('start_x', +common_speed)]
+	
+	key '9' action SetVariable('common_k', max(common_k - 0.25, 0.25))
+	key '0' action SetVariable('common_k', min(common_k + 0.25, 2.00))
 	
 	python:
+		x, y = int(-common_cam_x * common_k), int(-common_cam_y * common_k)
+		
 		mouse_down = get_mouse_down()
 		if not mouse_down:
 			if not mouse_moved:
@@ -38,9 +52,6 @@ screen all_locations:
 			drag_location_name = None
 			local_mouse_pos = None
 			mouse_moved = True
-		
-		if not local_mouse_pos:
-			drag_location_name = None
 		
 		if drag_location_name is not None:
 			mouse_pos = get_mouse()
@@ -50,25 +61,31 @@ screen all_locations:
 			if mouse_pos[0] < get_stage_width() - locations_width:
 				location = locations[drag_location_name]
 				old_x, old_y = location.x, location.y
-				x, y = (mouse_pos[0] - local_mouse_pos[0]) / k, (mouse_pos[1] - local_mouse_pos[1]) / k
-				if old_x != x or old_y != y:
-					location.x, location.y = x, y
+				
+				new_x = (mouse_pos[0] - local_mouse_pos[0] - x) / common_k
+				new_y = (mouse_pos[1] - local_mouse_pos[1] - y) / common_k
+				
+				if old_x != new_x or old_y != new_y:
+					location.x, location.y = new_x, new_y
 					set_save_locations()
 	
-	for name in locations:
-		python:
-			location = locations[name]
-			preview = get_preview(name)
+	null:
+		pos (x, y)
 		
-		if location.using:
-			button:
-				pos (int(location.x * k), int(location.y * k))
-				size (int(get_image_width(preview) * k), int(get_image_height(preview) * k))
-				
-				ground preview
-				hover preview
-				
-				action start_drag_location(name)
+		for name in locations:
+			python:
+				location = locations[name]
+				preview = get_preview(name)
+			
+			if location.using:
+				button:
+					pos (int(location.x * common_k), int(location.y * common_k))
+					size (int(get_image_width(preview) * common_k), int(get_image_height(preview) * common_k))
+					
+					ground preview
+					hover preview
+					
+					action start_drag_location(name)
 	
 	use locations_list
 

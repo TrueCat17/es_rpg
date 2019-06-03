@@ -42,7 +42,7 @@ screen locations_list:
 					location = locations[name]
 					color = '#0F0' if location.using else '#F80'
 					preview = get_preview(name)
-					size = '\n(' + str(location.width) + 'x' + str(location.height) + ')'
+					size = '\n(' + str(location.xsize) + 'x' + str(location.ysize) + ')'
 				
 				image im.Rect(color):
 					size (locations_width - 50, locations_btn_height)

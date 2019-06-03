@@ -41,9 +41,10 @@ init python:
 		selected_exit_num = None
 		
 		w, h = 100, 100
-		x, y = (get_stage_width() - props_width - w) / 2 - selected_location_x, (get_stage_height() - h) / 2 - selected_location_y
+		x = ((get_stage_width() - props_width - w) / 2 - selected_location_x) / local_k
+		y = ((get_stage_height() - h) / 2 - selected_location_y) / local_k
 		
-		register_place(selected_location.name, name, x, y, w, h)
+		register_place(selected_location.name, name, int(x), int(y), w, h)
 		if locations.has_key(name):
 			selected_location.places[name].side_exit = 'down'
 		
@@ -105,13 +106,13 @@ init python:
 		place = selected_location.places[selected_place_name] if is_place else selected_location.exits[selected_exit_num]
 		
 		if selected_place_prop == 'x':
-			place.x = in_bounds(place.x + d, 0, selected_location.width  - place.width)
+			place.x = in_bounds(place.x + d, 0, selected_location.xsize  - place.xsize)
 		elif selected_place_prop == 'y':
-			place.y = in_bounds(place.y + d, 0, selected_location.height - place.height)
-		elif selected_place_prop == 'width':
-			place.width  = in_bounds(place.width  + d, 2, in_bounds(selected_location.width  - place.x, 1, 700))
-		else: # height
-			place.height = in_bounds(place.height + d, 2, in_bounds(selected_location.height - place.y, 1, 700))
+			place.y = in_bounds(place.y + d, 0, selected_location.ysize - place.ysize)
+		elif selected_place_prop == 'xsize':
+			place.xsize = in_bounds(place.xsize + d, 2, in_bounds(selected_location.xsize  - place.x, 1, 700))
+		else: # ysize
+			place.ysize = in_bounds(place.ysize + d, 2, in_bounds(selected_location.ysize - place.y, 1, 700))
 		
 		if is_place:
 			set_exit_side()
@@ -123,8 +124,8 @@ init python:
 		
 		place = selected_location.places[selected_place_name]
 		
-		cx, cy = place.x + place.width / 2, place.y + place.height / 2
-		acx, acy = selected_location.width - cx, selected_location.height - cy
+		cx, cy = place.x + place.xsize / 2, place.y + place.ysize / 2
+		acx, acy = selected_location.xsize - cx, selected_location.ysize - cy
 		
 		dists = (cx, cy, acx, acy)
 		m = min(dists)
@@ -133,7 +134,7 @@ init python:
 			set_save_locations()
 	
 	def get_place_coords(place):
-		x, y, w, h = 0, 0, place.width, place.height
+		x, y, w, h = 0, 0, place.xsize, place.ysize
 		side_exit = place.side_exit
 		
 		if side_exit in ('left', 'right'):
@@ -375,7 +376,7 @@ screen location_props:
 						vbox:
 							spacing 5
 							
-							for prop in 'x y width height'.split(' '):
+							for prop in 'x y xsize ysize'.split(' '):
 								textbutton (prop + ': ' + str(place[prop])):
 									ground (selected_prop if selected_place_prop == prop else not_selected_prop)
 									

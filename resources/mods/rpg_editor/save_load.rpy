@@ -9,29 +9,20 @@ init -1000 python:
 	location_objects_file_path = 'mods/rpg_editor/results/location_objects.rpy'
 	
 	
-	def clear():
-		global locations, locations_times
-		locations = dict()
-		locations_times = persistent.locations_times = Object()
-	
-	
-	if persistent.locations_times is None:
-		persistent.locations_times = Object()
-	
-	locations_times = persistent.locations_times
+	locations_times = Object()
 	
 	for name in os.listdir(preview_path):
 		name = name[:name.rfind('.')]
-		if not locations_times.has_key(name):
-			files_time = os.path.getmtime(locations_path + name + '/main.' + location_object_ext)
-			preview_time = os.path.getmtime(preview_path + name + '.png')
-			
-			locations_times[name] = files_time, preview_time
+		
+		file_time = os.path.getctime(locations_path + name + '/main.' + location_ext)
+		preview_time = os.path.getctime(preview_path + name + '.png')
+		
+		locations_times[name] = file_time, preview_time
 
 
 init python:
 	def register_new_locations():
-		ext = location_object_ext
+		ext = location_ext
 		
 		locations_dirs = [i for i in os.listdir(locations_path) if not i.startswith('_') and os.path.exists(locations_path + i + '/main.' + ext)]
 		locations_dirs.sort()
@@ -42,19 +33,14 @@ init python:
 			if name not in locations:
 				register_location(name, path, False, get_image_width(main), get_image_height(main))
 			
-			if not os.path.exists(preview_path + name + '.' + ext):
+			if not os.path.exists(preview_path + name + '.png'):
 				make_preview(name)
 			
-			if locations_times.has_key(name):
-				files_time, preview_time = locations_times[name]
-				
-				if files_time < os.path.getmtime(path):
-					w, h = get_image_size(main)
-					if name not in locations:
-						register_location(name, path, False, w, h)
-					else:
-						locations[name].width, locations[name].height = w, h
-					make_preview(name)
+			file_time, preview_time = locations_times[name]			
+			if preview_time < os.path.getctime(main):
+				w, h = get_image_size(main)
+				locations[name].xsize, locations[name].ysize = w, h
+				make_preview(name)
 			
 			set_save_locations()
 	
@@ -63,8 +49,7 @@ init python:
 	
 	def make_preview(name):
 		location = locations[name]
-		
-		w, h = location.width, location.height
+		w, h = location.xsize, location.ysize
 		
 		if location.over():
 			image = im.Composite((w, h), (0, 0), location.main(), (0, 0), location.over())
@@ -75,8 +60,8 @@ init python:
 		im.save(image, to_save, 128 * w / max(w, h), 128 * h / max(w, h))
 		
 		locations_times[name] = [
-			os.path.getmtime(locations_path + name),
-			os.path.getmtime(to_save)
+			os.path.getctime(locations_path + name + '/main.' + location_ext),
+			os.path.getctime(to_save)
 		]
 	
 	def save():
@@ -92,7 +77,7 @@ init python:
 			location_name = '"' + location_name + '"'
 			path = '"' + location.directory + '"'
 			is_room = str(location.is_room)
-			w, h = str(location.width), str(location.height)
+			w, h = str(location.xsize), str(location.ysize)
 			
 			tmp.append('\tregister_location(' + ', '.join([location_name, path, is_room, w, h]) + ')')
 			
@@ -104,7 +89,7 @@ init python:
 				
 				if place.side_exit is None:
 					x, y = str(place.x), str(place.y)
-					w, h = str(place.width), str(place.height)
+					w, h = str(place.xsize), str(place.ysize)
 					tmp.append('\tregister_place(' + place_indent + ', '.join([location_name, place_name, x, y, w, h]) + ')')
 			
 			for place_name in places:
@@ -130,7 +115,7 @@ init python:
 				to_location_name = '"' + exit.to_location_name + '"'
 				to_place_name = '"' + exit.to_place_name + '"'
 				x, y = str(exit.x), str(exit.y)
-				w, h = str(exit.width), str(exit.height)
+				w, h = str(exit.xsize), str(exit.ysize)
 				
 				tmp.append('\tregister_exit(' + ', '.join([location_name, to_location_name, to_place_name, x, y, w, h]) + ')')
 			
@@ -148,7 +133,7 @@ init python:
 		
 		tmp.append('')
 		
-		locations_file = open(locations_file_path, 'w')
+		locations_file = open(locations_file_path, 'wb')
 		locations_file.writelines(map(lambda s: s + '\n', tmp))
 		locations_file.close()
 		
@@ -190,6 +175,6 @@ init python:
 			if added:
 				tmp.append('\t')
 		
-		location_objects_file = open(location_objects_file_path, 'w')
+		location_objects_file = open(location_objects_file_path, 'wb')
 		location_objects_file.writelines(map(lambda s: s + '\n', tmp))
 

@@ -7,7 +7,7 @@ init 1 python:
 	save_counter = 0
 	set_save_locations = SetVariable('need_save_locations', True)
 	
-#	clear()
+	
 	register_new_locations()
 	
 	for location_name in locations:
@@ -16,13 +16,13 @@ init 1 python:
 		
 		for place_name in location.places:
 			place = location.places[place_name]
-			px, py, pw, ph = place.x, place.y, place.width, place.height
+			px, py, pw, ph = place.x, place.y, place.xsize, place.ysize
 			
 			for exit in location.exits:
 				if exit.to_place_name != location_name:
 					continue
 				
-				ex, ey, ew, eh = exit.x, exit.y, exit.width, exit.height
+				ex, ey, ew, eh = exit.x, exit.y, exit.xsize, exit.ysize
 				
 				if px == ex and pw == ew:
 					if py + ph == ey:
@@ -31,7 +31,7 @@ init 1 python:
 						place.side_exit = 'up'
 						place.y -= eh
 					if place.side_exit:
-						place.height += eh
+						place.ysize += eh
 						location.exits.remove(exit)
 						break
 				if py == ey and ph == eh:
@@ -41,7 +41,7 @@ init 1 python:
 						place.side_exit = 'left'
 						place.x -= ew
 					if place.side_exit:
-						place.width += ew
+						place.xsize += ew
 						location.exits.remove(exit)
 						break
 
