@@ -5,6 +5,9 @@ init python:
 	local_speed = 25
 
 screen selected_location:
+	image im.rect('#444'):
+		size (1.0, 1.0)
+	
 	key 'w' action AddVariable('local_cam_y', -local_speed)
 	key 'a' action AddVariable('local_cam_x', -local_speed)
 	key 's' action AddVariable('local_cam_y', +local_speed)

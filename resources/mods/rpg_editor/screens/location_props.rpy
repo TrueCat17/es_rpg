@@ -81,9 +81,10 @@ init python:
 		selected_place_name = None
 		
 		w, h = 100, 100
-		x, y = (get_stage_width() - props_width - w) / 2 - selected_location_x, (get_stage_height() - h) / 2 - selected_location_y
+		x = ((get_stage_width() - props_width - w) / 2 - selected_location_x) / local_k
+		y = ((get_stage_height() - h) / 2 - selected_location_y) / local_k
 		
-		register_exit(selected_location.name, '%to_location_name%', '%to_place_name%', x, y, w, h)
+		register_exit(selected_location.name, '%to_location_name%', '%to_place_name%', int(x), int(y), w, h)
 		set_save_locations()
 	
 	def del_exit():

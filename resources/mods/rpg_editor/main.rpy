@@ -1,7 +1,7 @@
 init 1 python:
 	set_can_mouse_hide(False)
 	set_can_autosave(False)
-	start_screens = ['all_locations']
+	start_screens = ['all_locations', 'menu']
 	
 	need_save_locations = False
 	save_counter = 0
