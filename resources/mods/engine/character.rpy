@@ -418,11 +418,10 @@ init -1001 python:
 	
 	
 	def show_character(character, place, location = None):
-		if cur_location is None:
-			out_msg('show_character', 'Current location is not defined, need to call set_location')
-			return
-		
 		if location is None:
+			if cur_location is None:
+				out_msg('show_character', 'Current location is not defined, need to call set_location')
+				return
 			location = cur_location
 		elif type(location) is str:
 			if not locations.has_key(location):
