@@ -15,12 +15,10 @@ screen platformer:
 		size (1.0, 1.0)
 	
 	
-	$ ctrl_is_down = left = right = up = down = space = False
+	$ shift_is_down = left = right = up = down = space = False
 	
-	key 'LEFT CTRL'   action SetVariable('ctrl_is_down', True) first_delay 0
-	key 'RIGHT CTRL'  action SetVariable('ctrl_is_down', True) first_delay 0
-	key 'LEFT SHIFT'  action SetVariable('ctrl_is_down', True) first_delay 0
-	key 'RIGHT SHIFT' action SetVariable('ctrl_is_down', True) first_delay 0
+	key 'LEFT SHIFT'  action SetVariable('shift_is_down', True) first_delay 0
+	key 'RIGHT SHIFT' action SetVariable('shift_is_down', True) first_delay 0
 	
 	key 'LEFT'  action SetVariable('left',  True) first_delay 0
 	key 'RIGHT' action SetVariable('right', True) first_delay 0
