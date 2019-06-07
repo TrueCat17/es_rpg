@@ -199,6 +199,19 @@ screen settings:
 						color 0
 						text_size 25
 				
+				null:
+					xalign 0.5
+					size (350, 25)
+					
+					button:
+						ground (checkbox_yes if not config.shift_is_run else checkbox_no)
+						action SetDict(config, 'shift_is_run', not config.shift_is_run)
+						size (25, 25)
+					text 'Обычное передвижение - бег':
+						xpos 40
+						color 0
+						text_size 25
+				
 				vbox:
 					xsize 1.0
 					spacing 5

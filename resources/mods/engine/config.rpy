@@ -22,6 +22,9 @@ init -997 python:
 	if config.fps_meter is None:
 		config.fps_meter = False
 	
+	if config.shift_is_run is None:
+		config.shift_is_run = False # If True, usual moving is walking, with shift - running
+	
 	if config.text_cps is None:
 		config.text_cps = 60 # cps - chars per second, for dialogue_box
 	
@@ -29,6 +32,4 @@ init -997 python:
 		if config[std_mixer + '_volume'] is None:
 			config[std_mixer + '_volume'] = 1
 		renpy.music.set_mixer_volume(config[std_mixer + '_volume'], std_mixer)
-	
-	config.shift_is_run = False # If True, usual moving is walking, with shift - running
-	
+
