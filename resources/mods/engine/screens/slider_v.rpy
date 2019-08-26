@@ -60,7 +60,7 @@ screen slider_v:
 		else:
 			slider_v_cur = sliders_v[slider_v_current_name]
 			slider_v_current_name = None
-			slider_v_size = (slider_v_cur['button_size'], slider_v_cur['page_length'])
+			slider_v_size = (slider_v_cur['button_size'], slider_v_cur['length'])
 	
 	size slider_v_size
 	

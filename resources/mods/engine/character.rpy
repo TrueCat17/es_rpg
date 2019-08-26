@@ -367,8 +367,6 @@ init -1001 python:
 				self.set_frame(frame)
 			
 			self.update_crop()
-		#	print self.pose == 'sit', self.move_kind
-		#	print self.x == self.to_x, self.y == self.to_y
 			
 			if self.pose == 'sit' or self.move_kind == 'stay':
 				return

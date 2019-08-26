@@ -3,13 +3,14 @@ label rpg_loop:
 		call rpg_update
 		pause 1.0 / get_fps()
 
+
 label rpg_update:
 	
 	if inventory_action is not None:
 		$ cur_quests_labels = quest_get_object_labels(inventory_action, inventory_action_object['name'])
 		
 		$ me.move_kind = 'stay'
-		$ control = False
+		$ set_rpg_control(False)
 		if len(cur_quests_labels) == 1:
 			call expression cur_quests_labels[0][1]
 		elif len(cur_quests_labels) > 1:
@@ -29,7 +30,7 @@ label rpg_update:
 			window hide
 			$ name, label = cur_quests_labels[choose_menu_result]
 			call expression label
-		$ control = True
+		$ set_rpg_control(True)
 		
 		$ inventory_action = None
 	
@@ -64,7 +65,7 @@ label rpg_update:
 				call expression cur_label
 		
 		$ cur_quests_labels = quest_get_labels(cur_location_name, cur_place_name)
-		$ control = False
+		$ set_rpg_control(False)
 		if len(cur_quests_labels) == 1:
 			call expression cur_quests_labels[0][1]
 		elif len(cur_quests_labels) > 1:
@@ -80,7 +81,7 @@ label rpg_update:
 			call expression label
 			
 			window hide
-		$ control = True
+		$ set_rpg_control(True)
 	
 	$ exec_action = False
 

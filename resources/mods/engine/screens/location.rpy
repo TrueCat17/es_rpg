@@ -7,7 +7,16 @@ init python:
 	loc__max_time = time.time() * 2
 	
 	
-	control = False
+	rpg_control = False
+	def get_rpg_control():
+		return rpg_control
+	
+	def set_rpg_control(value):
+		global rpg_control
+		rpg_control = bool(value)
+		
+		me.move_kind = 'stay'
+	
 	loc__prev_left = loc__prev_right = loc__prev_up = loc__prev_down = False
 	loc__left = loc__right = loc__up = loc__down = False
 	
@@ -26,7 +35,7 @@ init python:
 	def loc__move_character(dx, dy):
 		global loc__prev_time
 		
-		if me.pose != 'stance' or not control:
+		if me.pose != 'stance' or not get_rpg_control():
 			loc__prev_time = time.time()
 			return
 		
@@ -56,6 +65,30 @@ init python:
 			me.y = me.to_y = to_y
 		else:
 			me.move_kind = 'stay'
+	
+	
+	location_cutscene_back = im.Rect('#111')
+	location_cutscene_size = 0.15
+	
+	location_cutscene_state = None # None | 'on' | 'off'
+	location_cutscene_start = 0
+	location_cutscene_end = 1.0
+	
+	def location_cutscene_on(t = 1.0, align = 'center', zoom = 1.2, obj = None):
+		global location_cutscene_state, location_cutscene_start, location_cutscene_end
+		location_cutscene_state = 'on'
+		location_cutscene_start = time.time()
+		location_cutscene_end = time.time() + max(t, 0.001)
+		
+		cam_to(obj or cam_object, t, align, zoom)
+	
+	def location_cutscene_off(t = 1.0, align = 'center', zoom = 1.0, obj = None):
+		global location_cutscene_state, location_cutscene_start, location_cutscene_end
+		location_cutscene_state = 'off'
+		location_cutscene_start = time.time()
+		location_cutscene_end = time.time() + max(t, 0.001)
+		
+		cam_to(obj or cam_object, t, align, zoom)
 
 
 screen location:
@@ -89,6 +122,19 @@ screen location:
 				
 				if times['next_name']:
 					set_time_direct()
+		
+		cut_k = 0
+		if time.time() < location_cutscene_end:
+			cut_k = get_k_between(location_cutscene_start, location_cutscene_end, time.time(), location_cutscene_state == 'off')
+		elif location_cutscene_state == 'off':
+			location_cutscene_state = None
+		else:
+			cut_k = 1.0
+		
+		if location_cutscene_state:
+			location_cutscene_up = location_cutscene_down = int(location_cutscene_size * cut_k * get_stage_height())
+		else:
+			location_cutscene_up = location_cutscene_down = 0
 	
 	if draw_location:
 		python:
@@ -130,7 +176,7 @@ screen location:
 				loc__character_dy += 1
 			loc__move_character(loc__character_dx, loc__character_dy)
 			
-			if control:
+			if get_rpg_control():
 				if loc__left and not loc__prev_left:
 					loc__left_time = time.time()
 				if loc__right and not loc__prev_right:
@@ -148,9 +194,6 @@ screen location:
 					loc__direction = loc__directions[min_index]
 					me.set_direction(loc__direction)
 			
-			
-			update_location_scale()
-			
 			for obj in draw_location.objects:
 				if obj.update:
 					obj.update()
@@ -159,8 +202,8 @@ screen location:
 			draw_location.update_pos()
 		
 		image draw_location.main():
-			pos  (int(draw_location.x), int(draw_location.y))
-			size (int(draw_location.xsize * location_scale), int(draw_location.ysize * location_scale))
+			pos  (draw_location.x, draw_location.y)
+			size (int(draw_location.xsize * location_zoom), int(draw_location.ysize * location_zoom))
 			
 			python:
 				list_to_draw = []
@@ -168,14 +211,14 @@ screen location:
 				for obj in draw_location.objects:
 					obj_xanchor, obj_yanchor = obj.xanchor, obj.yanchor
 					if type(obj_xanchor) is int:
-						obj_xanchor *= location_scale
+						obj_xanchor *= location_zoom
 					if type(obj_yanchor) is int:
-						obj_yanchor *= location_scale
+						obj_yanchor *= location_zoom
 					
 					list_to_draw.append({
 						'image':   obj.main(),
-						'size':   (int(obj.xsize * location_scale), int(obj.ysize * location_scale)),
-						'pos':    (int(obj.x * location_scale), int(obj.y * location_scale)),
+						'size':   (int(obj.xsize * location_zoom), int(obj.ysize * location_zoom)),
+						'pos':    (int(obj.x * location_zoom), int(obj.y * location_zoom)),
 						'anchor': (obj_xanchor, obj_yanchor),
 						'crop':    obj.crop
 					})
@@ -189,8 +232,17 @@ screen location:
 		
 		if draw_location.over():
 			image draw_location.over():
-				pos  (int(draw_location.x), int(draw_location.y))
-				size (int(draw_location.xsize * location_scale), int(draw_location.ysize * location_scale))
+				pos  (draw_location.x, draw_location.y)
+				size (int(draw_location.xsize * location_zoom), int(draw_location.ysize * location_zoom))
+		
+		
+		image location_cutscene_back:
+			xsize 1.0
+			ysize location_cutscene_up
+		image location_cutscene_back:
+			yalign 1.0
+			xsize 1.0
+			ysize location_cutscene_down
 		
 		
 		image 'images/bg/black.jpg':

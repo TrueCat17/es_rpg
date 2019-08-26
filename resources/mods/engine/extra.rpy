@@ -82,6 +82,23 @@ init -100000 python:
 		_load(str(table), str(num))
 	def out_msg(msg, err = ''):
 		_out_msg(str(msg), str(err))
+	
+	
+	def get_k_between(start, end, value, reverse = False):
+		"""
+		0, 100, 70, True  -> 0.7
+		10, 20, 18, False -> 0.2
+		"""
+		r = float(value - start) / (end - start)
+		return in_bounds(1 - r if reverse else r, 0.0, 1.0)
+	
+	def interpolate(start, end, k, reverse = False):
+		"""
+		0, 20, 0.5, False -> 10
+		10, 20, 0.7, True -> 13
+		"""
+		t = float if type(start) is float or type(end) is float else int
+		return t(start + (end - start) * (1 - k if reverse else k))
 
 
 init -1000000 python:
