@@ -7,6 +7,7 @@ init python:
 	loc__max_time = time.time() * 2
 	
 	
+	prev_rpg_control = False
 	rpg_control = False
 	def get_rpg_control():
 		return rpg_control
@@ -95,6 +96,7 @@ screen location:
 	zorder -4
 	
 	python:
+		loc__ret_control = False
 		dtime = time.time() - location_start_time
 		
 		# fade, back.alpha: 0 -> 1
@@ -110,7 +112,9 @@ screen location:
 			if dtime < location_fade_time * 2:
 				loc__background_alpha = 1.0 - (dtime - location_fade_time) / location_fade_time
 			else:
-				loc__background_alpha = 0.0
+				if loc__background_alpha:
+					loc__background_alpha = 0.0
+					loc__ret_control = True
 			
 			if not location_changed:
 				location_changed = True
@@ -118,7 +122,6 @@ screen location:
 				
 				show_character(me, cur_to_place)
 				cam_object = me
-				was_out_exit = False
 				
 				if times['next_name']:
 					set_time_direct()
@@ -254,4 +257,9 @@ screen location:
 				text_size 50
 				color 0xFFFFFF
 				align (0.5, 0.5)
+		
+		python:
+			if loc__ret_control:
+				location_was_show = True
+				set_rpg_control(prev_rpg_control)
 

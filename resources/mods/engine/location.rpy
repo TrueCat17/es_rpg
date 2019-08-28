@@ -7,8 +7,9 @@ init -1002 python:
 	location_fade_time = 0.5
 	
 	
+	location_was_show = True
 	def location_showed():
-		return time.time() - location_start_time > location_fade_time * 2
+		return location_was_show
 	can_exec_next_check_funcs.append(location_showed)
 	
 	def location_show():
@@ -165,13 +166,11 @@ init -1002 python:
 			show_screen('location')
 			show_screen('inventory')
 		
-		global location_start_time
+		global location_start_time, location_was_show
 		location_start_time = time.time()
+		location_was_show = False
 		
 		global cur_location, cur_location_name, cur_to_place
-		global location_changed, draw_location
-		global was_out_exit, cam_object
-		
 		cur_location = locations[location_name]
 		cur_location_name = location_name
 		cur_to_place = place
@@ -180,6 +179,8 @@ init -1002 python:
 		real_width, real_height = get_image_size(main)
 		reg_width, reg_height = cur_location.xsize, cur_location.ysize
 		
+		global location_changed, draw_location
+		global was_out_exit, cam_object
 		if draw_location is None:
 			location_start_time -= location_fade_time
 			
@@ -192,6 +193,10 @@ init -1002 python:
 			cam_object = {'x': me.x, 'y': me.y}
 		
 		show_character(me, cur_to_place)
+		
+		global prev_rpg_control
+		prev_rpg_control = get_rpg_control()
+		set_rpg_control(False)
 		
 		if reg_width != real_width or reg_height != real_height:
 			reg_size = str(reg_width) + 'x' + str(reg_height)
