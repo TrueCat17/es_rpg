@@ -149,7 +149,7 @@ screen location:
 				loc__prev_time = time.time() - 0.1
 			loc__left = loc__right = loc__up = loc__down = False
 		
-		if time.time() - location_start_time > location_fade_time:
+		if get_rpg_control():
 			key 'e' action SetVariable('exec_action', True)
 			
 			key 'LEFT SHIFT'  action SetVariable('loc__shift_is_down', True) first_delay 0
