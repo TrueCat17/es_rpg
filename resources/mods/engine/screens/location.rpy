@@ -26,7 +26,7 @@ init python:
 	loc__left_time = loc__right_time = loc__up_time = loc__down_time = loc__max_time
 	
 	location_changed = False
-	
+	loc__set_show_at_end = False
 	
 	def loc__get_min(a, b, c, d):
 		return [a, b, c, d].index(min(a, b, c, d))
@@ -96,7 +96,6 @@ screen location:
 	zorder -4
 	
 	python:
-		loc__ret_control = False
 		dtime = time.time() - location_start_time
 		
 		# fade, back.alpha: 0 -> 1
@@ -114,7 +113,7 @@ screen location:
 			else:
 				if loc__background_alpha:
 					loc__background_alpha = 0.0
-					loc__ret_control = True
+					loc__set_show_at_end = True
 			
 			if not location_changed:
 				location_changed = True
@@ -149,7 +148,7 @@ screen location:
 				loc__prev_time = time.time() - 0.1
 			loc__left = loc__right = loc__up = loc__down = False
 		
-		if get_rpg_control():
+		if get_rpg_control() and location_showed():
 			key 'e' action SetVariable('exec_action', True)
 			
 			key 'LEFT SHIFT'  action SetVariable('loc__shift_is_down', True) first_delay 0
@@ -259,7 +258,7 @@ screen location:
 				align (0.5, 0.5)
 		
 		python:
-			if loc__ret_control:
+			if loc__set_show_at_end:
+				loc__set_show_at_end = False
 				location_was_show = True
-				set_rpg_control(prev_rpg_control)
 

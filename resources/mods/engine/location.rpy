@@ -194,10 +194,6 @@ init -1002 python:
 		
 		show_character(me, cur_to_place)
 		
-		global prev_rpg_control
-		prev_rpg_control = get_rpg_control()
-		set_rpg_control(False)
-		
 		if reg_width != real_width or reg_height != real_height:
 			reg_size = str(reg_width) + 'x' + str(reg_height)
 			real_size = str(real_width) + 'x' + str(real_height)
