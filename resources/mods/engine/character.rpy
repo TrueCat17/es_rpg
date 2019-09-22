@@ -171,7 +171,8 @@ init -1001 python:
 		def set_frame(self, frame):
 			self.frame = frame
 		def set_direction(self, direction):
-			self.direction = direction % character_max_direction
+			if direction is not None:
+				self.direction = direction % character_max_direction
 		
 		def main(self):
 			if self.animation_start_time is not None:

@@ -128,7 +128,7 @@ init -1002 python:
 			location = Location(name, path_to_images, is_room, xsize, ysize)
 			locations[name] = location
 	
-	def register_place(location_name, place_name, x, y, xsize, ysize):
+	def register_place(location_name, place_name, x, y, xsize, ysize, to_side = None):
 		if not locations.has_key(location_name):
 			out_msg('register_place', 'Location <' + location_name + '> not registered')
 			return
@@ -138,7 +138,7 @@ init -1002 python:
 			out_msg('register_place', 'Place <' + place_name + '> in location <' + self.name + '> already exists')
 			return
 		
-		place = Place(place_name, x, y, xsize, ysize)
+		place = Place(place_name, x, y, xsize, ysize, to_side)
 		location.add_place(place, place_name)
 	
 	def register_exit(location_name, to_location_name, to_place_name, x, y, xsize, ysize):
@@ -348,11 +348,12 @@ init -1002 python:
 	
 	
 	class Place(Object):
-		def __init__(self, name, x, y, xsize, ysize):
+		def __init__(self, name, x, y, xsize, ysize, to_side):
 			Object.__init__(self)
 			self.name = name
 			self.x, self.y = x, y
 			self.xsize, self.ysize = xsize, ysize
+			self.to_side = to_side
 		
 		def inside(self, x, y):
 			return self.x <= x and x <= self.x + self.xsize and self.y <= y and y <= self.y + self.ysize
