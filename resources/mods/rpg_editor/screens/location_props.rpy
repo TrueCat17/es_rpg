@@ -325,7 +325,7 @@ screen location_props:
 			vbox:
 				spacing 10
 				xalign 0.5
-				ypos 0.35
+				ypos 0.30
 				
 				textbutton 'Add Place':
 					xalign 0.5
@@ -372,6 +372,7 @@ screen location_props:
 							action del_exit
 					
 					hbox:
+						xalign 0.5
 						spacing 5
 						
 						vbox:
@@ -406,7 +407,12 @@ screen location_props:
 					
 					if locations.has_key(selected_place_name):
 						vbox:
-							spacing 10
+							xalign 0.5
+							spacing 5
+							
+							text '{b}Exit Side:':
+								color 0xFF0000
+								text_size 18
 							
 							textbutton 'Up':
 								ground (selected_prop if place.side_exit == 'up' else not_selected_prop)
@@ -417,7 +423,7 @@ screen location_props:
 								action [SetDict(place, 'side_exit', 'up'), set_save_locations]
 							
 							hbox:
-								spacing 10
+								spacing 5
 								xalign 0.5
 								
 								textbutton 'left':
@@ -440,4 +446,51 @@ screen location_props:
 								text_size 16
 								color 0
 								action [SetDict(place, 'side_exit', 'down'), set_save_locations]
+						
+						vbox:
+							xalign 0.5
+							spacing 5
+							
+							text '{b}Rotate on Enter:':
+								color 0x0000FF
+								text_size 18
+							
+							textbutton 'to_forward':
+								ground (selected_prop if place.to_side == to_forward else not_selected_prop)
+								xalign 0.5
+								size (100, 22)
+								text_size 16
+								color 0
+								action [SetDict(place, 'to_side', 'to_forward'), set_save_locations]
+							
+							hbox:
+								spacing 5
+								xalign 0.5
+								
+								textbutton 'to_left':
+									ground (selected_prop if place.to_side == to_left else not_selected_prop)
+									size (80, 22)
+									text_size 16
+									color 0
+									action [SetDict(place, 'to_side', 'left'), set_save_locations]
+								textbutton 'None':
+									ground (selected_prop if place.to_side == None else not_selected_prop)
+									size (80, 22)
+									text_size 16
+									color 0
+									action [SetDict(place, 'to_side', 'left'), set_save_locations]
+								textbutton 'to_right':
+									ground (selected_prop if place.to_side == to_right else not_selected_prop)
+									size (80, 22)
+									text_size 16
+									color 0
+									action [SetDict(place, 'to_side', to_right), set_save_locations]
+							
+							textbutton 'to_back':
+								ground (selected_prop if place.to_side == to_back else not_selected_prop)
+								xalign 0.5
+								size (100, 22)
+								text_size 16
+								color 0
+								action [SetDict(place, 'to_side', to_back), set_save_locations]
 

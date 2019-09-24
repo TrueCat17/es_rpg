@@ -32,17 +32,21 @@ init python:
 			main = path + '/main.' + ext
 			if name not in locations:
 				register_location(name, path, False, get_image_width(main), get_image_height(main))
+				set_save_locations()
 			
 			if not os.path.exists(preview_path + name + '.png'):
 				make_preview(name)
 			
 			file_time, preview_time = locations_times[name]			
-			if preview_time < os.path.getctime(main):
+			if preview_time < file_time:
 				w, h = get_image_size(main)
-				locations[name].xsize, locations[name].ysize = w, h
+				location = locations[name]
+				
+				if location.xsize != w or location.ysize != h:
+					location.xsize, location.ysize = w, h
+					set_save_locations()
+				
 				make_preview(name)
-			
-			set_save_locations()
 	
 	def get_preview(name):
 		return preview_path + name + '.png?' + str(locations_times[name][1])
@@ -68,6 +72,12 @@ init python:
 		place_indent = ' ' * (len('location') - len('place'))
 		exit_indent = ' ' * (len('location') - len('exit'))
 		
+		def get_to_side(place):
+			if place.to_side is None:
+				return ''
+			return ', ' + ['to_back', 'to_left', 'to_right', 'to_forward'][place.to_side]
+		
+		
 		tmp = ['init python:', '\t']
 		location_names = locations.keys()
 		location_names.sort()
@@ -85,31 +95,37 @@ init python:
 			places.sort()
 			for place_name in places:
 				place = location.places[place_name]
+				if place.side_exit is not None:
+					continue
+				
 				place_name = '"' + place_name + '"'
 				
-				if place.side_exit is None:
-					x, y = str(place.x), str(place.y)
-					w, h = str(place.xsize), str(place.ysize)
-					tmp.append('\tregister_place(' + place_indent + ', '.join([location_name, place_name, x, y, w, h]) + ')')
+				x, y = str(place.x), str(place.y)
+				w, h = str(place.xsize), str(place.ysize)
+				to_side = get_to_side(place)
+				tmp.append('\tregister_place(' + place_indent + ', '.join([location_name, place_name, x, y, w, h]) + to_side + ')')
 			
 			for place_name in places:
 				place = location.places[place_name]
+				if place.side_exit is None:
+					continue
+				
 				place_name = '"' + place_name + '"'
 				
-				if place.side_exit is not None:
-					px, py = place.x, place.y
-					x, y, w, h, exit_x, exit_y, exit_w, exit_h = get_place_coords(place)
-					
-					x += px
-					y += py
-					exit_x += px
-					exit_y += py
-					
-					in_place_indent = ' ' * (len(', ') + len(location_name))
-					place_args = [location_name, place_name + in_place_indent] + map(str, [x, y, w, h])
-					exit_args  = [location_name, place_name, location_name   ] + map(str, [exit_x, exit_y, exit_w, exit_h])
-					tmp.append('\tregister_place(' + place_indent + ', '.join(place_args) + ')')
-					tmp.append('\tregister_exit(' +  exit_indent  + ', '.join(exit_args)  + ')')
+				px, py = place.x, place.y
+				x, y, w, h, exit_x, exit_y, exit_w, exit_h = get_place_coords(place)
+				to_side = get_to_side(place)
+				
+				x += px
+				y += py
+				exit_x += px
+				exit_y += py
+				
+				in_place_indent = ' ' * (len(', ') + len(location_name))
+				place_args = [location_name, place_name + in_place_indent] + map(str, [x, y, w, h])
+				exit_args  = [location_name, place_name, location_name   ] + map(str, [exit_x, exit_y, exit_w, exit_h])
+				tmp.append('\tregister_place(' + place_indent + ', '.join(place_args) + to_side + ')')
+				tmp.append('\tregister_exit(' +  exit_indent  + ', '.join(exit_args)  + ')')
 			
 			for exit in location.exits:
 				to_location_name = '"' + exit.to_location_name + '"'
