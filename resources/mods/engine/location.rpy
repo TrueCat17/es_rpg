@@ -389,14 +389,22 @@ init -1002 python:
 	def get_location_exit():
 		global was_out_exit, was_out_place
 		
+		if not exec_action and cur_location.is_room:
+			was_out_exit = True
+			return None
+		
 		for exit in cur_location.exits:
 			if exit.inside(me.x, me.y):
+				if not exec_action and locations[exit.to_location_name].is_room:
+					return
+				
 				if not was_out_exit:
 					continue
 				
 				can_exit = not globals().has_key('can_exit_to') or can_exit_to(exit.to_location_name, exit.to_place_name)
 				if can_exit:
-					was_out_exit = False
+					if not cur_location.is_room:
+						was_out_exit = False
 					was_out_place = True
 					return exit
 				return None
