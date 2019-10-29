@@ -125,6 +125,8 @@ screen location:
 				
 				if times['next_name']:
 					set_time_direct()
+				
+				start_location_ambience()
 		
 		cut_k = 0
 		if time.time() < location_cutscene_end:

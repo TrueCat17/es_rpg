@@ -24,99 +24,7 @@ init -1002 python:
 	cur_to_place = None
 	
 	
-	cam_object = None
-	cam_object_old = None
-	cam_object_start_moving = 0.0
-	cam_object_end_moving = 1.0
-	cam_object_align = (0.5, 0.5)
-	cam_object_align_old = (0.5, 0.5)
-	cam_object_zoom = 1.0
-	cam_object_zoom_old = 1.0
-	
-	def cam_to(obj, moving_time = 1.0, align = None, zoom = None):
-		global cam_object
-		old = cam_object
-		
-		if isinstance(obj, str):
-			if cur_location is None:
-				out_msg('cam_to', 'Current location is not defined, need to call set_location')
-				return
-			place = cur_location.get_place(obj)
-			if not place:
-				out_msg('cam_to', 'Place <' + obj + '> not found in location <' + cur_location.name + '>')
-				return
-			cam_object = place
-		else:
-			cam_object = obj
-		
-		global cam_object_old, cam_object_start_moving, cam_object_end_moving
-		if cam_object is not None:
-			cam_object_old = old
-			cam_object_start_moving = time.time()
-			cam_object_end_moving = time.time() + moving_time
-		
-		if align is not None:
-			global cam_object_align, cam_object_align_old
-			if type(align) not in (list, tuple):
-				align = {
-					'left':   (0.0, 0.5),
-					'right':  (1.0, 0.5),
-					'up':     (0.5, 0.0),
-					'down':   (0.5, 1.0),
-					'center': (0.5, 0.5)
-				}[align]
-			cam_object_align_old = cam_object_align
-			cam_object_align = align
-		
-		if zoom is not None:
-			global cam_object_zoom, cam_object_zoom_old
-			cam_object_zoom_old = cam_object_zoom
-			cam_object_zoom = zoom
-	
-	
-	def cam_object_moved():
-		return cam_object_end_moving < time.time()
-	can_exec_next_check_funcs.append(cam_object_moved)
-	
-	def cam_object_move():
-		global cam_object_start_moving, location_cutscene_start, cam_object_end_moving, location_cutscene_end
-		cam_object_start_moving = location_cutscene_start = 0.0
-		cam_object_end_moving = location_cutscene_end = 1.0
-	can_exec_next_skip_funcs.append(cam_object_move)
-	
-	
-	location_zoom_main = 1.0
-	location_zoom_extra = 1.0
-	location_zoom = 1.0 # main * extra
-	
-	upd_loc_stage_size = None
-	def update_location_zoom():
-		global upd_loc_stage_size
-		if upd_loc_stage_size == get_stage_size():
-			return
-		stage_width, stage_height = upd_loc_stage_size = get_stage_size()
-		
-		round_part = 4
-		spec_floor = lambda n: math.floor(n * round_part) / round_part
-		spec_ceil  = lambda n: math.ceil( n * round_part) / round_part
-		
-		global location_zoom_main
-		location_zoom_main = 1.0
-		
-		for location_name in locations.keys():
-			location = locations[location_name]
-			if location.is_room:
-				scale = min(stage_width / location.xsize, stage_height / location.ysize) # increase to width OR height
-				scale = spec_floor(scale) # round to down
-			else:
-				scale = max(stage_width / location.xsize, stage_height / location.ysize) # increase to width AND height
-				scale = spec_ceil(scale)  # round to up
-			
-			location_zoom_main = max(location_zoom_main, scale)
-		
-		if location_zoom_main > 2.5:
-			location_zoom_main = 2.5
-	
+	location_zoom = 1.0
 	
 	
 	locations = dict()
@@ -151,7 +59,6 @@ init -1002 python:
 		location.add_exit(exit)
 	
 	
-	
 	def set_location(location_name, place):
 		if not locations.has_key(location_name):
 			out_msg('set_location', 'Location <' + location_name + '> not registered')
@@ -175,6 +82,8 @@ init -1002 python:
 		cur_location_name = location_name
 		cur_to_place = place
 		
+		end_location_ambience(cur_location)
+		
 		main = cur_location.main()
 		real_width, real_height = get_image_size(main)
 		reg_width, reg_height = cur_location.xsize, cur_location.ysize
@@ -186,6 +95,8 @@ init -1002 python:
 			
 			location_changed = True
 			draw_location = cur_location
+			
+			start_location_ambience()
 			
 			was_out_exit = False
 			cam_object = me
@@ -209,6 +120,7 @@ init -1002 python:
 		
 		global draw_location
 		draw_location = None
+		end_location_ambience()
 	
 	
 	
@@ -255,6 +167,9 @@ init -1002 python:
 			self.exits = []
 			
 			self.objects = []
+			
+			self.ambience_paths = None
+			self.ambience_volume = 1.0
 		
 		def main(self):
 			return get_location_image(self, self.directory, 'main', '', location_ext, False)
@@ -279,72 +194,7 @@ init -1002 python:
 		
 		
 		def update_pos(self):
-			reverse = location_cutscene_state == 'off'
-			k = get_k_between(cam_object_start_moving, cam_object_end_moving, time.time(), location_cutscene_state == 'off')
-			if cam_object_end_moving < time.time():
-				global cam_object_align_old, cam_object_zoom_old
-				cam_object_align_old = cam_object_align
-				cam_object_zoom_old = cam_object_zoom
-			
-			if cam_object_old is None or cam_object is None or cam_object_end_moving < time.time():
-				if cam_object is None:
-					cam_object_x, cam_object_y = 0, 0
-				else:
-					cam_object_x, cam_object_y = get_place_center(cam_object, cam_object_align)
-			else:
-				ax = interpolate(cam_object_align_old[0], cam_object_align[0], k, reverse)
-				ay = interpolate(cam_object_align_old[1], cam_object_align[1], k, reverse)
-				
-				from_x, from_y = get_place_center(cam_object_old, (ax, ay))
-				to_x, to_y = get_place_center(cam_object, (ax, ay))
-				
-				cam_object_x = interpolate(from_x, to_x, k)
-				cam_object_y = interpolate(from_y, to_y, k)
-			
-			update_location_zoom()
-			global location_zoom_extra, location_zoom
-			location_zoom_extra = interpolate(cam_object_zoom_old, cam_object_zoom, k, reverse)
-			location_zoom = location_zoom_main * location_zoom_extra
-			
-			cam_object_x *= location_zoom
-			cam_object_y *= location_zoom
-			
-			
-			stage_width = get_stage_width()
-			main_width = self.xsize * location_zoom
-			if main_width < stage_width or cam_object is None:
-				self.x = (stage_width - main_width) / 2
-			else:
-				xalign = interpolate(cam_object_align_old[0], cam_object_align[0], k, reverse)
-				indent = stage_width * xalign
-				indent_right = stage_width - indent
-				
-				if cam_object_x <= indent:
-					self.x = 0
-				elif cam_object_x >= main_width - indent_right:
-					self.x = stage_width - main_width
-				else:
-					self.x = indent - cam_object_x
-			
-			stage_height = get_stage_height() - location_cutscene_up - location_cutscene_down
-			main_height = self.ysize * location_zoom
-			if main_height < stage_height or cam_object is None:
-				self.y = (stage_height - main_height) / 2
-			else:
-				yalign = interpolate(cam_object_align_old[1], cam_object_align[1], k, reverse)
-				indent = stage_height * yalign
-				indent_down = stage_height - indent
-				
-				if cam_object_y <= indent:
-					self.y = 0
-				elif cam_object_y >= main_height - indent_down :
-					self.y = stage_height - main_height
-				else:
-					self.y = indent - cam_object_y
-			self.y += location_cutscene_up
-			
-			self.x = int(round(self.x))
-			self.y = int(round(self.y))
+			self.x, self.y = get_camera_params(self)
 	
 	
 	class Place(Object):
@@ -394,20 +244,20 @@ init -1002 python:
 			return None
 		
 		for exit in cur_location.exits:
-			if exit.inside(me.x, me.y):
-				if not exec_action and locations[exit.to_location_name].is_room:
-					return
-				
-				if not was_out_exit:
-					continue
-				
-				can_exit = not globals().has_key('can_exit_to') or can_exit_to(exit.to_location_name, exit.to_place_name)
-				if can_exit:
-					if not cur_location.is_room:
-						was_out_exit = False
-					was_out_place = True
-					return exit
-				return None
+			if not exit.inside(me.x, me.y):
+				continue
+			
+			if not exec_action and locations[exit.to_location_name].is_room:
+				break
+			if not was_out_exit:
+				break
+			
+			if globals().has_key('can_exit_to') and not can_exit_to(exit.to_location_name, exit.to_place_name):
+				continue
+			
+			was_out_exit = False
+			was_out_place = True
+			return exit
 		else:
 			was_out_exit = True
 		
@@ -429,5 +279,4 @@ init -1002 python:
 			was_out_place = True
 		
 		return None
-	
 
