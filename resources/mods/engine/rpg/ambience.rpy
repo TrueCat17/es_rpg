@@ -40,7 +40,7 @@ init python:
 		if not paths.has_key(time):
 			time = None
 		
-		return paths[time]
+		return paths.get(time, None)
 	
 	def start_location_ambience():
 		path = get_location_ambience(cur_location)
