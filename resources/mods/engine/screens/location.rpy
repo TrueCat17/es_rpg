@@ -244,8 +244,9 @@ screen location:
 		image location_cutscene_back:
 			xsize 1.0
 			ysize location_cutscene_up
+		
 		image location_cutscene_back:
-			yalign 1.0
+			ypos get_stage_height() - location_cutscene_down
 			xsize 1.0
 			ysize location_cutscene_down
 		
