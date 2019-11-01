@@ -202,7 +202,7 @@ screen location:
 			for obj in draw_location.objects:
 				if obj.update:
 					obj.update()
-			draw_location.objects.sort(key = lambda obj: obj.y)
+			draw_location.objects.sort(key = lambda obj: obj.y + obj.yoffset)
 			
 			draw_location.update_pos()
 		
@@ -214,16 +214,18 @@ screen location:
 				list_to_draw = []
 				
 				for obj in draw_location.objects:
+					x, y = obj.x + obj.xoffset, obj.y + obj.yoffset
+					
 					obj_xanchor, obj_yanchor = obj.xanchor, obj.yanchor
 					if type(obj_xanchor) is int:
-						obj_xanchor *= location_zoom
+						obj_xanchor = int(obj_xanchor * location_zoom)
 					if type(obj_yanchor) is int:
-						obj_yanchor *= location_zoom
+						obj_yanchor = int(obj_yanchor * location_zoom)
 					
 					list_to_draw.append({
 						'image':   obj.main(),
 						'size':   (int(obj.xsize * location_zoom), int(obj.ysize * location_zoom)),
-						'pos':    (int(obj.x * location_zoom), int(obj.y * location_zoom)),
+						'pos':    (int(x * location_zoom), int(y * location_zoom)),
 						'anchor': (obj_xanchor, obj_yanchor),
 						'crop':    obj.crop
 					})

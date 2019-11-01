@@ -133,14 +133,15 @@ init -1001 python:
 			self.move_kind = 'stay'    #  'stay'  | 'walk' | 'run'
 			self.fps = character_walk_fps
 			
-			self.moving_start_time = time.time()
+			self.start_moving_time = time.time()
 			
-			self.end_stop_time = None
+			self.end_wait_moving_time = None
 			self.moving_ended = True
 			
 			self.x, self.y = 0, 0
-			self.xanchor, self.yanchor = 0.5, 0.8
 			self.xoffset, self.yoffset = 0, 0
+			
+			self.xanchor, self.yanchor = 0.5, 0.8
 			self.xsize, self.ysize = character_xsize, character_ysize
 			self.crop = (0, 0, self.xsize, self.ysize)
 			
@@ -150,6 +151,8 @@ init -1001 python:
 			
 			self.animations = Object()
 			self.animation = None
+			self.start_anim_time = None
+			self.end_wait_anim_time = None
 		
 		def __str__(self):
 			return str(self.name)
@@ -175,7 +178,7 @@ init -1001 python:
 				self.direction = direction % character_max_direction
 		
 		def main(self):
-			if self.animation_start_time is not None:
+			if self.start_anim_time is not None:
 				return get_location_image(self.animation, self.animation.path, '', '', character_ext, False)
 			return get_location_image(self, self.directory, self.rpg_name, self.dress, character_ext, False)
 		
@@ -190,7 +193,7 @@ init -1001 python:
 		
 		def update_crop(self):
 			frame = self.frame
-			if self.animation_start_time is None:
+			if self.start_anim_time is None:
 				if self.pose == 'sit':
 					frame = character_max_frame
 				elif self.move_kind == 'stay':
@@ -215,7 +218,7 @@ init -1001 python:
 				out_msg('Character.to_next_place', 'Place <' + str(place_name) + '> not found in location <' + self.location.name + '>')
 				return
 			
-			self.moving_start_time = time.time()
+			self.start_moving_time = time.time()
 			
 			self.from_x, self.from_y = int(self.x), int(self.y)
 			self.to_x, self.to_y = get_place_center(place)
@@ -259,7 +262,7 @@ init -1001 python:
 						place_name -= 1
 					self.place_index = place_name
 		
-		def move_to_place(self, place_names, run = False, exec_stop_time = -1):
+		def move_to_place(self, place_names, run = False, wait_time = -1):
 			if not self.location:
 				out_msg('Character.to_next_place', 'Character there is not in some location')
 				return
@@ -278,27 +281,27 @@ init -1001 python:
 			
 			self.to_next_place()
 			
-			if exec_stop_time >= 0:
-				self.end_stop_time = time.time() + exec_stop_time
+			if wait_time >= 0:
+				self.end_wait_moving_time = time.time() + wait_time
 			else:
-				self.end_stop_time = None
+				self.end_wait_moving_time = None
 		
 		def move_to_end(self):
-			if self.end_stop_time:
-				self.moving_start_time -= self.end_stop_time - self.moving_start_time
-				self.end_stop_time = time.time()
+			if self.end_wait_moving_time:
+				self.start_moving_time -= self.end_wait_moving_time - self.start_moving_time
+				self.end_wait_moving_time = time.time()
 			elif not (self.place_names and type(self.place_names[-1]) is int): # not cycled path
-				self.moving_start_time = 0
+				self.start_moving_time = 0
 				self.update()
 		
 		def ended_move_waiting(self):
-			if self.end_stop_time:
-				return self.end_stop_time < time.time()
+			if self.end_wait_moving_time:
+				return self.end_wait_moving_time < time.time()
 			if self.place_names and type(self.place_names[-1]) is int: # cycled path
 				return True
 			return self.moving_ended
 		
-		def start_animation(self, anim_name, repeat = 0):
+		def start_animation(self, anim_name, repeat = 0, wait_time = -1):
 			if not self.animations.has_key(anim_name):
 				out_msg('start_animation', 'Animation <' + str(anim_name) + '> not found in character <' + str(self) + '>')
 				return
@@ -308,11 +311,17 @@ init -1001 python:
 			
 			self.xoffset, self.yoffset = animation.xoffset, animation.yoffset
 			
-			self.animation_start_time = time.time()
+			self.start_anim_time = time.time()
 			self.repeat = int(repeat)
+			
+			if wait_time >= 0:
+				self.end_wait_anim_time = time.time() + wait_time
+			else:
+				self.end_wait_anim_time = None
 		
 		def remove_animation(self):
-			self.animation_start_time = None
+			self.start_anim_time = None
+			self.end_wait_anim_time = None
 			self.xoffset, self.yoffset = 0, 0
 			self.xsize, self.ysize = character_xsize, character_ysize
 		
@@ -320,26 +329,29 @@ init -1001 python:
 			self.remove_animation()
 		
 		def ended_anim_waiting(self):
-			if self.repeat < 0 or self.animation_start_time is None:
+			if self.repeat < 0 or self.start_anim_time is None:
 				return True
+			if self.end_wait_anim_time is not None and self.end_wait_anim_time < time.time():
+				return True
+			
 			if self.repeat > 0:
 				return False
-			return time.time() - self.animation_start_time > self.animation.time
+			return time.time() - self.start_anim_time > self.animation.time
 		
 		def update(self):
-			moving_dtime = time.time() - self.moving_start_time
+			moving_dtime = time.time() - self.start_moving_time
 			
-			if self.animation_start_time is None:
+			if self.start_anim_time is None:
 				self.set_frame(int(moving_dtime * self.fps))
 			else:
 				animation = self.animation
-				dtime = time.time() - self.animation_start_time
+				dtime = time.time() - self.start_anim_time
 				
 				time_k = 1
 				if animation.time > 0:
 					if dtime > animation.time:
 						if self.repeat:
-							self.animation_start_time = time.time()
+							self.start_anim_time = time.time()
 							time_k = 0
 						if self.repeat > 0:
 							self.repeat -= 1

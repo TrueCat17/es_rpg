@@ -29,7 +29,7 @@ init python:
 				obj_free = im.crop(obj_free, obj.crop)
 			
 			w, h = get_image_size(obj_free)
-			x, y = obj.x - get_absolute(obj.xanchor, w), obj.y - get_absolute(obj.yanchor, h)
+			x, y = obj.x + obj.xoffset - get_absolute(obj.xanchor, w), obj.y + obj.yoffset - get_absolute(obj.yanchor, h)
 			if near(x, y, w, h):
 				to_draw += [(x, y), im.matrix_color(obj_free, matrix)]
 		

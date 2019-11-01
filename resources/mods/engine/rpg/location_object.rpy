@@ -48,16 +48,16 @@ init -1001 python:
 	
 	def register_location_object_animation(obj_name, anim_name,
 	                                       directory, main_image, free_image,
-	                                       xpos, ypos,
+	                                       xoffset, yoffset,
 	                                       count_frames, start_frame, end_frame, time = 1.0):
 		if not location_objects.has_key(obj_name):
 			out_msg('register_location_object_animation', 'Object <' + str(obj_name) + '> not registered')
 			return
 		
-		if type(xpos) is not int or type(ypos) is not int:
+		if type(xoffset) is not int or type(yoffset) is not int:
 			out_msg('register_location_object_animation',
 			        'On registration of animation <' + str(anim_name) + '> of object <' + str(obj_name) + '>\n' +
-			        'set invalid pos: <' + str(xpos) + ', ' + str(ypos) + '>, expected ints')
+			        'set invalid pos: <' + str(xoffset) + ', ' + str(yoffset) + '>, expected ints')
 			return
 		
 		if count_frames <= 0 or not (0 <= start_frame < count_frames) or not (0 <= end_frame < count_frames):
@@ -84,8 +84,8 @@ init -1001 python:
 			end_frame    = end_frame,
 			time         = float(time),
 		
-			xpos = xpos,
-			ypos = ypos,
+			xoffset = xoffset,
+			yoffset = yoffset,
 			xsize = 0,
 			ysize = 0,
 			loaded = False
@@ -101,7 +101,7 @@ init -1001 python:
 				self[key] = value
 			
 			self.x, self.y = x, y
-			self.orig_x, self.orig_y = x, y
+			self.xoffset, self.yoffset = 0, 0
 			
 			self.xanchor, self.yanchor = 0.5, 1.0
 			self.xsize, self.ysize = 0, 0
@@ -167,10 +167,7 @@ init -1001 python:
 					animation.xsize = int(math.ceil(animation.xsize / animation.count_frames))
 				
 				self.xsize, self.ysize = animation.xsize, animation.ysize
-			
-				main_frame = self.animations[None]
-				self.x = self.orig_x - main_frame.xsize * self.xanchor + animation.xpos + self.xsize * self.xanchor
-				self.y = self.orig_y - main_frame.ysize * self.yanchor + animation.ypos + self.ysize * self.yanchor
+				self.xoffset, self.yoffset = animation.xoffset, animation.yoffset
 			
 			start_frame = animation.start_frame
 			end_frame = animation.end_frame
