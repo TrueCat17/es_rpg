@@ -3,7 +3,7 @@ init python:
 	renpy.music.register_channel("location_ambience", "ambience", True)
 	
 	
-	default_location_ambience_paths = ''
+	default_location_ambience_paths = { None: '' }
 	default_location_ambience_volume = 1.0
 	
 	def set_default_location_ambience(paths, volume = 1.0):
