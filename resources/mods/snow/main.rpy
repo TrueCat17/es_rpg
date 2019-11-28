@@ -12,14 +12,14 @@ init python:
 		if d < 0:
 			objs = objs[0:count]
 		else:
-			width, height = get_stage_width(), get_stage_height()
+			width, height = get_stage_size()
 			
 			rand_int = random.randint
 			def rand_float(min, max):
 				return random.random() * (max - min) + min
 			
 			for i in xrange(d):
-				size = rand_int(3, 10)
+				size = rand_int(2, 10)
 				
 				x = rand_int(0, width)
 				y = rand_int(0, height)
@@ -31,27 +31,35 @@ init python:
 				obj = [x, y, dx, dy, sizes]
 				objs.append(obj)
 	
-	def update_snow(k):
-		global tmp_image
+	def update_snow():
+		global prev_time_update, tmp_image
 		
-		width, height = get_stage_width(), get_stage_height()
+		k = (time.time() - prev_time_update) * 60
+		prev_time_update = time.time()
+		
+		width, height = get_stage_size()
 		x, y, dx, dy, sizes = 0, 1, 2, 3, 4
 		
 		if image_render:
+			img_cache = {}
+			for i in xrange(2, 11):
+				img_cache[(i, i)] = im.scale('images/anim/snow.png', i, i)
+			
 			tmp_image_args = [(width, height)]
 			for obj in objs:
 				obj[x] = (obj[x] + obj[dx] * k) % width
 				obj[y] = (obj[y] + obj[dy] * k) % height
 				
-				tmp_image_args.append((obj[x], obj[y]))
-				tmp_image_args.append(im.Scale('images/anim/snow.png', *obj[sizes]))
-			tmp_image = im.Composite(*tmp_image_args)
+				tmp_image_args.extend(
+					((obj[x], obj[y]), img_cache[obj[sizes]])
+				)
+			tmp_image = im.composite(*tmp_image_args)
 		else:
 			for obj in objs:
 				obj[x] = (obj[x] + obj[dx] * k) % width
 				obj[y] = (obj[y] + obj[dy] * k) % height
 	
-	set_count(5000)
+	set_count(8000)
 	prev_time_update = time.time()
 
 
@@ -59,11 +67,7 @@ screen snow:
 	image 'images/bg/bus_stop.jpg':
 		size (1.0, 1.0)
 	
-	python:
-		k = (time.time() - prev_time_update) * 60
-		prev_time_update = time.time()
-		
-		update_snow(k)
+	$ update_snow()
 	
 	if image_render:
 		image tmp_image
@@ -100,7 +104,7 @@ screen snow:
 				xalign 1.0
 				text_size 20
 				size (25, 25)
-				action set_count(min(len(objs) + 100, 10000))
+				action set_count(min(len(objs) + 100, 20000))
 		
 		null:
 			align (0.5, 0.8)
