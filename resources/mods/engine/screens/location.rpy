@@ -120,7 +120,10 @@ screen location:
 				draw_location = cur_location
 				
 				show_character(me, cur_to_place)
-				me.set_direction(cur_location.get_place(cur_to_place).to_side)
+				if type(cur_to_place) is str:
+					cur_to_place = cur_location.get_place(cur_to_place)
+				if cur_to_place.has_key('to_side'):
+					me.set_direction(cur_to_place['to_side'])
 				cam_object = me
 				
 				if times['next_name']:

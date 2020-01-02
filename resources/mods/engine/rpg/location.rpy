@@ -101,7 +101,9 @@ init -1002 python:
 			was_out_exit = False
 			cam_object = me
 		else:
-			cam_object = {'x': me.x, 'y': me.y}
+			cam_object = {}
+			for prop in ('x', 'y', 'xanchor', 'yanchor', 'xsize', 'ysize'):
+				cam_object[prop] = me[prop]
 		
 		show_character(me, cur_to_place)
 		
