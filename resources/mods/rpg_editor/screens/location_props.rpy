@@ -446,7 +446,8 @@ screen location_props:
 								text_size 16
 								color 0
 								action [SetDict(place, 'side_exit', 'down'), set_save_locations]
-						
+					
+					if is_place:
 						vbox:
 							xalign 0.5
 							spacing 5
@@ -461,7 +462,7 @@ screen location_props:
 								size (100, 22)
 								text_size 16
 								color 0
-								action [SetDict(place, 'to_side', 'to_forward'), set_save_locations]
+								action [SetDict(place, 'to_side', to_forward), set_save_locations]
 							
 							hbox:
 								spacing 5
@@ -472,13 +473,13 @@ screen location_props:
 									size (80, 22)
 									text_size 16
 									color 0
-									action [SetDict(place, 'to_side', 'left'), set_save_locations]
+									action [SetDict(place, 'to_side', to_left), set_save_locations]
 								textbutton 'None':
 									ground (selected_prop if place.to_side == None else not_selected_prop)
 									size (80, 22)
 									text_size 16
 									color 0
-									action [SetDict(place, 'to_side', 'left'), set_save_locations]
+									action [SetDict(place, 'to_side', None), set_save_locations]
 								textbutton 'to_right':
 									ground (selected_prop if place.to_side == to_right else not_selected_prop)
 									size (80, 22)
