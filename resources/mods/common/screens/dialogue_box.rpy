@@ -173,6 +173,7 @@ init -1000 python:
 			db_voice_text = next_text + tags_close_str + nbsp * len_unicode(last_word)
 	
 	
+	enter_action = If(db_hide_interface, SetVariable('db_hide_interface', False), SetVariable('db_to_next', True))
 	def db_on_enter():
 		skip_exec_current_command()
 		
@@ -230,14 +231,15 @@ screen dialogue_box:
 	key 'h' action SetVariable('db_hide_interface', not db_hide_interface)
 	
 	$ db_to_next = False
-	key 'RETURN' action If(db_hide_interface, SetVariable('db_hide_interface', False), SetVariable('db_to_next', True))
-	key 'SPACE'  action If(db_hide_interface, SetVariable('db_hide_interface', False), SetVariable('db_to_next', True))
+	key 'RETURN'       action enter_action
+	key 'KEYPAD ENTER' action enter_action
+	key 'SPACE'        action enter_action
 	if db_to_next:
 		$ db_skip_tab = False
 	
 	$ db_skip_ctrl = False
 	key 'LEFT CTRL'  action SetVariable('db_skip_ctrl', True) first_delay 0
-	key 'RIGHT CTRL' action SetVariable('db_skip_ctrl', True)
+	key 'RIGHT CTRL' action SetVariable('db_skip_ctrl', True) first_delay 0
 	key 'TAB' action SetVariable('db_skip_tab', not db_skip_tab)
 	python:
 		if (db_skip_ctrl or db_skip_tab):
@@ -249,7 +251,6 @@ screen dialogue_box:
 			db_on_enter()
 	
 	key 'ESCAPE' action SetVariable('db_hide_interface', False)
-	
 	
 	if not db_hide_interface:
 		$ db_update()
@@ -265,6 +266,7 @@ screen dialogue_box:
 				mouse False
 				
 				action db_on_enter
+			
 			
 			if db_mode == 'adv':
 				vbox:
