@@ -7,6 +7,7 @@ init -1 python:
 	k = get_from_hard_config("window_w_div_h", float)
 	settings_resolutions = tuple((i, int(i/k)) for i in (640, 960, 1200, 1366, 1920))
 	
+	mods = get_mods()
 	settings_show_mods = False
 	
 	
@@ -40,7 +41,7 @@ init -1 python:
 	
 	settings_viewport_y = 0.15
 	settings_viewport_ysize = 1 - settings_viewport_y * 2
-	settings_viewport_content_height = 600
+	settings_viewport_content_height = 650
 	
 	slider_v_init('settings', settings_viewport_content_height, settings_viewport_ysize)
 
@@ -76,7 +77,6 @@ screen settings:
 				xsize 1.0
 				spacing 10
 				
-				$ mods = get_mods()
 				for name in mods:
 					textbutton name:
 						xalign 0.5
