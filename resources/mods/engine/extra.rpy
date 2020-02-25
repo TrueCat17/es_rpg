@@ -41,6 +41,10 @@ init -1000000 python:
 			depth -= 1
 			frame = frame.f_back
 		return inspect.getfile(frame), inspect.getlineno(frame)
+	
+	def get_stack(depth):
+		stack = traceback.format_stack()
+		return stack[:-(depth + 1)]
 
 
 init -100000 python:
@@ -80,7 +84,13 @@ init -100000 python:
 	
 	def load(table, num):
 		_load(str(table), str(num))
+	
 	def out_msg(msg, err = ''):
+		stack = get_stack(1)
+		err = str(err) + '\n'
+		for frame in stack:
+			err += frame
+		
 		_out_msg(str(msg), err)
 	
 	
