@@ -232,7 +232,6 @@ screen dialogue_box:
 	
 	$ db_to_next = False
 	key 'RETURN'       action enter_action
-	key 'KEYPAD ENTER' action enter_action
 	key 'SPACE'        action enter_action
 	if db_to_next:
 		$ db_skip_tab = False

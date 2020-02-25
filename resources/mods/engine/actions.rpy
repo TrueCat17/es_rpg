@@ -1,6 +1,6 @@
 init -10000 python:
 	def exec_funcs(funcs):
-		if isinstance(funcs, list) or isinstance(funcs, tuple):
+		if isinstance(funcs, (list, tuple)):
 			for func in funcs:
 				if func is not None:
 					func()
