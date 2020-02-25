@@ -125,6 +125,26 @@ init -1002 python:
 		end_location_ambience()
 	
 	
+	location_banned_exit_destinations = []
+	def ban_exit_destination(location_name, place_name = None):
+		location = locations.get(location_name, None)
+		if location is None:
+			out_msg('ban_exit_destination', 'Location <' + str(location_name) + '> is not registered')
+			return
+		
+		if place_name is not None and not location.places.has_key(place_name):
+			out_msg('ban_exit_destination', 'Place <' + str(place_name) + '> in location <' + location_name + '> not found')
+			return
+		
+		location_banned_exit_destinations.append((location_name, place_name))
+	
+	def unban_exit_destination(location_name, place_name):
+		item = (location_name, place_name)
+		try:
+			location_banned_exit_destinations.remove(item)
+		except ValueError:
+			pass
+	
 	
 	def get_location_image(obj, directory, name, name_postfix, ext, is_free, need = True):
 		if obj.cache is None:
@@ -172,6 +192,10 @@ init -1002 python:
 			
 			self.ambience_paths = None
 			self.ambience_volume = 1.0
+			
+			self.path_need_update = True
+			self.min_scale = 8
+			self.count_scales = 2
 		
 		def main(self):
 			return get_location_image(self, self.directory, 'main', '', location_ext, False)
@@ -231,7 +255,7 @@ init -1002 python:
 		xa = get_absolute(place['xanchor'], w) if place.has_key('xanchor') else 0
 		ya = get_absolute(place['yanchor'], h) if place.has_key('yanchor') else 0
 		
-		return (x - xa + align[0] * w), (y - ya + align[1] * h)
+		return int(x - xa + align[0] * w), int(y - ya + align[1] * h)
 	
 	
 	exec_action = False
@@ -281,4 +305,37 @@ init -1002 python:
 			was_out_place = True
 		
 		return None
+	
+	
+	def path_update_locations():
+		for name, location in locations.iteritems():
+			if not location.path_need_update: continue
+			location.path_need_update = False
+			
+			free = location.free()
+			if not free:
+				free = im.rect('#000', location.xsize, location.ysize)
+			
+			objects = []
+			for obj in location.objects:
+				if not isinstance(obj, LocationObject): continue
+				
+				free_obj = obj.free()
+				if not free_obj: continue
+				
+				x = int(obj.x) - get_absolute(obj.xanchor, obj.xsize) + obj.xoffset
+				y = int(obj.y) - get_absolute(obj.yanchor, obj.ysize) + obj.yoffset
+				objects.extend((free_obj, x, y))
+			
+			places = []
+			for place_name, place in location.places.iteritems():
+				x, y = get_place_center(place)
+				places.extend((place_name, x, y))
+			
+			exits = []
+			for exit in location.exits:
+				x, y = get_place_center(exit)
+				exits.extend((exit.to_location_name, exit.to_place_name, x, y))
+			
+			path_update_location(name, free, character_radius, objects, places, exits, location.min_scale, location.count_scales)
 

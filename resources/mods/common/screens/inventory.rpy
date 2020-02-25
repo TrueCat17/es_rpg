@@ -142,7 +142,7 @@ screen inventory:
 			if not inventory_inited:
 				$ init_inventory()
 			button:
-				pos    (inventory_xsize + 10 + pause_close_size / 2, -10 - pause_close_size / 2)
+				pos    (inventory_xsize + 10 + inventory_close_size / 2, -10 - inventory_close_size / 2)
 				anchor (0.5, 0.5)
 				size   (inventory_close_size, inventory_close_size)
 				

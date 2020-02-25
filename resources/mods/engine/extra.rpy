@@ -81,7 +81,7 @@ init -100000 python:
 	def load(table, num):
 		_load(str(table), str(num))
 	def out_msg(msg, err = ''):
-		_out_msg(str(msg), str(err))
+		_out_msg(str(msg), err)
 	
 	
 	def get_k_between(start, end, value, reverse = False):

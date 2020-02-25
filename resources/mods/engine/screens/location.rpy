@@ -7,7 +7,6 @@ init python:
 	loc__max_time = time.time() * 2
 	
 	
-	prev_rpg_control = False
 	rpg_control = False
 	def get_rpg_control():
 		return rpg_control
@@ -15,8 +14,16 @@ init python:
 	def set_rpg_control(value):
 		global rpg_control
 		rpg_control = bool(value)
-		
 		me.move_kind = 'stay'
+	
+	prev_rpg_control = None
+	def return_prev_rpg_control():
+		if prev_rpg_control is not None:
+			set_rpg_control(prev_rpg_control)
+	
+	def ignore_prev_rpg_control():
+		global prev_rpg_control
+		prev_rpg_control = None
 	
 	loc__prev_left = loc__prev_right = loc__prev_up = loc__prev_down = False
 	loc__left = loc__right = loc__up = loc__down = False
@@ -90,6 +97,9 @@ init python:
 		location_cutscene_end = time.time() + max(t, 0.001)
 		
 		cam_to(obj or cam_object, t, align, zoom)
+	
+	def p(t):
+		print t
 
 
 screen location:
@@ -270,4 +280,5 @@ screen location:
 			if loc__set_show_at_end:
 				loc__set_show_at_end = False
 				location_was_show = True
+				return_prev_rpg_control()
 
