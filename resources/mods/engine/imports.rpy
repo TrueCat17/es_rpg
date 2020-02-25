@@ -6,7 +6,6 @@ init -100001 python:
 	import math
 	import shutil
 	import cPickle as pickle
-	import inspect
 	import traceback
 	import itertools
 

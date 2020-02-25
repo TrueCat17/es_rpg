@@ -24,23 +24,23 @@ init -998 python:
 
 init -1000000 python:
 	def get_numline(depth):
-		frame = inspect.currentframe().f_back
+		frame = sys._getframe()
 		while depth:
 			depth -= 1
 			frame = frame.f_back
-		return inspect.getlineno(frame)
+		return frame.f_lineno
 	def get_filename(depth):
-		frame = inspect.currentframe().f_back
+		frame = sys._getframe()
 		while depth:
 			depth -= 1
 			frame = frame.f_back
-		return inspect.getfile(frame)
+		return frame.f_code.co_filename
 	def get_file_and_line(depth):
-		frame = inspect.currentframe().f_back
+		frame = sys._getframe()
 		while depth:
 			depth -= 1
 			frame = frame.f_back
-		return inspect.getfile(frame), inspect.getlineno(frame)
+		return frame.f_code.co_filename, frame.f_lineno
 	
 	def get_stack(depth):
 		stack = traceback.format_stack()
