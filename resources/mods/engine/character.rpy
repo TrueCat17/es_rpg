@@ -144,8 +144,9 @@ init -1001 python:
 			self.crop = (0, 0, self.xsize, self.ysize)
 			
 			self.location = None
-			self.to_places = []
-			self.place_index = 0
+			self.paths = []
+			self.paths_index = 0
+			self.point_index = 0
 			
 			self.animations = Object()
 			self.animation = None
@@ -223,17 +224,23 @@ init -1001 python:
 			elif not isinstance(place_names, list):
 				place_names = [place_names]
 			
+			last = place_names[-1]
+			if type(last) is int:
+				next = place_names[last]
+				place_names.insert(-1, next)
+			
 			self.paths = []
 			self.paths_index = 0
 			self.point_index = 0
 			
 			from_location_name = self.location.name
 			from_x, from_y = self.x, self.y
+			
 			for i in xrange(len(place_names)):
 				place_elem = place_names[i]
 				
-				if i == len(place_names) - 1 and type(place_elem) is int: # last and int
-					place_names.insert(place_names[place_elem], -1)
+				if type(place_elem) is int:
+					self.paths.append((place_elem % len(place_names) + 1))
 					break
 				
 				if isinstance(place_elem, (list, tuple)):
@@ -257,8 +264,10 @@ init -1001 python:
 				to_x, to_y = get_place_center(place)
 				path = path_between_locations(from_location_name, from_x, from_y, location_name, to_x, to_y, brute_force)
 				if not path:
-					self.paths = []
-					return
+					if from_location_name == location_name:
+						path = (to_x, to_y)
+					else:
+						path = (location_name, {'x': to_x, 'y': to_y}, to_x, to_y)
 				self.paths.append(path)
 				
 				from_location_name = location_name
@@ -272,14 +281,26 @@ init -1001 python:
 			for prop in ('fps', 'speed', 'acceleration'):
 				self[prop] = g['character_' + self.move_kind + '_' + prop] # for example: self.fps = character_run_fps
 			
+			self.prev_update_time = time.time()
 			if wait_time >= 0:
 				self.end_stop_time = time.time() + wait_time
 			else:
 				self.end_stop_time = None
 		
 		def move_to_end(self):
-			if self.end_stop_time:
-				self.end_stop_time = time.time()
+			self.end_stop_time = None
+			
+			if self.paths and not type(self.paths[-1]) is int: # not cycled path
+				self.moving_ended = True
+				path = self.paths[-1]
+				self.paths = []
+				
+				to_x, to_y = path[-2:]
+				if type(to_x) is str:
+					location_name, place_name = to_x, to_y
+					show_character(self, place_name, location_name)
+				else:
+					self.x, self.y = to_x, to_y
 		
 		def ended_move_waiting(self):
 			if self.end_stop_time:
@@ -313,7 +334,8 @@ init -1001 python:
 			self.xsize, self.ysize = character_xsize, character_ysize
 		
 		def anim_to_end(self):
-			self.remove_animation()
+			if self.start_anim_time:
+				self.start_anim_time = 0
 		
 		def ended_anim_waiting(self):
 			if self.repeat < 0 or self.start_anim_time is None:
@@ -333,21 +355,18 @@ init -1001 python:
 				self.set_frame(int(time.time() * self.fps))
 			else:
 				animation = self.animation
-				dtime = time.time() - self.start_anim_time
+				anim_dtime = time.time() - self.start_anim_time
 				
 				time_k = 1
 				if animation.time > 0:
-					if dtime > animation.time:
+					if anim_dtime > animation.time:
 						if self.repeat:
 							self.start_anim_time = time.time()
 							time_k = 0
-						else:
-							self.remove_animation()
-						
 						if self.repeat > 0:
 							self.repeat -= 1
 					else:
-						time_k = dtime / animation.time
+						time_k = anim_dtime / animation.time
 				
 				if animation.first_update:
 					animation.first_update = False
@@ -386,6 +405,7 @@ init -1001 python:
 				if type(to_x) is str:
 					location_name, place_name = to_x, to_y
 					show_character(self, place_name, location_name)
+					self.point_index += 2
 					continue
 				
 				dx = to_x - self.x
@@ -420,7 +440,7 @@ init -1001 python:
 							if path < 0:
 								path -= 1
 							self.paths_index = path
-							path = self.paths[self.paths_index]
+							break
 				else:
 					self.x += dx * dtime / need_time
 					self.y += dy * dtime / need_time
