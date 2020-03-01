@@ -262,12 +262,9 @@ init -1001 python:
 					place = place_elem
 				
 				to_x, to_y = get_place_center(place)
-				path = path_between_locations(from_location_name, from_x, from_y, location_name, to_x, to_y, brute_force)
+				path = path_between_locations(from_location_name, from_x, from_y, location_name, to_x, to_y, location_banned_exit_destinations, brute_force)
 				if not path:
-					if from_location_name == location_name:
-						path = (to_x, to_y)
-					else:
-						path = (location_name, {'x': to_x, 'y': to_y}, to_x, to_y)
+					path = (location_name, {'x': to_x, 'y': to_y}, to_x, to_y)
 				self.paths.append(path)
 				
 				from_location_name = location_name
@@ -404,7 +401,10 @@ init -1001 python:
 				
 				if type(to_x) is str:
 					location_name, place_name = to_x, to_y
-					show_character(self, place_name, location_name)
+					if self is me:
+						set_location(location_name, place_name)
+					else:
+						show_character(self, place_name, location_name)
 					self.point_index += 2
 					continue
 				
