@@ -132,18 +132,33 @@ init -1002 python:
 			out_msg('ban_exit_destination', 'Location <' + str(location_name) + '> is not registered')
 			return
 		
-		if place_name is not None and not location.places.has_key(place_name):
-			out_msg('ban_exit_destination', 'Place <' + str(place_name) + '> in location <' + location_name + '> not found')
+		if place_name is not None:
+			if location.places.has_key(place_name):
+				location_banned_exit_destinations.append((location_name, place_name))
+			else:
+				out_msg('ban_exit_destination', 'Place <' + str(place_name) + '> in location <' + location_name + '> not found')
 			return
 		
-		location_banned_exit_destinations.append((location_name, place_name))
+		for place_name in location.places:
+			location_banned_exit_destinations.append((location_name, place_name))
 	
-	def unban_exit_destination(location_name, place_name):
-		item = (location_name, place_name)
-		try:
-			location_banned_exit_destinations.remove(item)
-		except ValueError:
-			pass
+	def unban_exit_destination(location_name, place_name = None):
+		location = locations.get(location_name, None)
+		if location is None:
+			out_msg('unban_exit_destination', 'Location <' + str(location_name) + '> is not registered')
+			return
+		if place_name is not None and not location.places.has_key(place_name):
+			out_msg('unban_exit_destination', 'Place <' + str(place_name) + '> in location <' + location_name + '> not found')
+			return
+		
+		global location_banned_exit_destinations
+		i = 0
+		while i < len(location_banned_exit_destinations):
+			tmp_loc, tmp_place = location_banned_exit_destinations[i]
+			if tmp_loc == location_name and (tmp_place == place_name or place_name is None):
+				location_banned_exit_destinations = location_banned_exit_destinations[:i] + location_banned_exit_destinations[i+1:]
+			else:
+				i += 1
 	
 	
 	def get_location_image(obj, directory, name, name_postfix, ext, is_free, need = True):
