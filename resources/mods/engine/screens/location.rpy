@@ -129,7 +129,6 @@ screen location:
 				location_changed = True
 				draw_location = cur_location
 				
-				show_character(me, cur_to_place)
 				if type(cur_to_place) is str:
 					cur_to_place = cur_location.get_place(cur_to_place)
 				if cur_to_place.has_key('to_side'):

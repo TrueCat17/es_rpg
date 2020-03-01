@@ -401,10 +401,7 @@ init -1001 python:
 				
 				if type(to_x) is str:
 					location_name, place_name = to_x, to_y
-					if self is me:
-						set_location(location_name, place_name)
-					else:
-						show_character(self, place_name, location_name)
+					show_character(self, place_name, location_name)
 					self.point_index += 2
 					continue
 				
@@ -464,7 +461,7 @@ init -1001 python:
 	
 	
 	
-	def show_character(character, place, location = None):
+	def show_character(character, place, location = None, auto_change_location = True):
 		if location is None:
 			if cur_location is None:
 				out_msg('show_character', 'Current location is not defined, need to call set_location')
@@ -475,6 +472,10 @@ init -1001 python:
 				out_msg('show_character', 'Location <' + location + '> not registered')
 				return
 			location = locations[location]
+		
+		if character is cam_object and auto_change_location:
+			set_location(location.name, place)
+			return
 		
 		if type(place) is str:
 			place_name = place

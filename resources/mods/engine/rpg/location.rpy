@@ -105,7 +105,7 @@ init -1002 python:
 			for prop in ('x', 'y', 'xanchor', 'yanchor', 'xsize', 'ysize'):
 				cam_object[prop] = me[prop]
 		
-		show_character(me, cur_to_place)
+		show_character(me, cur_to_place, auto_change_location = False)
 		
 		if reg_width != real_width or reg_height != real_height:
 			reg_size = str(reg_width) + 'x' + str(reg_height)
