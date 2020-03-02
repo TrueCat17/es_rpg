@@ -30,7 +30,7 @@ init -1003 python:
 		if cam_object is not None:
 			cam_object_old = old
 			cam_object_start_moving = time.time()
-			cam_object_end_moving = time.time() + moving_time
+			cam_object_end_moving = time.time() + max(moving_time, 0.001)
 		
 		if align is not None:
 			global cam_object_align, cam_object_align_old

@@ -101,9 +101,8 @@ init -1002 python:
 			was_out_exit = False
 			cam_object = me
 		else:
-			cam_object = {}
-			for prop in ('x', 'y', 'xanchor', 'yanchor', 'xsize', 'ysize'):
-				cam_object[prop] = me[prop]
+			x, y = get_place_center(cam_object)
+			cam_object = {'x': x, 'y': y}
 		
 		show_character(me, cur_to_place, auto_change_location = False)
 		

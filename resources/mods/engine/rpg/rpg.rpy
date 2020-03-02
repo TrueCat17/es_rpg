@@ -5,6 +5,8 @@ label rpg_loop:
 
 
 label rpg_update:
+	if not get_rpg_control():
+		return
 	
 	if inventory_action is not None:
 		$ cur_quests_labels = quest_get_object_labels(inventory_action, inventory_action_object['name'])
@@ -65,6 +67,7 @@ label rpg_update:
 				call expression cur_label
 		
 		$ cur_quests_labels = quest_get_labels(cur_location_name, cur_place_name)
+		$ save_rpg_control()
 		$ set_rpg_control(False)
 		if len(cur_quests_labels) == 1:
 			call expression cur_quests_labels[0][1]
@@ -81,7 +84,7 @@ label rpg_update:
 			call expression label
 			
 			window hide
-		$ set_rpg_control(True)
+		$ return_prev_rpg_control()
 	
 	$ exec_action = False
 

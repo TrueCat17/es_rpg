@@ -262,7 +262,7 @@ init -1001 python:
 					place = place_elem
 				
 				to_x, to_y = get_place_center(place)
-				path = path_between_locations(from_location_name, from_x, from_y, location_name, to_x, to_y, location_banned_exit_destinations, brute_force)
+				path = path_between_locations(from_location_name, from_x, from_y, location_name, to_x, to_y, location_banned_exit_destinations, bool(brute_force))
 				if not path:
 					path = (location_name, {'x': to_x, 'y': to_y}, to_x, to_y)
 				self.paths.append(path)
@@ -284,20 +284,56 @@ init -1001 python:
 			else:
 				self.end_stop_time = None
 		
-		def move_to_end(self):
-			self.end_stop_time = None
+		def move_to_end(self, only_skip_waiting = True):
+			if self.end_stop_time:
+				if self.end_stop_time > time.time():
+					self.prev_update_time -= self.end_stop_time - time.time()
+					self.end_stop_time = time.time()
+				if only_skip_waiting:
+					return
 			
-			if self.paths and not type(self.paths[-1]) is int: # not cycled path
-				self.moving_ended = True
-				path = self.paths[-1]
-				self.paths = []
+			if not self.paths or type(self.paths[-1]) is int: # cycled path
+				return
+			
+			self.moving_ended = True
+			path = self.paths[-1]
+			self.paths = []
+			
+			# calc end location, x, y and rotation:
+			location_name, place = None, None
+			to_side = None
+			x, y = self.x, self.y
+			first_step = 0
+			
+			for i in xrange(len(path) / 2):
+				to_x, to_y = path[i * 2], path[i * 2 + 1]
 				
-				to_x, to_y = path[-2:]
 				if type(to_x) is str:
-					location_name, place_name = to_x, to_y
-					show_character(self, place_name, location_name)
-				else:
-					self.x, self.y = to_x, to_y
+					location_name, place = to_x, to_y
+					if type(place) is str:
+						place = locations[location_name].places[place]
+					if place.has_key('to_side') and place['to_side'] is not None:
+						to_side = place['to_side']
+					x, y = get_place_center(place)
+					first_step = i + 1
+					continue
+				
+				dx, dy = to_x - x, to_y - y
+				x, y = to_x, to_y
+				if dx == 0 and dy == 0: continue
+				
+				if not (dx and dy) or i == first_step: # not diagonal or first step
+					if abs(dx) > abs(dy):
+						to_side = to_left if dx < 0 else to_right
+					else:
+						to_side = to_forward if dy < 0 else to_back
+			
+			
+			if self.location.name == location_name or location_name is None:
+				self.x, self.y = x, y
+				self.set_direction(to_side)
+			else:
+				show_character(self, {'x': x, 'y': y, 'to_side': to_side}, location_name)
 		
 		def ended_move_waiting(self):
 			if self.end_stop_time:
@@ -395,53 +431,69 @@ init -1001 python:
 				self.moving_ended = True
 				return
 			
+			xstart, ystart, side_start = self.x, self.y, self.direction
+			
 			path = self.paths[self.paths_index]
-			while True:
+			location_name, place = None, None
+			first_step = 0
+			
+			while dtime > 0:
 				to_x, to_y = path[self.point_index], path[self.point_index + 1]
 				
 				if type(to_x) is str:
-					location_name, place_name = to_x, to_y
-					show_character(self, place_name, location_name)
+					location_name, place = to_x, to_y
+					if self.location.name != location_name:
+						if type(place) is str:
+							place = locations[location_name].places[place]
+						self.x, self.y = get_place_center(place)
 					self.point_index += 2
+					first_step = self.point_index
 					continue
 				
 				dx = to_x - self.x
 				dy = to_y - self.y
-				
-				if not (dx and dy) or self.point_index == 0: # not diagonal or first step
-					if abs(dx) > abs(dy):
-						self.set_direction(to_left if dx < 0 else to_right)
-					else:
-						self.set_direction(to_forward if dy < 0 else to_back)
-					self.update_crop()
-				
-				need_dist = math.sqrt(dx*dx + dy*dy)
-				need_time = need_dist / self.speed
-				
-				if need_time < dtime:
-					self.x, self.y = to_x, to_y
-					dtime -= need_time
+				if dx or dy:
+					if not (dx and dy) or self.point_index == first_step: # not diagonal or first step
+						if abs(dx) > abs(dy):
+							self.set_direction(to_left if dx < 0 else to_right)
+						else:
+							self.set_direction(to_forward if dy < 0 else to_back)
+						self.update_crop()
 					
-					self.point_index += 2
-					if self.point_index == len(path):
-						self.point_index = 0
-						
-						self.paths_index += 1
-						if self.paths_index == len(self.paths):
-							self.paths = []
-							self.x, self.y = to_x, to_y
-							break
-						
-						path = self.paths[self.paths_index]
-						if type(path) is int:
-							if path < 0:
-								path -= 1
-							self.paths_index = path
-							break
-				else:
-					self.x += dx * dtime / need_time
-					self.y += dy * dtime / need_time
-					break
+					need_dist = math.sqrt(dx*dx + dy*dy)
+					need_time = need_dist / self.speed
+					
+					if need_time < dtime:
+						self.x, self.y = to_x, to_y
+						dtime -= need_time
+					else:
+						self.x += dx * dtime / need_time
+						self.y += dy * dtime / need_time
+						dtime = 0
+						break
+				
+				self.point_index += 2
+				if self.point_index == len(path):
+					self.point_index = 0
+					
+					self.paths_index += 1
+					if self.paths_index == len(self.paths):
+						self.paths = []
+						self.x, self.y = to_x, to_y
+						break
+					
+					path = self.paths[self.paths_index]
+					if type(path) is int:
+						if path < 0:
+							path -= 1
+						self.paths_index = path
+						break
+			
+			self.prev_update_time -= dtime
+			if location_name is not None and self.location.name != location_name:
+				x, y, side = self.x, self.y, self.direction
+				self.x, self.y, self.direction = xstart, ystart, side_start
+				show_character(self, {'x': x, 'y': y, 'to_side': side}, location_name)
 	
 	
 	def set_name(who, name):

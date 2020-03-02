@@ -17,6 +17,10 @@ init python:
 		me.move_kind = 'stay'
 	
 	prev_rpg_control = None
+	def save_rpg_control():
+		global prev_rpg_control
+		prev_rpg_control = get_rpg_control()
+	
 	def return_prev_rpg_control():
 		if prev_rpg_control is not None:
 			set_rpg_control(prev_rpg_control)
@@ -129,6 +133,7 @@ screen location:
 				location_changed = True
 				draw_location = cur_location
 				
+				show_character(me, cur_to_place, auto_change_location = False)
 				if type(cur_to_place) is str:
 					cur_to_place = cur_location.get_place(cur_to_place)
 				if cur_to_place.has_key('to_side'):
