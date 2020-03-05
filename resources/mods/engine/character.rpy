@@ -209,9 +209,17 @@ init -1001 python:
 		
 		
 		def move_to_place(self, place_names, run = False, wait_time = -1, brute_force = False):
+			self.paths = []
+			self.paths_index = 0
+			self.point_index = 0
+			self.moving_ended = True
+			self.move_kind = 'stay'
+			if place_names is None:
+				return False
+			
 			if self.location is None:
 				out_msg('Character.move_to_place', 'Character.location is None')
-				return
+				return False
 			
 			if self is me:
 				ignore_prev_rpg_control()
@@ -229,10 +237,7 @@ init -1001 python:
 				next = place_names[last]
 				place_names.insert(-1, next)
 			
-			self.paths = []
-			self.paths_index = 0
-			self.point_index = 0
-			
+			res = True
 			from_location_name = self.location.name
 			from_x, from_y = self.x, self.y
 			
@@ -251,19 +256,20 @@ init -1001 python:
 				location = locations.get(location_name, None)
 				if not location:
 					out_msg('Character.move_to_place', 'Location <' + str(location_name) + '> is not registered')
-					return
+					return False
 				
 				if type(place_elem) is str:
 					place = location.places.get(place_elem, None)
 					if place is None:
 						out_msg('Character.move_to_place', 'Place <' + str(place_elem) + '> in location <' + location_name + '> not found')
-						return
+						return False
 				else:
 					place = place_elem
 				
 				to_x, to_y = get_place_center(place)
 				path = path_between_locations(from_location_name, from_x, from_y, location_name, to_x, to_y, location_banned_exit_destinations, bool(brute_force))
 				if not path:
+					res = False
 					path = (location_name, {'x': to_x, 'y': to_y}, to_x, to_y)
 				self.paths.append(path)
 				
@@ -283,6 +289,8 @@ init -1001 python:
 				self.end_stop_time = time.time() + wait_time
 			else:
 				self.end_stop_time = None
+			
+			return res
 		
 		def move_to_end(self, only_skip_waiting = True):
 			if self.end_stop_time:
