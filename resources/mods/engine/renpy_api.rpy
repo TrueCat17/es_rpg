@@ -160,7 +160,7 @@ init -999 python:
 			hide_screen(name)
 		@staticmethod
 		def has_screen(name):
-			has_screen(name)
+			return has_screen(name)
 		
 		@staticmethod
 		def call_screen(screen_name, ret_name, **kwargs):
