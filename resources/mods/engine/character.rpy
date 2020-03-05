@@ -442,10 +442,9 @@ init -1001 python:
 				
 				if type(to_x) is str:
 					location_name, place = to_x, to_y
-					if self.location.name != location_name:
-						if type(place) is str:
-							place = locations[location_name].places[place]
-						self.x, self.y = get_place_center(place)
+					if type(place) is str:
+						place = locations[location_name].places[place]
+					self.x, self.y = get_place_center(place)
 					self.point_index += 2
 					first_step = self.point_index
 					continue
