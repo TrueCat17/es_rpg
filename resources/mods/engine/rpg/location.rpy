@@ -188,6 +188,28 @@ init -1002 python:
 		obj.cache[key] = path
 		return path
 	
+	def set_location_scales(name, min_scale, count_scales):
+		if not locations.has_key(name):
+			out_msg('set_location_scales', 'Location <' + str(name) + '> is not registered')
+			return
+		
+		if type(min_scale) is not int or type(count_scales) is not int:
+			out_msg('set_location_scales', 'Type min_scale or count_scales is not int')
+			return
+		if min_scale <= 0:
+			out_msg('set_location_scales', 'min_scale <= 0')
+			return
+		if min_scale & (min_scale - 1):
+			out_msg('set_location_scales', 'min_scale is not power of 2')
+			return
+		if count_scales <= 0:
+			out_msg('set_location_scales', 'count_scales <= 0')
+			return
+		
+		location = locations[name]
+		location.min_scale = min_scale
+		location.count_scales = count_scales
+	
 	
 	class Location(Object):
 		def __init__(self, name, directory, is_room, xsize, ysize):
