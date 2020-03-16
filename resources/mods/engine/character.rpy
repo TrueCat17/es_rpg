@@ -143,6 +143,8 @@ init -1001 python:
 			self.xsize, self.ysize = character_xsize, character_ysize
 			self.crop = (0, 0, self.xsize, self.ysize)
 			
+			self.allowed_exit_destinations = []
+			
 			self.location = None
 			self.paths = []
 			self.paths_index = 0
@@ -208,6 +210,39 @@ init -1001 python:
 			self.crop = (x, y, self.xsize, self.ysize)
 		
 		
+		def allow_exit_destination(self, location_name, place_name = None):
+			location = locations.get(location_name, None)
+			if location is None:
+				out_msg('allow_exit_destination', 'Location <' + str(location_name) + '> is not registered')
+				return
+			
+			if place_name is not None:
+				if location.places.has_key(place_name):
+					self.allowed_exit_destinations.append((location_name, place_name))
+				else:
+					out_msg('allow_exit_destination', 'Place <' + str(place_name) + '> in location <' + location_name + '> not found')
+				return
+			
+			for place_name in location.places:
+				self.allowed_exit_destinations.append((location_name, place_name))
+		
+		def disallow_exit_destination(location_name, place_name = None):
+			location = locations.get(location_name, None)
+			if location is None:
+				out_msg('disallow_exit_destination', 'Location <' + str(location_name) + '> is not registered')
+				return
+			if place_name is not None and not location.places.has_key(place_name):
+				out_msg('disallow_exit_destination', 'Place <' + str(place_name) + '> in location <' + location_name + '> not found')
+				return
+			
+			i = 0
+			while i < len(self.allowed_exit_destinations):
+				tmp_loc, tmp_place = self.allow_exit_destination[i]
+				if tmp_loc == location_name and (tmp_place == place_name or place_name is None):
+					self.allowed_exit_destinations = self.allowed_exit_destinations[:i] + self.allowed_exit_destinations[i+1:]
+				else:
+					i += 1
+		
 		def move_to_place(self, place_names, run = False, wait_time = -1, brute_force = False):
 			self.paths = []
 			self.paths_index = 0
@@ -241,6 +276,14 @@ init -1001 python:
 			from_location_name = self.location.name
 			from_x, from_y = self.x, self.y
 			
+			banned = list(location_banned_exit_destinations)
+			i = 0
+			while i < len(banned):
+				if banned[i] in self.allowed_exit_destinations:
+					banned = banned[:i] + banned[i+1:]
+				else:
+					i += 1
+			
 			for i in xrange(len(place_names)):
 				place_elem = place_names[i]
 				
@@ -267,7 +310,7 @@ init -1001 python:
 					place = place_elem
 				
 				to_x, to_y = get_place_center(place)
-				path = path_between_locations(from_location_name, from_x, from_y, location_name, to_x, to_y, location_banned_exit_destinations, bool(brute_force))
+				path = path_between_locations(from_location_name, from_x, from_y, location_name, to_x, to_y, banned, bool(brute_force))
 				if not path:
 					res = False
 					path = (location_name, {'x': to_x, 'y': to_y}, to_x, to_y)

@@ -283,24 +283,27 @@ init -1002 python:
 			was_out_exit = True
 			return None
 		
+		banned = []
+		for destination in location_banned_exit_destinations:
+			if destination[0] == cur_location_name and destination not in me.allowed_exit_destinations:
+				banned.append(destination)
+		
 		for exit in cur_location.exits:
-			if not exit.inside(me.x, me.y):
+			if not exit.inside(me.x, me.y) or (exit.to_location_name, exit.to_place_name) in banned:
 				continue
-			
-			if not exec_action and locations[exit.to_location_name].is_room:
-				break
-			if not was_out_exit:
-				break
-			
 			if globals().has_key('can_exit_to') and not can_exit_to(exit.to_location_name, exit.to_place_name):
 				continue
+			
+			if not was_out_exit:
+				return None
+			if not exec_action and locations[exit.to_location_name].is_room:
+				return None
 			
 			was_out_exit = False
 			was_out_place = True
 			return exit
-		else:
-			was_out_exit = True
 		
+		was_out_exit = True
 		return None
 	
 	def get_location_place():

@@ -101,9 +101,6 @@ init python:
 		location_cutscene_end = time.time() + max(t, 0.001)
 		
 		cam_to(obj or cam_object, t, align, zoom)
-	
-	def p(t):
-		print t
 
 
 screen location:
