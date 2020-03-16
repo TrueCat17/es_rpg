@@ -1,9 +1,9 @@
 init -999 python:
 	
 	pause_end = 0
-	def pause(sec):
+	def pause(sec = None):
 		global pause_end
-		pause_end = time.time() + sec
+		pause_end = time.time() + (1e9 if sec is None else sec)
 	
 	def pause_ended():
 		return pause_end < time.time()
@@ -112,7 +112,7 @@ init -999 python:
 		
 		
 		@staticmethod
-		def pause(sec):
+		def pause(sec = None):
 			pause(sec)
 		
 		@staticmethod
