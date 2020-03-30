@@ -9,8 +9,9 @@ init python:
 	
 	console_keys = alphabet + list("1234567890-=[]\\;',./`")
 	console_keys_shift = [s.upper() for s in alphabet] + list("!@#$%^&*()_+{}|:\"<>?~")
+	console_key_tag = chr(255)
 	
-	console_spec_symbols = console_keys[console_keys.index('-'):] + console_keys_shift[console_keys_shift.index('!'):]
+	console_spec_symbols = console_keys[console_keys.index('-'):] + console_keys_shift[console_keys_shift.index('!'):] + [console_key_tag]
 	
 	console_is_spec     = lambda s: s in console_spec_symbols
 	console_is_not_spec = lambda s: s != ' ' and s not in console_spec_symbols
@@ -46,7 +47,7 @@ init python:
 	
 	
 	def console_print(text):
-		persistent.console_text += '\n' + str(text)
+		persistent.console_text += '\n' + str(text).replace('{', '{{')
 	def console_print_help():
 		to_print = 'commands: clear, jump, call, scene, show, hide, watch <expr>, unwatch <expr>, unwatchall or python-expr'
 		console_print(to_print)
@@ -63,6 +64,8 @@ init python:
 		else:
 			if console_shift and not s.isspace():
 				s = console_keys_shift[console_keys.index(s)]
+			if s == '{':
+				s = console_key_tag
 			
 			index = console_get_cursor_index()
 			console_input = console_input[0:index] + s + console_input[index:]
@@ -185,7 +188,7 @@ init python:
 			console_input = console_input_tmp = ''
 			if not persistent.console_commands or persistent.console_commands[-1] != to_exec:
 				persistent.console_commands += [to_exec]
-			console_exec(to_exec)
+			console_exec(to_exec.replace(console_key_tag, '{'))
 		else:
 			index = console_get_cursor_index()
 			console_input = console_input[0:index] + '\n' + ' ' * cur_indent + console_input[index:]
@@ -318,7 +321,7 @@ screen console_watching:
 			console_watching_text = ''
 			for code, cmpl in console_to_watch:
 				try:
-					res = str(eval(cmpl))
+					res = str(eval(cmpl)).replace('{', '{{')
 				except:
 					res = 'Eval Failed'
 				console_watching_text += code + ': ' + res + '\n'
@@ -395,9 +398,10 @@ screen console:
 			
 			python:
 				index = console_get_cursor_index()
-				console_input_with_cursor = console_input[0:index] + (console_cursor if time.time() % 2 < 1 else ' ') + console_input[index:]
+				alpha_cursor = '{alpha=' + str(1 if time.time() % 2 < 1 else 0) + '}' + console_cursor + '{/alpha}'
+				console_input_with_cursor = console_input[0:index] + alpha_cursor + console_input[index:]
 			
-			text console_input_with_cursor:
+			text console_input_with_cursor.replace(console_key_tag, '{{'):
 				font console_font
 				text_size console_text_size
 				xsize get_stage_width() - 50
