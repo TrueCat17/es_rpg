@@ -121,56 +121,39 @@ init -1000 python:
 		if db_voice_text != db_voice_full_text:
 			l = len(db_voice_full_text)
 			t = int((time.time() - db_start_time) * renpy.config.text_cps)
-			t = min(t, l)
 			
 			n = 0
-			for i in xrange(l):
-				n += 1
-				t -= 1
-				
+			while t > 0 and n < l:
 				while n < l and db_voice_full_text[n] == ' ':
 					n += 1
 				
+				# maybe start/end style, for example: {size=25} or {/b}
+				if n < l and db_voice_full_text[n] == '{':
+					
+					# not style, '{{' render to '{'
+					if n + 1 < l and db_voice_full_text[n + 1] == '{':
+						n += 2
+						t -= 1
+					
+					# style, skip it
+					else:
+						while n < l and db_voice_full_text[n] != '}':
+							n += 1
+						n += 1
+				else:
+					n += 1
+					t -= 1
+				
 				# going to the next symbol
 				#   [] - access to byte, not to symbol
-				#   In UTF-8 many symbols take more 1 bytes
+				#   in UTF-8 many symbols take more 1 bytes
 				while n < l and not is_first_byte(db_voice_full_text[n]):
 					n += 1
-				
-				# All tags, that started to open/close, must be opened/closed fully
-				while n < l and db_voice_full_text[0:n].count('{') != db_voice_full_text[0:n].count('}'):
-					n += 1
-				
-				if t < 0:
-					break
 			
-			next_text = db_voice_full_text[0:n]
-			
-			# Close opened tags to on addition of string with spaces
-			#   it spaces was not underlines or strikes
-			tags_close_str = ''
-			for tag in ('u', 's'):
-				count = next_text.count('{' + tag + '}') - next_text.count('{/' + tag + '}')
-				tags_close_str += ('{/' + tag + '}') * count
-			
-			# Get count symbols before end last word,
-			# to fill it nbsp (non-breaking space) to there is no wordwrap inside unprinted word
-			t = 0
-			while n + t < l and db_voice_full_text[n + t] != ' ':
-				t += 1
-			
-			# find last word and remove in it all tags
-			last_word = db_voice_full_text[n:n+t]
-			while '{' in last_word:
-				start_tag = last_word.index('{')
-				if '}' in last_word[start_tag:]:
-					end_tag = last_word.index('}', start_tag)
-				else:
-					end_tag = len(last_word)
-				last_word = last_word[:start_tag] + last_word[end_tag + 1:]
-			
-			nbsp = chr(0xC2) + chr(0xA0) # 0xC2, 0xA0 - code non-breaking space in UTF-8
-			db_voice_text = next_text + tags_close_str + nbsp * len_unicode(last_word)
+			if n == l:
+				db_voice_text = db_voice_full_text
+			else:
+				db_voice_text = db_voice_full_text[0:n] + '{invisible}' + db_voice_full_text[n:]
 	
 	
 	enter_action = If(db_hide_interface, SetVariable('db_hide_interface', False), SetVariable('db_to_next', True))

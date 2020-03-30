@@ -46,13 +46,14 @@ init -1001 python:
 	style.text.ysize = -1
 	style.text.text_size = 20
 	style.text.color = 0xFFFFFF
+	style.text.outlinecolor = None
 	style.text.font = 'Calibri'
 	style.text.text_align = 'left' 				# left | center | right
 	style.text.text_valign = 'top' 				# top  | center |  down
-# Not supported:
-#	style.text.bold = False
-#	style.text.italic = False
-#	style.text.underline = False
+	style.text.bold = False
+	style.text.italic = False
+	style.text.underline = False
+	style.text.strikethrough = False
 	
 	style.textbutton = Style(style.text)
 	style.textbutton.mouse = True
