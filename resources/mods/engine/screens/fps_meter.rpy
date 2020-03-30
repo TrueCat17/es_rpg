@@ -1,9 +1,9 @@
 init -1000 python:
-	fps_meter_size = 25
+	fps_meter_size = 24
 	fps_meter_color = 0xFFFF00
 	fps_meter_font = 'Alcdnova'
 	fps_meter_xalign, fps_meter_yalign = 0.01, 0.01
-	
+	fps_meter_outlinecolor = 0x880000
 	
 	fps_time_array = []
 	def get_last_fps():
@@ -25,8 +25,9 @@ screen fps_meter:
 	
 	if config.fps_meter:
 		text get_last_fps():
-			font      fps_meter_font
-			text_size fps_meter_size
-			color     fps_meter_color
-			xalign    fps_meter_xalign
-			yalign    fps_meter_yalign
+			font         fps_meter_font
+			text_size    fps_meter_size
+			color        fps_meter_color
+			xalign       fps_meter_xalign
+			yalign       fps_meter_yalign
+			outlinecolor fps_meter_outlinecolor
