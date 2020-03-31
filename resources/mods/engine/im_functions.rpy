@@ -247,7 +247,7 @@ init -1001 python:
 		
 		@staticmethod
 		def grayscale(image, desat=(0.2126, 0.7152, 0.0722)):
-			return im.matrix_color(image, matrix.saturation(0.0, desat))
+			return im.matrix_color(image, im.matrix.saturation(0.0, desat))
 		
 		@staticmethod
 		def sepia(image, tint=(1.0, 0.94, 0.76), desat=(0.2126, 0.7152, 0.0722)):

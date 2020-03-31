@@ -87,7 +87,7 @@ init -100000 python:
 	
 	def out_msg(msg, err = ''):
 		stack = get_stack(1)
-		err = str(err) + '\n'
+		err = str(err) + '\n\nStack:\n'
 		for frame in stack:
 			err += frame
 		

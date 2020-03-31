@@ -48,6 +48,7 @@ init -1002 python:
 		
 		place = Place(place_name, x, y, xsize, ysize, to_side)
 		location.add_place(place, place_name)
+		location.path_need_update = True
 	
 	def register_exit(location_name, to_location_name, to_place_name, x, y, xsize, ysize):
 		if not locations.has_key(location_name):
@@ -57,6 +58,7 @@ init -1002 python:
 		location = locations[location_name]
 		exit = Exit(to_location_name, to_place_name, x, y, xsize, ysize)
 		location.add_exit(exit)
+		location.path_need_update = True
 	
 	
 	def set_location(location_name, place):
@@ -209,6 +211,7 @@ init -1002 python:
 		location = locations[name]
 		location.min_scale = min_scale
 		location.count_scales = count_scales
+		location.path_need_update = True
 	
 	
 	class Location(Object):
@@ -305,14 +308,14 @@ init -1002 python:
 			was_out_exit = True
 			return None
 		
-		banned = []
-		for destination in location_banned_exit_destinations:
-			if destination[0] == cur_location_name and destination not in me.allowed_exit_destinations:
-				banned.append(destination)
-		
 		for exit in cur_location.exits:
-			if not exit.inside(me.x, me.y) or (exit.to_location_name, exit.to_place_name) in banned:
+			if not exit.inside(me.x, me.y):
 				continue
+			
+			destination = (exit.to_location_name, exit.to_place_name)
+			if destination in location_banned_exit_destinations and destination not in me.allowed_exit_destinations:
+				continue
+			
 			if globals().has_key('can_exit_to') and not can_exit_to(exit.to_location_name, exit.to_place_name):
 				continue
 			

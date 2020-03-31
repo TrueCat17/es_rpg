@@ -141,7 +141,7 @@ screen settings:
 							text (mixer_name + ':'):
 								color 0
 								yalign 0.5
-								xsize 100
+								xsize 110
 							
 							textbutton '-':
 								size (25, 25)

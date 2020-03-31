@@ -203,6 +203,9 @@ init -1001 python:
 		
 		instance = LocationObject(obj_name, px, py)
 		location.objects.append(instance)
+		
+		if instance.free():
+			location.path_need_update = True
 	
 	
 	def get_location_objects(location_name, place, obj_type, count = -1):
@@ -289,4 +292,7 @@ init -1001 python:
 		for i in to_remove:
 			if i in location.objects:
 				location.objects.remove(i)
+				
+				if i.free():
+					location.path_need_update = True
 	
