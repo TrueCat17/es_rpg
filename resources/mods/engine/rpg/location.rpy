@@ -236,6 +236,9 @@ init -1002 python:
 			self.min_scale = 8
 			self.count_scales = 2
 		
+		def __str__(self):
+			return '<Location ' + str(self.name) + '>'
+		
 		def main(self):
 			return get_location_image(self, self.directory, 'main', '', location_ext, False)
 		def over(self):

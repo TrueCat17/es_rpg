@@ -109,6 +109,9 @@ init -1001 python:
 			self.remove_animation()
 			self.update()
 		
+		def __str__(self):
+			return '<LocationObject ' + str(self.type) + '>'
+		
 		def set_frame(self, frame):
 			self.crop = (int(frame) * self.xsize, 0, self.xsize, self.ysize)
 		

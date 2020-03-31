@@ -313,7 +313,10 @@ init -1001 python:
 				path = path_between_locations(from_location_name, from_x, from_y, location_name, to_x, to_y, banned, bool(brute_force))
 				if not path:
 					res = False
-					path = (location_name, {'x': to_x, 'y': to_y}, to_x, to_y)
+					if from_location_name == location_name:
+						path = (to_x, to_y)
+					else:
+						path = (location_name, {'x': to_x, 'y': to_y}, to_x, to_y)
 				self.paths.append(path)
 				
 				from_location_name = location_name
