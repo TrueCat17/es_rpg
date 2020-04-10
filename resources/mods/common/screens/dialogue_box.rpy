@@ -42,34 +42,81 @@ init -1000 python:
 	db_prev_texts = []
 	
 	
+	def db_make_step(text, start_index, max_count_symbols = -1):
+		l = len(text)
+		index = start_index
+		symbols = 0
+		tag = value = None
+		
+		while index < l and (max_count_symbols == -1 or symbols < max_count_symbols):
+			while index < l and text[index].isspace():
+				index += 1
+			
+			# maybe start/end style, for example: {size=25} or {/b}
+			if index < l and text[index] == '{':
+				
+				# not style, '{{' render to '{'
+				if index + 1 < l and text[index + 1] == '{':
+					index += 2
+					symbols += 1
+				
+				# style
+				else:
+					if symbols != 0:
+						break # stop if was text on current step
+					
+					start_index = index
+					while index < l and text[index] != '}':
+						index += 1
+					tag = text[start_index+1:index]
+					assign = tag.find('=')
+					if assign != -1:
+						value = tag[assign+1:].strip()
+						tag = tag[:assign]
+					tag = tag.strip()
+					
+					index += 1
+					break
+			else:
+				index += 1
+				symbols += 1
+			
+			# going to the next symbol
+			while index < l and not is_first_byte(text[index]):
+				index += 1
+		
+		return index, symbols, tag, value
+	
+	
 	def show_text(name, name_prefix, name_postfix, name_color, text, text_prefix, text_postfix, text_color):
 		global db_name_text, db_name_color
 		global db_voice_text, db_voice_full_text, db_last_text_postfix, db_voice_color
-		global db_pause_after_text, db_voice_text_after_pause
+		global db_voice_text_after_pause, db_pause_after_text, db_pause_end
 		global db_read, db_start_time, db_prev_texts
 		
-		if '{w' in text:
-			db_pause_after_text = 1000000
+		db_pause_after_text = 0
+		db_pause_end = 0
+		db_voice_text_after_pause = ''
+		
+		prev_index = None
+		index = 0
+		while prev_index != index:
+			prev_index = index
+			index, symbols, tag, value = db_make_step(text, index)
 			
-			start = text.index('{w')
-			end = text.index('}', start)
-			pause_str = text[start + 2:end]
-			if '=' in pause_str:
-				pause_str = pause_str[pause_str.rindex('=') + 1:]
-			pause_str = pause_str.strip()
-			
-			if pause_str:
-				db_pause_after_text = float(pause_str)
-			
-			db_voice_text_after_pause = text[end + 1:]
-			text = text[0:start]
-		else:
-			db_pause_after_text = 0
-			db_pause_end = 0
-			db_voice_text_after_pause = ''
+			if tag == 'w':
+				db_pause_after_text = 1e9
+				if value:
+					try:
+						db_pause_after_text = float(value)
+					except:
+						out_msg('show_text', 'Pause time <' + value + '> is not float')
+				
+				db_voice_text_after_pause = text[index:]
+				text = text[0:prev_index]
+				break
 		
 		db_read = False
-		
 		
 		# new text
 		if name is not None:
@@ -102,68 +149,49 @@ init -1000 python:
 	
 	
 	def db_update():
-		global db_text_size
+		global db_text_size, db_voice_size, db_voice_text
 		db_text_size = max(14, get_stage_height() / 30)
-		
-		global db_voice_size
 		db_voice_size = get_stage_width() - (db_prev_btn_size + db_next_btn_size + 20), int(max(80, 0.2 * get_stage_height()))
 		
-		global db_voice_text, db_pause_after_text, db_pause_end
-		
-		if db_pause_after_text != 0:
-			if db_pause_end == 0:
-				db_pause_end = time.time() + db_pause_after_text
-			elif db_pause_end < time.time():
-				db_pause_after_text = 0
-				db_pause_end = 0
-				show_text(None, '', '', 0, db_voice_text_after_pause, '', db_last_text_postfix, db_voice_color)
-		
 		if db_voice_text != db_voice_full_text:
-			l = len(db_voice_full_text)
-			t = int((time.time() - db_start_time) * renpy.config.text_cps)
+			symbols_to_render = int((time.time() - db_start_time) * renpy.config.text_cps)
 			
-			n = 0
-			while t > 0 and n < l:
-				while n < l and db_voice_full_text[n] == ' ':
-					n += 1
-				
-				# maybe start/end style, for example: {size=25} or {/b}
-				if n < l and db_voice_full_text[n] == '{':
-					
-					# not style, '{{' render to '{'
-					if n + 1 < l and db_voice_full_text[n + 1] == '{':
-						n += 2
-						t -= 1
-					
-					# style, skip it
-					else:
-						while n < l and db_voice_full_text[n] != '}':
-							n += 1
-						n += 1
-				else:
-					n += 1
-					t -= 1
-				
-				# going to the next symbol
-				#   [] - access to byte, not to symbol
-				#   in UTF-8 many symbols take more 1 bytes
-				while n < l and not is_first_byte(db_voice_full_text[n]):
-					n += 1
+			prev_index = None
+			index = 0
+			while symbols_to_render and prev_index != index:
+				prev_index = index
+				index, symbols, tag, value = db_make_step(db_voice_full_text, index, symbols_to_render)
+				symbols_to_render -= symbols
 			
-			if n == l:
-				db_voice_text = db_voice_full_text
+			if index < len(db_voice_full_text):
+				db_voice_text = db_voice_full_text[0:index] + '{invisible}' + db_voice_full_text[index:]
 			else:
-				db_voice_text = db_voice_full_text[0:n] + '{invisible}' + db_voice_full_text[n:]
+				db_voice_text = db_voice_full_text
+		else:
+			global db_pause_after_text, db_pause_end
+			if db_pause_after_text != 0:
+				if db_pause_end == 0:
+					db_pause_end = time.time() + db_pause_after_text
+				elif db_pause_end < time.time():
+					db_pause_after_text = 0
+					db_pause_end = 0
+					show_text(None, '', '', 0, db_voice_text_after_pause, '', db_last_text_postfix, db_voice_color)
 	
 	
-	enter_action = If(db_hide_interface, SetVariable('db_hide_interface', False), SetVariable('db_to_next', True))
+	def enter_action():
+		global db_hide_interface, db_to_next
+		if db_hide_interface:
+			db_hide_interface = False
+		else:
+			db_to_next = True
+	
 	def db_on_enter():
 		skip_exec_current_command()
 		
 		global db_pause_end, db_dialogue, db_name_text, db_voice_text, db_voice_full_text, db_read
 		
 		if db_pause_end > time.time():
-			db_pause_end = time.time() - 1
+			db_pause_end = time.time()
 			return
 		
 		if db_voice_text == db_voice_full_text:
@@ -197,47 +225,41 @@ init -1000 python:
 		nvl_clear()
 
 
-
-screen dialogue_box_skip:
-	zorder 10000
-	
-	if db_skip_ctrl or db_skip_tab:
-		text 'Skip Mode':
-			color 0xFFFFFF
-			text_size 30
-			pos (20, 20)
-
-
 screen dialogue_box:
 	zorder -2
 	
 	key 'h' action SetVariable('db_hide_interface', not db_hide_interface)
 	
 	$ db_to_next = False
-	key 'RETURN'       action enter_action
-	key 'SPACE'        action enter_action
+	key 'RETURN' action enter_action
+	key 'SPACE'  action enter_action
 	if db_to_next:
 		$ db_skip_tab = False
 	
 	$ db_skip_ctrl = False
 	key 'LEFT CTRL'  action SetVariable('db_skip_ctrl', True) first_delay 0
 	key 'RIGHT CTRL' action SetVariable('db_skip_ctrl', True) first_delay 0
-	key 'TAB' action SetVariable('db_skip_tab', not db_skip_tab)
+	key 'TAB'    action  SetVariable('db_skip_tab', not db_skip_tab)
+	key 'ESCAPE' action [SetVariable('db_skip_tab', False), SetVariable('db_hide_interface', False)]
+	
 	python:
-		if (db_skip_ctrl or db_skip_tab):
+		if db_skip_ctrl or db_skip_tab:
 			db_hide_interface = False
 			db_to_next = True
-			show_screen('dialogue_box_skip')
 		
 		if db_to_next:
 			db_on_enter()
-	
-	key 'ESCAPE' action SetVariable('db_hide_interface', False)
 	
 	if not db_hide_interface:
 		$ db_update()
 		
 		if db_visible:
+			
+			if db_skip_ctrl or db_skip_tab:
+				text 'Skip Mode':
+					color 0xFFFFFF
+					text_size 30
+					pos (20, 20)
 			
 			button:
 				ground 'images/bg/black.jpg'
