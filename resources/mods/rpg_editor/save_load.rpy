@@ -100,10 +100,9 @@ init python:
 				
 				place_name = '"' + place_name + '"'
 				
-				x, y = str(place.x), str(place.y)
-				w, h = str(place.xsize), str(place.ysize)
 				to_side = get_to_side(place)
-				tmp.append('\tregister_place(' + place_indent + ', '.join([location_name, place_name, x, y, w, h]) + to_side + ')')
+				place_args = [location_name, place_name] + map(str, [place.x, place.y, place.xsize, place.ysize])
+				tmp.append('\tregister_place(' + place_indent + ', '.join(place_args) + to_side + ')')
 			
 			for place_name in places:
 				place = location.places[place_name]

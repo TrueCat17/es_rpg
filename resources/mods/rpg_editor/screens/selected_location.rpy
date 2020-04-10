@@ -45,17 +45,17 @@ screen selected_location:
 	null:
 		pos (x, y)
 		
-		if not selected_location.hide_main:
+		if not persistent.hide_main:
 			image selected_location.main():
 				size (w, h)
-		if not selected_location.hide_over and selected_location.over():
+		if not persistent.hide_over and selected_location.over():
 			image selected_location.over():
 				size (w, h)
-		if selected_location.show_free and selected_location.free():
+		if persistent.show_free and selected_location.free():
 			image selected_location.free():
 				size (w, h)
 		
-		if not selected_location.hide_places:
+		if not persistent.hide_places:
 			python:
 				objs = []
 				places = []
@@ -102,7 +102,7 @@ screen selected_location:
 					
 					alpha 0.5
 		
-		if not selected_location.hide_exits:
+		if not persistent.hide_exits:
 			for i in xrange(len(selected_location.exits)):
 				python:
 					exit = selected_location.exits[i]

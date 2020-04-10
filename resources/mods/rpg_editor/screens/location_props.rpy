@@ -262,8 +262,8 @@ screen location_props:
 							button:
 								size (16, 16)
 								
-								ground (checkbox_no if selected_location.hide_main else checkbox_yes)
-								action SetDict(selected_location, 'hide_main', not selected_location.hide_main)
+								ground (checkbox_no if persistent.hide_main else checkbox_yes)
+								action SetDict(persistent, 'hide_main', not persistent.hide_main)
 							null xsize 10
 							text 'Main':
 								color 0
@@ -275,8 +275,8 @@ screen location_props:
 								button:
 									size (16, 16)
 									
-									ground (checkbox_no if selected_location.hide_over else checkbox_yes)
-									action SetDict(selected_location, 'hide_over', not selected_location.hide_over)
+									ground (checkbox_no if persistent.hide_over else checkbox_yes)
+									action SetDict(persistent, 'hide_over', not persistent.hide_over)
 								null xsize 10
 								text 'Over':
 									color 0
@@ -288,8 +288,8 @@ screen location_props:
 								button:
 									size (16, 16)
 									
-									ground (checkbox_yes if selected_location.show_free else checkbox_no)
-									action SetDict(selected_location, 'show_free', not selected_location.show_free)
+									ground (checkbox_yes if persistent.show_free else checkbox_no)
+									action SetDict(persistent, 'show_free', not persistent.show_free)
 								null xsize 10
 								text 'Free':
 									color 0
@@ -301,8 +301,8 @@ screen location_props:
 								button:
 									size (16, 16)
 									
-									ground (checkbox_no if selected_location.hide_places else checkbox_yes)
-									action SetDict(selected_location, 'hide_places', not selected_location.hide_places)
+									ground (checkbox_no if persistent.hide_places else checkbox_yes)
+									action SetDict(persistent, 'hide_places', not persistent.hide_places)
 								null xsize 10
 								text ('Places (' + str(len(selected_location.places)) + ')'):
 									color 0
@@ -314,8 +314,8 @@ screen location_props:
 								button:
 									size (16, 16)
 									
-									ground (checkbox_no if selected_location.hide_exits else checkbox_yes)
-									action SetDict(selected_location, 'hide_exits', not selected_location.hide_exits)
+									ground (checkbox_no if persistent.hide_exits else checkbox_yes)
+									action SetDict(persistent, 'hide_exits', not persistent.hide_exits)
 								null xsize 10
 								text ('Exits (' + str(len(selected_location.exits)) + ')'):
 									color 0
