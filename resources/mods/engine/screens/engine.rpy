@@ -1,6 +1,7 @@
 screen engine:
 	if not has_screen('console'):
 		key 'p' action make_screenshot
+		key 'F11' action set_fullscreen(not get_from_hard_config('window_fullscreen', bool))
 		
 		$ engine_shift = False
 		key 'LEFT SHIFT'  action SetVariable('engine_shift', True) first_delay 0
