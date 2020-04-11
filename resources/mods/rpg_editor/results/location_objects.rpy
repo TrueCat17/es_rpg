@@ -1,6 +1,10 @@
 init 1 python:
 	
-	register_location_object('armchair', 'images/locations/flat/objects/', 'armchair', None)
+	register_location_object('armchair',  'images/locations/flat/objects/', 'armchair', None)
+	register_location_object('flat_keys', 'images/locations/objects/', 'flat_keys', None, 1)
+	register_location_object('lighter',   'images/locations/objects/', 'lighter',   None, 1)
+	register_location_object('notepad',   'images/locations/objects/', 'notepad',   None, 1)
+	register_location_object('phone',     'images/locations/objects/', 'phone',     None, 1)
 	
 	
 	register_location_object('liaz', 'images/locations/station/objects/', 'liaz', None)
@@ -34,8 +38,8 @@ init 1 python:
 	register_location_object('cupboard_3',  'images/locations/library/objects/', 'cupboard_3', 'cupboard_free')
 	
 	
-	register_location_object('musclub_rails',  'images/locations/clubs/objects/', 'musclub_rails', None)
-	register_location_object('musclub_column', 'images/locations/clubs/objects/', 'musclub_column', None)
+	register_location_object('mus_club_rails',  'images/locations/clubs/objects/', 'mus_club_rails', None)
+	register_location_object('mus_club_column', 'images/locations/clubs/objects/', 'mus_club_column', None)
 	
 	
 	register_location_object('bench_left',  'images/locations/objects/', 'bench_left',  'bench_free')
@@ -53,8 +57,8 @@ init 1 python:
 	register_location_object('canteen_column_back', 'images/locations/canteen/objects/', 'column_back', 'column_free')
 	
 	
-	register_location_object('musclub_microphone', 'images/locations/musclub/objects/', 'microphone', 'microphone_free')
-	register_location_object('stand',              'images/locations/musclub/objects/', 'stand',      'stand_free')
+	register_location_object('mus_club_microphone', 'images/locations/mus_club/objects/', 'microphone', 'microphone_free')
+	register_location_object('stand',              'images/locations/mus_club/objects/', 'stand',      'stand_free')
 	
 	
 	register_location_object('scene_microphone', 'images/locations/scene/objects/', 'microphone', 'microphone_free')
@@ -121,28 +125,32 @@ init 1 python:
 	add_location_object("canteen", "table_h_pos-5", "table_h")
 	add_location_object("canteen", "table_h_pos-6", "table_h")
 	
-	add_location_object("clubs", "musclub_column_pos-1", "musclub_column")
-	add_location_object("clubs", "musclub_column_pos-2", "musclub_column")
-	add_location_object("clubs", "musclub_column_pos-3", "musclub_column")
-	add_location_object("clubs", "musclub_column_pos-4", "musclub_column")
-	add_location_object("clubs", "musclub_column_pos-5", "musclub_column")
-	add_location_object("clubs", "musclub_rails_pos-1", "musclub_rails")
-	add_location_object("clubs", "musclub_rails_pos-2", "musclub_rails")
-	add_location_object("clubs", "musclub_rails_pos-3", "musclub_rails")
-	add_location_object("clubs", "musclub_rails_pos-4", "musclub_rails")
+	add_location_object("clubs", "mus_club_column_pos-1", "mus_club_column")
+	add_location_object("clubs", "mus_club_column_pos-2", "mus_club_column")
+	add_location_object("clubs", "mus_club_column_pos-3", "mus_club_column")
+	add_location_object("clubs", "mus_club_column_pos-4", "mus_club_column")
+	add_location_object("clubs", "mus_club_column_pos-5", "mus_club_column")
+	add_location_object("clubs", "mus_club_rails_pos-1", "mus_club_rails")
+	add_location_object("clubs", "mus_club_rails_pos-2", "mus_club_rails")
+	add_location_object("clubs", "mus_club_rails_pos-3", "mus_club_rails")
+	add_location_object("clubs", "mus_club_rails_pos-4", "mus_club_rails")
 	
 	add_location_object("enter", "gate_left_pos", "gate_left")
 	add_location_object("enter", "gate_right_pos", "gate_right")
 	add_location_object("enter", "ikarus_pos", "ikarus")
 	
 	add_location_object("flat", "armchair_pos", "armchair")
+	add_location_object("flat", "flat_keys_pos", "flat_keys")
+	add_location_object("flat", "lighter_pos", "lighter")
+	add_location_object("flat", "notepad_pos", "notepad")
+	add_location_object("flat", "phone_pos", "phone")
 	
 	add_location_object("library", "cupboard_1_pos", "cupboard_1")
 	add_location_object("library", "cupboard_2_pos", "cupboard_2")
 	add_location_object("library", "cupboard_3_pos", "cupboard_3")
 	
-	add_location_object("musclub", "musclub_microphone_pos", "musclub_microphone")
-	add_location_object("musclub", "stand_pos", "stand")
+	add_location_object("mus_club", "mus_club_microphone_pos", "mus_club_microphone")
+	add_location_object("mus_club", "stand_pos", "stand")
 	
 	add_location_object("square", "bench_left_pos-1", "bench_left")
 	add_location_object("square", "bench_left_pos-2", "bench_left")
