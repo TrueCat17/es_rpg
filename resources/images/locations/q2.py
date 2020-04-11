@@ -11,6 +11,6 @@ dirs.sort()
 n = 0
 for path in dirs:
 	n += 1
-	print str(n) + '/' + str(len(dirs)) + ': ' + path
+	print n, '/', len(dirs), path
 	os.system("./remove_over " + path)
 
