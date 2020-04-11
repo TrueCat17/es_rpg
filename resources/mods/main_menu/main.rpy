@@ -5,7 +5,9 @@ init python:
 	set_fps(20)
 	set_can_mouse_hide(False)
 	set_can_autosave(False)
-	start_screens = ['main_menu']
+	
+	db_hide_interface = True # for disable pause-menu in screen <engine>
+	start_screens = ['engine', 'main_menu']
 	
 	hover_matrix = im.matrix.identity()
 	hover_matrix[19] = 0.01 # alpha += 0.01
