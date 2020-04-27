@@ -32,6 +32,9 @@ init python:
 	
 	
 	def get_location_ambience(location):
+		if not location:
+			return None
+		
 		paths = location.ambience_paths
 		if paths is None:
 			paths = default_location_ambience_paths

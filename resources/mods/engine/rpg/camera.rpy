@@ -59,23 +59,17 @@ init -1003 python:
 			return loc_zoom_prev_result
 		stage_width, stage_height = loc_zoom_prev_stage_size = get_stage_size()
 		
-		round_part = 4
-		spec_floor = lambda n: math.floor(n * round_part) / round_part
-		spec_ceil  = lambda n: math.ceil( n * round_part) / round_part
-		
 		res = 1.0
 		for location_name in locations.keys():
 			location = locations[location_name]
 			if location.is_room:
 				zoom = min(stage_width / location.xsize, stage_height / location.ysize) # increase to width OR height
-				zoom = spec_floor(zoom) # round to down
 			else:
 				zoom = max(stage_width / location.xsize, stage_height / location.ysize) # increase to width AND height
-				zoom = spec_ceil(zoom)  # round to up
 			
 			res = max(res, zoom)
 		
-		loc_zoom_prev_result = min(res, 2.5)
+		loc_zoom_prev_result = min(res, config.max_location_zoom)
 		return loc_zoom_prev_result
 	
 	

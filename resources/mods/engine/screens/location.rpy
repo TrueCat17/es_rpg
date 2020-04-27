@@ -130,11 +130,6 @@ screen location:
 				location_changed = True
 				draw_location = cur_location
 				
-				show_character(me, cur_to_place, auto_change_location = False)
-				if type(cur_to_place) is str:
-					cur_to_place = cur_location.get_place(cur_to_place)
-				if cur_to_place.has_key('to_side'):
-					me.set_direction(cur_to_place['to_side'])
 				cam_object = me
 				
 				if times['next_name']:
@@ -221,6 +216,7 @@ screen location:
 			draw_location.update_pos()
 		
 		image draw_location.main():
+			clipping True
 			pos  (draw_location.x, draw_location.y)
 			size (int(draw_location.xsize * location_zoom), int(draw_location.ysize * location_zoom))
 			
@@ -241,7 +237,8 @@ screen location:
 						'size':   (int(obj.xsize * location_zoom), int(obj.ysize * location_zoom)),
 						'pos':    (int(x * location_zoom), int(y * location_zoom)),
 						'anchor': (obj_xanchor, obj_yanchor),
-						'crop':    obj.crop
+						'crop':    obj.crop,
+						'alpha':   obj.alpha
 					})
 			
 			for obj in list_to_draw:
@@ -250,6 +247,7 @@ screen location:
 					anchor obj['anchor']
 					size   obj['size']
 					crop   obj['crop']
+					alpha  obj['alpha']
 		
 		if draw_location.over():
 			image draw_location.over():

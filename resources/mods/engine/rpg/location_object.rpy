@@ -106,6 +106,8 @@ init -1001 python:
 			self.xanchor, self.yanchor = 0.5, 1.0
 			self.xsize, self.ysize = 0, 0
 			
+			self.alpha = 1
+			
 			self.remove_animation()
 			self.update()
 		

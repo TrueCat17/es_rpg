@@ -18,6 +18,7 @@ init -1002 python:
 	can_exec_next_skip_funcs.append(location_show)
 	
 	
+	prev_location_name = None
 	cur_location = None
 	cur_location_name = None
 	cur_place_name = None
@@ -70,6 +71,7 @@ init -1002 python:
 			if not locations[location_name].get_place(place):
 				out_msg('set_location', 'Place <' + place + '> in location <' + location_name + '> not found')
 				return
+			place = locations[location_name].get_place(place)
 		
 		if not has_screen('location'):
 			show_screen('location')
@@ -79,16 +81,24 @@ init -1002 python:
 		location_start_time = time.time()
 		location_was_show = False
 		
-		global cur_location, cur_location_name, cur_to_place
+		global prev_location_name, cur_location, cur_location_name, cur_to_place
+		prev_location_name = cur_location_name
 		cur_location = locations[location_name]
 		cur_location_name = location_name
 		cur_to_place = place
 		
-		end_location_ambience(cur_location)
-		
 		main = cur_location.main()
 		real_width, real_height = get_image_size(main)
 		reg_width, reg_height = cur_location.xsize, cur_location.ysize
+		if reg_width != real_width or reg_height != real_height:
+			reg_size = str(reg_width) + 'x' + str(reg_height)
+			real_size = str(real_width) + 'x' + str(real_height)
+			out_msg('set_location', 
+					'Location sizes on registration (' + reg_size + ') not equal to real sizes (' + real_size + ')\n' + 
+					'Location: <' + cur_location.name + '>\n' + 
+					'Main image: <' + main + '>')
+		
+		end_location_ambience(cur_location)
 		
 		global location_changed, draw_location
 		global was_out_exit, cam_object
@@ -106,15 +116,9 @@ init -1002 python:
 			x, y = get_place_center(cam_object)
 			cam_object = {'x': x, 'y': y}
 		
-		show_character(me, cur_to_place, auto_change_location = False)
-		
-		if reg_width != real_width or reg_height != real_height:
-			reg_size = str(reg_width) + 'x' + str(reg_height)
-			real_size = str(real_width) + 'x' + str(real_height)
-			out_msg('set_location', 
-					'Location sizes on registration (' + reg_size + ') not equal to real sizes (' + real_size + ')\n' + 
-					'Location: <' + cur_location.name + '>\n' + 
-					'Main image: <' + main + '>')
+		show_character(me, cur_to_place, auto_change_location = False, hiding = prev_location_name == cur_location_name)
+		if cur_to_place.has_key('to_side'):
+			me.set_direction(cur_to_place['to_side'])
 	
 	def hide_location():
 		global cur_location, cur_location_name, cur_to_place
@@ -123,7 +127,7 @@ init -1002 python:
 		
 		global draw_location
 		draw_location = None
-		end_location_ambience()
+		end_location_ambience(None)
 	
 	
 	location_banned_exit_destinations = []

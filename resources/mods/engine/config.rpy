@@ -25,6 +25,9 @@ init -997 python:
 	if config.shift_is_run is None:
 		config.shift_is_run = False # If True, usual moving is walking, with shift - running
 	
+	if config.max_location_zoom is None:
+		config.max_location_zoom = 2.5
+	
 	if config.text_cps is None:
 		config.text_cps = 60 # cps - chars per second, for dialogue_box
 	

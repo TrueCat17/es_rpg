@@ -123,6 +123,8 @@ init -1001 python:
 				self.text_color = (r << 16) + (g << 8) + b
 			
 			# rpg-props:
+			self.show_time = 0
+			
 			self.directory = None
 			self.dress = None
 			
@@ -142,6 +144,7 @@ init -1001 python:
 			self.xanchor, self.yanchor = 0.5, 0.8
 			self.xsize, self.ysize = character_xsize, character_ysize
 			self.crop = (0, 0, self.xsize, self.ysize)
+			self.alpha = 0
 			
 			self.allowed_exit_destinations = []
 			
@@ -435,6 +438,9 @@ init -1001 python:
 			return time.time() - self.start_anim_time > self.animation.time
 		
 		def update(self):
+			dtime = time.time() - self.show_time
+			self.alpha = min(dtime / location_fade_time, 1)
+			
 			dtime = time.time() - self.prev_update_time
 			self.prev_update_time = time.time()
 			
@@ -566,7 +572,7 @@ init -1001 python:
 	
 	
 	
-	def show_character(character, place, location = None, auto_change_location = True):
+	def show_character(character, place, location = None, auto_change_location = True, hiding = True):
 		if location is None:
 			if cur_location is None:
 				out_msg('show_character', 'Current location is not defined, need to call set_location')
@@ -589,7 +595,12 @@ init -1001 python:
 				out_msg('show_character', 'Place <' + place_name + '> not found in location <' + str(location.name) + '>')
 				return
 		
+		character.show_time = time.time()
 		if character.location:
+			if hiding:
+				create_hiding_object(character)
+			else:
+				character.show_time = 0
 			character.location.objects.remove(character)
 		
 		character.location = location
@@ -600,6 +611,7 @@ init -1001 python:
 	
 	def hide_character(character):
 		if character.location:
+			create_hiding_object(character)
 			character.location.objects.remove(character)
 			character.location = None
 		else:
