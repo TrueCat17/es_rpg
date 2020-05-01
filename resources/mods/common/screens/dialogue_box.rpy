@@ -255,12 +255,6 @@ screen dialogue_box:
 		
 		if db_visible:
 			
-			if db_skip_ctrl or db_skip_tab:
-				text 'Skip Mode':
-					color 0xFFFFFF
-					text_size 30
-					pos (20, 20)
-			
 			button:
 				ground 'images/bg/black.jpg'
 				hover  'images/bg/black.jpg'
@@ -355,6 +349,12 @@ screen dialogue_box:
 							ground db_next_btn
 							size   (db_next_btn_size, db_next_btn_size)
 							action db_on_enter
+			
+			if db_skip_ctrl or db_skip_tab:
+				text 'Skip Mode':
+					color 0xFFFFFF
+					text_size 30
+					pos (20, 20)
 		
 		
 		button:
