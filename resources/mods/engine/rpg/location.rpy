@@ -117,6 +117,9 @@ init -1002 python:
 			cam_object = {'x': x, 'y': y}
 		
 		show_character(me, cur_to_place, auto_change_location = False, hiding = prev_location_name == cur_location_name)
+		if prev_location_name is None:
+			me.show_time = 0
+		
 		if cur_to_place.has_key('to_side'):
 			me.set_direction(cur_to_place['to_side'])
 	
