@@ -38,12 +38,14 @@ init -1001 python:
 			out_msg('register_location_object', 'Object <' + obj_name + '> already exists')
 			return
 		
-		location_objects[obj_name] = {
-			'name': obj_name,
-			'max_in_inventory_cell': max_in_inventory_cell,
-			'remove_to_location': remove_to_location,
-			'animations': Object()
-		}
+		obj = location_objects[obj_name] = Object()
+		obj.name = obj_name
+		obj.max_in_inventory_cell = max_in_inventory_cell
+		obj.remove_to_location = remove_to_location
+		obj.animations = Object()
+		obj.on = []
+		obj.sit_places = []
+		
 		register_location_object_animation(obj_name, None, directory, main_image, free_image, 0, 0, 1, 0, 0)
 	
 	def register_location_object_animation(obj_name, anim_name,
@@ -68,8 +70,7 @@ init -1001 python:
 			return
 		
 		obj = location_objects[obj_name]
-		
-		animations = obj['animations']
+		animations = obj.animations
 		if animations.has_key(anim_name):
 			out_msg('register_location_object_animation', 'Animation <' + str(anim_name) + '> of object <' + str(obj_name) + '> already exists')
 			return
@@ -91,14 +92,52 @@ init -1001 python:
 			loaded = False
 		)
 	
+	def set_sit_place(obj_name, sit_places, over = None):
+		if not location_objects.has_key(obj_name):
+			out_msg('set_sit_place', 'Object <' + str(obj_name) + '> not registered')
+		else:
+			obj = location_objects[obj_name]
+			obj.on = [None] * len(sit_places)
+			obj.sit_places = sit_places
+			if over:
+				obj.animations[None].over_image = over
+			
+			for name, location in locations.iteritems():
+				for obj in location.objects:
+					if obj.type == obj_name:
+						for character in obj.on:
+							if character:
+								character.stand_up()
+						obj.on = [None] * len(sit_places)
+						obj.sit_places = sit_places
+						if over:
+							obj.animations[None].over_image = over
+	
+	
+	def get_usual_location_object_data(obj, zoom):
+		x, y = obj.x + obj.xoffset, obj.y + obj.yoffset
+		
+		obj_xanchor, obj_yanchor = obj.xanchor, obj.yanchor
+		if type(obj_xanchor) is int:
+			obj_xanchor = int(obj_xanchor * zoom)
+		if type(obj_yanchor) is int:
+			obj_yanchor = int(obj_yanchor * zoom)
+		
+		return {
+			'image':   obj.main(),
+			'size':   (int(obj.xsize * zoom), int(obj.ysize * zoom)),
+			'pos':    (int(x * zoom), int(y * zoom)),
+			'anchor': (obj_xanchor, obj_yanchor),
+			'crop':    obj.crop,
+			'alpha':   obj.alpha
+		}
+	
 	
 	class LocationObject(Object):
 		def __init__(self, name, x, y):
-			Object.__init__(self)
+			Object.__init__(self, location_objects[name])
 			
 			self.type = name
-			for key, value in location_objects[name].iteritems():
-				self[key] = value
 			
 			self.x, self.y = x, y
 			self.xoffset, self.yoffset = 0, 0
@@ -113,6 +152,25 @@ init -1001 python:
 		
 		def __str__(self):
 			return '<LocationObject ' + str(self.type) + '>'
+		
+		def get_zorder(self):
+			return self.y + self.yoffset
+		def get_draw_data(self, zoom):
+			main = get_usual_location_object_data(self, zoom)
+			res = [main]
+			
+			characters = []
+			for character in self.on:
+				if character:
+					characters.append(character)
+			characters.sort(key = lambda character: character.y + character.yoffset)
+			res.extend([character.get_draw_data(zoom) for character in characters])
+			
+			over_image = self.over()
+			if over_image:
+				res.append(dict(main, image=over_image))
+			
+			return res
 		
 		def set_frame(self, frame):
 			self.crop = (int(frame) * self.xsize, 0, self.xsize, self.ysize)
@@ -129,6 +187,10 @@ init -1001 python:
 		
 		def main(self):
 			return get_location_image(self.animation, self.animation.directory, self.animation.main_image, '', location_object_ext, False)
+		def over(self):
+			if not self.animation.over_image:
+				return None
+			return get_location_image(self.animation, self.animation.directory, self.animation.over_image, '', location_object_ext, False)
 		
 		def free(self):
 			if self.animation.free_image is None:
@@ -184,9 +246,12 @@ init -1001 python:
 				frame = in_bounds(frame, start_frame, end_frame)
 			
 			self.set_frame(frame)
+			
+			if self.user_function:
+				self.user_function(self)
 	
 	
-	def add_location_object(location_name, place, obj_name):
+	def add_location_object(location_name, place, obj_name, **kwargs):
 		if not locations.has_key(location_name):
 			out_msg('add_location_object', 'Location <' + location_name + '> not registered')
 			return
@@ -198,19 +263,30 @@ init -1001 python:
 				out_msg('add_location_object', 'Place <' + place + '> not found in location <' + location_name + '>')
 				return
 			place = tmp_place
-			px, py = place.x + place.xsize / 2, place.y + place.ysize / 2
-		else:
+			pw, ph = place.xsize, place.ysize
+			px, py = place.x, place.y
+		elif place:
 			px, py = place['x'], place['y'] - 1
+			if isinstance(place, (dict, Place)):
+				pw = place['xsize'] if place.has_key('xsize') else 0
+				ph = place['ysize'] if place.has_key('ysize') else 0
+			else:
+				pw = ph = 0
 		
-		if not location_objects.has_key(obj_name):
+		if location_objects.has_key(obj_name):
+			instance = LocationObject(obj_name, px + pw / 2, py + ph / 2)
+		elif str(type(obj_name)) == "<type 'classobj'>":
+			instance = obj_name(px, py, pw, ph, **kwargs)
+		else:
 			out_msg('', 'Object <' + obj_name + '> not registered')
 			return
 		
-		instance = LocationObject(obj_name, px, py)
+		instance.location = location
 		location.objects.append(instance)
 		
 		if instance.free():
 			location.path_need_update = True
+		return instance
 	
 	
 	def get_location_objects(location_name, place, obj_type, count = -1):
@@ -226,8 +302,10 @@ init -1001 python:
 				return
 			place = tmp_place
 			px, py = place.x + place.xsize / 2, place.y + place.ysize / 2
-		else:
+		elif place is not None:
 			px, py = place['x'], place['y']
+		else:
+			px = py = 0
 		
 		res = []
 		for obj in location.objects:
@@ -246,8 +324,8 @@ init -1001 python:
 			res = res[:count]
 		return [obj for dist, obj in res]
 	
-	def get_near_location_object():
-		mx, my = me.x, me.y
+	def get_near_location_object(character = None):
+		character = character or me
 		min_dist = character_radius * 5
 		res = None
 		
@@ -259,11 +337,30 @@ init -1001 python:
 			if obj['max_in_inventory_cell'] <= 0:
 				continue
 			
-			dx, dy = i.x - mx, i.y - my
-			dist = math.sqrt(dx * dx + dy * dy)
+			dist = get_dist(i.x, i.y, character.x, character.y)
 			if dist < min_dist:
 				min_dist = dist
 				res = i
+		return res
+	
+	def get_near_sit_object(character = None):
+		character = character or me
+		min_dist = character_radius * 4
+		res = None
+		
+		for obj in cur_location.objects:
+			if not obj.sit_places:
+				continue
+			
+			for i in xrange(len(obj.sit_places)):
+				if obj.on[i]:
+					continue
+				place_x, place_y, to_side = obj.sit_places[i]
+				
+				dist = get_dist(obj.x + place_x, obj.y - obj.ysize + place_y, character.x, character.y)
+				if dist < min_dist:
+					min_dist = dist
+					res = obj
 		return res
 	
 	
@@ -273,14 +370,16 @@ init -1001 python:
 			return
 		location = locations[location_name]
 		
-		if type(place) is str:
-			tmp_place = location.get_place(place)
-			if tmp_place is None:
-				out_msg('remove_location_object', 'Place <' + place + '> in location <' + location_name + '> not found')
-				return
-			place = tmp_place
-		
-		px, py = place['x'], place['y']
+		if place is None:
+			px = py = 0
+		else:
+			if type(place) is str:
+				tmp_place = location.get_place(place)
+				if tmp_place is None:
+					out_msg('remove_location_object', 'Place <' + place + '> in location <' + location_name + '> not found')
+					return
+				place = tmp_place
+			px, py = place['x'], place['y']
 		
 		to_remove = []
 		for i in location.objects:
@@ -288,13 +387,15 @@ init -1001 python:
 				to_remove.append(i)
 		
 		def dist_sqr(obj):
-			dx, dy = obj.x - px, obj.y - py
+			dx, dy = (obj.x or 0) - px, (obj.y or 0) - py
 			return dx*dx + dy*dy
 		
 		to_remove.sort(key = dist_sqr)
 		to_remove = to_remove[0:count]
 		
 		for i in to_remove:
+			i.location = None
+			
 			if i in location.objects:
 				location.objects.remove(i)
 				

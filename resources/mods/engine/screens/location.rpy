@@ -161,6 +161,7 @@ screen location:
 			loc__left = loc__right = loc__up = loc__down = False
 		
 		if get_rpg_control() and location_showed():
+			key 'z' action SetVariable('sit_action', True)
 			key 'e' action SetVariable('exec_action', True)
 			
 			key 'LEFT SHIFT'  action SetVariable('loc__shift_is_down', True) first_delay 0
@@ -178,6 +179,8 @@ screen location:
 		python:
 			if not config.shift_is_run:
 				loc__shift_is_down = not loc__shift_is_down
+			if not get_run_allow():
+				loc__shift_is_down = False
 			
 			loc__character_dx = loc__character_dy = 0
 			if loc__left:
@@ -190,7 +193,7 @@ screen location:
 				loc__character_dy += 1
 			loc__move_character(loc__character_dx, loc__character_dy)
 			
-			if get_rpg_control():
+			if get_rpg_control() and me.get_pose() == 'stance':
 				if loc__left and not loc__prev_left:
 					loc__left_time = time.time()
 				if loc__right and not loc__prev_right:
@@ -211,11 +214,12 @@ screen location:
 			for obj in draw_location.objects:
 				if obj.update:
 					obj.update()
-			draw_location.objects.sort(key = lambda obj: obj.y + obj.yoffset)
+			
+			draw_location.objects.sort(key = lambda obj: obj.get_zorder())
 			
 			draw_location.update_pos()
 		
-		image draw_location.main():
+		null:
 			clipping True
 			pos  (draw_location.x, draw_location.y)
 			size (int(draw_location.xsize * location_zoom), int(draw_location.ysize * location_zoom))
@@ -224,22 +228,15 @@ screen location:
 				list_to_draw = []
 				
 				for obj in draw_location.objects:
-					x, y = obj.x + obj.xoffset, obj.y + obj.yoffset
+					if obj.invisible:
+						continue
 					
-					obj_xanchor, obj_yanchor = obj.xanchor, obj.yanchor
-					if type(obj_xanchor) is int:
-						obj_xanchor = int(obj_xanchor * location_zoom)
-					if type(obj_yanchor) is int:
-						obj_yanchor = int(obj_yanchor * location_zoom)
-					
-					list_to_draw.append({
-						'image':   obj.main(),
-						'size':   (int(obj.xsize * location_zoom), int(obj.ysize * location_zoom)),
-						'pos':    (int(x * location_zoom), int(y * location_zoom)),
-						'anchor': (obj_xanchor, obj_yanchor),
-						'crop':    obj.crop,
-						'alpha':   obj.alpha
-					})
+					datas = obj.get_draw_data(location_zoom)
+					if type(datas) in (tuple, list):
+						for data in datas:
+							list_to_draw.append(data)
+					else:
+						list_to_draw.append(datas)
 			
 			for obj in list_to_draw:
 				image obj['image']:
@@ -248,11 +245,6 @@ screen location:
 					size   obj['size']
 					crop   obj['crop']
 					alpha  obj['alpha']
-		
-		if draw_location.over():
-			image draw_location.over():
-				pos  (draw_location.x, draw_location.y)
-				size (int(draw_location.xsize * location_zoom), int(draw_location.ysize * location_zoom))
 		
 		
 		image location_cutscene_back:

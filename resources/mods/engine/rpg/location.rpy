@@ -99,6 +99,7 @@ init -1002 python:
 					'Main image: <' + main + '>')
 		
 		end_location_ambience(cur_location)
+		ignore_prev_rpg_control()
 		
 		global location_changed, draw_location
 		global was_out_exit, cam_object
@@ -234,7 +235,9 @@ init -1002 python:
 			self.places = dict()
 			self.exits = []
 			
-			self.objects = []
+			self.objects = [self]
+			if self.over():
+				self.objects.append(LocationOver(self))
 			
 			self.ambience_paths = None
 			self.ambience_volume = 1.0
@@ -245,6 +248,18 @@ init -1002 python:
 		
 		def __str__(self):
 			return '<Location ' + str(self.name) + '>'
+		
+		def get_zorder(self):
+			return 0
+		def get_draw_data(self, zoom):
+			return [{
+				'image':   self.main(),
+				'size':   (int(self.xsize * zoom), int(self.ysize * zoom)),
+				'pos':    (0, 0),
+				'anchor': (0, 0),
+				'crop':   (0, 0, 1.0, 1.0),
+				'alpha':   1
+			}]
 		
 		def main(self):
 			return get_location_image(self, self.directory, 'main', '', location_ext, False)
@@ -306,6 +321,9 @@ init -1002 python:
 		
 		return int(x - xa + align[0] * w), int(y - ya + align[1] * h)
 	
+	sit_action = False
+	sit_down = False
+	stand_up = False
 	
 	exec_action = False
 	was_out_exit = False
@@ -390,4 +408,24 @@ init -1002 python:
 				exits.extend((exit.to_location_name, exit.to_place_name, x, y))
 			
 			path_update_location(name, free, character_radius, objects, places, exits, location.min_scale, location.count_scales)
+	
+	
+	class LocationOver(Object):
+		def __init__(self, location):
+			Object.__init__(self)
+			self.location = location
+		
+		def get_zorder(self):
+			return 1e6
+		
+		def get_draw_data(self, zoom):
+			return {
+				'image':   self.location.over(),
+				'size':   (int(self.location.xsize * zoom), int(self.location.ysize * zoom)),
+				'pos':    (0, 0),
+				'anchor': (0, 0),
+				'crop':   (0, 0, 1.0, 1.0),
+				'alpha':   1.0,
+				'zorder':  self.get_zorder()
+			}
 

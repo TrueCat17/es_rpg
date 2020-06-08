@@ -179,6 +179,7 @@ init -9000 python:
 										self.data.image = evaled
 								elif isinstance(evaled, int) or isinstance(evaled, float):
 									self.end_pause_time = time.time() + float(evaled)
+									return
 								else:
 									out_msg('SpriteAnimation.update', 'Unknown command:\n' + action)
 							except:

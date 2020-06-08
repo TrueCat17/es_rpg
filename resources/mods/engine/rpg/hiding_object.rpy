@@ -23,6 +23,11 @@ init python:
 			self.location = origin.location
 			self.image = origin.main()
 		
+		def get_zorder(self):
+			return self.y + self.yoffset
+		def get_draw_data(self, zoom):
+			return get_usual_location_object_data(self, zoom)
+		
 		def main(self):
 			return self.image
 		def free(self):

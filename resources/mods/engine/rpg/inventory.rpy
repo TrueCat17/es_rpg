@@ -41,7 +41,7 @@ init -1000 python:
 		
 		return count
 	
-	def has_in_inventory(obj_name, count):
+	def has_in_inventory(obj_name, count = 1):
 		if not location_objects.has_key(obj_name):
 			out_msg('has_in_inventory', 'Object <' + obj_name + '> not registered')
 			return False

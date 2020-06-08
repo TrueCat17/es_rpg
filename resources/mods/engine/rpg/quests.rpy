@@ -26,7 +26,7 @@ init -1000 python:
 		res = []
 		
 		for quest, name in quests:
-			label = quest + '__on__' + location_name + '__' + place_name
+			label = quest + '__on__' + location_name + '__' + (place_name or 'unknown')
 			if renpy.has_label(label):
 				res.append((name, label))
 		

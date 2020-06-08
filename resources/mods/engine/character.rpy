@@ -44,6 +44,13 @@ init -1001 python:
 	can_exec_next_skip_funcs.append(characters_to_end)
 	
 	
+	character_run_allowed = True
+	def set_run_allow(value):
+		global character_run_allowed
+		character_run_allowed = bool(value)
+	def get_run_allow():
+		return character_run_allowed
+	
 	
 	def register_character_animation(character, anim_name, path, xoffset, yoffset,
 	                                 count_frames, start_frame, end_frame, time = 1.0):
@@ -173,10 +180,21 @@ init -1001 python:
 			self.rpg_name = rpg_name
 			self.set_dress(start_dress)
 		
+		def get_zorder(self):
+			return self.y + self.yoffset
+		def get_draw_data(self, zoom):
+			return get_usual_location_object_data(self, zoom)
+		
+		def get_dress(self):
+			return self.dress
 		def set_dress(self, dress):
 			self.dress = dress
+		
 		def set_frame(self, frame):
 			self.frame = frame
+		
+		def get_direction(self):
+			return self.direction
 		def set_direction(self, direction):
 			if direction is not None:
 				self.direction = direction % character_max_direction
@@ -186,6 +204,8 @@ init -1001 python:
 				return get_location_image(self.animation, self.animation.path, '', '', character_ext, False)
 			return get_location_image(self, self.directory, self.rpg_name, self.dress, character_ext, False)
 		
+		def get_pose(self):
+			return self.pose
 		def set_pose(self, pose):
 			if pose == 'sit' or pose == 'stance':
 				self.pose = pose
@@ -194,6 +214,54 @@ init -1001 python:
 			else:
 				self.pose, self.move_kind = 'stance', 'stay'
 				out_msg('Character.set_pose', 'Unexpected pose <' + str(pose) + '>\n' + 'Expected "sit" or "stance"')
+		
+		def sit_down(self, obj):
+			if not obj.sit_places:
+				out_msg('Character.sit_down', 'obj.sit_places is empty')
+				return False
+			
+			place_index = -1
+			min_dist = 1e6
+			for i in xrange(len(obj.sit_places)):
+				if obj.on[i]:
+					continue
+				place_x, place_y, to_side = obj.sit_places[i]
+				
+				dist = get_dist(obj.x + place_x, obj.y - obj.ysize + place_y, self.x, self.y)
+				if dist < min_dist:
+					min_dist = dist
+					place_index = i
+			
+			if place_index < 0:
+				return False
+			
+			obj.on[place_index] = self
+			place_x, place_y, to_side = obj.sit_places[place_index]
+			
+			self.old_x, self.old_y, self.old_direction = self.x, self.y, self.direction
+			self.x, self.y = obj.x + place_x, obj.y - obj.ysize + place_y
+			self.invisible = True
+			self.set_direction(to_side)
+			self.set_pose('sit')
+			self.sit_object = obj
+			
+			return True
+		
+		def stand_up(self):
+			if self.sit_object:
+				for i in xrange(len(self.sit_object.on)):
+					if self.sit_object.on[i] is self:
+						self.sit_object.on[i] = None
+						break
+				self.sit_object = None
+			
+			self.invisible = False
+			if self.get_pose() == 'sit':
+				self.set_pose('stance')
+			
+			if self.old_direction:
+				self.x, self.y, self.direction = self.old_x, self.old_y, self.old_direction
+				self.old_direction = None
 		
 		def update_crop(self):
 			frame = self.frame
@@ -602,6 +670,9 @@ init -1001 python:
 			else:
 				character.show_time = 0
 			character.location.objects.remove(character)
+		
+		character.old_direction = None
+		character.stand_up()
 		
 		character.location = location
 		location.objects.append(character)

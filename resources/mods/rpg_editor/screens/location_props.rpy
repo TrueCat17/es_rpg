@@ -120,11 +120,11 @@ init python:
 		place = selected_location.places[selected_place_name] if is_place else selected_location.exits[selected_exit_num]
 		
 		if selected_place_prop == 'x':
-			place.x = in_bounds(place.x + d, 0, selected_location.xsize  - place.xsize)
+			place.x = in_bounds(place.x + d, -700, selected_location.xsize + 700)
 		elif selected_place_prop == 'y':
-			place.y = in_bounds(place.y + d, 0, selected_location.ysize - place.ysize)
+			place.y = in_bounds(place.y + d, -700, selected_location.ysize + 700)
 		elif selected_place_prop == 'xsize':
-			place.xsize = in_bounds(place.xsize + d, 2, in_bounds(selected_location.xsize  - place.x, 1, 700))
+			place.xsize = in_bounds(place.xsize + d, 2, in_bounds(selected_location.xsize - place.x, 1, 700))
 		else: # ysize
 			place.ysize = in_bounds(place.ysize + d, 2, in_bounds(selected_location.ysize - place.y, 1, 700))
 		

@@ -29,7 +29,7 @@ init python:
 			if alpha != 255:
 				return
 		for obj in draw_location.objects:
-			if obj.free():
+			if not isinstance(obj, Location) and obj.free:
 				obj_x = int(obj.x + obj.xoffset - get_absolute(obj.xanchor, obj.xsize))
 				obj_y = int(obj.y + obj.yoffset - get_absolute(obj.yanchor, obj.ysize))
 				if x < obj_x or y < obj_y or x >= obj_x + obj.xsize or y >= obj_y + obj.ysize: continue
@@ -48,7 +48,13 @@ init python:
 	def start_moving():
 		if len(points) > 1:
 			location, place = points[0]
-			show_character(me, place, location)
+			
+			global draw_location
+			draw_location = None
+			
+			set_location(location, place)
+			cam_to(me, 0)
+			show_screen('selected_location')
 			
 			st = time.time()
 			if not me.move_to_place(points, 1, brute_force=brute_force):
@@ -58,13 +64,6 @@ init python:
 				return
 			dtime_ms = (time.time() - st) * 1000
 			set_out_text('Затрачено: ' + str(round(dtime_ms, 2)) + ' ms')
-			
-			global draw_location
-			draw_location = None
-			
-			set_location(location, place)
-			cam_to(me, 0)
-			show_screen('selected_location')
 			
 			if has_screen('all_locations'):
 				hide_screen('all_locations')

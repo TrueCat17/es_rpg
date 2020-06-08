@@ -97,8 +97,8 @@ screen selected_location:
 					ground image
 					action [SetVariable('selected_place_name', place.name), SetVariable('selected_exit_num', None)]
 					
-					pos  (int(place.x * local_k),     int(place.y * local_k))
-					size (int(place.xsize * local_k), int(place.ysize * local_k))
+					pos  (int(place.x * local_k), int(place.y * local_k))
+					size (max(int(place.xsize * local_k), 3), max(int(place.ysize * local_k), 3))
 					
 					alpha 0.5
 		

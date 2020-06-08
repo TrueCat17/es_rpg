@@ -74,8 +74,7 @@ init -1003 python:
 	
 	
 	def get_camera_params(location):
-		reverse = location_cutscene_state == 'off'
-		k = get_k_between(cam_object_start_moving, cam_object_end_moving, time.time(), location_cutscene_state == 'off')
+		k = get_k_between(cam_object_start_moving, cam_object_end_moving, time.time())
 		if cam_object_end_moving < time.time():
 			global cam_object_align_old, cam_object_zoom_old
 			cam_object_align_old = cam_object_align
@@ -87,8 +86,8 @@ init -1003 python:
 			else:
 				cam_object_x, cam_object_y = get_place_center(cam_object, cam_object_align)
 		else:
-			ax = interpolate(cam_object_align_old[0], cam_object_align[0], k, reverse)
-			ay = interpolate(cam_object_align_old[1], cam_object_align[1], k, reverse)
+			ax = interpolate(cam_object_align_old[0], cam_object_align[0], k)
+			ay = interpolate(cam_object_align_old[1], cam_object_align[1], k)
 			
 			from_x, from_y = get_place_center(cam_object_old, (ax, ay))
 			to_x, to_y = get_place_center(cam_object, (ax, ay))
@@ -98,7 +97,7 @@ init -1003 python:
 		
 		global location_zoom
 		zoom_main = get_location_zoom()
-		zoom_extra = interpolate(cam_object_zoom_old, cam_object_zoom, k, reverse)
+		zoom_extra = interpolate(cam_object_zoom_old, cam_object_zoom, k)
 		location_zoom = zoom_main * zoom_extra
 		
 		cam_object_x *= location_zoom
@@ -110,7 +109,7 @@ init -1003 python:
 		if main_width < stage_width or cam_object is None:
 			x = (stage_width - main_width) / 2
 		else:
-			xalign = interpolate(cam_object_align_old[0], cam_object_align[0], k, reverse)
+			xalign = interpolate(cam_object_align_old[0], cam_object_align[0], k)
 			indent = stage_width * xalign
 			indent_right = stage_width - indent
 			
@@ -126,7 +125,7 @@ init -1003 python:
 		if main_height < stage_height or cam_object is None:
 			y = (stage_height - main_height) / 2
 		else:
-			yalign = interpolate(cam_object_align_old[1], cam_object_align[1], k, reverse)
+			yalign = interpolate(cam_object_align_old[1], cam_object_align[1], k)
 			indent = stage_height * yalign
 			indent_down = stage_height - indent
 			

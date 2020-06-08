@@ -82,6 +82,39 @@ init python:
 	register_place(   "canteen", "square"           , 640, 802, 55, 15)
 	register_exit(    "canteen", "square", "canteen", 640, 817, 55, 15)
 	
+	register_location("city", "images/locations/city/", False, 2966, 1080)
+	register_place(   "city", "benchs-1", 290, 630, 30, 140)
+	register_place(   "city", "benchs-2", 480, 630, 30, 140)
+	register_place(   "city", "benchs-3", 290, 960, 30, 120)
+	register_place(   "city", "benchs-4", 480, 950, 30, 130)
+	register_place(   "city", "city_enter", 390, 190, 60, 30, to_back)
+	register_place(   "city", "city_lamp_left_pos-1", 922, 55, 2, 2)
+	register_place(   "city", "city_lamp_left_pos-2", 922, 253, 2, 2)
+	register_place(   "city", "city_lamp_left_pos-3", 925, 628, 2, 2)
+	register_place(   "city", "city_lamp_left_pos-4", 924, 819, 2, 2)
+	register_place(   "city", "city_lamp_left_pos-5", 923, 1010, 2, 2)
+	register_place(   "city", "city_lamp_left_pos-6", 922, 1201, 2, 2)
+	register_place(   "city", "city_lamp_right_pos-1", 1146, 183, 2, 2)
+	register_place(   "city", "city_lamp_right_pos-2", 1147, 374, 2, 2)
+	register_place(   "city", "city_lamp_right_pos-3", 1148, 565, 2, 2)
+	register_place(   "city", "city_lamp_right_pos-4", 1149, 756, 2, 2)
+	register_place(   "city", "city_lamp_right_pos-5", 1150, 947, 2, 2)
+	register_place(   "city", "city_lamp_right_pos-6", 1151, 1138, 2, 2)
+	register_place(   "city", "city_sign_pos", 1146, 224, 2, 2)
+	register_place(   "city", "exit", 2500, 1050, 70, 30)
+	register_place(   "city", "graffity", 2170, 350, 150, 50)
+	register_place(   "city", "shop-1", 1600, 330, 60, 20)
+	register_place(   "city", "shop-2", 2010, 330, 50, 20)
+	register_place(   "city", "sign", 1125, 200, 50, 50)
+	register_place(   "city", "snow_car", 1480, 620, 210, 100)
+	register_place(   "city", "snow_car_pos", 1582, 700, 2, 2)
+	register_place(   "city", "urn-1", 340, 190, 40, 50)
+	register_place(   "city", "urn-2", 1570, 330, 30, 30)
+	register_place(   "city", "urn-3", 2070, 330, 30, 30)
+	register_place(   "city", "urn_park-1", 260, 770, 50, 40)
+	register_place(   "city", "urn_park-2", 260, 920, 50, 40)
+	register_place(   "city", "urn_park-3", 490, 900, 50, 50)
+	
 	register_location("clubs", "images/locations/clubs/", False, 1152, 1664)
 	register_place(   "clubs", "mus_club_column_pos-1", 773, 400, 2, 2)
 	register_place(   "clubs", "mus_club_column_pos-2", 836, 400, 2, 2)
@@ -114,11 +147,21 @@ init python:
 	register_exit(    "crossroad", "washbasins", "crossroad", 0, 335, 20, 70)
 	
 	register_location("enter", "images/locations/enter/", False, 960, 992)
-	register_place(   "enter", "before_gates", 415, 290, 130, 50)
+	register_place(   "enter", "before_gates", 415, 305, 130, 50)
+	register_place(   "enter", "before_gates_close", 415, 210, 130, 80)
 	register_place(   "enter", "behind_gates", 415, 250, 130, 10)
+	register_place(   "enter", "bench_desc", 530, 450, 60, 60)
+	register_place(   "enter", "bench_right_place", 555, 500, 10, 10)
+	register_place(   "enter", "dream_start", 540, 460, 10, 40)
 	register_place(   "enter", "gate_left_pos", 449, 279, 2, 2)
 	register_place(   "enter", "gate_right_pos", 509, 279, 2, 2)
-	register_place(   "enter", "ikarus_pos", 293, 590, 2, 2)
+	register_place(   "enter", "ikarus_place", 293, 590, 2, 2)
+	register_place(   "enter", "lamp_desc", 400, 480, 50, 40)
+	register_place(   "enter", "lamp_place", 420, 495, 10, 10)
+	register_place(   "enter", "sign", 370, 380, 60, 40)
+	register_place(   "enter", "square_center", 460, 460, 40, 40)
+	register_place(   "enter", "square_down", 460, 840, 40, 40)
+	register_place(   "enter", "uv_dream_place", 473, 263, 2, 2)
 	register_place(   "enter", "clubs"         , 410, 20, 140, 20, to_back)
 	register_exit(    "enter", "clubs", "enter", 410, 0, 140, 20)
 	register_place(   "enter", "forest_path-5"         , 920, 565, 20, 160, to_left)
@@ -130,14 +173,19 @@ init python:
 	
 	register_location("flat", "images/locations/flat/", True, 192, 272)
 	register_place(   "flat", "armchair_pos", 80, 143, 2, 2)
-	register_place(   "flat", "bed", 120, 155, 30, 70)
+	register_place(   "flat", "bed", 130, 155, 20, 70)
+	register_place(   "flat", "before_window", 125, 110, 40, 30)
+	register_place(   "flat", "books", 30, 132, 20, 25)
 	register_place(   "flat", "center", 70, 170, 40, 40)
-	register_place(   "flat", "computer", 60, 140, 80, 20)
+	register_place(   "flat", "computer", 60, 135, 70, 20)
+	register_place(   "flat", "dress_place", 161, 260, 2, 2)
+	register_place(   "flat", "dust_place", 130, 80, 30, 70)
 	register_place(   "flat", "exit", 23, 252, 30, 20)
-	register_place(   "flat", "flat_keys_pos", 20, 205, 2, 2)
-	register_place(   "flat", "lighter_pos", 121, 112, 2, 2)
-	register_place(   "flat", "notepad_pos", 20, 190, 2, 2)
-	register_place(   "flat", "phone_pos", 155, 160, 2, 2)
+	register_place(   "flat", "lamp_light_pos", 109, 112, 2, 2)
+	register_place(   "flat", "monitor_pos", 80, 94, 2, 2)
+	register_place(   "flat", "table", 30, 175, 20, 30)
+	register_place(   "flat", "to_dress", 140, 245, 30, 27)
+	register_place(   "flat", "window", 65, 25, 100, 60)
 	
 	register_location("forest_path-1", "images/locations/forest_path-1/", False, 1088, 832)
 	register_place(   "forest_path-1", "left_exit", 20, 690, 20, 90)
@@ -267,8 +315,25 @@ init python:
 	register_exit(    "ikarus", "enter", "ikarus", 407, 139, 30, 15)
 	
 	register_location("liaz", "images/locations/liaz/", True, 432, 216)
+	register_place(   "liaz", "liaz_bench_left_pos1", 58, 131, 2, 2)
+	register_place(   "liaz", "liaz_bench_left_pos2", 58, 207, 2, 2)
+	register_place(   "liaz", "liaz_bench_left_pos3", 405, 127, 2, 2)
+	register_place(   "liaz", "liaz_bench_middle_pos", 18, 142, 2, 2)
+	register_place(   "liaz", "liaz_bench_right_pos1", 84, 131, 2, 2)
+	register_place(   "liaz", "liaz_bench_right_pos10", 261, 127, 2, 2)
+	register_place(   "liaz", "liaz_bench_right_pos11", 307, 127, 2, 2)
+	register_place(   "liaz", "liaz_bench_right_pos12", 352, 127, 2, 2)
+	register_place(   "liaz", "liaz_bench_right_pos2", 84, 207, 2, 2)
+	register_place(   "liaz", "liaz_bench_right_pos3", 160, 207, 2, 2)
+	register_place(   "liaz", "liaz_bench_right_pos4", 205, 207, 2, 2)
+	register_place(   "liaz", "liaz_bench_right_pos5", 245, 207, 2, 2)
+	register_place(   "liaz", "liaz_bench_right_pos6", 283, 207, 2, 2)
+	register_place(   "liaz", "liaz_bench_right_pos7", 128, 127, 2, 2)
+	register_place(   "liaz", "liaz_bench_right_pos8", 173, 127, 2, 2)
+	register_place(   "liaz", "liaz_bench_right_pos9", 218, 127, 2, 2)
+	register_place(   "liaz", "liaz_chair_forward_pos", 408, 208, 2, 2)
 	register_place(   "liaz", "liaz_enter", 320, 196, 70, 20, to_forward)
-	register_place(   "liaz", "sit_place", 325, 85, 2, 2)
+	register_place(   "liaz", "lights_place", 0, 10, 432, 60)
 	
 	register_location("library", "images/locations/library/", True, 384, 512)
 	register_place(   "library", "cupboard_1_pos", 214, 389, 2, 2)
@@ -368,7 +433,7 @@ init python:
 	register_place(   "station", "before_stop", 270, 390, 70, 50)
 	register_place(   "station", "liaz_enter", 400, 390, 30, 50)
 	register_place(   "station", "liaz_place", 430, 520, 100, 20)
-	register_place(   "station", "station_enter", 270, 0, 70, 20)
+	register_place(   "station", "station_enter", 270, 0, 70, 20, to_back)
 	
 	register_location("tennis", "images/locations/tennis/", False, 992, 670)
 	register_place(   "tennis", "separator_pos", 708, 373, 2, 2)
@@ -396,10 +461,11 @@ init python:
 	locations["bunker"].x, locations["bunker"].y = 481, 857
 	locations["bunker_enter"].x, locations["bunker_enter"].y = 491, 978
 	locations["canteen"].x, locations["canteen"].y = 984, 344
+	locations["city"].x, locations["city"].y = 11, 852
 	locations["clubs"].x, locations["clubs"].y = 481, 352
 	locations["crossroad"].x, locations["crossroad"].y = 677, 214
 	locations["enter"].x, locations["enter"].y = 350, 454
-	locations["flat"].x, locations["flat"].y = 72, 720
+	locations["flat"].x, locations["flat"].y = 21, 698
 	locations["forest_path-1"].x, locations["forest_path-1"].y = 336, 750
 	locations["forest_path-2"].x, locations["forest_path-2"].y = 400, 650
 	locations["forest_path-3"].x, locations["forest_path-3"].y = 532, 628
@@ -417,7 +483,7 @@ init python:
 	locations["houses_1"].x, locations["houses_1"].y = 818, 250
 	locations["houses_2"].x, locations["houses_2"].y = 625, 504
 	locations["ikarus"].x, locations["ikarus"].y = 214, 473
-	locations["liaz"].x, locations["liaz"].y = 60, 987
+	locations["liaz"].x, locations["liaz"].y = 181, 1005
 	locations["library"].x, locations["library"].y = 1156, 136
 	locations["library_and_hospital"].x, locations["library_and_hospital"].y = 1034, 236
 	locations["mus_club"].x, locations["mus_club"].y = 574, 292
@@ -427,7 +493,7 @@ init python:
 	locations["scene"].x, locations["scene"].y = 1022, 96
 	locations["square"].x, locations["square"].y = 870, 384
 	locations["stadium"].x, locations["stadium"].y = 1262, 386
-	locations["station"].x, locations["station"].y = 71, 855
+	locations["station"].x, locations["station"].y = 81, 911
 	locations["tennis"].x, locations["tennis"].y = 1286, 292
 	locations["washbasins"].x, locations["washbasins"].y = 514, 224
 

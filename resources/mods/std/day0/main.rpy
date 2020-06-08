@@ -1,261 +1,419 @@
 init python:
-	day0_phrases_forgot_things = [
-		"Кажется, я что-то забыл.",
-		"Карманы ощущаются слишком лёгкими, нужно проверить, вдруг забыл что-то.",
-		"Не помешает проверить карманы… Чёрт, чего-то не хватает.",
-		"Я точно всё взял?",
-	]
-	
-	day0_before_exit = False
-	
 	def day0_can_exit_to(to_location_name, to_place_name):
 		return False
+	
+	def day0_dream_set():
+		night_time()
+		db_set_ui('night')
+		
+		set_location('enter', 'dream_start')
+		me.set_dress('sport')
+		
+		cam_to('square_down', 0)
+		
+		add_location_object('enter', {'x': 0, 'y': 0, 'xsize': 1.0, 'ysize': 1.0}, ScrollObject, **fog_params)
+		
+		uv_dream = add_location_object('enter', 'uv_dream_place', 'uv_dream')
+		uv_dream.start_animation('main', -1)
+		
+		add_location_object('enter', 'lamp_place', 'lamp')
+		bench = add_location_object('enter', 'bench_right_place', 'bench_right')
+		me.sit_down(bench)
+		
+	
+	def day0_dream_unset():
+		day_time()
+		
+		remove_location_object('enter', None, 'bench_right')
+		remove_location_object('enter', None, 'lamp')
+		remove_location_object('enter', None, 'uv_dream')
+		remove_location_object('enter', None, 'fog')
+
+init 10 python:
+	snowfall_params = dict(
+		name='snowfall',
+		background=im.rect('#68B'),
+		image=im.rect('#FFF'),
+		count=100,
+	)
+	add_location_object('flat', 'window', ParticleFactory, **snowfall_params)
+	
+	add_location_object('flat', 'dress_place', 'dress')
+	
+	flat_monitor = get_location_objects('flat', None, 'monitor')[0]
+	flat_monitor.start_animation('main', -1)
+	
+	
+	def flat_lamp_light_update(lamp_light):
+		min = 0.15
+		max = 0.30
+		half_period = 1.5
+		speed = float(max - min) / half_period
+		
+		dtime = time.time() - (lamp_light.prev_user_update or 0)
+		lamp_light.prev_user_update = time.time()
+		
+		lamp_light.alpha += (lamp_light.dalpha or 0) * dtime
+		
+		if lamp_light.alpha >= max:
+			lamp_light.alpha = max
+			lamp_light.dalpha = -speed
+		if lamp_light.alpha <= min:
+			lamp_light.alpha = min
+			lamp_light.dalpha = speed
+	
+	flat_lamp_light = get_location_objects('flat', None, 'lamp_light')[0]
+	flat_lamp_light.user_function = flat_lamp_light_update
+	
+	
+	dust_params = dict(
+		name='dust',
+		image=im.rect('#8888'),
+		count=20,
+		zorder=1e5,
+		min_dx=-0.01,
+		max_dx=0.02,
+		min_dy=0.01,
+		max_dy=0.05,
+		min_size=0.5,
+		max_size=1,
+	)
+	add_location_object('flat', 'dust_place', ParticleFactory, **dust_params)
+	
+	
+	liaz_light_far_params = dict(
+		name='light_far',
+		image='images/locations/liaz/objects/light_far.' + location_object_ext,
+		dx=0.0,
+		dy=0.0,
+		zorder=-2
+	)
+	liaz_light_close_params = dict(
+		name='light_close',
+		image='images/locations/liaz/objects/light_close.' + location_object_ext,
+		dx=0.0,
+		dy=0.0,
+		zorder=-1
+	)
+	liaz_light_far   = add_location_object('liaz', 'lights_place', ScrollObject, **liaz_light_far_params)
+	liaz_light_close = add_location_object('liaz', 'lights_place', ScrollObject, **liaz_light_close_params)
+	
+	city_snowfall_params = dict(
+		name='city_snowfall',
+		free='images/locations/city/objects/snow_free.' + location_object_ext,
+		count=200,
+	)
+	place = {'x': 0, 'y': 0, 'xsize': get_image_width(city_snowfall_params['free']), 'ysize': get_image_height(city_snowfall_params['free'])}
+	add_location_object('city', place, SnowfallLocation, **city_snowfall_params)
+	
+	station_snowfall_params = dict(
+		name='station_snowfall',
+		free='images/locations/station/objects/snow_free.' + location_object_ext,
+		count=200,
+	)
+	place = {'x': 0, 'y': 0, 'xsize': get_image_width(station_snowfall_params['free']), 'ysize': get_image_height(station_snowfall_params['free'])}
+	add_location_object('station', place, SnowfallLocation, **station_snowfall_params)
+
+
+label forgot_things:
+	$ set_rpg_control(False)
+	narrator random.choice([
+		"Кажется, я что-то забыл.",
+		"Карманы ощущаются слишком лёгкими, нужно проверить, вдруг забыл что-то.",
+		"Не помешает проверить карманы... Блин, чего-то не хватает.",
+		"Я точно всё взял?",
+	])
+	window hide
+	$ set_rpg_control(True)
+
 
 label day0_start:
+	scene bg black
 	python:
 		day_num = 0
-		night_time()
-		control = False
-		
-		set_location("enter", "before_gates_far")
-		me.set_direction(to_forward)
+		set_run_allow(False)
+		day0_dream_set()
+		location_cutscene_on(0, zoom=1, obj='square_down')
 	
-		gate_right = get_location_objects(cur_location_name, me, "gate_right", 1)[0]
-		gate_right.start_animation("open")
+	play music music_list['dream'] fadein 5
+	python:
+		hide_sprite('bg with Dissolve(5)'.split(' '))
+		cam_to('square_center', 5, zoom=1)
 	
-		add_location_object("enter", "behind_gates", "uv_night_prologue")
+	"Мне опять снился сон..."
+	"Я сижу на скамейке перед приоткрытыми железными воротами."
+	"Странно, но в последнее время только во время этого сна я ощущаю себя живым."
+	"Проснёшься - и сон забудется, но пока ещё спишь - осознаёшь своё глупое положение от того, что не сможешь удержать все эти образы в голове после пробуждения."
+	"Пусть здесь и лето, из-за тумана чувствуется лёгкий озноб."
+	"Но сейчас мне комфортно настолько, что даже боюсь, что усну во сне."
+	"Я чуть поднимаю взгляд над воротами."
 	
-	"Мне опять снился сон."
-	"Этот сон…"
-	"Расплывчатые очертания ворот который раз кружат перед глазами, словно мираж."
-	"Только здесь, во время этого странного сна, ощущаешь себя живым."
-	"Проснёшься - и сон забудется; пока ещё спишь - осознаёшь своё глупое положение от того, что не сможешь удержать все эти образы в голове после пробуждения."
-	"Воистину странное чувство."
-	"И вот рассеивается дымка, обнажая ворота."
-	"И, несмотря на время - а здесь и сейчас лето, - чувствуешь лёгкий озноб."
-	"Такое огромное желание подбежать к воротам, распахнуть их и вбежать внутрь, ведь там тепло!"
-	"Наверняка тепло, на все сто процентов!"
-	"Приятные мысли расслабляют, погружают в забытье."
-	"Даже боюсь, что засну во сне."
-	"Но это не мой дом, и меня туда никто не приглашал."
-	"Небо. Такое красивое и такое притягательное - в наших краях такого точно не встретить."
-	"Сотни и тысячи. Нет. Миллионы и миллиарды звёзд с чьей-то лёгкой руки просто-напросто рассыпаны по чёрному одеялу - хватай горсть и беги."
-	"Но до них ещё придётся как-то дотянуться."
-	"А что это над воротами?"
+	$ cam_to('behind_gates', 2, zoom=1)
 	
-	$ cam_to('behind_gates')
-	
-	"“Совёнок”?"
-	"Как сова, но маленькая…"
-	"Или как сов?"
-	"Даже не знаю, и знать не хочу."
-	"В любом случае, я лишь наблюдаю. При всём желании ни звезду, ни кусок ржавого металла и даже странного птенца не менее странной птицы с собой не заберу."
+	"«Совёнок»? Как сова, но маленькая..."
+	"В любом случае, я лишь наблюдаю."
+	"При всём желании взять с собой сувенир не получится."
 	"Что ни говори, а ночь здесь прекрасна."
-	"Окружающая действительность всё больше и больше напоминала часть сказки. Той сказки, в которую, без преувеличения, хотел попасть каждый."
-	"Ну не может всё так идеально быть, в самом деле?"
+	"Прям как в сказках описывают."
+	"Но не может же быть все так идеально, в самом деле?"
 	"Конечно не может, ведь это - сон."
-	"Всего лишь сон."
-	"Сколько бы я ни был здесь, сколько ни бродил по округе, но ни разу не замечал всего лишь одной детали, настолько мелкой и настолько важной."
-	"Куда же эти ворота ведут?"
-
-	"А кто это там?"
-	"Из-за приоткрытых створок ворот выглядывала пара любопытных глаз."
-	"Хозяйка их (а я уверен, что это была именно “она”), более похожая на комок чего-то чёрного и бесформенного, но не отвратительного, пришла в это место лишь для одного - забрать меня."
-
-	dreamgirl "Ты пойдёшь со мной?"
-	me "Пойду? Но куда? И зачем?"
-	"Ответа нет."
-	"А был ли это вопрос?"
+	"Всего лишь сон..."
 	"Что же. Скоро просыпаться, так почему бы не осмотреться здесь получше?.."
 	
-	$ cam_to(me)
-	
-	"[Управление: WASD/стрелки, шаг/бег: Shift]"
+	$ location_cutscene_off(1, obj=me)
+	"[Управление: WASD/стрелки, шаг/бег: Shift, сесть/встать: Z]"
+	$ set_rpg_control(True)
 	window hide
-	
-	$ control = True
 	# Свободное время, сон заканчивается, если подойти к воротам
 
 
 label day0__enter__before_gates_close:
-	scene bg black with dissolve
-	python:
-		control = False
-		remove_location_object("enter", "behind_gates", "uv_night_prologue")
-		gate_right.remove_animation()
-		hide_location()
-		day_time()
+	stop music fadeout 3
+	scene bg black with dissolve2
+	$ hide_location()
+	$ day0_dream_unset()
 	
-	play sound_loop sfx_keyboard_mouse_computer_noise fadein 3
-	scene anim 1 _prologue with fade3
-	pause 9.4
-	scene anim 2 _prologue with fade3
-	pause 9.4
-	scene anim 3 _prologue with fade3
-	pause 6.2
+	pause 3
+	play sound_loop sfx['computer_noise'] fadein 2
+	pause 1
 	
-	python:
-		set_location("flat", "armchair_pos")
-		me.y -= 1
-		me.set_pose("stance")
-		me.set_direction(to_forward)
-		me.set_dress("home")
-	hide anim with dissolve
+	$ prologue_k = 217.0 / 155
+	$ prologue_size = (0.2, 0.2 * get_from_hard_config('window_w_div_h', float) / prologue_k)
+	
+	show prologue_sleep with dissolve:
+		anchor (0.5, 0.5)
+		pos (0.25, 0.33)
+		size prologue_size
+	pause 3
+	play sound sfx['mystery_movement']
+	pause 1
+	
+	show prologue_wake with dissolve:
+		anchor (0.5, 0.5)
+		pos (0.50, 0.33)
+		size prologue_size
+	pause 3
+	
+	play sound_loop sfx['keyboard_mouse_computer_noise'] fadein 1
+	pause 1
+	show prologue_keyboard with dissolve:
+		anchor (0.5, 0.5)
+		pos (0.75, 0.33)
+		size prologue_size
+	pause 4
+	
+	show prologue_monitor with dissolve:
+		anchor (0.5, 0.5)
+		pos (0.33, 0.66)
+		size prologue_size
+	pause 5
+	play sound sfx['message']
+	show prologue_message with dissolve:
+		anchor (0.5, 0.5)
+		pos (0.66 - prologue_size[0] * (1.5 - 1) * 0.5, 0.66 + prologue_size[1] * (1.5 - 1) * 0.5)
+		size (prologue_size[0] * 1.5, prologue_size[1] * 1.5)
+	pause 8
 
-	"Недельный запас еды, тёмная комната и компьютер с доступом в интернет - всё то, что у меня есть и то, что приносило хоть какое-то удовольствие до недавнего времени."
-	"Так давно полюбившиеся мною имиджборды начали надоедать."
-	"В последнее время начал понимать, что загоняю себя в информационный вакуум, созданный мной же."
-	"И знаете, мне это даже нравится! Не вакуум, конечно же, а его осмысление."
-	"Неумелые шуточки, придуманные истории якобы из реальной жизни и просто депрессивная атмосфера - ни с чем из этого я больше не хотел связывать свою жизнь."
-	"До меня дошла простая истина: хочешь что-то изменить - не сиди на пятой точке ровно."
-	"…"
-	"И сегодня именно тот самый “понедельник первого числа”, с которого у лентяев принято начинать что-то делать."
-	"Как чувствуя, позвонил старый знакомый и позвал на встречу выпускников ВУЗа."
-	"Довольно приятно, что обо мне кто-то всё ещё помнит."
-	"До часа “Хэ” было ещё много времени, но всё равно стоило бы подготовиться к выходу из кельи."
-	"Хотя… Про подготовку я перегнул. Если сейчас 8 утра, а встреча в 8 вечера… То у меня есть около 12 часов свободного времени, можно заняться чем-нибудь своим."
+	scene bg black with dissolve2
+	python:
+		set_location('flat', 'armchair_pos')
+		set_rpg_control(False)
+		me.y -= 1
+		me.set_pose('stance')
+		me.set_direction(to_forward)
+	hide bg with dissolve
+		
+	"Пару дней назад мне неожиданно написал бывший однокурсник."
+	"Один из немногих, с кем я хоть и изредка, но поддерживал связь."
+	"Он позвал меня на встречу выпускников." 
+	"Мне не хотелось никуда идти, но и обижать его тоже не хотелось, поэтому я не дал чёткого ответа." 
+	"Имиджборды, в каком-то плане, заменили мне друзей на некоторое время, но сейчас я понимаю, что начинаю от них уставать." 
+	"Может быть, мне правда стоит сходить туда?" 
+	"Другого шанса не будет, нужно решать сейчас."
+	"Я пролистываю посты, и на душе становится тоскливее от осознания, что одну и ту же картину я вижу изо дня в день каждый раз." 
+	"Мой распорядок дня не меняется уже пару лет." 
+	"Думаю, мне правда стоит поехать, чтобы вырваться из этого «Дня Сурка»."
+	"Осталось собрать вещи, одеться и выйти."
+	
+	$ quest_start('taking_objects')
 	window hide
 	
-	stop sound_loop fadeout 1
-	
+	play sound_loop sfx['computer_noise']
+	$ flat_monitor.remove_animation()
 	$ me.set_pose("stance")
 	$ me.move_to_place("computer")
 	$ me.move_to_place("center")
 	
-	$ control = True
-	$ day0_before_exit = False
-	
-	# Свободный режим
-	# Варианты действий: подойти к кровати, подойти к компьютеру, подойти к двери.
+	$ set_rpg_control(True)
+	# Свободный режим, требуется собрать необходимые предметы
+
 
 label day0__flat__bed:
-	if day0_before_exit:
-		return
-	$ control = False
-	$ me.set_pose("stance")
-	$ me.set_direction(to_right)
-	"Просыпаться так рано совсем не свойственно для меня. Лучше будет ещё немножечко вздремнуть, не забыв поставить будильник."
-	$ sunset_time()
-	$ me.set_direction(to_left)
-	call prologue_before_exit
+	if exec_action:
+		$ set_rpg_control(False)
+		if not has_in_inventory('phone') and not get_location_objects('flat', None, 'phone'):
+			"Итак, телефон найден."
+			$ add_to_inventory('phone', 1)
+			call day0_check_items
+		else:
+			narrator random.choice([
+				"О да, любимый портал в царство Морфея.",
+				"Представляю вам мою Единственную и Неповторимую - Кровать!",
+				"Пружины поскрипывают уже, ну да ладно.",
+			])
+		window hide
+		$ set_rpg_control(True)
 
 label day0__flat__computer:
-	if day0_before_exit:
+	if exec_action:
+		$ set_rpg_control(False)
+		if not has_in_inventory('lighter') and not get_location_objects('flat', None, 'lighter'):
+			"Зажигалка. Может, взять её?"
+			$ add_to_inventory('lighter', 1)
+			call day0_check_items
+		else:
+			narrator random.choice([
+				"Хм. И зачем мне этот старый монитор на столе?",
+				"Сотни и тысячи часов последних лет моей жизни проведены именно здесь.",
+				"«Добро пожаловать. Снова.»",
+			])
+		window hide
+		$ set_rpg_control(True)
+
+label day0__flat__table:
+	if exec_action:
+		$ set_rpg_control(False)
+		$ has_flat_keys = has_in_inventory('flat_keys') or get_location_objects('flat', None, 'flat_keys')
+		$ has_notepad   = has_in_inventory('notepad')   or get_location_objects('flat', None, 'notepad')
+		if not has_flat_keys and not has_notepad:
+			"Вот и ключи. И блокнот. Возьму его на всякий случай, вместе с ручкой."
+		if not has_flat_keys:
+			$ add_to_inventory('flat_keys', 1)
+		if not has_notepad:
+			$ add_to_inventory('notepad', 1)
+		call day0_check_items
+		window hide
+		$ set_rpg_control(True)
+
+label day0_check_items:
+	if quest_started('taking_objects') and has_in_inventory('phone') and has_in_inventory('flat_keys') and has_in_inventory('notepad'):
+		$ quest_end('taking_objects')
+
+
+label day0__flat__to_dress:
+	if not exec_action:
 		return
-	$ control = False
-	$ me.set_pose("stance")
-	$ me.set_direction(to_forward)
-	"К счастью, у меня есть, чем занять свободное время: нужно подыскать мастера по ремонту гитар, посмотреть подходящие вакансии для трудоустройства, ну и глянуть видео с котиками, само собой."
-	$ sunset_time()
-	$ me.set_direction(to_back)
-	call prologue_before_exit
+	
+	if quest_started('taking_objects'):
+		call forgot_things
+		return
+	
+	if me.get_dress() != 'winter':
+		scene bg black with dissolve
+		$ me.set_dress('winter')
+		$ remove_location_object('flat', None, 'dress')
+		hide bg with dissolve
+	else:
+		$ set_rpg_control(False)
+		"В принципе, выбор что надеть был невелик."
+		"Хоть есть что-то по погоде - и на том спасибо."
+		window hide
+		$ set_rpg_control(True)
 
 label day0__flat__exit:
-	if day0_before_exit:
-		call day0_exit
+	if not exec_action or not me.get_dress() == 'winter':
 		return
-	$ control = False
-	$ me.set_pose("stance")
-	$ me.set_direction(to_back)
-	"День принято начинать с приёма пищи. Хороший завтрак не помешает будущим свершениям."
-	"И мусор бы ещё вынести."
-	$ sunset_time()
-	$ me.set_direction(to_forward)
-	call prologue_before_exit
-
-
-label prologue_before_exit:
-	"Пора собираться на встречу выпускников."
-	"Хотя выпускником я не был (бросил учёбу после второго курса), но приятные воспоминания о времяпрепровождений с некоторыми одногруппниками до сих пор грели мне душу, так почему бы и не сходить?"
-	$ control = True
-	$ day0_before_exit = True
-	
-	$ quest_start("taking_objects")
-	window hide
-	# Свободный режим в комнате Семёна
-	# Игроку нужно подобрать основные предметы: телефон, деньги, ключи, зажигалка...
-
-
-label day0_exit:
-	python:
-		all_objs = True
-		for obj in 'phone notepad flat_keys lighter'.split(' '):
-			if not has_in_inventory(obj, 1):
-				all_objs = False
-				break
-	if not all_objs:
-		# Фразы Семёна, если он попытается уйти, не собрав все вещи
-		me random.choice(day0_phrases_forgot_things)
-		window hide
+	if not has_in_inventory('phone') or not has_in_inventory('flat_keys') or not has_in_inventory('notepad'):
+		call forgot_things
 		return
 	
-	$ quest_end("taking_objects")
-	
-	$ me.set_dress("winter")
-	$ set_location("station", "station_enter")
-	$ me.set_direction(to_back)
+	scene bg black with dissolve
+	stop sound_loop fadeout 1
+	pause 1
+	play sound sfx['close_door']
+	pause 1
+	$ set_location('city', 'city_enter')
+	play music music_list['midnight'] fadein 5
+	hide bg with dissolve
+
+label day0__city__exit:
+	$ set_location('station', 'station_enter')
+	stop music fadeout 4
 
 label day0__station__before_stop:
-	$ control = False
-	$ me.set_pose("stance")
+	$ set_rpg_control(False)
 	$ me.set_direction(to_right)
-	"И вот надо было мне собраться куда-то в такой мороз. Впрочем, уже поздно о чём-то жалеть."
-	"…"
 	
+	"Осталось дождаться автобуса."
+	"Пока сюда шёл, успел замёрзнуть."
+	"Даже промелькнула мысль развернуться обратно, и никуда не ехать."
+	"Но я тут же откинул её, ведь я уже на полпути."
+	"Было бы глупо, что-то начать, и не довести до конца."
+	"Хотя я столько раз так делал..."
 	window hide
-	show blink
-	pause 1.5
-	scene bg black
-	$ add_location_object("station", "liaz_place", "liaz")
-	show unblink
-	hide bg
-	pause 1.5
-	hide unblink
 	
-	$ me.move_to_place("liaz_enter")
-	$ set_location("liaz", "liaz_enter")
-	$ me.move_to_place("sit_place")
-	$ me.set_direction(to_right)
-	$ me.set_pose("sit")
+	scene bg black with dissolve2
+	$ add_location_object('station', 'liaz_place', 'liaz')
+	play sound sfx['bus_door_open']
+	hide bg with dissolve
 	
-	scene bg intro_xx with fade
-	$ hide_location()
-	
-	"Разглядывая снежинки за окном, невольно подмечаешь оживлённость городских улиц."
-	"А ведь сейчас зима!"
-	"Время холодное, праздничные дни, а кто-то всё равно топчет только что выпавший снег."
-	"Дела, заботы. Почти все чем-то заняты."
-	"Кто-то не успевает купить подарки, кто-то просто торопится домой. Третий догоняет компанию друзей."
-	
-	window hide
-	show blinking
-	pause 3.5
-	"Уличный неон скрывает от глаз что-то важное, значимое, но что - неизвестно."
-	hide blinking
-	
-	"Сколько раз не пытаешься ухватиться за светящийся плакат, столько же раз и понимаешь, что всё, что там написано и нарисовано забудется через пару минут."
-	"Кроме одного, пожалуй."
-	"Люди. Я всегда обращал на них внимание. Не все, конечно, но очень многие выглядят совершенно по-разному."
-	"За ними очень интересно наблюдать и представлять о чём они думают, что собираются делать."
-	"Представляю себя детективом-профи, хоть и нет возможности проверить реальные намерения объекта наблюдений."
-	
-	window hide
-	show blinking with dissolve
-	pause 3.5
-	"Интересно, кто сидел на этом месте до меня?"
-	hide blinking
-	
-	"Даже не знаю, ну и ладно."
-	"Бессмысленные рассуждения надолго отвлекли меня от поездки."
-	"Я, ни разу не пользовавшийся этим маршрутом, будто попал в другой город."
-	
-	window hide
-	show blinking with dissolve
-	pause 3.5
-	"И хотя близлежащие от дома окрестности мне известны хорошо, но усталость даёт о себе знать - голова не работает совершенно."
-	scene bg black with dissolve
-	"…"
-	
-	window hide
-	call day1_start
+	$ me.move_to_place('liaz_enter')
+	$ set_location('liaz', 'liaz_enter')
+	$ set_rpg_control(True)
+	play sound_loop sfx['bus_idle'] fadein 1
 
+label day0__liaz__unknown:
+	if not sit_down:
+		return
+	
+	$ set_rpg_control(False)
+	$ set_run_allow(True)
+	
+	play sound sfx['bus_door_close']
+	pause 1
+	play sound_loop sfx['bus_interior_moving'] fadein 1
+	play music music_list['bus'] fadein 4
+	
+	$ liaz_light_far.set_direction(-0.1, 0)
+	$ liaz_light_close.set_direction(-0.5, 0)
+	
+	"Выбрав, наверно, самое тёплое место в автобусе, я начал поглядывать на мелькающие огни за заснеженным окном."
+	"Зима уже не близко - она уже здесь."
+	"И особенно хорошо это проявляется в этом старом Лиазе, где об обогревателях, наверно, можно только грезить."
+	"Если честно, думал их уже давно сняли со всех маршрутов, но оказывается - нет, парочка осталась."
+	"Через несколько лет этот автобус, наверно, станет достоянием любителей автомобильной археологи."
+	"..."
+	window hide
+	
+	scene bg black with dissolve
+	hide bg with dissolve
+	
+	"Интересно, кто сидел на этом месте до меня?"
+	"Может какая-нибудь милая красивая девушка? {w}Не, не думаю."
+	"Милые и особенно красивые девушки не ездят на автобусах."
+	"На автобусах ездим мы - студенты, работяги, старушки и наркоманы."
+	"И как ни странно, я не отношусь ни к какой из этих групп. {w}Я ведь уже не студент."
+	"Хотя если бы не ленился, то может быть и получил бы высшее образование, а не был бы выгнан за прогулы."
+	"..."
+	window hide
+	
+	scene bg black with dissolve
+	hide bg with dissolve
+	
+	"Я заметил, что у меня начинают слипаться глаза."
+	"Вроде проспал весь день, но все ещё хочется."
+	"Странная штука организм."
+	"Ехать ещё долго, так что можно и вздремнуть несколько минут."
+	"Я прикрываю глаза..."
+	"..."
+	window hide
+	
+	scene bg black with dissolve2
+	stop sound_loop fadeout 2
+	pause 3
+	$ show_presents()
+	$ hide_presents()
+	stop music fadeout 1
+	pause 4
+	
+	call day1_start

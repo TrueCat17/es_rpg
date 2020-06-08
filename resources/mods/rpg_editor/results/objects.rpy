@@ -1,33 +1,59 @@
 init 1 python:
 	
-	register_location_object('armchair',  'images/locations/flat/objects/', 'armchair', None)
 	register_location_object('flat_keys', 'images/locations/objects/', 'flat_keys', None, 1)
 	register_location_object('lighter',   'images/locations/objects/', 'lighter',   None, 1)
 	register_location_object('notepad',   'images/locations/objects/', 'notepad',   None, 1)
 	register_location_object('phone',     'images/locations/objects/', 'phone',     None, 1)
 	
+	register_location_object('armchair',   'images/locations/flat/objects/', 'armchair', None)
+	register_location_object('dress',      'images/locations/flat/objects/', 'dress', None)
+	register_location_object('lamp_light', 'images/locations/flat/objects/', 'lamp_light', None)
+	register_location_object('monitor',    'images/locations/flat/objects/', 'monitor', None)
+	register_location_object_animation('monitor', 'main',
+		'images/locations/flat/objects/', 'monitor_scroll', None,
+		0, 0,
+		7, 0, 6,
+		2
+	)
+	
+	register_location_object('uv_dream', 'images/locations/enter/objects/', 'uv_dream', None)
+	register_location_object_animation('uv_dream', 'main',
+		'images/locations/enter/objects/', 'uv_dream_anim', None,
+		0, 0,
+		8, 0, 7,
+		6
+	)
 	
 	register_location_object('liaz', 'images/locations/station/objects/', 'liaz', None)
 	
+	register_location_object('liaz_bench_left',    'images/locations/liaz/objects/', 'bench_left', None)
+	register_location_object('liaz_bench_middle',  'images/locations/liaz/objects/', 'bench_middle', None)
+	register_location_object('liaz_bench_right',   'images/locations/liaz/objects/', 'bench_right', None)
+	register_location_object('liaz_chair_forward', 'images/locations/liaz/objects/', 'chair_forward', None)
+	
+	register_location_object('snow_car', 'images/locations/city/objects/', 'snow_car', 'snow_car_free')
+	register_location_object('city_lamp_left', 'images/locations/city/objects/', 'lamp_left', 'lamp_left_free')
+	register_location_object('city_lamp_right', 'images/locations/city/objects/', 'lamp_right', 'lamp_right_free')
+	register_location_object('city_sign', 'images/locations/city/objects/', 'sign', 'sign_free')
 	
 	register_location_object('ikarus', 'images/locations/enter/objects/', 'ikarus_main', 'ikarus_free')
 	
-	register_location_object('gate_left', 'images/locations/enter/objects/', 'gate_left_main', 'gate_free')
-	register_location_object('gate_right', 'images/locations/enter/objects/', 'gate_right_main', 'gate_free')
+	register_location_object('gate_left', 'images/locations/objects/', 'gate_left_main', 'gate_free')
+	register_location_object('gate_right', 'images/locations/objects/', 'gate_right_main', 'gate_free')
 	
 	register_location_object_animation('gate_right', 'open',
-		'images/locations/enter/objects/anim/', 'gate_right_main', 'gate_right_free',
+		'images/locations/objects/anim/', 'gate_right_main', 'gate_right_free',
 		0, 34,
 		3, 2, 2,
 		-1
 	)
 	register_location_object_animation('gate_right', 'opening',
-		'images/locations/enter/objects/anim/', 'gate_right_main', 'gate_right_free',
+		'images/locations/objects/anim/', 'gate_right_main', 'gate_right_free',
 		0, 34,
 		3, 0, 2
 	)
 	register_location_object_animation('gate_right', 'closing',
-		'images/locations/enter/objects/anim/', 'gate_right_main', 'gate_right_free',
+		'images/locations/objects/anim/', 'gate_right_main', 'gate_right_free',
 		0, 34,
 		3, 2, 0
 	)
@@ -125,6 +151,21 @@ init 1 python:
 	add_location_object("canteen", "table_h_pos-5", "table_h")
 	add_location_object("canteen", "table_h_pos-6", "table_h")
 	
+	add_location_object("city", "city_lamp_left_pos-1", "city_lamp_left")
+	add_location_object("city", "city_lamp_left_pos-2", "city_lamp_left")
+	add_location_object("city", "city_lamp_left_pos-3", "city_lamp_left")
+	add_location_object("city", "city_lamp_left_pos-4", "city_lamp_left")
+	add_location_object("city", "city_lamp_left_pos-5", "city_lamp_left")
+	add_location_object("city", "city_lamp_left_pos-6", "city_lamp_left")
+	add_location_object("city", "city_lamp_right_pos-1", "city_lamp_right")
+	add_location_object("city", "city_lamp_right_pos-2", "city_lamp_right")
+	add_location_object("city", "city_lamp_right_pos-3", "city_lamp_right")
+	add_location_object("city", "city_lamp_right_pos-4", "city_lamp_right")
+	add_location_object("city", "city_lamp_right_pos-5", "city_lamp_right")
+	add_location_object("city", "city_lamp_right_pos-6", "city_lamp_right")
+	add_location_object("city", "city_sign_pos", "city_sign")
+	add_location_object("city", "snow_car_pos", "snow_car")
+	
 	add_location_object("clubs", "mus_club_column_pos-1", "mus_club_column")
 	add_location_object("clubs", "mus_club_column_pos-2", "mus_club_column")
 	add_location_object("clubs", "mus_club_column_pos-3", "mus_club_column")
@@ -137,13 +178,28 @@ init 1 python:
 	
 	add_location_object("enter", "gate_left_pos", "gate_left")
 	add_location_object("enter", "gate_right_pos", "gate_right")
-	add_location_object("enter", "ikarus_pos", "ikarus")
 	
 	add_location_object("flat", "armchair_pos", "armchair")
-	add_location_object("flat", "flat_keys_pos", "flat_keys")
-	add_location_object("flat", "lighter_pos", "lighter")
-	add_location_object("flat", "notepad_pos", "notepad")
-	add_location_object("flat", "phone_pos", "phone")
+	add_location_object("flat", "lamp_light_pos", "lamp_light")
+	add_location_object("flat", "monitor_pos", "monitor")
+	
+	add_location_object("liaz", "liaz_bench_left_pos1", "liaz_bench_left")
+	add_location_object("liaz", "liaz_bench_left_pos2", "liaz_bench_left")
+	add_location_object("liaz", "liaz_bench_left_pos3", "liaz_bench_left")
+	add_location_object("liaz", "liaz_bench_middle_pos", "liaz_bench_middle")
+	add_location_object("liaz", "liaz_bench_right_pos1", "liaz_bench_right")
+	add_location_object("liaz", "liaz_bench_right_pos10", "liaz_bench_right")
+	add_location_object("liaz", "liaz_bench_right_pos11", "liaz_bench_right")
+	add_location_object("liaz", "liaz_bench_right_pos12", "liaz_bench_right")
+	add_location_object("liaz", "liaz_bench_right_pos2", "liaz_bench_right")
+	add_location_object("liaz", "liaz_bench_right_pos3", "liaz_bench_right")
+	add_location_object("liaz", "liaz_bench_right_pos4", "liaz_bench_right")
+	add_location_object("liaz", "liaz_bench_right_pos5", "liaz_bench_right")
+	add_location_object("liaz", "liaz_bench_right_pos6", "liaz_bench_right")
+	add_location_object("liaz", "liaz_bench_right_pos7", "liaz_bench_right")
+	add_location_object("liaz", "liaz_bench_right_pos8", "liaz_bench_right")
+	add_location_object("liaz", "liaz_bench_right_pos9", "liaz_bench_right")
+	add_location_object("liaz", "liaz_chair_forward_pos", "liaz_chair_forward")
 	
 	add_location_object("library", "cupboard_1_pos", "cupboard_1")
 	add_location_object("library", "cupboard_2_pos", "cupboard_2")

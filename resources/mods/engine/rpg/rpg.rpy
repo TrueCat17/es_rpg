@@ -1,3 +1,7 @@
+init python:
+	def default_get_place_label():
+		return cur_location_name + '__' + (cur_place_name or 'unknown')
+
 label rpg_loop:
 	while True:
 		call rpg_update
@@ -55,36 +59,52 @@ label rpg_update:
 					inventory_do_action('taking', location_objects[near_location_object.type])
 				else:
 					near_location_object = None
-	
-	$ cur_place_name = get_location_place() if near_location_object is None else None
-	if cur_place_name:
-		$ cur_exec_label = cur_location_name + '__' + cur_place_name
-		if exec_action and renpy.has_label(cur_exec_label):
-			call expression cur_exec_label
-		else:
-			$ cur_label = get_place_label() if globals().has_key('get_place_label') else (cur_location_name + '__' + cur_place_name)
-			if renpy.has_label(cur_label):
-				call expression cur_label
 		
-		$ cur_quests_labels = quest_get_labels(cur_location_name, cur_place_name)
-		$ save_rpg_control()
-		$ set_rpg_control(False)
-		if len(cur_quests_labels) == 1:
-			call expression cur_quests_labels[0][1]
-		elif len(cur_quests_labels) > 1:
-			$ me.set_pose("stance")
-			window show
-			"В этом месте пересекаются несколько активных квестов (" + str(len(cur_quests_labels)) + ")."
-			
-			$ choose_menu_variants = [name for name, label in cur_quests_labels]
-			$ renpy.call_screen('choose_menu', 'choose_menu_result')
-			
-			""
-			$ name, label = cur_quests_labels[choose_menu_result]
-			call expression label
-			
-			window hide
-		$ return_prev_rpg_control()
+		cur_place_name = get_location_place() if near_location_object is None else None
+		cur_exec_label = cur_location_name + '__' + (cur_place_name or 'unknown')
+		
+		if sit_action:
+			if me.get_pose() == 'sit':
+				stand_up = True
+				me.stand_up()
+			else:
+				obj = get_near_sit_object()
+				if obj:
+					sit_down = True
+					me.sit_down(obj)
 	
-	$ exec_action = False
+	if (exec_action or sit_action) and renpy.has_label(cur_exec_label):
+		call expression cur_exec_label
+	else:
+		$ cur_label = globals().get('get_place_label', default_get_place_label)()
+		if renpy.has_label(cur_label):
+			call expression cur_label
+	
+	$ cur_quests_labels = quest_get_labels(cur_location_name, cur_place_name)
+	$ save_rpg_control()
+	$ set_rpg_control(False)
+	if len(cur_quests_labels) == 1:
+		call expression cur_quests_labels[0][1]
+	elif len(cur_quests_labels) > 1:
+		$ me.set_pose("stance")
+		window show
+		"В этом месте пересекаются несколько активных квестов (" + str(len(cur_quests_labels)) + ")."
+		
+		$ choose_menu_variants = [name for name, label in cur_quests_labels]
+		$ renpy.call_screen('choose_menu', 'choose_menu_result')
+		
+		""
+		$ name, label = cur_quests_labels[choose_menu_result]
+		call expression label
+		
+		window hide
+	
+	python:
+		return_prev_rpg_control()
+		
+		sit_action = False
+		sit_down = False
+		stand_up = False
+		
+		exec_action = False
 

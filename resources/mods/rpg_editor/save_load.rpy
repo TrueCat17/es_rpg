@@ -6,13 +6,15 @@ init -1000 python:
 		os.mkdir(preview_path)
 	
 	locations_file_path = 'mods/rpg_editor/results/locations.rpy'
-	location_objects_file_path = 'mods/rpg_editor/results/location_objects.rpy'
+	location_objects_file_path = 'mods/rpg_editor/results/objects.rpy'
 	
 	
 	locations_times = Object()
 	
 	for name in os.listdir(preview_path):
 		name = name[:name.rfind('.')]
+		if not os.path.exists(locations_path + name):
+			continue
 		
 		file_time = os.path.getctime(locations_path + name + '/main.' + location_ext)
 		preview_time = os.path.getctime(preview_path + name + '.png')
