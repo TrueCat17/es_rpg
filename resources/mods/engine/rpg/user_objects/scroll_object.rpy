@@ -21,9 +21,6 @@ init -1000 python:
 			self.dy = kwargs.get('dy', 0.01)
 			self.prev_update_time = time.time()
 		
-		def free(self):
-			return None
-		
 		def set_direction(self, dx, dy):
 			self.dx, self.dy = dx, dy
 		

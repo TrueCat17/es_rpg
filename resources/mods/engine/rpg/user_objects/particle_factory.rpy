@@ -47,9 +47,6 @@ init -1000 python:
 					
 					self.objs[old_count + i] = [x, y, dx, dy, size]
 		
-		def free(self):
-			return None
-		
 		def set_direction(self, dx, dy):
 			self.dx, self.dy = dx, dy
 		

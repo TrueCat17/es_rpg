@@ -284,7 +284,8 @@ init -1001 python:
 		instance.location = location
 		location.objects.append(instance)
 		
-		if instance.free():
+		free = instance.free
+		if callable(free) and free():
 			location.path_need_update = True
 		return instance
 	
