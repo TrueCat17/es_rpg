@@ -114,19 +114,15 @@ init -1001 python:
 							obj.animations[None].over_image = over
 	
 	
-	def get_usual_location_object_data(obj, zoom):
+	def get_usual_location_object_data(obj):
 		x, y = obj.x + obj.xoffset, obj.y + obj.yoffset
 		
 		obj_xanchor, obj_yanchor = obj.xanchor, obj.yanchor
-		if type(obj_xanchor) is int:
-			obj_xanchor = int(obj_xanchor * zoom)
-		if type(obj_yanchor) is int:
-			obj_yanchor = int(obj_yanchor * zoom)
 		
 		return {
 			'image':   obj.main(),
-			'size':   (int(obj.xsize * zoom), int(obj.ysize * zoom)),
-			'pos':    (int(x * zoom), int(y * zoom)),
+			'size':   (obj.xsize, obj.ysize),
+			'pos':    (absolute(x), absolute(y)),
 			'anchor': (obj_xanchor, obj_yanchor),
 			'crop':    obj.crop,
 			'alpha':   obj.alpha
@@ -155,8 +151,8 @@ init -1001 python:
 		
 		def get_zorder(self):
 			return self.y + self.yoffset
-		def get_draw_data(self, zoom):
-			main = get_usual_location_object_data(self, zoom)
+		def get_draw_data(self):
+			main = get_usual_location_object_data(self)
 			res = [main]
 			
 			characters = []
@@ -164,7 +160,7 @@ init -1001 python:
 				if character:
 					characters.append(character)
 			characters.sort(key = lambda character: character.y + character.yoffset)
-			res.extend([character.get_draw_data(zoom) for character in characters])
+			res.extend([character.get_draw_data() for character in characters])
 			
 			over_image = self.over()
 			if over_image:
@@ -400,6 +396,6 @@ init -1001 python:
 			if i in location.objects:
 				location.objects.remove(i)
 				
-				if i.free():
+				if callable(i.free) and i.free():
 					location.path_need_update = True
 	

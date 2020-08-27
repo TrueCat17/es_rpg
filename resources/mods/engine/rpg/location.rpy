@@ -77,10 +77,6 @@ init -1002 python:
 			show_screen('location')
 			show_screen('inventory')
 		
-		global location_start_time, location_was_show
-		location_start_time = time.time()
-		location_was_show = False
-		
 		global prev_location_name, cur_location, cur_location_name, cur_to_place
 		prev_location_name = cur_location_name
 		cur_location = locations[location_name]
@@ -101,19 +97,17 @@ init -1002 python:
 		end_location_ambience(cur_location)
 		ignore_prev_rpg_control()
 		
-		global location_changed, draw_location
-		global was_out_exit, cam_object
-		if draw_location is None:
-			location_start_time -= location_fade_time
-			
-			location_changed = True
+		global draw_location, location_start_time, location_was_show, cam_object
+		if draw_location is None or draw_location is cur_location:
+			location_start_time = 0
+			location_was_show = True
 			draw_location = cur_location
-			
-			start_location_ambience()
-			
-			was_out_exit = False
 			cam_object = me
+			start_location_ambience()
 		else:
+			location_start_time = time.time()
+			location_was_show = False
+			
 			x, y = get_place_center(cam_object)
 			cam_object = {'x': x, 'y': y}
 		
@@ -251,10 +245,10 @@ init -1002 python:
 		
 		def get_zorder(self):
 			return 0
-		def get_draw_data(self, zoom):
+		def get_draw_data(self):
 			return [{
 				'image':   self.main(),
-				'size':   (int(self.xsize * zoom), int(self.ysize * zoom)),
+				'size':   (self.xsize, self.ysize),
 				'pos':    (0, 0),
 				'anchor': (0, 0),
 				'crop':   (0, 0, 1.0, 1.0),
@@ -295,6 +289,9 @@ init -1002 python:
 			self.xsize, self.ysize = xsize, ysize
 			self.to_side = to_side
 		
+		def __str__(self):
+			return '<Place ' + self.name + '>'
+		
 		def inside(self, x, y):
 			return self.x <= x and x <= self.x + self.xsize and self.y <= y and y <= self.y + self.ysize
 	
@@ -305,6 +302,9 @@ init -1002 python:
 			self.to_place_name = to_place_name
 			self.x, self.y = x, y
 			self.xsize, self.ysize = xsize, ysize
+		
+		def __str__(self):
+			return '<Exit to ' + self.to_location_name + ':' + self.to_place_name + '>'
 		
 		def inside(self, x, y):
 			return self.x <= x and x <= self.x + self.xsize and self.y <= y and y <= self.y + self.ysize
@@ -393,8 +393,8 @@ init -1002 python:
 				free_obj = obj.free()
 				if not free_obj: continue
 				
-				x = int(obj.x) - get_absolute(obj.xanchor, obj.xsize) + obj.xoffset
-				y = int(obj.y) - get_absolute(obj.yanchor, obj.ysize) + obj.yoffset
+				x = int(obj.x - get_absolute(obj.xanchor, obj.xsize) + obj.xoffset)
+				y = int(obj.y - get_absolute(obj.yanchor, obj.ysize) + obj.yoffset)
 				objects.extend((free_obj, x, y))
 			
 			places = []
@@ -418,10 +418,10 @@ init -1002 python:
 		def get_zorder(self):
 			return 1e6
 		
-		def get_draw_data(self, zoom):
+		def get_draw_data(self):
 			return {
 				'image':   self.location.over(),
-				'size':   (int(self.location.xsize * zoom), int(self.location.ysize * zoom)),
+				'size':   (self.location.xsize, self.location.ysize),
 				'pos':    (0, 0),
 				'anchor': (0, 0),
 				'crop':   (0, 0, 1.0, 1.0),

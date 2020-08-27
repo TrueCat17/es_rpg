@@ -29,6 +29,9 @@ init -1000 python:
 			
 			self.prev_update_time = time.time()
 		
+		def __str__(self):
+			return '<ParticleFactory ' + self.type + '>'
+		
 		def set_count(self, count):
 			rand_int = random.randint
 			def rand_float(min, max):
@@ -63,15 +66,15 @@ init -1000 python:
 		def get_zorder(self):
 			return self.zorder
 		
-		def get_draw_data(self, zoom):
+		def get_draw_data(self):
 			back = 1 if self.background else 0
 			res = [None] * (back + len(self.objs))
 			
 			if back:
 				res[0] = {
 					'image':   self.background,
-					'size':   (int(self.xsize * zoom), int(self.ysize * zoom)),
-					'pos':    (int(self.xpos * zoom), int(self.ypos * zoom)),
+					'pos':    (self.xpos, self.ypos),
+					'size':   (self.xsize, self.ysize),
 					'anchor': (0, 0),
 					'crop':   (0, 0, 1.0, 1.0),
 					'alpha':   1
@@ -81,8 +84,8 @@ init -1000 python:
 				x, y, dx, dy, size = self.objs[i]
 				res[back + i] = {
 					'image':   self.image,
-					'size':   (int(size * zoom), int(size * zoom)),
-					'pos':    (int((self.xpos + x) * zoom), int((self.ypos + y) * zoom)),
+					'pos':    (absolute(self.xpos + x), absolute(self.ypos + y)),
+					'size':    absolute(size),
 					'anchor': (0, 0),
 					'crop':   (0, 0, 1.0, 1.0),
 					'alpha':   1

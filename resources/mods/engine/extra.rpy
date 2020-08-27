@@ -65,8 +65,8 @@ init -100000 python:
 		return vmin if v < vmin else vmax if v > vmax else v
 	def get_absolute(value, max_value):
 		if type(value) is float:
-			value *= max_value
-		return int(value)
+			return absolute(value * max_value)
+		return absolute(value)
 	def get_dist(x1, y1, x2, y2):
 		dx, dy = x1 - x2, y1 - y2
 		return math.sqrt(dx*dx + dy*dy)

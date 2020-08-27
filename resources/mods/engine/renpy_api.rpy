@@ -110,6 +110,9 @@ init -999 python:
 		# prop = module
 		random = random
 		
+		# prop = type
+		absolute = absolute
+		
 		
 		@staticmethod
 		def pause(sec = None):

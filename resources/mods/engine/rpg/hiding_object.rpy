@@ -25,8 +25,8 @@ init python:
 		
 		def get_zorder(self):
 			return self.y + self.yoffset
-		def get_draw_data(self, zoom):
-			return get_usual_location_object_data(self, zoom)
+		def get_draw_data(self):
+			return get_usual_location_object_data(self)
 		
 		def main(self):
 			return self.image

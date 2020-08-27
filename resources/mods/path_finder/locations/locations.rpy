@@ -379,6 +379,7 @@ init python:
 	register_exit(    "radio_storeroom", "radio_club", "radio_storeroom", 99, 232, 30, 15)
 	
 	register_location("scene", "images/locations/scene/", False, 960, 992)
+	register_place(   "scene", "scene_microphone_pos", 452, 353, 2, 2)
 	register_place(   "scene", "library_and_hospital"         , 400, 952, 150, 20)
 	register_exit(    "scene", "library_and_hospital", "scene", 400, 972, 150, 20)
 	

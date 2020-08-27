@@ -68,7 +68,7 @@ screen selected_location:
 						if location_objects.has_key(obj_name):
 							obj = location_objects[obj_name]
 							main_frame = obj['animations'][None]
-							obj_image = main_frame['directory'] + main_frame['main_image'] + '.' + location_object_ext
+							obj_image = get_image_or_similar(main_frame['directory'] + main_frame['main_image'] + '.' + location_object_ext)
 							
 							x = place.x + place.xsize / 2
 							y = place.y + place.ysize / 2

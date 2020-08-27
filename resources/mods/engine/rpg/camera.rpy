@@ -137,7 +137,7 @@ init -1003 python:
 				y = indent - cam_object_y
 		y += location_cutscene_up
 		
-		return int(round(x)), int(round(y))
+		return absolute(x), absolute(y)
 	
 	
 	def cam_object_moved():

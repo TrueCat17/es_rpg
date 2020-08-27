@@ -25,7 +25,7 @@ init -1000 python:
 	can_exec_next_skip_funcs.append(sprites_effects_to_end)
 	
 	def remove_hiding_sprites():
-		for spr in list(sprites_list):
+		for spr in list(sprites_list): # copy
 			if spr.hiding:
 				sprites_list.remove(spr)
 			else:
@@ -104,7 +104,8 @@ init -1000 python:
 		decl_at = get_image(image_name)
 		
 		if d['at'] is not None:
-			at = eval(d['at']).actions
+			at = eval(d['at'])
+			at = at.actions if at else []
 		else:
 			if old_sprite and (old_sprite.new_data or old_sprite.old_data):
 				at = (old_sprite.new_data or old_sprite.old_data).at.actions
@@ -183,6 +184,7 @@ init -1000 python:
 						tmp.pos    = (data.real_xpos,    data.real_ypos)
 						tmp.anchor = (data.real_xanchor, data.real_yanchor)
 						tmp.size   = (data.real_xsize,   data.real_ysize)
+						tmp.zoom   = (data.real_xzoom,   data.real_yzoom)
 						tmp.crop   = (data.xcrop, data.ycrop, data.xsizecrop, data.ysizecrop)
 						tmp.alpha  =  data.real_alpha
 						tmp.rotate =  data.real_rotate
@@ -204,6 +206,7 @@ screen sprites:
 				pos    tmp.pos
 				anchor tmp.anchor
 				size   tmp.size
+				zoom   tmp.zoom
 				crop   tmp.crop
 				alpha  tmp.alpha
 				rotate tmp.rotate

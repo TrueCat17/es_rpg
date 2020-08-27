@@ -48,14 +48,20 @@ init -100000 python:
 			self.__delattr__(item)
 		
 		
-		def __nonzero__(self):
-			return True
 		def __str__(self):
-			return '<Object ' + str(type(self)) + '>'
+			self_class = str(self.__class__)
+			index = self_class.rfind('.')
+			if index != -1:
+				self_class = self_class[index + 1:]
+			
+			return '<instance of ' + self_class + '>'
+		
 		def __repr__(self):
 			return str(self)
 		def __hash__(self):
 			return hash(object.__repr__(self))
+		def __nonzero__(self):
+			return True
 		
 		def __eq__(self, other):
 			return self is other

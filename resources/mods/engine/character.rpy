@@ -54,7 +54,7 @@ init -1001 python:
 	
 	def register_character_animation(character, anim_name, path, xoffset, yoffset,
 	                                 count_frames, start_frame, end_frame, time = 1.0):
-		if type(xoffset) is not int or type(yoffset) is not int:
+		if (type(xoffset), type(yoffset)) != (int, int):
 			out_msg('register_character_animation',
 			        'On registration of animation <' + str(anim_name) + '> of character <' + str(character) + '>\n' +
 			        'set invalid offset: <' + str(xoffset) + ', ' + str(yoffset) + '>, expected ints')
@@ -182,8 +182,8 @@ init -1001 python:
 		
 		def get_zorder(self):
 			return self.y + self.yoffset
-		def get_draw_data(self, zoom):
-			return get_usual_location_object_data(self, zoom)
+		def get_draw_data(self):
+			return get_usual_location_object_data(self)
 		
 		def get_dress(self):
 			return self.dress

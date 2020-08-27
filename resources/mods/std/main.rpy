@@ -45,6 +45,7 @@ init 10 python:
 	gate_right = get_location_objects('enter', None, 'gate_right')[0]
 	gate_right.start_animation('open')
 
+
 label start:
 	call day0_start
 	

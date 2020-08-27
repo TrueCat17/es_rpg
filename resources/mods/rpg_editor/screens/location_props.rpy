@@ -232,7 +232,7 @@ screen location_props:
 						python:
 							obj = location_objects[name]
 							main_frame = obj['animations'][None]
-							obj_image = main_frame['directory'] + main_frame['main_image'] + '.' + location_object_ext
+							obj_image = get_image_or_similar(main_frame['directory'] + main_frame['main_image'] + '.' + location_object_ext)
 							
 							w, h = get_image_size(obj_image)
 							k = 64.0 / max(w, h)

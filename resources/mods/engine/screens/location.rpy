@@ -36,7 +36,6 @@ init python:
 	loc__direction = to_back
 	loc__left_time = loc__right_time = loc__up_time = loc__down_time = loc__max_time
 	
-	location_changed = False
 	loc__set_show_at_end = False
 	
 	def loc__get_min(a, b, c, d):
@@ -112,7 +111,6 @@ screen location:
 		# fade, back.alpha: 0 -> 1
 		if dtime < location_fade_time:
 			loc__background_alpha = dtime / location_fade_time
-			location_changed = False
 			
 			if cur_location:
 				cur_location.preload()
@@ -124,13 +122,11 @@ screen location:
 			else:
 				if loc__background_alpha:
 					loc__background_alpha = 0.0
-					loc__set_show_at_end = True
 			
-			if not location_changed:
-				location_changed = True
+			if draw_location is not cur_location:
 				draw_location = cur_location
-				
 				cam_object = me
+				loc__set_show_at_end = True
 				
 				if times['next_name']:
 					set_time_direct()
@@ -221,8 +217,9 @@ screen location:
 		
 		null:
 			clipping True
+			zoom location_zoom
 			pos  (draw_location.x, draw_location.y)
-			size (int(draw_location.xsize * location_zoom), int(draw_location.ysize * location_zoom))
+			size (draw_location.xsize, draw_location.ysize)
 			
 			python:
 				list_to_draw = []
@@ -231,7 +228,7 @@ screen location:
 					if obj.invisible:
 						continue
 					
-					datas = obj.get_draw_data(location_zoom)
+					datas = obj.get_draw_data()
 					if type(datas) in (tuple, list):
 						for data in datas:
 							list_to_draw.append(data)
@@ -245,7 +242,6 @@ screen location:
 					size   obj['size']
 					crop   obj['crop']
 					alpha  obj['alpha']
-		
 		
 		image location_cutscene_back:
 			xsize 1.0

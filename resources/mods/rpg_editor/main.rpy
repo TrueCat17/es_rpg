@@ -10,6 +10,19 @@ init 1 python:
 	set_save_locations = SetVariable('need_save_locations', True)
 	
 	
+	def get_image_or_similar(path):
+		if os.path.exists(path):
+			return path
+		
+		directory = os.path.dirname(path)
+		path_start = os.path.splitext(path[len(directory)+1:])[0]
+		for name in os.listdir(directory):
+			if name.startswith(path_start):
+				return os.path.join(directory, name)
+		
+		return im.rect('#888')
+	
+	
 	register_new_locations()
 	
 	for location_name in locations:

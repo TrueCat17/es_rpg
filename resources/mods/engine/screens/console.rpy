@@ -271,6 +271,8 @@ init python:
 			if to_exec is not None:
 				res = console_except_error(to_exec)
 				if res is not None:
+					if type(res) is str:
+						res = repr(res)
 					console_print(res)
 	
 	

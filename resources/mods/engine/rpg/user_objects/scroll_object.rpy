@@ -21,6 +21,9 @@ init -1000 python:
 			self.dy = kwargs.get('dy', 0.01)
 			self.prev_update_time = time.time()
 		
+		def __str__(self):
+			return '<ScrollObject ' + self.type + '>'
+		
 		def set_direction(self, dx, dy):
 			self.dx, self.dy = dx, dy
 		
@@ -34,16 +37,16 @@ init -1000 python:
 		def get_zorder(self):
 			return self.zorder
 		
-		def get_draw_data(self, zoom):
-			xsize = int(get_absolute(self.xsize, self.location.xsize) * zoom)
-			ysize = int(get_absolute(self.ysize, self.location.ysize) * zoom)
+		def get_draw_data(self):
+			xsize = get_absolute(self.xsize, self.location.xsize)
+			ysize = get_absolute(self.ysize, self.location.ysize)
 			
 			res = []
 			
-			ypos = int(((self.cy % 1) - 1) * ysize + get_absolute(self.ypos, self.location.ysize) * zoom)
+			ypos = int(((self.cy % 1) - 1) * ysize) + get_absolute(self.ypos, self.location.ysize)
 			for y in (0, 1):
 				
-				xpos = int(((self.cx % 1) - 1) * xsize + get_absolute(self.xpos, self.location.ysize) * zoom)
+				xpos = int(((self.cx % 1) - 1) * xsize) + get_absolute(self.xpos, self.location.ysize)
 				for x in (0, 1):
 					res.append({
 						'image':   self.image,

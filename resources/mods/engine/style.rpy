@@ -20,6 +20,8 @@ init -1001 python:
 	style.default.yanchor = 0
 	style.default.xsize = 1.0
 	style.default.ysize = 1.0
+	style.default.xzoom = 1.0
+	style.default.yzoom = 1.0
 	style.default.spacing = 0
 	style.default.crop = (0.0, 0.0, 1.0, 1.0)
 	style.default.rotate = 0
@@ -38,8 +40,8 @@ init -1001 python:
 	style.null = Style(style.vbox)
 	
 	style.image = Style(style.default)
-	style.image.xsize = -1
-	style.image.ysize = -1
+	style.image.xsize = 100
+	style.image.ysize = 100
 	
 	style.text = Style(style.default)
 	style.text.xsize = -1

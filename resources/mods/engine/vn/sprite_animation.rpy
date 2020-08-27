@@ -15,6 +15,7 @@ init -9000 python:
 		('xanchor', 'yanchor', 'anchor'),
 		('xalign', 'yalign', 'align'),
 		('xsize', 'ysize', 'size'),
+		('xzoom', 'yzoom', 'zoom'),
 		('xcrop', 'ycrop', 'xsizecrop', 'ysizecrop', 'crop'),
 		('alpha'),
 		('rotate')
@@ -177,7 +178,7 @@ init -9000 python:
 									else:
 										self.data.contains = []
 										self.data.image = evaled
-								elif isinstance(evaled, int) or isinstance(evaled, float):
+								elif isinstance(evaled, (int, float, long)):
 									self.end_pause_time = time.time() + float(evaled)
 									return
 								else:
@@ -241,9 +242,9 @@ init -9000 python:
 			for i in xrange(0, len(args), 2):
 				names = get_prop_names(args[i])
 				
-				if isinstance(names, list) or isinstance(names, tuple):
-					new_value = eval(args[i + 1])
-					if not isinstance(new_value, list) and not isinstance(new_value, tuple):
+				new_value = eval(args[i + 1])
+				if isinstance(names, (list, tuple)):
+					if not isinstance(new_value, (list, tuple)):
 						new_value = [new_value] * len(names)
 					
 					old_props = names
@@ -251,7 +252,6 @@ init -9000 python:
 						old_props = ('xpos', 'ypos')
 					old_value = [self.data[name] for name in old_props]
 				else:
-					new_value = eval(args[i + 1])
 					old_value = self.data[names]
 				
 				self.change_props.append((names, old_value, new_value))
@@ -266,17 +266,17 @@ init -9000 python:
 			for prop in self.change_props:
 				name, old_value, new_value = prop
 				
-				if isinstance(new_value, list) or isinstance(new_value, tuple):
+				if isinstance(new_value, (list, tuple)):
 					value = []
 					for i in xrange(len(old_value)):
 						new_v = new_value[i]
 						old_v = old_value[i]
-						type_v = type(new_v) if type(old_v) is not float else float
+						type_v = float if type(old_v) is float else type(new_v)
 						
 						v = type_v((new_v - old_v) * t + old_v)
 						value.append(v)
 				else:
-					type_v = type(new_value) if type(old_value) is not float else float
+					type_v = float if type(old_value) is float else type(new_value)
 					value = type_v((new_value - old_value) * t + old_value)
 				self.set_prop(name, value)
 		
@@ -309,12 +309,20 @@ init -9000 python:
 					if prop not in self.data.except_state_props:
 						self.data.state_num += 1
 			else:
-				if not isinstance(value, (list, tuple)) or len(props) != len(value):
-					out_msg('SpriteAnimation.set_prop',
-							'Value expected list with ' + str(len(props)) + ' items, got: ' + str(value))
+				err_msg = 'Value expected list with ' + str(len(props)) + ' items, got: ' + str(value)
+				
+				if not isinstance(value, (list, tuple)):
+					if len(props) == 2:
+						self.set_prop(props[0], value)
+						self.set_prop(props[1], value)
+					else:
+						out_msg('SpriteAnimation.set_prop', err_msg)
 				else:
-					for i in xrange(len(props)):
-						self.set_prop(props[i], value[i])
+					if len(props) == len(value):
+						for i in xrange(len(props)):
+							self.set_prop(props[i], value[i])
+					else:
+						out_msg('SpriteAnimation.set_prop', err_msg)
 	
 	
 	

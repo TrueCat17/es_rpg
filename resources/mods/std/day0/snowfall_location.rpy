@@ -75,7 +75,7 @@ init -1000 python:
 		def get_zorder(self):
 			return self.zorder
 		
-		def get_draw_data(self, zoom):
+		def get_draw_data(self):
 			res = [None] * (len(self.objs))
 			
 			w, h = self.xsize, self.ysize
@@ -83,8 +83,8 @@ init -1000 python:
 				x, y, dx, dy, size = self.objs[i]
 				res[i] = {
 					'image':   self.image,
-					'size':   (int(size * zoom), int(size * zoom)),
-					'pos':    (int(x * w * zoom), int(y * h * zoom)),
+					'size':    absolute(size),
+					'pos':    (absolute(x * w), absolute(y * h)),
 					'anchor': (0, 0),
 					'crop':   (0, 0, 1.0, 1.0),
 					'alpha':   1
