@@ -71,9 +71,9 @@ init -2 python:
 		if sl_datetimes_cache.has_key(utc):
 			res = sl_datetimes_cache[utc]
 		else:
-			dt = datetime.datetime.fromtimestamp(utc)
+			dt = time.gmtime(utc)
 			
-			data = (str(i) for i in (dt.day, dt.month, dt.year % 100, dt.hour, dt.minute))
+			data = (str(i) for i in (dt.tm_mday, dt.tm_mon, dt.tm_year % 100, dt.tm_hour, dt.tm_min))
 			data = tuple(i if len(i) == 2 else '0' + i for i in data)
 			
 			res = '%s.%s.%s, %s:%s' % data
