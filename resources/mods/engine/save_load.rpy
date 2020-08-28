@@ -63,6 +63,23 @@ init -2 python:
 		
 		return over
 	
+	sl_datetimes_cache = {}
+	def sl_get_datetime(table, save):
+		path = os.path.join(save_dir, table, save, 'py_globals')
+		utc = os.path.getmtime(path)
+		
+		if sl_datetimes_cache.has_key(utc):
+			res = sl_datetimes_cache[utc]
+		else:
+			dt = datetime.datetime.fromtimestamp(utc)
+			
+			data = (str(i) for i in (dt.day, dt.month, dt.year % 100, dt.hour, dt.minute))
+			data = tuple(i if len(i) == 2 else '0' + i for i in data)
+			
+			res = '%s.%s.%s, %s:%s' % data
+			sl_datetimes_cache[utc] = res
+		return res
+	
 	def sl_save(table, save):
 		if table in ('auto', 'quick'):
 			sl_sort_time(table)

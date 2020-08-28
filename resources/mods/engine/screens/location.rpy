@@ -151,9 +151,6 @@ screen location:
 			loc__shift_is_down = False
 			
 			loc__prev_left, loc__prev_right, loc__prev_up, loc__prev_down = loc__left, loc__right, loc__up, loc__down
-			loc__start_moving = not(loc__left or loc__right or loc__up or loc__down)
-			if loc__start_moving:
-				loc__prev_time = time.time() - 0.1
 			loc__left = loc__right = loc__up = loc__down = False
 		
 		if get_rpg_control() and location_showed():

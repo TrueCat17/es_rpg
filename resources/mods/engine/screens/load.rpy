@@ -6,6 +6,9 @@ screen load:
 	zorder 10001
 	modal  True
 	
+	if not has_screen('pause') and not has_screen('choose_menu'):
+		use hotkeys
+	
 	python:
 		if not sl_inited:
 			init_sl()
@@ -16,7 +19,7 @@ screen load:
 		image load_background:
 			size (1.0, 1.0)
 			
-			text 'Загрузка':
+			text '{outlinecolor=0}Загрузка':
 				align (0.5, 0.02)
 				
 				color 0xFFFFFF
@@ -69,6 +72,11 @@ screen load:
 									button.action = [SetVariable('sl_cur_save', name), sl_update_table_saves]
 									buttons.append(button)
 									
+									if save_exists:
+										button.desc = sl_get_datetime(sl_cur_table, name)
+									else:
+										button.desc = ''
+									
 									w += xsize + spacing
 							h += ysize + spacing
 						
@@ -77,12 +85,18 @@ screen load:
 					
 					null size (w, h):
 						for button in buttons:
-							button:
-								pos    button.pos
-								size   button.size
-								ground button.ground
-								mouse  button.mouse
-								action button.action
+							null:
+								pos  button.pos
+								size button.size
+								
+								button:
+									size   button.size
+									ground button.ground
+									mouse  button.mouse
+									action button.action
+								
+								text button.desc:
+									align 0.1
 					
 					hbox:
 						xalign 0.5

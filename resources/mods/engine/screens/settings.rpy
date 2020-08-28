@@ -50,10 +50,13 @@ screen settings:
 	zorder 10001
 	modal  True
 	
+	if not has_screen('pause') and not has_screen('choose_menu'):
+		use hotkeys
+	
 	image settings_background:
 		size (1.0, 1.0)
 	
-	text 'Настройки':
+	text '{outlinecolor=0}Настройки':
 		align (0.5, 0.02)
 		
 		color 0xFFFFFF

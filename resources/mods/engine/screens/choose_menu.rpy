@@ -2,7 +2,7 @@ screen choose_menu:
 	modal True
 	zorder 100
 	
-	use engine
+	use hotkeys
 	
 	image 'images/bg/black.jpg':
 		size (1.0, 1.0)

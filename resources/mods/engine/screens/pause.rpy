@@ -70,6 +70,9 @@ screen pause:
 	zorder 10000
 	modal  True
 	
+	if not has_screen('choose_menu'):
+		use hotkeys
+	
 	python:
 		db_skip_tab = False
 		
