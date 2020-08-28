@@ -24,6 +24,7 @@ init python:
 	def return_prev_rpg_control():
 		if prev_rpg_control is not None:
 			set_rpg_control(prev_rpg_control)
+			ignore_prev_rpg_control()
 	
 	def ignore_prev_rpg_control():
 		global prev_rpg_control

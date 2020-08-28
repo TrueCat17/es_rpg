@@ -271,7 +271,7 @@ init -1001 python:
 				elif self.move_kind == 'stay':
 					frame = character_max_frame - 1
 				else:
-					 frame %= character_max_frame
+					frame %= character_max_frame
 				
 				y = self.direction * self.ysize
 			else:

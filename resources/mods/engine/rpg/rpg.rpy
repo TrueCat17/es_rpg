@@ -80,9 +80,12 @@ label rpg_update:
 		if renpy.has_label(cur_label):
 			call expression cur_label
 	
-	$ cur_quests_labels = quest_get_labels(cur_location_name, cur_place_name)
-	$ save_rpg_control()
-	$ set_rpg_control(False)
+	python:
+		cur_quests_labels = quest_get_labels(cur_location_name, cur_place_name)
+		if cur_quests_labels:
+			save_rpg_control()
+			set_rpg_control(False)
+	
 	if len(cur_quests_labels) == 1:
 		call expression cur_quests_labels[0][1]
 	elif len(cur_quests_labels) > 1:
