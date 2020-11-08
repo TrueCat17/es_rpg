@@ -76,7 +76,7 @@ init -1000 python:
 			return self.zorder
 		
 		def get_draw_data(self):
-			res = [None] * (len(self.objs))
+			res = [None] * len(self.objs)
 			
 			w, h = self.xsize, self.ysize
 			for i in xrange(len(self.objs)):
@@ -87,7 +87,8 @@ init -1000 python:
 					'pos':    (absolute(x * w), absolute(y * h)),
 					'anchor': (0, 0),
 					'crop':   (0, 0, 1.0, 1.0),
-					'alpha':   1
+					'alpha':   1,
+					'zorder':  self.get_zorder()
 				}
 			
 			return res

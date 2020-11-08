@@ -1,6 +1,6 @@
 init -2000000 python:
+#	start_mod('std')
 #	start_mod('rpg_editor')
-#	start_mod('test')
 
 init python:
 	set_fps(20)
@@ -33,7 +33,7 @@ screen main_menu:
 		hotspot (0,   0, tw, 45) action Function(start_mod, 'std')
 		hotspot (0,  45, tw, 55) action ShowMenu('load')
 		hotspot (0, 100, tw, 60) action ShowMenu('settings')
-		hotspot (0, 160, tw, 50) action Function(out_msg, "Не реализовано")
-		hotspot (0, 210, tw, 60) action Function(out_msg, "Не реализовано")
+		hotspot (0, 160, tw, 50) action Function(out_msg, 'Не реализовано')
+		hotspot (0, 210, tw, 60) action Function(out_msg, 'Не реализовано')
 		hotspot (0, 270, tw, 50) action exit_from_game
 

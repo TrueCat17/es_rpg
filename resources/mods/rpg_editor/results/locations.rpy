@@ -369,17 +369,16 @@ init python:
 	register_exit(    "old_camp", "forest_path-1", "old_camp", 1160, 1720, 150, 20)
 	
 	register_location("radio_club", "images/locations/radio_club/", True, 310, 247)
-	register_place(   "radio_club", "clubs"              , 218, 217, 55, 15)
-	register_exit(    "radio_club", "clubs", "radio_club", 218, 232, 55, 15)
-	register_place(   "radio_club", "radio_storeroom"              , 270, 185, 20, 30)
-	register_exit(    "radio_club", "radio_storeroom", "radio_club", 290, 185, 20, 30)
+	register_place(   "radio_club", "clubs"              , 218, 205, 55, 20)
+	register_exit(    "radio_club", "clubs", "radio_club", 218, 225, 55, 20)
+	register_place(   "radio_club", "radio_storeroom"              , 273, 185, 17, 30, to_left)
+	register_exit(    "radio_club", "radio_storeroom", "radio_club", 290, 185, 16, 30)
 	
 	register_location("radio_storeroom", "images/locations/radio_storeroom/", True, 162, 247)
 	register_place(   "radio_storeroom", "radio_club"                   , 99, 217, 30, 15, to_forward)
 	register_exit(    "radio_storeroom", "radio_club", "radio_storeroom", 99, 232, 30, 15)
 	
 	register_location("scene", "images/locations/scene/", False, 960, 992)
-	register_place(   "scene", "scene_microphone_pos", 452, 353, 2, 2)
 	register_place(   "scene", "library_and_hospital"         , 400, 952, 150, 20)
 	register_exit(    "scene", "library_and_hospital", "scene", 400, 972, 150, 20)
 	

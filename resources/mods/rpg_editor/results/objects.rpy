@@ -208,8 +208,6 @@ init 1 python:
 	add_location_object("mus_club", "mus_club_microphone_pos", "mus_club_microphone")
 	add_location_object("mus_club", "stand_pos", "stand")
 	
-	add_location_object("scene", "scene_microphone_pos", "scene_microphone")
-	
 	add_location_object("square", "bench_left_pos-1", "bench_left")
 	add_location_object("square", "bench_left_pos-2", "bench_left")
 	add_location_object("square", "bench_left_pos-3", "bench_left")
