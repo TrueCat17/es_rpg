@@ -3,7 +3,6 @@ init 1 python:
 	set_default_location_ambience({None: 'sound/ambience/camp.ogg', 'night': 'sound/ambience/camp_night.ogg'})
 	
 	set_location_ambience('flat', '')
-	set_location_ambience('city', 'sound/ambience/cold_wind.ogg')
 	set_location_ambience('station', 'sound/ambience/cold_wind.ogg')
 	set_location_ambience('liaz', '')
 	

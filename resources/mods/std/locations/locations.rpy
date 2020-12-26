@@ -49,6 +49,7 @@ init python:
 	register_place(   "canteen", "canteen_column_pos-1", 143, 607, 2, 2)
 	register_place(   "canteen", "canteen_column_pos-2", 431, 607, 2, 2)
 	register_place(   "canteen", "canteen_column_pos-3", 655, 607, 2, 2)
+	register_place(   "canteen", "canteen_door_pos", 948, 734, 2, 2)
 	register_place(   "canteen", "chair_backward_pos-01", 660, 689, 2, 2)
 	register_place(   "canteen", "chair_backward_pos-02", 694, 689, 2, 2)
 	register_place(   "canteen", "chair_backward_pos-03", 742, 689, 2, 2)
@@ -81,39 +82,6 @@ init python:
 	register_place(   "canteen", "table_h_pos-6", 841, 529, 2, 2)
 	register_place(   "canteen", "square"           , 640, 802, 55, 15)
 	register_exit(    "canteen", "square", "canteen", 640, 817, 55, 15)
-	
-	register_location("city", "images/locations/city/", False, 2966, 1080)
-	register_place(   "city", "benchs-1", 290, 630, 30, 140)
-	register_place(   "city", "benchs-2", 480, 630, 30, 140)
-	register_place(   "city", "benchs-3", 290, 960, 30, 120)
-	register_place(   "city", "benchs-4", 480, 950, 30, 130)
-	register_place(   "city", "city_enter", 390, 190, 60, 30, to_back)
-	register_place(   "city", "city_lamp_left_pos-1", 922, 55, 2, 2)
-	register_place(   "city", "city_lamp_left_pos-2", 922, 253, 2, 2)
-	register_place(   "city", "city_lamp_left_pos-3", 925, 628, 2, 2)
-	register_place(   "city", "city_lamp_left_pos-4", 924, 819, 2, 2)
-	register_place(   "city", "city_lamp_left_pos-5", 923, 1010, 2, 2)
-	register_place(   "city", "city_lamp_left_pos-6", 922, 1201, 2, 2)
-	register_place(   "city", "city_lamp_right_pos-1", 1146, 183, 2, 2)
-	register_place(   "city", "city_lamp_right_pos-2", 1147, 374, 2, 2)
-	register_place(   "city", "city_lamp_right_pos-3", 1148, 565, 2, 2)
-	register_place(   "city", "city_lamp_right_pos-4", 1149, 756, 2, 2)
-	register_place(   "city", "city_lamp_right_pos-5", 1150, 947, 2, 2)
-	register_place(   "city", "city_lamp_right_pos-6", 1151, 1138, 2, 2)
-	register_place(   "city", "city_sign_pos", 1146, 224, 2, 2)
-	register_place(   "city", "exit", 2500, 1050, 70, 30)
-	register_place(   "city", "graffity", 2170, 350, 150, 50)
-	register_place(   "city", "shop-1", 1600, 330, 60, 20)
-	register_place(   "city", "shop-2", 2010, 330, 50, 20)
-	register_place(   "city", "sign", 1125, 200, 50, 50)
-	register_place(   "city", "snow_car", 1480, 620, 210, 100)
-	register_place(   "city", "snow_car_pos", 1582, 700, 2, 2)
-	register_place(   "city", "urn-1", 340, 190, 40, 50)
-	register_place(   "city", "urn-2", 1570, 330, 30, 30)
-	register_place(   "city", "urn-3", 2070, 330, 30, 30)
-	register_place(   "city", "urn_park-1", 260, 770, 50, 40)
-	register_place(   "city", "urn_park-2", 260, 920, 50, 40)
-	register_place(   "city", "urn_park-3", 490, 900, 50, 50)
 	
 	register_location("clubs", "images/locations/clubs/", False, 1152, 1664)
 	register_place(   "clubs", "mus_club_column_pos-1", 773, 400, 2, 2)
@@ -461,7 +429,6 @@ init python:
 	locations["bunker"].x, locations["bunker"].y = 481, 857
 	locations["bunker_enter"].x, locations["bunker_enter"].y = 491, 978
 	locations["canteen"].x, locations["canteen"].y = 984, 344
-	locations["city"].x, locations["city"].y = 11, 852
 	locations["clubs"].x, locations["clubs"].y = 481, 352
 	locations["crossroad"].x, locations["crossroad"].y = 677, 214
 	locations["enter"].x, locations["enter"].y = 350, 454
@@ -483,7 +450,7 @@ init python:
 	locations["houses_1"].x, locations["houses_1"].y = 818, 250
 	locations["houses_2"].x, locations["houses_2"].y = 625, 504
 	locations["ikarus"].x, locations["ikarus"].y = 214, 473
-	locations["liaz"].x, locations["liaz"].y = 181, 1005
+	locations["liaz"].x, locations["liaz"].y = 132, 893
 	locations["library"].x, locations["library"].y = 1156, 136
 	locations["library_and_hospital"].x, locations["library_and_hospital"].y = 1034, 236
 	locations["mus_club"].x, locations["mus_club"].y = 574, 292
@@ -493,7 +460,7 @@ init python:
 	locations["scene"].x, locations["scene"].y = 1022, 96
 	locations["square"].x, locations["square"].y = 870, 384
 	locations["stadium"].x, locations["stadium"].y = 1262, 386
-	locations["station"].x, locations["station"].y = 81, 911
+	locations["station"].x, locations["station"].y = 27, 851
 	locations["tennis"].x, locations["tennis"].y = 1286, 292
 	locations["washbasins"].x, locations["washbasins"].y = 514, 224
 

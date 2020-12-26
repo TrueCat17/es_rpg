@@ -31,11 +31,6 @@ init 1 python:
 	register_location_object('liaz_bench_right',   'images/locations/liaz/objects/', 'bench_right', None)
 	register_location_object('liaz_chair_forward', 'images/locations/liaz/objects/', 'chair_forward', None)
 	
-	register_location_object('snow_car', 'images/locations/city/objects/', 'snow_car', 'snow_car_free')
-	register_location_object('city_lamp_left', 'images/locations/city/objects/', 'lamp_left', 'lamp_left_free')
-	register_location_object('city_lamp_right', 'images/locations/city/objects/', 'lamp_right', 'lamp_right_free')
-	register_location_object('city_sign', 'images/locations/city/objects/', 'sign', 'sign_free')
-	
 	register_location_object('ikarus', 'images/locations/enter/objects/', 'ikarus_main', 'ikarus_free')
 	
 	register_location_object('gate_left', 'images/locations/objects/', 'gate_left_main', 'gate_free')
@@ -81,6 +76,7 @@ init 1 python:
 	register_location_object('table_v', 'images/locations/canteen/objects/', 'table_v', 'table_v_free')
 	register_location_object('canteen_column',      'images/locations/canteen/objects/', 'column', 'column_free')
 	register_location_object('canteen_column_back', 'images/locations/canteen/objects/', 'column_back', 'column_free')
+	register_location_object('canteen_door', 'images/locations/canteen/objects/', 'door', None)
 	
 	
 	register_location_object('mus_club_microphone', 'images/locations/mus_club/objects/', 'microphone', 'microphone_free')
@@ -120,6 +116,7 @@ init 1 python:
 	add_location_object("canteen", "canteen_column_pos-1", "canteen_column")
 	add_location_object("canteen", "canteen_column_pos-2", "canteen_column")
 	add_location_object("canteen", "canteen_column_pos-3", "canteen_column")
+	add_location_object("canteen", "canteen_door_pos", "canteen_door")
 	add_location_object("canteen", "chair_backward_pos-01", "chair_backward")
 	add_location_object("canteen", "chair_backward_pos-02", "chair_backward")
 	add_location_object("canteen", "chair_backward_pos-03", "chair_backward")
@@ -150,21 +147,6 @@ init 1 python:
 	add_location_object("canteen", "table_h_pos-4", "table_h")
 	add_location_object("canteen", "table_h_pos-5", "table_h")
 	add_location_object("canteen", "table_h_pos-6", "table_h")
-	
-	add_location_object("city", "city_lamp_left_pos-1", "city_lamp_left")
-	add_location_object("city", "city_lamp_left_pos-2", "city_lamp_left")
-	add_location_object("city", "city_lamp_left_pos-3", "city_lamp_left")
-	add_location_object("city", "city_lamp_left_pos-4", "city_lamp_left")
-	add_location_object("city", "city_lamp_left_pos-5", "city_lamp_left")
-	add_location_object("city", "city_lamp_left_pos-6", "city_lamp_left")
-	add_location_object("city", "city_lamp_right_pos-1", "city_lamp_right")
-	add_location_object("city", "city_lamp_right_pos-2", "city_lamp_right")
-	add_location_object("city", "city_lamp_right_pos-3", "city_lamp_right")
-	add_location_object("city", "city_lamp_right_pos-4", "city_lamp_right")
-	add_location_object("city", "city_lamp_right_pos-5", "city_lamp_right")
-	add_location_object("city", "city_lamp_right_pos-6", "city_lamp_right")
-	add_location_object("city", "city_sign_pos", "city_sign")
-	add_location_object("city", "snow_car_pos", "snow_car")
 	
 	add_location_object("clubs", "mus_club_column_pos-1", "mus_club_column")
 	add_location_object("clubs", "mus_club_column_pos-2", "mus_club_column")
