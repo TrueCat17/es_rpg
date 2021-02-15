@@ -30,13 +30,13 @@ init python:
 		remove_location_object('enter', None, 'fog')
 
 init 10 python:
-	snowfall_params = dict(
+	flat_snowfall_params = dict(
 		name='snowfall',
 		background=im.rect('#68B'),
 		image=im.rect('#FFF'),
 		count=100,
 	)
-	add_location_object('flat', 'window', ParticleFactory, **snowfall_params)
+	add_location_object('flat', 'window', ParticleFactory, **flat_snowfall_params)
 	
 	add_location_object('flat', 'dress_place', 'dress')
 	
@@ -98,14 +98,6 @@ init 10 python:
 	liaz_light_far   = add_location_object('liaz', 'lights_place', ScrollObject, **liaz_light_far_params)
 	liaz_light_close = add_location_object('liaz', 'lights_place', ScrollObject, **liaz_light_close_params)
 	
-	city_snowfall_params = dict(
-		name='city_snowfall',
-		free='images/locations/city/objects/snow_free.' + location_object_ext,
-		count=200,
-	)
-	place = {'x': 0, 'y': 0, 'xsize': get_image_width(city_snowfall_params['free']), 'ysize': get_image_height(city_snowfall_params['free'])}
-	add_location_object('city', place, SnowfallLocation, **city_snowfall_params)
-	
 	station_snowfall_params = dict(
 		name='station_snowfall',
 		free='images/locations/station/objects/snow_free.' + location_object_ext,
@@ -135,7 +127,6 @@ label day0_start:
 		day0_dream_set()
 		location_cutscene_on(0, zoom=1, obj='square_down')
 	
-	play music music_list['dream'] fadein 5
 	python:
 		hide_sprite('bg with Dissolve(5)'.split(' '))
 		cam_to('square_center', 5, zoom=1)
@@ -332,13 +323,8 @@ label day0__flat__exit:
 	pause 1
 	play sound sfx['close_door']
 	pause 1
-	$ set_location('city', 'city_enter')
-	play music music_list['midnight'] fadein 5
-	hide bg with dissolve
-
-label day0__city__exit:
 	$ set_location('station', 'station_enter')
-	stop music fadeout 4
+	hide bg with dissolve
 
 label day0__station__before_stop:
 	$ set_rpg_control(False)
@@ -372,7 +358,6 @@ label day0__liaz__unknown:
 	play sound sfx['bus_door_close']
 	pause 1
 	play sound_loop sfx['bus_interior_moving'] fadein 1
-	play music music_list['bus'] fadein 4
 	
 	$ liaz_light_far.set_direction(-0.1, 0)
 	$ liaz_light_close.set_direction(-0.5, 0)
