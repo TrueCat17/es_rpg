@@ -50,10 +50,7 @@ init 10 python:
 		half_period = 1.5
 		speed = float(max - min) / half_period
 		
-		dtime = time.time() - (lamp_light.prev_user_update or 0)
-		lamp_light.prev_user_update = time.time()
-		
-		lamp_light.alpha += (lamp_light.dalpha or 0) * dtime
+		lamp_light.alpha += (lamp_light.dalpha or speed) * get_last_tick()
 		
 		if lamp_light.alpha >= max:
 			lamp_light.alpha = max
@@ -395,10 +392,10 @@ label day0__liaz__unknown:
 	
 	scene bg black with dissolve2
 	stop sound_loop fadeout 2
-	pause 3
+	pause 2
 	$ show_presents()
 	$ hide_presents()
 	stop music fadeout 1
-	pause 4
+	pause 2
 	
 	call day1_start

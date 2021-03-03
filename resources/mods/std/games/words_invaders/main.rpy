@@ -1,5 +1,4 @@
 label wi_loop:
-	$ wi_last = time.time()
 	$ words_invaders_fail = False
 	while len(wi_phrases) and not words_invaders_fail:
 		$ wi_add_words(wi_phrases[0])
@@ -20,9 +19,6 @@ init python:
 	wi_max_line_size = wi_symbol_xsize * 30
 	
 	wi_to_left = False
-	
-	wi_dtime = 0
-	wi_last = 0
 	
 	wi_player_acceleration = 4000
 	wi_player_friction = 0.85
@@ -115,19 +111,17 @@ init python:
 		wi_player_speed = 0
 		
 		global wi_attack_last
-		wi_attack_last = time.time() + wi_attack_start
+		wi_attack_last = get_game_time() + wi_attack_start
 	
 	
 	def wi_update():
-		global wi_dtime, wi_last, wi_to_left
+		global wi_to_left
 		
-		wi_dtime = min(time.time() - wi_last, 0.5) # for save/load
-		wi_last = time.time()
-		
+		dtime = get_last_tick()
 		i = 0
 		while i < len(wi_bullets):
 			bullet_props = wi_bullets[i]
-			bullet_props['y'] -= wi_bullet_speed * wi_dtime
+			bullet_props['y'] -= wi_bullet_speed * dtime
 			if bullet_props['y'] < 0:
 				wi_bullets.pop(i)
 				continue
@@ -149,7 +143,7 @@ init python:
 			i += 1
 		
 		global wi_attack_last
-		if time.time() - wi_attack_last > wi_attack_time:
+		if get_game_time() - wi_attack_last > wi_attack_time:
 			indeces = range(len(wi_symbols))
 			
 			while indeces:
@@ -176,7 +170,7 @@ init python:
 						break
 				if ok:
 					attacker['attack'] = True
-					wi_attack_last = time.time()
+					wi_attack_last = get_game_time()
 					break
 		
 		if wi_symbols:
@@ -187,7 +181,7 @@ init python:
 				for symbol in wi_symbols:
 					xmin = min(xmin, symbol['x'])
 				
-				new_xmin = xmin - wi_symbol_xspeed * wi_dtime
+				new_xmin = xmin - wi_symbol_xspeed * dtime
 				if new_xmin < 0:
 					new_xmin = 0
 					dy = wi_symbol_ysize
@@ -198,7 +192,7 @@ init python:
 				for symbol in wi_symbols:
 					xmax = max(xmax, symbol['x'])
 				
-				new_xmax = xmax + wi_symbol_xspeed * wi_dtime
+				new_xmax = xmax + wi_symbol_xspeed * dtime
 				if new_xmax > wi_size:
 					new_xmax = wi_size
 					dy = wi_symbol_ysize
@@ -207,14 +201,14 @@ init python:
 			
 			for symbol in wi_symbols:
 				if symbol['attack']:
-					symbol['y'] += wi_symbol_attack_speed * wi_dtime
+					symbol['y'] += wi_symbol_attack_speed * dtime
 				else:
 					symbol['x'] += dx
 					symbol['y'] += dy
 		
 		
 		global wi_player_xpos, wi_player_speed
-		wi_player_xpos = in_bounds(wi_player_xpos + wi_player_speed * wi_dtime, 0, wi_size)
+		wi_player_xpos = in_bounds(wi_player_xpos + wi_player_speed * dtime, 0, wi_size)
 		wi_player_speed *= wi_player_friction
 		
 		i = 0
@@ -255,10 +249,10 @@ init python:
 	
 	def wi_left():
 		global wi_player_speed
-		wi_player_speed -= wi_player_acceleration * wi_dtime
+		wi_player_speed -= wi_player_acceleration * get_last_tick()
 	def wi_right():
 		global wi_player_speed
-		wi_player_speed += wi_player_acceleration * wi_dtime
+		wi_player_speed += wi_player_acceleration * get_last_tick()
 	
 	def wi_make_bullet():
 		wi_bullets.append({

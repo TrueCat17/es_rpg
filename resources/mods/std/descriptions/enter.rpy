@@ -1,4 +1,4 @@
-label enter__lamp_desc:
+label day0__enter__lamp_desc:
 	if exec_action:
 		$ set_rpg_control(False)
 		narrator random.choice([
@@ -9,7 +9,7 @@ label enter__lamp_desc:
 		window hide
 		$ set_rpg_control(True)
 
-label enter__bench_desc:
+label day0__enter__bench_desc:
 	if exec_action:
 		$ set_rpg_control(False)
 		narrator random.choice([
@@ -19,17 +19,17 @@ label enter__bench_desc:
 		window hide
 		$ set_rpg_control(True)
 
-label enter__sign:
+label day0__enter__sign:
 	if exec_action:
 		$ set_rpg_control(False)
 		narrator random.choice([
 			"Сюда ходят автобусы?",
-			"Знакомые цифры… Прямо как ошибка.",
+			"Знакомые цифры... Прямо как ошибка.",
 		])
 		window hide
 		$ set_rpg_control(True)
 
-label enter__before_gates:
+label day0__enter__before_gates:
 	if exec_action:
 		$ set_rpg_control(False)
 		narrator random.choice([
