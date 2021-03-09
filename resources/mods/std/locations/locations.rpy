@@ -22,23 +22,23 @@ init python:
 	register_exit(    "bath", "crossroad", "bath", 180, 980, 190, 20)
 	
 	register_location("beach", "images/locations/beach/", False, 1792, 1408)
-	register_place(   "beach", "board_station"         , 20, 328, 20, 150)
-	register_exit(    "beach", "board_station", "beach", 0, 328, 20, 150)
+	register_place(   "beach", "boat_station"         , 20, 328, 20, 150)
+	register_exit(    "beach", "boat_station", "beach", 0, 328, 20, 150)
 	register_place(   "beach", "stadium"         , 800, 20, 350, 20)
 	register_exit(    "beach", "stadium", "beach", 800, 0, 350, 20)
 	
-	register_location("board_station", "images/locations/board_station/", False, 1536, 1664)
-	register_place(   "board_station", "closed-1", 520, 405, 70, 30)
-	register_place(   "board_station", "closed-2", 892, 1210, 35, 20)
-	register_place(   "board_station", "closed-3", 995, 1210, 35, 20)
-	register_place(   "board_station", "closed-4", 1085, 1210, 35, 20)
-	register_place(   "board_station", "closed-5", 1150, 1210, 35, 20)
-	register_place(   "board_station", "beach"                 , 1496, 350, 20, 255)
-	register_exit(    "board_station", "beach", "board_station", 1516, 350, 20, 255)
-	register_place(   "board_station", "houses_2"                 , 20, 540, 20, 320)
-	register_exit(    "board_station", "houses_2", "board_station", 0, 540, 20, 320)
-	register_place(   "board_station", "square"                 , 370, 20, 90, 20)
-	register_exit(    "board_station", "square", "board_station", 370, 0, 90, 20)
+	register_location("boat_station", "images/locations/boat_station/", False, 1536, 1664)
+	register_place(   "boat_station", "closed-1", 520, 405, 70, 30)
+	register_place(   "boat_station", "closed-2", 892, 1210, 35, 20)
+	register_place(   "boat_station", "closed-3", 995, 1210, 35, 20)
+	register_place(   "boat_station", "closed-4", 1085, 1210, 35, 20)
+	register_place(   "boat_station", "closed-5", 1150, 1210, 35, 20)
+	register_place(   "boat_station", "beach"                 , 1496, 350, 20, 255)
+	register_exit(    "boat_station", "beach", "boat_station", 1516, 350, 20, 255)
+	register_place(   "boat_station", "houses_2"                 , 20, 540, 20, 320)
+	register_exit(    "boat_station", "houses_2", "boat_station", 0, 540, 20, 320)
+	register_place(   "boat_station", "square"                 , 370, 20, 90, 20)
+	register_exit(    "boat_station", "square", "boat_station", 370, 0, 90, 20)
 	
 	register_location("bunker", "images/locations/bunker/", True, 276, 253)
 	register_place(   "bunker", "bunker_enter"          , 60, 223, 70, 15)
@@ -301,8 +301,8 @@ init python:
 	register_place(   "houses_2", "house_29", 575, 1235, 65, 20)
 	register_place(   "houses_2", "house_30", 800, 1235, 60, 20)
 	register_place(   "houses_2", "toilet", 1330, 1115, 120, 30)
-	register_place(   "houses_2", "board_station"            , 2072, 1080, 20, 170)
-	register_exit(    "houses_2", "board_station", "houses_2", 2092, 1080, 20, 170)
+	register_place(   "houses_2", "boat_station"            , 2072, 1080, 20, 170)
+	register_exit(    "houses_2", "boat_station", "houses_2", 2092, 1080, 20, 170)
 	register_place(   "houses_2", "clubs"            , 540, 20, 130, 20)
 	register_exit(    "houses_2", "clubs", "houses_2", 540, 0, 130, 20)
 	register_place(   "houses_2", "forest_path-3"            , 160, 1880, 100, 20)
@@ -416,8 +416,8 @@ init python:
 	register_place(   "square", "washbasin_right_pos-2", 688, 671, 2, 2)
 	register_place(   "square", "admin"          , 20, 940, 20, 120)
 	register_exit(    "square", "admin", "square", 0, 940, 20, 120)
-	register_place(   "square", "board_station"          , 310, 1304, 100, 20)
-	register_exit(    "square", "board_station", "square", 310, 1324, 100, 20)
+	register_place(   "square", "boat_station"          , 310, 1304, 100, 20)
+	register_exit(    "square", "boat_station", "square", 310, 1324, 100, 20)
 	register_place(   "square", "canteen"          , 1187, 665, 80, 10)
 	register_exit(    "square", "canteen", "square", 1187, 655, 80, 10)
 	register_place(   "square", "houses_1"          , 190, 20, 510, 20)
@@ -469,7 +469,7 @@ init python:
 	rpg_locations["admin"].x, rpg_locations["admin"].y = 732, 356
 	rpg_locations["bath"].x, rpg_locations["bath"].y = 701, 69
 	rpg_locations["beach"].x, rpg_locations["beach"].y = 1237, 489
-	rpg_locations["board_station"].x, rpg_locations["board_station"].y = 868, 489
+	rpg_locations["boat_station"].x, rpg_locations["boat_station"].y = 868, 489
 	rpg_locations["bunker"].x, rpg_locations["bunker"].y = 481, 857
 	rpg_locations["bunker_enter"].x, rpg_locations["bunker_enter"].y = 491, 978
 	rpg_locations["canteen"].x, rpg_locations["canteen"].y = 984, 344

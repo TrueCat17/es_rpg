@@ -42,7 +42,7 @@ init 10 python:
 		'houses_1',
 		'houses_2',
 		'beach',
-		'board_station',
+		'boat_station',
 		'stadium',
 		'washbasins',
 	]
@@ -101,6 +101,8 @@ init 10 python:
 		
 		mi.get_actions().friends += [dv]
 		dv.get_actions().friends += [mi]
+		
+		sm.allow_exit_destination('house_mt')
 	
 	
 	def init_side_character_actions(location_name):
