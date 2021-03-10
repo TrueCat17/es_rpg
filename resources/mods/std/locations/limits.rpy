@@ -14,9 +14,9 @@ init 20 python:
 		for character in (mi, dv, sm):
 			character.allow_exit_destination('mus_club', 'clubs')
 		
-		ban_exit_destination('library_and_hospital', 'hospital')
+		ban_exit_destination('hospital', 'library_and_hospital')
 		for character in (cs, mt, sl, un, sm):
-			character.allow_exit_destination('library_and_hospital', 'hospital')
+			character.allow_exit_destination('hospital', 'library_and_hospital')
 		
 		ban_exit_destination('canteen', 'square')
 		for character in (cs, mt, sl):
