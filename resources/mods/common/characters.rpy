@@ -90,8 +90,9 @@ init 10 python:
 					home = 'house_' + roommates[0]
 					character_actions.home = home
 					
-					ban_exit_destination(home)
-					character.allow_exit_destination(home)
+					loc_with_home = 'houses_' + ('2' if name in ('dv', 'us') else '1')
+					ban_exit(loc_with_home, home)
+					character.allow_exit(loc_with_home, home)
 				break
 		
 		mt.get_actions().friends = [cs, sl]
@@ -102,14 +103,14 @@ init 10 python:
 		mi.get_actions().friends += [dv]
 		dv.get_actions().friends += [mi]
 		
-		sm.allow_exit_destination('house_mt')
+		sm.allow_exit('houses_1', 'house_mt')
 	
 	
 	def init_side_character_actions(location_name):
 		location = rpg_locations[location_name]
 		
 		for place in location.places:
-			if not (place.startswith('house_') and place[-1].isdigit()):
+			if not (place.startswith('house-') and place[-1].isdigit()):
 				continue
 			
 			name, skin = ('Пионер', 'boy') if random.random() < 0.4 else ('Пионерка', 'girl')

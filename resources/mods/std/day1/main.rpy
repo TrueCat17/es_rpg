@@ -1,7 +1,3 @@
-init python:
-	def day1_can_exit_to(to_location_name, to_place_name):
-		return True
-
 label day1_start:
 	scene bg black
 	
@@ -25,7 +21,7 @@ label day1_start:
 	"Ясно-понятно."
 	window hide
 	
-	$ me.set_pose('stance')
+	$ me.set_pose('stay')
 	pause 1
 	$ me.move_to_place('before_sit_place')
 	$ me.set_direction(to_back)

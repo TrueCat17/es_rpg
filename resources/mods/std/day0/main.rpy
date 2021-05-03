@@ -1,7 +1,4 @@
 init python:
-	def day0_can_exit_to(to_location_name, to_place_name):
-		return False
-	
 	def day0_dream_set():
 		night_time()
 		#db_set_ui('night')
@@ -11,6 +8,13 @@ init python:
 		
 		cam_to('square_down', 0)
 		
+		fog_params = dict(
+			name='fog',
+			image='images/locations/objects/fog.' + location_object_ext,
+			alpha=0.5,
+			dx=0.010,
+			dy=0.014,
+		)
 		add_location_object('enter', {'x': 0, 'y': 0, 'xsize': 1.0, 'ysize': 1.0}, ScrollObject, **fog_params)
 		
 		uv_dream = add_location_object('enter', 'uv_dream_place', 'uv_dream')
@@ -20,6 +24,8 @@ init python:
 		bench = add_location_object('enter', 'bench_right_place', 'bench_right')
 		me.sit_down(bench)
 		
+		ban_exit('enter')
+		
 	
 	def day0_dream_unset():
 		day_time()
@@ -28,6 +34,8 @@ init python:
 		remove_location_object('enter', None, 'lamp')
 		remove_location_object('enter', None, 'uv_dream')
 		remove_location_object('enter', None, 'fog')
+		
+		unban_exit('enter')
 
 init 10 python:
 	flat_snowfall_params = dict(
@@ -207,7 +215,7 @@ label day0__enter__before_gates_close:
 		set_location('flat', 'armchair_pos')
 		set_rpg_control(False)
 		me.y -= 1
-		me.set_pose('stance')
+		me.set_pose('stay')
 		me.set_direction(to_forward)
 	hide bg with dissolve
 		
@@ -228,60 +236,66 @@ label day0__enter__before_gates_close:
 	
 	play sound_loop sfx['computer_noise']
 	$ flat_monitor.remove_animation()
-	$ me.set_pose("stance")
-	$ me.move_to_place("computer")
-	$ me.move_to_place("center")
+	$ me.set_pose('stay')
+	$ me.move_to_place('computer')
+	$ me.move_to_place('center')
 	
 	$ set_rpg_control(True)
 	# Свободный режим, требуется собрать необходимые предметы
 
 
 label day0__flat__bed:
-	if exec_action:
-		$ set_rpg_control(False)
-		if not has_in_inventory('phone') and not get_location_objects('flat', None, 'phone'):
-			"Итак, телефон найден."
-			$ add_to_inventory('phone', 1)
-			call day0_check_items
-		else:
-			narrator random.choice([
-				"О да, любимый портал в царство Морфея.",
-				"Представляю вам мою Единственную и Неповторимую - Кровать!",
-				"Пружины поскрипывают уже, ну да ладно.",
-			])
-		window hide
-		$ set_rpg_control(True)
+	if rpg_event != 'action':
+		return
+	
+	$ set_rpg_control(False)
+	if not has_in_inventory('phone') and not get_location_objects('flat', None, 'phone'):
+		"Итак, телефон найден."
+		$ add_to_inventory('phone', 1)
+		call day0_check_items
+	else:
+		narrator random.choice([
+			"О да, любимый портал в царство Морфея.",
+			"Представляю вам мою Единственную и Неповторимую - Кровать!",
+			"Пружины поскрипывают уже, ну да ладно.",
+		])
+	window hide
+	$ set_rpg_control(True)
 
 label day0__flat__computer:
-	if exec_action:
-		$ set_rpg_control(False)
-		if not has_in_inventory('lighter') and not get_location_objects('flat', None, 'lighter'):
-			"Зажигалка. Может, взять её?"
-			$ add_to_inventory('lighter', 1)
-			call day0_check_items
-		else:
-			narrator random.choice([
-				"Хм. И зачем мне этот старый монитор на столе?",
-				"Сотни и тысячи часов последних лет моей жизни проведены именно здесь.",
-				"«Добро пожаловать. Снова.»",
-			])
-		window hide
-		$ set_rpg_control(True)
+	if rpg_event != 'action':
+		return
+	
+	$ set_rpg_control(False)
+	if not has_in_inventory('lighter') and not get_location_objects('flat', None, 'lighter'):
+		"Зажигалка. Может, взять её?"
+		$ add_to_inventory('lighter', 1)
+		call day0_check_items
+	else:
+		narrator random.choice([
+			"Хм. И зачем мне этот старый монитор на столе?",
+			"Сотни и тысячи часов последних лет моей жизни проведены именно здесь.",
+			"«Добро пожаловать. Снова.»",
+		])
+	window hide
+	$ set_rpg_control(True)
 
 label day0__flat__table:
-	if exec_action:
-		$ set_rpg_control(False)
-		$ has_flat_keys = has_in_inventory('flat_keys') or get_location_objects('flat', None, 'flat_keys')
-		$ has_notepad   = has_in_inventory('notepad')   or get_location_objects('flat', None, 'notepad')
-		if not has_flat_keys and not has_notepad:
-			"Вот и ключи. И блокнот. Возьму его на всякий случай, вместе с ручкой."
-		if not has_flat_keys:
-			$ add_to_inventory('flat_keys', 1)
-		if not has_notepad:
-			$ add_to_inventory('notepad', 1)
-		call day0_check_items
-		window hide
-		$ set_rpg_control(True)
+	if rpg_event != 'action':
+		return
+	
+	$ set_rpg_control(False)
+	$ has_flat_keys = has_in_inventory('flat_keys') or get_location_objects('flat', None, 'flat_keys')
+	$ has_notepad   = has_in_inventory('notepad')   or get_location_objects('flat', None, 'notepad')
+	if not has_flat_keys and not has_notepad:
+		"Вот и ключи. И блокнот. Возьму его на всякий случай, вместе с ручкой."
+	if not has_flat_keys:
+		$ add_to_inventory('flat_keys', 1)
+	if not has_notepad:
+		$ add_to_inventory('notepad', 1)
+	call day0_check_items
+	window hide
+	$ set_rpg_control(True)
 
 label day0_check_items:
 	if quest_started('taking_objects') and has_in_inventory('phone') and has_in_inventory('flat_keys') and has_in_inventory('notepad'):
@@ -289,7 +303,7 @@ label day0_check_items:
 
 
 label day0__flat__to_dress:
-	if not exec_action:
+	if rpg_event != 'action':
 		return
 	
 	if quest_started('taking_objects'):
@@ -309,7 +323,7 @@ label day0__flat__to_dress:
 		$ set_rpg_control(True)
 
 label day0__flat__exit:
-	if not exec_action or not me.get_dress() == 'winter':
+	if rpg_event != 'action' or not me.get_dress() == 'winter':
 		return
 	if not has_in_inventory('phone') or not has_in_inventory('flat_keys') or not has_in_inventory('notepad'):
 		call forgot_things
@@ -346,7 +360,7 @@ label day0__station__before_stop:
 	play sound_loop sfx['bus_idle'] fadein 1
 
 label day0__liaz__unknown:
-	if not sit_down:
+	if rpg_event != 'sit_down':
 		return
 	
 	$ set_rpg_control(False)
