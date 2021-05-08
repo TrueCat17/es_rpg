@@ -43,11 +43,11 @@ label houses_?__house-??:
 
 # main_characters, with _
 label houses_?__house_??:
-	if get_location_place(me).name == 'house_sh':
+	if cur_place_name == 'house_sh':
 		if rpg_event != 'action':
 			return
 	else:
-		if rpg_event != 'no_enter':
+		if rpg_event != 'no_exit':
 			return
 	
 	$ set_rpg_control(False)

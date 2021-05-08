@@ -4,11 +4,10 @@ init 10 python:
 	day_num = 0
 	
 	def get_place_labels():
-		quests = get_started_quests()
 		usual_label = cur_location_name + '__' + (cur_place_name or 'unknown')
 		
 		res = []
-		for quest in quests:
+		for quest in get_started_quests():
 			res.extend(get_glob_labels(quest + '__' + usual_label))
 		res.extend(get_glob_labels('day' + str(day_num) + '__' + usual_label))
 		res.extend(get_glob_labels(usual_label))
