@@ -4,8 +4,21 @@ label day1_start:
 	python:
 		#db_set_ui('day')
 		
+		was = []
+		
 		day_num = 1
 		add_location_object('enter', 'ikarus_place', 'ikarus')
+		
+		init_characters()
+		#characters_auto(False)
+		
+		show_character(mt, 'houses_1', 'house_mt')
+		mt.get_actions().allow = ['home']
+		
+		un.set_auto(False)
+		show_character(un, 'clubs', 'radio_club')
+		us.set_auto(False)
+		show_character(us, 'porch_left', 'clubs')
 		
 		set_rpg_control(False)
 		me.set_dress('winter')
@@ -15,10 +28,10 @@ label day1_start:
 		me.set_pose('sit')
 	
 	pause 1
+	"Вдруг стало душно. Невыносимая жара и автобусная пыль вызвали тошноту, отчего я и проснулся."
 	hide bg with dissolve2
 	
-	"Лето. Икарус."
-	"Ясно-понятно."
+	"И не было понятно, чему удивляться сильнее: то ли яркому солнечному свету за окном, то ли совершенно иному автобусу, то ли отсутствию снега на улице посреди зимы."
 	window hide
 	
 	$ me.set_pose('stay')

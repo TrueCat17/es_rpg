@@ -1,6 +1,7 @@
 init 10 python:
 	db_font = 'FixEx3'
 	
+	was = []
 	day_num = 0
 	
 	def get_place_labels():
@@ -16,6 +17,7 @@ init 10 python:
 	
 	gate_right = get_location_objects('enter', None, 'gate_right')[0]
 	gate_right.start_animation('open')
+	gate_right.update_location_paths()
 
 init 25 python:
 	limit_camp_out()
@@ -28,18 +30,19 @@ init 25 python:
 		init_characters()
 		
 		set_rpg_control(True)
-		set_location('square', 'houses_1')# {'x': 250, 'y': 250})
+		set_location('enter', 'before_gates')# {'x': 250, 'y': 250})
 		me.set_dress('sport')
 		
-		if 0:
+		if 1:
 			characters_auto(False)
 			
 			show_character(mi, me)
-			print mi.move_to_place(['houses_2', 'house_dv'])
+			print mi.move_to_place(['clubs', 'enter'])
 
 
 label start:
-	call day0_start
+	#call day0_start
+	call day1_start
 	#$ spec_start()
 	
 	call rpg_loop

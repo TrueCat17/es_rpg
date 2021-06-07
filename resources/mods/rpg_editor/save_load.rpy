@@ -34,7 +34,6 @@ init python:
 			main = path + '/main.' + ext
 			if name not in rpg_locations:
 				register_location(name, path, False, get_image_width(main), get_image_height(main))
-				set_save_locations()
 			
 			if not os.path.exists(preview_path + name + '.png'):
 				make_preview(name)
@@ -82,7 +81,7 @@ init python:
 			to_loc = place.to_location_name or ''
 			to_place = place.to_place_name or ''
 			res = '%s, "%s", "%s"' % (exit_side, to_loc, to_place)
-			if place.to_side:
+			if place.to_side is not None:
 				to_side = ['to_back', 'to_left', 'to_right', 'to_forward'][place.to_side]
 				res += ', ' + to_side
 			return ', to=[' + res + ']'
@@ -93,6 +92,8 @@ init python:
 		location_names.sort()
 		for location_name in location_names:
 			location = rpg_locations[location_name]
+			if location.x is None:
+				continue
 			
 			location_name = '"' + location_name + '"'
 			path = '"' + location.directory + '"'
@@ -128,9 +129,9 @@ init python:
 		for location_name in location_names:
 			location = rpg_locations[location_name]
 			if location.x is None:
-				x = y = "None"
-			else:
-				x, y = str(int(location.x)), str(int(location.y))
+				continue
+			
+			x, y = str(int(location.x)), str(int(location.y))
 			tmp.append('\trpg_locations["' + location_name + '"].x, rpg_locations["' + location_name + '"].y = ' + x + ', ' + y)
 		
 		tmp.append('')
