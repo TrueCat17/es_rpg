@@ -12,8 +12,10 @@ label day1_start:
 		init_characters()
 		#characters_auto(False)
 		
-		show_character(mt, 'houses_1', 'house_mt')
-		mt.get_actions().allow = ['home']
+		mt.get_actions().stop()
+		show_character(mt, 'mt_bed', 'house_mt')
+		mt.set_direction(to_back)
+		mt.set_auto(False)
 		
 		un.set_auto(False)
 		show_character(un, 'clubs', 'radio_club')

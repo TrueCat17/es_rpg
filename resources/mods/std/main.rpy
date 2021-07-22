@@ -4,6 +4,9 @@ init 10 python:
 	was = []
 	day_num = 0
 	
+	answer_points = 0
+	crazy_points = 0
+	
 	def get_place_labels():
 		usual_label = cur_location_name + '__' + (cur_place_name or 'unknown')
 		
@@ -38,7 +41,6 @@ init 25 python:
 			
 			show_character(mi, me)
 			print mi.move_to_place(['clubs', 'enter'])
-
 
 label start:
 	#call day0_start

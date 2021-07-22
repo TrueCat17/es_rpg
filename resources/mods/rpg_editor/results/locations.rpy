@@ -16,6 +16,7 @@ init python:
 	register_location("bath", "images/locations/bath/", False, 647, 1000)
 	register_place(   "bath", "bath_rails_left_pos", 304, 587, 2, 2)
 	register_place(   "bath", "bath_rails_right_pos", 432, 587, 2, 2)
+	register_place(   "bath", "closed", 290, 540, 40, 20)
 	register_place(   "bath", "crossroad", 180, 960, 190, 40, to=["down", "crossroad", "bath"])
 	
 	register_location("beach", "images/locations/beach/", False, 1792, 1408)
@@ -28,8 +29,9 @@ init python:
 	register_place(   "boat_station", "closed-3", 995, 1210, 35, 20)
 	register_place(   "boat_station", "closed-4", 1085, 1210, 35, 20)
 	register_place(   "boat_station", "closed-5", 1150, 1210, 35, 20)
-	register_place(   "boat_station", "pier_start", 410, 700, 10, 10)
-	register_place(   "boat_station", "pier_start_sit", 440, 770, 10, 10)
+	register_place(   "boat_station", "pier_start", 390, 700, 50, 30)
+	register_place(   "boat_station", "pier_start_before_sit", 440, 770, 10, 10)
+	register_place(   "boat_station", "pier_start_sit", 450, 770, 10, 10)
 	register_place(   "boat_station", "sand_down", 1020, 610, 100, 40)
 	register_place(   "boat_station", "beach", 1496, 350, 40, 255, to=["right", "beach", "boat_station"])
 	register_place(   "boat_station", "houses_2", 0, 540, 40, 320, to=["left", "houses_2", "boat_station"])
@@ -201,6 +203,11 @@ init python:
 	register_place(   "house_dv", "houses_2", 250, 386, 55, 30, to=["down", "houses_2", "house_dv"])
 	
 	register_location("house_mt", "images/locations/house_mt/", True, 512, 512)
+	register_place(   "house_mt", "bedside_table", 205, 330, 30, 40)
+	register_place(   "house_mt", "cupboard", 290, 380, 20, 40)
+	register_place(   "house_mt", "mt_bed", 285, 290, 10, 30)
+	register_place(   "house_mt", "sm_bed", 220, 290, 10, 30)
+	register_place(   "house_mt", "table", 237, 285, 38, 15)
 	register_place(   "house_mt", "houses_1", 209, 400, 54, 30, to=["down", "houses_1", "house_mt"])
 	
 	register_location("house_sl", "images/locations/house_sl/", True, 512, 512)

@@ -69,13 +69,15 @@ label day1__enter__before_gates:
 	sl "Смотри... ну если что, лагерь небольшой. Да и можешь у кого-нибудь спросить, где домик Ольги Дмитриевны - тебе подскажут."
 	me "Ладно."
 	
+	$ sl.move_to_place({'x': sl.x + 30, 'y': sl.y})
+	$ sl.set_direction(to_left)
 	"Перед уходом Славя посмотрела на меня ещё раз."
 	sl "Сейчас жарко. Тут прямо за клубами умывальники, там вода как раз прохладная, можешь освежиться."
 	"Будет очень кстати, умираю от жары!"
 	sl "Ладно я побежала. Увидимся!"
 	window hide
 	
-	$ sl.move_to_places([['boat_station', 'pier_start'], 'sand_down'], run=True, wait_time=0)
+	$ sl.move_to_place(['boat_station', 'closed-1'], run=True, wait_time=0)
 	$ cam_to(me)
 	
 	$ location_cutscene_off()
@@ -86,8 +88,8 @@ label day1__clubs__before_clubs:
 		return
 	$ was.append('before_clubs')
 	
-	$ location_cutscene_on(align='down')
 	$ set_rpg_control(False)
+	$ location_cutscene_on(align='down')
 	$ me.move_to_place("before_porch")
 	$ me.set_direction(to_forward)
 	
@@ -115,6 +117,9 @@ label day1__clubs__before_clubs:
 	$ un.set_auto(True)
 	
 	"Забавная сцена. Хотя не хотелось бы быть на месте второй девушки. Неприятно."
+	python:
+		sl.move_to_place(None)
+		hide_character(sl)
 	window hide
 	
 	$ location_cutscene_off()
@@ -141,6 +146,40 @@ label day1__stadium__forest_path-5:
 		"Ну вот. Что же, раз уж я всё равно зашёл в этот лагерь, то стоит его хотя бы осмотреть."
 		window hide
 		$ set_rpg_control(True)
+
+
+
+label day1__boat_station__*:
+	if cur_place_name and 'closed' in cur_place_name:
+		$ rpg_event_stop = False
+		return
+	if 'boat_station' in was:
+		return
+	
+	$ was.append('boat_station')
+	
+	$ set_rpg_control(False)
+	$ location_cutscene_on(align='down')
+	
+	"Я вышел к пляжу."
+	"Как же здесь красиво... не хуже, чем на фотографиях курортов."
+	"Пока я обводил взором этот пейзаж, приметил небольшой пирс."
+	
+	$ cam_to('pier_start_sit')
+	"Может, сходить туда?"
+	window hide
+	$ cam_to(me)
+	
+	$ location_cutscene_off()
+	$ set_rpg_control(True)
+
+label day1__boat_station__pier_start:
+	if 'pier' in was or 'mt_conversation' in was:
+		return
+	$ was.append('pier')
+
+	$ quest_start('sl_beauty')
+
 
 
 label too_hot:
