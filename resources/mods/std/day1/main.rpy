@@ -3,6 +3,9 @@ label day1_start:
 	
 	python:
 		#db_set_ui('day')
+		clock.pause = False
+		clock.set('1-10:00:00')
+		show_screen('clock')
 		
 		was = []
 		

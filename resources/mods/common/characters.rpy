@@ -154,6 +154,9 @@ init 10 python:
 			character.set_actions(None)
 			forget_character(character)
 		side_characters.clear()
+	
+	def canteen_preparing():
+		renpy.play(sfx['horn'], 'sound')
 
 
 init 11 python:

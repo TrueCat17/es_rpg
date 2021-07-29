@@ -1,5 +1,5 @@
 init -2000000 python:
-#	start_mod('std')
+	start_mod('std')
 #	start_mod('rpg_editor')
 
 init python:
