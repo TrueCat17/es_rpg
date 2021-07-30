@@ -1,7 +1,6 @@
 init python:
 	def day0_dream_set():
 		night_time()
-		#db_set_ui('night')
 		
 		set_location('enter', 'dream_start')
 		me.set_dress('sport')
@@ -127,7 +126,7 @@ label forgot_things:
 label day0_start:
 	scene bg black
 	python:
-		day_num = 0
+		clock.day = 0
 		set_run_allow(False)
 		day0_dream_set()
 		location_cutscene_on(0, zoom=1, obj='square_down')

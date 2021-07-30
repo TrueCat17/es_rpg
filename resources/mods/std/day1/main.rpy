@@ -2,14 +2,13 @@ label day1_start:
 	scene bg black
 	
 	python:
-		#db_set_ui('day')
+		#db.set_ui('day')
 		clock.pause = False
 		clock.set('1-10:00:00')
 		show_screen('clock')
 		
 		was = []
 		
-		day_num = 1
 		add_location_object('enter', 'ikarus_place', 'ikarus')
 		
 		init_characters()

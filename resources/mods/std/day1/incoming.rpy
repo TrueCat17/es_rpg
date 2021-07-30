@@ -84,7 +84,7 @@ label day1__enter__before_gates:
 	$ set_rpg_control(True)
 
 label day1__clubs__before_clubs:
-	if 'before_clubs' in was:
+	if 'before_clubs' in was or 'stadium_from_forest' in was:
 		return
 	$ was.append('before_clubs')
 	

@@ -1,8 +1,7 @@
 init 10 python:
-	db_font = 'FixEx3'
+	db.font = 'FixEx3'
 	
 	was = []
-	day_num = 0
 	
 	answer_points = 0
 	crazy_points = 0
@@ -13,7 +12,7 @@ init 10 python:
 		res = []
 		for quest in get_started_quests():
 			res.extend(get_glob_labels(quest + '__' + usual_label))
-		res.extend(get_glob_labels('day' + str(day_num) + '__' + usual_label))
+		res.extend(get_glob_labels('day' + str(clock.day) + '__' + usual_label))
 		res.extend(get_glob_labels(usual_label))
 		return res
 	
@@ -27,8 +26,7 @@ init 25 python:
 	limit_rooms()
 	
 	def spec_start():
-		global day_num
-		day_num = 1
+		clock.day = 1
 		
 		init_characters()
 		

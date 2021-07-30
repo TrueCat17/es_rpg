@@ -93,6 +93,9 @@ init python:
 		clock.add(clock.acceleration * get_last_tick())
 	
 	def clock__on_location_change():
+		if clock.pause:
+			return
+		
 		clock.add(clock.location_change_time)
 	
 	
