@@ -24,6 +24,7 @@ init 10 python:
 init 25 python:
 	limit_camp_out()
 	limit_rooms()
+	add_butterflies(min=1, max=2)
 	
 	def spec_start():
 		clock.day = 1
