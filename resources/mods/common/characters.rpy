@@ -65,6 +65,23 @@ init 10 python:
 		
 		roommates_list = [('mt', 'sm'), ('un', 'mi'), ('dv', 'us'), ('sl', 'mz'), ('sh', 'el')]
 		
+		canteen = rpg_locations['canteen']
+		canteen_places = {
+			'dv': 'chair_backward_pos-r4a',
+			'us': 'chair_backward_pos-r4b',
+			
+			'mi': 'chair_backward_pos-r5a',
+			'un': 'chair_backward_pos-r5b',
+			'sl': 'chair_forward_pos-r5a',
+			
+			'mz': 'chair_backward_pos-r6a',
+			'el': 'chair_backward_pos-r6b',
+			'sh': 'chair_forward_pos-r6b',
+			
+			'mt': 'chair_backward_pos-r2a',
+			'cs': 'chair_forward_pos-r2a',
+		}
+		
 		g = globals()
 		for name in main_character_names:
 			g['rp_' + name] = 0 # [relationship points] to player
@@ -94,6 +111,27 @@ init 10 python:
 					ban_exit(loc_with_home, home)
 					character.allow_exit(loc_with_home, home)
 				break
+			
+			# canteen:
+			if name not in canteen_places: continue
+			chair_place_name = canteen_places[name]
+			del canteen_places[name]
+			if chair_place_name not in canteen.places:
+				out_msg('init_main_character_actions', 'Place <' + chair_place_name + '> not found in canteen')
+				return index
+			
+			near_objs = get_location_objects('canteen', chair_place_name, None, 1)
+			if not near_objs:
+				out_msg('init_main_character_actions', 'Needed <chair> object not found in canteen')
+				return index
+			
+			near_obj = near_objs[0]
+			dy = (-1 if 'backward' in chair_place_name else 1) * 20
+			character_actions.canteen_chair_pre = {'x': near_obj.x, 'y': near_obj.y + dy}
+			character_actions.canteen_chair = near_obj
+		
+		if canteen_places:
+			out_msg('init_main_character_actions', 'Canteen places for %s are not installed' % tuple(canteen_places.keys()))
 		
 		mt.get_actions().friends = [cs, sl]
 		cs.get_actions().friends = [mt, un]
@@ -106,8 +144,9 @@ init 10 python:
 		sm.allow_exit('houses_1', 'house_mt')
 	
 	
-	def init_side_character_actions(location_name):
+	def init_side_character_actions(location_name, index):
 		location = rpg_locations[location_name]
+		canteen = rpg_locations['canteen']
 		
 		for place in location.places:
 			if not (place.startswith('house-') and place[-1].isdigit()):
@@ -127,14 +166,39 @@ init 10 python:
 				
 				character_actions.home = (location_name, place)
 				character_actions.friends = [roommate for roommate in roommates if roommate is not character]
+				
+				# canteen:
+				side = 'left' if (index % 4) < 2 else 'right'
+				num = str(index / 4 + 1)
+				if len(num) == 1:
+					num = '0' + num
+				symbol = 'a' if index % 2 else 'b'
+				chair_place_name = 'chair_' + side + '_pos-e' + num + symbol
+				if chair_place_name not in canteen.places:
+					out_msg('init_side_character_actions', 'Place <' + chair_place_name + '> not found in canteen')
+					return index
+				
+				near_objs = get_location_objects('canteen', chair_place_name, None, 1)
+				if not near_objs:
+					out_msg('init_side_character_actions', 'Needed <chair> object not found in canteen')
+					return index
+				
+				near_obj = near_objs[0]
+				dx = (-1 if side == 'right' else 1) * 30
+				character_actions.canteen_chair_pre = {'x': near_obj.x + dx, 'y': near_obj.y}
+				character_actions.canteen_chair = near_obj
+				
+				index += 1
+		return index
 	
 	def init_characters():
 		uninit_main_characters()
 		uninit_side_characters()
 		
 		init_main_character_actions()
-		init_side_character_actions('houses_1')
-		init_side_character_actions('houses_2')
+		index = 0
+		index = init_side_character_actions('houses_1', index)
+		index = init_side_character_actions('houses_2', index)
 	
 	
 	def characters_auto(value):
@@ -154,9 +218,6 @@ init 10 python:
 			character.set_actions(None)
 			forget_character(character)
 		side_characters.clear()
-	
-	def canteen_preparing():
-		renpy.play(sfx['horn'], 'sound')
 
 
 init 11 python:
