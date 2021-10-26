@@ -34,7 +34,7 @@ init 1 python:
 		})
 	
 	
-	set_location_ambience('canteen', '') # directly start on enter (with people or empty)
+	set_location_ambience('canteen', ambience_dir + 'canteen_empty.ogg')
 	
 	set_location_ambience('library', {
 		None: ambience_dir + 'library.ogg',

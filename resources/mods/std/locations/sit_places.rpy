@@ -7,3 +7,8 @@ init 2 python:
 	
 	set_sit_place('bench_left',  [(18, 35, to_right), (18, 60, to_right)], over='bench_left_over')
 	set_sit_place('bench_right', [(-18, 35, to_left), (-18, 60, to_left)], over='bench_right_over')
+	
+	set_sit_place('chair_left',   [(-14, 34, to_left)])
+	set_sit_place('chair_right',  [(14, 34, to_right)])
+	set_sit_place('chair_forward', [(0, 30, to_forward)], over='chair_forward_over')
+	set_sit_place('chair_backward', [(0, 40, to_back)])

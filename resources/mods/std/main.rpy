@@ -24,18 +24,25 @@ init 10 python:
 init 25 python:
 	limit_camp_out()
 	limit_rooms()
+	canteen.init()
 	add_butterflies(min=1, max=2)
 	
 	def spec_start():
-		clock.day = 1
+		clock.pause = False
+		clock.set('1-11:44:40')
+		clock.acceleration = 3
+		show_screen('clock')
 		
 		init_characters()
 		
 		set_rpg_control(True)
-		set_location('enter', 'before_gates')# {'x': 250, 'y': 250})
+		unlimit_all(me)
+		set_location('canteen', 'square')# {'x': 250, 'y': 250})
+#		me.x -= 200
+#		me.y += 300
 		me.set_dress('sport')
 		
-		if 1:
+		if 0:
 			characters_auto(False)
 			
 			show_character(mi, me)
@@ -43,7 +50,7 @@ init 25 python:
 
 label start:
 	#call day0_start
-	call day1_start
-	#$ spec_start()
+	#call day1_start
+	$ spec_start()
 	
 	call rpg_loop
