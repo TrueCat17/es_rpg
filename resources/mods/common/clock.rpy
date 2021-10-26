@@ -25,15 +25,20 @@ init python:
 		clock.day, clock.hours, clock.minutes, clock.seconds = clock.normalize(clock.day, clock.hours, clock.minutes, clock.seconds)
 	
 	def clock__time_to_str(l):
-		"""[1, 8, 0, 30.7] -> '1-08:00:30'"""
+		"""
+		[2, 18, 0, 30.7] -> '2-18:00:30'
+		[-1, 7, 30, 0] -> '7:30:00'
+		"""
+		day = '' if l[0] < 0 else (str(l[0]) + '-')
+		l = l[1:]
 		l = map(int, l)
 		l = map(str, l)
-		day = l[0]
-		l = map(lambda s: (2 - len(s)) * '0' + s, l[1:])
-		return day + '-' + ('%s:%s:%s') % tuple(l)
+		l = map(lambda s: (2 - len(s)) * '0' + s, l)
+		return day + ('%s:%s:%s' % tuple(l))
 	
-	def clock__send_signal():
-		signals.send('clock-' + clock.time_to_str(clock.get()))
+	def clock__send_signal(time_str):
+		signals.send('clock-' + time_str)                           # clock-d-hh:mm:ss
+		signals.send('clock-' + time_str[time_str.index('-') + 1:]) # clock-hh:mm:ss
 	
 	def clock__add(time):
 		prev_time = clock.get()
@@ -44,30 +49,29 @@ init python:
 			d, h, m, s = clock.parse_time(time)
 			time = 3600 * 24 * d + 3600 * h + 60 * m + s
 		
-		clock.seconds += time
-		clock.normalize_self()
+		d, h, m, s = clock.get()
+		nd, nh, nm, ns = clock.normalize(d, h, m, s + time)
 		
-		d, h, m, s = prev_time
 		while time:
-			prev_s = s
+			prev_s = clock.seconds
 			if time >= 1:
-				s += 1
+				clock.seconds += 1
 				time -= 1
 			else:
-				s += time
+				clock.seconds += time
 				time = 0
 			
-			if s >= 60:
-				d, h, m, s = clock.normalize(d, h, m, s)
-			if int(prev_s) != int(s):
-				time_str = clock.time_to_str([d, h, m, s])
-				signals.send('clock-' + time_str)                           # clock-d-hh:mm:ss
-				signals.send('clock-' + time_str[time_str.index('-') + 1:]) # clock-hh:mm:ss
+			if clock.seconds >= 60:
+				clock.normalize_self()
+			if int(prev_s) != int(clock.seconds):
+				time_str = clock.time_to_str(clock.get())
+				clock.send_signal(time_str)
 	
 	def clock__set(time):
 		clock.day, clock.hours, clock.minutes, clock.seconds = clock.parse_time(time)
 		clock.normalize_self()
-		clock.send_signal()
+		time_str = clock.time_to_str(clock.get())
+		clock.send_signal(time_str)
 	
 	def clock__get():
 		return clock.day, clock.hours, clock.minutes, clock.seconds
@@ -75,25 +79,29 @@ init python:
 	def clock__add_signal(after, function, priority = 0):
 		d1, h1, m1, s1 = clock.get()
 		
-		if type(time) in (int, float):
+		times = -1
+		if type(after) in (int, float):
 			d2 = h2 = m2 = 0
-			s2 = time
+			s2 = after
+			times = 1
 		else:
-			if '-' not in time:
-				time = '0-' + time
+			if '-' in after:
+				times = 1
+			else:
+				after = '0-' + after
 			d2, h2, m2, s2 = clock.parse_time(after)
 		
-		d, h, m, s = clock.normalize([d1 + d2, h1 + h2, m1 + m2, s1 + s2])
-		signals.add('clock-' + clock.time_to_str([d, h, m, s]), function, priority=priority)
+		d, h, m, s = clock.normalize(d1 + d2, h1 + h2, m1 + m2, s1 + s2)
+		signals.add('clock-' + clock.time_to_str([d, h, m, s]), function, priority=priority, times=times)
 	
 	def clock__on_tick():
-		if clock.pause or has_screen('pause'):
+		if has_screen('pause') or clock.pause or db.visible:
 			return
 		
 		clock.add(clock.acceleration * get_last_tick())
 	
 	def clock__on_location_change():
-		if clock.pause:
+		if clock.pause or db.visible:
 			return
 		
 		clock.add(clock.location_change_time)
@@ -120,13 +128,7 @@ init 11 python:
 	signals.add('clock-09:00:00', day_time)
 	signals.add('clock-19:00:00', sunset_time)
 	signals.add('clock-21:00:00', night_time)
-	
-	# canteen
-	for hour in [8, 12, 16, 20]:
-		prev_hour = str(hour - 1)
-		if len(prev_hour) == 1:
-			prev_hour = '0' + prev_hour
-		signals.add('clock-' + prev_hour + ':45:00', canteen_preparing)
+
 
 screen clock:
 	zorder 100
