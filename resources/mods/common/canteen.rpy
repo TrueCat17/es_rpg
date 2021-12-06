@@ -41,7 +41,15 @@ init 11 python:
 		canteen_hour = clock.hours + 1
 		skip_chance = canteen.skip_chances[canteen_hour if canteen.skip_chances.has_key(canteen_hour) else None]
 		for character in characters:
-			if random.random() < skip_chance: continue
+			skip = random.random() < skip_chance
+			if character in main_characters:
+				if canteen_hour in canteen.no_skip_hours:
+					if character not in canteen.not_need:
+						skip = False
+				if character in canteen.not_eat:
+					skip = True
+			
+			if skip: continue
 			actions = character.get_actions()
 			if not actions: continue
 			
@@ -153,7 +161,8 @@ init 11 python:
 		if state == 'moving':
 			if not character.ended_move_waiting():
 				return 'moving'
-			if random.random() < canteen.skip_chance_after_moving:
+			can_skip = character not in main_characters or character in canteen.not_need
+			if can_skip and random.random() < canteen.skip_chance_after_moving:
 				actions.cur_action = rpg_action_look_around
 				return 'start'
 			
@@ -165,17 +174,26 @@ init 11 python:
 				sitting_character.stand_up()
 			character.sit_down(actions.canteen_chair)
 			
-			d, h, m, s = clock.get()
-			s += random.randint(canteen.min_time_for_eating, canteen.max_time_for_eating)
-			actions.canteen_eating_end = clock.normalize(d, h, m, s)
+			actions.fast_eat = character in canteen.fast_eat
+			if actions.fast_eat:
+				actions.canteen_eating_end = get_game_time() + canteen.fast_eat_time
+			else:
+				d, h, m, s = clock.get()
+				s += random.randint(canteen.min_time_for_eating, canteen.max_time_for_eating)
+				actions.canteen_eating_end = clock.normalize(d, h, m, s)
 			return 'eating'
 		
 		if state == 'eating':
-			if clock.get() > actions.canteen_eating_end:
-				return 'end'
+			if actions.fast_eat:
+				if get_game_time() > actions.canteen_eating_end:
+					return 'end'
+			else:
+				if actions.canteen_eating_end and clock.get() > actions.canteen_eating_end:
+					return 'end'
 			return 'eating'
 		
 		if state == 'end':
+			actions.fast_eat = None
 			actions.canteen_eating_end = None
 			character.stand_up()
 			character.move_to_place(None)
@@ -183,13 +201,49 @@ init 11 python:
 			return 'start'
 	
 	
+	def canteen__get_table():
+		res = ''
+		min_dist = 1e9
+		for name, place in rpg_locations['canteen'].places.iteritems():
+			if 'table' not in name: continue
+			dist = get_dist(place.x + place.xsize / 2, place.y + place.ysize / 2, me.x, me.y)
+			if dist < min_dist:
+				min_dist = dist
+				res = name[name.index('-')+1:]
+		return res
+	
+	def canteen__is_sit(character):
+		return character.location.name == 'canteen' and character.get_pose() == 'sit'
+	
+	
+	def canteen__wait(chars, timeout = 0):
+		if type(chars) not in (list, tuple):
+			chars = [chars]
+		canteen.wait_chars = chars
+		canteen.end_wait_time = get_game_time() + (timeout if timeout else 1e9)
+		renpy.call('canteen_wait')
+	
+	def canteen__sit_for_table(table):
+		if me.get_pose() == 'stay':
+			canteen.sitting_place = rpg_locations['canteen'].places[canteen.free_place[table]]
+			renpy.call('canteen_sitting')
+	
+	
 	build_object('canteen')
+	canteen.enable = True
+	
 	canteen.hours = [8, 12, 16, 20]
 	canteen.skip_chances = {
 		None: 0.05,
 		16: 0.20,
 	}
-	canteen.enable = True
+	
+	# for main characters
+	canteen.no_skip_hours = [8, 12, 20]
+	canteen.not_eat = [] # don't go to canteen
+	canteen.not_need = [] # can skip canteen
+	canteen.fast_eat = [] # characters
+	canteen.fast_eat_time = 3.0 # in seconds, real time, not game time
 	
 	# in seconds, before start hour
 	canteen.horn_time_preparing = 15 * 60
@@ -209,3 +263,42 @@ init 11 python:
 	canteen.min_time_for_eating =  3 * 60
 	canteen.max_time_for_eating = 10 * 60
 	
+	
+	canteen.say = {
+		'mt': [
+			"Семён, порядочный пионер никогда не отрывается от коллектива. Садись вмесете с остальными.",
+			"Семён, а почему ты отдельно ото всех сел? Негоже просто так отбиваться от коллектива.",
+			"Семён, извини конечно, но мы с Виолеттой тут обсуждаем одну взрослую тему, и лишние уши нам не нужны. Не мог бы ты пересесть?",
+		],
+		'cs': [
+			"А чего это ты, пионер, отдельно сел? Слишком активные пионерки за вашим столом, поесть не дают?",
+			"А почему отдельно от пионерок сидим? Смотри какие красотки. Дерзай, Пионер.",
+		],
+		'stranger': [
+			"Чего подслушиваешь? Не мог бы пересесть?",
+			"Эй! Тут занято! Сядь на какое-нибудь другое место.",
+			"Ой, а почему ты не со своим отрядом ешь?",
+			"А чего не ешь за своим столом?",
+		],
+	}
+	
+	canteen.free_place = {
+		'r4': 'chair_forward_pos-r4b',
+		'r5': 'chair_forward_pos-r5b',
+		'r6': 'chair_forward_pos-r6a',
+	}
+
+
+label canteen_wait:
+	while get_game_time() < canteen.end_wait_time:
+		if all([canteen.is_sit(ch) for ch in canteen.wait_chars]):
+			break
+		pause 0.01
+
+label canteen_sitting:
+	if me.get_pose() == 'sit':
+		return
+	$ me.move_to_place({'x': canteen.sitting_place.x, 'y': canteen.sitting_place.y + 20})
+	$ canteen_sit_objs = get_near_sit_objects(max_dist=50)
+	$ me.sit_down(canteen_sit_objs[0][0])
+

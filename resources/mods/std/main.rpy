@@ -30,8 +30,11 @@ init 25 python:
 	def spec_start():
 		clock.pause = False
 		clock.set('1-11:44:40')
-		clock.acceleration = 3
+		clock.acceleration = 6
 		show_screen('clock')
+		
+		canteen.not_eat = [mi, mz, mt]
+		canteen.fast_eat = [us]
 		
 		init_characters()
 		
