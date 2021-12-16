@@ -1,11 +1,7 @@
 label day1__canteen__table-6-time20h:
-	$ canteen.wait([el, sh, mz])
-	$ el.get_actions().canteen_eating_end = None
-	$ sh.get_actions().canteen_eating_end = None
-	$ mz.get_actions().canteen_eating_end = None
-	
 	if 'clubs' in was:
-		sh Неплохо посидели, кстати.
+		$ canteen.wait([el, sh])
+		sh "Неплохо посидели, кстати."
 		menu:
 			"Промолчать":
 				me "..."
@@ -15,7 +11,9 @@ label day1__canteen__table-6-time20h:
 				"Электроник оживился."
 				el "Правда? Ну тогда завтра ещё заходи."
 				me "Посмотрим."
+	
 	if 'library' in was:
+		$ canteen.wait(mz)
 		mz "Хм. Кстати, тебе подошло то, что я давала?"
 		menu:
 			"Я не нашёл всё, что хотел":

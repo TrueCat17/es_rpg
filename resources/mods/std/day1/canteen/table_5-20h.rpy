@@ -1,9 +1,7 @@
 label day1__canteen__table-5-time20h:
 	$ canteen.wait([sl, mi])
-	$ sl.get_actions().canteen_eating_end = None
-	$ mi.get_actions().canteen_eating_end = None
 	
-	if 'mi_meet' in was or 1:
+	if 'mi_meet' in was:
 		"На этот раз напротив Слави сидела Мику."
 		th "Видимо, обеда она просто пропустила. Что же, буду знать, что она здесь сидит."
 		"Хотя Мику и активно обсуждала что-то со Славей, заметив меня, она сразу прервалась."

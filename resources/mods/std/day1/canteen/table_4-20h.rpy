@@ -1,6 +1,5 @@
 label day1__canteen__table-4-time20h:
 	$ canteen.wait(us)
-	$ us.get_actions().canteen_eating_end = None
 	
 	th "Котлета и пюре. Вроде же на обед было то же самое?"
 	th "Хотя, нашёл к чему придираться. Кормят бесплатно. И вкусно. И пока что не травили."
