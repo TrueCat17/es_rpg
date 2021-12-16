@@ -1,5 +1,5 @@
 label day1__canteen__table-5-time12h:
-	if 'sl_help' in was or 1:
+	if 'sl_help' in was:
 		$ canteen.wait([sl, un])
 		$ sl.get_actions().canteen_eating_end = None
 		$ un.get_actions().canteen_eating_end = None

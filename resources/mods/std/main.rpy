@@ -29,12 +29,11 @@ init 25 python:
 	
 	def spec_start():
 		clock.pause = False
-		clock.set('1-11:44:40')
+		clock.set('1-19:44:40')
 		clock.acceleration = 6
 		show_screen('clock')
 		
-		canteen.not_eat = [mi, mz, mt]
-		canteen.fast_eat = [us]
+		day1_set_eaters_20h()
 		
 		init_characters()
 		

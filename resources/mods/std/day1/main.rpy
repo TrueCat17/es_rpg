@@ -7,9 +7,6 @@ label day1_start:
 		clock.set('1-10:00:00')
 		show_screen('clock')
 		
-		canteen.not_eat = [mi, mz, mt]
-		canteen.fast_eat = [us]
-		
 		was = []
 		
 		add_location_object('enter', 'ikarus_place', 'ikarus')

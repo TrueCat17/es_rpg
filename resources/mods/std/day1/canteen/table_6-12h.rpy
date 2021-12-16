@@ -1,5 +1,4 @@
 label day1__canteen__table-6-time12h:
-	
 	$ canteen.wait([el, sh])
 	$ el.get_actions().canteen_eating_end = None
 	$ sh.get_actions().canteen_eating_end = None

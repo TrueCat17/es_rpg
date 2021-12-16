@@ -1,4 +1,15 @@
 init python:
+	def day1_set_eaters_12h():
+		canteen.not_eat = [mi, mz, mt]
+		canteen.fast_eat = [us]
+	
+	def day1_set_eaters_20h():
+		canteen.not_eat = []
+		canteen.fast_eat = [un]
+	
+	signals.add('clock-1-11:00:00', day1_set_eaters_12h, times=1)
+	signals.add('clock-1-19:00:00', day1_set_eaters_20h, times=1)
+	
 	signals.add('clock-1-11:45:10', Function(renpy.call, 'first_horn'), times=1)
 
 label first_horn:
@@ -13,6 +24,9 @@ label first_horn:
 
 
 label day1__canteen__square:
+	if clock.hours != 12:
+		return
+	
 	if 'canteen' in was:
 		return
 	$ was.append('canteen')
@@ -69,9 +83,10 @@ label day1__canteen__*:
 					$ renpy.call(canteen_label)
 					$ clear_interval(canteen_id)
 					python:
-						mt.set_auto(False)
-						x, y = get_place_center(rpg_locations['square'].places['canteen'])
-						mt.move_to_place(['square', {'x': x, 'y': y + 30}], run=True, wait_time=0)
+						if clock.hours == 12:
+							mt.set_auto(False)
+							x, y = get_place_center(rpg_locations['square'].places['canteen'])
+							mt.move_to_place(['square', {'x': x, 'y': y + 30}], run=True, wait_time=0)
 		elif table_num < 4:
 			$ chars = [ch for ch in [mt, cs] if canteen.is_sit(ch)]
 			if chars:
