@@ -29,17 +29,18 @@ init 25 python:
 	
 	def spec_start():
 		clock.pause = False
-		clock.set('1-19:44:40')
+		clock.set('1-20:16:45')
 		clock.acceleration = 6
 		show_screen('clock')
 		
-		day1_set_eaters_20h()
+#		day1_set_eaters_20h()
 		
 		init_characters()
 		
+		enable_lineup_reminder = True
 		set_rpg_control(True)
 		unlimit_all(me)
-		set_location('canteen', 'square')# {'x': 250, 'y': 250})
+		set_location('square', 'admin')# {'x': 250, 'y': 250})
 #		me.x -= 200
 #		me.y += 300
 		me.set_dress('sport')

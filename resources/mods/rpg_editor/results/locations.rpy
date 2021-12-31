@@ -160,6 +160,7 @@ init python:
 	register_place(   "canteen", "chair_right_pos-e13b", 515, 240, 2, 2)
 	register_place(   "canteen", "chair_right_pos-e14a", 515, 210, 2, 2)
 	register_place(   "canteen", "chair_right_pos-e14b", 515, 180, 2, 2)
+	register_place(   "canteen", "get_plate", 920, 270, 40, 80)
 	register_place(   "canteen", "table_h_pos-r1", 680, 700, 2, 2)
 	register_place(   "canteen", "table_h_pos-r2", 765, 700, 2, 2)
 	register_place(   "canteen", "table_h_pos-r3", 850, 700, 2, 2)
@@ -187,6 +188,7 @@ init python:
 	register_place(   "canteen", "table_v_pos-e12", 300, 215, 2, 2)
 	register_place(   "canteen", "table_v_pos-e13", 540, 275, 2, 2)
 	register_place(   "canteen", "table_v_pos-e14", 540, 215, 2, 2)
+	register_place(   "canteen", "take_plate", 920, 380, 40, 80)
 	register_place(   "canteen", "square", 640, 802, 55, 30, to=["down", "square", "canteen"])
 	
 	register_location("clubs", "images/locations/clubs/", False, 1152, 1664)
@@ -428,6 +430,7 @@ init python:
 	register_place(   "scene", "library_and_hospital", 400, 952, 150, 40, to=["down", "library_and_hospital", "scene"])
 	
 	register_location("square", "images/locations/square/", False, 1824, 1344)
+	register_place(   "square", "before_genda", 350, 355, 200, 50)
 	register_place(   "square", "bench_left_pos-1", 204, 319, 2, 2)
 	register_place(   "square", "bench_left_pos-2", 204, 542, 2, 2)
 	register_place(   "square", "bench_left_pos-3", 204, 767, 2, 2)

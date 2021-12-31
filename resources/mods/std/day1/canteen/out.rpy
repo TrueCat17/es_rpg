@@ -42,7 +42,8 @@ label day1__square__canteen:
 		mt "Со всем отрядом я тебя ещё не знакомила, но кое-кого ты уже знаешь, так что как увидишь - подходи к ним."
 		me "Хорошо."
 		$ me.set_direction(to_left)
-		th "Вечерняя линейка... интересно увидеть это вживую."
+		th "Вечерняя линейка... Что ж, интересно увидеть это вживую."
+		$ enable_lineup_reminder = True
 		
 		window hide
 		$ set_rpg_control(True)

@@ -141,6 +141,7 @@ init 10 python:
 		mi.get_actions().friends += [dv]
 		dv.get_actions().friends += [mi]
 		
+		sm.set_actions(std_actions)
 		sm.allow_exit('houses_1', 'house_mt')
 	
 	
