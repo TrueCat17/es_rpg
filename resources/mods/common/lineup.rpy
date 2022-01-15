@@ -127,8 +127,8 @@ init 11 python:
 				tmp_actions = tmp.get_actions()
 				
 				tmp_actions.cur_state = 'conversation'
-				tmp.rotate_to(0, character.y - tmp.y)
-				character.rotate_to(0, tmp.y - character.y)
+				tmp.rotate_to(character)
+				character.rotate_to(tmp)
 				actions.lineup_end_time = tmp_actions.lineup_end_time = get_game_time() + random.randint(15, 50) / 10.0
 			
 			if get_game_time() < actions.lineup_end_time:

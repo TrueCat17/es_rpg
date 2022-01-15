@@ -50,6 +50,7 @@ init 11 python:
 					skip = True
 			
 			if skip: continue
+			if character is me and get_rpg_control(): continue
 			actions = character.get_actions()
 			if not actions: continue
 			
@@ -118,8 +119,8 @@ init 11 python:
 				near_actions.crowding_conversation_with = character
 				actions.crowding_conversation_with = near
 				
-				near.rotate_to(character.x - near.x, character.y - near.y)
-				character.rotate_to(near.x - character.x, near.y - character.y)
+				near.rotate_to(character)
+				character.rotate_to(near)
 				
 				min_conversating = 0.5
 				y = rpg_locations['square'].places['canteen'].y - character.y
