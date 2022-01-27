@@ -430,7 +430,7 @@ init python:
 	register_place(   "scene", "library_and_hospital", 400, 952, 150, 40, to=["down", "library_and_hospital", "scene"])
 	
 	register_location("square", "images/locations/square/", False, 1824, 1344)
-	register_place(   "square", "before_genda", 340, 355, 200, 50)
+	register_place(   "square", "before_genda", 350, 355, 200, 50)
 	register_place(   "square", "bench_left_pos-1", 204, 319, 2, 2)
 	register_place(   "square", "bench_left_pos-2", 204, 542, 2, 2)
 	register_place(   "square", "bench_left_pos-3", 204, 767, 2, 2)

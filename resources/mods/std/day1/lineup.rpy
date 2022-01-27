@@ -43,6 +43,9 @@ label day1__lineup_conversation:
 	$ set_rpg_control(False)
 	
 	if clock.minutes <= 31:
+		python:
+			while clock.minutes < 30:
+				clock.add(10)
 		mt "Итак, вроде все собрались."
 	elif clock.minutes <= 33:
 		mt "Семён, опаздываешь!"

@@ -33,7 +33,7 @@ init python:
 	wi_bullet_xsize = 10
 	wi_bullet_ysize = 20
 	
-	wi_dir = os.path.dirname(get_filename(1))
+	wi_dir = os.path.dirname(get_filename(0))
 	wi_player_image = wi_dir + '/ship.webp'
 	wi_bullet_image = wi_dir + '/bullet.webp'
 	

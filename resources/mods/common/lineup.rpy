@@ -70,7 +70,7 @@ init 11 python:
 	
 	def get_lineup_place(character):
 		kx = 1 if character is mt else -1
-		indent_x = 40
+		indent_x = 30
 		indent_y = 100
 		dy = 20
 		index = 2 if character is mt else lineup_characters.index(character)
