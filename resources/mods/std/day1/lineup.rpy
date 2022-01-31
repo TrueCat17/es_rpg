@@ -63,12 +63,12 @@ label day1__lineup_conversation:
 		}
 	
 	python:
-		x, y = get_lineup_place(me)
+		x, y = lineup.get_place(me)
 		me.move_to_place({'x': x, 'y': y}, run=True)
 	$ me.set_direction(to_right)
 	$ cam_to(me, align=(0.5, 0.7))
 	
-	if clock.minutes < 35:
+	if clock.minutes <= 33:
 		"Когда основная масса пионеров прибыла на линейку и построилась, вожатая начала вещание."
 		mt "Сегодня мы подводим итоги очередного дня в нашем пионерлагере!"
 		"Она достала список, в котором что-то смотрела."
@@ -83,8 +83,9 @@ label day1__lineup_conversation:
 		$ clock.add(5 * 60)
 	
 	python:
-		for ch in lineup_characters:
-			ch.move_to_end()
+		for ch in lineup.characters:
+			if ch not in lineup.skip:
+				ch.move_to_end()
 	
 	mt "Внимание!"
 	"Хотя пионеры и поутихли, одного раза было недостаточно."
@@ -99,9 +100,10 @@ label day1__lineup_conversation:
 	$ me.set_direction(to_forward)
 	
 	python:
-		old_auto_values = [ch.get_auto() for ch in lineup_characters]
-		for ch in lineup_characters:
-			ch.set_auto(False)
+		old_auto_values = [(ch, ch.get_auto()) for ch in lineup.characters]
+		for ch in lineup.characters:
+			if ch not in lineup.skip:
+				ch.set_auto(False)
 	
 	$ sl.move_to_place({'x': sl.x + 10, 'y': sl.y})
 	$ sl.set_direction(to_back)
@@ -171,10 +173,10 @@ label day1__lineup_conversation:
 	mt "Я пойду по делам. Семён, пройдись со мной."
 	
 	python:
-		for ch in lineup_characters:
-			ch.set_auto(old_auto_values[0])
-			old_auto_values.pop(0)
-	$ end_lineup()
+		for ch, old_state in old_auto_values:
+			if ch not in lineup.skip:
+				ch.set_auto(old_state)
+	$ lineup.end()
 	
 	$ mt.get_actions().start(day1_mt_lineup_ending)
 	pause 2
@@ -202,6 +204,7 @@ label day1__lineup_conversation:
 				$ meet['mz'] = None
 				me "Ну... библиотека тут такая. Уютная, вот."
 				mt "Тяга к знаниям даже в лагере? Уважаю. Взял что-нибудь почитать?"
+				me "Ага."
 			"С Алисой и Ульяной" if meet['dv_us'] else None:
 				$ meet['dv_us'] = None
 				me "Познакомился с Алисой и... Ульяной. Вот."

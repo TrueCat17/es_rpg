@@ -1,3 +1,33 @@
+init python:
+	def day1_us_running(character, state):
+		if state == 'start':
+			lineup.skip.append(character)
+			character.get_actions().allow = [day1_us_running]
+			character.move_to_places([('houses_1', 'square'), ('forest_path-8', 'tennis'), ('forest_path-8', 'forest_path-7')], run=True)
+			return 'moving'
+		
+		if state == 'moving':
+			if not character.ended_move_waiting():
+				if character.location.name.startswith('forest_path'):
+					character.set_pose('run')
+					character.speed *= 1.1
+				elif me.location is character.location:
+					dist = get_dist(me.x, me.y, character.x, character.y)
+					if dist < 150:
+						character.set_pose('run')
+						character.speed *= 1.1
+					elif dist > 250:
+						character.set_pose('walk')
+				return 'moving'
+			return 'end'
+		
+		if state == 'end':
+			lineup.skip.remove(character)
+			character.get_actions().allow = []
+			show_character(character, 'houses_2', 'house_dv')
+			return 'end'
+
+
 label day1__canteen__table-4-time20h:
 	$ canteen.wait(us)
 	
@@ -30,8 +60,9 @@ label day1__canteen__table-4-time20h:
 			$ rp_us += 1
 			$ clock.add(3 * 60)
 		"Отнять силой":
+			$ was.append('us_running')
 			me "Сейчас ты будешь кое-чем щёлкать, если не вернёшь чужое!"
 			us "А ты попробуй, догони!"
-			"Мелкая рванула к выходу из столовой."
+			$ us.get_actions().start(day1_us_running)
 			th "Ну уж нет, чёрта с два я оставлю всё как есть!"
-			# (дальнейшее в файле "Погоня!")
+			$ me.stand_up()

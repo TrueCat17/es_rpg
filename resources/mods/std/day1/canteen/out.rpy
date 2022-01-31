@@ -29,6 +29,8 @@ label day1__square__canteen:
 		return
 	
 	if 'canteen_pioneers_20h' in was and clock.hours == 20:
+		if 'us_running' in was:
+			return
 		if 'canteen_out_20h' in was:
 			return
 		$ was.append('canteen_out_20h')
@@ -43,7 +45,7 @@ label day1__square__canteen:
 		me "Хорошо."
 		$ me.set_direction(to_left)
 		th "Вечерняя линейка... Что ж, интересно увидеть это вживую."
-		$ enable_lineup_reminder = True
+		$ lineup.enable_reminder = True
 		
 		window hide
 		$ set_rpg_control(True)

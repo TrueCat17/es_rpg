@@ -1,9 +1,3 @@
-init python:
-	enable_lineup_reminder = False
-	def lineup_reminder():
-		if enable_lineup_reminder:
-			renpy.call('lineup_reminder')
-
 label lineup_reminder:
 	$ set_rpg_control(False)
 	if cur_location_name == 'square':
@@ -16,75 +10,74 @@ label lineup_reminder:
 
 
 init 11 python:
-	lineup_characters = [dv, us, mz, un, sl, el, sh, mi, sm, mt]
+	def lineup__reminder():
+		if lineup.enable_reminder:
+			renpy.call('lineup_reminder')
 	
-	def prepare_to_lineup():
-		for ch in lineup_characters:
+	def lineup__prepare():
+		for ch in lineup.characters:
+			if ch in lineup.skip: continue
 			if not ch.get_auto(): continue
 			actions = ch.get_actions()
 			if not actions: continue
 			actions.allow = ['other_place', 'sit', 'to_friend', 'look_around']
 			actions.start('other_place', 'square')
 	
-	def start_lineup():
-		global lineup_conversation_id
-		lineup_conversation_id = set_interval(lineup_conversation, 1.0)
+	def lineup__start():
+		lineup.conversation_id = set_interval(lineup.conversation, 1.0)
 		
-		for ch in lineup_characters:
+		for ch in lineup.characters:
+			if ch in lineup.skip: continue
 			if not ch.get_auto(): continue
 			actions = ch.get_actions()
 			if not actions: continue
 			actions.allow = []
 			actions.block = ['to_friend']
-			actions.start(lineup)
+			actions.start(lineup.action)
 	
-	def end_lineup():
-		clear_interval(lineup_conversation_id)
+	def lineup__end():
+		clear_interval(lineup.conversation_id)
 		
-		for ch in lineup_characters:
+		for ch in lineup.characters:
+			if ch in lineup.skip: continue
 			if not ch.get_auto(): continue
 			actions = ch.get_actions()
 			if not actions: continue
 			actions.block = []
-			if actions.cur_action is not lineup: continue
+			if actions.cur_action is not lineup.action: continue
 			actions.random()
 	
-	signals.add('clock-20:17:00', prepare_to_lineup)
-	signals.add('clock-20:20:00', lineup_reminder)
-	
-	signals.add('clock-20:24:00', start_lineup)
-	signals.add('clock-20:40:00', end_lineup)
 	
 	
-	def lineup_conversation():
+	def lineup__conversation():
 		if cur_location_name != 'square': return
 		if mt.location != cur_location: return
 		if max(abs(me.x - mt.x), abs(me.y - mt.y)) > 300: return
 		
-		clear_interval(lineup_conversation_id)
+		clear_interval(lineup.conversation_id)
 		label_name = 'day' + str(clock.day) + '__lineup_conversation'
 		if renpy.has_label(label_name):
 			renpy.call(label_name)
 	
 	
 	
-	def get_lineup_place(character):
+	def lineup__get_place(character):
 		kx = 1 if character is mt else -1
 		indent_x = 30
 		indent_y = 100
 		dy = 20
-		index = 2 if character is mt else lineup_characters.index(character)
+		index = 2 if character is mt else lineup.characters.index(character)
 		
 		x, y = get_place_center(rpg_locations['square'].places['before_genda'])
 		x += kx * indent_x
 		y += indent_y + index * dy
 		return x, y
 	
-	def lineup(character, state):
+	def lineup__action(character, state):
 		actions = character.get_actions()
 		
 		if state == 'start':
-			x, y = get_lineup_place(character)
+			x, y = lineup.get_place(character)
 			character.move_to_place(['square', {'x': x, 'y': y}])
 			return 'moving'
 		
@@ -110,8 +103,8 @@ init 11 python:
 				if character is mt:
 					return 'waiting'
 				
-				index = lineup_characters.index(character)
-				tmp_list = [lineup_characters[index - 1], lineup_characters[index + 1]]
+				index = lineup.characters.index(character)
+				tmp_list = [lineup.characters[index - 1], lineup.characters[index + 1]]
 				ready_list = []
 				for tmp in tmp_list:
 					if tmp is mt: continue
@@ -146,3 +139,20 @@ init 11 python:
 		if state == 'end':
 			actions.lineup_end_time = None
 			return 'end'
+	
+	
+	
+	build_object('lineup')
+	
+	lineup.enable_reminder = False
+	
+	lineup.characters = [dv, us, mz, un, sl, el, sh, mi, sm, mt]
+	lineup.skip = []
+	
+	
+	signals.add('clock-20:17:00', lineup.prepare)
+	signals.add('clock-20:20:00', lineup.reminder)
+	
+	signals.add('clock-20:24:00', lineup.start)
+	signals.add('clock-20:40:00', lineup.end)
+	
