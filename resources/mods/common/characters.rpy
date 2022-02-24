@@ -153,7 +153,9 @@ init 10 python:
 			if not (place.startswith('house-') and place[-1].isdigit()):
 				continue
 			
+			prefix = 'little_' if random.random() < 0. else ''
 			name, skin = ('Пионер', 'boy') if random.random() < 0.4 else ('Пионерка', 'girl')
+			skin = prefix + skin
 			
 			roommates = [Character(name) for i in xrange(2)]
 			for character in roommates:

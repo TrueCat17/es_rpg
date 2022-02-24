@@ -20,6 +20,10 @@ label day1__enter__ikarus:
 	$ set_rpg_control(True)
 
 label day1__enter__before_gates:
+	if 'us_running' in was or 'mt_escaping' in was:
+		call day1__sl_gates_evening
+		return
+	
 	if 'before_gates' in was:
 		return
 	$ was.append('before_gates')

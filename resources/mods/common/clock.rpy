@@ -128,6 +128,13 @@ init 11 python:
 	signals.add('clock-09:00:00', day_time)
 	signals.add('clock-19:00:00', sunset_time)
 	signals.add('clock-21:00:00', night_time)
+	
+	
+	signals.add('clock-07:30:00', Function(signals.send, 'wake_up'))
+	signals.add('clock-21:30:00', Function(signals.send, 'go_to_sleep'))
+	
+	signals.add('wake_up',     Play(sfx['horn'], 'sound'))
+	signals.add('go_to_sleep', Play(sfx['horn'], 'sound'))
 
 
 screen clock:

@@ -238,7 +238,7 @@ init python:
 	register_place(   "enter", "square_down", 460, 840, 40, 40)
 	register_place(   "enter", "uv_dream_place", 473, 263, 2, 2)
 	register_place(   "enter", "clubs", 410, 0, 140, 40, to=["up", "clubs", "enter", to_right])
-	register_place(   "enter", "forest_path-5", 920, 565, 40, 160, to=["right", "forest_path-5", "enter", to_back])
+	register_place(   "enter", "forest_path-5", 920, 565, 40, 150, to=["right", "forest_path-5", "enter", to_back])
 	register_place(   "enter", "forest_path-9", 0, 555, 40, 160, to=["left", "forest_path-9", "enter", to_forward])
 	register_place(   "enter", "ikarus", 400, 590, 40, 30, to=["up", "ikarus", "enter"])
 	
@@ -467,7 +467,7 @@ init python:
 	register_place(   "stadium", "stadium_rails_pos", 671, 831, 2, 2)
 	register_place(   "stadium", "toilet", 105, 380, 140, 30)
 	register_place(   "stadium", "beach", 530, 1496, 320, 40, to=["down", "beach", "stadium"])
-	register_place(   "stadium", "forest_path-5", 2040, 1340, 40, 110, to=["right", "forest_path-5", "stadium", to_left])
+	register_place(   "stadium", "forest_path-5", 2040, 1340, 40, 100, to=["right", "forest_path-5", "stadium", to_left])
 	register_place(   "stadium", "square", 0, 1340, 40, 100, to=["left", "square", "stadium"])
 	register_place(   "stadium", "tennis", 1000, 0, 100, 40, to=["up", "tennis", "stadium"])
 	
@@ -481,7 +481,7 @@ init python:
 	register_place(   "tennis", "separator_pos", 708, 373, 2, 2)
 	register_place(   "tennis", "forest_path-6", 430, 0, 100, 40, to=["up", "forest_path-6", "tennis"])
 	register_place(   "tennis", "forest_path-8", 952, 490, 40, 120, to=["right", "forest_path-8", "tennis", to_left])
-	register_place(   "tennis", "library_and_hospital", 0, 330, 40, 80, to=["left", "library_and_hospital", "tennis"])
+	register_place(   "tennis", "library_and_hospital", 0, 330, 40, 60, to=["left", "library_and_hospital", "tennis"])
 	register_place(   "tennis", "stadium", 270, 630, 100, 40, to=["down", "stadium", "tennis"])
 	
 	register_location("washbasins", "images/locations/washbasins/", False, 735, 595)

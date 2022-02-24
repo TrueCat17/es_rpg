@@ -12,5 +12,6 @@ init -1000 python:
 	sfx['bus_idle'] = 'sound/sfx/bus_idle.ogg'
 	sfx['bus_interior_moving'] = 'sound/sfx/bus_interior_moving.ogg'
 	
-	sfx['knock_door'] = 'sound/sfx/knock_door.ogg'
 	sfx['horn'] = 'sound/sfx/horn.ogg'
+	sfx['knock_door'] = 'sound/sfx/knock_door.ogg'
+	sfx['stomach_growl'] = 'sound/sfx/stomach_growl.ogg'
