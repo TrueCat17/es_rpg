@@ -37,6 +37,7 @@ init -10 python:
 			self.fast_k = 1.7  # for speed and framerate
 			
 			self.set_color()
+			self.update_frame()
 		
 		def set_color(self, color = None):
 			if color is None:
@@ -53,7 +54,6 @@ init -10 python:
 			self.crop = (frame * self.xsize, 0, self.xsize, self.ysize)
 		
 		def get_draw_data(self):
-			self.update_frame()
 			return {
 				'image':  self.image,
 				'crop':   self.crop,
@@ -64,11 +64,7 @@ init -10 python:
 		
 		
 		def get_dist(self, x, y, w, h, chs):
-			dist = self.alarm_dist
-			dist = min(dist, x)
-			dist = min(dist, y)
-			dist = min(dist, w - 1 - x)
-			dist = min(dist, h - 1 - y)
+			dist = min(self.alarm_dist, x, y, w - 1 - x, h - 1 - y)
 			for character in chs:
 				dist = min(dist, get_dist(x, y, character.x, character.y))
 			return dist
@@ -78,6 +74,9 @@ init -10 python:
 			return x + _cos(rotate - 90) * speed, y + _sin(rotate - 90) * speed
 		
 		def update(self):
+			if has_screen('pause'):
+				return
+			
 			x, y = self.xpos, self.ypos
 			location = self.location
 			w, h = location.xsize, location.ysize
@@ -107,5 +106,6 @@ init -10 python:
 				self.rotate = int(math.atan2(dy, dx) * 180 / math.pi) + 90
 			
 			self.frame += self.fps * k
+			self.update_frame()
 			self.xpos, self.ypos = self.get_next_pos(x, y, self.rotate, self.speed * k)
 		
