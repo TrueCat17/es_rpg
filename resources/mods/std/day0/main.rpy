@@ -77,8 +77,8 @@ init 10 python:
 		zorder=1e5,
 		min_dx=-0.01,
 		max_dx=0.02,
-		min_dy=0.01,
-		max_dy=0.05,
+		min_dy=0.1,
+		max_dy=0.5,
 		min_size=0.5,
 		max_size=1,
 	)
@@ -167,6 +167,7 @@ label day0__enter__before_gates_close:
 	scene bg black with dissolve2
 	$ hide_location()
 	$ day0_dream_unset()
+	$ cloud.init()
 	
 	pause 3
 	play sound_loop sfx['computer_noise'] fadein 2

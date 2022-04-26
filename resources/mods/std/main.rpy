@@ -5,6 +5,7 @@ init 10 python:
 	
 	answer_points = 0
 	crazy_points = 0
+	dirty_points = 0
 	
 	def get_place_labels():
 		usual_label = cur_location_name + '__' + (cur_place_name or 'unknown')
@@ -29,13 +30,14 @@ init 25 python:
 	
 	def spec_start():
 		clock.pause = False
-		clock.set('1-19:44:45')
+		clock.set('1-19:14:45')
 		clock.acceleration = 6
 		show_screen('clock')
 		
 		day1_set_eaters_20h()
 		
 		init_characters()
+		cloud.init()
 		
 		lineup.enable_reminder = True
 		set_rpg_control(True)

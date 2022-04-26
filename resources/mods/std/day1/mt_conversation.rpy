@@ -1,5 +1,7 @@
 label day1__houses_1__house_mt:
 	if 'mt_conversation' in was:
+		if (clock.hours, clock.minutes) > (21, 30):
+			call day1__mt_end
 		return
 	$ was.append('mt_conversation')
 	
