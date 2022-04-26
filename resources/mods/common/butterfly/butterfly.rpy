@@ -12,7 +12,7 @@ init -10 python:
 	
 	class Butterfly(Object):
 		
-		standart_image = 'images/misc/butterfly.png'
+		standart_image = os.path.dirname(get_filename(0)) + '/butterfly.png'
 		
 		def __init__(self, xpos, ypos, xsize, ysize, **kwargs):
 			Object.__init__(self)
