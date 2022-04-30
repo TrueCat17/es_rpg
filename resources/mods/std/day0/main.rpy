@@ -167,7 +167,6 @@ label day0__enter__before_gates_close:
 	scene bg black with dissolve2
 	$ hide_location()
 	$ day0_dream_unset()
-	$ cloud.init()
 	
 	pause 3
 	play sound_loop sfx['computer_noise'] fadein 2

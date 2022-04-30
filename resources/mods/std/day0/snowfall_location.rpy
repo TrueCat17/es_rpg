@@ -30,10 +30,6 @@ init -1000 python:
 			self.set_count(kwargs.get('count', 100))
 		
 		def set_count(self, count):
-			rand_int = random.randint
-			def rand_float(min, max):
-				return random.random() * (max - min) + min
-			
 			old_count = len(self.objs)
 			if count <= old_count:
 				self.objs = self.objs[0:count]
@@ -41,9 +37,9 @@ init -1000 python:
 				self.objs.extend([None] * (count - old_count))
 				
 				for i in xrange(count - old_count):
-					x, y = rand_float(0, 1), rand_float(0, 1)
-					dx, dy = rand_float(self.min_dx, self.max_dx), rand_float(self.min_dy, self.max_dy)
-					size = rand_float(self.min_size, self.max_size)
+					x, y = random.uniform(0, 1), random.uniform(0, 1)
+					dx, dy = random.uniform(self.min_dx, self.max_dx), random.uniform(self.min_dy, self.max_dy)
+					size = random.uniform(self.min_size, self.max_size)
 					
 					self.objs[old_count + i] = [x, y, dx, dy, size]
 		

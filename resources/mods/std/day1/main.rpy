@@ -14,6 +14,8 @@ label day1_start:
 		init_characters()
 		#characters_auto(False)
 		
+		cloud.init()
+		
 		mt.get_actions().stop()
 		show_character(mt, 'mt_bed', 'house_mt')
 		mt.set_direction(to_back)
