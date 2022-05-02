@@ -39,8 +39,8 @@ init python:
 	def cloud__init(**kwargs):
 		cloud.get_count_for_location = kwargs.get('get_count_for_location', cloud.default_get_count_for_location)
 		
-		cloud.min_alpha = kwargs.get('min_alpha', 0.20)
-		cloud.max_alpha = kwargs.get('max_alpha', 0.50)
+		cloud.min_alpha = kwargs.get('min_alpha', 0.10)
+		cloud.max_alpha = kwargs.get('max_alpha', 0.30)
 		
 		cloud.min_zoom = kwargs.get('min_zoom', 1)
 		cloud.max_zoom = kwargs.get('max_zoom', 4)
