@@ -132,7 +132,7 @@ label day0_start:
 		location_cutscene_on(0, zoom=1, obj='square_down')
 	
 	python:
-		hide_sprite('bg with Dissolve(5)'.split(' '))
+		sprites.hide('bg with Dissolve(5)'.split(' '))
 		cam_to('square_center', 5, zoom=1)
 	
 	"Мне опять снился сон..."
@@ -358,7 +358,7 @@ label day0__station__before_stop:
 	$ set_rpg_control(True)
 	play sound_loop sfx['bus_idle'] fadein 1
 
-label day0__liaz__unknown:
+label day0__liaz__*:
 	if rpg_event != 'sit_down':
 		return
 	

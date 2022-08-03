@@ -1,6 +1,4 @@
 init 10 python:
-	db.font = 'FixEx3'
-	
 	was = []
 	
 	answer_points = 0
@@ -22,11 +20,14 @@ init 10 python:
 	gate_right.start_animation('open')
 	gate_right.update_location_paths()
 
+
 init 25 python:
 	limit_camp_out()
 	limit_rooms()
 	canteen.init()
+	
 	add_butterflies(min=1, max=2)
+	remove_location_object('station', None, Butterfly, count = -1)
 	
 	def spec_start():
 		clock.pause = False

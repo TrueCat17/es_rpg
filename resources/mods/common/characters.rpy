@@ -234,4 +234,3 @@ init 11 python:
 	register_character_animation(us, 'cricket',      'images/characters/anim/us_cricket',      0, 0,  6, 0,  5, 1.5)
 	register_character_animation(us, 'sport_salute', 'images/characters/anim/us_sport_salute', 0, 0,  4, 0,  3, 1.0)
 	register_character_animation(us, 'waves',        'images/characters/anim/us_waves',        0, 0,  3, 0,  2, 0.75)
-
