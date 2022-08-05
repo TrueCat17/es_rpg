@@ -74,9 +74,6 @@ init -10 python:
 			return x + _cos(rotate - 90) * speed, y + _sin(rotate - 90) * speed
 		
 		def update(self):
-			if has_screen('pause'):
-				return
-			
 			x, y = self.xpos, self.ypos
 			location = self.location
 			w, h = location.xsize, location.ysize
