@@ -17,6 +17,6 @@ init python:
 		db.update_styles()
 	
 	signals.add('time', set_interface_time)
-	day_time()
+	day_time(need = True)
 	
 	make_time('winter')
