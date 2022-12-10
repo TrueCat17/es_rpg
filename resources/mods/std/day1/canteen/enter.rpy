@@ -10,7 +10,7 @@ init python:
 	signals.add('clock-1-11:00:00', day1_set_eaters_12h, times=1)
 	signals.add('clock-1-19:00:00', day1_set_eaters_20h, times=1)
 	
-	signals.add('clock-1-11:45:10', Function(renpy.call, 'first_horn'), times=1)
+	signals.add('clock-1-11:45:10', Call('first_horn'), times=1)
 
 label first_horn:
 	python:

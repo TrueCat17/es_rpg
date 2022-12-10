@@ -55,7 +55,7 @@ label day1__lineup_conversation:
 		mt "Линейка уже почти закончена!"
 	
 	python:
-		meet = {
+		was_meet = {
 			'sl': get_name('sl') == 'Славя',
 			'el_sh': get_name('el') == 'Электроник' and get_name('sh') == 'Шурик',
 			'mz': get_name('mz') == 'Женя',
@@ -192,21 +192,21 @@ label day1__lineup_conversation:
 	$ menu_iter = 0
 	while menu_iter < 2:
 		menu:
-			"Со Славей" if meet['sl'] else None:
-				$ meet['sl'] = None
+			"Со Славей" if was_meet['sl'] else None:
+				$ was_meet['sl'] = None
 				me "Да, со Славей. Она такая... добрая. И ответственная."
 				mt "Ну да. Даже не знаю, как бы мне было без нее. Уж с неё точно можешь брать пример!"
-			"С кибернетиками" if meet['el_sh'] else None:
-				$ meet['el_sh'] = None
+			"С кибернетиками" if was_meet['el_sh'] else None:
+				$ was_meet['el_sh'] = None
 				me "У робототехников был. Довольно необычно."
 				mt "Но очень интересно, правда? Если понравилось, то завтра сможешь записаться к ним в кружок."
-			"С Женей" if meet['mz'] else None:
-				$ meet['mz'] = None
+			"С Женей" if was_meet['mz'] else None:
+				$ was_meet['mz'] = None
 				me "Ну... библиотека тут такая. Уютная, вот."
 				mt "Тяга к знаниям даже в лагере? Уважаю. Взял что-нибудь почитать?"
 				me "Ага."
-			"С Алисой и Ульяной" if meet['dv_us'] else None:
-				$ meet['dv_us'] = None
+			"С Алисой и Ульяной" if was_meet['dv_us'] else None:
+				$ was_meet['dv_us'] = None
 				me "Познакомился с Алисой и... Ульяной. Вот."
 				mt "Это хорошо. Только не хулигань с ними! Лучше наоборот, если задумают что-нибудь, попытайся отговорить их."
 			name_for_variant_no[menu_iter]:

@@ -5,6 +5,8 @@ init 10 python:
 	crazy_points = 0
 	dirty_points = 0
 	
+	escape_choice = 0
+	
 	def get_place_labels():
 		usual_label = cur_location_name + '__' + (cur_place_name or 'unknown')
 		

@@ -1,7 +1,21 @@
+label day1__towel_remember:
+	if not has_in_inventory('towel'):
+		$ set_rpg_control(False)
+		mt "Ты полотенце забыл."
+		me "Точно."
+		$ set_rpg_control(True)
+		window hide
+
+
 label day1__houses_1__house_mt:
 	if 'mt_conversation' in was:
 		if (clock.hours, clock.minutes) > (21, 30):
-			call day1__mt_end
+			if 'day1__mt_end' not in was:
+				$ was.append('day1__mt_end')
+				call day1__mt_end
+			elif 'day1__towel_remember' not in was:
+				$ was.append('day1__towel_remember')
+				call day1__towel_remember
 		return
 	$ was.append('mt_conversation')
 	
@@ -142,7 +156,7 @@ label day1__houses_1__house_mt:
 	$ set_rpg_control(True)
 
 label day1__house_mt__houses_1:
-	if rpg_event != "enter" or 'mirror' in was:
+	if rpg_event != 'enter' or 'mirror' in was:
 		return
 	
 	$ was.append('mirror')
@@ -167,4 +181,3 @@ label day1__house_mt__houses_1:
 		window hide
 	
 	$ set_rpg_control(True)
-	

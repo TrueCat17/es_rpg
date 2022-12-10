@@ -1,9 +1,12 @@
 init 1 python:
 	
-	register_location_object('flat_keys', 'images/locations/objects/', 'flat_keys', None, 1)
-	register_location_object('lighter',   'images/locations/objects/', 'lighter',   None, 1)
-	register_location_object('notepad',   'images/locations/objects/', 'notepad',   None, 1)
-	register_location_object('phone',     'images/locations/objects/', 'phone',     None, 1)
+	register_location_object('flat_keys',             'images/locations/objects/', 'flat_keys',             None, 1)
+	register_location_object('lighter',               'images/locations/objects/', 'lighter',               None, 1)
+	register_location_object('notepad',               'images/locations/objects/', 'notepad',               None, 1)
+	register_location_object('phone',                 'images/locations/objects/', 'phone',                 None, 1)
+	register_location_object('tooth_paste_and_brush', 'images/locations/objects/', 'tooth_paste_and_brush', None, 1)
+	register_location_object('soap',                  'images/locations/objects/', 'soap',                  None, 1)
+	register_location_object('towel',                 'images/locations/objects/', 'towel',                 None, 1)
 	
 	register_location_object('armchair',   'images/locations/flat/objects/', 'armchair', None)
 	register_location_object('dress',      'images/locations/flat/objects/', 'dress', None)
@@ -80,7 +83,7 @@ init 1 python:
 	
 	
 	register_location_object('mus_club_microphone', 'images/locations/mus_club/objects/', 'microphone', 'microphone_free')
-	register_location_object('stand',              'images/locations/mus_club/objects/', 'stand',      'stand_free')
+	register_location_object('stand',               'images/locations/mus_club/objects/', 'stand',      'stand_free')
 	
 	
 	register_location_object('scene_microphone', 'images/locations/scene/objects/', 'microphone', 'microphone_free')

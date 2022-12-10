@@ -60,3 +60,34 @@ label houses_?__house_??:
 	window hide
 	$ set_rpg_control(True)
 
+label *__washbasin*:
+	$ place_name = cur_place_name
+	
+	if rpg_event != 'action':
+		return
+	
+	if clock.hours < 21:
+		return
+	
+	$ set_rpg_control(False)
+	
+	if has_in_inventory('tooth_paste_and_brush'):
+		if '_' in place_name:
+			$ me.move_to_place(place_name)
+			$ me.rotate_in_place(place_name)
+		
+		narrator random.choice([
+			"И вот, настало время чистить зубы.",
+			"Итак, \"пришла пора чистить зубки и ложиться спать\" - правильно?",
+			"Быстрее бы уже под одеяло!",
+		])
+		$ was.append('tooth_cleaning')
+		
+		if clock.day == 1:
+			"Бр-р. После такой \"прохладной\" водички стоит только начинать день, но никак не идти спать."
+			"А придётся..."
+	else:
+		narrator "У меня нет зубных пасты и щётки, поэтому я не могу почистить зубы."
+	
+	window hide
+	$ set_rpg_control(True)

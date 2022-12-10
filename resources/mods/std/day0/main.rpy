@@ -102,12 +102,13 @@ init 10 python:
 	liaz_light_far   = add_location_object('liaz', 'lights_place', ScrollObject, **liaz_light_far_params)
 	liaz_light_close = add_location_object('liaz', 'lights_place', ScrollObject, **liaz_light_close_params)
 	
+	station_snow_free = 'images/locations/station/objects/snow_free.' + location_object_ext
 	station_snowfall_params = dict(
 		name='station_snowfall',
-		free='images/locations/station/objects/snow_free.' + location_object_ext,
+		free=station_snow_free,
 		count=200,
 	)
-	place = {'x': 0, 'y': 0, 'xsize': get_image_width(station_snowfall_params['free']), 'ysize': get_image_height(station_snowfall_params['free'])}
+	place = {'x': 0, 'y': 0, 'xsize': get_image_width(station_snow_free), 'ysize': get_image_height(station_snow_free)}
 	add_location_object('station', place, SnowfallLocation, **station_snowfall_params)
 
 
