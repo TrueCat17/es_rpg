@@ -161,8 +161,12 @@ init 10 python:
 			for character in roommates:
 				side_characters.add(character)
 				
-				character.make_rpg('images/characters/', skin, 'pioneer')
+				character.make_rpg('images/characters/extra_pioneers/', skin, 'pioneer')
 				character.set_auto(True)
+				
+				character.eyes_color = tuple(random.randint(32, 192) for i in xrange(3))
+				character.hair_color = tuple(random.randint(64, 192) for i in xrange(3))
+				character.add_over(character_random_overs)
 				
 				character_actions = character.set_actions(std_actions)
 				character_actions.start('spawn')
@@ -221,6 +225,28 @@ init 10 python:
 			character.set_actions(None)
 			forget_character(character)
 		side_characters.clear()
+	
+	
+	def character_random_overs(character):
+		time_name = times['current_name']
+		
+		cache = character_random_overs.__dict__
+		key = (character.directory, character.rpg_name, character.get_dress(), character.eyes_color, character.hair_color, time_name)
+		
+		if key not in cache:
+			prefix = character.directory + character.rpg_name + '_' + character.get_dress()
+			def get_image(obj):
+				r, g, b = character[obj + '_color']
+				image = '%s_%s_%s.%s' % (prefix, obj, time_name, character_ext)
+				if os.path.exists(image):
+					return im.recolor(image, r, g, b)
+				
+				r2, g2, b2 = location_time_rgb
+				image = '%s_%s.%s' % (prefix, obj, character_ext)
+				return im.recolor(image, r * r2 / 256, g * g2 / 256, b * b2 / 256)
+			
+			cache[key] = [get_image('eyes'), get_image('hair')]
+		return cache[key]
 
 
 init 11 python:
@@ -234,3 +260,6 @@ init 11 python:
 	register_character_animation(us, 'cricket',      'images/characters/anim/us_cricket',      0, 0,  6, 0,  5, 1.5)
 	register_character_animation(us, 'sport_salute', 'images/characters/anim/us_sport_salute', 0, 0,  4, 0,  3, 1.0)
 	register_character_animation(us, 'waves',        'images/characters/anim/us_waves',        0, 0,  3, 0,  2, 0.75)
+	
+	register_character_animation(sm, 'sleep',        'images/characters/anim/sm_sleep',        0, 0,  1, 0,  0, -1)
+	register_character_animation(mt, 'sleep',        'images/characters/anim/mt_sleep',        0, 0,  1, 0,  0, -1)
