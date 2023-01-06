@@ -1,10 +1,6 @@
 init 10 python:
 	was = []
 	
-	answer_points = 0
-	crazy_points = 0
-	dirty_points = 0
-	
 	escape_choice = 0
 	
 	def get_place_labels():
@@ -33,7 +29,7 @@ init 25 python:
 	
 	def spec_start():
 		clock.pause = False
-		clock.set('1-19:14:45')
+		clock.set('1-17:14:45')
 		clock.acceleration = 6
 		show_screen('clock')
 		

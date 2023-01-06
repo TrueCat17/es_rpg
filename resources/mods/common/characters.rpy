@@ -35,6 +35,20 @@ init 10 python:
 	sm.make_rpg('images/characters/', 'sm', 'pioneer')
 	me = sm
 	
+	answer_points = 0
+	crazy_points = 0
+	dirty_points = 0
+	food_points = 0
+	water_points = 0
+	
+	def set_normal_points():
+		global answer_points, crazy_points, dirty_points, food_points, water_points
+		answer_points = 0
+		crazy_points = 0
+		dirty_points = 20
+		food_points = 85
+		water_points = 90
+	
 	
 	std_actions = get_std_rpg_actions()
 	std_actions.interesting_places = [
@@ -82,12 +96,56 @@ init 10 python:
 			'cs': 'chair_forward_pos-r2a',
 		}
 		
+		liked_topics = {
+			'dv': ['Музыка', 'Книги'],
+			'us': ['Спорт', 'Игры', 'Шутки'],
+			
+			'mi': ['Музыка'],
+			'un': ['Рисование', 'Наука'],
+			'sl': ['Лагерь', 'Природа', 'Спорт'],
+			
+			'mz': ['Книги'],
+			'el': ['Наука', 'Погода'],
+			'sh': ['Работа', 'Наука'],
+			
+			'mt': ['Лагерь'],
+			'cs': ['Работа', 'Наука', 'Шутки'],
+			
+			'uv': ['Лагерь', 'Природа'],
+		}
+		disliked_topics = {
+			'dv': ['Работа'],
+			'us': ['Книги'],
+			
+			'mi': ['Природа'],
+			'un': ['Шутки', 'Погода'],
+			'sl': ['Музыка'],
+			
+			'mz': ['Игры'],
+			'el': ['Спорт'],
+			'sh': ['Погода', 'Игры'],
+			
+			'mt': ['Работа'],
+			'cs': ['Игры', 'Рисование'],
+			
+			'uv': ['Наука'],
+		}
+		
+		
 		g = globals()
 		for name in main_character_names:
-			g['rp_' + name] = 0 # [relationship points] to player
-			
 			character = g[name]
+			character.rp = 0 # [relationship points] to player
 			character.make_rpg('images/characters/', name, start_dress.get(name, 'pioneer'))
+			
+			character.spec_topics = []
+			character.liked_topics = liked_topics[name]
+			character.disliked_topics = disliked_topics[name]
+			
+			character.conversation_tags = ['male' if name in ('el', 'sh') else 'female']
+			character.conversation_count = {}
+			for topic in conversation.topics:
+				character.conversation_count[topic] = 0
 			
 			if name == 'uv': continue
 			
@@ -143,6 +201,21 @@ init 10 python:
 		
 		sm.set_actions(std_actions)
 		sm.allow_exit('houses_1', 'house_mt')
+		
+		sm.topic_knowledges = {
+			'Спорт':      3,
+			'Погода':     5,
+			'Книги':      5,
+			'Рисование':  3,
+			'Музыка':     7,
+			'Игры':       9,
+			'Наука':      8,
+			'Лагерь':     2,
+			'Природа':    5,
+			'Работа':     9,
+			'Шутки':      6,
+		}
+		set_normal_points()
 	
 	
 	def init_side_character_actions(location_name, index):
@@ -206,6 +279,8 @@ init 10 python:
 		index = 0
 		index = init_side_character_actions('houses_1', index)
 		index = init_side_character_actions('houses_2', index)
+		
+		update_today_conversations()
 	
 	
 	def characters_auto(value):
@@ -247,6 +322,12 @@ init 10 python:
 			
 			cache[key] = [get_image('eyes'), get_image('hair')]
 		return cache[key]
+	
+	
+	def update_today_conversations():
+		for character in main_characters:
+			character.today_conversations = 0
+	signals.add('clock-00:00:00', update_today_conversations)
 
 
 init 11 python:

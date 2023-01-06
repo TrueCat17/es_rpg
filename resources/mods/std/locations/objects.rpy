@@ -8,7 +8,6 @@ init 1 python:
 	register_location_object('soap',                  'images/locations/objects/', 'soap',                  None, 1)
 	register_location_object('towel',                 'images/locations/objects/', 'towel',                 None, 1)
 	
-	
 	register_location_object('armchair',   'images/locations/flat/objects/', 'armchair', None)
 	register_location_object('dress',      'images/locations/flat/objects/', 'dress', None)
 	register_location_object('lamp_light', 'images/locations/flat/objects/', 'lamp_light', None)
