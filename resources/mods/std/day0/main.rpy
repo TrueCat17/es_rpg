@@ -249,9 +249,9 @@ label day0__flat__bed:
 		return
 	
 	$ set_rpg_control(False)
-	if not has_in_inventory('phone') and not get_location_objects('flat', None, 'phone'):
+	if not inventory.has('phone') and not get_location_objects('flat', None, 'phone'):
 		"Итак, телефон найден."
-		$ add_to_inventory('phone', 1)
+		$ inventory.add('phone', 1)
 		call day0_check_items
 	else:
 		narrator random.choice([
@@ -267,9 +267,9 @@ label day0__flat__computer:
 		return
 	
 	$ set_rpg_control(False)
-	if not has_in_inventory('lighter') and not get_location_objects('flat', None, 'lighter'):
+	if not inventory.has('lighter') and not get_location_objects('flat', None, 'lighter'):
 		"Зажигалка. Может, взять её?"
-		$ add_to_inventory('lighter', 1)
+		$ inventory.add('lighter', 1)
 		call day0_check_items
 	else:
 		narrator random.choice([
@@ -285,20 +285,20 @@ label day0__flat__table:
 		return
 	
 	$ set_rpg_control(False)
-	$ has_flat_keys = has_in_inventory('flat_keys') or get_location_objects('flat', None, 'flat_keys')
-	$ has_notepad   = has_in_inventory('notepad')   or get_location_objects('flat', None, 'notepad')
+	$ has_flat_keys = inventory.has('flat_keys') or get_location_objects('flat', None, 'flat_keys')
+	$ has_notepad   = inventory.has('notepad')   or get_location_objects('flat', None, 'notepad')
 	if not has_flat_keys and not has_notepad:
 		"Вот и ключи. И блокнот. Возьму его на всякий случай, вместе с ручкой."
 	if not has_flat_keys:
-		$ add_to_inventory('flat_keys', 1)
+		$ inventory.add('flat_keys', 1)
 	if not has_notepad:
-		$ add_to_inventory('notepad', 1)
+		$ inventory.add('notepad', 1)
 	call day0_check_items
 	window hide
 	$ set_rpg_control(True)
 
 label day0_check_items:
-	if quest_started('taking_objects') and has_in_inventory('phone') and has_in_inventory('flat_keys') and has_in_inventory('notepad'):
+	if quest_started('taking_objects') and inventory.has('phone') and inventory.has('flat_keys') and inventory.has('notepad'):
 		$ quest_end('taking_objects')
 
 
@@ -325,7 +325,7 @@ label day0__flat__to_dress:
 label day0__flat__exit:
 	if rpg_event != 'action' or not me.get_dress() == 'winter':
 		return
-	if not has_in_inventory('phone') or not has_in_inventory('flat_keys') or not has_in_inventory('notepad'):
+	if not inventory.has('phone') or not inventory.has('flat_keys') or not inventory.has('notepad'):
 		call forgot_things
 		return
 	

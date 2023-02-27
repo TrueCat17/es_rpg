@@ -71,7 +71,7 @@ label *__washbasin*:
 	
 	$ set_rpg_control(False)
 	
-	if has_in_inventory('tooth_paste_and_brush'):
+	if inventory.has('tooth_paste_and_brush'):
 		if '_' in place_name:
 			$ me.move_to_place(place_name)
 			$ me.rotate_in_place(place_name)

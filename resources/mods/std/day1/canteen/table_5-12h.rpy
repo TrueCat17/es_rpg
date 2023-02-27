@@ -26,7 +26,7 @@ label day1__canteen__table-5-time12h:
 		"Дальше мы сидели в тишине. Точнее, я сидел, а она тихонько ела."
 		$ clock.add(1 * 60)
 		"..."
-		$ sl.set_dress('food')
+		$ sl.set_dress('pioneer_food')
 		$ sl.get_actions().start(canteen.inside)
 		$ canteen.wait(sl)
 		$ sl.set_dress('pioneer')

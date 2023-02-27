@@ -1,4 +1,12 @@
 init 10 python:
+	inventory.dress_sizes = {
+		'default': 10,
+		'pioneer': 14,
+		'work': 20,
+		'winter': 24,
+	}
+	
+	
 	odn      = Character('Одногруппник',      color = 0xFFFFFF)
 	lk       = Character('Луркмор-кун',       color = 0xFFFFFF)
 	message  = Character('Сообщение',         color = 0xFFFFFF)

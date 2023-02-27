@@ -306,6 +306,7 @@ init python:
 	register_place(   "forest_path-9", "forest_path-4", 120, 0, 180, 40, to=["up", "forest_path-4", "forest_path-9"])
 	
 	register_location("hospital", "images/locations/hospital/", True, 224, 256)
+	register_place(   "hospital", "enter_table", 170, 210, 30, 50)
 	register_place(   "hospital", "library_and_hospital", 120, 226, 34, 30, to=["down", "library_and_hospital", "hospital"])
 	
 	register_location("house_dv", "images/locations/house_dv/", True, 512, 512)
@@ -314,6 +315,7 @@ init python:
 	register_location("house_mt", "images/locations/house_mt/", True, 512, 512)
 	register_place(   "house_mt", "bedside_table", 205, 330, 30, 40)
 	register_place(   "house_mt", "cupboard", 290, 380, 20, 40)
+	register_place(   "house_mt", "exit_table", 200, 390, 20, 30)
 	register_place(   "house_mt", "mt_bed", 285, 290, 10, 30)
 	register_place(   "house_mt", "mt_bed_sleep", 315, 295, 10, 10)
 	register_place(   "house_mt", "sm_bed", 220, 290, 10, 30)
@@ -427,6 +429,7 @@ init python:
 	register_place(   "radio_club", "radio_storeroom", 273, 185, 34, 30, to=["right", "radio_storeroom", "radio_club", to_left])
 	
 	register_location("radio_storeroom", "images/locations/radio_storeroom/", True, 162, 247)
+	register_place(   "radio_storeroom", "cupboard", 60, 110, 50, 30)
 	register_place(   "radio_storeroom", "radio_club", 99, 217, 30, 30, to=["down", "radio_club", "radio_storeroom", to_left])
 	
 	register_location("scene", "images/locations/scene/", False, 960, 992)

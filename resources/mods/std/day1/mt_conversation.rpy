@@ -1,7 +1,7 @@
 label day1__towel_remember:
-	if not has_in_inventory('towel'):
+	if not inventory.has('towel'):
 		$ set_rpg_control(False)
-		mt "Ты полотенце забыл."
+		mt "Ты полотенце забыл. В шкафчике у кровати."
 		me "Точно."
 		$ set_rpg_control(True)
 		window hide

@@ -66,7 +66,6 @@ init -1 python:
 		character.rotate_to(me)
 		conversation.was_auto = character.get_auto()
 		character.set_auto(False)
-		character.today_conversations += 1
 		conversation.spec_topics = character.spec_topics or []
 		
 		conversation.character = character
@@ -144,7 +143,7 @@ init -1 python:
 		if min_dist <= conversation.max_dist:
 			if near_character.conversation_tags is None:
 				renpy.call('conversation__no')
-			elif near_character.today_conversations == conversation.count_in_day:
+			elif near_character.today_conversations == conversation.count_in_day and not near_character.spec_topics:
 				renpy.call('conversation__too_many')
 			else:
 				conversation.show(near_character)
@@ -216,6 +215,7 @@ label conversation__processing:
 		$ signals.send('conversation', conversation.character, conversation.topic)
 	else:
 		python:
+			conversation.character.today_conversations += 1
 			end = conversation.get_end()
 			if type(end) is str:
 				end = [end]
@@ -264,6 +264,7 @@ screen conversation:
 		vbox:
 			xpos conversation.btn_edge_indent
 			yalign 0.5
+			alpha 1 if conversation.character.today_conversations < conversation.count_in_day else 0
 			spacing conversation.btn_yspacing
 			
 			for y in xrange(conversation.topics_ycount):
