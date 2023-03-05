@@ -3,53 +3,6 @@ init 10 python:
 	
 	escape_choice = 0
 	
-	def my_interface_bg():
-		iw, ih = int(inventory.xsize), int(inventory.ysize)
-		cache = my_interface_bg.__dict__
-		key = (iw, ih)
-		if key in cache:
-			return cache[key]
-		
-		back = 'images/gui/menu/pause/back.png'
-		leaf = 'images/gui/menu/pause/leaf.png'
-		x, y = 5, 15
-		w, h = get_image_size(leaf)
-		k = 0.07
-		w, h = int(k * iw), int(k * ih * (float(iw) / ih) / (float(w) / h))
-		
-		args = [
-			(iw + x * 2, ih + y * 2),
-			(x, y), im.scale(back, iw, ih),
-			(iw - w + x * 2, ih - h + y * 2), im.scale(leaf, w, h),
-		]
-		cache[key] = im.composite(*args)
-		return cache[key]
-	gui.inventory_bg = my_interface_bg
-	gui.inventory_edge_spacing = 60
-	
-	def get_borders(w, h, border, color):
-		cache = get_borders.__dict__
-		key = (w, h, border, color)
-		if key in cache:
-			return cache[key]
-		
-		color = im.rect(color)
-		args = [
-			(w, h),
-			(0, 0), im.scale(color, w, border),
-			(0, h - border), im.scale(color, w, border),
-			(0, border), im.scale(color, border, h),
-			(w - border, border), im.scale(color, border, h),
-		]
-		cache[key] = im.composite(*args)
-		return cache[key]
-	def my_interface_cell_usual():
-		return get_borders(int(inventory.cell_xsize), int(inventory.cell_ysize), int(inventory.cell_xsize) / 15, '#333')
-	def my_interface_cell_selected():
-		return get_borders(int(inventory.cell_xsize), int(inventory.cell_ysize), int(inventory.cell_xsize) / 15, '#A42')
-	gui.inventory_cell_usual_over = my_interface_cell_usual
-	gui.inventory_cell_selected_over = my_interface_cell_selected
-	
 	
 	def get_place_labels():
 		usual_label = cur_location_name + '__' + (cur_place_name or 'unknown')
