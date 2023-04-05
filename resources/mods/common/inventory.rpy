@@ -1,6 +1,6 @@
 init python:
 	def my_interface_bg():
-		iw, ih = int(inventory.xsize), int(inventory.ysize)
+		iw, ih = inventory.xsize, inventory.ysize
 		cache = my_interface_bg.__dict__
 		key = (iw, ih)
 		if key in cache:
@@ -42,9 +42,9 @@ init python:
 		cache[key] = im.composite(*args)
 		return cache[key]
 	def my_interface_cell_usual():
-		return get_borders(int(inventory.cell_xsize), int(inventory.cell_ysize), int(inventory.cell_xsize) / 15, gui.my_inventory_cell_usual_color)
+		return get_borders(inventory.cell_xsize, inventory.cell_ysize, inventory.cell_xsize / 15, gui.my_inventory_cell_usual_color)
 	def my_interface_cell_selected():
-		return get_borders(int(inventory.cell_xsize), int(inventory.cell_ysize), int(inventory.cell_xsize) / 15, gui.my_inventory_cell_selected_color)
+		return get_borders(inventory.cell_xsize, inventory.cell_ysize, inventory.cell_xsize / 15, gui.my_inventory_cell_selected_color)
 	gui.inventory_cell_usual_over = my_interface_cell_usual
 	gui.inventory_cell_selected_over = my_interface_cell_selected
 	
