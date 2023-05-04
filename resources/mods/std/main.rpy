@@ -51,7 +51,7 @@ init 25 python:
 			characters_auto(False)
 			
 			show_character(mi, me)
-			print mi.move_to_place(['clubs', 'enter'])
+			print(mi.move_to_place(['clubs', 'enter']))
 
 label start:
 	#call day0_start

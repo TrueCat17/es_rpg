@@ -1,5 +1,5 @@
 init python:
-	local_cam_x, local_cam_y = get_stage_width() / 2, get_stage_height() / 2
+	local_cam_x, local_cam_y = get_stage_width() // 2, get_stage_height() // 2
 	
 	local_k = absolute(1.0)
 	local_k_min = absolute(0.25)
@@ -11,23 +11,23 @@ init python:
 		objs = []
 		places = []
 		
-		for place in selected_location.places.itervalues():
+		for place in selected_location.places.values():
 			if '_pos' in place.name:
 				obj_name = place.name[0:place.name.index('_pos')]
-				if location_objects.has_key(obj_name):
+				if obj_name in location_objects:
 					obj = location_objects[obj_name]
 					main_frame = obj['animations'][None]
 					obj_image = get_image_or_similar(main_frame['directory'] + main_frame['main_image'] + '.' + location_object_ext)
 					
-					x = place.x + place.xsize / 2
-					y = place.y + place.ysize / 2
+					x = place.x + place.xsize // 2
+					y = place.y + place.ysize // 2
 					objs.append((obj_image, x, y))
 			
 			if place.to_location_name is None:
 				image = im.Rect('#0B0')
 			else:
 				to_loc = rpg_locations.get(place.to_location_name, None)
-				if to_loc and to_loc.places.has_key(place.to_place_name):
+				if to_loc and place.to_place_name in to_loc.places:
 					if place.exit_side:
 						x, y, w, h = place.get_rect(of_exit = False)
 						ex, ey, ew, eh = place.get_rect(of_exit = True)
@@ -41,7 +41,7 @@ init python:
 			
 			places.append((place, image))
 		
-		objs.sort(key = lambda (obj_image, x, y): y)
+		objs.sort(key = lambda image_x_y: image_x_y[2])
 		
 		return objs, places
 	

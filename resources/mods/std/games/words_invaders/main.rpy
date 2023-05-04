@@ -52,7 +52,7 @@ init python:
 		xmin = wi_player_symbols[0]['x']
 		xmax = wi_player_symbols[-1]['x']
 		xsize = xmax - xmin
-		dx = (wi_size - xsize) / 2
+		dx = (wi_size - xsize) // 2
 		for symbol in wi_player_symbols:
 			symbol['x'] += dx
 			symbol['y'] = wi_player_symbol_ypos
@@ -63,8 +63,8 @@ init python:
 	def wi_get_array_symbols(symbols, kx, xmax):
 		res = []
 		symbol = ''
-		x = wi_symbol_xsize / 2
-		y = wi_symbol_ysize / 2
+		x = wi_symbol_xsize // 2
+		y = wi_symbol_ysize // 2
 		for byte in symbols:
 			if is_first_byte(byte):
 				if symbol and symbol != ' ':
@@ -76,7 +76,7 @@ init python:
 					})
 					x += wi_symbol_xsize * kx
 					if x >= xmax:
-						x = wi_symbol_xsize / 2
+						x = wi_symbol_xsize // 2
 						y += wi_symbol_ysize
 				symbol = ''
 			symbol += byte
@@ -107,7 +107,7 @@ init python:
 		wi_to_left = False
 		
 		global wi_player_xpos, wi_player_speed
-		wi_player_xpos = wi_size / 2
+		wi_player_xpos = wi_size // 2
 		wi_player_speed = 0
 		
 		global wi_attack_last
@@ -126,13 +126,13 @@ init python:
 				wi_bullets.pop(i)
 				continue
 			
-			bx = bullet_props['x'] - wi_bullet_xsize / 2
-			by = bullet_props['y'] - wi_bullet_ysize / 2
+			bx = bullet_props['x'] - wi_bullet_xsize // 2
+			by = bullet_props['y'] - wi_bullet_ysize // 2
 			
-			for j in xrange(len(wi_symbols)):
+			for j in range(len(wi_symbols)):
 				symbol = wi_symbols[j]
-				sx = symbol['x'] - wi_symbol_xsize / 2
-				sy = symbol['y'] - wi_symbol_ysize / 2
+				sx = symbol['x'] - wi_symbol_xsize // 2
+				sy = symbol['y'] - wi_symbol_ysize // 2
 				
 				if rects_intersects(bx, by, wi_bullet_xsize, wi_bullet_ysize, sx, sy, wi_symbol_xsize, wi_symbol_ysize):
 					wi_symbols.pop(j)
@@ -165,7 +165,7 @@ init python:
 				
 				ok = False
 				for symbol in wi_player_symbols:
-					if abs(symbol['x'] - attacker['x']) < wi_symbol_xsize / 2:
+					if abs(symbol['x'] - attacker['x']) < wi_symbol_xsize // 2:
 						ok = True
 						break
 				if ok:
@@ -214,17 +214,17 @@ init python:
 		i = 0
 		while i < len(wi_symbols):
 			symbol = wi_symbols[i]
-			sx = symbol['x'] - wi_symbol_xsize / 2
-			sy = symbol['y'] - wi_symbol_ysize / 2
+			sx = symbol['x'] - wi_symbol_xsize // 2
+			sy = symbol['y'] - wi_symbol_ysize // 2
 			
 			if symbol['y'] > wi_size:
 				wi_symbols.pop(i)
 				continue
 			
-			for j in xrange(len(wi_player_symbols)):
+			for j in range(len(wi_player_symbols)):
 				psymbol = wi_player_symbols[j]
-				px = psymbol['x'] - wi_symbol_xsize / 2
-				py = psymbol['y'] - wi_symbol_ysize / 2
+				px = psymbol['x'] - wi_symbol_xsize // 2
+				py = psymbol['y'] - wi_symbol_ysize // 2
 				
 				if rects_intersects(sx, sy, wi_bullet_xsize, wi_bullet_ysize, px, py, wi_symbol_xsize, wi_symbol_ysize):
 					wi_player_symbols.pop(j)

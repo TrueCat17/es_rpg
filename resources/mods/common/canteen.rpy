@@ -39,7 +39,7 @@ init 11 python:
 		renpy.play(sfx['horn'], 'sound')
 		
 		canteen_hour = clock.hours + 1
-		skip_chance = canteen.skip_chances[canteen_hour if canteen.skip_chances.has_key(canteen_hour) else None]
+		skip_chance = canteen.skip_chances[canteen_hour if canteen_hour in canteen.skip_chances else None]
 		for character in characters:
 			skip = random.random() < skip_chance
 			if character in main_characters:
@@ -69,7 +69,7 @@ init 11 python:
 			loc = rpg_locations['square']
 			place = loc.places['canteen']
 			
-			for i in xrange(10):
+			for i in range(10):
 				res = rpg_random_free_point(['square'])
 				if not res: continue
 				_, x, y = res
@@ -92,7 +92,7 @@ init 11 python:
 		
 		if state == 'waiting':
 			if not actions.crowding_waiting_end:
-				actions.crowding_waiting_end = get_game_time() + random.randint(5, 20) / 10.0
+				actions.crowding_waiting_end = get_game_time() + random.uniform(0.5, 2.0)
 				character.set_direction(random.choice([to_left, to_right, to_back, to_forward]))
 			if get_game_time() < actions.crowding_waiting_end:
 				return 'waiting'
@@ -124,7 +124,7 @@ init 11 python:
 				
 				min_conversating = 0.5
 				y = rpg_locations['square'].places['canteen'].y - character.y
-				max_conversating = 3.0 * max(1 - float(y) / canteen.crowding_place_ysize, 0.333)
+				max_conversating = max(1 - y / canteen.crowding_place_ysize, 0.333) * 3
 				actions.crowding_conversation_end = get_game_time() + random.random() * (max_conversating - min_conversating) + min_conversating
 				near_actions.crowding_conversation_end = actions.crowding_conversation_end
 			
@@ -205,7 +205,7 @@ init 11 python:
 	def canteen__get_table():
 		res = ''
 		min_dist = 1e9
-		for name, place in rpg_locations['canteen'].places.iteritems():
+		for name, place in rpg_locations['canteen'].places.items():
 			if 'table' not in name: continue
 			dist = get_dist(place.x + place.xsize / 2, place.y + place.ysize / 2, me.x, me.y)
 			if dist < min_dist:

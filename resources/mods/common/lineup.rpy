@@ -90,7 +90,7 @@ init 11 python:
 			if (clock.hours, clock.minutes) >= (20, 30):
 				return 'start_event'
 			if not actions.lineup_end_time:
-				actions.lineup_end_time = get_game_time() + random.randint(5, 50) / 10.0
+				actions.lineup_end_time = get_game_time() + random.uniform(0.5, 5.0)
 				character.set_direction(random.choice([to_left, to_right, to_forward, to_back]))
 			if get_game_time() < actions.lineup_end_time:
 				return 'waiting'
@@ -122,7 +122,7 @@ init 11 python:
 				tmp_actions.cur_state = 'conversation'
 				tmp.rotate_to(character)
 				character.rotate_to(tmp)
-				actions.lineup_end_time = tmp_actions.lineup_end_time = get_game_time() + random.randint(15, 50) / 10.0
+				actions.lineup_end_time = tmp_actions.lineup_end_time = get_game_time() + random.uniform(1.5, 5.0)
 			
 			if get_game_time() < actions.lineup_end_time:
 				return 'conversation'

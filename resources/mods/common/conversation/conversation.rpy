@@ -31,8 +31,8 @@ init -1 python:
 		h -= ch
 		w -= w % segment_size
 		h -= h % segment_size
-		xcount = w / segment_size
-		ycount = h / segment_size
+		xcount = w // segment_size
+		ycount = h // segment_size
 		
 		args = [(cw * 2 + w, ch * 2 + h)]
 		
@@ -51,10 +51,10 @@ init -1 python:
 		args.extend([(cw, ch + h), im.rect(conversation.bg_color, w, ch)])
 		
 		for line in (0, 1):
-			for i in xrange(xcount):
+			for i in range(xcount):
 				args.extend([(cw + segment_size * i, (ch * 2 + h - segment_wide) * line), hline])
 		for line in (0, 1):
-			for i in xrange(ycount):
+			for i in range(ycount):
 				args.extend([((cw * 2 + w - segment_wide) * line, ch + segment_size * i), vline])
 		
 		cache[key] = im.composite(*args)
@@ -254,8 +254,8 @@ screen conversation:
 		size  (conversation.w, conversation.h)
 		align (conversation.xalign, conversation.yalign)
 		
-		$ conversation.btn_xsize = get_stage_width() / 8
-		$ conversation.btn_ysize = in_bounds(get_stage_height() / 30, 18, 28)
+		$ conversation.btn_xsize = get_stage_width() // 8
+		$ conversation.btn_ysize = in_bounds(get_stage_height() // 30, 18, 28)
 		$ conversation.text_size = conversation.btn_ysize - 2
 		
 		$ conversation.ground = im.round_rect(conversation.btn_ground_color, conversation.btn_xsize, conversation.btn_ysize, 4)
@@ -267,11 +267,11 @@ screen conversation:
 			alpha 1 if conversation.character.today_conversations < conversation.count_in_day else 0
 			spacing conversation.btn_yspacing
 			
-			for y in xrange(conversation.topics_ycount):
+			for y in range(conversation.topics_ycount):
 				hbox:
 					spacing conversation.btn_xspacing
 					
-					for x in xrange(conversation.topics_xcount):
+					for x in range(conversation.topics_xcount):
 						$ index = y * conversation.topics_xcount + x
 						if index >= len(conversation.topics):
 							break
@@ -286,7 +286,7 @@ screen conversation:
 							mouse  not conversation.hiding
 							action conversation.end(conversation.topics[index]) if not conversation.hiding else None
 		
-		$ conversation.btn_xsize = conversation.btn_xsize * 3 / 2
+		$ conversation.btn_xsize = conversation.btn_xsize * 3 // 2
 		$ conversation.ground = im.round_rect(conversation.btn_ground_color, conversation.btn_xsize, conversation.btn_ysize, 4)
 		$ conversation.hover  = im.round_rect(conversation.btn_hover_color,  conversation.btn_xsize, conversation.btn_ysize, 4)
 		null:

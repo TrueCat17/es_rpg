@@ -25,7 +25,7 @@ init python:
 				i += 1
 		
 		count = cloud.get_count_for_location(cur_location)
-		for i in xrange(count):
+		for i in range(count):
 			obj = add_location_object(cur_location_name, {'x': 0, 'y': 0}, Cloud)
 			obj.set_init_params(inside=True)
 	
@@ -33,7 +33,7 @@ init python:
 		size = cur_location.xsize + cur_location.ysize
 		if size >= 3500:
 			return 4
-		return max(1, size / 1000)
+		return max(1, size // 1000)
 	
 	
 	def cloud__init(**kwargs):
@@ -90,7 +90,7 @@ init python:
 			
 			zoom = random.randint(cloud.min_zoom, cloud.max_zoom)
 			self.xsize, self.ysize = 80 * zoom, 50 * zoom
-			self.part_xsize, self.part_ysize = self.xsize / 2, self.ysize / 2
+			self.part_xsize, self.part_ysize = self.xsize // 2, self.ysize // 2
 			
 			w, h = self.location.xsize, self.location.ysize
 			self.x = absolute(random.randint(0, w - 1))
@@ -108,7 +108,7 @@ init python:
 			#  0, 1,
 			#  2, 3
 			self.parts = []
-			for i in xrange(4):
+			for i in range(4):
 				image = random.choice(cloud.usuals)
 				while image in self.parts and len(cloud.usuals) >= 4:
 					image = random.choice(cloud.usuals)
@@ -149,4 +149,4 @@ init python:
 			}
 		
 		def get_draw_data(self):
-			return [self.get_part_draw_data(i) for i in xrange(4)]
+			return [self.get_part_draw_data(i) for i in range(4)]

@@ -238,15 +238,15 @@ init 10 python:
 			name, skin = ('Пионер', 'boy') if random.random() < 0.4 else ('Пионерка', 'girl')
 			skin = prefix + skin
 			
-			roommates = [Character(name) for i in xrange(2)]
+			roommates = [Character(name) for i in range(2)]
 			for character in roommates:
 				side_characters.add(character)
 				
 				character.make_rpg('images/characters/extra_pioneers/', skin, 'pioneer')
 				character.set_auto(True)
 				
-				character.eyes_color = tuple(random.randint(32, 192) for i in xrange(3))
-				character.hair_color = tuple(random.randint(64, 192) for i in xrange(3))
+				character.eyes_color = tuple(random.randint(32, 192) for i in range(3))
+				character.hair_color = tuple(random.randint(64, 192) for i in range(3))
 				character.add_over(character_random_overs)
 				
 				character_actions = character.set_actions(std_actions)
@@ -257,7 +257,7 @@ init 10 python:
 				
 				# canteen:
 				side = 'left' if (index % 4) < 2 else 'right'
-				num = str(index / 4 + 1)
+				num = str(index // 4 + 1)
 				if len(num) == 1:
 					num = '0' + num
 				symbol = 'a' if index % 2 else 'b'

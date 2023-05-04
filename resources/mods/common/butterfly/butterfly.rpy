@@ -1,11 +1,11 @@
 init -10 python:
 	
 	def add_butterflies(min, max):
-		for name, location in rpg_locations.iteritems():
+		for name, location in rpg_locations.items():
 			if location.is_room: continue
 			
 			count = random.randint(min, max)
-			for i in xrange(count):
+			for i in range(count):
 				x = random.randint(0, location.xsize - 1)
 				y = random.randint(0, location.ysize - 1)
 				add_location_object(name, {'x': x, 'y': y}, Butterfly)
@@ -16,14 +16,14 @@ init -10 python:
 		
 		def __init__(self, xpos, ypos, xsize, ysize, **kwargs):
 			Object.__init__(self)
-			self.xpos, self.ypos = xpos + xsize / 2, ypos + ysize / 2
+			self.xpos, self.ypos = xpos + xsize // 2, ypos + ysize // 2
 			
 			self.count_frames = 5
 			self.frame = random.randint(0, self.count_frames - 1)
 			self.fps = 10
 			
 			self.xsize, self.ysize = get_image_size(Butterfly.standart_image)
-			self.xsize /= self.count_frames
+			self.xsize //= self.count_frames
 			
 			self.rotate = random.randint(0, 359)
 			self.xspeed = 0.0
@@ -99,7 +99,7 @@ init -10 python:
 					if random.random() < self.rotate_chance * k:
 						self.rotate += random.randint(-self.rotate_max, +self.rotate_max)
 			else:
-				dx, dy = w / 2 - x, h / 2 - y
+				dx, dy = w // 2 - x, h // 2 - y
 				self.rotate = int(math.atan2(dy, dx) * 180 / math.pi) + 90
 			
 			self.frame += self.fps * k

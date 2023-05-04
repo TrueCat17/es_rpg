@@ -10,9 +10,9 @@ init python:
 		leaf = 'images/gui/menu/pause/leaf.png'
 		x, y = 5, 15
 		w, h = get_image_size(leaf)
-		k = float(w) / h
+		k = w / h
 		w = iw / 15
-		h = int(w / k)
+		h = w / k
 		
 		args = [
 			(iw, ih),

@@ -46,7 +46,7 @@ init 1 python:
 	})
 	
 	
-	for i in xrange(10):
+	for i in range(10):
 		name = 'forest_path-' + str(i)
 		if i in (0, 4, 5, 9):
 			sound_name = 'road'

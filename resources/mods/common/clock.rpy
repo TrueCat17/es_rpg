@@ -10,13 +10,13 @@ init python:
 		return [int(day), int(h), int(m), float(s)]
 	
 	def clock__normalize(d, h, m, s):
-		m += int(s) / 60
+		m += int(s) // 60
 		s %= 60
 		
-		h += m / 60
+		h += m // 60
 		m %= 60
 		
-		d += h / 60
+		d += h // 60
 		h %= 24
 		
 		return d, h, m, s

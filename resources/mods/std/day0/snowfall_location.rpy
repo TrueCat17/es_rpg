@@ -4,15 +4,8 @@ init -1000 python:
 		def __init__(self, xpos, ypos, xsize, ysize, **kwargs):
 			Object.__init__(self)
 			
-			if kwargs.has_key('image'):
-				self.image = kwargs['image']
-			else:
-				self.image = im.rect('#FFF')
-			
-			if kwargs.has_key('free'):
-				self.free_image = kwargs['free']
-			else:
-				self.free_image = im.rect('#000', xsize, ysize)
+			self.image = kwargs.get('image', im.rect('#FFF'))
+			self.free_image = kwargs.get('free', im.rect('#000', xsize, ysize))
 			
 			self.type = kwargs.get('name', 'snowfall_location')
 			self.zorder = 1e7
@@ -36,7 +29,7 @@ init -1000 python:
 			else:
 				self.objs.extend([None] * (count - old_count))
 				
-				for i in xrange(count - old_count):
+				for i in range(count - old_count):
 					x, y = random.uniform(0, 1), random.uniform(0, 1)
 					dx, dy = random.uniform(self.min_dx, self.max_dx), random.uniform(self.min_dy, self.max_dy)
 					size = random.uniform(self.min_size, self.max_size)
@@ -62,7 +55,7 @@ init -1000 python:
 			res = [None] * len(self.objs)
 			
 			w, h = self.xsize, self.ysize
-			for i in xrange(len(self.objs)):
+			for i in range(len(self.objs)):
 				x, y, dx, dy, size = self.objs[i]
 				res[i] = {
 					'image':   self.image,

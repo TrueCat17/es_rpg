@@ -55,7 +55,7 @@ init 10 python:
 		min = 0.15
 		max = 0.30
 		half_period = 1.5
-		speed = float(max - min) / half_period
+		speed = (max - min) / half_period
 		
 		lamp_light.alpha += (lamp_light.dalpha or speed) * get_last_tick()
 		
@@ -173,7 +173,7 @@ label day0__enter__before_gates_close:
 	play sound_loop sfx['computer_noise'] fadein 2
 	pause 1
 	
-	$ prologue_k = 217.0 / 155
+	$ prologue_k = 217 / 155
 	$ prologue_size = (0.2, 0.2 * get_from_hard_config('window_w_div_h', float) / prologue_k)
 	
 	show prologue_sleep with dissolve:
