@@ -7,6 +7,8 @@ init 1 python:
 	register_location_object('tooth_paste_and_brush', 'images/locations/objects/', 'tooth_paste_and_brush', None, 1)
 	register_location_object('soap',                  'images/locations/objects/', 'soap',                  None, 1)
 	register_location_object('towel',                 'images/locations/objects/', 'towel',                 None, 1)
+	register_location_object('broom',         'images/locations/storage/objects/', 'broom',         'broom_free', 1)
+	register_location_object('shovel',        'images/locations/storage/objects/', 'shovel',       'shovel_free', 1)
 	
 	register_location_object('armchair',   'images/locations/flat/objects/', 'armchair', None)
 	register_location_object('dress',      'images/locations/flat/objects/', 'dress', None)
@@ -93,6 +95,10 @@ init 1 python:
 	register_location_object('washbasin_left',  'images/locations/square/objects/', 'washbasin_left',  'washbasin_free')
 	register_location_object('washbasin_right', 'images/locations/square/objects/', 'washbasin_right', 'washbasin_free')
 	
+	
+	register_location_object('storage_cupboard',       'images/locations/storage/objects/', 'cupboard',       'cupboard_free')
+	register_location_object('storage_left_cupboards', 'images/locations/storage/objects/', 'left_cupboards', 'left_cupboards_free')
+	register_location_object('tabouret',               'images/locations/storage/objects/', 'tabouret',       'tabouret_free')
 	
 	register_location_object('stadium_rails', 'images/locations/stadium/objects/', 'rails', None)
 	
@@ -322,6 +328,12 @@ init 1 python:
 	add_location_object("square", "washbasin_right_pos-2", "washbasin_right")
 	
 	add_location_object("stadium", "stadium_rails_pos", "stadium_rails")
+	
+	add_location_object("storage", "broom_pos", "broom")
+	add_location_object("storage", "shovel_pos", "shovel")
+	add_location_object("storage", "storage_cupboard_pos", "storage_cupboard")
+	add_location_object("storage", "storage_left_cupboards_pos", "storage_left_cupboards")
+	add_location_object("storage", "tabouret_pos", "tabouret")
 	
 	add_location_object("tennis", "separator_pos", "separator")
 	

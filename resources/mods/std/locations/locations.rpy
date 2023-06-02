@@ -446,7 +446,6 @@ init python:
 	register_place(   "square", "bench_right_pos-2", 685, 542, 2, 2)
 	register_place(   "square", "bench_right_pos-3", 685, 767, 2, 2)
 	register_place(   "square", "car_pos", 1223, 846, 2, 2)
-	register_place(   "square", "closed", 1580, 680, 120, 30)
 	register_place(   "square", "lamp_pos-1", 206, 274, 2, 2)
 	register_place(   "square", "lamp_pos-10", 976, 737, 2, 2)
 	register_place(   "square", "lamp_pos-11", 1705, 937, 2, 2)
@@ -472,6 +471,7 @@ init python:
 	register_place(   "square", "houses_1", 190, 0, 510, 40, to=["up", "houses_1", "square"])
 	register_place(   "square", "houses_2", 20, 1304, 100, 40, to=["down", "houses_2", "square"])
 	register_place(   "square", "stadium", 1784, 940, 40, 120, to=["right", "stadium", "square"])
+	register_place(   "square", "storage", 1540, 680, 160, 40, to=["up", "storage", "square"])
 	
 	register_location("stadium", "images/locations/stadium/", False, 2080, 1536)
 	register_place(   "stadium", "closed-1", 540, 800, 40, 20)
@@ -488,6 +488,14 @@ init python:
 	register_place(   "station", "liaz_enter", 400, 390, 30, 50)
 	register_place(   "station", "liaz_place", 430, 520, 100, 20)
 	register_place(   "station", "station_enter", 270, 0, 70, 20)
+	
+	register_location("storage", "images/locations/storage/", True, 250, 350)
+	register_place(   "storage", "broom_pos", 230, 280, 2, 2)
+	register_place(   "storage", "shovel_pos", 237, 282, 2, 2)
+	register_place(   "storage", "storage_cupboard_pos", 120, 245, 2, 2)
+	register_place(   "storage", "storage_left_cupboards_pos", 30, 220, 2, 2)
+	register_place(   "storage", "tabouret_pos", 185, 225, 2, 2)
+	register_place(   "storage", "square", 75, 310, 100, 40, to=["down", "square", "storage"])
 	
 	register_location("tennis", "images/locations/tennis/", False, 992, 670)
 	register_place(   "tennis", "separator_pos", 708, 373, 2, 2)
@@ -558,6 +566,7 @@ init python:
 	rpg_locations["square"].x, rpg_locations["square"].y = 870, 384
 	rpg_locations["stadium"].x, rpg_locations["stadium"].y = 1262, 386
 	rpg_locations["station"].x, rpg_locations["station"].y = 27, 851
+	rpg_locations["storage"].x, rpg_locations["storage"].y = 1001, 444
 	rpg_locations["tennis"].x, rpg_locations["tennis"].y = 1286, 292
 	rpg_locations["washbasins"].x, rpg_locations["washbasins"].y = 513, 224
 

@@ -12,3 +12,5 @@ init 2 python:
 	set_sit_place('chair_right',  [(14, 34, to_right)])
 	set_sit_place('chair_forward', [(0, 30, to_forward)], over='chair_forward_over')
 	set_sit_place('chair_backward', [(0, 40, to_back)])
+	
+	set_sit_place('tabouret', [(14, 18, to_right)])
