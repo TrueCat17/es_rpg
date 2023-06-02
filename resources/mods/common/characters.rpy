@@ -350,5 +350,9 @@ init 11 python:
 	register_character_animation(us, 'sport_salute', 'images/characters/anim/us_sport_salute', 0, 0,  4, 0,  3, 1.0)
 	register_character_animation(us, 'waves',        'images/characters/anim/us_waves',        0, 0,  3, 0,  2, 0.75)
 	
+	register_character_animation(un, 'book_back',    'images/characters/anim/un_book_sides',   0, 0, 3, 0, 0)
+	register_character_animation(un, 'book_left',    'images/characters/anim/un_book_sides',   0, 0, 3, 1, 1)
+	register_character_animation(un, 'book_right',   'images/characters/anim/un_book_sides',   0, 0, 3, 2, 2)
+	
 	register_character_animation(sm, 'sleep',        'images/characters/anim/sm_sleep',        0, 0,  1, 0,  0, -1)
 	register_character_animation(mt, 'sleep',        'images/characters/anim/mt_sleep',        0, 0,  1, 0,  0, -1)

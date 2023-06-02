@@ -30,7 +30,7 @@ init 25 python:
 	
 	def spec_start():
 		clock.pause = False
-		clock.set('1-17:14:45')
+		clock.set('1-20:46:45')
 		clock.acceleration = 6
 		show_screen('clock')
 		

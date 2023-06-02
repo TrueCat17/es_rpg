@@ -2,7 +2,7 @@ init python:
 	def day1_us_running(character, state):
 		if state == 'start':
 			lineup.skip.append(character)
-			character.get_actions().allow = [day1_us_running]
+			character.get_actions().interruptable = False
 			character.move_to_places([('houses_1', 'square'), ('forest_path-8', 'tennis'), ('forest_path-8', 'forest_path-7')], run=True)
 			return 'moving'
 		
@@ -23,7 +23,6 @@ init python:
 		
 		if state == 'end':
 			lineup.skip.remove(character)
-			character.get_actions().allow = []
 			show_character(character, 'houses_2', 'house_dv')
 			return 'end'
 

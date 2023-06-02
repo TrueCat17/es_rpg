@@ -32,7 +32,6 @@ init 11 python:
 			actions = ch.get_actions()
 			if not actions: continue
 			actions.allow = []
-			actions.block = ['to_friend']
 			actions.start(lineup.action)
 	
 	def lineup__end():
@@ -43,7 +42,6 @@ init 11 python:
 			if not ch.get_auto(): continue
 			actions = ch.get_actions()
 			if not actions: continue
-			actions.block = []
 			if actions.cur_action is not lineup.action: continue
 			actions.random()
 	
@@ -77,6 +75,8 @@ init 11 python:
 		actions = character.get_actions()
 		
 		if state == 'start':
+			actions.interruptable = False
+			
 			x, y = lineup.get_place(character)
 			character.move_to_place(['square', {'x': x, 'y': y}])
 			return 'moving'
@@ -133,7 +133,7 @@ init 11 python:
 			character.set_direction(to_left if character is mt else to_right)
 			return 'event'
 		
-		if state == 'event': # see end_lineup()
+		if state == 'event': # see lineup.end()
 			return 'event'
 		
 		if state == 'end':

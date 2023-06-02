@@ -3,8 +3,9 @@ init python:
 		actions = character.get_actions()
 		
 		if state == 'start':
+			actions.interruptable = False
+			
 			character.move_to_place(['admin', 'closed-1'])
-			actions.block = ['to_friend']
 			return 'moving'
 		
 		if state == 'moving':
@@ -34,7 +35,6 @@ init python:
 		if state == 'end':
 			show_character(mt, 'closed-1', 'admin')
 			actions.waiting_end_time = None
-			actions.block = []
 			return 'end'
 
 
@@ -42,7 +42,7 @@ label day1__lineup_conversation:
 	$ was.append('lineup')
 	$ set_rpg_control(False)
 	
-	if clock.minutes <= 31:
+	if clock.minutes <= 31 or not mt.ended_move_waiting():
 		python:
 			while clock.minutes < 30:
 				clock.add(10)
@@ -182,7 +182,7 @@ label day1__lineup_conversation:
 	pause 2
 	$ me.get_actions().start('follow', mt)
 	
-	$ cam_to(me, align=(0.5, 0.5))
+	$ cam_to(me, align = 'center')
 	me "Так... Что-то важное?"
 	mt "Нет. Просто хотела спросить, как день провёл. Не обижали хоть?"
 	"Я даже не успел ответить, как она сама рассмеялась."
