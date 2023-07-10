@@ -29,20 +29,19 @@ init python:
 		[2, 18, 0, 30.7] -> '2-18:00:30'
 		[-1, 7, 30, 0] -> '7:30:00'
 		"""
-		day = '' if l[0] < 0 else (str(l[0]) + '-')
-		l = l[1:]
-		l = map(int, l)
-		l = map(str, l)
-		l = map(lambda s: (2 - len(s)) * '0' + s, l)
-		return day + ('%s:%s:%s' % tuple(l))
+		
+		d, h, m, s = clock.normalize(*l)
+		
+		res = '' if d < 0 else (str(d) + '-')
+		for i in (h, m, s):
+			res += '%02i:' % i
+		return res[:-1]
 	
 	def clock__send_signal(time_str):
 		signals.send('clock-' + time_str)                           # clock-d-hh:mm:ss
 		signals.send('clock-' + time_str[time_str.index('-') + 1:]) # clock-hh:mm:ss
 	
 	def clock__add(time):
-		prev_time = clock.get()
-		
 		if type(time) not in (int, float):
 			if '-' not in time:
 				time = '0-' + time
@@ -103,11 +102,15 @@ init python:
 	def clock__on_location_change():
 		if clock.pause or db.visible:
 			return
+		if clock.first_location_show:
+			clock.first_location_show = False
+			return
 		
 		clock.add(clock.location_change_time)
 	
 	
 	build_object('clock')
+	clock.first_location_show = True
 	
 	clock.day = 0
 	clock.hours = 0

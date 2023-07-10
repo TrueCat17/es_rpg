@@ -10,13 +10,15 @@ init python:
 	signals.add('clock-1-11:00:00', day1_set_eaters_12h, times=1)
 	signals.add('clock-1-19:00:00', day1_set_eaters_20h, times=1)
 	
+	
+	def first_horn_pre():
+		mt.set_auto(False)
+		mt.move_to_place(['canteen', 'square', (+100, 0)], run=True, wait_time=0)
+	
+	signals.add('clock-1-11:45:00', first_horn_pre, times=1, priority=-10)
 	signals.add('clock-1-11:45:10', Call('first_horn'), times=1)
 
 label first_horn:
-	python:
-		mt.set_auto(False)
-		place = rpg_locations['canteen'].places['square']
-		mt.move_to_place(['canteen', {'x': place.x + 100, 'y': place.y}], run=True, wait_time=0)
 	$ set_rpg_control(False)
 	me "Судя по всему, это сигнал к скорому обеду."
 	window hide
@@ -31,6 +33,7 @@ label day1__canteen__square:
 		return
 	$ was.append('canteen')
 	
+	$ mt.move_to_end()
 	$ mt.set_direction(to_left)
 	$ set_rpg_control(False)
 	$ location_cutscene_on(align='down')
@@ -43,12 +46,8 @@ label day1__canteen__square:
 	
 	mt "Так, на наш отряд у нас во-он те столы... хотя ладно, пошли."
 	window hide
-	python:
-		place = rpg_locations['canteen'].places['table_h_pos-r4']
-		mt.move_to_place({'x': place.x - 60, 'y': place.y - 20}, wait_time=1.5)
-	python:
-		place = rpg_locations['canteen'].places['table_h_pos-r4']
-		me.move_to_place({'x': place.x - 60, 'y': place.y + 20})
+	$ mt.move_to_place(['canteen', 'table_h_pos-r4', (-60, -20)], wait_time=1.5)
+	$ me.move_to_place(['canteen', 'table_h_pos-r4', (-60, +20)])
 	
 	$ mt.move_to_end()
 	$ mt.set_direction(to_back)
@@ -82,11 +81,9 @@ label day1__canteen__*:
 					$ canteen_id = set_interval(Function(canteen.sit_for_table, table), 0.5)
 					$ renpy.call(canteen_label)
 					$ clear_interval(canteen_id)
-					python:
-						if clock.hours == 12:
-							mt.set_auto(False)
-							x, y = get_place_center(rpg_locations['square'].places['canteen'])
-							mt.move_to_place(['square', {'x': x, 'y': y + 30}], run=True, wait_time=0)
+					if clock.hours == 12:
+						$ mt.set_auto(False)
+						$ mt.move_to_place(['square', 'canteen', (0, +30)], run=True, wait_time=0)
 		elif table_num < 4:
 			$ chars = [ch for ch in [mt, cs] if canteen.is_sit(ch)]
 			if chars:

@@ -6,7 +6,7 @@ init 11 python:
 			str_time = clock.time_to_str([-1, h, m, s])
 			signals.add('clock-' + str_time, canteen.preparing)
 			
-			signals.add('clock-' + clock.time_to_str([-1, hour,  0, 0]), canteen.unlimit)
+			signals.add('clock-' + clock.time_to_str([-1, hour, 00, -3]), canteen.unlimit)
 			signals.add('clock-' + clock.time_to_str([-1, hour, 10, 0]), canteen.limit)
 			
 			signals.add('clock-' + clock.time_to_str([-1, hour,  0, 0]), canteen.set_full)
@@ -162,10 +162,12 @@ init 11 python:
 		if state == 'moving':
 			if not character.ended_move_waiting():
 				return 'moving'
+			
 			can_skip = character not in main_characters or character in canteen.not_need
 			if can_skip and random.random() < canteen.skip_chance_after_moving:
-				actions.cur_action = rpg_action_look_around
-				return 'start'
+				actions.set('look_around')
+				actions.add('interesting_place')
+				return IGNORE_STATE
 			
 			sitting_character = actions.canteen_chair.on[0]
 			if sitting_character:
@@ -198,8 +200,8 @@ init 11 python:
 			actions.canteen_eating_end = None
 			character.stand_up()
 			character.move_to_place(None)
-			actions.cur_action = rpg_action_interesting_place
-			return 'start'
+			actions.set('interesting_place')
+			return IGNORE_STATE
 	
 	
 	def canteen__get_table():
@@ -221,7 +223,7 @@ init 11 python:
 		if type(chars) not in (list, tuple):
 			chars = [chars]
 		canteen.wait_chars = chars
-		canteen.end_wait_time = get_game_time() + (timeout if timeout else 1e9)
+		canteen.end_wait_time = get_game_time() + (timeout or 1e9)
 		renpy.call('canteen_wait')
 	
 	def canteen__sit_for_table(table):
