@@ -195,6 +195,8 @@ init 10 python:
 			dy = (-1 if 'backward' in chair_place_name else 1) * 20
 			character_actions.canteen_chair_pre = {'x': near_obj.x, 'y': near_obj.y + dy}
 			character_actions.canteen_chair = near_obj
+			
+			character.canteen_chair_place_name = chair_place_name
 		
 		if canteen_places:
 			out_msg('init_main_character_actions', 'Canteen places for %s are not installed' % tuple(canteen_places.keys()))

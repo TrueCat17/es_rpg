@@ -80,6 +80,7 @@ label day1__canteen__*:
 				if canteen_name not in was:
 					$ canteen_id = set_interval(Function(canteen.sit_for_table, table), 0.5)
 					$ renpy.call(canteen_label)
+					$ canteen.clear_wait()
 					$ clear_interval(canteen_id)
 					if clock.hours == 12:
 						$ mt.set_auto(False)

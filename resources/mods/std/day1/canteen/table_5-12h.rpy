@@ -1,8 +1,6 @@
 label day1__canteen__table-5-time12h:
-	if 'sl_help' in was:
-		$ canteen.wait([sl, un])
-		$ sl.get_actions().canteen_eating_end = None
-		$ un.get_actions().canteen_eating_end = None
+	if 'sl_help' in was and not canteen.finished_any(sl, un):
+		$ canteen.wait(sl, un)
 		
 		"За вторым столиком сидела Славя и ещё одна девушка, в которой я не сразу узнал ту, что была у клубов."
 		me "Ничего, что я тут с вами сел?"
@@ -11,9 +9,7 @@ label day1__canteen__table-5-time12h:
 		sl "Да брось, ты же мне тоже помог, так что сиди."
 		$ clock.add(2 * 60)
 		$ sl.set_auto(False)
-		python:
-			x, y = get_place_center(rpg_locations['canteen'].places['get_plate'])
-			sl.move_to_places([('canteen', 'get_plate'), ('canteen', {'x': x + 10, 'y': y})], wait_time=0)
+		$ sl.move_to_places([('canteen', 'get_plate'), ('canteen', 'get_plate', (+10, 0))], wait_time=0)
 		"Было немного неловко. Радовало хотя бы то, что я действительно помог, хоть и немного."
 		pause 2
 		$ clock.add(2 * 60)
@@ -28,7 +24,8 @@ label day1__canteen__table-5-time12h:
 		"..."
 		$ sl.set_dress('pioneer_food')
 		$ sl.get_actions().start(canteen.inside)
-		$ canteen.wait(sl)
+		while sl.get_pose() != 'sit':
+			pause 0.01
 		$ sl.set_dress('pioneer')
 		sl "Вот, держи."
 		me "Спасибо."
@@ -60,9 +57,10 @@ label day1__canteen__table-5-time12h:
 		th "Эх, даже жаль немного."
 		"Впрочем... вкуснота!"
 		"Не помню, когда вообще в последний раз ел борщ или котлеты. Да и компот тоже."
-	else:
+		return
+	
+	if not canteen.finished(un):
 		$ canteen.wait(un)
-		$ un.get_actions().canteen_eating_end = None
 		
 		"За вторым столом тихо сидела та самая девушка, которая испугалась кузнечика у клубов."
 		$ clock.add(3 * 60)
@@ -83,4 +81,6 @@ label day1__canteen__table-5-time12h:
 		"Хотя ел я всегда немного, в этот раз голод взял верх, так что по окончанию трапезы столовая была уже почти пуста, а дежурные протирали столы."
 		th "В жизни не ел такого вкусного борща. Да и котлеты. Даже макароны."
 		"Теперь на выход."
-
+		return
+	
+	call canteen_no_conversation

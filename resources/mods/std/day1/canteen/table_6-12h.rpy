@@ -1,7 +1,10 @@
 label day1__canteen__table-6-time12h:
-	$ canteen.wait([el, sh])
-	$ el.get_actions().canteen_eating_end = None
-	$ sh.get_actions().canteen_eating_end = None
+	if canteen.finished_any(el, sh):
+		call canteen_no_conversation
+		return
+	
+	$ canteen.wait(el, sh)
+	
 	"Из-за некоторых особенностей моего характера меня потянуло за дальний стол. К тому же, женских особ тут не наблюдалось."
 	
 	if 'clubs' in was or 'el_washbasins_help' in was:

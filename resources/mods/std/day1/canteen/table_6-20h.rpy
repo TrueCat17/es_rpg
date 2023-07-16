@@ -1,18 +1,18 @@
 label day1__canteen__table-6-time20h:
-	if 'clubs' in was:
-		$ canteen.wait([el, sh])
-		sh "Неплохо посидели, кстати."
-		menu:
-			"Промолчать":
-				me "..."
-				sh "..."
-			"Поддержать":
-				me "Ага. Было интересно."
-				"Электроник оживился."
-				el "Правда? Ну тогда завтра ещё заходи."
-				me "Посмотрим."
+	$ skip = True
 	
-	if 'library' in was:
+	if 'clubs' in was and not canteen.finished_any(el, sh):
+		$ skip = False
+		$ canteen.wait(el, sh)
+		sh "Неплохо посидели, кстати."
+		me "Ага. Было интересно."
+		"Электроник оживился."
+		el "Правда? Ну тогда завтра ещё заходи."
+		$ clock.add(2 * 60)
+		me "Посмотрим."
+	
+	if 'library' in was and not canteen.finished(mz):
+		$ skip = False
 		$ canteen.wait(mz)
 		mz "Хм. Кстати, тебе подошло то, что я давала?"
 		menu:
@@ -26,5 +26,7 @@ label day1__canteen__table-6-time20h:
 				mz "Вот как. Это хорошо."
 				th "Мне показалось, или её хмурое выражение лица на мгновение сменилось на улыбку?"
 				$ mz.rp += 1
+		$ clock.add(4 * 60)
 	
-	$ clock.add(5 * 60)
+	if skip:
+		call canteen_no_conversation

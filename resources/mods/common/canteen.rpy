@@ -7,7 +7,7 @@ init 11 python:
 			signals.add('clock-' + str_time, canteen.preparing)
 			
 			signals.add('clock-' + clock.time_to_str([-1, hour, 00, -3]), canteen.unlimit)
-			signals.add('clock-' + clock.time_to_str([-1, hour, 10, 0]), canteen.limit)
+			signals.add('clock-' + clock.time_to_str([-1, hour, 20, 0]), canteen.limit)
 			
 			signals.add('clock-' + clock.time_to_str([-1, hour,  0, 0]), canteen.set_full)
 			signals.add('clock-' + clock.time_to_str([-1, hour, 10, 0]), canteen.set_half)
@@ -36,6 +36,7 @@ init 11 python:
 		if not canteen.enable:
 			return
 		
+		canteen.finished_characters.clear()
 		renpy.play(sfx['horn'], 'sound')
 		
 		canteen_hour = clock.hours + 1
@@ -157,6 +158,7 @@ init 11 python:
 			if not actions.canteen_chair:
 				return 'end'
 			character.move_to_place(['canteen', actions.canteen_chair_pre])
+			actions.interruptable = False
 			return 'moving'
 		
 		if state == 'moving':
@@ -191,13 +193,14 @@ init 11 python:
 				if get_game_time() > actions.canteen_eating_end:
 					return 'end'
 			else:
-				if actions.canteen_eating_end and clock.get() > actions.canteen_eating_end:
+				if clock.get() > actions.canteen_eating_end and character not in canteen.wait_characters:
 					return 'end'
 			return 'eating'
 		
 		if state == 'end':
 			actions.fast_eat = None
 			actions.canteen_eating_end = None
+			canteen.finished_characters.add(character)
 			character.stand_up()
 			character.move_to_place(None)
 			actions.set('interesting_place')
@@ -216,24 +219,38 @@ init 11 python:
 		return res
 	
 	def canteen__is_sit(character):
+		actions = character.get_actions()
+		if actions:
+			chair = actions.canteen_chair
+			if chair:
+				return chair.on[0] is character
 		return character.location.name == 'canteen' and character.get_pose() == 'sit'
 	
 	
-	def canteen__wait(chars, timeout = 0):
-		if type(chars) not in (list, tuple):
-			chars = [chars]
-		canteen.wait_chars = chars
-		canteen.end_wait_time = get_game_time() + (timeout or 1e9)
+	def canteen__wait(*characters, **kwargs):
+		canteen.wait_characters = characters
+		canteen.end_wait_time = get_game_time() + kwargs.get('timeout', 1e9)
 		renpy.call('canteen_wait')
+	def canteen__clear_wait():
+		canteen.wait_characters = []
 	
 	def canteen__sit_for_table(table):
 		if me.get_pose() == 'stay':
 			canteen.sitting_place = rpg_locations['canteen'].places[canteen.free_place[table]]
 			renpy.call('canteen_sitting')
 	
+	def canteen__finished(ch):
+		return ch in canteen.finished_characters
+	def canteen__finished_all(*characters):
+		return all([ch in canteen.finished_characters for ch in characters])
+	def canteen__finished_any(*characters):
+		return any([ch in canteen.finished_characters for ch in characters])
+	
 	
 	build_object('canteen')
 	canteen.enable = True
+	canteen.wait_characters = []
+	canteen.finished_characters = set()
 	
 	canteen.hours = [8, 12, 16, 20]
 	canteen.skip_chances = {
@@ -294,7 +311,7 @@ init 11 python:
 
 label canteen_wait:
 	while get_game_time() < canteen.end_wait_time:
-		if all([canteen.is_sit(ch) for ch in canteen.wait_chars]):
+		if all([canteen.is_sit(ch) or canteen.finished(ch) for ch in canteen.wait_characters]):
 			break
 		pause 0.01
 
@@ -304,4 +321,28 @@ label canteen_sitting:
 	$ me.move_to_place({'x': canteen.sitting_place.x, 'y': canteen.sitting_place.y + 20})
 	$ canteen_sit_objs = get_near_sit_objects(max_dist=50)
 	$ me.sit_down(canteen_sit_objs[0][0])
+
+label canteen_no_conversation:
+	python:
+		near_chars = []
+		table = canteen.get_table()
+		for ch in main_characters:
+			if canteen.is_sit(ch):
+				ch_table = ch.canteen_chair_place_name[:-1].split('-')[1]
+				if table == ch_table:
+					near_chars.append(ch)
+		
+	if not near_chars:
+		"За столом никого не было."
+	else:
+		if len(near_chars) > 1:
+			"За столом сидело несколько %s." % ('пионеров' if el in near_chars or sh in near_chars else 'пионерок', )
+			"Они сосредоточенно ели, о чём-то думая."
+		else:
+			$ male = near_chars[0] in (el, sh)
+			"За столом %s %s." % ('сидел' if male else 'сидела', near_chars[0])
+			"%s сосредоточенно %s, о чём-то думая." % (('Он', 'ел') if male else ('Она', 'ела'))
+	"Что ж, когда я ем - я глух и нем."
+	
+	$ clock.add(3 * 60)
 

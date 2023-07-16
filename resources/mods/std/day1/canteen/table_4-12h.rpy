@@ -4,8 +4,11 @@ label day1__canteen__table-4-time12h:
 		"Ну и ладно."
 		return
 	
+	if canteen.finished(dv):
+		call canteen_no_conversation
+		return
+	
 	$ canteen.wait(dv)
-	$ dv.get_actions().canteen_eating_end = None
 	
 	if 'dv_med' in was:
 		"Я сел за первый же столик, потому что меня окликнула сидящая за ним девушка. Алиса."

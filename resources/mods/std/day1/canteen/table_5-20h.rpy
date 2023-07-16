@@ -1,5 +1,9 @@
 label day1__canteen__table-5-time20h:
-	$ canteen.wait([sl, mi])
+	if canteen.finished_any(sl, mi):
+		call canteen_no_conversation
+		return
+	
+	$ canteen.wait(sl, mi)
 	
 	if 'mi_meet' in was:
 		"На этот раз напротив Слави сидела Мику."
