@@ -109,7 +109,7 @@ init 11 python:
 					ch_actions = ch.get_actions()
 					if not ch_actions or ch_actions.cur_action is not actions.cur_action: continue
 					if ch_actions.state == 'moving': continue
-					if max(abs(ch.x - character.x), abs(ch.y - character.y)) > dist: continue
+					if get_dist(ch.x, ch.y, character.x, character.y) > dist: continue
 					nears.append(ch)
 				if not nears:
 					return 'waiting'
@@ -274,7 +274,7 @@ init 11 python:
 	canteen.min_time_for_crowding = 9 * 60
 	canteen.max_time_for_crowding = 11 * 60
 	
-	canteen.crowding_conversation_dist = 30
+	canteen.crowding_conversation_dist = 40
 	canteen.crowding_place_xsize = -350 # to left
 	canteen.crowding_place_ysize = 200
 	
