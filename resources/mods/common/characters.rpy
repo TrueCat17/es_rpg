@@ -158,6 +158,7 @@ init 10 python:
 			if name == 'uv': continue
 			
 			character_actions = character.set_actions(std_actions)
+			character_actions.add('other_place')
 			character_actions.start('spawn')
 			character.set_auto(True)
 			main_characters.add(character)
@@ -252,6 +253,7 @@ init 10 python:
 				character.add_over(character_random_overs)
 				
 				character_actions = character.set_actions(std_actions)
+				character_actions.add('other_place')
 				character_actions.start('spawn')
 				
 				character_actions.home = (location_name, place)
