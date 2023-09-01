@@ -88,6 +88,10 @@ init 1 python:
 	register_location_object('stand',               'images/locations/mus_club/objects/', 'stand',      'stand_free')
 	
 	
+	register_location_object('radio_club_table', 'images/locations/radio_club/objects/', 'table', None)
+	register_location_object('radio_club_cupboards', 'images/locations/radio_club/objects/', 'cupboards', None)
+	
+	
 	register_location_object('scene_microphone', 'images/locations/scene/objects/', 'microphone', 'microphone_free')
 	
 	
@@ -303,6 +307,9 @@ init 1 python:
 	
 	add_location_object("mus_club", "mus_club_microphone_pos", "mus_club_microphone")
 	add_location_object("mus_club", "stand_pos", "stand")
+	
+	add_location_object("radio_club", "radio_club_cupboards_pos", "radio_club_cupboards")
+	add_location_object("radio_club", "radio_club_table_pos", "radio_club_table")
 	
 	add_location_object("square", "bench_left_pos-1", "bench_left")
 	add_location_object("square", "bench_left_pos-2", "bench_left")

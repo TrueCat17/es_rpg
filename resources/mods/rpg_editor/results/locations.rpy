@@ -425,6 +425,8 @@ init python:
 	register_place(   "old_camp", "forest_path-1", 1150, 1700, 190, 40, to=["down", "forest_path-1", "old_camp", to_forward])
 	
 	register_location("radio_club", "images/locations/radio_club/", True, 310, 247)
+	register_place(   "radio_club", "radio_club_cupboards_pos", 10, 202, 2, 2)
+	register_place(   "radio_club", "radio_club_table_pos", 117, 198, 2, 2)
 	register_place(   "radio_club", "clubs", 218, 205, 55, 40, to=["down", "clubs", "radio_club"])
 	register_place(   "radio_club", "radio_storeroom", 273, 185, 34, 30, to=["right", "radio_storeroom", "radio_club", to_left])
 	
