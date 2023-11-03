@@ -2,7 +2,7 @@ init python:
 	gui.dialogue_text_font = 'FixEx3'
 	gui.name_text_font = 'FixEx3'
 	
-	gui.choice_button_text_font = 'FixEx3'
+	style.choice_button.font = 'FixEx3'
 	
 	gui.dialogue_menu_button_width = 0
 	
