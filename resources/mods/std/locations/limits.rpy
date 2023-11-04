@@ -11,7 +11,7 @@ init 20 python:
 			character.allow_exit('clubs', 'radio_club')
 		
 		ban_exit('clubs', 'mus_club')
-		for character in (mi, dv, sm):
+		for character in (mi, dv):
 			character.allow_exit('clubs', 'mus_club')
 		
 		ban_exit('library_and_hospital', 'hospital')

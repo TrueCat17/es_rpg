@@ -416,7 +416,9 @@ init python:
 	register_place(   "library_and_hospital", "tennis", 1368, 470, 40, 110, to=["right", "tennis", "library_and_hospital"])
 	
 	register_location("mus_club", "images/locations/mus_club/", True, 224, 272)
+	register_place(   "mus_club", "before_piano", 156, 180, 10, 10)
 	register_place(   "mus_club", "mus_club_microphone_pos", 60, 220, 2, 2)
+	register_place(   "mus_club", "near_instruments", 45, 170, 10, 10)
 	register_place(   "mus_club", "stand_pos", 110, 230, 2, 2)
 	register_place(   "mus_club", "clubs", 130, 242, 55, 30, to=["down", "clubs", "mus_club"])
 	

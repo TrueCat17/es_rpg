@@ -14,7 +14,6 @@ init 10 python:
 		res.extend(get_glob_labels(usual_label))
 		return res
 	
-	
 	gate_right = get_location_objects('enter', None, 'gate_right')[0]
 	gate_right.start_animation('open')
 	gate_right.update_location_paths()
@@ -37,25 +36,20 @@ init 25 python:
 		day1_set_eaters_20h()
 		
 		init_characters()
+		me.set_dress('sport')
+#		characters_auto(False)
 		cloud.init()
 		
 		lineup.enable_reminder = True
 		set_rpg_control(True)
-		unlimit_all(me)
-		set_location('square', 'admin')# {'x': 250, 'y': 250})
-#		me.x -= 200
-#		me.y += 300
-		me.set_dress('sport')
-		
-		if 0:
-			characters_auto(False)
-			
-			show_character(mi, me)
-			print(mi.move_to_place(['clubs', 'enter']))
+#		unlimit_all(me)
+#		set_location('square', 'admin')
+		set_location('clubs', {'x': 990, 'y': 430})
 
 label start:
-	#call day0_start
-	#call day1_start
+#	$ make_names_unknown()
+#	call day0_start
+#	call day1_start
 	$ spec_start()
 	
 	call rpg_loop
