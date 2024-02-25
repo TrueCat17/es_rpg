@@ -36,7 +36,6 @@ init 25 python:
 		day1_set_eaters_20h()
 		
 		init_characters()
-		me.set_dress('sport')
 #		characters_auto(False)
 		cloud.init()
 		

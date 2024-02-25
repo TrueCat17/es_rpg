@@ -343,6 +343,8 @@ init 10 python:
 
 
 init 11 python:
+	
+	#                     character, 'anim_name',    'path',                xoffset, yoffset, count_frames, start_frame, end_frame, time = 1.0
 	register_character_animation(dv, 'node',         'images/characters/anim/dv_node',         0, 0, 34, 0, 33, 8.5)
 	register_character_animation(dv, 'punch',        'images/characters/anim/dv_punch',        0, 0,  5, 0,  4, 1.25)
 	register_character_animation(sl, 'hello',        'images/characters/anim/sl_hello',        0, 0,  4, 0,  3, 1.0)
@@ -358,5 +360,8 @@ init 11 python:
 	register_character_animation(un, 'book_left',    'images/characters/anim/un_book_sides',   0, 0, 3, 1, 1)
 	register_character_animation(un, 'book_right',   'images/characters/anim/un_book_sides',   0, 0, 3, 2, 2)
 	
-	register_character_animation(sm, 'sleep',        'images/characters/anim/sm_sleep',        0, 0,  1, 0,  0, -1)
-	register_character_animation(mt, 'sleep',        'images/characters/anim/mt_sleep',        0, 0,  1, 0,  0, -1)
+	register_character_animation(sm, 'guitar',       'images/characters/anim/sm_guitar',       7, 0, 4, 0, 3, 0.5)
+	register_character_animation(sm, 'guitar_stop',  'images/characters/anim/sm_guitar',       7, 0, 4, 1, 1)
+	
+	register_character_animation(sm, 'sleep',        'images/characters/anim/sm_sleep',        0, 0, 1, 0, 0, -1)
+	register_character_animation(mt, 'sleep',        'images/characters/anim/mt_sleep',        0, 0, 1, 0, 0, -1)

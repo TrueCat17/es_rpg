@@ -84,8 +84,18 @@ init 1 python:
 	register_location_object('canteen_door', 'images/locations/canteen/objects/', 'door', None)
 	
 	
-	register_location_object('mus_club_microphone', 'images/locations/mus_club/objects/', 'microphone', 'microphone_free')
-	register_location_object('stand',               'images/locations/mus_club/objects/', 'stand',      'stand_free')
+	register_location_object('mus_club_chair',      'images/locations/mus_club/objects/', 'chair',         'chair_free')
+	register_location_object('mus_club_microphone', 'images/locations/mus_club/objects/', 'microphone',    'microphone_free')
+	register_location_object('piano',               'images/locations/mus_club/objects/', 'piano',         'piano_free')
+	register_location_object('piano_chair',         'images/locations/mus_club/objects/', 'piano_chair',   'piano_chair_free')
+	register_location_object('stand',               'images/locations/mus_club/objects/', 'stand',         'stand_free')
+	register_location_object('cymbal',              'images/locations/mus_club/objects/', 'cymbal',        'cymbal_free')
+	register_location_object('drum',                'images/locations/mus_club/objects/', 'drum',          'drum_free')
+	register_location_object('drum_and_tube',       'images/locations/mus_club/objects/', 'drum_and_tube', 'drum_and_tube_free')
+	register_location_object('guitar',              'images/locations/mus_club/objects/', 'guitar',        'guitar_free')
+	register_location_object('blue_guitar',         'images/locations/mus_club/objects/', 'blue_guitar',   'blue_guitar_free')
+	register_location_object('mus_club_left_cupboard', 'images/locations/mus_club/objects/', 'left_cupboard', 'left_cupboard_free')
+	register_location_object('mus_club_far_cupboard',  'images/locations/mus_club/objects/', 'far_cupboard', 'far_cupboard_free')
 	
 	
 	register_location_object('radio_club_table', 'images/locations/radio_club/objects/', 'table', None)
@@ -305,7 +315,19 @@ init 1 python:
 	add_location_object("library", "cupboard_2_pos", "cupboard_2")
 	add_location_object("library", "cupboard_3_pos", "cupboard_3")
 	
+	add_location_object("mus_club", "blue_guitar_pos", "blue_guitar")
+	add_location_object("mus_club", "cymbal_pos", "cymbal")
+	add_location_object("mus_club", "drum_and_tube_pos", "drum_and_tube")
+	add_location_object("mus_club", "drum_pos", "drum")
+	add_location_object("mus_club", "guitar_pos", "guitar")
+	add_location_object("mus_club", "mus_club_chair_pos-1", "mus_club_chair")
+	add_location_object("mus_club", "mus_club_chair_pos-2", "mus_club_chair")
+	add_location_object("mus_club", "mus_club_chair_pos-3", "mus_club_chair")
+	add_location_object("mus_club", "mus_club_far_cupboard_pos", "mus_club_far_cupboard")
+	add_location_object("mus_club", "mus_club_left_cupboard_pos", "mus_club_left_cupboard")
 	add_location_object("mus_club", "mus_club_microphone_pos", "mus_club_microphone")
+	add_location_object("mus_club", "piano_chair_pos", "piano_chair")
+	add_location_object("mus_club", "piano_pos", "piano")
 	add_location_object("mus_club", "stand_pos", "stand")
 	
 	add_location_object("radio_club", "radio_club_cupboards_pos", "radio_club_cupboards")
