@@ -30,7 +30,10 @@ init 20 python:
 			actions.sit_start_time = get_game_time()
 			return 'end'
 	
-	signals.add('clock-1-20:47:00', Exec('un.get_actions().start(day1_un_read_book)'), times=1)
+	def day1_un_start_read_book():
+		if un.get_actions():
+			un.get_actions().start(day1_un_read_book)
+	signals.add('clock-1-20:47:00', day1_un_start_read_book, times=1)
 	
 	
 	def un_evening__check_start():

@@ -2,7 +2,6 @@ label day1_start:
 	scene bg black
 	
 	python:
-		#db.set_ui('day')
 		clock.pause = False
 		clock.set('1-10:00:00')
 		show_screen('clock')
@@ -12,7 +11,6 @@ label day1_start:
 		add_location_object('enter', 'ikarus_place', 'ikarus')
 		
 		init_characters()
-		#characters_auto(False)
 		
 		cloud.init()
 		

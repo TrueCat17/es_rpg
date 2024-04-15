@@ -212,11 +212,12 @@ label day0__enter__before_gates_close:
 
 	scene bg black with dissolve2
 	python:
-		set_location('flat', 'armchair_pos')
 		set_rpg_control(False)
-		me.y -= 1
-		me.set_pose('stay')
+		set_location('flat', 'armchair_pos')
+		me.x += 10
 		me.set_direction(to_forward)
+		armchair = get_near_sit_objects(me)[0][0]
+		me.sit_down(armchair)
 	hide bg with dissolve
 		
 	"Пару дней назад мне неожиданно написал бывший однокурсник."
@@ -236,7 +237,6 @@ label day0__enter__before_gates_close:
 	
 	play sound_loop sfx['computer_noise']
 	$ flat_monitor.remove_animation()
-	$ me.set_pose('stay')
 	$ me.move_to_place('computer')
 	$ me.move_to_place('center')
 	

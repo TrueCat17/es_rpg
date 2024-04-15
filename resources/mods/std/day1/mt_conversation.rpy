@@ -1,3 +1,10 @@
+init python:
+	def day1_check_sl():
+		if not sl.location:
+			show_character(sl, 'square', 'boat_station')
+			sl.set_auto(True)
+	signals.add('clock-1-11:10:00', day1_check_sl)
+
 label day1__towel_remember:
 	if not inventory.has('towel'):
 		$ set_rpg_control(False)
@@ -18,6 +25,8 @@ label day1__houses_1__house_mt:
 				call day1__towel_remember
 		return
 	$ was.append('mt_conversation')
+	
+	$ day1_check_sl()
 	
 	$ set_rpg_control(False)
 	me "Так... Похоже, настал момент истины."
