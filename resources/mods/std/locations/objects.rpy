@@ -388,14 +388,14 @@ init 1 python:
 	add_location_object("liaz", "liaz_bench_right_pos9", "liaz_bench_right")
 	add_location_object("liaz", "liaz_chair_forward_pos", "liaz_chair_forward")
 	
-	add_location_object("library", "library_cupboard_1_pos", "library_cupboard_1")
-	add_location_object("library", "library_cupboard_2_pos", "library_cupboard_2")
-	add_location_object("library", "library_cupboard_3_pos", "library_cupboard_3")
 	add_location_object("library", "library_armchair_pos-1", "library_armchair")
 	add_location_object("library", "library_armchair_pos-2", "library_armchair")
 	add_location_object("library", "library_chair_left_pos-1", "library_chair_left")
 	add_location_object("library", "library_chair_left_pos-2", "library_chair_left")
 	add_location_object("library", "library_chair_left_pos-3", "library_chair_left")
+	add_location_object("library", "library_cupboard_1_pos", "library_cupboard_1")
+	add_location_object("library", "library_cupboard_2_pos", "library_cupboard_2")
+	add_location_object("library", "library_cupboard_3_pos", "library_cupboard_3")
 	
 	add_location_object("library_and_hospital", "library_and_hospital_bench_pos-1", "library_and_hospital_bench")
 	add_location_object("library_and_hospital", "library_and_hospital_bench_pos-2", "library_and_hospital_bench")
