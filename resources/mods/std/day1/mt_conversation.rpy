@@ -3,7 +3,40 @@ init python:
 		if not sl.location:
 			show_character(sl, 'square', 'boat_station')
 			sl.set_auto(True)
-	signals.add('clock-1-11:10:00', day1_check_sl)
+	
+	def day1__make_mt_conversation():
+		global day1__make_mt_conversation_interval_id
+		day1__make_mt_conversation_interval_id = set_interval(Call('day1__make_mt_conversation'), 1)
+	signals.add('clock-1-11:10:00', day1__make_mt_conversation)
+
+
+label day1__make_mt_conversation:
+	if not get_rpg_control():
+		return
+	
+	$ clear_interval(day1__make_mt_conversation_interval_id)
+	if 'mt_conversation' in was:
+		return
+	
+	$ set_rpg_control(False)
+	show bg black with fade
+	
+	"Сколько я уже хожу по такой жаре в зимней одежде?"
+	"Час? Два?"
+	if 'before_gates' in was:
+		"Славя говорила о вожатой - думаю, у неё найдётся летняя одежда."
+		"Я попытался ещё раз вспоминить её объяснения: площадь, памятник, домики, сирень..."
+	else:
+		"Раз это лагерь, то должны быть вожатые, к которым можно обратиться."
+		"В том числе и насчёт одежды."
+	"Уточняя путь у проходящих мимо пионеров, я, кажется, добрался до нужного места."
+	window hide
+	
+	$ set_location('houses_1', 'house_mt')
+	$ me.set_direction(to_forward)
+	hide bg with fade
+	call day1__houses_1__house_mt
+
 
 label day1__towel_remember:
 	if not inventory.has('towel'):
@@ -27,6 +60,9 @@ label day1__houses_1__house_mt:
 	$ was.append('mt_conversation')
 	
 	$ day1_check_sl()
+	if not un.get_auto():
+		$ un.set_auto(True)
+		$ us.set_auto(True)
 	
 	$ set_rpg_control(False)
 	me "Так... Похоже, настал момент истины."
@@ -35,6 +71,7 @@ label day1__houses_1__house_mt:
 	pause 1
 	mt "Да-да, заходите!"
 	$ me.move_to_place(['house_mt', 'houses_1'])
+	$ me.set_direction(to_forward)
 	mt "Семён! Ну наконец-то."
 	mt "Я Ольга Дмитриевна, твоя вожатая на эту смену. С ребятами из отряда познакомишься на линейке, ещё наверняка представлю."
 	$ meet('mt', 'Ольга Дмитриевна')
@@ -45,6 +82,14 @@ label day1__houses_1__house_mt:
 	mt "Лагерь у нас хороший, довольно тихий. Тебе очень понравится..."
 	"Она сделала паузу."
 	mt "А вообще, человек ты уже почти взрослый, разберёшься. Я сейчас должна пойти по делам, поэтому походи до ужина, осмотрись. Если что-то надо будет, спроси у Слави, её ты уже знаешь."
+	
+	if 'before_gates' not in was:
+		me "Эм... Нет. Я тут никого не знаю."
+		mt "Это моя помощница, которая должна была тебя встретить у ворот. Она забыла представиться?"
+		me "Ну, я тут слегка в обход пошёл..."
+		"Вожатая странно на меня посмотрела и вздохнула."
+		mt "Ясно. Ну, познакомитесь ещё."
+	
 	me "А ты..."
 	"Внезапно вожатая переменилась в лице. "
 	mt "Ты как со старшими обращаешься?"
@@ -65,7 +110,10 @@ label day1__houses_1__house_mt:
 	$ mt.set_direction(to_left)
 	mt "О, как знала, что остался! Размер... ну, вроде, жать не должен. Можешь потом переодеться."
 	
+	$ me.move_to_place('bedside_table')
+	$ me.set_direction(to_left)
 	$ me.set_dress('pioneer')
+	$ me.set_direction(to_right)
 	# TODO: ГГ кладёт в тумбочку одежду
 	# после ухода ОД он её переодевает через спец. интерфейс выбора одежды, появляющийся при "действии" возле тумбочки
 	# возможен выход без переодевания, но тогда шкала жажды будет требовать большого внимания
@@ -176,7 +224,10 @@ label day1__house_mt__houses_1:
 	$ me.move_to_place('cupboard')
 	me "ЧЕГО-О?"
 	"Я впал в ступор. В отражении был я, но вот выглядел я лет на 17. Да, насколько крупицы воспоминаний позволяли вспомнить, выглядел в том возрасте я примерно так."
-	"Хотя... это многое объясняет. И почему Славя меня встретила как ровесника, и, в конце концов, шок Ольги Дмитриевны."
+	if 'before_gates' in was:
+		"Хотя... это многое объясняет. И почему Славя меня встретила как ровесника, и, в конце концов, шок Ольги Дмитриевны."
+	else:
+		"Хотя... это многое объясняет. В том числе и шок Ольги Дмитриевны на \"тыкание\"."
 	"Впрочем, долго рассуждать об этом я не стал."
 	me "Ну что же... в путь!"
 	window hide

@@ -1,3 +1,22 @@
+init python:
+	signals.add('clock-1-10:10:00', Call('day1__make_bus_out'))
+	signals.add('clock-1-10:30:00', Call('day1__make_camp_enter'))
+
+label day1__make_bus_out:
+	if 'first_out' in was:
+		return
+	
+	$ set_rpg_control(False)
+	"Нельзя же вечно сидеть в автобусе и ждать чуда!"
+	"Жарко ведь! Нужно что-то делать!"
+	window hide
+	
+	show bg black with fade
+	$ set_location('enter', 'ikarus')
+	$ me.set_direction(to_back)
+	hide bg with fade
+	call day1__enter__ikarus
+
 label day1__enter__ikarus:
 	if 'first_out' in was:
 		return
@@ -19,12 +38,28 @@ label day1__enter__ikarus:
 	window hide
 	$ set_rpg_control(True)
 
+
+label day1__make_camp_enter:
+	if 'before_gates' in was or 'stadium_from_forest' in was:
+		return
+	
+	$ set_rpg_control(False)
+	"Ходить по такой жаре в зимней куртке - ужасно неприятно."
+	"Думаю, в этом лагере можно раздобыть летнюю одежду."
+	window hide
+	
+	show bg black with fade
+	$ set_location('enter', 'before_gates')
+	$ me.set_direction(to_forward)
+	hide bg with fade
+	call day1__enter__before_gates
+
 label day1__enter__before_gates:
 	if 'us_running' in was or 'mt_escaping' in was:
 		call day1__sl_gates_evening
 		return
 	
-	if 'before_gates' in was:
+	if 'before_gates' in was or 'stadium_from_forest' in was:
 		return
 	$ was.append('before_gates')
 	
@@ -189,7 +224,6 @@ label day1__boat_station__pier_start:
 	$ was.append('pier')
 
 	$ quest_start('sl_beauty')
-
 
 
 label too_hot:
