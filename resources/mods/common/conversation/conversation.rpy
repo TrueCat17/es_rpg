@@ -135,6 +135,9 @@ init -1 python:
 			if character.location is not cur_location: continue
 			if character is me: continue
 			
+			actions = character.get_actions()
+			if actions and not actions.interruptable: continue
+			
 			dist = get_dist(me.x, me.y, character.x, character.y)
 			if dist < min_dist:
 				min_dist = dist
