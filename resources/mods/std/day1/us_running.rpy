@@ -6,7 +6,7 @@ label forest_path*:
 	$ was.append('forest_running')
 	
 	$ set_rpg_control(False)
-	$ me.move_to_place({'x': me.x + 200, 'y': me.y}, run=True, wait_time=0.5)
+	$ me.move_to_place([None, me, (+200, 0)], run=True, wait_time=0.5)
 	th "Чёрт, не вижу её."
 	me "Э-эй! Ты где?"
 	$ me.set_direction(to_forward)

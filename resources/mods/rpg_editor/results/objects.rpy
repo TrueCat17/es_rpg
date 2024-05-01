@@ -37,24 +37,24 @@ init 1 python:
 	register_location_object('liaz_bench_right',   'images/locations/liaz/objects/', 'bench_right', None)
 	register_location_object('liaz_chair_forward', 'images/locations/liaz/objects/', 'chair_forward', None)
 	
-	register_location_object('ikarus', 'images/locations/enter/objects/', 'ikarus_main', 'ikarus_free')
+	register_location_object('ikarus', 'images/locations/enter/objects/', 'ikarus', 'ikarus_free')
 	
-	register_location_object('gate_left', 'images/locations/objects/', 'gate_left_main', 'gate_free')
-	register_location_object('gate_right', 'images/locations/objects/', 'gate_right_main', 'gate_free')
+	register_location_object('gate_left', 'images/locations/enter/objects/', 'gate_left', 'gate_free')
+	register_location_object('gate_right', 'images/locations/enter/objects/', 'gate_right', 'gate_free')
 	
 	register_location_object_animation('gate_right', 'open',
-		'images/locations/objects/anim/', 'gate_right_main', 'gate_right_free',
+		'images/locations/enter/objects/anim/', 'gate_right', 'gate_right_free',
 		0, 34,
 		3, 2, 2,
 		-1
 	)
 	register_location_object_animation('gate_right', 'opening',
-		'images/locations/objects/anim/', 'gate_right_main', 'gate_right_free',
+		'images/locations/enter/objects/anim/', 'gate_right', 'gate_right_free',
 		0, 34,
 		3, 0, 2
 	)
 	register_location_object_animation('gate_right', 'closing',
-		'images/locations/objects/anim/', 'gate_right_main', 'gate_right_free',
+		'images/locations/enter/objects/anim/', 'gate_right', 'gate_right_free',
 		0, 34,
 		3, 2, 0
 	)
@@ -106,9 +106,6 @@ init 1 python:
 	register_location_object('mus_club_left_cupboard', 'images/locations/mus_club/objects/', 'left_cupboard', 'left_cupboard_free')
 	register_location_object('mus_club_far_cupboard',  'images/locations/mus_club/objects/', 'far_cupboard', 'far_cupboard_free')
 	
-	register_location_object('radio_club_table', 'images/locations/radio_club/objects/', 'table', None)
-	register_location_object('radio_club_cupboards', 'images/locations/radio_club/objects/', 'cupboards', None)
-	
 	register_location_object('scene_microphone', 'images/locations/scene/objects/', 'microphone', 'microphone_free')
 	
 	register_location_object('car', 'images/locations/square/objects/', 'car', 'car_free')
@@ -132,6 +129,8 @@ init 1 python:
 	
 	register_location_object('library_and_hospital_bench', 'images/locations/library_and_hospital/objects/', 'bench', 'bench_free')
 	
+	register_location_object('radio_club_cupboards', 'images/locations/radio_club/objects/', 'cupboards', None)
+	register_location_object('radio_club_table',     'images/locations/radio_club/objects/', 'table', None)
 	register_location_object('radio_club_tabouret',      'images/locations/radio_club/objects/',      'tabouret', 'tabouret_free')
 	register_location_object('radio_storeroom_tabouret', 'images/locations/radio_storeroom/objects/', 'tabouret', None)
 	

@@ -93,8 +93,7 @@ label day1__enter__before_gates:
 	sl "Так, вожатая сказала идти тебе сразу к ней. Пошли, я объясню как дойти."
 	
 	python:
-		x, y = get_place_center(rpg_locations['clubs'].places['enter'])
-		sl.move_to_place(['clubs', {'x': x + 30, 'y': y}])
+		sl.move_to_place(['clubs', 'enter', (+30, 0)])
 		me.move_to_place(['clubs', 'enter'])
 	$ sl.set_direction(to_left)
 	
@@ -108,7 +107,7 @@ label day1__enter__before_gates:
 	sl "Смотри... ну если что, лагерь небольшой. Да и можешь у кого-нибудь спросить, где домик Ольги Дмитриевны - тебе подскажут."
 	me "Ладно."
 	
-	$ sl.move_to_place({'x': sl.x + 30, 'y': sl.y})
+	$ sl.move_to_place([None, sl, (+30, 0)])
 	$ sl.set_direction(to_left)
 	"Перед уходом Славя посмотрела на меня ещё раз."
 	sl "Сейчас жарко. Тут прямо за клубами умывальники, там вода как раз прохладная, можешь освежиться."
@@ -145,7 +144,7 @@ label day1__clubs__before_clubs:
 	pause 1
 	
 	$ us.remove_animation()
-	$ us.move_to_place({'x': us.x, 'y': us.y + 40}, run=True)
+	$ us.move_to_place([None, us, (0, +40)], run=True)
 	$ us.get_actions().start('other_place', 'stadium', run=True)
 	$ us.set_auto(True)
 	pause 1.5

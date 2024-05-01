@@ -66,7 +66,7 @@ label day1__houses_1__house_mt:
 	
 	$ set_rpg_control(False)
 	me "Так... Похоже, настал момент истины."
-	$ me.move_to_place({'x': me.x, 'y': me.y - 10})
+	$ me.move_to_place([None, me, (0, -10)])
 	play sound sfx['knock_door']
 	pause 1
 	mt "Да-да, заходите!"

@@ -69,7 +69,7 @@ init 11 python:
 		x, y = get_place_center(rpg_locations['square'].places['before_genda'])
 		x += kx * indent_x
 		y += indent_y + index * dy
-		return x, y
+		return ['square', {'x': x, 'y': y}]
 	
 	def lineup__action(character, state):
 		actions = character.get_actions()
@@ -77,8 +77,7 @@ init 11 python:
 		if state == 'start':
 			actions.interruptable = False
 			
-			x, y = lineup.get_place(character)
-			character.move_to_place(['square', {'x': x, 'y': y}])
+			character.move_to_place(lineup.get_place(character))
 			return 'moving'
 		
 		if state == 'moving':

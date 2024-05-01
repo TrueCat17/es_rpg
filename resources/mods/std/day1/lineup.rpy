@@ -62,9 +62,7 @@ label day1__lineup_conversation:
 			'dv_us': get_name('dv') == 'Алиса' and get_name('us') == 'Ульяна',
 		}
 	
-	python:
-		x, y = lineup.get_place(me)
-		me.move_to_place({'x': x, 'y': y}, run=True)
+	$ me.move_to_place(lineup.get_place(me), run=True)
 	$ me.set_direction(to_right)
 	$ cam_to(me, align=(0.5, 0.7))
 	
@@ -105,18 +103,18 @@ label day1__lineup_conversation:
 			if ch not in lineup.skip:
 				ch.set_auto(False)
 	
-	$ sl.move_to_place({'x': sl.x + 10, 'y': sl.y})
+	$ sl.move_to_place([None, sl, (+10, 0)])
 	$ sl.set_direction(to_back)
 	sl "Ну, меня ты знаешь. Славя."
 	$ set_name('sl', 'Славя')
-	$ sl.move_to_place({'x': sl.x - 10, 'y': sl.y})
+	$ sl.move_to_place([None, sl, (-10, 0)])
 	$ sl.set_direction(to_right)
 	
-	$ el.move_to_place({'x': el.x + 20, 'y': el.y})
+	$ el.move_to_place([None, el, (+20, 0)])
 	$ el.set_direction(to_back)
-	$ sh.move_to_place({'x': sh.x + 10, 'y': sh.y})
+	$ sh.move_to_place([None, sh, (+10, 0)])
 	$ sh.set_direction(to_back)
-	if get_name('el') != 'Электроник' or get_name('sh') != 'Шурик':
+	if not was_meet['el_sh']:
 		el "Я Сергей."
 		sh "Саша. Можно Шурик."
 		el "Ну, тогда меня можно Электроник."
@@ -126,17 +124,17 @@ label day1__lineup_conversation:
 		el "Электроник. Шурик."
 		sh "Шурик. Да."
 	python:
-		el.move_to_place({'x': el.x - 20, 'y': el.y})
-		sh.move_to_place({'x': sh.x - 10, 'y': sh.y})
+		el.move_to_place([None, el, (-20, 0)])
+		sh.move_to_place([None, sh, (-10, 0)])
 	$ el.set_direction(to_right)
 	$ sh.set_direction(to_right)
 	
 	python:
-		dv.move_to_place({'x': dv.x + 30, 'y': dv.y})
-		us.move_to_place({'x': us.x + 15, 'y': us.y})
+		dv.move_to_place([None, dv, (+30, 0)])
+		us.move_to_place([None, us, (+15, 0)])
 	$ dv.set_direction(to_back)
 	$ us.set_direction(to_back)
-	if get_name('dv') != 'Алиса' or get_name('us') != 'Ульяна':
+	if not was_meet['dv_us']:
 		dv "Ох. Ну, Алиса."
 		us "Как фамилия Ленина."
 		mt "Не выпендривайся."
@@ -147,8 +145,8 @@ label day1__lineup_conversation:
 		us "Ульяна. А эта дама - Алиса."
 		dv "Я и сама говорить умею!"
 	python:
-		dv.move_to_place({'x': dv.x - 30, 'y': dv.y})
-		us.move_to_place({'x': us.x - 15, 'y': us.y})
+		dv.move_to_place([None, dv, (-30, 0)])
+		us.move_to_place([None, us, (-15, 0)])
 	$ dv.set_direction(to_right)
 	$ us.set_direction(to_right)
 	

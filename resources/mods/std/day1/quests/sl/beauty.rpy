@@ -15,8 +15,10 @@ label sl_beauty__start:
 	"..."
 	sl "Эй, так тебе не сюда!"
 	python:
-		x, y = get_place_center(rpg_locations['boat_station'].places['pier_start'])
-		show_character(sl, {'x': x + 20, 'y': y - 50})
+		sl.move_to_place(None)
+		show_character(sl, 'pier_start')
+		sl.x += 20
+		sl.y -= 50
 		sl.set_dress('swim')
 		sl.set_direction(to_back)
 	hide bg with dissolve
@@ -31,9 +33,8 @@ label sl_beauty__start:
 	
 	python:
 		sl.move_to_place('closed-1')
-		x, y = get_place_center(rpg_locations['boat_station'].places['closed-1'])
-		me.x, me.y = get_place_center(me.location.places['pier_start_before_sit'])
-		me.move_to_place({'x': x - 50, 'y': y + 50}, wait_time=0)
+		me.x, me.y = get_place_center(cur_location.places['pier_start_before_sit'])
+		me.move_to_place([None, 'closed-1', (-50, +50)], wait_time=0)
 	
 	$ hide_character(sl)
 	pause 2
@@ -46,8 +47,8 @@ label sl_beauty__start:
 	pause 2
 	python:
 		x, y = get_place_center(rpg_locations['houses_1'].places['house_mt'])
-		sl.move_to_place(['houses_1', {'x': x + 20, 'y': y + 30}])
-		me.move_to_place(['houses_1', {'x': x - 20, 'y': y + 30}])
+		sl.move_to_place(['houses_1', 'house_mt', (+20, +30)])
+		me.move_to_place(['houses_1', 'house_mt', (-20, +30)])
 	
 	# TODO: Славя идёт к домику ОД, ГГ должен не отставать
 	# Если отстаёт 1 раз, Славя спрашивает, чего он отстаёт

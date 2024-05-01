@@ -40,7 +40,7 @@ label day1__canteen__square:
 	
 	mt "Семён..."
 	
-	$ me.move_to_place({'x': mt.x, 'y': mt.y - 30})
+	$ me.move_to_place([None, mt, (0, -30)])
 	$ me.set_direction(to_back)
 	$ mt.set_direction(to_forward)
 	

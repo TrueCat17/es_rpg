@@ -16,9 +16,13 @@ label sl_it_was_possible__start:
 	# (так же как и во "взломе", в кустах, куда спрыгнула алиса, будет лежать "инструмент взлома", который алиса выронила, когда убегала. Его можно забрать, но только в тот же вечер)
 	sl "Заходи!"
 	
+	$ me.allow_exit('square', 'canteen')
+	
 	$ sl.move_to_place(['canteen', 'chair_forward_pos-r3a', (30, 30)])
 	$ me.get_actions().update('rewind_to_min')
 	$ me.set_auto(False)
+	
+	$ me.disallow_exit('square', 'canteen')
 	
 	$ sl.set_direction(to_left)
 	sl "Ты садись, я сейчас посмотрю, что там есть."
@@ -35,7 +39,7 @@ label sl_it_was_possible__start:
 	th "Если так подумать, то этот \"сон\", или что бы там ни было, очень даже хорош."
 	th "Красивая природа, красивые девушки, лето в разгаре... да ещё и обслуживают, словно важную персону. А ведь я для них никто!"
 	$ show_character(sl)
-	$ sl.set_dress('food')
+	$ sl.set_dress('pioneer_food')
 	$ sl.move_to_place(['canteen', 'chair_backward_pos-r3b', (0, -20)])
 	$ sl.set_direction(to_back)
 	"Славя вернулась с двумя треугольниками кефира и несколькими булочками."
