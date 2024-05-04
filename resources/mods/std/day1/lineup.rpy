@@ -178,7 +178,7 @@ label day1__lineup_conversation:
 	
 	$ mt.get_actions().start(day1_mt_lineup_ending)
 	pause 2
-	$ me.get_actions().start('follow', mt)
+	$ me.get_actions().start('follow', mt, keep_dist = 0)
 	
 	$ cam_to(me, align = 'center')
 	me "Так... Что-то важное?"
