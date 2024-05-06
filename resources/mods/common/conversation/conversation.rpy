@@ -62,6 +62,7 @@ init -1 python:
 	
 	def conversation__show(character):
 		set_rpg_control(False)
+		me.stand_up()
 		me.rotate_to(character)
 		character.rotate_to(me)
 		conversation.was_auto = character.get_auto()

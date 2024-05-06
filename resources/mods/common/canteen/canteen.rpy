@@ -39,6 +39,8 @@ init 11 python:
 		canteen.finished_characters.clear()
 		renpy.play(sfx['horn'], 'sound')
 		
+		signals.set_check_picklable(False)
+		
 		canteen_hour = clock.hours + 1
 		skip_chance = canteen.skip_chances[canteen_hour if canteen_hour in canteen.skip_chances else None]
 		for character in characters:
@@ -51,7 +53,7 @@ init 11 python:
 					skip = True
 			
 			if skip: continue
-			if character is me and get_rpg_control(): continue
+			if character is me: continue
 			actions = character.get_actions()
 			if not actions: continue
 			
@@ -62,6 +64,8 @@ init 11 python:
 			clock.add_signal(crowding_time, Function(actions.start, canteen.crowding))
 			
 			clock.add_signal(canteen.horn_time_preparing, Function(actions.start, canteen.inside))
+		
+		signals.set_check_picklable(True)
 	
 	def canteen__crowding(character, state):
 		actions = character.get_actions()

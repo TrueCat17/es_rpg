@@ -20,6 +20,7 @@ init 11 python:
 			if not ch.get_auto(): continue
 			actions = ch.get_actions()
 			if not actions: continue
+			actions.stop()
 			actions.allow = ['other_place', 'sit', 'to_friend', 'look_around']
 			actions.start('other_place', 'square')
 	

@@ -159,7 +159,7 @@ init 10 python:
 			
 			character_actions = character.set_actions(std_actions)
 			character_actions.add('other_place')
-			character_actions.start('spawn')
+			character_actions.start('spawn', state = 'start')
 			character.set_auto(True)
 			main_characters.add(character)
 			
@@ -254,7 +254,7 @@ init 10 python:
 				
 				character_actions = character.set_actions(std_actions)
 				character_actions.add('other_place')
-				character_actions.start('spawn')
+				character_actions.start('spawn', state = 'start')
 				
 				character_actions.home = (location_name, place)
 				character_actions.friends = [roommate for roommate in roommates if roommate is not character]

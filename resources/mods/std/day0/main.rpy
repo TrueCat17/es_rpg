@@ -57,7 +57,10 @@ init 10 python:
 		half_period = 1.5
 		speed = (max - min) / half_period
 		
-		lamp_light.alpha += (lamp_light.dalpha or speed) * get_last_tick()
+		if 'dalpha' not in lamp_light:
+			lamp_light.dalpha = speed
+		
+		lamp_light.alpha += lamp_light.dalpha * get_last_tick()
 		
 		if lamp_light.alpha >= max:
 			lamp_light.alpha = max
@@ -275,7 +278,7 @@ label day0__flat__computer:
 		narrator random.choice([
 			"Хм. И зачем мне этот старый монитор на столе?",
 			"Сотни и тысячи часов последних лет моей жизни проведены именно здесь.",
-			"«Добро пожаловать. Снова.»",
+			'"Добро пожаловать. Снова."',
 		])
 	window hide
 	$ set_rpg_control(True)
@@ -296,6 +299,10 @@ label day0__flat__table:
 	call day0_check_items
 	window hide
 	$ set_rpg_control(True)
+
+label day0__flat__*:
+	if rpg_event == 'take':
+		call day0_check_items
 
 label day0_check_items:
 	if quest_started('taking_objects') and inventory.has('phone') and inventory.has('flat_keys') and inventory.has('notepad'):
