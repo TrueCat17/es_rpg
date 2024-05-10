@@ -235,7 +235,7 @@ init python:
 	register_place(   "enter", "behind_gates", 410, 250, 156, 10)
 	register_place(   "enter", "bench_desc", 530, 450, 60, 60)
 	register_place(   "enter", "bench_right_place", 555, 500, 10, 10)
-	register_place(   "enter", "dream_start", 540, 460, 10, 40)
+	register_place(   "enter", "dream_start", 530, 460, 10, 40)
 	register_place(   "enter", "gate_left_pos", 449, 279, 2, 2)
 	register_place(   "enter", "gate_right_pos", 509, 279, 2, 2)
 	register_place(   "enter", "ikarus_place", 293, 590, 2, 2)
