@@ -72,6 +72,10 @@ label day1__houses_1__house_mt:
 	mt "Да-да, заходите!"
 	$ me.move_to_place(['house_mt', 'houses_1'])
 	$ me.set_direction(to_forward)
+	
+	# временное удаление места, фикс для "перехвата" выхода из домика для событий у зеркала
+	$ mt_exit_table = cur_location.places.pop('exit_table')
+	
 	mt "Семён! Ну наконец-то."
 	mt "Я Ольга Дмитриевна, твоя вожатая на эту смену. С ребятами из отряда познакомишься на линейке, ещё наверняка представлю."
 	$ meet('mt', 'Ольга Дмитриевна')
@@ -217,6 +221,9 @@ label day1__house_mt__houses_1:
 		return
 	
 	$ was.append('mirror')
+	
+	$ cur_location.places['exit_table'] = mt_exit_table
+	$ del mt_exit_table
 	
 	$ set_rpg_control(False)
 	"Я уже собрался уходить, как вспомнил кое о чём."
