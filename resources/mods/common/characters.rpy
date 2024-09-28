@@ -151,9 +151,7 @@ init 10 python:
 			character.disliked_topics = disliked_topics[name]
 			
 			character.conversation_tags = ['male' if name in ('el', 'sh') else 'female']
-			character.conversation_count = {}
-			for topic in conversation.topics:
-				character.conversation_count[topic] = 0
+			character.conversation_count = dict.fromkeys(conversation.topics, 0)
 			
 			if name == 'uv': continue
 			
@@ -184,10 +182,11 @@ init 10 python:
 			chair_place_name = canteen_places[name]
 			del canteen_places[name]
 			if chair_place_name not in canteen.places:
-				out_msg('init_main_character_actions', 'Place <' + chair_place_name + '> not found in canteen')
+				out_msg('init_main_character_actions', 'Place <%s> not found in canteen' % (chair_place_name, ))
 				return index
 			
-			near_objs = get_location_objects('canteen', chair_place_name, None, 1)
+			side = 'forward' if 'forward' in chair_place_name else 'backward'
+			near_objs = get_location_objects('canteen', chair_place_name, 'chair_' + side, 1)
 			if not near_objs:
 				out_msg('init_main_character_actions', 'Needed <chair> object not found in canteen')
 				return index
@@ -270,7 +269,7 @@ init 10 python:
 					out_msg('init_side_character_actions', 'Place <' + chair_place_name + '> not found in canteen')
 					return index
 				
-				near_objs = get_location_objects('canteen', chair_place_name, None, 1)
+				near_objs = get_location_objects('canteen', chair_place_name, 'chair_' + side, 1)
 				if not near_objs:
 					out_msg('init_side_character_actions', 'Needed <chair> object not found in canteen')
 					return index

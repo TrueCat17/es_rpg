@@ -145,7 +145,7 @@ init -1 python:
 				near_character = character
 		
 		if min_dist <= conversation.max_dist:
-			if near_character.conversation_tags is None:
+			if 'conversation_tags' not in near_character:
 				renpy.call('conversation__no')
 			elif near_character.today_conversations == conversation.count_in_day and not near_character.spec_topics:
 				renpy.call('conversation__too_many')
