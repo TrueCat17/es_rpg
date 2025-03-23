@@ -54,17 +54,20 @@ init -1000 python:
 		def get_draw_data(self):
 			res = [None] * len(self.objs)
 			
+			image = self.image
+			zorder = self.zorder
 			w, h = self.xsize, self.ysize
-			for i in range(len(self.objs)):
-				x, y, dx, dy, size = self.objs[i]
+			
+			for i, obj in enumerate(self.objs):
+				x, y, dx, dy, size = obj
 				res[i] = {
-					'image':   self.image,
+					'image':   image,
 					'size':    absolute(size),
 					'pos':    (absolute(x * w), absolute(y * h)),
 					'anchor': (0, 0),
 					'crop':   (0, 0, 1.0, 1.0),
 					'alpha':   1,
-					'zorder':  self.zorder,
+					'zorder':  zorder,
 				}
 			
 			return res
