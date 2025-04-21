@@ -32,7 +32,10 @@ label mus_club_join:
 	
 	# играет "Звезда по имени Солнце"
 	
-	$ mus_club.play()
+	$ mus_club.enable_miku_reaction = False
+	$ mus_club.play(1)
+	$ mus_club.enable_miku_reaction = True
+	
 	$ me.stand_up()
 	
 	"Доиграв, я положил гитару."
@@ -118,7 +121,7 @@ label mus_club_join_yes:
 	$ mus_club.show_miku_at_piano(1)
 	pause 1
 	
-	$ mus_club.play()
+	$ mus_club.play(1)
 	
 	th "Чёрт, как же болят пальцы..."
 	mi "Ну, на сейчас хватит. А то если продолжим, может, до конца смены больше не сыграешь."

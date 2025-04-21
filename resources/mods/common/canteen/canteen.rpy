@@ -9,6 +9,8 @@ init 11 python:
 			signals.add('clock-' + clock.time_to_str([-1, hour, 00, -3]), canteen.unlimit)
 			signals.add('clock-' + clock.time_to_str([-1, hour, 20, 0]), canteen.limit)
 			
+			signals.add('clock-' + clock.time_to_str([-1, hour,  0, 0]), canteen.end_preparing)
+			
 			signals.add('clock-' + clock.time_to_str([-1, hour,  0, 0]), canteen.set_full)
 			signals.add('clock-' + clock.time_to_str([-1, hour, 10, 0]), canteen.set_half)
 			signals.add('clock-' + clock.time_to_str([-1, hour, 13, 0]), canteen.set_empty)
@@ -35,6 +37,8 @@ init 11 python:
 	def canteen__preparing():
 		if not canteen.enable:
 			return
+		
+		canteen.preparing_started = True
 		
 		canteen.finished_characters.clear()
 		renpy.play(sfx['horn'], 'sound')
@@ -66,6 +70,10 @@ init 11 python:
 			clock.add_signal(canteen.horn_time_preparing, Function(actions.start, canteen.inside))
 		
 		signals.set_check_picklable(True)
+	
+	def canteen__end_preparing():
+		canteen.preparing_started = False
+	
 	
 	def canteen__crowding(character, state):
 		actions = character.get_actions()
@@ -252,6 +260,8 @@ init 11 python:
 	
 	
 	build_object('canteen')
+	canteen.preparing_started = False
+	
 	canteen.enable = True
 	canteen.wait_characters = []
 	canteen.finished_characters = set()
