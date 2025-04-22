@@ -33,7 +33,7 @@ screen main_menu:
 		hotspot (0,   0, tw, 45) action Function(start_mod, 'std')
 		hotspot (0,  45, tw, 55) action ShowMenu('load')
 		hotspot (0, 100, tw, 60) action ShowMenu('preferences')
-		hotspot (0, 160, tw, 50) action Function(out_msg, 'Не реализовано')
-		hotspot (0, 210, tw, 60) action Function(out_msg, 'Не реализовано')
+		hotspot (0, 160, tw, 50) action Notify('Не реализовано')
+		hotspot (0, 210, tw, 60) action Notify('Не реализовано')
 		hotspot (0, 270, tw, 50) action exit_from_game
 
