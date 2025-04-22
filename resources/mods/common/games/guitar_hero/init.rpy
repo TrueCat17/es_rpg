@@ -308,7 +308,7 @@ init -100 python:
 			end_time = start_time + guitar_hero.note_moving_time
 			dtime = end_time - guitar_hero.pos
 			
-			if dtime <= guitar_hero.note_ignore_time:
+			if dtime <= min_dtime:
 				min_dtime = dtime
 				min_dtime_string = string
 		
@@ -335,7 +335,7 @@ init -100 python:
 	
 	def guitar_hero__set_difficulty(v):
 		if not guitar_hero.block_difficulty:
-			guitar_hero.difficulty = in_bounds(v, 0, len(guitar_hero.difficulty_names) - 1)
+			persistent.guitar_hero_difficulty = guitar_hero.difficulty = in_bounds(v, 0, len(guitar_hero.difficulty_names) - 1)
 			guitar_hero.update_difficulty()
 	
 	def guitar_hero__update_difficulty():
@@ -345,6 +345,17 @@ init -100 python:
 	
 	
 	def guitar_hero__add_note(string, start_time):
+		string = (string - 1) % guitar_hero.string_count + 1
+		
+		start_value = string
+		while start_time in guitar_hero.cur_notes[string]:
+			string += 1
+			if string == guitar_hero.string_count + 1:
+				string = 1
+			
+			if string == start_value:
+				return # no free strings
+		
 		guitar_hero.cur_notes[string].append(start_time)
 	
 	def guitar_hero__get_notes(string):
@@ -544,7 +555,7 @@ init -100 python:
 	
 	guitar_hero.waiting_before_start = 0.5
 	
-	guitar_hero.difficulty = 0
+	guitar_hero.difficulty = persistent.get('guitar_hero_difficulty', 0)
 	guitar_hero.difficulty_names = ['easy', 'medium', 'hard']
 	
 	guitar_hero.shadow_bg = im.rect('0005')
