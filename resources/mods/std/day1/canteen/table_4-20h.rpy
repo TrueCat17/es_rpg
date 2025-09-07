@@ -3,7 +3,7 @@ init python:
 		if state == 'start':
 			lineup.skip.append(character)
 			character.get_actions().interruptable = False
-			character.move_to_places([('houses_1', 'square'), ('forest_path-8', 'tennis'), ('forest_path-8', 'forest_path-7')], run=True)
+			character.move_to_places([('houses_1', 'square'), ('forest_path-8', 'tennis'), ('forest_path-8', 'forest_path-7')], run = True)
 			return 'moving'
 		
 		if state == 'moving':

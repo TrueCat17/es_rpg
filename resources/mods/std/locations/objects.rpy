@@ -481,4 +481,3 @@ init 1 python:
 	add_location_object("tennis", "tennis_cluster_1_pos", "tennis_cluster_1")
 	add_location_object("tennis", "tennis_cluster_2_pos", "tennis_cluster_2")
 	add_location_object("tennis", "tennis_separator_pos", "tennis_separator")
-	

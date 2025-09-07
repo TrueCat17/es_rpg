@@ -1,5 +1,5 @@
 init python:
-	sl_beauty__name = "Славянская красота"
+	sl_beauty__name = 'Славянская красота'
 
 label sl_beauty__start:
 	$ set_rpg_control(False)
@@ -34,7 +34,7 @@ label sl_beauty__start:
 	python:
 		sl.move_to_place('closed-1')
 		me.x, me.y = get_place_center(cur_location.places['pier_start_before_sit'])
-		me.move_to_place([None, 'closed-1', (-50, +50)], wait_time=0)
+		me.move_to_place([None, 'closed-1', (-50, +50)], wait_time = 0)
 	
 	$ hide_character(sl)
 	pause 2
@@ -43,7 +43,7 @@ label sl_beauty__start:
 	
 	python:
 		sl.set_dress('pioneer')
-		sl.move_to_place(['houses_1', 'square'], wait_time=0)
+		sl.move_to_place(['houses_1', 'square'], wait_time = 0)
 	pause 2
 	python:
 		x, y = get_place_center(rpg_locations['houses_1'].places['house_mt'])
@@ -64,4 +64,3 @@ label sl_beauty__start:
 	$ quest_end('sl_beauty')
 	
 	call day1__houses_1__house_mt
-

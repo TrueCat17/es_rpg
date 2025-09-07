@@ -36,4 +36,3 @@ screen main_menu:
 		hotspot (0, 160, tw, 50) action Notify('Не реализовано')
 		hotspot (0, 210, tw, 60) action Notify('Не реализовано')
 		hotspot (0, 270, tw, 50) action exit_from_game
-

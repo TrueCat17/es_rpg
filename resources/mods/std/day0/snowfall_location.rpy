@@ -1,8 +1,8 @@
 init -1000 python:
 	
-	class SnowfallLocation(Object):
+	class SnowfallLocation(SimpleObject):
 		def __init__(self, xpos, ypos, xsize, ysize, **kwargs):
-			Object.__init__(self)
+			SimpleObject.__init__(self)
 			
 			self.image = kwargs.get('image', im.rect('#FFF'))
 			self.free_image = kwargs.get('free', im.rect('#000', xsize, ysize))
@@ -25,7 +25,7 @@ init -1000 python:
 		def set_count(self, count):
 			old_count = len(self.objs)
 			if count <= old_count:
-				self.objs = self.objs[0:count]
+				self.objs = self.objs[:count]
 			else:
 				self.objs.extend([None] * (count - old_count))
 				
@@ -34,7 +34,7 @@ init -1000 python:
 					dx, dy = random.uniform(self.min_dx, self.max_dx), random.uniform(self.min_dy, self.max_dy)
 					size = random.uniform(self.min_size, self.max_size)
 					
-					self.objs[old_count + i] = [x, y, dx, dy, size]
+					self.objs[old_count + i] = [absolute(v) for v in (x, y, dx, dy, size)]
 		
 		def update(self):
 			free = self.free_image
@@ -60,15 +60,15 @@ init -1000 python:
 			
 			for i, obj in enumerate(self.objs):
 				x, y, dx, dy, size = obj
-				res[i] = {
-					'image':   image,
-					'size':    absolute(size),
-					'pos':    (absolute(x * w), absolute(y * h)),
-					'anchor': (0, 0),
-					'crop':   (0, 0, 1.0, 1.0),
-					'alpha':   1,
-					'zorder':  zorder,
-				}
+				obj = res[i] = SimpleObject()
+				
+				obj.image = image
+				obj.size = size
+				obj.pos = (x * w, y * h)
+				obj.anchor = (0, 0)
+				obj.zorder = zorder
 			
 			return res
 		
+		def free(self):
+			return None

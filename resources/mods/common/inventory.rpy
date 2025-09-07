@@ -1,6 +1,6 @@
 init python:
 	def my_interface_bg():
-		iw, ih = inventory.xsize, inventory.ysize
+		iw, ih = screen_tmp.xsize, screen_tmp.ysize
 		cache = my_interface_bg.__dict__
 		key = (iw, ih)
 		if key in cache:
@@ -16,7 +16,7 @@ init python:
 		
 		args = [
 			(iw, ih),
-			(x, y), im.scale(back, iw - x * 2, ih - y * 2),
+			(x, y), im.scale_without_borders(back, iw - x * 2, ih - y * 2, need_scale = True),
 			(iw - w, ih - h), im.scale(leaf, w, h),
 		]
 		cache[key] = im.composite(*args)
@@ -42,12 +42,11 @@ init python:
 		cache[key] = im.composite(*args)
 		return cache[key]
 	def my_interface_cell_usual():
-		return get_borders(inventory.cell_xsize, inventory.cell_ysize, inventory.cell_xsize / 15, gui.my_inventory_cell_usual_color)
+		return get_borders(screen_tmp.cell_xsize, screen_tmp.cell_ysize, screen_tmp.cell_xsize / 15, gui.my_inventory_cell_usual_color)
 	def my_interface_cell_selected():
-		return get_borders(inventory.cell_xsize, inventory.cell_ysize, inventory.cell_xsize / 15, gui.my_inventory_cell_selected_color)
+		return get_borders(screen_tmp.cell_xsize, screen_tmp.cell_ysize, screen_tmp.cell_xsize / 15, gui.my_inventory_cell_selected_color)
 	gui.inventory_cell_usual_over = my_interface_cell_usual
 	gui.inventory_cell_selected_over = my_interface_cell_selected
 	
-	gui.my_inventory_cell_usual_color = '#333'
+	gui.my_inventory_cell_usual_color    = '#333'
 	gui.my_inventory_cell_selected_color = '#A42'
-

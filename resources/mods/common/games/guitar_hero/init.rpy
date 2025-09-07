@@ -25,14 +25,13 @@ init -100 python:
 			
 			guitar_hero.update()
 			
-			if persistent.guitar_hero_song:
+			if persistent.guitar_hero_song and persistent.guitar_hero_song in guitar_hero.cur_songs:
 				paths = guitar_hero.get_paths(persistent.guitar_hero_song, False)
 				if paths:
 					guitar_hero.set_song(persistent.guitar_hero_song)
 			
-			if not guitar_hero.song and guitar_hero.song_paths:
-				song = list(guitar_hero.song_paths.keys())[0]
-				guitar_hero.set_song(song)
+			if not guitar_hero.song and guitar_hero.cur_songs:
+				guitar_hero.set_song(guitar_hero.cur_songs[0])
 		
 		finally:
 			guitar_hero.initing = False
@@ -87,7 +86,7 @@ init -100 python:
 		
 		if not audio_path or not note_dir:
 			if not_found_is_error:
-				out_msg('guitar_hero.get_paths', 'Path for song <%s> not found' % (song, ))
+				out_msg('guitar_hero.get_paths', 'Path for song <%s> not found', song)
 			return None
 		
 		return audio_path, note_dir
@@ -113,7 +112,7 @@ init -100 python:
 				break
 		else:
 			if not guitar_hero.recording:
-				out_msg('guitar_hero.read_commands', 'File with notes for song <%s> not found' % (guitar_hero.song, ))
+				out_msg('guitar_hero.read_commands', 'File with notes for song <%s> not found', guitar_hero.song)
 			return
 		
 		with open(path, 'rb') as f:
@@ -128,7 +127,7 @@ init -100 python:
 			if seed.isdigit():
 				seed = int(seed)
 			else:
-				out_msg('guitar_hero.read_commands', 'Invalid seed <%s> in file <%s>' % (seed, path))
+				out_msg('guitar_hero.read_commands', 'Invalid seed <%s> in file <%s>', seed, path)
 				seed = 0
 			strs.pop(0)
 			i_add += 1
@@ -142,7 +141,7 @@ init -100 python:
 				start_time, string = s.split(' ')
 				guitar_hero.notes.append((float(start_time), int(string)))
 			except:
-				out_msg('guitar_hero.read_commands', 'Invalid str %s:%s\n<%s>' % (path, i + i_add, s))
+				out_msg('guitar_hero.read_commands', 'Invalid str %s:%s\n<%s>', path, i + i_add, s)
 	
 	
 	def guitar_hero__play():
@@ -156,6 +155,7 @@ init -100 python:
 		guitar_hero.unpause()
 		guitar_hero.play_timeout_id = set_timeout(guitar_hero.real_play, guitar_hero.waiting_before_start)
 		guitar_hero.start_time = get_game_time()
+		guitar_hero.mus_pos = None
 		
 		guitar_hero.score = 0
 		guitar_hero.score_color = guitar_hero.score_color_usual
@@ -164,6 +164,8 @@ init -100 python:
 		guitar_hero.last_game_quality = None
 	
 	def guitar_hero__real_play():
+		guitar_hero.play_timeout_id = None
+		
 		renpy.play(guitar_hero.audio_path, guitar_hero.channel)
 		renpy.music.set_pos(guitar_hero.pos or 0, guitar_hero.channel)
 		
@@ -191,6 +193,8 @@ init -100 python:
 			guitar_hero.play_timeout_id = None
 		
 		renpy.stop(guitar_hero.channel)
+		
+		guitar_hero.last_game_quality = 1.0
 		
 		if guitar_hero.recording:
 			guitar_hero.recording = False
@@ -228,7 +232,7 @@ init -100 python:
 	
 	
 	def guitar_hero__record():
-		if not guitar_hero.song:
+		if not guitar_hero.song or guitar_hero.block_playing:
 			return
 		
 		input.ask_str(
@@ -242,7 +246,7 @@ init -100 python:
 		start_time = int(start_time)
 		song_len_sec = int(renpy.music.get_audio_len(guitar_hero.audio_path))
 		if start_time > song_len_sec:
-			notification.out(_('Expected time <= %s') % song_len_sec)
+			notification.out(_('Expected time <= %s'), song_len_sec)
 			return
 		
 		guitar_hero.recording = True
@@ -369,7 +373,7 @@ init -100 python:
 			if guitar_hero.recording:
 				y = 1 - y
 			
-			alpha = in_bounds(y / 0.2, 0, 0.8)
+			alpha = y / 0.2
 			res.append((y, alpha))
 		
 		return res
@@ -519,7 +523,7 @@ init -100 python:
 	guitar_hero.cur_notes = defaultdict(list)
 	
 	
-	# .append("your_path") / .insert(0, "your_path")
+	# .append('your_path') / .insert(0, 'your_path')
 	guitar_hero.note_dirs = [os.path.dirname(get_filename(0)) + '/songs/']
 	guitar_hero.fallback_sound_dirs = ['sound/']
 	
@@ -563,7 +567,7 @@ init -100 python:
 	guitar_hero.shadow_ypadding = 40 / 675
 	
 	
-	guitar_hero.channel = 'guitar_hero_sound'
+	guitar_hero.channel = 'guitar_hero_music'
 	renpy.music.register_channel(guitar_hero.channel, 'music', False)
 	
 	guitar_hero.bg = im.rect('#888')

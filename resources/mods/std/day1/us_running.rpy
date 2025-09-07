@@ -6,7 +6,7 @@ label forest_path*:
 	$ was.append('forest_running')
 	
 	$ set_rpg_control(False)
-	$ me.move_to_place([None, me, (+200, 0)], run=True, wait_time=0.5)
+	$ me.move_to_place([None, me, (+200, 0)], run = True, wait_time = 0.5)
 	th "Чёрт, не вижу её."
 	me "Э-эй! Ты где?"
 	$ me.set_direction(to_forward)
@@ -23,13 +23,13 @@ label forest_path*:
 	$ me.set_direction(to_back)
 	hide bg with dissolve
 	
-	$ me.move_to_place('forest_path-8', run=True, wait_time=1)
+	$ me.move_to_place('forest_path-8', run = True, wait_time = 1)
 	
 	show bg black with dissolve
 	$ set_location('forest_path-6', 'left')
 	$ me.set_direction(to_right)
 	hide bg with dissolve
-	$ me.move_to_place('forest_path-7', wait_time=2)
+	$ me.move_to_place('forest_path-7', wait_time = 2)
 	
 	if clock.hours < 21:
 		show bg black with dissolve
@@ -46,7 +46,7 @@ label forest_path*:
 	hide bg with dissolve
 	
 	me "Наконец-то!"
-	$ me.move_to_place(['enter', 'forest_path-9'], wait_time=1)
+	$ me.move_to_place(['enter', 'forest_path-9'], wait_time = 1)
 	me "Теперь хоть вернуться смогу."
 	th "Так, значит этой дорогой я сюда приехал? Совсем ничего не помню."
 	window hide

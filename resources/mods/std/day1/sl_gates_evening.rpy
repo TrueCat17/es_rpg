@@ -5,15 +5,15 @@ label day1__sl_gates_evening:
 		return
 	
 	$ set_rpg_control(False)
-	$ location_cutscene_on(align='down')
+	$ location_cutscene_on(align = 'down')
 	$ me.move_to_place("before_gates")
 	$ me.set_direction(to_forward)
 	
 	$ sl.set_auto(False)
 	$ show_character(sl, 'clubs')
 	$ sl.set_direction(to_back)
-	$ cam_to(sl, align='up')
-	$ sl.move_to_place('behind_gates', wait_time=2)
+	$ cam_to(sl, align = 'up')
+	$ sl.move_to_place('behind_gates', wait_time = 2)
 	
 	if 'us_running' in was:
 		$ was.append('sl_after_us_running')
@@ -62,7 +62,7 @@ label day1__sl_after_us_running:
 			
 			$ sl.get_actions().allow = ['other_place', 'look_around']
 			$ sl.set_auto(True)
-			$ signals.add('go_to_sleep', SetDict(sl.get_actions(), 'allow', []), priority=-100)
+			$ signals.add('go_to_sleep', sl.get_actions().allow.clear, priority = -100)
 			
 			$ cam_to(me)
 			$ location_cutscene_off()

@@ -64,7 +64,7 @@ label day1__enter__before_gates:
 	$ was.append('before_gates')
 	
 	$ set_rpg_control(False)
-	$ location_cutscene_on(align='down')
+	$ location_cutscene_on(align = 'down')
 	$ me.move_to_place("before_gates")
 	$ me.set_direction(to_forward)
 	
@@ -78,9 +78,9 @@ label day1__enter__before_gates:
 	$ sl.set_auto(False)
 	$ show_character(sl, 'clubs')
 	$ sl.set_direction(to_back)
-	$ cam_to(sl, align='up')
+	$ cam_to(sl, align = 'up')
 	$ sl.start_animation('hello', -1)
-	$ sl.move_to_place('behind_gates', wait_time=2)
+	$ sl.move_to_place('behind_gates', wait_time = 2)
 	$ sl.remove_animation()
 	
 	"Не успев испугаться, я увидел девушку у ворот."
@@ -115,7 +115,7 @@ label day1__enter__before_gates:
 	sl "Ладно я побежала. Увидимся!"
 	window hide
 	
-	$ sl.move_to_place(['boat_station', 'closed-1'], run=True, wait_time=0)
+	$ sl.move_to_place(['boat_station', 'closed-1'], run = True, wait_time = 0)
 	$ cam_to(me)
 	
 	$ location_cutscene_off()
@@ -127,7 +127,7 @@ label day1__clubs__before_clubs:
 	$ was.append('before_clubs')
 	
 	$ set_rpg_control(False)
-	$ location_cutscene_on(align='down')
+	$ location_cutscene_on(align = 'down')
 	$ me.move_to_place("before_porch")
 	$ me.set_direction(to_forward)
 	
@@ -144,8 +144,8 @@ label day1__clubs__before_clubs:
 	pause 1
 	
 	$ us.remove_animation()
-	$ us.move_to_place([None, us, (0, +40)], run=True)
-	$ us.get_actions().start('other_place', 'stadium', run=True)
+	$ us.move_to_place([None, us, (0, +40)], run = True)
+	$ us.get_actions().start('other_place', 'stadium', run = True)
 	$ us.set_auto(True)
 	pause 1.5
 	
@@ -199,7 +199,7 @@ label day1__boat_station__*:
 	$ was.append('boat_station')
 	
 	$ set_rpg_control(False)
-	$ location_cutscene_on(align='down')
+	$ location_cutscene_on(align = 'down')
 	
 	"Я вышел к пляжу."
 	"Как же здесь красиво... не хуже, чем на фотографиях курортов."
@@ -221,7 +221,7 @@ label day1__boat_station__pier_start:
 	if 'pier' in was or 'mt_conversation' in was:
 		return
 	$ was.append('pier')
-
+	
 	$ quest_start('sl_beauty')
 
 
@@ -234,5 +234,3 @@ label too_hot:
 		"Славя говорила про умывальники. Сейчас как никогда хочется сполоснуться.",
 	])
 	window hide
-	
-	

@@ -8,14 +8,14 @@ init -10 python:
 			for i in range(count):
 				x = random.randint(0, location.xsize - 1)
 				y = random.randint(0, location.ysize - 1)
-				add_location_object(name, {'x': x, 'y': y}, Butterfly)
+				add_location_object(name, { 'x': x, 'y': y }, Butterfly)
 	
-	class Butterfly(Object):
+	class Butterfly(SimpleObject):
 		
 		standart_image = os.path.dirname(get_filename(0)) + '/butterfly.png'
 		
 		def __init__(self, xpos, ypos, xsize, ysize, **kwargs):
-			Object.__init__(self)
+			SimpleObject.__init__(self)
 			self.xpos, self.ypos = xpos + xsize // 2, ypos + ysize // 2
 			
 			self.count_frames = 5
@@ -52,15 +52,6 @@ init -10 python:
 		def update_frame(self):
 			frame = int(self.frame) % self.count_frames
 			self.crop = (frame * self.xsize, 0, self.xsize, self.ysize)
-		
-		def get_draw_data(self):
-			return {
-				'image':  self.image,
-				'crop':   self.crop,
-				'pos':    (absolute(self.xpos), absolute(self.ypos)),
-				'size':   (self.xsize, self.ysize),
-				'rotate': self.rotate,
-			}
 		
 		
 		def get_dist(self, x, y, w, h, chs):
@@ -106,3 +97,15 @@ init -10 python:
 			self.update_frame()
 			self.xpos, self.ypos = self.get_next_pos(x, y, self.rotate, self.speed * k)
 		
+		
+		def get_draw_data(self):
+			res = SimpleObject()
+			res.image  = self.image
+			res.crop   = self.crop
+			res.pos    = (absolute(self.xpos), absolute(self.ypos))
+			res.size   = (self.xsize, self.ysize)
+			res.rotate = self.rotate
+			return res
+		
+		def free(self):
+			return None

@@ -4,14 +4,18 @@ label house_mt__sm_bed:
 	
 	$ set_rpg_control(False)
 	
-	if 'tooth_reminder' not in was and 'tooth_cleaning' not in was:
+	if clock.hours >= 7 and clock.hours <= 21:
+		"Спать ещё рано."
+		window hide
+		$ me.set_direction(to_right)
+	elif 'tooth_reminder' not in was and 'tooth_cleaning' not in was:
 		$ was.append('tooth_reminder')
 		mt "Ты хоть зубы почисти перед сном. Больше напоминать не буду, не маленький уже."
-	elif clock.hours >= 7 and clock.hours <= 21:
-		"Спать ещё рано."
-		$ me.set_direction(to_right)
+		window hide
 	else:
 		python:
+			#mt.get_actions().start('sleep')
+			
 			set_location('house_mt', 'sm_bed_sleep')
 			me.start_animation('sleep')
 		
@@ -37,4 +41,3 @@ label house_mt__sm_bed:
 			set_location('house_mt', 'sm_bed')
 	
 	$ set_rpg_control(True)
-	window hide

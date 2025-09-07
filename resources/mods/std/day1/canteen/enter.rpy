@@ -7,16 +7,16 @@ init python:
 		canteen.not_eat = []
 		canteen.fast_eat = [un]
 	
-	signals.add('clock-1-11:00:00', day1_set_eaters_12h, times=1)
-	signals.add('clock-1-19:00:00', day1_set_eaters_20h, times=1)
+	signals.add('clock-1-11:00:00', day1_set_eaters_12h, times = 1)
+	signals.add('clock-1-19:00:00', day1_set_eaters_20h, times = 1)
 	
 	
 	def first_horn_pre():
 		mt.set_auto(False)
-		mt.move_to_place(['canteen', 'square', (+100, 0)], run=True, wait_time=0)
+		mt.move_to_place(['canteen', 'square', (+100, 0)], run = True, wait_time = 0)
 	
-	signals.add('clock-1-11:45:00', first_horn_pre, times=1, priority=-10)
-	signals.add('clock-1-11:45:10', Call('first_horn'), times=1)
+	signals.add('clock-1-11:45:00', first_horn_pre, times = 1, priority = -10)
+	signals.add('clock-1-11:45:10', Call('first_horn'), times = 1)
 
 label first_horn:
 	$ set_rpg_control(False)
@@ -36,7 +36,7 @@ label day1__canteen__square:
 	$ mt.move_to_end()
 	$ mt.set_direction(to_left)
 	$ set_rpg_control(False)
-	$ location_cutscene_on(align='down')
+	$ location_cutscene_on(align = 'down')
 	
 	mt "Семён..."
 	
@@ -46,7 +46,7 @@ label day1__canteen__square:
 	
 	mt "Так, на наш отряд у нас во-он те столы... хотя ладно, пошли."
 	window hide
-	$ mt.move_to_place(['canteen', 'table_h_pos-r4', (-60, -20)], wait_time=1.5)
+	$ mt.move_to_place(['canteen', 'table_h_pos-r4', (-60, -20)], wait_time = 1.5)
 	$ me.move_to_place(['canteen', 'table_h_pos-r4', (-60, +20)])
 	
 	$ mt.move_to_end()
@@ -84,7 +84,7 @@ label day1__canteen__*:
 					$ clear_interval(canteen_id)
 					if clock.hours == 12:
 						$ mt.set_auto(False)
-						$ mt.move_to_place(['square', 'canteen', (0, +30)], run=True, wait_time=0)
+						$ mt.move_to_place(['square', 'canteen', (0, +30)], run = True, wait_time = 0)
 		elif table_num < 4:
 			$ chars = [ch for ch in [mt, cs] if canteen.is_sit(ch)]
 			if chars:

@@ -23,18 +23,18 @@ label day1__mt_end__enter_1:
 		$ me.y += 20
 		$ show_character(mt, 'house_mt')
 	else:
-		$ me.move_to_place(['house_mt', 'sm_bed'], wait_time=1)
+		$ me.move_to_place(['house_mt', 'sm_bed'], wait_time = 1)
 		"Хм. Вожатой тут не оказалось."
 		$ show_character(mt, 'houses_1')
-		$ mt.move_to_place('mt_bed', wait_time=0.5)
+		$ mt.move_to_place('mt_bed', wait_time = 0.5)
 		"О, а вот и она."
 
 label day1__mt_end__enter_2:
 	if mt.location.name != 'house_mt':
 		"Ну, проходи тогда!"
 		window hide
-		$ mt.move_to_place(['house_mt', 'mt_bed'], wait_time=0.5)
-		$ me.move_to_place(['house_mt', 'sm_bed'], wait_time=0.5)
+		$ mt.move_to_place(['house_mt', 'mt_bed'], wait_time = 0.5)
+		$ me.move_to_place(['house_mt', 'sm_bed'], wait_time = 0.5)
 
 label day1__mt_end:
 	$ set_rpg_control(False)

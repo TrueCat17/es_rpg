@@ -1,7 +1,7 @@
 init -200 python:
 	def guitar_hero__set_song(song):
 		if song not in guitar_hero.cur_songs:
-			out_msg('guitar_hero.set_song', 'Song <%s> not found or not allowed' % (song, ))
+			out_msg('guitar_hero.set_song', 'Song <%s> not found or not allowed', song)
 			return
 		
 		guitar_hero.song_index = guitar_hero.cur_songs.index(song)
@@ -43,6 +43,9 @@ init -200 python:
 				guitar_hero.set_song(guitar_hero.cur_songs[0])
 			else:
 				guitar_hero.song = None
+		
+		if guitar_hero.song in guitar_hero.cur_songs:
+			guitar_hero.song_index = guitar_hero.cur_songs.index(guitar_hero.song)
 		
 		if len(guitar_hero.cur_songs) > guitar_hero.count_songs:
 			max_start_index = len(guitar_hero.cur_songs) - guitar_hero.count_songs

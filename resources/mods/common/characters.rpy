@@ -323,12 +323,13 @@ init 10 python:
 			prefix = character.directory + character.rpg_name + '_' + character.get_dress()
 			def get_image(obj):
 				r, g, b = character[obj + '_color']
-				image = '%s_%s_%s.%s' % (prefix, obj, time_name, character_ext)
-				if os.path.exists(image):
+				image = get_file_with_ext('%s_%s_%s' % (prefix, obj, time_name))
+				
+				if image and os.path.exists(image):
 					return im.recolor(image, r, g, b)
 				
 				r2, g2, b2 = location_time_rgb
-				image = '%s_%s.%s' % (prefix, obj, character_ext)
+				image = get_file_with_ext('%s_%s' % (prefix, obj))
 				return im.recolor(image, r * r2 / 256, g * g2 / 256, b * b2 / 256)
 			
 			cache[key] = [get_image('eyes'), get_image('hair')]

@@ -325,9 +325,9 @@ init python:
 	register_place(   "house_mt", "bedside_table", 205, 330, 30, 40)
 	register_place(   "house_mt", "cupboard", 290, 380, 20, 40)
 	register_place(   "house_mt", "exit_table", 200, 390, 20, 30)
-	register_place(   "house_mt", "mt_bed", 285, 290, 10, 30)
+	register_place(   "house_mt", "mt_bed", 272, 290, 20, 30)
 	register_place(   "house_mt", "mt_bed_sleep", 315, 295, 10, 10)
-	register_place(   "house_mt", "sm_bed", 220, 290, 10, 30)
+	register_place(   "house_mt", "sm_bed", 220, 290, 20, 30)
 	register_place(   "house_mt", "sm_bed_pos", 192, 321, 2, 2)
 	register_place(   "house_mt", "sm_bed_sleep", 185, 301, 10, 10)
 	register_place(   "house_mt", "table", 237, 285, 38, 15)
@@ -658,4 +658,3 @@ init python:
 	rpg_locations["storage"].x, rpg_locations["storage"].y = 1001, 444
 	rpg_locations["tennis"].x, rpg_locations["tennis"].y = 1286, 292
 	rpg_locations["washbasins"].x, rpg_locations["washbasins"].y = 513, 224
-

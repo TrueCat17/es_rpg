@@ -155,4 +155,3 @@ init 11 python:
 	
 	signals.add('clock-20:24:00', lineup.start)
 	signals.add('clock-20:40:00', lineup.end)
-	

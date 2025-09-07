@@ -26,8 +26,8 @@ init python:
 		
 		count = cloud.get_count_for_location(cur_location)
 		for i in range(count):
-			obj = add_location_object(cur_location_name, {'x': 0, 'y': 0}, Cloud)
-			obj.set_init_params(inside=True)
+			obj = add_location_object(cur_location_name, { 'x': 0, 'y': 0 }, Cloud)
+			obj.set_init_params(inside = True)
 	
 	def cloud__default_get_count_for_location(location):
 		size = cur_location.xsize + cur_location.ysize
@@ -76,10 +76,12 @@ init python:
 	
 	build_object('cloud')
 	
-	class Cloud(Object):
+	
+	class Cloud(SimpleObject):
 		
 		def __init__(self, xpos, ypos, xsize, ysize):
-			Object.__init__(self)
+			SimpleObject.__init__(self)
+			self.invisible = False
 		
 		def __str__(self):
 			return '<Cloud %s in (%s, %s)>' % (self.parts, int(self.x), int(self.y))
@@ -140,13 +142,16 @@ init python:
 			part_x = int(hflip) * self.part_xsize
 			part_y = int(vflip) * self.part_ysize
 			
-			return {
-				'image': im.flip(cloud.directory + self.parts[num], hflip, vflip),
-				'pos':  (self.x + part_x, self.y + part_y),
-				'size': (self.part_xsize, self.part_ysize),
-				'alpha': self.alpha,
-				'zorder': 1e7,
-			}
+			res = SimpleObject()
+			res.image  = im.flip(cloud.directory + self.parts[num], hflip, vflip)
+			res.pos    = (self.x + part_x, self.y + part_y)
+			res.size   = (self.part_xsize, self.part_ysize)
+			res.alpha  = self.alpha
+			res.zorder = 1e7
+			return res
 		
 		def get_draw_data(self):
-			return [self.get_part_draw_data(i) for i in range(4)]
+			return [self.get_part_draw_data(i) for i in (0, 1, 2, 3)]
+		
+		def free(self):
+			return None

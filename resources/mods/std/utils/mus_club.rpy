@@ -107,6 +107,8 @@ label mus_club__playing:
 	
 	$ prev_playing = False
 	while has_screen('guitar_hero'):
+		$ db.skip_tab = False
+		
 		$ playing = guitar_hero.playing()
 		
 		if playing and not prev_playing:

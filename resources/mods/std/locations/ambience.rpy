@@ -75,5 +75,3 @@ init 1 python:
 	
 	for name in ('bunker', 'bunker_enter'):
 		set_location_ambience(name, ambience_dir + 'catacombs.ogg')
-	
-	

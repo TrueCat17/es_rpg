@@ -91,7 +91,7 @@ init python:
 			d2, h2, m2, s2 = clock.parse_time(after)
 		
 		d, h, m, s = clock.normalize(d1 + d2, h1 + h2, m1 + m2, s1 + s2)
-		signals.add('clock-' + clock.time_to_str([d, h, m, s]), function, priority=priority, times=times)
+		signals.add('clock-' + clock.time_to_str([d, h, m, s]), function, priority = priority, times = times)
 	
 	def clock__on_tick():
 		if has_screen('pause') or clock.pause or db.visible:

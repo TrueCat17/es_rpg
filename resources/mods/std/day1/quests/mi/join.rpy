@@ -30,11 +30,13 @@ label mus_club_join:
 	"Я провёл пальцами по струнам, после чего попробовал зажать несколько аккордов (благо, хоть что-то я помнил)."
 	"После некоторого времени разминки я начал играть самое простое, что первое пришло в голову."
 	
-	# играет "Звезда по имени Солнце"
+	$ guitar_hero.allowed = ['star_called_sun']
 	
 	$ mus_club.enable_miku_reaction = False
-	$ mus_club.play(1)
+	$ mus_club.play(1, True)
 	$ mus_club.enable_miku_reaction = True
+	
+	$ guitar_hero.allowed = []
 	
 	$ me.stand_up()
 	

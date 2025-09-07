@@ -46,4 +46,3 @@ label day1_start:
 	$ me.move_to_place('enter')
 	
 	$ set_rpg_control(True)
-

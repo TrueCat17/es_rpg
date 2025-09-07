@@ -10,7 +10,7 @@ init 10 python:
 		res = []
 		for quest in get_started_quests():
 			res.extend(get_glob_labels(quest + '__' + usual_label))
-		res.extend(get_glob_labels('day' + str(clock.day) + '__' + usual_label))
+		res.extend(get_glob_labels('day%s__%s' % (clock.day, usual_label)))
 		res.extend(get_glob_labels(usual_label))
 		return res
 	
@@ -24,12 +24,12 @@ init 25 python:
 	limit_rooms()
 	canteen.init()
 	
-	add_butterflies(min=1, max=2)
+	add_butterflies(min = 1, max = 2)
 	remove_location_object('station', None, Butterfly, count = -1)
 	
 	def spec_start():
 		clock.pause = False
-		clock.set('1-20:46:45')
+		clock.set('1-20:44:45')
 		clock.acceleration = 6
 		show_screen('clock')
 		
@@ -40,10 +40,12 @@ init 25 python:
 		cloud.init()
 		
 		lineup.enable_reminder = True
+		was.extend(['mt_conversation', 'mirror'])
 		set_rpg_control(True)
 #		unlimit_all(me)
 #		set_location('square', 'admin')
-		set_location('clubs', {'x': 990, 'y': 430})
+		set_location('clubs', { 'x': 990, 'y': 430 })
+
 
 label start:
 #	$ make_names_unknown()

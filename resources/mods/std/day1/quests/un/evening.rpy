@@ -1,5 +1,5 @@
 init 20 python:
-	un_evening__name = "Унесённые вечером"
+	un_evening__name = 'Унесённые вечером'
 	
 	def day1_un_read_book(character, state):
 		actions = character.get_actions()
@@ -33,7 +33,7 @@ init 20 python:
 	def day1_un_start_read_book():
 		if un.get_actions():
 			un.get_actions().start(day1_un_read_book)
-	signals.add('clock-1-20:47:00', day1_un_start_read_book, times=1)
+	signals.add('clock-1-20:47:00', day1_un_start_read_book, times = 1)
 	
 	
 	def un_evening__check_start():
@@ -148,4 +148,3 @@ label un_evening__start:
 	
 	$ set_timeout(un.get_actions().stop, 10)
 	$ quest_end('un_evening')
-

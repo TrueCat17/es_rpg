@@ -93,7 +93,7 @@ init python:
 	wi_bullets = []
 	wi_player_symbols = []
 	def wi_add_words(phrase):
-		if not renpy.has_screen('words_invaders'):
+		if not has_screen('words_invaders'):
 			renpy.show_screen('words_invaders')
 			save_rpg_control()
 			set_rpg_control(False)
@@ -312,14 +312,3 @@ screen words_invaders:
 	key 'd'     first_delay 0 action wi_right
 	
 	key 'SPACE' first_delay 1 delay 1 action wi_make_bullet
-
-
-
-
-
-
-
-
-
-
-

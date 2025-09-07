@@ -62,9 +62,9 @@ label day1__lineup_conversation:
 			'dv_us': get_name('dv') == 'Алиса' and get_name('us') == 'Ульяна',
 		}
 	
-	$ me.move_to_place(lineup.get_place(me), run=True)
+	$ me.move_to_place(lineup.get_place(me), run = True)
 	$ me.set_direction(to_right)
-	$ cam_to(me, align=(0.5, 0.7))
+	$ cam_to(me, align = (0.5, 0.7))
 	
 	if clock.minutes <= 33:
 		"Когда основная масса пионеров прибыла на линейку и построилась, вожатая начала вещание."
@@ -216,7 +216,7 @@ label day1__lineup_conversation:
 				else:
 					me "И всё."
 				break
-			
+		
 		$ menu_iter += 1
 	
 	voice "Оля!"

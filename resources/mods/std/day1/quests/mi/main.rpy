@@ -35,4 +35,3 @@ label day1__clubs__mus_club:
 		
 		window hide
 		$ set_rpg_control(True)
-

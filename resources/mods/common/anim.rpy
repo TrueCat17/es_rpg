@@ -1,6 +1,7 @@
 init -1000:
 	
-	$ default_decl_at = ["size (1.0, 1.0)"]
+	transform default_decl_at:
+		size 1.0
 	
 	python:
 		prologue_pause = 1
@@ -39,6 +40,3 @@ init -1000:
 		"images/anim/prologue/message2.png"
 		prologue_pause
 		repeat
-	
-	$ default_decl_at = []
-

@@ -9,7 +9,7 @@ label day1__canteen__table-5-time12h:
 		sl "Да брось, ты же мне тоже помог, так что сиди."
 		$ clock.add(2 * 60)
 		$ sl.set_auto(False)
-		$ sl.move_to_places([('canteen', 'get_plate'), ('canteen', 'get_plate', (+10, 0))], wait_time=0)
+		$ sl.move_to_places([('canteen', 'get_plate'), ('canteen', 'get_plate', (+10, 0))], wait_time = 0)
 		"Было немного неловко. Радовало хотя бы то, что я действительно помог, хоть и немного."
 		pause 2
 		$ clock.add(2 * 60)

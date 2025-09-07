@@ -332,8 +332,8 @@ label canteen_wait:
 label canteen_sitting:
 	if me.get_pose() == 'sit':
 		return
-	$ me.move_to_place({'x': canteen.sitting_place.x, 'y': canteen.sitting_place.y + 20})
-	$ canteen_sit_objs = get_near_sit_objects(max_dist=50)
+	$ me.move_to_place({ 'x': canteen.sitting_place.x, 'y': canteen.sitting_place.y + 20 })
+	$ canteen_sit_objs = get_near_sit_objects(max_dist = 50)
 	$ me.sit_down(canteen_sit_objs[0][0])
 
 label canteen_no_conversation:
@@ -345,7 +345,7 @@ label canteen_no_conversation:
 				ch_table = ch.canteen_chair_place_name[:-1].split('-')[1]
 				if table == ch_table:
 					near_chars.append(ch)
-		
+	
 	if not near_chars:
 		"За столом никого не было."
 	else:
@@ -359,4 +359,3 @@ label canteen_no_conversation:
 	"Что ж, когда я ем - я глух и нем."
 	
 	$ clock.add(3 * 60)
-

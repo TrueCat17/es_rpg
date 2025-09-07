@@ -8,13 +8,13 @@ init python:
 		cam_to('square_down', 0)
 		
 		fog_params = dict(
-			name='fog',
-			image='images/locations/objects/fog.' + location_object_ext,
-			alpha=0.5,
-			dx=0.010,
-			dy=0.014,
+			name = 'fog',
+			image = 'images/locations/objects/fog',
+			alpha = 0.5,
+			dx = 0.010,
+			dy = 0.014,
 		)
-		add_location_object('enter', {'x': 0, 'y': 0, 'xsize': 1.0, 'ysize': 1.0}, ScrollObject, **fog_params)
+		add_location_object('enter', { 'x': 0, 'y': 0, 'xsize': 1.0, 'ysize': 1.0 }, ScrollObject, **fog_params)
 		
 		uv_dream = add_location_object('enter', 'uv_dream_place', 'uv_dream')
 		uv_dream.start_animation('main', -1)
@@ -24,7 +24,7 @@ init python:
 		me.sit_down(bench)
 		
 		ban_exit('enter')
-		
+	
 	
 	def day0_dream_unset():
 		day_time()
@@ -38,10 +38,10 @@ init python:
 
 init 10 python:
 	flat_snowfall_params = dict(
-		name='snowfall',
-		background=im.rect('#68B'),
-		image=im.rect('#FFF'),
-		count=100,
+		name = 'snowfall',
+		background = im.rect('#68B'),
+		image = im.rect('#FFF'),
+		count = 100,
 	)
 	add_location_object('flat', 'window', ParticleFactory, **flat_snowfall_params)
 	
@@ -74,44 +74,44 @@ init 10 python:
 	
 	
 	dust_params = dict(
-		name='dust',
-		image=im.rect('#8888'),
-		count=20,
-		zorder=1e5,
-		min_dx=-0.01,
-		max_dx=0.02,
-		min_dy=0.1,
-		max_dy=0.5,
-		min_size=0.5,
-		max_size=1,
+		name = 'dust',
+		image = im.rect('#8888'),
+		count = 20,
+		zorder = 1e5,
+		min_dx = -0.01,
+		max_dx = 0.02,
+		min_dy = 0.1,
+		max_dy = 0.5,
+		min_size = 0.5,
+		max_size = 1,
 	)
 	add_location_object('flat', 'dust_place', ParticleFactory, **dust_params)
 	
 	
 	liaz_light_far_params = dict(
-		name='light_far',
-		image='images/locations/liaz/objects/light_far.' + location_object_ext,
-		dx=0.0,
-		dy=0.0,
-		zorder=-2
+		name = 'light_far',
+		image = 'images/locations/liaz/objects/light_far',
+		dx = 0.0,
+		dy = 0.0,
+		zorder = -2
 	)
 	liaz_light_close_params = dict(
-		name='light_close',
-		image='images/locations/liaz/objects/light_close.' + location_object_ext,
-		dx=0.0,
-		dy=0.0,
-		zorder=-1
+		name = 'light_close',
+		image = 'images/locations/liaz/objects/light_close',
+		dx = 0.0,
+		dy = 0.0,
+		zorder = -1
 	)
 	liaz_light_far   = add_location_object('liaz', 'lights_place', ScrollObject, **liaz_light_far_params)
 	liaz_light_close = add_location_object('liaz', 'lights_place', ScrollObject, **liaz_light_close_params)
 	
-	station_snow_free = 'images/locations/station/objects/snow_free.' + location_object_ext
+	station_snow_free = 'images/locations/station/objects/snow_free'
 	station_snowfall_params = dict(
-		name='station_snowfall',
-		free=station_snow_free,
-		count=200,
+		name = 'station_snowfall',
+		free = station_snow_free,
+		count = 200,
 	)
-	place = {'x': 0, 'y': 0, 'xsize': get_image_width(station_snow_free), 'ysize': get_image_height(station_snow_free)}
+	place = { 'x': 0, 'y': 0, 'xsize': get_image_width(station_snow_free), 'ysize': get_image_height(station_snow_free) }
 	add_location_object('station', place, SnowfallLocation, **station_snowfall_params)
 
 
@@ -133,11 +133,11 @@ label day0_start:
 		clock.day = 0
 		set_run_allow(False)
 		day0_dream_set()
-		location_cutscene_on(0, zoom=1, obj='square_down')
+		location_cutscene_on(0, zoom = 1, obj = 'square_down')
 	
 	python:
 		sprites.hide('bg with Dissolve(5)'.split(' '))
-		cam_to('square_center', 5, zoom=1)
+		cam_to('square_center', 5, zoom = 1)
 	
 	"Мне опять снился сон..."
 	"Я сижу на скамейке перед приоткрытыми железными воротами."
@@ -147,7 +147,7 @@ label day0_start:
 	"Но сейчас мне комфортно настолько, что даже боюсь, что усну во сне."
 	"Я чуть поднимаю взгляд над воротами."
 	
-	$ cam_to('behind_gates', 2, zoom=1)
+	$ cam_to('behind_gates', 2, zoom = 1)
 	
 	"«Совёнок»? Как сова, но маленькая..."
 	"В любом случае, я лишь наблюдаю."
@@ -159,8 +159,8 @@ label day0_start:
 	"Всего лишь сон..."
 	"Что же. Скоро просыпаться, так почему бы не осмотреться здесь получше?.."
 	
-	$ location_cutscene_off(1, obj=me)
-	"[Управление: WASD/стрелки, шаг/бег: Shift, сесть/встать: Z]"
+	$ location_cutscene_off(1, obj = me)
+	"[[Управление: WASD, шаг/бег: Shift, сесть/встать: Z]"
 	$ set_rpg_control(True)
 	window hide
 	# Свободное время, сон заканчивается, если подойти к воротам
@@ -212,7 +212,7 @@ label day0__enter__before_gates_close:
 		pos (0.66 - prologue_size[0] * (1.5 - 1) * 0.5, 0.66 + prologue_size[1] * (1.5 - 1) * 0.5)
 		size (prologue_size[0] * 1.5, prologue_size[1] * 1.5)
 	pause 8
-
+	
 	scene bg black with dissolve2
 	python:
 		set_rpg_control(False)
@@ -222,7 +222,7 @@ label day0__enter__before_gates_close:
 		armchair = get_near_sit_objects(me)[0][0]
 		me.sit_down(armchair)
 	hide bg with dissolve
-		
+	
 	"Пару дней назад мне неожиданно написал бывший однокурсник."
 	"Один из немногих, с кем я хоть и изредка, но поддерживал связь."
 	"Он позвал меня на встречу выпускников." 
