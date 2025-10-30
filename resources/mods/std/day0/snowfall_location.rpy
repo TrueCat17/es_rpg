@@ -19,6 +19,7 @@ init -1000 python:
 			self.min_size = kwargs.get('min_size', 1)
 			self.max_size = kwargs.get('max_size', 2)
 			
+			self.save_exactly = kwargs.get('save_exactly', False)
 			self.objs = []
 			self.set_count(kwargs.get('count', 100))
 		
@@ -72,3 +73,6 @@ init -1000 python:
 		
 		def free(self):
 			return None
+	
+	SnowfallLocation.__getstate__ = ParticleFactory.__getstate__
+	SnowfallLocation.__setstate__ = ParticleFactory.__setstate__
