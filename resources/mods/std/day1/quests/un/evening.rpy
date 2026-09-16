@@ -1,4 +1,4 @@
-init 20 python:
+init python:
 	un_evening__name = 'Унесённые вечером'
 	
 	def day1_un_read_book(character, state):
@@ -37,8 +37,10 @@ init 20 python:
 	
 	
 	def un_evening__check_start():
-		if un.get_actions().cur_action != day1_un_read_book or un.get_actions().state != 'reading':
+		tmp_actions = un.get_actions()
+		if tmp_actions is None or (tmp_actions.cur_action, tmp_actions.state) != (day1_un_read_book, 'reading'):
 			return
+		
 		if rpg_event != 'sit_down':
 			return
 		if 'un_evening' in was:
@@ -53,7 +55,9 @@ init 20 python:
 label day1__square__before_genda:
 	if rpg_event != 'enter':
 		return
-	if un.get_actions().cur_action != day1_un_read_book or un.get_actions().state != 'reading':
+	
+	$ tmp_actions = un.get_actions()
+	if tmp_actions is None or (tmp_actions.cur_action, tmp_actions.state) != (day1_un_read_book, 'reading'):
 		return
 	
 	if 'un_evening_prompt' in was or 'un_evening' in was:
