@@ -1,17 +1,20 @@
 init -1000 python:
 	sfx = {}
 	
-	sfx['mystery_movement'] = 'sound/sfx/mystery_movement.ogg'
-	sfx['computer_noise'] = 'sound/sfx/computer_noise.ogg'
-	sfx['keyboard_mouse_computer_noise'] = 'sound/sfx/keyboard_mouse_computer_noise.ogg'
-	sfx['message'] = 'sound/sfx/icq.mp3'
-	sfx['close_door'] = 'sound/sfx/close_door.ogg'
+	def add_sfx(name, filename = None, path = 'sound/sfx/', ext = '.ogg'):
+		sfx[name] = path + (filename or name) + ext
 	
-	sfx['bus_door_open'] = 'sound/sfx/bus_door_open.ogg'
-	sfx['bus_door_close'] = 'sound/sfx/bus_door_close.ogg'
-	sfx['bus_idle'] = 'sound/sfx/bus_idle.ogg'
-	sfx['bus_interior_moving'] = 'sound/sfx/bus_interior_moving.ogg'
+	add_sfx('mystery_movement')
+	add_sfx('computer_noise')
+	add_sfx('keyboard_mouse_computer_noise')
+	add_sfx('message', filename = 'icq', ext = '.mp3')
+	add_sfx('close_door')
 	
-	sfx['horn'] = 'sound/sfx/horn.ogg'
-	sfx['knock_door'] = 'sound/sfx/knock_door.ogg'
-	sfx['stomach_growl'] = 'sound/sfx/stomach_growl.ogg'
+	add_sfx('bus_door_open')
+	add_sfx('bus_door_close')
+	add_sfx('bus_idle')
+	add_sfx('bus_interior_moving')
+	
+	add_sfx('horn')
+	add_sfx('knock_door')
+	add_sfx('stomach_growl')
