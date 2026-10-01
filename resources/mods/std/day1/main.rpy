@@ -2,10 +2,6 @@ label day1_start:
 	scene bg black
 	
 	python:
-		clock.pause = False
-		clock.set('1-10:00:00')
-		show_screen('clock')
-		
 		was = []
 		
 		add_location_object('enter', 'ikarus_place', 'ikarus')
@@ -14,15 +10,9 @@ label day1_start:
 		
 		cloud.init()
 		
-		mt.get_actions().stop()
-		show_character(mt, 'mt_bed', 'house_mt')
-		mt.set_direction(to_back)
-		mt.set_auto(False)
-		
-		un.set_auto(False)
-		show_character(un, 'clubs', 'radio_club')
-		us.set_auto(False)
-		show_character(us, 'porch_left', 'clubs')
+		clock.pause = False
+		clock.set('1-10:00:00')
+		show_screen('clock')
 		
 		set_rpg_control(False)
 		me.set_dress('winter')

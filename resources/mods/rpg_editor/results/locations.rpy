@@ -446,6 +446,7 @@ init python:
 	register_place(   "library", "library_and_hospital", 240, 470, 58, 40, to=["down", "library_and_hospital", "library"])
 	
 	register_location("library_and_hospital", "images/locations/library_and_hospital/", False, 1408, 1312)
+	register_place(   "library_and_hospital", "before_scene", 490, 470, 100, 150)
 	register_place(   "library_and_hospital", "closed", 715, 300, 90, 40)
 	register_place(   "library_and_hospital", "library_and_hospital_bench_pos-1", 973, 471, 2, 2)
 	register_place(   "library_and_hospital", "library_and_hospital_bench_pos-2", 767, 911, 2, 2)
@@ -496,6 +497,10 @@ init python:
 	register_place(   "radio_storeroom", "radio_club", 99, 217, 30, 30, to=["down", "radio_club", "radio_storeroom", to_left])
 	
 	register_location("scene", "images/locations/scene/", False, 960, 992)
+	register_place(   "scene", "before_microphone", 433, 322, 40, 25)
+	register_place(   "scene", "before_scene", 403, 395, 100, 80)
+	register_place(   "scene", "before_scene_left", 150, 395, 60, 80)
+	register_place(   "scene", "before_scene_right", 670, 395, 60, 80)
 	register_place(   "scene", "closed-1", 237, 115, 40, 20)
 	register_place(   "scene", "closed-2", 80, 290, 60, 30)
 	register_place(   "scene", "scene_anti_fire_pos", 704, 268, 2, 2)

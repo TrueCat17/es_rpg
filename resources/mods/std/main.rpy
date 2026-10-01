@@ -28,23 +28,25 @@ init 25 python:
 	remove_location_object('station', None, Butterfly, count = -1)
 	
 	def spec_start():
+		init_characters()
+#		characters_auto(False)
+		cloud.init()
+		
 		clock.pause = False
-		clock.set('1-20:44:45')
+		clock.set('1-10:44:45')
 		clock.acceleration = 6
 		show_screen('clock')
 		
 		day1_set_eaters_20h()
 		
-		init_characters()
-#		characters_auto(False)
-		cloud.init()
-		
 		lineup.enable_reminder = True
 		was.extend(['mt_conversation', 'mirror'])
 		set_rpg_control(True)
 #		unlimit_all(me)
-#		set_location('square', 'admin')
-		set_location('clubs', { 'x': 990, 'y': 430 })
+		set_location('library_and_hospital', 'before_scene')
+		me.x -= 100
+		me.y += 100
+#		set_location('clubs', { 'x': 990, 'y': 430 })
 
 
 label start:

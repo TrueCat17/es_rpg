@@ -69,6 +69,7 @@ init 10 python:
 		'washbasins',
 	]
 	
+	characters_inited = False
 	main_characters = set()
 	side_characters = set()
 	
@@ -292,6 +293,9 @@ init 10 python:
 		index = init_side_character_actions('houses_2', index)
 		
 		update_today_conversations()
+		
+		global characters_inited
+		characters_inited = True
 	
 	
 	def characters_auto(value):
@@ -311,6 +315,9 @@ init 10 python:
 			character.set_actions(None)
 			forget_character(character)
 		side_characters.clear()
+		
+		global characters_inited
+		characters_inited = False
 	
 	
 	def character_random_overs(character):
@@ -347,18 +354,22 @@ init 11 python:
 	#                     character, 'anim_name',    'path',                xoffset, yoffset, count_frames, start_frame, end_frame, time = 1.0
 	register_character_animation(dv, 'node',         'images/characters/anim/dv_node',         0, 0, 34, 0, 33, 8.5)
 	register_character_animation(dv, 'punch',        'images/characters/anim/dv_punch',        0, 0,  5, 0,  4, 1.25)
-	register_character_animation(sl, 'hello',        'images/characters/anim/sl_hello',        0, 0,  4, 0,  3, 1.0)
-	register_character_animation(un, 'book_full',    'images/characters/anim/un_book_full',    0, 0,  6, 0,  5, 1.5)
-	register_character_animation(un, 'ruffle',       'images/characters/anim/un_ruffle',       0, 0, 34, 0, 33, 8.5)
-	register_character_animation(un, 'trample',      'images/characters/anim/un_trample',      0, 0,  4, 0,  3, 1.0)
-	register_character_animation(us, 'salute',       'images/characters/anim/us_salute',       0, 0,  4, 0,  3, 1.0)
-	register_character_animation(us, 'cricket',      'images/characters/anim/us_cricket',      0, 0,  6, 0,  5, 1.5)
-	register_character_animation(us, 'sport_salute', 'images/characters/anim/us_sport_salute', 0, 0,  4, 0,  3, 1.0)
-	register_character_animation(us, 'waves',        'images/characters/anim/us_waves',        0, 0,  3, 0,  2, 0.75)
+	register_character_animation(dv, 'guitar',       'images/characters/anim/dv_guitar',       9, -3, 4, 0, 3, 0.5)
+	register_character_animation(dv, 'guitar_stop',  'images/characters/anim/dv_guitar',       9, -3, 4, 1, 1)
+	
+	register_character_animation(sl, 'hello',        'images/characters/anim/sl_hello',        0, 0, 4, 0, 3, 1.0)
 	
 	register_character_animation(un, 'book_back',    'images/characters/anim/un_book_sides',   0, 0, 3, 0, 0)
 	register_character_animation(un, 'book_left',    'images/characters/anim/un_book_sides',   0, 0, 3, 1, 1)
 	register_character_animation(un, 'book_right',   'images/characters/anim/un_book_sides',   0, 0, 3, 2, 2)
+	register_character_animation(un, 'book_full',    'images/characters/anim/un_book_full',    0, 0,  6, 0,  5, 1.5)
+	register_character_animation(un, 'ruffle',       'images/characters/anim/un_ruffle',       0, 0, 34, 0, 33, 8.5)
+	register_character_animation(un, 'trample',      'images/characters/anim/un_trample',      0, 0,  4, 0,  3, 1.0)
+	
+	register_character_animation(us, 'salute',       'images/characters/anim/us_salute',       0, 0, 4, 0, 3, 1.0)
+	register_character_animation(us, 'cricket',      'images/characters/anim/us_cricket',      0, 0, 6, 0, 5, 1.5)
+	register_character_animation(us, 'sport_salute', 'images/characters/anim/us_sport_salute', 0, 0, 4, 0, 3, 1.0)
+	register_character_animation(us, 'waves',        'images/characters/anim/us_waves',        0, 0, 3, 0, 2, 0.75)
 	
 	register_character_animation(sm, 'guitar',       'images/characters/anim/sm_guitar',       7, 0, 4, 0, 3, 0.5)
 	register_character_animation(sm, 'guitar_stop',  'images/characters/anim/sm_guitar',       7, 0, 4, 1, 1)

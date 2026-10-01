@@ -1,6 +1,14 @@
 init python:
 	signals.add('clock-1-10:10:00', Call('day1__make_bus_out'))
 	signals.add('clock-1-10:30:00', Call('day1__make_camp_enter'))
+	
+	def day1__set_un_us_start_pos():
+		un.set_auto(False)
+		show_character(un, 'clubs', 'radio_club')
+		us.set_auto(False)
+		show_character(us, 'porch_left', 'clubs')
+	signals.add('clock-day_1', day1__set_un_us_start_pos)
+
 
 label day1__make_bus_out:
 	if 'first_out' in was:

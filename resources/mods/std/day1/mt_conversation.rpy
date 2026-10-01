@@ -8,6 +8,14 @@ init python:
 		global day1__make_mt_conversation_interval_id
 		day1__make_mt_conversation_interval_id = set_interval(Call('day1__make_mt_conversation'), 1)
 	signals.add('clock-1-11:10:00', day1__make_mt_conversation)
+	
+	def day1__mt_start():
+		if characters_inited:
+			mt.get_actions().stop()
+			show_character(mt, 'mt_bed', 'house_mt')
+			mt.set_direction(to_back)
+			mt.set_auto(False)
+	signals.add('clock-day_1', day1__mt_start)
 
 
 label day1__make_mt_conversation:

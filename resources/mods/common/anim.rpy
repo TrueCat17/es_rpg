@@ -3,8 +3,7 @@ init -1000:
 	transform default_decl_at:
 		size 1.0
 	
-	python:
-		prologue_pause = 1
+	$ prologue_pause = 1
 	
 	image prologue_sleep:
 		"images/anim/prologue/sleep1.png"

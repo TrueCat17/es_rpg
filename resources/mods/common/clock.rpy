@@ -3,7 +3,7 @@ init python:
 	def clock__parse_time(time):
 		"""'2-00:01:30' -> [2, 0, 1, 30]"""
 		if '-' not in time or time.count(':') != 2:
-			out_msg('clock.parse_time', 'time expected in format day-hh:mm:ss, got <' + time + '>')
+			out_msg('clock.parse_time', 'time expected in format day-hh:mm:ss, got <%s>', time)
 			return [-1, -1, -1, -1]
 		day, time = time.split('-')
 		h, m, s = time.split(':')
@@ -37,7 +37,9 @@ init python:
 			res += '%02i:' % i
 		return res[:-1]
 	
-	def clock__send_signal(time_str):
+	def clock__send_signal(time_str = None):
+		if time_str is None:
+			time_str = clock.time_to_str(clock.get())
 		signals.send('clock-' + time_str)                           # clock-d-hh:mm:ss
 		signals.send('clock-' + time_str[time_str.index('-') + 1:]) # clock-hh:mm:ss
 	
@@ -63,14 +65,15 @@ init python:
 			if clock.seconds >= 60:
 				clock.normalize_self()
 			if int(prev_s) != int(clock.seconds):
-				time_str = clock.time_to_str(clock.get())
-				clock.send_signal(time_str)
+				clock.send_signal()
 	
 	def clock__set(time):
+		prev_day = clock.day
 		clock.day, clock.hours, clock.minutes, clock.seconds = clock.parse_time(time)
 		clock.normalize_self()
-		time_str = clock.time_to_str(clock.get())
-		clock.send_signal(time_str)
+		if prev_day != clock.day:
+			signals.send('clock-day_%i' % clock.day)
+		clock.send_signal()
 	
 	def clock__get():
 		return clock.day, clock.hours, clock.minutes, clock.seconds
